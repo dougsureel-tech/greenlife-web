@@ -50,7 +50,7 @@ export default function AboutPage() {
               { stat: "21+",    label: "Age requirement",    note: "Valid government ID required every visit" },
               { stat: "Cash",   label: "Only payment",       note: "ATM available on-site" },
               { stat: "WA",     label: "Licensed retailer",  note: `License #${STORE.wslcbLicense ?? "—"}` },
-              { stat: "8AM",    label: "Open daily from",    note: `${STORE.hours[0].open}–${STORE.hours[4].close} on weekends` },
+              { stat: "Daily",  label: "We're open",          note: `${STORE.hours.find(h => h.day === "Monday")?.open ?? "8:00 AM"} every morning` },
             ].map(({ stat, label, note }) => (
               <div key={label} className="flex items-center gap-4">
                 <div className="w-14 text-right shrink-0">
@@ -177,6 +177,24 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        {/* Bottom CTA */}
+        <section className="rounded-3xl bg-green-950 text-white p-8 text-center space-y-4">
+          <p className="font-bold text-xl">Come see us in Wenatchee</p>
+          <p className="text-green-300/70 text-sm max-w-sm mx-auto">
+            Open every day. No appointment needed. Walk-ins always welcome.
+          </p>
+          <div className="flex justify-center gap-3 flex-wrap">
+            <Link href="/order"
+              className="px-5 py-2.5 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-all shadow-md hover:-translate-y-0.5">
+              Order for Pickup
+            </Link>
+            <Link href="/contact"
+              className="px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white text-sm font-semibold transition-all">
+              Contact Us
+            </Link>
+          </div>
+        </section>
+
       </div>
     </>
   );
