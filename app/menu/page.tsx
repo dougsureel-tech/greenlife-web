@@ -11,10 +11,11 @@ export const metadata: Metadata = {
 export default function MenuPage() {
   return (
     <div className="min-h-screen">
-      <div className="bg-green-950 text-white py-10">
+      <div className="bg-green-950 text-white py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl font-bold">Our Menu</h1>
-          <p className="text-green-300/80 mt-1 text-sm">
+          <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Live Menu</p>
+          <h1 className="text-4xl font-extrabold tracking-tight">Our Menu</h1>
+          <p className="text-green-300/70 mt-2 text-sm">
             {STORE.address.city}, WA · Updated daily · Must be 21+ to purchase
           </p>
         </div>

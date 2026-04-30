@@ -12,55 +12,104 @@ export const metadata: Metadata = {
 };
 
 export default async function BrandsPage() {
-  let brands = await getActiveBrands().catch(() => []);
+  const brands = await getActiveBrands().catch(() => []);
+  const withLogo = brands.filter((b) => b.logoUrl);
+  const withoutLogo = brands.filter((b) => !b.logoUrl);
 
   return (
     <>
-      <div className="bg-green-950 text-white py-10">
+      {/* Page header */}
+      <div className="bg-green-950 text-white py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl font-bold">Our Brands</h1>
-          <p className="text-green-300/80 mt-1 text-sm">
-            {brands.length} brands carried at {STORE.address.city}, WA
+          <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Shelves</p>
+          <h1 className="text-4xl font-extrabold tracking-tight">Brands We Carry</h1>
+          <p className="text-green-300/70 mt-2">
+            {brands.length > 0
+              ? `${brands.length} brands · ${brands.reduce((s, b) => s + b.activeSkus, 0)} active products · Wenatchee, WA`
+              : "Washington's best producers, handpicked for you"}
           </p>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {brands.length === 0 ? (
-          <div className="text-center py-16 text-stone-400">
-            <p className="text-lg font-medium">Brands loading soon</p>
-            <p className="text-sm mt-1">Check back or browse our full menu</p>
-            <Link href="/menu" className="mt-4 inline-block text-green-700 hover:underline font-medium">View menu →</Link>
+          <div className="text-center py-20 space-y-4">
+            <div className="text-5xl">🌿</div>
+            <p className="text-xl font-semibold text-stone-700">Brands loading soon</p>
+            <p className="text-stone-400 text-sm">Check back or browse our full menu</p>
+            <Link href="/menu" className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-semibold transition-colors">
+              View Menu →
+            </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {brands.map((brand) => (
-              <Link
-                key={brand.id}
-                href={`/brands/${brand.slug}`}
-                className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all text-center"
-              >
-                {brand.logoUrl ? (
-                  <img
-                    src={brand.logoUrl}
-                    alt={brand.name}
-                    className="h-14 w-full object-contain"
-                  />
-                ) : (
-                  <div className="h-14 w-full flex items-center justify-center rounded-lg bg-green-50 text-green-800 font-bold text-sm text-center px-2 leading-tight">
-                    {brand.name}
+          <div className="space-y-10">
+            {/* Brands with logos */}
+            {withLogo.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {withLogo.map((brand) => (
+                  <Link
+                    key={brand.id}
+                    href={`/brands/${brand.slug}`}
+                    className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-md transition-all text-center"
+                  >
+                    <div className="h-14 w-full flex items-center justify-center">
+                      <img
+                        src={brand.logoUrl!}
+                        alt={brand.name}
+                        className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                      />
+                    </div>
+                    <div>
+                      <div className="font-bold text-stone-800 group-hover:text-green-800 text-sm transition-colors leading-tight">
+                        {brand.name}
+                      </div>
+                      <div className="text-xs text-stone-400 mt-0.5">
+                        {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Brands without logos */}
+            {withoutLogo.length > 0 && (
+              <div>
+                {withLogo.length > 0 && (
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="h-px flex-1 bg-stone-200" />
+                    <span className="text-xs text-stone-400 font-medium uppercase tracking-widest">More Brands</span>
+                    <div className="h-px flex-1 bg-stone-200" />
                   </div>
                 )}
-                <div>
-                  <div className="font-semibold text-stone-800 group-hover:text-green-800 text-sm transition-colors leading-tight">
-                    {brand.name}
-                  </div>
-                  <div className="text-xs text-stone-400 mt-0.5">
-                    {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""}
-                  </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {withoutLogo.map((brand) => (
+                    <Link
+                      key={brand.id}
+                      href={`/brands/${brand.slug}`}
+                      className="group flex flex-col items-center gap-2 p-4 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-sm transition-all text-center"
+                    >
+                      <div className="h-12 w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
+                        <span className="text-green-800 font-bold text-xs leading-tight px-2 text-center line-clamp-2">
+                          {brand.name}
+                        </span>
+                      </div>
+                      <div className="text-xs text-stone-400">
+                        {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""}
+                      </div>
+                    </Link>
+                  ))}
                 </div>
+              </div>
+            )}
+
+            {/* Footer link */}
+            <div className="text-center pt-4">
+              <Link href="/menu"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-stone-200 hover:border-green-300 hover:bg-green-50 text-sm font-semibold text-stone-700 hover:text-green-800 transition-all">
+                Browse All Products by Category →
               </Link>
-            ))}
+            </div>
           </div>
         )}
       </div>
