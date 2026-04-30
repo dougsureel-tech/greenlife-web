@@ -33,8 +33,9 @@ export const STORE = {
 } as const;
 
 export function isOpenNow(): boolean {
+  const tz = "America/Los_Angeles";
   const now = new Date();
-  const day = now.toLocaleDateString("en-US", { weekday: "long" });
+  const day = now.toLocaleDateString("en-US", { weekday: "long", timeZone: tz });
   const hours = STORE.hours.find((h) => h.day === day);
   if (!hours) return false;
   const toMin = (t: string) => {
@@ -42,6 +43,8 @@ export function isOpenNow(): boolean {
     const [h, m] = time.split(":").map(Number);
     return (ampm === "PM" && h !== 12 ? h + 12 : ampm === "AM" && h === 12 ? 0 : h) * 60 + m;
   };
-  const cur = now.getHours() * 60 + now.getMinutes();
+  const parts = now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: tz });
+  const [curH, curM] = parts.split(":").map(Number);
+  const cur = curH * 60 + curM;
   return cur >= toMin(hours.open) && cur < toMin(hours.close);
 }
