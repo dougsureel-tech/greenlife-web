@@ -29,6 +29,8 @@ export type MenuProduct = {
   cbdPct: number | null;
   unitPrice: number | null;
   imageUrl: string | null;
+  effects: string | null;
+  terpenes: string | null;
 };
 
 export async function getMenuProducts(): Promise<MenuProduct[]> {
@@ -36,11 +38,37 @@ export async function getMenuProducts(): Promise<MenuProduct[]> {
   const rows = await sql`
     SELECT id, name, brand, category, strain_type,
       thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
-      unit_price::float AS unit_price, image_url
+      unit_price::float AS unit_price, image_url, effects, terpenes
     FROM products
     WHERE carry_status != 'discontinued' AND unit_price IS NOT NULL
     ORDER BY category NULLS LAST, brand NULLS LAST, name
   `;
+  return rows as MenuProduct[];
+}
+
+export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT id, name, brand, category, strain_type,
+      thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
+      unit_price::float AS unit_price, image_url, effects, terpenes
+    FROM products
+    WHERE carry_status = 'active' AND unit_price IS NOT NULL AND image_url IS NOT NULL
+    ORDER BY updated_at DESC
+    LIMIT ${limit}
+  `;
+  if ((rows as MenuProduct[]).length < 4) {
+    const fallback = await sql`
+      SELECT id, name, brand, category, strain_type,
+        thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
+        unit_price::float AS unit_price, image_url, effects, terpenes
+      FROM products
+      WHERE carry_status = 'active' AND unit_price IS NOT NULL
+      ORDER BY updated_at DESC
+      LIMIT ${limit}
+    `;
+    return fallback as MenuProduct[];
+  }
   return rows as MenuProduct[];
 }
 

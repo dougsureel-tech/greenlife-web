@@ -30,6 +30,8 @@ export const STORE = {
     instagram: "https://www.instagram.com/greenlifewenatchee",
     facebook: "https://www.facebook.com/greenlifecannabis",
   },
+  amenities: ["Free parking", "ATM on-site", "ADA accessible", "Walk-ins welcome", "Online ordering"],
+  perks: ["Knowledgeable budtenders", "Loyalty rewards", "Military discounts", "15% off online orders"],
 } as const;
 
 export function isOpenNow(): boolean {
