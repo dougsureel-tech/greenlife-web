@@ -75,12 +75,12 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
       COALESCE(o.order_total, o.subtotal, 0)::float AS subtotal,
       COALESCE(o.item_count, 0)::int AS item_count,
       o.notes,
-      COALESCE(o.placed_at, o.received_at) AS placed_at,
+      COALESCE(o.placed_at, o.received_at, o.created_at) AS placed_at,
       o.ready_at,
       COALESCE(o.picked_up_at, o.fulfilled_at) AS picked_up_at
     FROM online_orders o
     WHERE o.portal_user_id = ${portalUserId}
-    ORDER BY COALESCE(o.placed_at, o.received_at) DESC
+    ORDER BY COALESCE(o.placed_at, o.received_at, o.created_at) DESC NULLS LAST
     LIMIT 50
   `;
   if (!orders.length) return [];
@@ -105,7 +105,7 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
     subtotal: o.subtotal as number,
     itemCount: o.item_count as number,
     notes: o.notes as string | null,
-    placedAt: (o.placed_at as Date).toISOString(),
+    placedAt: o.placed_at ? (o.placed_at as Date).toISOString() : new Date(0).toISOString(),
     readyAt: o.ready_at ? (o.ready_at as Date).toISOString() : null,
     pickedUpAt: o.picked_up_at ? (o.picked_up_at as Date).toISOString() : null,
     items: itemsByOrder.get(o.id as string) ?? [],
@@ -149,31 +149,7 @@ export async function placeOrder(
     `;
   }
 
-  // Update item_count on the order
-  await sql`UPDATE online_orders SET item_count = ${itemCount} WHERE id = ${orderId}`;
-
   return orderId;
-}
-
-export async function savePushSubscription(portalUserId: string, sub: { endpoint: string; p256dh: string; auth: string }) {
-  const sql = getClient();
-  const id = crypto.randomUUID();
-  await sql`
-    INSERT INTO push_subscriptions (id, portal_user_id, endpoint, p256dh, auth)
-    VALUES (${id}, ${portalUserId}, ${sub.endpoint}, ${sub.p256dh}, ${sub.auth})
-    ON CONFLICT (endpoint) DO UPDATE SET
-      portal_user_id = EXCLUDED.portal_user_id,
-      p256dh = EXCLUDED.p256dh,
-      auth = EXCLUDED.auth
-  `;
-}
-
-export async function getPushSubscriptions(portalUserId: string) {
-  const sql = getClient();
-  const rows = await sql`
-    SELECT endpoint, p256dh, auth FROM push_subscriptions WHERE portal_user_id = ${portalUserId}
-  `;
-  return rows as Array<{ endpoint: string; p256dh: string; auth: string }>;
 }
 
 function mapPortalUser(r: Record<string, unknown>): PortalUser {

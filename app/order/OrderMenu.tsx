@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { MenuProduct } from "@/lib/db";
+import { STORE } from "@/lib/store";
 
 type CartItem = MenuProduct & { quantity: number };
 
@@ -107,18 +108,23 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
   async function placeOrder() {
     setPlacing(true);
-    const items = cart.map((i) => ({
-      productId: i.id, productName: i.name, brand: i.brand, category: i.category,
-      strainType: i.strainType, unitPrice: i.unitPrice ?? 0, quantity: i.quantity,
-    }));
-    const res = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items, notes: notes || undefined }),
-    });
-    if (res.status === 401) { router.push("/sign-in?redirect_url=/order"); return; }
-    if (res.ok) { router.push("/account?ordered=1"); }
-    else { alert("Something went wrong. Please try again."); setPlacing(false); }
+    try {
+      const items = cart.map((i) => ({
+        productId: i.id, productName: i.name, brand: i.brand, category: i.category,
+        strainType: i.strainType, unitPrice: i.unitPrice ?? 0, quantity: i.quantity,
+      }));
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items, notes: notes || undefined }),
+      });
+      if (res.status === 401) { router.push("/sign-in?redirect_url=/order"); return; }
+      if (res.ok) { router.push("/account?ordered=1"); }
+      else { alert("Something went wrong. Please try again."); setPlacing(false); }
+    } catch {
+      alert("Network error. Check your connection and try again.");
+      setPlacing(false);
+    }
   }
 
   if (products.length === 0) {
@@ -126,7 +132,7 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
         <div className="text-5xl mb-4">🌿</div>
         <p className="text-stone-700 text-xl font-semibold">Menu coming soon</p>
-        <p className="text-stone-400 text-sm">Call us to place an order: <a href="tel:+15096639980" className="text-green-700 font-semibold">(509) 663-9980</a></p>
+        <p className="text-stone-400 text-sm">Call us to place an order: <a href={`tel:${STORE.phoneTel}`} className="text-green-700 font-semibold">{STORE.phone}</a></p>
       </div>
     );
   }
