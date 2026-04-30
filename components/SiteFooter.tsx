@@ -83,7 +83,14 @@ export function SiteFooter() {
       <div className="border-t border-green-900 py-4 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-green-700">
           <p>© {new Date().getFullYear()} {STORE.name}. All rights reserved. Must be 21+ to purchase.</p>
-          <p>Licensed Washington State Cannabis Retailer</p>
+          <p className="flex items-center gap-2">
+            <span>Licensed Washington State Cannabis Retailer</span>
+            {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA && (
+              <span className="font-mono opacity-50">
+                v{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA.slice(0, 7)}
+              </span>
+            )}
+          </p>
         </div>
       </div>
     </footer>
