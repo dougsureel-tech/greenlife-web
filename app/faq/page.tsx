@@ -22,7 +22,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Hours",
     q: "What are your hours?",
-    a: `We're open Monday–Thursday & Sunday ${STORE.hours[0].open}–${STORE.hours[0].close}, and Friday–Saturday ${STORE.hours[4].open}–${STORE.hours[4].close}. Hours are subject to change on holidays.`,
+    a: `We're open ${(STORE.hours.find(h => h.day === "Monday")?.open ?? "8:00 AM")}–${(STORE.hours.find(h => h.day === "Monday")?.close ?? "9:00 PM")} Monday–Thursday & Sunday, and ${(STORE.hours.find(h => h.day === "Friday")?.open ?? "8:00 AM")}–${(STORE.hours.find(h => h.day === "Friday")?.close ?? "10:00 PM")} Friday–Saturday. Hours are subject to change on holidays.`,
   },
   {
     tag: "Location",
@@ -102,8 +102,12 @@ export default function FaqPage() {
       />
 
       {/* Page header */}
-      <div className="bg-green-950 text-white py-14">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="relative overflow-hidden bg-green-950 text-white py-14">
+        <div className="absolute inset-0 opacity-[0.07]"
+          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+        <div className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Help Center</p>
           <h1 className="text-4xl font-extrabold tracking-tight">Frequently Asked Questions</h1>
           <p className="text-green-300/70 mt-2">Everything you need to know before your visit</p>

@@ -124,6 +124,41 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ─── How pickup works ──────────────────────────────────────────────── */}
+      <section className="bg-stone-50 border-y border-stone-100 py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">How Pickup Works</h2>
+            <p className="text-stone-400 mt-2 text-sm">Order ahead and skip the wait</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative">
+            <div className="hidden sm:block absolute top-8 left-[calc(16.67%+1rem)] right-[calc(16.67%+1rem)] h-px bg-stone-200" />
+            {[
+              { step: "1", icon: "📱", title: "Browse & Order", body: "Shop our full menu from your phone. Add items to your cart and place your pickup order in minutes." },
+              { step: "2", icon: "✅", title: "We Prepare It", body: "Your order goes straight to the counter. We'll have it bagged and ready before you walk in the door." },
+              { step: "3", icon: "💵", title: "Pay Cash & Go", body: "Show your ID, pay cash at the counter, and you're on your way. No surprise charges, ever." },
+            ].map(({ step, icon, title, body }) => (
+              <div key={step} className="relative flex flex-col items-center text-center gap-4">
+                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white border-2 border-stone-200 flex items-center justify-center text-2xl shadow-sm">
+                  {icon}
+                  <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-green-600 text-white text-xs font-extrabold flex items-center justify-center">{step}</span>
+                </div>
+                <div>
+                  <div className="font-extrabold text-stone-900 text-base">{title}</div>
+                  <p className="text-stone-400 text-sm mt-1 leading-relaxed">{body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/order"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-all shadow-md hover:-translate-y-0.5">
+              Start Your Order →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Featured products ──────────────────────────────────────────────── */}
       {featured.length > 0 && (
         <section className="bg-stone-50 border-y border-stone-100 py-16">
