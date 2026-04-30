@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow } from "@/lib/store";
+import { getActiveBrands } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `${STORE.name} | Cannabis Dispensary Wenatchee, WA`,
@@ -22,7 +25,9 @@ function HoursWidget() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const brands = await getActiveBrands().catch(() => []);
+  const featuredBrands = brands.filter((b) => b.logoUrl).slice(0, 10);
   return (
     <>
       {/* Hero */}
@@ -164,13 +169,36 @@ export default function HomePage() {
             <p className="text-stone-500 mt-1 text-sm">We partner with Washington&apos;s top producers</p>
           </div>
           <Link href="/brands" className="shrink-0 text-sm font-medium text-green-700 hover:text-green-600 transition-colors">
-            View all brands →
+            View all {brands.length > 0 ? `${brands.length} ` : ""}brands →
           </Link>
         </div>
-        <Link href="/brands"
-          className="block rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 bg-stone-50 hover:bg-green-50 transition-all py-14 text-center group">
-          <p className="text-stone-400 group-hover:text-green-600 transition-colors font-medium">See all brands we carry →</p>
-        </Link>
+        {featuredBrands.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
+            {featuredBrands.map((brand) => (
+              <Link key={brand.id} href={`/brands/${brand.slug}`}
+                className="group flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-sm transition-all aspect-square">
+                <img src={brand.logoUrl!} alt={brand.name}
+                  className="max-h-14 max-w-full object-contain"
+                />
+                <span className="text-xs text-stone-400 group-hover:text-green-700 transition-colors text-center leading-tight">
+                  {brand.name}
+                </span>
+              </Link>
+            ))}
+            {brands.length > featuredBrands.length && (
+              <Link href="/brands"
+                className="flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 bg-stone-50 hover:bg-green-50 transition-all aspect-square">
+                <span className="text-2xl font-bold text-stone-300">+{brands.length - featuredBrands.length}</span>
+                <span className="text-xs text-stone-400">more brands</span>
+              </Link>
+            )}
+          </div>
+        ) : (
+          <Link href="/brands"
+            className="block rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 bg-stone-50 hover:bg-green-50 transition-all py-14 text-center group">
+            <p className="text-stone-400 group-hover:text-green-600 transition-colors font-medium">See all brands we carry →</p>
+          </Link>
+        )}
       </section>
 
       {/* Why us */}
