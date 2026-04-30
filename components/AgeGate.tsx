@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const KEY = "gl_age_verified";
-const TTL = 30 * 24 * 60 * 60 * 1000; // 30 days
+const TTL = 30 * 24 * 60 * 60 * 1000;
 
 function isVerified(): boolean {
   try {
@@ -24,6 +24,7 @@ function setVerified() {
 
 export function AgeGate() {
   const [show, setShow] = useState(false);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
     if (!isVerified()) setShow(true);
@@ -37,7 +38,8 @@ export function AgeGate() {
   }
 
   function deny() {
-    window.location.href = "https://www.responsibility.org";
+    setLeaving(true);
+    setTimeout(() => { window.location.href = "https://www.responsibility.org"; }, 400);
   }
 
   return (
@@ -45,49 +47,55 @@ export function AgeGate() {
       role="dialog"
       aria-modal="true"
       aria-label="Age verification"
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-      style={{ background: "linear-gradient(135deg, #052e16 0%, #14532d 60%, #052e16 100%)" }}
+      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
     >
-      <div className="max-w-sm w-full text-center space-y-8">
-        {/* Logo placeholder — swap for real logo img once available */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-20 h-20 rounded-full bg-green-700/40 border border-green-600/40 flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-green-400" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3C7.5 3 3 7.5 3 12s4.5 9 9 9 9-4.5 9-9-4.5-9-9-9z" />
+      {/* Background */}
+      <div className="absolute inset-0"
+        style={{ background: "linear-gradient(160deg, #052e16 0%, #14532d 50%, #052e16 100%)" }}>
+        {/* subtle dot grid */}
+        <div className="absolute inset-0 opacity-5"
+          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+        {/* glow */}
+        <div className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 50% 80%, #4ade80, transparent)" }} />
+      </div>
+
+      {/* Card */}
+      <div className={`relative w-full sm:max-w-md mx-4 sm:mx-auto bg-green-950/90 backdrop-blur-sm border border-green-800/60 rounded-t-3xl sm:rounded-3xl px-8 py-10 text-center space-y-7 shadow-2xl transition-transform duration-300 ${leaving ? "translate-y-4 opacity-0" : ""}`}>
+        {/* Logo mark */}
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-16 h-16 rounded-2xl bg-green-700/50 border border-green-600/40 flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" className="w-9 h-9 text-green-300" stroke="currentColor" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 5-3 8-3 9s1.5 3 3 3 3-2 3-3-3-4-3-9z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 12c3 0 5-1 6-3 1 2 3 3 6 3" />
             </svg>
           </div>
           <div>
-            <p className="text-green-300 text-xs font-semibold uppercase tracking-widest">Green Life Cannabis</p>
-            <h1 className="text-white text-2xl font-bold mt-1">Wenatchee, WA</h1>
+            <p className="text-green-400 text-xs font-bold uppercase tracking-widest">Green Life Cannabis</p>
+            <p className="text-green-200/60 text-xs mt-0.5">Wenatchee, Washington</p>
           </div>
         </div>
 
+        {/* Question */}
         <div className="space-y-2">
-          <p className="text-white text-xl font-semibold">Are you 21 or older?</p>
-          <p className="text-green-300/70 text-sm">You must be 21+ to enter this site.</p>
+          <h1 className="text-white text-2xl font-extrabold tracking-tight">Are you 21 or older?</h1>
+          <p className="text-green-300/60 text-sm">Washington State law requires you to be 21+ to purchase cannabis.</p>
         </div>
 
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={confirm}
-            className="flex-1 py-3 px-6 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-base transition-colors focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-950"
-          >
+          <button onClick={confirm}
+            className="flex-1 py-3.5 px-6 rounded-2xl bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-950">
             Yes, I&apos;m 21+
           </button>
-          <button
-            onClick={deny}
-            className="flex-1 py-3 px-6 rounded-xl border border-green-800 hover:border-green-700 text-green-400 hover:text-green-300 font-medium text-base transition-colors focus:outline-none focus:ring-2 focus:ring-green-700"
-          >
+          <button onClick={deny}
+            className="flex-1 py-3.5 px-6 rounded-2xl border border-green-800 hover:border-green-700 hover:bg-green-900/40 text-green-400 hover:text-green-300 font-semibold text-base transition-all focus:outline-none focus:ring-2 focus:ring-green-800">
             No, exit
           </button>
         </div>
 
-        <p className="text-green-800 text-xs">
-          By entering you agree to our{" "}
-          <a href="/terms" className="underline hover:text-green-600">Terms of Use</a>
-          {" "}and confirm you are of legal age to purchase cannabis in Washington State.
+        <p className="text-green-900 text-xs leading-relaxed">
+          By entering you confirm you are of legal age to purchase cannabis in Washington State.
         </p>
       </div>
     </div>

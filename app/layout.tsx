@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { AgeGate } from "@/components/AgeGate";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { STORE } from "@/lib/store";
@@ -92,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body className="min-h-full flex flex-col bg-stone-50 text-stone-900">
           <AgeGate />
+          <AnnouncementBar />
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
