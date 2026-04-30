@@ -11,12 +11,37 @@ export type VendorBrand = {
   activeSkus: number;
 };
 
-function getClient() {
+export function getClient() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { neon } = require("@neondatabase/serverless");
   return neon(url) as (strings: TemplateStringsArray, ...values: unknown[]) => Promise<Record<string, unknown>[]>;
+}
+
+export type MenuProduct = {
+  id: string;
+  name: string;
+  brand: string | null;
+  category: string | null;
+  strainType: string | null;
+  thcPct: number | null;
+  cbdPct: number | null;
+  unitPrice: number | null;
+  imageUrl: string | null;
+};
+
+export async function getMenuProducts(): Promise<MenuProduct[]> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT id, name, brand, category, strain_type,
+      thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
+      unit_price::float AS unit_price, image_url
+    FROM products
+    WHERE carry_status != 'discontinued' AND unit_price IS NOT NULL
+    ORDER BY category NULLS LAST, brand NULLS LAST, name
+  `;
+  return rows as MenuProduct[];
 }
 
 export async function getActiveBrands(): Promise<VendorBrand[]> {
