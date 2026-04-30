@@ -115,12 +115,13 @@ export function SiteHeader() {
           ))}
           <div className="pt-2 border-t border-stone-100 mt-2 flex flex-col gap-2">
             <a href={`tel:${STORE.phoneTel}`} className="block px-3 py-2 text-sm text-stone-500">{STORE.phone}</a>
-            <Link
-              href="/menu"
-              onClick={() => setOpen(false)}
-              className="block text-center px-4 py-2 rounded-xl bg-green-700 text-white text-sm font-semibold"
-            >
-              Shop Menu
+            <Link href="/account" onClick={() => setOpen(false)}
+              className="block text-center px-4 py-2 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium">
+              My Account
+            </Link>
+            <Link href="/order" onClick={() => setOpen(false)}
+              className="block text-center px-4 py-2 rounded-xl bg-green-700 text-white text-sm font-semibold">
+              Order Now
             </Link>
           </div>
         </div>
