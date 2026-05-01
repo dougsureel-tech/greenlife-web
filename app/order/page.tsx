@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getMenuProducts } from "@/lib/db";
+import { getMenuProducts, getPickupEta } from "@/lib/db";
 import { STORE, getOrderingStatus } from "@/lib/store";
 import { OrderMenu } from "./OrderMenu";
 
@@ -18,7 +18,10 @@ function minToLabel(min: number): string {
 }
 
 export default async function OrderPage() {
-  const products = await getMenuProducts().catch(() => []);
+  const [products, eta] = await Promise.all([
+    getMenuProducts().catch(() => []),
+    getPickupEta().catch(() => ({ depth: 0, label: "Usually ready in under 10 min" })),
+  ]);
   const status = getOrderingStatus();
 
   return (
@@ -50,6 +53,12 @@ export default async function OrderPage() {
                   : status.state === "after_last_call"
                   ? `Online ordering closed · reopens at ${status.reopensAt}`
                   : `Online ordering closed · reopens at ${status.opensAt}`}
+              </span>
+            )}
+            {status.state === "open" && (
+              <span className="inline-flex items-center gap-1.5 text-green-200/95 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_4px_#4ade80] animate-pulse" />
+                ⚡ {eta.label}
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 text-green-300/60">

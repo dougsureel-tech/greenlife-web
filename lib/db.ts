@@ -162,6 +162,26 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   return mapped;
 }
 
+// Queue-depth ETA for /order header. Counts pending + in-progress online
+// orders to estimate wait time. Bucketed because precision here is fake
+// confidence — we don't actually track per-order processing time.
+export async function getPickupEta(): Promise<{ depth: number; label: string }> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT COUNT(*)::int AS n
+    FROM online_orders
+    WHERE status IN ('pending', 'in_progress')
+  `;
+  const n = ((rows[0]?.n as number) ?? 0);
+  let label: string;
+  if (n === 0)      label = "Usually ready in under 10 min";
+  else if (n <= 2)  label = "Most orders ready in 10–15 min";
+  else if (n <= 5)  label = "Currently averaging ~20 min";
+  else if (n <= 10) label = "Busy right now — about 25–35 min";
+  else              label = "Heavy queue — we'll text when ready";
+  return { depth: n, label };
+}
+
 export type ActiveDeal = {
   id: string;
   name: string;
