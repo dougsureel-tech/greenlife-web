@@ -158,10 +158,44 @@ export default async function HomePage() {
             {STATS.map(({ val, label }) => (
               <div key={val} className="py-5 px-4 sm:px-6 text-center">
                 <div className="text-sm sm:text-base font-extrabold text-green-900 leading-tight">{val}</div>
-                <div className="text-xs text-stone-400 mt-0.5">{label}</div>
+                <div className="text-xs text-stone-600 mt-0.5">{label}</div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
+      <section className="bg-white border-b border-stone-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+          <div className="text-center mb-7">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">How can we help?</p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">What are you in the mood for?</h2>
+            <p className="text-stone-600 mt-1.5 text-sm">Pick a vibe — we&apos;ll show you what&apos;s in stock today.</p>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-3">
+            {[
+              { emoji: "⚡️", label: "Energize",  q: "Energizing",   gradient: "from-amber-50 to-orange-100",    accent: "text-amber-700" },
+              { emoji: "🌊", label: "Chill",     q: "Relaxing",     gradient: "from-sky-50 to-blue-100",        accent: "text-sky-700" },
+              { emoji: "💤", label: "Sleep",     q: "Sleepy",       gradient: "from-indigo-50 to-purple-100",   accent: "text-indigo-700" },
+              { emoji: "🎨", label: "Creative",  q: "Creative",     gradient: "from-fuchsia-50 to-pink-100",    accent: "text-fuchsia-700" },
+              { emoji: "🧠", label: "Focus",     q: "Focused",      gradient: "from-teal-50 to-emerald-100",    accent: "text-teal-700" },
+              { emoji: "🩹", label: "Relief",    q: "Pain Relief",  gradient: "from-rose-50 to-red-100",        accent: "text-rose-700" },
+            ].map((m) => (
+              <Link
+                key={m.label}
+                href={`/menu?q=${encodeURIComponent(m.q)}`}
+                className={`group flex flex-col items-center justify-center gap-1.5 py-5 rounded-2xl border border-stone-100 bg-gradient-to-br ${m.gradient} hover:scale-[1.04] hover:shadow-md transition-all duration-200`}
+              >
+                <span className="text-3xl">{m.emoji}</span>
+                <span className={`text-xs sm:text-sm font-bold ${m.accent}`}>{m.label}</span>
+              </Link>
+            ))}
+          </div>
+          <p className="text-[11px] text-stone-500 text-center mt-4">
+            Effect labels come from cultivator notes — they&apos;re a starting point, not a guarantee.
+            Your tolerance, dose, and the moment all matter. Talk to a budtender for a tailored pick.
+          </p>
         </div>
       </section>
 
@@ -169,7 +203,7 @@ export default async function HomePage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">What We Carry</h2>
-          <p className="text-stone-400 mt-2 text-sm">Premium products from the Pacific Northwest&apos;s top producers</p>
+          <p className="text-stone-600 mt-2 text-sm">Premium products from the Pacific Northwest&apos;s top producers</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {CATEGORIES.map(({ icon, label, desc, href, color }) => (
@@ -195,7 +229,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">How Pickup Works</h2>
-            <p className="text-stone-400 mt-2 text-sm">Order ahead, skip the wait</p>
+            <p className="text-stone-600 mt-2 text-sm">Order ahead, skip the wait</p>
           </div>
           <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="hidden sm:block absolute top-10 left-[calc(16.67%+1rem)] right-[calc(16.67%+1rem)] h-0.5 bg-green-100" />
@@ -232,7 +266,7 @@ export default async function HomePage() {
             <div className="flex items-end justify-between mb-8 gap-4">
               <div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">Today&apos;s Picks</h2>
-                <p className="text-stone-400 mt-1 text-sm">Fresh arrivals &amp; staff favorites</p>
+                <p className="text-stone-600 mt-1 text-sm">Fresh arrivals &amp; staff favorites</p>
               </div>
               <Link href="/menu" className="shrink-0 text-sm font-semibold text-green-700 hover:text-green-600 transition-colors">
                 Full menu →
@@ -260,13 +294,13 @@ export default async function HomePage() {
                     )}
                   </div>
                   <div className="p-3 space-y-1">
-                    {p.brand && <div className="text-xs text-stone-400 font-medium uppercase tracking-wide truncate">{p.brand}</div>}
+                    {p.brand && <div className="text-xs text-stone-600 font-medium uppercase tracking-wide truncate">{p.brand}</div>}
                     <div className="font-semibold text-stone-900 text-sm leading-tight line-clamp-2">{p.name}</div>
                     <div className="flex items-center justify-between pt-1">
                       <span className="font-bold text-green-800">
-                        {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : <span className="text-stone-400 font-medium">In store</span>}
+                        {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : <span className="text-stone-600 font-medium">In store</span>}
                       </span>
-                      {p.thcPct != null && <span className="text-xs text-stone-400">THC {p.thcPct.toFixed(1)}%</span>}
+                      {p.thcPct != null && <span className="text-xs text-stone-600">THC {p.thcPct.toFixed(1)}%</span>}
                     </div>
                   </div>
                 </Link>
@@ -328,7 +362,7 @@ export default async function HomePage() {
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">Visit Us</h2>
-              <p className="text-stone-400 text-sm mt-1">{STORE.address.full}</p>
+              <p className="text-stone-600 text-sm mt-1">{STORE.address.full}</p>
             </div>
             <div className="rounded-2xl border border-stone-100 overflow-hidden">
               <div className="px-5 py-4 bg-green-950 text-white flex justify-between items-center">
@@ -390,7 +424,7 @@ export default async function HomePage() {
           <div className="flex items-end justify-between mb-8 gap-4">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">Top Brands</h2>
-              <p className="text-stone-400 mt-1 text-sm">Washington&apos;s finest producers, on our shelves</p>
+              <p className="text-stone-600 mt-1 text-sm">Washington&apos;s finest producers, on our shelves</p>
             </div>
             <Link href="/brands" className="shrink-0 text-sm font-semibold text-green-700 hover:text-green-600 transition-colors">
               All {brands.length} brands →
@@ -403,7 +437,7 @@ export default async function HomePage() {
                   className="group flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-md transition-all aspect-square">
                   <img src={brand.logoUrl!} alt={brand.name}
                     className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200" />
-                  <span className="text-xs text-stone-400 group-hover:text-green-700 transition-colors text-center leading-tight font-medium">
+                  <span className="text-xs text-stone-600 group-hover:text-green-700 transition-colors text-center leading-tight font-medium">
                     {brand.name}
                   </span>
                 </Link>
@@ -425,6 +459,9 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ─── FAQ — AI Overview / Google rich-result fuel ────────────────────── */}
+      <FaqSection />
+
       {/* ─── CTA band ───────────────────────────────────────────────────────── */}
       <section className="bg-green-950 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
@@ -445,5 +482,90 @@ export default async function HomePage() {
         </div>
       </section>
     </>
+  );
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// FAQ section — answers the questions ChatGPT / Perplexity / Google AI
+// Overviews actually get asked about local dispensaries, paired with a
+// FAQPage JSON-LD payload. This is one of the highest-ROI GEO moves: AI
+// engines lift answers verbatim from FAQPage schema when they trust the
+// source, and Google's standard SERP can render a rich-result expander
+// from the same payload.
+// ──────────────────────────────────────────────────────────────────────────
+function FaqSection() {
+  const faqs: { q: string; a: string }[] = [
+    {
+      q: "Where is the best dispensary in Wenatchee?",
+      a: "Green Life Cannabis is on Sunnyslope at 3001 N Sunnyslope Rd, Wenatchee WA — the closest dispensary to Lake Chelan, the orchards, and US-2 west into the Cascades. Open every day from 8 AM, with Friday and Saturday hours running later. We carry 100+ Washington brands, all WSLCB-licensed.",
+    },
+    {
+      q: "What time does Green Life Cannabis open?",
+      a: "8 AM daily. Friday and Saturday close later than the rest of the week — the live status badge at the top of this page shows today's exact hours. We're open every day of the year, including holidays.",
+    },
+    {
+      q: "Do I need cash to buy cannabis at Green Life?",
+      a: "Yes — cannabis retailers in Washington can't accept credit or debit cards because cannabis is still federally illegal, so banks won't process card payments for plant-touching businesses. We have an ATM on-site, and free parking right at the door.",
+    },
+    {
+      q: "What's the legal age to buy cannabis in Washington?",
+      a: "21 with a valid government ID. WA also recognizes medical authorizations from age 18 with a parent or guardian for qualifying conditions. We card every customer at the door — please bring your ID before you walk in.",
+    },
+    {
+      q: "Can I order cannabis online for pickup at Green Life?",
+      a: "Yes. Build your cart on /order, pay in-store when you arrive (cash only). Most orders are ready in 10–20 minutes. You'll get a text when it's packed and waiting at the counter.",
+    },
+    {
+      q: "What's the difference between sativa, indica, and hybrid?",
+      a: "Sativa is associated with uplift and focus, indica with relaxation and sleep, hybrids land somewhere in between. The truth is more about each strain's terpene profile and your individual response than the label — pick a vibe above (Energize / Chill / Sleep / Creative / Focus / Relief) and we'll show you what's in stock that fits.",
+    },
+    {
+      q: "Do you sell cannabis edibles, vapes, and concentrates?",
+      a: "All of the above, plus pre-rolls, tinctures, and topicals. Browse the full menu at /menu — every product is sourced from a WSLCB-licensed Washington producer and lab-tested for potency and contaminants.",
+    },
+    {
+      q: "How are cannabis taxes handled at the register?",
+      a: "WA state cannabis excise tax (37%) and local sales tax (~8.8% in Wenatchee) are baked into the shelf price you see — what's on the tag is what you pay at the counter. Medical patients with a valid card get exemptions on certified medical products.",
+    },
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  return (
+    <section className="bg-stone-50 border-y border-stone-100">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+        <div className="text-center mb-10">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">FAQ</p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-1.5">Common questions</h2>
+          <p className="text-stone-600 mt-1.5 text-sm">First-time? Returning? Either way, here&apos;s what people ask most.</p>
+        </div>
+        <div className="space-y-3">
+          {faqs.map((f, i) => (
+            <details
+              key={i}
+              className="group bg-white rounded-2xl border border-stone-200 hover:border-green-300 transition-colors open:shadow-md"
+            >
+              <summary className="cursor-pointer list-none px-5 py-4 flex items-start justify-between gap-3">
+                <span className="font-semibold text-stone-900 text-sm sm:text-base">{f.q}</span>
+                <span className="shrink-0 mt-0.5 text-green-700 font-bold text-lg leading-none transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <div className="px-5 pb-4 -mt-1 text-sm text-stone-600 leading-relaxed">{f.a}</div>
+            </details>
+          ))}
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </div>
+    </section>
   );
 }

@@ -11,6 +11,17 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
   const inputRef = useRef<HTMLInputElement>(null);
   const [active, setActive] = useState<string>("all");
   const [query, setQuery] = useState("");
+
+  // Pre-fill from ?q= after mount so the homepage's mood chips deep-link
+  // straight into a filtered view. Done in effect (not initializer) to
+  // avoid a server/client hydration mismatch — and runs once on mount,
+  // so the cascading-render concern doesn't apply here.
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    const qp = new URLSearchParams(window.location.search).get("q");
+    if (qp) setQuery(qp);
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
   const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>(() =>
     Object.fromEntries(categories.map((c) => [c.slug, c.count]))
   );
