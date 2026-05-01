@@ -240,7 +240,7 @@ export default async function MenuPage() {
         <>
           <MenuSearch categories={categories} />
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-12">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
             {categories.map((cat) => (
               <section key={cat.slug} id={cat.slug} data-category-section={cat.slug} className="scroll-mt-4">
                 <div className="flex items-center gap-3 mb-5">

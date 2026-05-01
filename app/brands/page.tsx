@@ -55,15 +55,15 @@ export default async function BrandsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
       {/* Page header */}
-      <div className="relative overflow-hidden bg-green-950 text-white py-14">
+      <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div className="absolute inset-0 opacity-[0.07]"
           style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         <div className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Shelves</p>
-          <h1 className="text-4xl font-extrabold tracking-tight">Brands We Carry</h1>
-          <p className="text-green-300/70 mt-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Brands We Carry</h1>
+          <p className="text-green-300/70 mt-2 text-sm sm:text-base">
             {brands.length > 0
               ? `${brands.length} brands · ${brands.reduce((s, b) => s + b.activeSkus, 0)} active products · Wenatchee, WA`
               : "Washington's best producers, handpicked for you"}
@@ -71,7 +71,7 @@ export default async function BrandsPage() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         {brands.length === 0 ? (
           <div className="text-center py-20 space-y-4">
             <div className="text-5xl">🌿</div>
@@ -82,7 +82,7 @@ export default async function BrandsPage() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
             {/* Brands with logos */}
             {withLogo.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

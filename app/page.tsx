@@ -212,7 +212,7 @@ export default async function HomePage() {
 
       {/* ─── First-timer reassurance ────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
           <div className="text-center mb-8">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">First time?</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">No judgment, just answers.</h2>
@@ -250,7 +250,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Category grid ──────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">What We Carry</h2>
           <p className="text-stone-600 mt-2 text-sm">Premium products from the Pacific Northwest&apos;s top producers</p>
@@ -276,7 +276,7 @@ export default async function HomePage() {
 
       {/* ─── How Pickup Works ───────────────────────────────────────────────── */}
       <section className="bg-stone-50 border-y border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">How Pickup Works</h2>
             <p className="text-stone-600 mt-2 text-sm">Order ahead, skip the wait</p>
@@ -333,7 +333,7 @@ export default async function HomePage() {
 
       {/* ─── Featured products ──────────────────────────────────────────────── */}
       {featured.length > 0 && (
-        <section className="py-16">
+        <section className="py-12 sm:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-8 gap-4">
               <div>
@@ -395,7 +395,7 @@ export default async function HomePage() {
 
       {/* ─── Why Green Life ─────────────────────────────────────────────────── */}
       <section className="bg-stone-50 border-y border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight text-center mb-10">Why Green Life?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
@@ -438,7 +438,7 @@ export default async function HomePage() {
 
       {/* ─── Hours + Map ────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">Visit Us</h2>
@@ -500,7 +500,7 @@ export default async function HomePage() {
 
       {/* ─── Brands ─────────────────────────────────────────────────────────── */}
       {brands.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="flex items-end justify-between mb-8 gap-4">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">Top Brands</h2>
@@ -553,7 +553,7 @@ export default async function HomePage() {
 
       {/* ─── CTA band ───────────────────────────────────────────────────────── */}
       <section className="bg-green-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="space-y-2 text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-extrabold">Ready to shop?</h2>
             <p className="text-green-300/80 text-sm">Order ahead or walk in — open every day at 8 AM, later on Fri &amp; Sat.</p>
@@ -630,7 +630,7 @@ function FaqSection() {
 
   return (
     <section className="bg-stone-50 border-y border-stone-100">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="text-center mb-10">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">FAQ</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-1.5">Common questions</h2>
