@@ -184,16 +184,18 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-3">
             {[
-              { emoji: "⚡️", label: "Energize",  q: "Energizing",   gradient: "from-amber-50 to-orange-100",    accent: "text-amber-700" },
-              { emoji: "🌊", label: "Chill",     q: "Relaxing",     gradient: "from-sky-50 to-blue-100",        accent: "text-sky-700" },
-              { emoji: "💤", label: "Sleep",     q: "Sleepy",       gradient: "from-indigo-50 to-purple-100",   accent: "text-indigo-700" },
-              { emoji: "🎨", label: "Creative",  q: "Creative",     gradient: "from-fuchsia-50 to-pink-100",    accent: "text-fuchsia-700" },
-              { emoji: "🧠", label: "Focus",     q: "Focused",      gradient: "from-teal-50 to-emerald-100",    accent: "text-teal-700" },
-              { emoji: "🩹", label: "Relief",    q: "Pain Relief",  gradient: "from-rose-50 to-red-100",        accent: "text-rose-700" },
+              // Vibe slugs match VIBES.value in MenuSearch, so the menu filter
+              // panel preselects the right chip when these deep-link in.
+              { emoji: "⚡️", label: "Energize",  vibe: "energize", gradient: "from-amber-50 to-orange-100",    accent: "text-amber-700" },
+              { emoji: "🌊", label: "Chill",     vibe: "chill",    gradient: "from-sky-50 to-blue-100",        accent: "text-sky-700" },
+              { emoji: "💤", label: "Sleep",     vibe: "sleep",    gradient: "from-indigo-50 to-purple-100",   accent: "text-indigo-700" },
+              { emoji: "🎨", label: "Creative",  vibe: "creative", gradient: "from-fuchsia-50 to-pink-100",    accent: "text-fuchsia-700" },
+              { emoji: "🥂", label: "Social",    vibe: "social",   gradient: "from-teal-50 to-emerald-100",    accent: "text-teal-700" },
+              { emoji: "🩹", label: "Relief",    vibe: "relief",   gradient: "from-rose-50 to-red-100",        accent: "text-rose-700" },
             ].map((m) => (
               <Link
                 key={m.label}
-                href={`/menu?q=${encodeURIComponent(m.q)}`}
+                href={`/menu?vibe=${m.vibe}`}
                 className={`group flex flex-col items-center justify-center gap-1.5 py-5 rounded-2xl border border-stone-100 bg-gradient-to-br ${m.gradient} hover:scale-[1.04] hover:shadow-md transition-all duration-200`}
               >
                 <span className="text-3xl">{m.emoji}</span>
@@ -265,6 +267,28 @@ export default async function HomePage() {
               Start Your Order →
             </Link>
           </div>
+
+          {/* HowTo JSON-LD — AI engines + Google rich-result fuel for "how
+              do I order from Green Life" type queries. Mirrors the visible
+              3-step block above. */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "HowTo",
+                name: `How to order cannabis for pickup at ${STORE.name}`,
+                description: "Three-step pickup flow: build your cart online, we prep it, you pay cash and walk out. Most orders ready in 10–20 minutes.",
+                totalTime: "PT15M",
+                supply: [{ "@type": "HowToSupply", name: "Valid government ID (21+)" }, { "@type": "HowToSupply", name: "Cash" }],
+                step: [
+                  { "@type": "HowToStep", position: 1, name: "Browse & Order", text: "Shop the menu at greenlifecannabis.com/menu and place a pickup order — pay nothing until you arrive.", url: `${STORE.website}/order` },
+                  { "@type": "HowToStep", position: 2, name: "We Prepare It", text: "Our team gets your order ready. You'll get a status update when it's packed and waiting at the counter.", url: `${STORE.website}/order` },
+                  { "@type": "HowToStep", position: 3, name: "Pay Cash & Go", text: "Show valid ID at the door, head to the counter, pay cash, and you're out. Most pickups are 10–20 minutes from order to in-hand.", url: STORE.website },
+                ],
+              }),
+            }}
+          />
         </div>
       </section>
 
