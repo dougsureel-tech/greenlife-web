@@ -6,6 +6,7 @@ import { getMenuProducts, getActiveDeals, type MenuProduct } from "@/lib/db";
 import { MenuSearch } from "./MenuSearch";
 import { StashButton } from "@/components/StashButton";
 import { DealBanner } from "@/components/DealBanner";
+import { RecentlyViewedStrip } from "@/components/RecentlyViewedStrip";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -246,6 +247,7 @@ export default async function MenuPage() {
         </div>
       ) : (
         <>
+          <RecentlyViewedStrip products={products} accent="green" />
           <MenuSearch categories={categories} />
 
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">

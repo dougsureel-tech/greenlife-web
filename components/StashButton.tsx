@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useStash } from "@/lib/stash";
+import { recordView } from "@/lib/recently-viewed";
 
 // Heart toggle that persists to localStorage via useStash. Renders a
 // neutral heart pre-mount to avoid SSR/CSR hydration mismatch (the server
@@ -28,6 +29,7 @@ export function StashButton({
         e.preventDefault();
         e.stopPropagation();
         stash.toggle(productId);
+        recordView(productId);
       }}
       aria-label={saved ? "Remove from stash" : "Save to stash"}
       aria-pressed={saved}
