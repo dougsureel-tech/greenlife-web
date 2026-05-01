@@ -106,8 +106,8 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
   }
 
   return (
-    <div className="border-b border-stone-200 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 space-y-3">
+    <div className="sticky top-16 z-30 border-b border-stone-200 bg-white/95 backdrop-blur-md shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 space-y-3">
         {/* Search box */}
         <div className="relative">
           <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

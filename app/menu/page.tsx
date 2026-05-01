@@ -242,7 +242,7 @@ export default async function MenuPage() {
 
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
             {categories.map((cat) => (
-              <section key={cat.slug} id={cat.slug} data-category-section={cat.slug} className="scroll-mt-4">
+              <section key={cat.slug} id={cat.slug} data-category-section={cat.slug} className="scroll-mt-32">
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{CAT_ICONS[cat.name] ?? "🌱"}</span>
                   <h2 className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight">{cat.name}</h2>
