@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { MenuProduct } from "@/lib/db";
-import { STORE } from "@/lib/store";
+import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 
 type CartItem = MenuProduct & { quantity: number };
 
@@ -62,10 +62,29 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
   const [placing, setPlacing] = useState(false);
   const [orderError, setOrderError] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
+  const [pickupTime, setPickupTime] = useState<string>("");
+  const [pickupSlots, setPickupSlots] = useState<PickupSlot[]>([]);
+  const [orderingStatus, setOrderingStatus] = useState<OrderingStatus | null>(null);
 
   useEffect(() => {
     localStorage.setItem("gl_cart", JSON.stringify(cart));
   }, [cart]);
+
+  // Refresh pickup window while the cart drawer is open so slots shrink as
+  // close approaches and the closed-state message updates at the cutoff.
+  useEffect(() => {
+    if (!cartOpen) return;
+    function refresh() {
+      const status = getOrderingStatus();
+      const slots = getPickupSlots();
+      setOrderingStatus(status);
+      setPickupSlots(slots);
+      setPickupTime((prev) => (prev && slots.some((s) => s.value === prev) ? prev : slots[0]?.value ?? ""));
+    }
+    refresh();
+    const id = setInterval(refresh, 60_000);
+    return () => clearInterval(id);
+  }, [cartOpen]);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const categories = useMemo(() => {
@@ -118,6 +137,10 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
   }
 
   async function placeOrder() {
+    if (!pickupTime) {
+      setOrderError("Pick a pickup time before placing your order.");
+      return;
+    }
     setPlacing(true);
     try {
       const items = cart.map((i) => ({
@@ -127,14 +150,34 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, notes: notes || undefined }),
+        body: JSON.stringify({ items, notes: notes || undefined, pickupTime }),
       });
       if (res.status === 401) { router.push("/sign-in?redirect_url=/order"); return; }
       if (res.ok) {
+        const body = await res.json().catch(() => null);
         localStorage.removeItem("gl_cart");
-        router.push("/account?ordered=1");
+        if (body?.orderId) {
+          router.push(`/order/confirmation/${body.orderId}`);
+        } else {
+          router.push("/account?ordered=1");
+        }
+      } else if (res.status === 409) {
+        // Inventory mismatch — strip the unavailable items from the cart and
+        // tell the customer what changed so they can try again.
+        const body = await res.json().catch(() => null) as { issues?: Array<{ productId: string; productName: string; reason: string; onHand: number }> } | null;
+        const issues = body?.issues ?? [];
+        if (issues.length > 0) {
+          const offendingIds = new Set(issues.map((i) => i.productId));
+          setCart((prev) => prev.filter((c) => !offendingIds.has(c.id)));
+          const names = issues.map((i) => i.productName).join(", ");
+          setOrderError(`No longer available — removed from cart: ${names}. Review and place again.`);
+        } else {
+          setOrderError("Some items aren't available — please update your cart.");
+        }
+        setPlacing(false);
       } else {
-        setOrderError("Something went wrong. Please try again.");
+        const body = await res.json().catch(() => null);
+        setOrderError(body?.error ?? "Something went wrong. Please try again.");
         setPlacing(false);
       }
     } catch {
@@ -361,6 +404,42 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
                 {/* Footer */}
                 <div className="px-4 pb-4 space-y-3">
+                  {/* Pickup time picker */}
+                  {orderingStatus?.state === "open" && pickupSlots.length > 0 && (
+                    <div className="space-y-1.5">
+                      <label htmlFor="pickup-time" className="block text-xs font-bold text-stone-700 uppercase tracking-wide">
+                        Pick up at
+                      </label>
+                      <select
+                        id="pickup-time"
+                        value={pickupTime}
+                        onChange={(e) => setPickupTime(e.target.value)}
+                        className="w-full rounded-xl border border-stone-200 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                      >
+                        {pickupSlots.map((s) => (
+                          <option key={s.value} value={s.value}>{s.label}</option>
+                        ))}
+                      </select>
+                      <p className="text-[11px] text-stone-400">
+                        Earliest slot is 30 min from now. Last call is 15 min before close.
+                      </p>
+                    </div>
+                  )}
+                  {orderingStatus && orderingStatus.state !== "open" && (
+                    <div className="px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium space-y-0.5">
+                      <p className="font-bold">Online ordering is closed right now.</p>
+                      {orderingStatus.state === "before_open" && (
+                        <p>Opens at {orderingStatus.opensAt} today.</p>
+                      )}
+                      {orderingStatus.state === "after_last_call" && (
+                        <p>Last call is 15 min before close ({orderingStatus.closesToday}). Reopens at {orderingStatus.reopensAt}.</p>
+                      )}
+                      {orderingStatus.state === "closed_today" && (
+                        <p>Reopens at {orderingStatus.opensAt}.</p>
+                      )}
+                    </div>
+                  )}
+
                   <textarea
                     placeholder="Special requests or notes…"
                     value={notes}
@@ -379,8 +458,11 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                       <div className="text-xs text-stone-400">Est. total · cash in store</div>
                       <div className="text-2xl font-extrabold text-stone-900">${cartTotal.toFixed(2)}</div>
                     </div>
-                    <button onClick={placeOrder} disabled={placing}
-                      className="px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-60 hover:-translate-y-0.5">
+                    <button
+                      onClick={placeOrder}
+                      disabled={placing || orderingStatus?.state !== "open" || !pickupTime}
+                      className="px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                    >
                       {placing ? "Placing…" : "Place Order →"}
                     </button>
                   </div>

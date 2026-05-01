@@ -68,6 +68,44 @@ export async function updatePortalUser(id: string, data: { name?: string; phone?
   `;
 }
 
+// Single-order fetch for the confirmation page. Requires the requesting
+// portalUserId to match so customers can't view each other's orders.
+export async function getOrder(orderId: string, portalUserId: string): Promise<(OnlineOrder & { pickupTime: string | null }) | null> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT o.id, o.status,
+      COALESCE(o.order_total, o.subtotal, 0)::float AS subtotal,
+      COALESCE(o.item_count, 0)::int AS item_count,
+      o.notes,
+      COALESCE(o.placed_at, o.received_at, o.created_at) AS placed_at,
+      o.ready_at,
+      COALESCE(o.picked_up_at, o.fulfilled_at) AS picked_up_at,
+      o.pickup_time
+    FROM online_orders o
+    WHERE o.id = ${orderId} AND o.portal_user_id = ${portalUserId}
+    LIMIT 1
+  `;
+  if (!rows[0]) return null;
+
+  const items = await sql`
+    SELECT * FROM online_order_items WHERE order_id = ${orderId}
+  `;
+
+  const r = rows[0];
+  return {
+    id: r.id as string,
+    status: (r.status as OnlineOrder["status"]) ?? "pending",
+    subtotal: r.subtotal as number,
+    itemCount: r.item_count as number,
+    notes: r.notes as string | null,
+    placedAt: r.placed_at ? (r.placed_at as Date).toISOString() : new Date(0).toISOString(),
+    readyAt: r.ready_at ? (r.ready_at as Date).toISOString() : null,
+    pickedUpAt: r.picked_up_at ? (r.picked_up_at as Date).toISOString() : null,
+    pickupTime: r.pickup_time ? (r.pickup_time as Date).toISOString() : null,
+    items: items.map(mapOrderItem),
+  };
+}
+
 export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
   const sql = getClient();
   const orders = await sql`
@@ -112,18 +150,109 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
   }));
 }
 
+export type AvailabilityIssue = {
+  productId: string;
+  productName: string;
+  requested: number;
+  onHand: number;
+  reason: "out_of_stock" | "insufficient" | "discontinued" | "unknown";
+};
+
+// Validate cart items against current inventory before placement. Returns
+// an empty array when everything's available. Items without productId are
+// skipped — they're text-only menu lines that staff will resolve at pickup.
+export async function checkAvailability(
+  items: Array<{ productId?: string; productName: string; quantity: number }>,
+): Promise<AvailabilityIssue[]> {
+  const sql = getClient();
+  const ids = items.map((i) => i.productId).filter((id): id is string => !!id);
+  if (ids.length === 0) return [];
+
+  const rows = await sql`
+    SELECT p.id, p.name, p.carry_status,
+      COALESCE(snap.qty, 0)::float AS on_hand
+    FROM products p
+    LEFT JOIN LATERAL (
+      SELECT quantity_on_hand::numeric AS qty FROM inventory_snapshots
+      WHERE product_id = p.id
+      ORDER BY captured_at DESC LIMIT 1
+    ) snap ON TRUE
+    WHERE p.id = ANY(${ids}::text[])
+  `;
+
+  const byId = new Map(rows.map((r) => [r.id as string, r]));
+  const issues: AvailabilityIssue[] = [];
+  for (const item of items) {
+    if (!item.productId) continue;
+    const row = byId.get(item.productId);
+    if (!row) {
+      issues.push({
+        productId: item.productId,
+        productName: item.productName,
+        requested: item.quantity,
+        onHand: 0,
+        reason: "unknown",
+      });
+      continue;
+    }
+    if ((row.carry_status as string) === "discontinued") {
+      issues.push({
+        productId: item.productId,
+        productName: item.productName,
+        requested: item.quantity,
+        onHand: 0,
+        reason: "discontinued",
+      });
+      continue;
+    }
+    const onHand = row.on_hand as number;
+    if (onHand <= 0) {
+      issues.push({
+        productId: item.productId,
+        productName: row.name as string,
+        requested: item.quantity,
+        onHand: 0,
+        reason: "out_of_stock",
+      });
+    } else if (onHand < item.quantity) {
+      issues.push({
+        productId: item.productId,
+        productName: row.name as string,
+        requested: item.quantity,
+        onHand,
+        reason: "insufficient",
+      });
+    }
+  }
+  return issues;
+}
+
 export async function placeOrder(
   portalUserId: string,
   items: Array<{ productId?: string; productName: string; brand?: string; category?: string; strainType?: string; unitPrice: number; quantity: number }>,
-  notes?: string
+  notes?: string,
+  pickupTimeISO?: string,
 ): Promise<string> {
   const sql = getClient();
   const orderId = crypto.randomUUID();
   const subtotal = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
 
+  // Pull portal user info so the staff queue shows the customer's name + how
+  // to reach them, instead of "Unknown customer".
+  const userRows = await sql`
+    SELECT name, email, phone FROM portal_users WHERE id = ${portalUserId} LIMIT 1
+  `;
+  const u = userRows[0] ?? {};
+  const customerName = (u.name as string | null) ?? null;
+  const customerEmail = (u.email as string | null) ?? null;
+  const customerPhone = (u.phone as string | null) ?? null;
+
   await sql`
-    INSERT INTO online_orders (id, portal_user_id, status, order_total, item_count, items, notes, source)
+    INSERT INTO online_orders (
+      id, portal_user_id, status, order_total, item_count, items, notes, source,
+      pickup_time, customer_name, customer_email, customer_phone
+    )
     VALUES (
       ${orderId},
       ${portalUserId},
@@ -132,7 +261,11 @@ export async function placeOrder(
       ${itemCount},
       ${JSON.stringify(items)},
       ${notes ?? null},
-      'portal'
+      'portal',
+      ${pickupTimeISO ?? null},
+      ${customerName},
+      ${customerEmail},
+      ${customerPhone}
     )
   `;
 
