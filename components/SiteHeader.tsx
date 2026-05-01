@@ -8,13 +8,13 @@ import { StashHeaderLink } from "./StashHeaderLink";
 
 const NAV = [
   { href: "/menu",             label: "Menu" },
+  { href: "/deals",            label: "Deals" },
   { href: "/find-your-strain", label: "Find Strain" },
   { href: "/order",            label: "Order" },
   { href: "/brands",           label: "Brands" },
   { href: "/blog",             label: "Guides" },
   { href: "/faq",              label: "FAQ" },
   { href: "/about",            label: "About" },
-  { href: "/contact",          label: "Contact" },
 ];
 
 export function SiteHeader() {
