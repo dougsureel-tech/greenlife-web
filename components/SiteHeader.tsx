@@ -4,15 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { STORE } from "@/lib/store";
+import { StashHeaderLink } from "./StashHeaderLink";
 
 const NAV = [
-  { href: "/menu",    label: "Menu" },
-  { href: "/order",   label: "Order" },
-  { href: "/brands",  label: "Brands" },
-  { href: "/blog",    label: "Guides" },
-  { href: "/faq",     label: "FAQ" },
-  { href: "/about",   label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/menu",             label: "Menu" },
+  { href: "/find-your-strain", label: "Find Strain" },
+  { href: "/order",            label: "Order" },
+  { href: "/brands",           label: "Brands" },
+  { href: "/blog",             label: "Guides" },
+  { href: "/faq",              label: "FAQ" },
+  { href: "/about",            label: "About" },
+  { href: "/contact",          label: "Contact" },
 ];
 
 export function SiteHeader() {
@@ -82,6 +84,7 @@ export function SiteHeader() {
               }`}>
               {STORE.phone}
             </a>
+            <StashHeaderLink dark={dark} />
             <Link href="/account" title="My Account"
               className={`p-2 rounded-lg transition-all duration-200 ${
                 dark ? "text-white/60 hover:text-white hover:bg-white/15" : "text-stone-500 hover:text-green-700 hover:bg-stone-50"
