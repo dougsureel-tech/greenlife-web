@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, isOpenNow } from "@/lib/store";
+import { STORE, isOpenNow, nextOpenLabel, hoursSummary } from "@/lib/store";
 import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `${STORE.name} | Cannabis Dispensary Wenatchee, WA`,
-  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's premier cannabis shop — flower, edibles, vapes, concentrates, pre-rolls. Open daily 8am–10pm. Cash only, 21+.`,
+  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's premier cannabis shop — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
   alternates: { canonical: "/" },
 };
 
@@ -21,7 +21,7 @@ const CATEGORIES = [
 ];
 
 const STATS = [
-  { val: "Open Daily",    label: "8 AM – 10 PM" },
+  { val: "Open Daily",    label: "8 AM · later Fri & Sat" },
   { val: "Free Parking",  label: "Right out front" },
   { val: "Veteran-Owned", label: "& community-first" },
   { val: "Cash Only",     label: "ATM on-site" },
@@ -34,6 +34,7 @@ export default async function HomePage() {
   ]);
   const featuredBrands = brands.filter((b) => b.logoUrl).slice(0, 10);
   const open = isOpenNow();
+  const statusLabel = nextOpenLabel();
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
   const todayHours = STORE.hours.find((h) => h.day === today);
 
@@ -110,8 +111,8 @@ export default async function HomePage() {
                 <div className="flex items-center gap-3">
                   <span className={`w-3 h-3 rounded-full shrink-0 ${open ? "bg-green-400 shadow-[0_0_8px_#4ade80] animate-pulse" : "bg-red-400"}`} />
                   <div>
-                    <div className="text-white font-bold text-sm">{open ? "Open Now" : "Currently Closed"}</div>
-                    {todayHours && <div className="text-green-300/70 text-xs">{todayHours.open} – {todayHours.close} today</div>}
+                    <div className="text-white font-bold text-sm">{statusLabel || (open ? "Open today" : "Closed today")}</div>
+                    {todayHours && <div className="text-green-300/70 text-xs">Today {todayHours.open} – {todayHours.close}</div>}
                   </div>
                 </div>
                 <div className="h-px bg-white/10" />
@@ -262,7 +263,9 @@ export default async function HomePage() {
                     {p.brand && <div className="text-xs text-stone-400 font-medium uppercase tracking-wide truncate">{p.brand}</div>}
                     <div className="font-semibold text-stone-900 text-sm leading-tight line-clamp-2">{p.name}</div>
                     <div className="flex items-center justify-between pt-1">
-                      <span className="font-bold text-green-800">${p.unitPrice?.toFixed(2)}</span>
+                      <span className="font-bold text-green-800">
+                        {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : <span className="text-stone-400 font-medium">In store</span>}
+                      </span>
                       {p.thcPct != null && <span className="text-xs text-stone-400">THC {p.thcPct.toFixed(1)}%</span>}
                     </div>
                   </div>
@@ -427,7 +430,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="space-y-2 text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-extrabold">Ready to shop?</h2>
-            <p className="text-green-300/80 text-sm">Order ahead or walk in — we&apos;re here every day, 8 AM to 10 PM.</p>
+            <p className="text-green-300/80 text-sm">Order ahead or walk in — open every day at 8 AM, later on Fri &amp; Sat.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link href="/order"

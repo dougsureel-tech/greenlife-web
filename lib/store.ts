@@ -35,19 +35,54 @@ export const STORE = {
   perks: ["Knowledgeable budtenders", "Loyalty rewards", "Military discounts", "15% off online orders"],
 } as const;
 
+const TZ = "America/Los_Angeles";
+
+function toMin(t: string): number {
+  const [time, ampm] = t.split(" ");
+  const [h, m] = time.split(":").map(Number);
+  return (ampm === "PM" && h !== 12 ? h + 12 : ampm === "AM" && h === 12 ? 0 : h) * 60 + m;
+}
+
+function nowMin(): number {
+  const parts = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: TZ });
+  const [h, m] = parts.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function todayDay(): string {
+  return new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: TZ });
+}
+
 export function isOpenNow(): boolean {
-  const tz = "America/Los_Angeles";
-  const now = new Date();
-  const day = now.toLocaleDateString("en-US", { weekday: "long", timeZone: tz });
-  const hours = STORE.hours.find((h) => h.day === day);
+  const hours = STORE.hours.find((h) => h.day === todayDay());
   if (!hours) return false;
-  const toMin = (t: string) => {
-    const [time, ampm] = t.split(" ");
-    const [h, m] = time.split(":").map(Number);
-    return (ampm === "PM" && h !== 12 ? h + 12 : ampm === "AM" && h === 12 ? 0 : h) * 60 + m;
-  };
-  const parts = now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: tz });
-  const [curH, curM] = parts.split(":").map(Number);
-  const cur = curH * 60 + curM;
+  const cur = nowMin();
   return cur >= toMin(hours.open) && cur < toMin(hours.close);
+}
+
+// "Closes at 9 PM" when open; "Opens at 8 AM" when before open today;
+// "Opens Monday at 8 AM" when after close today.
+export function nextOpenLabel(): string {
+  const day = todayDay();
+  const today = STORE.hours.find((h) => h.day === day);
+  const cur = nowMin();
+  if (today && cur < toMin(today.open)) return `Opens at ${today.open}`;
+  if (today && cur >= toMin(today.open) && cur < toMin(today.close)) return `Closes at ${today.close}`;
+  const order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const idx = order.indexOf(day);
+  for (let i = 1; i <= 7; i++) {
+    const next = STORE.hours.find((h) => h.day === order[(idx + i) % 7]);
+    if (next) return `Opens ${i === 1 ? "tomorrow" : next.day} at ${next.open}`;
+  }
+  return "";
+}
+
+// "8 AM – 9 PM daily" when uniform; otherwise the most common range with a "(later Fri & Sat)" note.
+export function hoursSummary(): string {
+  const ranges = STORE.hours.map((h) => `${h.open}–${h.close}`);
+  const uniform = ranges.every((r) => r === ranges[0]);
+  if (uniform) return `${ranges[0]} daily`;
+  const counts = ranges.reduce<Record<string, number>>((acc, r) => ((acc[r] = (acc[r] ?? 0) + 1), acc), {});
+  const [common] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  return `${common} daily · later Fri & Sat`;
 }

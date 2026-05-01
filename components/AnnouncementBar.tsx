@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { isOpenNow } from "@/lib/store";
-import { STORE } from "@/lib/store";
+import { isOpenNow, nextOpenLabel, STORE } from "@/lib/store";
 
 export function AnnouncementBar() {
   const open = isOpenNow();
+  const status = nextOpenLabel();
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
   const todayHours = STORE.hours.find((h) => h.day === today);
 
@@ -13,7 +13,7 @@ export function AnnouncementBar() {
         <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${open ? "bg-green-400 shadow-[0_0_4px_#4ade80]" : "bg-stone-500"}`} />
         {open
           ? `Open Now${todayHours ? ` · ${todayHours.open}–${todayHours.close}` : ""}`
-          : "Currently Closed · Opens 8AM"}
+          : `Closed · ${status}`}
       </span>
       <span className="hidden sm:block opacity-40">|</span>
       <Link href="/order" className="opacity-75 hover:opacity-100 transition-opacity hidden sm:block font-semibold">
