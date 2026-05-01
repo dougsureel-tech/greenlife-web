@@ -55,6 +55,8 @@ function ProductCard({ product, categorySlug }: { product: MenuProduct; category
       data-strain={(product.strainType ?? "").toLowerCase()}
       data-price-bucket={priceBucket}
       data-thc-bucket={thcBucket}
+      data-price={product.unitPrice ?? ""}
+      data-thc={product.thcPct ?? ""}
       data-vibe={(product.effects ?? "").toLowerCase()}
       data-isnew={product.isNew ? "1" : ""}
       className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all"

@@ -27,6 +27,7 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
   const [thc, setThc] = useState<string>("");            // low | mid | high | ""
   const [newOnly, setNewOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [sort, setSort] = useState<"" | "price-asc" | "price-desc" | "thc-desc" | "newest">("");
 
   // Pre-fill from URL params after mount so /find-your-strain and the
   // homepage's mood chips deep-link straight into a filtered view.
@@ -94,6 +95,37 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
     const total = Object.values(counts).reduce((a, b) => a + b, 0);
     if (empty) empty.style.display = total === 0 ? "" : "none";
   }, [query, active, strain, vibe, price, thc, newOnly, categories]);
+
+  // Sort effect — uses CSS `order` so we don't have to reorder DOM nodes.
+  // Each section's grid container is display:grid with a default order of 0;
+  // assigning order: i puts each card in rank order within its section.
+  useEffect(() => {
+    const cards = document.querySelectorAll<HTMLElement>("[data-product-card]");
+    if (sort === "") {
+      cards.forEach((c) => { c.style.order = ""; });
+      return;
+    }
+
+    // Group cards by section and sort each group independently so the
+    // section dividers stay in place.
+    const bySection = new Map<string, HTMLElement[]>();
+    cards.forEach((c) => {
+      const section = c.dataset.category ?? "";
+      if (!bySection.has(section)) bySection.set(section, []);
+      bySection.get(section)!.push(c);
+    });
+
+    bySection.forEach((items) => {
+      items.sort((a, b) => {
+        if (sort === "price-asc")  return (parseFloat(a.dataset.price  || "Infinity")) - (parseFloat(b.dataset.price  || "Infinity"));
+        if (sort === "price-desc") return (parseFloat(b.dataset.price  || "-1"))       - (parseFloat(a.dataset.price  || "-1"));
+        if (sort === "thc-desc")   return (parseFloat(b.dataset.thc    || "-1"))       - (parseFloat(a.dataset.thc    || "-1"));
+        if (sort === "newest")     return (b.dataset.isnew === "1" ? 1 : 0)            - (a.dataset.isnew === "1" ? 1 : 0);
+        return 0;
+      });
+      items.forEach((card, i) => { card.style.order = String(i); });
+    });
+  }, [sort, query, active, strain, vibe, price, thc, newOnly]);
 
   const activeFilterCount = [strain, vibe, price, thc, newOnly ? "new" : ""].filter(Boolean).length;
 
@@ -167,6 +199,27 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
                 </button>
               );
             })}
+          </div>
+          <div className="shrink-0 relative">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as typeof sort)}
+              className={`appearance-none pl-3 pr-7 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer ${
+                sort
+                  ? "bg-green-50 border-green-300 text-green-800"
+                  : "bg-white border-stone-200 text-stone-600 hover:border-stone-300"
+              }`}
+              aria-label="Sort products"
+            >
+              <option value="">Sort</option>
+              <option value="price-asc">Price · low → high</option>
+              <option value="price-desc">Price · high → low</option>
+              <option value="thc-desc">THC · highest first</option>
+              <option value="newest">New this week first</option>
+            </select>
+            <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-stone-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
           </div>
           <button
             onClick={() => setShowFilters((v) => !v)}
