@@ -91,20 +91,43 @@ export default async function LearnPage() {
         consult your doctor before using cannabis. 21+. Always consume responsibly.
       </p>
 
-      {/* JSON-LD: ItemList of topics for crawlers */}
+      {/* JSON-LD: ItemList of topics + Breadcrumb + LearningResource wrapper.
+          The wrapper links the page to the LocalBusiness @id from layout.tsx
+          so AI engines treat the educational content as authored by our
+          store entity (E-E-A-T). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "ItemList",
+            "@type": "LearningResource",
             name: "Cannabis 101 — Learn the Basics",
-            itemListElement: LEARN_TOPICS.map((t, i) => ({
+            url: `${STORE.website}/learn`,
+            description: `Indica vs sativa, edibles dosing, how to read THC%, terpenes basics, and what to expect at the dispensary. Plain-English answers from ${STORE.name} budtenders.`,
+            inLanguage: "en-US",
+            educationalLevel: "Beginner",
+            audience: { "@type": "Audience", audienceType: "Adults 21+" },
+            publisher: { "@id": `${STORE.website}/#dispensary` },
+            about: { "@id": `${STORE.website}/#dispensary` },
+            hasPart: LEARN_TOPICS.map((t, i) => ({
               "@type": "ListItem",
               position: i + 1,
               name: t.title,
               description: t.body.slice(0, 200),
             })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+              { "@type": "ListItem", position: 2, name: "Cannabis 101", item: `${STORE.website}/learn` },
+            ],
           }),
         }}
       />
