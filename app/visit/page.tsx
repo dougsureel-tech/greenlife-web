@@ -73,7 +73,7 @@ export default function VisitPage() {
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade8033, transparent)" }} />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 sm:py-20">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-400">Visit Us</p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mt-2">
             {STORE.address.street}
@@ -120,7 +120,7 @@ export default function VisitPage() {
 
       {/* Hours + Amenities */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">Hours</h2>
             <p className="text-stone-600 text-sm mt-1">Open every day of the year, including holidays.</p>
@@ -174,7 +174,7 @@ export default function VisitPage() {
 
       {/* What to bring */}
       <section className="bg-stone-50 border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
           <div className="text-center mb-8">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">First time?</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">What to bring</h2>
@@ -193,7 +193,7 @@ export default function VisitPage() {
 
       {/* Map embed + nearby */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">Find us</h2>
             <p className="text-stone-600 text-sm mt-1">{STORE.address.full}</p>
@@ -229,7 +229,7 @@ export default function VisitPage() {
 
       {/* Bottom CTA */}
       <section className="bg-green-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-xl font-extrabold">See you soon.</h2>
             <p className="text-green-300/70 text-sm mt-1">
