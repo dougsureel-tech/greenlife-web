@@ -58,7 +58,7 @@ function ProductCard({ product, categorySlug }: { product: MenuProduct; category
       data-isnew={product.isNew ? "1" : ""}
       className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all"
     >
-      <div className="aspect-square bg-stone-100 overflow-hidden relative">
+      <div className="aspect-[5/4] sm:aspect-square bg-stone-100 overflow-hidden relative">
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -87,7 +87,7 @@ function ProductCard({ product, categorySlug }: { product: MenuProduct; category
           )}
         </div>
       </div>
-      <div className="p-3 space-y-1.5">
+      <div className="p-2.5 sm:p-3 space-y-1.5">
         {product.brand && (
           <div className="text-[11px] text-stone-400 font-bold uppercase tracking-wide truncate">{product.brand}</div>
         )}
