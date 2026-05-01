@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel, hoursSummary } from "@/lib/store";
 import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { DropTicker } from "@/components/DropTicker";
+import { ReviewsSection } from "@/components/Reviews";
 
 export const dynamic = "force-dynamic";
 
@@ -67,6 +70,11 @@ export default async function HomePage() {
                 </div>
                 <span className="text-green-400/60 text-xs font-medium uppercase tracking-widest">Wenatchee, WA</span>
               </div>
+
+              {/* Live drop ticker — cycles through newest products */}
+              {featured.length > 0 && (
+                <DropTicker drops={featured.slice(0, 5).map((p) => ({ name: p.name, brand: p.brand, category: p.category }))} />
+              )}
 
               <div>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight">
@@ -279,8 +287,13 @@ export default async function HomePage() {
                   className="group bg-white rounded-2xl border border-stone-100 overflow-hidden hover:border-green-300 hover:shadow-lg transition-all">
                   <div className="aspect-square bg-stone-100 overflow-hidden relative">
                     {p.imageUrl ? (
-                      <img src={p.imageUrl} alt={p.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <Image
+                        src={p.imageUrl}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-stone-100 to-stone-200">
                         {p.category === "Flower" ? "🌿" : p.category === "Edibles" ? "🍬" : p.category === "Vapes" ? "💨" : p.category === "Concentrates" ? "🧴" : p.category === "Pre-Rolls" ? "🫙" : "🌱"}
@@ -356,6 +369,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Reviews + AggregateRating schema ───────────────────────────────── */}
+      <ReviewsSection />
 
       {/* ─── Hours + Map ────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
@@ -436,8 +452,14 @@ export default async function HomePage() {
               {featuredBrands.map((brand) => (
                 <Link key={brand.id} href={`/brands/${brand.slug}`}
                   className="group flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-md transition-all aspect-square">
-                  <img src={brand.logoUrl!} alt={brand.name}
-                    className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200" />
+                  <Image
+                    src={brand.logoUrl!}
+                    alt={brand.name}
+                    width={140}
+                    height={56}
+                    className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                    unoptimized
+                  />
                   <span className="text-xs text-stone-600 group-hover:text-green-700 transition-colors text-center leading-tight font-medium">
                     {brand.name}
                   </span>

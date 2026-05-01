@@ -11,14 +11,12 @@ import { useEffect, useState } from "react";
 export function MobileStickyCta() {
   const [show, setShow] = useState(false);
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const handler = () => setShow(window.scrollY > 480);
     handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   return (
     <div
