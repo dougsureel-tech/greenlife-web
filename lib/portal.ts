@@ -20,6 +20,7 @@ export type OnlineOrder = {
   placedAt: string;
   readyAt: string | null;
   pickedUpAt: string | null;
+  pickupTime: string | null;
   items: OrderItem[];
 };
 
@@ -115,7 +116,8 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
       o.notes,
       COALESCE(o.placed_at, o.received_at, o.created_at) AS placed_at,
       o.ready_at,
-      COALESCE(o.picked_up_at, o.fulfilled_at) AS picked_up_at
+      COALESCE(o.picked_up_at, o.fulfilled_at) AS picked_up_at,
+      o.pickup_time
     FROM online_orders o
     WHERE o.portal_user_id = ${portalUserId}
     ORDER BY COALESCE(o.placed_at, o.received_at, o.created_at) DESC NULLS LAST
@@ -146,6 +148,7 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
     placedAt: o.placed_at ? (o.placed_at as Date).toISOString() : new Date(0).toISOString(),
     readyAt: o.ready_at ? (o.ready_at as Date).toISOString() : null,
     pickedUpAt: o.picked_up_at ? (o.picked_up_at as Date).toISOString() : null,
+    pickupTime: o.pickup_time ? (o.pickup_time as Date).toISOString() : null,
     items: itemsByOrder.get(o.id as string) ?? [],
   }));
 }
