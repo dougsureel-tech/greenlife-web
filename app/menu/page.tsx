@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { STORE } from "@/lib/store";
 import { getMenuProducts, type MenuProduct } from "@/lib/db";
 import { MenuSearch } from "./MenuSearch";
+import { StashButton } from "@/components/StashButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Menu",
-  description: `Browse the full ${STORE.name} cannabis menu — flower, pre-rolls, vapes, concentrates, edibles, tinctures, and topicals. Live inventory, prices, THC and CBD content. ${STORE.address.full}.`,
+  title: "Cannabis Menu — Live Inventory",
+  description: `Live cannabis menu at ${STORE.name} in ${STORE.address.city}, WA. Flower, pre-rolls, vapes, concentrates, edibles, tinctures, and topicals from 100+ Washington-state producers. Prices, THC/CBD, strain types updated continuously. Order ahead for cash pickup. 21+, ID required.`,
   alternates: { canonical: "/menu" },
+  openGraph: {
+    title: `Cannabis Menu | ${STORE.name}`,
+    description: `Live cannabis menu — prices, THC/CBD, lab data. ${STORE.address.full}.`,
+    url: `${STORE.website}/menu`,
+    type: "website",
+  },
 };
 
 const CATEGORY_ORDER = ["Flower", "Pre-Rolls", "Vapes", "Concentrates", "Edibles", "Tinctures", "Topicals", "Accessories"];
@@ -34,32 +42,50 @@ function ProductCard({ product, categorySlug }: { product: MenuProduct; category
   const icon = CAT_ICONS[product.category ?? ""] ?? "🌱";
   const search = [product.name, product.brand, product.category, product.strainType, product.effects, product.terpenes].filter(Boolean).join(" ");
 
+  // Filter-chip metadata for client-side filters in MenuSearch
+  const priceBucket = product.unitPrice == null ? "" : product.unitPrice < 20 ? "u20" : product.unitPrice < 40 ? "20-40" : "40p";
+  const thcBucket = product.thcPct == null ? "" : product.thcPct < 15 ? "low" : product.thcPct < 25 ? "mid" : "high";
+
   return (
     <article
       data-product-card
       data-search={search}
       data-category={categorySlug}
+      data-strain={(product.strainType ?? "").toLowerCase()}
+      data-price-bucket={priceBucket}
+      data-thc-bucket={thcBucket}
+      data-vibe={(product.effects ?? "").toLowerCase()}
+      data-isnew={product.isNew ? "1" : ""}
       className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all"
     >
       <div className="aspect-square bg-stone-100 overflow-hidden relative">
         {product.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={product.imageUrl}
             alt={product.name}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-stone-100 to-stone-200">
             {icon}
           </div>
         )}
-        {product.strainType && STRAIN_BADGE[product.strainType] && (
-          <span className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full font-bold border ${STRAIN_BADGE[product.strainType]}`}>
-            {product.strainType}
-          </span>
-        )}
+        <StashButton productId={product.id} />
+        <div className="absolute top-2 left-2 flex flex-col gap-1 items-start">
+          {product.isNew && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full font-bold border bg-emerald-500 text-white border-emerald-600 shadow-sm">
+              ✨ Just In
+            </span>
+          )}
+          {product.strainType && STRAIN_BADGE[product.strainType] && (
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border ${STRAIN_BADGE[product.strainType]}`}>
+              {product.strainType}
+            </span>
+          )}
+        </div>
       </div>
       <div className="p-3 space-y-1.5">
         {product.brand && (
@@ -105,33 +131,44 @@ export default async function MenuPage() {
     ...Array.from(grouped.keys()).filter((c) => !CATEGORY_ORDER.includes(c)),
   ].map((name) => ({ name, slug: slugify(name), count: grouped.get(name)!.length }));
 
-  // Schema — one big array of Product/Offer + a Menu wrapper.
+  // Schema — one big array of Product/Offer + a Menu wrapper. Products
+  // without a unit price are still in stock and visible on the page (we
+  // show 'In store' instead of a number) — but Offer requires a price, so
+  // we omit the offers block on those rows rather than emit invalid schema
+  // (was crashing previously on null.toFixed()).
   const baseUrl = STORE.website;
-  const productSchemas = products.map((p) => ({
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${baseUrl}/menu#product-${p.id}`,
-    name: p.name,
-    ...(p.brand ? { brand: { "@type": "Brand", name: p.brand } } : {}),
-    ...(p.category ? { category: p.category } : {}),
-    ...(p.imageUrl ? { image: p.imageUrl } : {}),
-    ...(p.effects ? { description: p.effects } : {}),
-    ...(p.thcPct != null || p.strainType
-      ? { additionalProperty: [
-          ...(p.thcPct != null ? [{ "@type": "PropertyValue", name: "THC", value: `${p.thcPct.toFixed(1)}%` }] : []),
-          ...(p.cbdPct != null && p.cbdPct > 0 ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbdPct.toFixed(1)}%` }] : []),
-          ...(p.strainType ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strainType }] : []),
-        ] }
-      : {}),
-    offers: {
-      "@type": "Offer",
-      price: p.unitPrice!.toFixed(2),
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      seller: { "@id": `${baseUrl}/#dispensary` },
-      url: `${baseUrl}/order`,
-    },
-  }));
+  const productSchemas = products.map((p) => {
+    const hasPrice = p.unitPrice != null && p.unitPrice > 0;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": `${baseUrl}/menu#product-${p.id}`,
+      name: p.name,
+      ...(p.brand ? { brand: { "@type": "Brand", name: p.brand } } : {}),
+      ...(p.category ? { category: p.category } : {}),
+      ...(p.imageUrl ? { image: p.imageUrl } : {}),
+      ...(p.effects ? { description: p.effects } : {}),
+      ...(p.thcPct != null || p.strainType
+        ? { additionalProperty: [
+            ...(p.thcPct != null ? [{ "@type": "PropertyValue", name: "THC", value: `${p.thcPct.toFixed(1)}%` }] : []),
+            ...(p.cbdPct != null && p.cbdPct > 0 ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbdPct.toFixed(1)}%` }] : []),
+            ...(p.strainType ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strainType }] : []),
+          ] }
+        : {}),
+      ...(hasPrice
+        ? {
+            offers: {
+              "@type": "Offer",
+              price: p.unitPrice!.toFixed(2),
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              seller: { "@id": `${baseUrl}/#dispensary` },
+              url: `${baseUrl}/order`,
+            },
+          }
+        : {}),
+    };
+  });
 
   const menuSchema = {
     "@context": "https://schema.org",
