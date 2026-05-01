@@ -166,6 +166,13 @@ export function SiteHeader() {
             </svg>
             {STORE.phone}
           </a>
+          <Link href="/stash" onClick={() => setOpen(false)}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-rose-300 hover:text-rose-600 transition-all">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+            </svg>
+            My Stash
+          </Link>
           <Link href="/account" onClick={() => setOpen(false)}
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-green-300 hover:text-green-800 transition-all">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

@@ -269,7 +269,7 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
               <p className="text-[11px] font-bold uppercase tracking-wide text-stone-500 mb-2">Potency (THC)</p>
               <div className="flex flex-wrap gap-1.5">
                 {[
-                  { value: "low",  label: "Low · &lt;15%" },
+                  { value: "low",  label: "Low · under 15%" },
                   { value: "mid",  label: "Mid · 15–25%" },
                   { value: "high", label: "High · 25%+" },
                 ].map((t) => {
@@ -281,8 +281,9 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
                       className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
                         on ? "bg-green-700 text-white border-green-700" : "bg-white text-stone-700 border-stone-200 hover:border-green-300"
                       }`}
-                      dangerouslySetInnerHTML={{ __html: t.label }}
-                    />
+                    >
+                      {t.label}
+                    </button>
                   );
                 })}
               </div>

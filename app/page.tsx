@@ -207,6 +207,14 @@ export default async function HomePage() {
             Effect labels come from cultivator notes — they&apos;re a starting point, not a guarantee.
             Your tolerance, dose, and the moment all matter. Talk to a budtender for a tailored pick.
           </p>
+          <div className="text-center mt-3">
+            <Link
+              href="/find-your-strain"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 hover:text-green-600 transition-colors"
+            >
+              Or take the 3-question quiz <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
