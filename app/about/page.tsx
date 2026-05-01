@@ -3,14 +3,47 @@ import Link from "next/link";
 import { STORE } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: `Learn about ${STORE.name} — Wenatchee's locally owned cannabis dispensary serving the valley with expert staff and carefully curated products since day one.`,
+  title: "About — Locally Owned Wenatchee Cannabis Dispensary",
+  description: `${STORE.name} is a locally owned WSLCB-licensed cannabis dispensary in ${STORE.address.full}. Veteran-owned, community-rooted, education-first. Curated Washington-state cannabis from producers we know and trust.`,
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: `About ${STORE.name} — locally owned in Wenatchee`,
+    description: `Locally owned, veteran-rooted cannabis dispensary in ${STORE.address.city}, WA. Education first.`,
+    url: `${STORE.website}/about`,
+    type: "website",
+  },
+};
+
+// AboutPage JSON-LD — links 'mainEntity' to the LocalBusiness @id from
+// layout.tsx so AI engines + Google connect this page to the same store
+// entity. Big GEO add for queries like 'who owns Green Life Cannabis' or
+// 'is Green Life locally owned'.
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: `About ${STORE.name}`,
+  url: `${STORE.website}/about`,
+  description: `Locally owned cannabis dispensary in ${STORE.address.city}, Washington — education-first, community-rooted, veteran-owned.`,
+  mainEntity: { "@id": `${STORE.website}/#dispensary` },
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${STORE.website}/#website` },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "About", item: `${STORE.website}/about` },
+  ],
 };
 
 export default function AboutPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-14">
         <div className="absolute inset-0 opacity-[0.07]"
