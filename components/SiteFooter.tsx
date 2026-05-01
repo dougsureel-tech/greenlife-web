@@ -99,6 +99,7 @@ export function SiteFooter() {
             {[
               { href: "/menu",             label: "Shop Menu" },
               { href: "/order",            label: "Order for Pickup" },
+              { href: "/visit",            label: "Visit Us" },
               { href: "/find-your-strain", label: "Find your strain" },
               { href: "/brands",           label: "Our Brands" },
               { href: "/blog",             label: "Guides" },

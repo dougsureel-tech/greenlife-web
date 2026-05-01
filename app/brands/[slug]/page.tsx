@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
@@ -18,12 +19,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) return {};
   return {
-    title: brand.name,
-    description: `Shop ${brand.name} cannabis products at ${STORE.name} in Wenatchee, WA. ${brand.activeSkus} products in stock.`,
+    title: `${brand.name} — Cannabis at Green Life Wenatchee`,
+    description: `${brand.name} cannabis at ${STORE.name} in ${STORE.address.full}. ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock — flower, pre-rolls, vapes, concentrates, edibles. Order ahead for cash pickup. 21+, ID required.`,
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
       title: `${brand.name} | ${STORE.name}`,
-      description: `Browse ${brand.name} products available at Green Life Cannabis, Wenatchee WA.`,
+      description: `Browse ${brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
+      url: `${STORE.website}/brands/${slug}`,
+      type: "website",
       ...(brand.logoUrl ? { images: [{ url: brand.logoUrl }] } : {}),
     },
   };
@@ -58,20 +61,24 @@ export default async function BrandPage({ params }: Props) {
     "@type": "Brand",
     "@id": `${brandUrl}#brand`,
     name: brand.name,
-    ...(brand.website ? { url: brand.website } : {}),
-    ...(brand.logoUrl ? { logo: brand.logoUrl } : {}),
+    description: `${brand.name} — Washington-state cannabis brand carried at ${STORE.name} in ${STORE.address.city}, WA. ${brand.activeSkus} active product${brand.activeSkus !== 1 ? "s" : ""} on the menu.`,
+    ...(brand.website ? { url: brand.website, sameAs: [brand.website] } : {}),
+    ...(brand.logoUrl ? { logo: brand.logoUrl, image: brand.logoUrl } : {}),
   };
 
   // Product schemas — gives AI engines structured, citable answers for
   // "{brand} cannabis Wenatchee" and "{product name} price near me" queries.
+  // Tightened to unit_price > 0 (matches what's actually shown on the page)
+  // and references the LocalBusiness @id from layout.tsx instead of
+  // duplicating the seller's address inline.
   const productSchemas = products
-    .filter((p) => p.unit_price != null)
+    .filter((p) => p.unit_price != null && p.unit_price > 0)
     .map((p) => ({
       "@context": "https://schema.org",
       "@type": "Product",
       "@id": `${brandUrl}#product-${p.id}`,
       name: p.name,
-      brand: { "@type": "Brand", name: brand.name },
+      brand: { "@id": `${brandUrl}#brand` },
       ...(p.category ? { category: p.category } : {}),
       ...(p.image_url ? { image: p.image_url } : {}),
       ...(p.effects ? { description: p.effects } : {}),
@@ -85,7 +92,7 @@ export default async function BrandPage({ params }: Props) {
         price: p.unit_price!.toFixed(2),
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        availableAtOrFrom: { "@type": "Place", name: STORE.name, address: STORE.address.full },
+        availableAtOrFrom: { "@id": `${STORE.website}/#dispensary` },
         seller: { "@id": `${STORE.website}/#dispensary` },
         url: `${STORE.website}/order`,
       },
@@ -139,8 +146,8 @@ export default async function BrandPage({ params }: Props) {
       <div className="bg-green-950 text-white py-10 sm:py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
           {brand.logoUrl ? (
-            <div className="shrink-0 w-20 h-20 rounded-2xl bg-white p-2.5 flex items-center justify-center shadow-lg">
-              <img src={brand.logoUrl} alt={brand.name} className="max-h-full max-w-full object-contain" />
+            <div className="shrink-0 w-20 h-20 rounded-2xl bg-white p-2.5 flex items-center justify-center shadow-lg relative">
+              <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain p-2.5" unoptimized />
             </div>
           ) : (
             <div className="shrink-0 w-20 h-20 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-2xl">
