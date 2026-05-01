@@ -135,10 +135,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </head>
         <body className="min-h-full flex flex-col bg-stone-50 text-stone-900">
+          {/* Skip-to-main — keyboard + screen-reader users tab here first
+              so they can bypass the header/announcement nav. Visually hidden
+              until focused, then becomes a fixed pill at the top-left. */}
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-green-700 focus:text-white focus:font-bold focus:text-sm focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+          >
+            Skip to main content
+          </a>
           <AgeGate />
           <AnnouncementBar />
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">{children}</main>
           <SiteFooter />
           <ServiceWorkerRegister />
         </body>

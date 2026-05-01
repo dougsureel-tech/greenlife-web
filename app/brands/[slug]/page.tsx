@@ -213,9 +213,15 @@ export default async function BrandPage({ params }: Props) {
                       <div key={p.id}
                         className="rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-md transition-all group">
                         {p.image_url ? (
-                          <div className="h-44 bg-stone-100 overflow-hidden">
-                            <img src={p.image_url} alt={p.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          <div className="h-44 bg-stone-100 overflow-hidden relative">
+                            <Image
+                              src={p.image_url}
+                              alt={p.name}
+                              fill
+                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
                           </div>
                         ) : (
                           <div className="h-32 bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center text-4xl">
