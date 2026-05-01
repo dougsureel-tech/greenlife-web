@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
 import { STORE } from "@/lib/store";
 import { StashHeaderLink } from "./StashHeaderLink";
 
@@ -19,6 +20,7 @@ const NAV = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { isSignedIn } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const isHome = pathname === "/";
@@ -85,14 +87,23 @@ export function SiteHeader() {
               {STORE.phone}
             </a>
             <StashHeaderLink dark={dark} />
-            <Link href="/account" title="My Account"
-              className={`p-2 rounded-lg transition-all duration-200 ${
-                dark ? "text-white/60 hover:text-white hover:bg-white/15" : "text-stone-500 hover:text-green-700 hover:bg-stone-50"
-              }`}>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </Link>
+            {isSignedIn ? (
+              <Link href="/account" title="My Account"
+                className={`p-2 rounded-lg transition-all duration-200 ${
+                  dark ? "text-white/60 hover:text-white hover:bg-white/15" : "text-stone-500 hover:text-green-700 hover:bg-stone-50"
+                }`}>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </Link>
+            ) : (
+              <Link href="/sign-in" title="Sign in"
+                className={`hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  dark ? "text-white/80 hover:text-white hover:bg-white/15" : "text-stone-600 hover:text-green-700 hover:bg-stone-50"
+                }`}>
+                Sign in
+              </Link>
+            )}
             <Link href="/order"
               className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 shadow-sm ${
                 dark
@@ -173,13 +184,29 @@ export function SiteHeader() {
             </svg>
             My Stash
           </Link>
-          <Link href="/account" onClick={() => setOpen(false)}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-green-300 hover:text-green-800 transition-all">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            My Account
-          </Link>
+          {isSignedIn ? (
+            <Link href="/account" onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-green-300 hover:text-green-800 transition-all">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              My Account
+            </Link>
+          ) : (
+            <>
+              <Link href="/sign-in" onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-green-300 hover:text-green-800 transition-all">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Sign In
+              </Link>
+              <Link href="/sign-up" onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm font-bold hover:bg-green-100 transition-all">
+                ✨ Create Account · 15% off first order
+              </Link>
+            </>
+          )}
           <Link href="/order" onClick={() => setOpen(false)}
             className="flex items-center justify-center px-4 py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-bold transition-colors shadow-md">
             Order Now →
