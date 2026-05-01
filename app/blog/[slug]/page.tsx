@@ -141,7 +141,7 @@ export default async function BlogPost({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Header */}
-      <div className="relative overflow-hidden bg-green-950 text-white py-14">
+      <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 space-y-3">
@@ -161,12 +161,12 @@ export default async function BlogPost({ params }: Props) {
       </div>
 
       {/* Body */}
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-3">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-3">
         {renderMarkdown(post.body)}
       </article>
 
       {/* Footer CTA */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-10 sm:pb-16">
         <div className="rounded-2xl bg-green-950 text-white p-6 text-center space-y-3">
           <p className="font-bold text-lg">Come visit us in {STORE.address.city}</p>
           <p className="text-green-300/70 text-sm max-w-sm mx-auto">
