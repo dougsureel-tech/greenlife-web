@@ -8,9 +8,40 @@ export const metadata: Metadata = {
   alternates: { canonical: "/menu" },
 };
 
+const menuSchema = {
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "@id": `${STORE.website}/menu#menu`,
+  name: `${STORE.name} Cannabis Menu`,
+  description: `Live cannabis menu at ${STORE.name} — flower, pre-rolls, vapes, concentrates, edibles, tinctures, and topicals. Updated daily. ${STORE.address.full}.`,
+  url: `${STORE.website}/menu`,
+  inLanguage: "en-US",
+  offeredBy: { "@id": `${STORE.website}/#dispensary` },
+  hasMenuSection: [
+    { "@type": "MenuSection", name: "Flower" },
+    { "@type": "MenuSection", name: "Pre-Rolls" },
+    { "@type": "MenuSection", name: "Vapes" },
+    { "@type": "MenuSection", name: "Concentrates" },
+    { "@type": "MenuSection", name: "Edibles" },
+    { "@type": "MenuSection", name: "Tinctures" },
+    { "@type": "MenuSection", name: "Topicals" },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Menu", item: `${STORE.website}/menu` },
+  ],
+};
+
 export default function MenuPage() {
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="relative overflow-hidden bg-green-950 text-white py-14">
         <div className="absolute inset-0 opacity-[0.07]"
           style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />

@@ -52,12 +52,70 @@ export default async function BrandPage({ params }: Props) {
       return order.indexOf(a) - order.indexOf(b);
     });
 
+  const brandUrl = `${STORE.website}/brands/${slug}`;
   const brandSchema = {
     "@context": "https://schema.org",
     "@type": "Brand",
+    "@id": `${brandUrl}#brand`,
     name: brand.name,
     ...(brand.website ? { url: brand.website } : {}),
     ...(brand.logoUrl ? { logo: brand.logoUrl } : {}),
+  };
+
+  // Product schemas — gives AI engines structured, citable answers for
+  // "{brand} cannabis Wenatchee" and "{product name} price near me" queries.
+  const productSchemas = products
+    .filter((p) => p.unit_price != null)
+    .map((p) => ({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": `${brandUrl}#product-${p.id}`,
+      name: p.name,
+      brand: { "@type": "Brand", name: brand.name },
+      ...(p.category ? { category: p.category } : {}),
+      ...(p.image_url ? { image: p.image_url } : {}),
+      ...(p.effects ? { description: p.effects } : {}),
+      ...(p.thc_pct != null ? { additionalProperty: [
+        { "@type": "PropertyValue", name: "THC", value: `${p.thc_pct.toFixed(1)}%` },
+        ...(p.cbd_pct != null && p.cbd_pct > 0 ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbd_pct.toFixed(1)}%` }] : []),
+        ...(p.strain_type ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strain_type }] : []),
+      ] } : {}),
+      offers: {
+        "@type": "Offer",
+        price: p.unit_price!.toFixed(2),
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        availableAtOrFrom: { "@type": "Place", name: STORE.name, address: STORE.address.full },
+        seller: { "@id": `${STORE.website}/#dispensary` },
+        url: `${STORE.website}/order`,
+      },
+    }));
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${brandUrl}#page`,
+    name: `${brand.name} at ${STORE.name}`,
+    description: `${brand.activeSkus} ${brand.name} cannabis product${brand.activeSkus !== 1 ? "s" : ""} in stock at ${STORE.name}, ${STORE.address.city}, WA.`,
+    url: brandUrl,
+    about: { "@id": `${brandUrl}#brand` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: products.length,
+      itemListElement: products.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: { "@id": `${brandUrl}#product-${p.id}`, name: p.name },
+      })),
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+        { "@type": "ListItem", position: 2, name: "Brands", item: `${STORE.website}/brands` },
+        { "@type": "ListItem", position: 3, name: brand.name, item: brandUrl },
+      ],
+    },
   };
 
   return (
@@ -66,6 +124,16 @@ export default async function BrandPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      {productSchemas.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchemas) }}
+        />
+      )}
 
       {/* Header */}
       <div className="bg-green-950 text-white py-14">
