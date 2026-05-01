@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 // remove the same redirect from /order/page.tsx.
 const IHEARTJANE_URL = "https://www.iheartjane.com/stores/5294/green-life-cannabis";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export default function MenuPage() {
   redirect(IHEARTJANE_URL);

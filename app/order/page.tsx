@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 // from git history and the matching redirect at /menu/page.tsx.
 const IHEARTJANE_URL = "https://www.iheartjane.com/stores/5294/green-life-cannabis";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export default function OrderPage() {
   redirect(IHEARTJANE_URL);
