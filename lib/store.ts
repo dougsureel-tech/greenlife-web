@@ -96,7 +96,7 @@ const LAST_CALL_BEFORE_CLOSE = 15;
 const SLOT_INTERVAL_MINUTES = 15;
 
 export type OrderingStatus =
-  | { state: "open"; closeMin: number; lastCallMin: number }
+  | { state: "open"; closeMin: number; lastCallMin: number; minutesUntilLastCall: number }
   | { state: "before_open"; opensAt: string }
   | { state: "after_last_call"; reopensAt: string; closesToday: string }
   | { state: "closed_today"; opensAt: string };
@@ -121,7 +121,7 @@ export function getOrderingStatus(): OrderingStatus {
       closesToday: today.close,
     };
   }
-  return { state: "open", closeMin, lastCallMin };
+  return { state: "open", closeMin, lastCallMin, minutesUntilLastCall: lastCallMin - cur };
 }
 
 function nextDayOpening(): OrderingStatus {

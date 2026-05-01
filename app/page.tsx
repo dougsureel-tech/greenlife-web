@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { STORE, isOpenNow, nextOpenLabel, hoursSummary } from "@/lib/store";
+import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { DropTicker } from "@/components/DropTicker";

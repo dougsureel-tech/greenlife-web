@@ -28,6 +28,8 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // Close drawer on navigation. Genuine side-effect — state can't be derived from props alone.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setOpen(false); }, [pathname]);
 
   const dark = isHome && !scrolled;

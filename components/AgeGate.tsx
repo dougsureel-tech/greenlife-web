@@ -26,6 +26,8 @@ export function AgeGate() {
   const [show, setShow] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
+  // localStorage isn't available during SSR, so verification status must be checked post-mount.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (!isVerified()) setShow(true);
   }, []);
