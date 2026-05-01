@@ -26,7 +26,7 @@ export function SiteFooter() {
       </div>
 
       {/* Main footer grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-8 sm:gap-y-10">
 
         {/* Brand + contact */}
         <div className="col-span-2 lg:col-span-2 space-y-5">
@@ -137,7 +137,7 @@ export function SiteFooter() {
 
       {/* Bottom bar */}
       <div className="border-t border-green-900/60 py-5 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-green-800">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-green-500/70">
           <p>© {new Date().getFullYear()} {STORE.name}. All rights reserved. Must be 21+ to purchase.</p>
           <p className="flex items-center gap-3">
             <span>Licensed WA Cannabis Retailer</span>
