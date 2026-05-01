@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getOrCreatePortalUser, getOrders } from "@/lib/portal";
 import { STORE } from "@/lib/store";
+import { PushSubscribe } from "@/components/PushSubscribe";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -95,6 +96,9 @@ export default async function AccountPage({ searchParams }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Drop alerts */}
+      <PushSubscribe />
 
       {/* Active orders */}
       {activeOrders.length > 0 && (

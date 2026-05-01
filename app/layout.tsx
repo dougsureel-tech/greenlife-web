@@ -5,6 +5,7 @@ import { AgeGate } from "@/components/AgeGate";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { STORE } from "@/lib/store";
 import "./globals.css";
 
@@ -42,9 +43,21 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Green Life",
+  },
   other: {
     "rating": "adult",
+    "mobile-web-app-capable": "yes",
   },
+};
+
+export const viewport = {
+  themeColor: "#022c22",
+  width: "device-width",
+  initialScale: 1,
 };
 
 const NEARBY_CITIES = [
@@ -127,6 +140,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
+          <ServiceWorkerRegister />
         </body>
       </html>
     </ClerkProvider>

@@ -1,0 +1,23 @@
+import { NextRequest, NextResponse } from "next/server";
+import { deletePushSubscription } from "@/lib/push-db";
+
+export const runtime = "nodejs";
+
+export async function POST(req: NextRequest) {
+  let body: { endpoint?: unknown };
+  try {
+    body = (await req.json()) as { endpoint?: unknown };
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+  const endpoint = typeof body.endpoint === "string" ? body.endpoint : null;
+  if (!endpoint) return NextResponse.json({ error: "Missing endpoint" }, { status: 400 });
+
+  try {
+    await deletePushSubscription(endpoint);
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("[push/unsubscribe] DB error", err);
+    return NextResponse.json({ error: "Could not unsubscribe" }, { status: 500 });
+  }
+}
