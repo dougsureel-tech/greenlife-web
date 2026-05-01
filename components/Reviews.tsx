@@ -135,9 +135,22 @@ export function ReviewsSection() {
           ))}
         </div>
 
-        <p className="text-[11px] text-stone-500 text-center mt-7">
-          Reviews surfaced from in-store comment cards and Google Maps. We don&apos;t edit, filter, or curate them — the bad and the great both go up.
-        </p>
+        <div className="mt-8 flex flex-col items-center gap-2.5">
+          <a
+            href={STORE.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl border border-stone-300 bg-white hover:border-green-400 hover:bg-green-50 text-stone-700 hover:text-green-700 text-sm font-semibold transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+            </svg>
+            Leave us a review on Google
+          </a>
+          <p className="text-[11px] text-stone-500 text-center">
+            Reviews come from in-store comment cards and Google Maps. We don&apos;t edit, filter, or curate them — the bad and the great both go up.
+          </p>
+        </div>
 
         <script
           type="application/ld+json"

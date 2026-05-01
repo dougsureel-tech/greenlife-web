@@ -210,6 +210,45 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ─── First-timer reassurance ────────────────────────────────────────── */}
+      <section className="bg-white border-b border-stone-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+          <div className="text-center mb-8">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">First time?</p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">No judgment, just answers.</h2>
+            <p className="text-stone-600 mt-1.5 text-sm">A lot of our regulars started right where you are. Here&apos;s the cheat sheet.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
+              <div className="text-2xl">💵</div>
+              <h3 className="font-bold text-stone-900 text-base">Bring cash + ID</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">
+                Cannabis is federally illegal so banks won&apos;t process card payments — every WA dispensary is cash only. Bring a valid government ID; we card every visitor at the door (21+).
+              </p>
+              <p className="text-xs text-stone-500 pt-1">ATM on-site if you forget.</p>
+            </div>
+            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
+              <div className="text-2xl">🌿</div>
+              <h3 className="font-bold text-stone-900 text-base">Not sure what you want?</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">
+                Use the &ldquo;What are you in the mood for?&rdquo; chips above to filter the menu by feel — Energize, Chill, Sleep, etc. Or walk in and ask a budtender; they&apos;ll talk through what fits without being pushy.
+              </p>
+              <Link href="/learn" className="inline-block text-xs font-bold text-green-700 hover:text-green-600 pt-1">
+                Cannabis 101 guide →
+              </Link>
+            </div>
+            <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
+              <div className="text-2xl">⏱️</div>
+              <h3 className="font-bold text-stone-900 text-base">Plan ~15 minutes</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">
+                Walk-in browse usually runs 10–15 min. Order ahead at <Link href="/order" className="font-semibold text-green-700 hover:text-green-600">/order</Link> and pickup is closer to 5 — pay cash at the counter and you&apos;re out the door.
+              </p>
+              <p className="text-xs text-stone-500 pt-1">Tax is baked into shelf price. What you see is what you pay.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Category grid ──────────────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
