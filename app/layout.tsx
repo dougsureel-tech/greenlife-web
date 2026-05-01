@@ -47,11 +47,20 @@ export const metadata: Metadata = {
   },
 };
 
+const NEARBY_CITIES = [
+  "Wenatchee", "East Wenatchee", "Cashmere", "Leavenworth", "Chelan",
+  "Quincy", "Waterville", "Entiat", "Malaga", "Monitor", "Sunnyslope",
+];
+
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "Store"],
+  "@id": `${STORE.website}/#dispensary`,
   name: STORE.name,
-  description: `Licensed cannabis dispensary serving ${STORE.address.city} and the greater Wenatchee Valley.`,
+  legalName: STORE.name,
+  alternateName: ["Green Life", "Green Life Wenatchee"],
+  description: `Licensed cannabis dispensary in ${STORE.address.city}, WA. Premium flower, pre-rolls, vapes, concentrates, edibles, tinctures and topicals from Washington-state producers. Cash only, 21+ with valid ID.`,
+  slogan: STORE.tagline,
   url: STORE.website,
   telephone: STORE.phoneTel,
   email: STORE.email,
@@ -68,6 +77,7 @@ const localBusinessSchema = {
     latitude: STORE.geo.lat,
     longitude: STORE.geo.lng,
   },
+  areaServed: NEARBY_CITIES.map((name) => ({ "@type": "City", name, containedInPlace: { "@type": "State", name: "Washington" } })),
   openingHoursSpecification: STORE.hours.map((h) => ({
     "@type": "OpeningHoursSpecification",
     dayOfWeek: `https://schema.org/${h.day}`,
@@ -78,6 +88,26 @@ const localBusinessSchema = {
   currenciesAccepted: "USD",
   paymentAccepted: "Cash",
   hasMap: STORE.googleMapsUrl,
+  identifier: {
+    "@type": "PropertyValue",
+    propertyID: "WSLCB License",
+    value: STORE.wslcbLicense,
+  },
+  knowsAbout: [
+    "Cannabis flower", "Pre-rolls", "Cannabis concentrates", "Cannabis vapes",
+    "Cannabis edibles", "Tinctures", "Topicals", "Terpenes", "Cannabinoids",
+    "Indica", "Sativa", "Hybrid", "Washington State cannabis law",
+  ],
+  amenityFeature: STORE.amenities.map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
+  publicAccess: true,
+  smokingAllowed: false,
+  isAccessibleForFree: true,
+  hasMenu: `${STORE.website}/menu`,
+  potentialAction: {
+    "@type": "OrderAction",
+    target: `${STORE.website}/order`,
+    deliveryMethod: "http://purl.org/goodrelations/v1#DeliveryModePickUp",
+  },
   sameAs: [STORE.social.instagram, STORE.social.facebook].filter(Boolean),
 };
 
