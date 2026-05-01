@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow, nextOpenLabel, hoursSummary } from "@/lib/store";
 import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
+import { MobileStickyCta } from "@/components/MobileStickyCta";
 
 export const dynamic = "force-dynamic";
 
@@ -245,7 +246,7 @@ export default async function HomePage() {
                 <div className="space-y-1">
                   <div className="text-xs font-bold text-green-500 uppercase tracking-widest">Step {step}</div>
                   <div className="font-bold text-stone-900 text-base">{title}</div>
-                  <p className="text-stone-500 text-sm leading-relaxed max-w-xs mx-auto">{body}</p>
+                  <p className="text-stone-600 text-sm leading-relaxed max-w-xs mx-auto">{body}</p>
                 </div>
               </div>
             ))}
@@ -444,16 +445,16 @@ export default async function HomePage() {
               ))}
               {brands.length > featuredBrands.length && (
                 <Link href="/brands"
-                  className="flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 bg-stone-50 hover:bg-green-50 transition-all aspect-square">
-                  <span className="text-2xl font-extrabold text-stone-300">+{brands.length - featuredBrands.length}</span>
-                  <span className="text-xs text-stone-400 font-medium">more brands</span>
+                  className="group flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border-2 border-dashed border-stone-300 hover:border-green-400 bg-stone-50 hover:bg-green-50 transition-all aspect-square">
+                  <span className="text-2xl font-extrabold text-stone-500 group-hover:text-green-700 transition-colors">+{brands.length - featuredBrands.length}</span>
+                  <span className="text-xs text-stone-600 font-medium group-hover:text-green-700 transition-colors">See all brands →</span>
                 </Link>
               )}
             </div>
           ) : (
             <Link href="/brands"
               className="block rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 hover:bg-green-50 transition-all py-14 text-center group">
-              <p className="text-stone-400 group-hover:text-green-600 transition-colors font-semibold">See all brands we carry →</p>
+              <p className="text-stone-600 group-hover:text-green-600 transition-colors font-semibold">See all brands we carry →</p>
             </Link>
           )}
         </section>
@@ -461,6 +462,9 @@ export default async function HomePage() {
 
       {/* ─── FAQ — AI Overview / Google rich-result fuel ────────────────────── */}
       <FaqSection />
+
+      {/* Mobile sticky CTA — appears after scrolling past the hero */}
+      <MobileStickyCta />
 
       {/* ─── CTA band ───────────────────────────────────────────────────────── */}
       <section className="bg-green-950 text-white">
