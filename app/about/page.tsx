@@ -45,19 +45,19 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Page header */}
-      <div className="relative overflow-hidden bg-green-950 text-white py-14">
+      <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div className="absolute inset-0 opacity-[0.07]"
           style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         <div className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Story</p>
-          <h1 className="text-4xl font-extrabold tracking-tight">About Green Life Cannabis</h1>
-          <p className="text-green-300/70 mt-2">Wenatchee&apos;s locally owned cannabis dispensary</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">About Green Life Cannabis</h1>
+          <p className="text-green-300/70 mt-2 text-sm sm:text-base">Wenatchee&apos;s locally owned cannabis dispensary</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12 sm:space-y-16">
 
         {/* Mission */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">

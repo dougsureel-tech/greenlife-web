@@ -28,19 +28,19 @@ export default function ContactPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       {/* Page header */}
-      <div className="relative overflow-hidden bg-green-950 text-white py-14">
+      <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div className="absolute inset-0 opacity-[0.07]"
           style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         <div className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Reach Out</p>
-          <h1 className="text-4xl font-extrabold tracking-tight">Contact Us</h1>
-          <p className="text-green-300/70 mt-2">We&apos;d love to hear from you</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Contact Us</h1>
+          <p className="text-green-300/70 mt-2 text-sm sm:text-base">We&apos;d love to hear from you</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12">
         {/* Contact details */}
         <div className="space-y-8">
           <div className="space-y-3">
