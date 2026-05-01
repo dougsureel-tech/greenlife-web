@@ -26,10 +26,10 @@ export function SiteFooter() {
       </div>
 
       {/* Main footer grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10">
 
         {/* Brand + contact */}
-        <div className="lg:col-span-2 space-y-5">
+        <div className="col-span-2 lg:col-span-2 space-y-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center shrink-0">
               <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 text-white" stroke="currentColor" strokeWidth="1.5">
@@ -92,24 +92,45 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        {/* Links */}
+        {/* Explore links */}
         <div className="space-y-3">
           <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Explore</h3>
           <ul className="space-y-2">
             {[
-              { href: "/menu",    label: "Shop Menu" },
-              { href: "/order",   label: "Order for Pickup" },
-              { href: "/brands",  label: "Our Brands" },
-              { href: "/faq",     label: "FAQ" },
-              { href: "/about",   label: "About Us" },
-              { href: "/contact", label: "Contact" },
-              { href: "/account", label: "My Account" },
+              { href: "/menu",             label: "Shop Menu" },
+              { href: "/order",            label: "Order for Pickup" },
+              { href: "/find-your-strain", label: "Find your strain" },
+              { href: "/brands",           label: "Our Brands" },
+              { href: "/blog",             label: "Guides" },
+              { href: "/learn",            label: "Cannabis 101" },
+              { href: "/faq",              label: "FAQ" },
+              { href: "/about",            label: "About Us" },
+              { href: "/contact",          label: "Contact" },
+              { href: "/account",          label: "My Account" },
             ].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="text-xs text-green-300/80 hover:text-white transition-colors">{label}</Link>
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Nearby cities — internal-link / local-SEO juice */}
+        <div className="space-y-3">
+          <h3 className="text-white font-semibold text-xs uppercase tracking-widest">We serve</h3>
+          <ul className="space-y-2">
+            {[
+              "Wenatchee", "East Wenatchee", "Sunnyslope", "Cashmere",
+              "Leavenworth", "Chelan", "Entiat", "Quincy",
+            ].map((city) => (
+              <li key={city} className="text-xs text-green-300/80">
+                <span className="text-green-400/40 mr-1">·</span>{city}, WA
+              </li>
+            ))}
+          </ul>
+          <p className="text-[10px] text-green-400/40 leading-relaxed pt-1">
+            Easy drive from anywhere in NCW. On US-2 between Cascades and Lake Chelan.
+          </p>
         </div>
       </div>
 
