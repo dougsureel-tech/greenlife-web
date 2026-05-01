@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getActiveBrands } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
@@ -90,20 +91,27 @@ export default async function BrandsPage() {
                   <Link
                     key={brand.id}
                     href={`/brands/${brand.slug}`}
-                    className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-md transition-all text-center"
+                    className="group flex flex-col items-center gap-3 rounded-2xl border border-stone-200 bg-white hover:border-green-400 hover:shadow-lg transition-all text-center overflow-hidden"
                   >
-                    <div className="h-14 w-full flex items-center justify-center">
-                      <img
+                    {/* Logo well — soft contrast bg makes any logo pop, no
+                        matter the brand's own coloring. Bigger than before
+                        so brand identity reads at a glance like in the
+                        store case. */}
+                    <div className="w-full aspect-[5/3] bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center p-5 border-b border-stone-100">
+                      <Image
                         src={brand.logoUrl!}
                         alt={brand.name}
-                        className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                        width={200}
+                        height={120}
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                        unoptimized
                       />
                     </div>
-                    <div>
-                      <div className="font-bold text-stone-800 group-hover:text-green-800 text-sm transition-colors leading-tight">
+                    <div className="px-3 pb-4 pt-1">
+                      <div className="font-bold text-stone-900 group-hover:text-green-800 text-sm transition-colors leading-tight">
                         {brand.name}
                       </div>
-                      <div className="text-xs text-stone-400 mt-0.5">
+                      <div className="text-xs text-stone-500 mt-0.5">
                         {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""}
                       </div>
                     </div>

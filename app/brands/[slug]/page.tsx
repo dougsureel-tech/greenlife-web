@@ -146,11 +146,11 @@ export default async function BrandPage({ params }: Props) {
       <div className="bg-green-950 text-white py-10 sm:py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
           {brand.logoUrl ? (
-            <div className="shrink-0 w-20 h-20 rounded-2xl bg-white p-2.5 flex items-center justify-center shadow-lg relative">
-              <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain p-2.5" unoptimized />
+            <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white flex items-center justify-center shadow-xl relative overflow-hidden">
+              <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain p-4" unoptimized />
             </div>
           ) : (
-            <div className="shrink-0 w-20 h-20 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-2xl">
+            <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-4xl">
               🌿
             </div>
           )}

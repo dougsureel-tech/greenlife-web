@@ -519,28 +519,34 @@ export default async function HomePage() {
             </Link>
           </div>
           {featuredBrands.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
               {featuredBrands.map((brand) => (
                 <Link key={brand.id} href={`/brands/${brand.slug}`}
-                  className="group flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-md transition-all aspect-square">
-                  <Image
-                    src={brand.logoUrl!}
-                    alt={brand.name}
-                    width={140}
-                    height={56}
-                    className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
-                    unoptimized
-                  />
-                  <span className="text-xs text-stone-600 group-hover:text-green-700 transition-colors text-center leading-tight font-medium">
-                    {brand.name}
-                  </span>
+                  className="group flex flex-col rounded-2xl border border-stone-200 bg-white hover:border-green-400 hover:shadow-lg transition-all overflow-hidden">
+                  {/* Logo well — soft contrast bg + generous space so the
+                      brand mark reads at a glance, like in the case. */}
+                  <div className="aspect-[5/3] bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center p-6 border-b border-stone-100">
+                    <Image
+                      src={brand.logoUrl!}
+                      alt={brand.name}
+                      width={240}
+                      height={144}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="px-3 py-3 text-center">
+                    <span className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-green-700 transition-colors leading-tight block truncate">
+                      {brand.name}
+                    </span>
+                  </div>
                 </Link>
               ))}
               {brands.length > featuredBrands.length && (
                 <Link href="/brands"
-                  className="group flex flex-col items-center justify-center gap-1 p-4 rounded-2xl border-2 border-dashed border-stone-300 hover:border-green-400 bg-stone-50 hover:bg-green-50 transition-all aspect-square">
-                  <span className="text-2xl font-extrabold text-stone-500 group-hover:text-green-700 transition-colors">+{brands.length - featuredBrands.length}</span>
-                  <span className="text-xs text-stone-600 font-medium group-hover:text-green-700 transition-colors">See all brands →</span>
+                  className="group flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-stone-300 hover:border-green-400 bg-stone-50 hover:bg-green-50 transition-all">
+                  <span className="text-3xl font-extrabold text-stone-500 group-hover:text-green-700 transition-colors">+{brands.length - featuredBrands.length}</span>
+                  <span className="text-xs text-stone-600 font-medium group-hover:text-green-700 transition-colors px-2 text-center">See all brands →</span>
                 </Link>
               )}
             </div>
