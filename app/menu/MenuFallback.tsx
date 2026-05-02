@@ -32,12 +32,15 @@ type FeaturedDeal = {
 // spinner but never resolves to products — that's *exactly* the failure
 // mode customers were seeing.
 //
-// Checks fire at 2s/6s/12s. First check is fast because Boost is currently
-// CORS-blocked — making customers wait 10s before any CTA shows means most
-// of them bounce. If Boost later hydrates we hide the panel so the working
-// menu isn't covered.
+// Show the fallback after FALLBACK_AFTER_MS if the mount is still empty —
+// 6s gives a fair chance for a normal connection on first cold load. After
+// that a MutationObserver keeps watching the mount; the moment Boost
+// finally hydrates (even if it takes 60+ seconds), the fallback hides.
+// Doug 2026-05-02: "loads after a minute but not first try usually" — the
+// previous 2s/6s/12s window stopped checking after 12s, so the fallback
+// stayed pinned even after Boost did eventually finish.
 
-const CHECK_MS = [2_000, 6_000, 12_000];
+const FALLBACK_AFTER_MS = 6_000;
 const LOADED_MIN_CHARS = 500;
 const IHEARTJANE_URL = "https://www.iheartjane.com/stores/5294/green-life-cannabis";
 
@@ -45,14 +48,31 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    function check() {
-      const mount = document.getElementById("app");
-      if (!mount) return;
-      const text = mount.textContent?.trim() ?? "";
-      setShow(text.length < LOADED_MIN_CHARS);
-    }
-    const timers = CHECK_MS.map((ms) => setTimeout(check, ms));
-    return () => timers.forEach(clearTimeout);
+    const mount = document.getElementById("app");
+    if (!mount) return;
+
+    const isLoaded = () => (mount.textContent?.trim().length ?? 0) >= LOADED_MIN_CHARS;
+
+    // Initial timer — only flip to "show fallback" if Boost hasn't filled
+    // the mount within the grace window. Customers on fast connections
+    // never see the panel because Boost beats this timer.
+    const showTimer = setTimeout(() => {
+      if (!isLoaded()) setShow(true);
+    }, FALLBACK_AFTER_MS);
+
+    // Watch for Boost hydrating at any point — short, medium, or "after a
+    // minute." When it does, hide the fallback so the real menu isn't
+    // covered. Subtree+characterData = picks up the deepest text changes
+    // Boost makes when it finally renders product names/prices.
+    const observer = new MutationObserver(() => {
+      if (isLoaded()) setShow(false);
+    });
+    observer.observe(mount, { childList: true, subtree: true, characterData: true });
+
+    return () => {
+      clearTimeout(showTimer);
+      observer.disconnect();
+    };
   }, []);
 
   if (!show) return null;
