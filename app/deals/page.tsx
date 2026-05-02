@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow, nextOpenLabel, minutesUntilClose } from "@/lib/store";
 import { getActiveDeals, type ActiveDeal } from "@/lib/db";
-import { DealCountdown, computeServer } from "@/components/DealCountdown";
+import { DealCountdown } from "@/components/DealCountdown";
+import { computeDealCountdown } from "@/lib/deal-countdown";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -345,7 +346,7 @@ export default async function DealsPage() {
         <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-4">
           {deals.map((d, i) => {
             const med = medallionFor(d.appliesTo);
-            const initial = computeServer(d.endDate);
+            const initial = computeDealCountdown(d.endDate);
             const isFirst = i === 0;
             // CTA target: per `feedback_customer_ctas_point_to_menu_only.md`,
             // the View on menu primary always points at /menu (Boost embed).
