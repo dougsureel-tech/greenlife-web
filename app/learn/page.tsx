@@ -25,7 +25,9 @@ export default async function LearnPage() {
   return (
     <div className="space-y-8">
       <nav className="text-xs text-zinc-500" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-zinc-300">Home</Link>
+        <Link href="/" className="hover:text-zinc-300">
+          Home
+        </Link>
         <span className="mx-1.5">/</span>
         <span className="text-zinc-400">Learn</span>
       </nav>
@@ -48,8 +50,8 @@ export default async function LearnPage() {
             The basics, no jargon.
           </h1>
           <p className="mt-3 text-base sm:text-lg text-zinc-300 max-w-2xl">
-            Quick reads on the questions our budtenders hear most. New to cannabis? Coming back after a
-            long break? Just want to know why we&apos;re cash-only? Start here.
+            Quick reads on the questions our budtenders hear most. New to cannabis? Coming back after a long
+            break? Just want to know why we&apos;re cash-only? Start here.
           </p>
           {userId ? (
             <p className="mt-3 text-xs text-emerald-300/80">

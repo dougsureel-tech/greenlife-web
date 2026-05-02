@@ -39,8 +39,14 @@ const STRAIN_COLORS: Record<string, { badge: string }> = {
 };
 
 const CAT_ICONS: Record<string, string> = {
-  Flower: "🌿", "Pre-Rolls": "🫙", Vapes: "💨", Concentrates: "🧴",
-  Edibles: "🍬", Tinctures: "💊", Topicals: "🧼", Accessories: "🔧",
+  Flower: "🌿",
+  "Pre-Rolls": "🫙",
+  Vapes: "💨",
+  Concentrates: "🧴",
+  Edibles: "🍬",
+  Tinctures: "💊",
+  Topicals: "🧼",
+  Accessories: "🔧",
 };
 
 export default async function BrandPage({ params }: Props) {
@@ -49,11 +55,20 @@ export default async function BrandPage({ params }: Props) {
   if (!brand) notFound();
 
   const products = await getBrandProducts(brand.id).catch(() => []);
-  const categories = [...new Set(products.map((p) => p.category ?? "Other"))]
-    .sort((a, b) => {
-      const order = ["Flower", "Pre-Rolls", "Vapes", "Concentrates", "Edibles", "Tinctures", "Topicals", "Accessories", "Other"];
-      return order.indexOf(a) - order.indexOf(b);
-    });
+  const categories = [...new Set(products.map((p) => p.category ?? "Other"))].sort((a, b) => {
+    const order = [
+      "Flower",
+      "Pre-Rolls",
+      "Vapes",
+      "Concentrates",
+      "Edibles",
+      "Tinctures",
+      "Topicals",
+      "Accessories",
+      "Other",
+    ];
+    return order.indexOf(a) - order.indexOf(b);
+  });
 
   const brandUrl = `${STORE.website}/brands/${slug}`;
   const brandSchema = {
@@ -82,11 +97,19 @@ export default async function BrandPage({ params }: Props) {
       ...(p.category ? { category: p.category } : {}),
       ...(p.image_url ? { image: p.image_url } : {}),
       ...(p.effects ? { description: p.effects } : {}),
-      ...(p.thc_pct != null ? { additionalProperty: [
-        { "@type": "PropertyValue", name: "THC", value: `${p.thc_pct.toFixed(1)}%` },
-        ...(p.cbd_pct != null && p.cbd_pct > 0 ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbd_pct.toFixed(1)}%` }] : []),
-        ...(p.strain_type ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strain_type }] : []),
-      ] } : {}),
+      ...(p.thc_pct != null
+        ? {
+            additionalProperty: [
+              { "@type": "PropertyValue", name: "THC", value: `${p.thc_pct.toFixed(1)}%` },
+              ...(p.cbd_pct != null && p.cbd_pct > 0
+                ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbd_pct.toFixed(1)}%` }]
+                : []),
+              ...(p.strain_type
+                ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strain_type }]
+                : []),
+            ],
+          }
+        : {}),
       offers: {
         "@type": "Offer",
         price: p.unit_price!.toFixed(2),
@@ -127,10 +150,7 @@ export default async function BrandPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
@@ -156,17 +176,24 @@ export default async function BrandPage({ params }: Props) {
           )}
           <div>
             <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-1.5">
-              <Link href="/brands" className="hover:text-green-300 transition-colors">All Brands</Link>
+              <Link href="/brands" className="hover:text-green-300 transition-colors">
+                All Brands
+              </Link>
               <span className="mx-1.5 opacity-50">/</span>
               {brand.name}
             </p>
             <h1 className="text-3xl font-extrabold tracking-tight">{brand.name}</h1>
             <p className="text-green-300/70 text-sm mt-1 flex flex-wrap items-center gap-3">
-              <span>{brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""} in {STORE.address.city}, WA</span>
+              <span>
+                {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""} in {STORE.address.city}, WA
+              </span>
               {brand.website && (
-                <a href={brand.website.startsWith("http") ? brand.website : `https://${brand.website}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="hover:text-white transition-colors underline underline-offset-2 text-green-400">
+                <a
+                  href={brand.website.startsWith("http") ? brand.website : `https://${brand.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors underline underline-offset-2 text-green-400"
+                >
                   Visit website ↗
                 </a>
               )}
@@ -180,10 +207,14 @@ export default async function BrandPage({ params }: Props) {
         <div className="rounded-2xl bg-gradient-to-r from-green-800 to-emerald-800 text-white px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p className="font-bold text-base">Want to order {brand.name}?</p>
-            <p className="text-green-200/80 text-sm">Place a pickup order and it&apos;ll be ready when you arrive.</p>
+            <p className="text-green-200/80 text-sm">
+              Place a pickup order and it&apos;ll be ready when you arrive.
+            </p>
           </div>
-          <Link href="/menu"
-            className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all shadow-md hover:-translate-y-0.5">
+          <Link
+            href="/menu"
+            className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all shadow-md hover:-translate-y-0.5"
+          >
             Order for Pickup →
           </Link>
         </div>
@@ -193,7 +224,9 @@ export default async function BrandPage({ params }: Props) {
           <div className="text-center py-16 space-y-3">
             <div className="text-4xl">🌿</div>
             <p className="text-stone-500 font-medium">No products currently in stock</p>
-            <Link href="/menu" className="text-sm text-green-700 font-semibold hover:underline">Browse full menu →</Link>
+            <Link href="/menu" className="text-sm text-green-700 font-semibold hover:underline">
+              Browse full menu →
+            </Link>
           </div>
         ) : (
           categories.map((cat) => {
@@ -203,15 +236,19 @@ export default async function BrandPage({ params }: Props) {
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{CAT_ICONS[cat] ?? "🌱"}</span>
                   <h2 className="text-xl font-extrabold text-stone-900 tracking-tight">{cat}</h2>
-                  <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">{catProducts.length}</span>
+                  <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">
+                    {catProducts.length}
+                  </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {catProducts.map((p) => {
                     const strainKey = (p.strain_type ?? "").toLowerCase();
                     const strain = STRAIN_COLORS[strainKey];
                     return (
-                      <div key={p.id}
-                        className="rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-md transition-all group">
+                      <div
+                        key={p.id}
+                        className="rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-md transition-all group"
+                      >
                         {p.image_url ? (
                           <div className="h-44 bg-stone-100 overflow-hidden relative">
                             <Image
@@ -234,7 +271,9 @@ export default async function BrandPage({ params }: Props) {
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {p.strain_type && strain && (
-                              <span className={`text-xs px-2.5 py-0.5 rounded-full border font-semibold capitalize ${strain.badge}`}>
+                              <span
+                                className={`text-xs px-2.5 py-0.5 rounded-full border font-semibold capitalize ${strain.badge}`}
+                              >
                                 {p.strain_type}
                               </span>
                             )}
@@ -249,17 +288,19 @@ export default async function BrandPage({ params }: Props) {
                               </span>
                             )}
                           </div>
-                          {p.effects && (
-                            <p className="text-xs text-stone-400 line-clamp-1">✨ {p.effects}</p>
-                          )}
+                          {p.effects && <p className="text-xs text-stone-400 line-clamp-1">✨ {p.effects}</p>}
                           <div className="flex items-center justify-between pt-1 border-t border-stone-50">
                             {p.unit_price != null ? (
-                              <span className="font-extrabold text-stone-900">${p.unit_price.toFixed(2)}</span>
+                              <span className="font-extrabold text-stone-900">
+                                ${p.unit_price.toFixed(2)}
+                              </span>
                             ) : (
                               <span className="text-stone-300">—</span>
                             )}
-                            <Link href="/menu"
-                              className="text-xs font-bold text-green-700 hover:text-green-600 transition-colors">
+                            <Link
+                              href="/menu"
+                              className="text-xs font-bold text-green-700 hover:text-green-600 transition-colors"
+                            >
                               Order →
                             </Link>
                           </div>
@@ -275,7 +316,10 @@ export default async function BrandPage({ params }: Props) {
 
         {/* Back link */}
         <div className="pt-4 border-t border-stone-100">
-          <Link href="/brands" className="text-sm text-stone-500 hover:text-green-700 font-semibold transition-colors">
+          <Link
+            href="/brands"
+            className="text-sm text-stone-500 hover:text-green-700 font-semibold transition-colors"
+          >
             ← All Brands
           </Link>
         </div>

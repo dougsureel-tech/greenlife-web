@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
   }
 
   const title = typeof body.title === "string" ? body.title.slice(0, 120) : null;
-  const text  = typeof body.body  === "string" ? body.body.slice(0, 280)  : "";
-  const url   = typeof body.url   === "string" ? body.url.slice(0, 500)   : "/";
-  const tag   = typeof body.tag   === "string" ? body.tag.slice(0, 80)    : undefined;
+  const text = typeof body.body === "string" ? body.body.slice(0, 280) : "";
+  const url = typeof body.url === "string" ? body.url.slice(0, 500) : "/";
+  const tag = typeof body.tag === "string" ? body.tag.slice(0, 80) : undefined;
   if (!title) return NextResponse.json({ error: "Missing title" }, { status: 400 });
 
   const subs = await listPushSubscriptions();
@@ -57,22 +57,24 @@ export async function POST(req: NextRequest) {
   // Fire in parallel; web-push on each subscription is independent. Push providers
   // (FCM, Mozilla, Apple) all rate-limit individually so this scales fine for our
   // size of customer base (low thousands at most).
-  await Promise.all(subs.map(async (s) => {
-    try {
-      await webpush.sendNotification(
-        { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
-        payload,
-      );
-      sent++;
-    } catch (err: unknown) {
-      const status = (err as { statusCode?: number })?.statusCode;
-      if (status === 404 || status === 410) {
-        dead.push(s.endpoint);
-      } else {
-        console.error("[push/send] error for endpoint", s.endpoint.slice(0, 60), status, err);
+  await Promise.all(
+    subs.map(async (s) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
+          payload,
+        );
+        sent++;
+      } catch (err: unknown) {
+        const status = (err as { statusCode?: number })?.statusCode;
+        if (status === 404 || status === 410) {
+          dead.push(s.endpoint);
+        } else {
+          console.error("[push/send] error for endpoint", s.endpoint.slice(0, 60), status, err);
+        }
       }
-    }
-  }));
+    }),
+  );
 
   if (dead.length > 0) await pruneEndpoints(dead);
 

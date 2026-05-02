@@ -17,8 +17,7 @@ export const metadata: Metadata = {
     default: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA`,
     template: `%s | ${STORE.name}`,
   },
-  description:
-    `${STORE.name} is ${STORE.address.city}'s premier cannabis dispensary. Shop flower, concentrates, edibles, vapes, and more. Open daily. ${STORE.address.full}.`,
+  description: `${STORE.name} is ${STORE.address.city}'s premier cannabis dispensary. Shop flower, concentrates, edibles, vapes, and more. Open daily. ${STORE.address.full}.`,
   keywords: [
     "cannabis dispensary Wenatchee",
     "marijuana dispensary Wenatchee WA",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     title: "Green Life",
   },
   other: {
-    "rating": "adult",
+    rating: "adult",
     "mobile-web-app-capable": "yes",
   },
 };
@@ -61,8 +60,17 @@ export const viewport = {
 };
 
 const NEARBY_CITIES = [
-  "Wenatchee", "East Wenatchee", "Cashmere", "Leavenworth", "Chelan",
-  "Quincy", "Waterville", "Entiat", "Malaga", "Monitor", "Sunnyslope",
+  "Wenatchee",
+  "East Wenatchee",
+  "Cashmere",
+  "Leavenworth",
+  "Chelan",
+  "Quincy",
+  "Waterville",
+  "Entiat",
+  "Malaga",
+  "Monitor",
+  "Sunnyslope",
 ];
 
 const localBusinessSchema = {
@@ -90,7 +98,11 @@ const localBusinessSchema = {
     latitude: STORE.geo.lat,
     longitude: STORE.geo.lng,
   },
-  areaServed: NEARBY_CITIES.map((name) => ({ "@type": "City", name, containedInPlace: { "@type": "State", name: "Washington" } })),
+  areaServed: NEARBY_CITIES.map((name) => ({
+    "@type": "City",
+    name,
+    containedInPlace: { "@type": "State", name: "Washington" },
+  })),
   openingHoursSpecification: STORE.hours.map((h) => ({
     "@type": "OpeningHoursSpecification",
     dayOfWeek: `https://schema.org/${h.day}`,
@@ -107,11 +119,25 @@ const localBusinessSchema = {
     value: STORE.wslcbLicense,
   },
   knowsAbout: [
-    "Cannabis flower", "Pre-rolls", "Cannabis concentrates", "Cannabis vapes",
-    "Cannabis edibles", "Tinctures", "Topicals", "Terpenes", "Cannabinoids",
-    "Indica", "Sativa", "Hybrid", "Washington State cannabis law",
+    "Cannabis flower",
+    "Pre-rolls",
+    "Cannabis concentrates",
+    "Cannabis vapes",
+    "Cannabis edibles",
+    "Tinctures",
+    "Topicals",
+    "Terpenes",
+    "Cannabinoids",
+    "Indica",
+    "Sativa",
+    "Hybrid",
+    "Washington State cannabis law",
   ],
-  amenityFeature: STORE.amenities.map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
+  amenityFeature: STORE.amenities.map((name) => ({
+    "@type": "LocationFeatureSpecification",
+    name,
+    value: true,
+  })),
   publicAccess: true,
   smokingAllowed: false,
   isAccessibleForFree: true,
@@ -147,7 +173,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AgeGate />
           <AnnouncementBar />
           <SiteHeader />
-          <main id="main" className="flex-1">{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
           <SiteFooter />
           <ServiceWorkerRegister />
         </body>

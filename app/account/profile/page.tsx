@@ -30,7 +30,9 @@ export default async function ProfilePage() {
       <div className="max-w-lg mx-auto px-4 sm:px-6 py-10 space-y-6">
         {/* Breadcrumb-style back nav */}
         <nav className="flex items-center gap-2 text-xs text-stone-500" aria-label="Breadcrumb">
-          <Link href="/account" className="hover:text-green-700 transition-colors">My Account</Link>
+          <Link href="/account" className="hover:text-green-700 transition-colors">
+            My Account
+          </Link>
           <span aria-hidden>/</span>
           <span className="text-stone-700 font-semibold">Profile</span>
         </nav>
@@ -55,7 +57,9 @@ export default async function ProfilePage() {
             )}
             <div className="flex items-center justify-between gap-3">
               <span className="text-stone-500">Loyalty points</span>
-              <span className="text-stone-900 font-bold tabular-nums">{portalUser.loyaltyPoints.toLocaleString()}</span>
+              <span className="text-stone-900 font-bold tabular-nums">
+                {portalUser.loyaltyPoints.toLocaleString()}
+              </span>
             </div>
             {memberSince && (
               <div className="flex items-center justify-between gap-3">

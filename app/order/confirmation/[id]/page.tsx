@@ -57,7 +57,9 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
           </div>
           {pickupLabel && pickupDay && (
             <div className="rounded-2xl bg-white/10 px-5 py-4">
-              <p className="text-xs text-green-300/80 font-bold uppercase tracking-widest">Ready for pickup</p>
+              <p className="text-xs text-green-300/80 font-bold uppercase tracking-widest">
+                Ready for pickup
+              </p>
               <p className="text-3xl font-black mt-1">{pickupLabel}</p>
               <p className="text-sm text-green-200/90 mt-0.5">{pickupDay}</p>
             </div>
@@ -82,7 +84,9 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-xs text-stone-500">×{item.quantity}</p>
-                  <p className="text-sm font-bold text-stone-900 tabular-nums">${item.lineTotal.toFixed(2)}</p>
+                  <p className="text-sm font-bold text-stone-900 tabular-nums">
+                    ${item.lineTotal.toFixed(2)}
+                  </p>
                 </div>
               </li>
             ))}
@@ -109,7 +113,10 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
             >
               Get directions →
             </a>
-            <a href={`tel:${STORE.phoneTel}`} className="text-xs font-semibold text-green-700 hover:text-green-600">
+            <a
+              href={`tel:${STORE.phoneTel}`}
+              className="text-xs font-semibold text-green-700 hover:text-green-600"
+            >
               {STORE.phone}
             </a>
           </div>

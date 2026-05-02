@@ -29,22 +29,24 @@ export function RecentlyViewedStrip({
   const { ids } = useRecentlyViewed();
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!mounted) return null;
   if (ids.length === 0) return null;
 
   const byId = new Map(products.map((p) => [p.id, p]));
-  const items = ids.map((id) => byId.get(id)).filter((p): p is MenuProduct => Boolean(p)).slice(0, 8);
+  const items = ids
+    .map((id) => byId.get(id))
+    .filter((p): p is MenuProduct => Boolean(p))
+    .slice(0, 8);
   if (items.length === 0) return null;
 
   const text = accent === "indigo" ? "text-indigo-700" : "text-green-700";
 
   return (
-    <section
-      aria-label="Recently looking at"
-      className="border-b border-stone-200 bg-stone-50"
-    >
+    <section aria-label="Recently looking at" className="border-b border-stone-200 bg-stone-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between mb-2">
           <p className={`text-[11px] font-bold uppercase tracking-wide ${text}`}>👀 Recently looking at</p>
@@ -60,20 +62,33 @@ export function RecentlyViewedStrip({
               <div className="aspect-square bg-stone-100 overflow-hidden relative">
                 {p.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={p.imageUrl} alt={p.name} loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img
+                    src={p.imageUrl}
+                    alt={p.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-stone-100 to-stone-200">🌱</div>
+                  <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-stone-100 to-stone-200">
+                    🌱
+                  </div>
                 )}
                 {p.strainType && STRAIN_DOT[p.strainType] && (
-                  <span className={`absolute top-1.5 left-1.5 w-2 h-2 rounded-full ${STRAIN_DOT[p.strainType]} shadow-sm`} aria-hidden />
+                  <span
+                    className={`absolute top-1.5 left-1.5 w-2 h-2 rounded-full ${STRAIN_DOT[p.strainType]} shadow-sm`}
+                    aria-hidden
+                  />
                 )}
               </div>
               <div className="px-2 py-1.5 space-y-0.5">
                 {p.brand && (
-                  <div className="text-[9px] text-stone-400 font-bold uppercase tracking-wide truncate">{p.brand}</div>
+                  <div className="text-[9px] text-stone-400 font-bold uppercase tracking-wide truncate">
+                    {p.brand}
+                  </div>
                 )}
-                <div className="text-[11px] text-stone-800 leading-snug line-clamp-2 min-h-[2.4em] font-medium">{p.name}</div>
+                <div className="text-[11px] text-stone-800 leading-snug line-clamp-2 min-h-[2.4em] font-medium">
+                  {p.name}
+                </div>
                 <div className="flex items-center justify-between pt-0.5">
                   <span className={`text-[11px] font-bold tabular-nums ${text}`}>
                     {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : "—"}

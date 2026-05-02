@@ -27,7 +27,9 @@ export function DropTicker({ drops }: { drops: Drop[] }) {
       className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full text-xs font-medium bg-green-400/10 border border-green-400/25 text-green-300 max-w-full"
       aria-live="polite"
     >
-      <span className="text-sm leading-none" aria-hidden>🔥</span>
+      <span className="text-sm leading-none" aria-hidden>
+        🔥
+      </span>
       <span className="font-bold text-green-300/90 shrink-0">Just dropped</span>
       <span className="opacity-50 shrink-0">·</span>
       <span className="opacity-90 truncate transition-opacity duration-200" key={i}>

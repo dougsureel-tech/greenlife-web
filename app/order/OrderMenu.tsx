@@ -12,42 +12,81 @@ type SortKey = "default" | "price-asc" | "price-desc" | "thc-desc" | "name";
 // end in alphabetical order, so the sidebar always reflects what's actually
 // in the data without needing a code change for new categories.
 const CATEGORY_ORDER = [
-  "Flower", "Pre-Rolls", "Pre-Roll",
-  "Vapes", "Cartridge", "Cartridges", "Disposable", "Disposables", "Pod", "Pods",
-  "Concentrates", "Concentrate",
-  "Edibles", "Edible", "Beverages", "Beverage", "Capsules", "Capsule",
-  "Tinctures", "Tincture", "Topicals", "Topical", "CBD",
-  "Accessories", "Accessory",
+  "Flower",
+  "Pre-Rolls",
+  "Pre-Roll",
+  "Vapes",
+  "Cartridge",
+  "Cartridges",
+  "Disposable",
+  "Disposables",
+  "Pod",
+  "Pods",
+  "Concentrates",
+  "Concentrate",
+  "Edibles",
+  "Edible",
+  "Beverages",
+  "Beverage",
+  "Capsules",
+  "Capsule",
+  "Tinctures",
+  "Tincture",
+  "Topicals",
+  "Topical",
+  "CBD",
+  "Accessories",
+  "Accessory",
 ];
 
 // DB-name → label shown in UI. Falls back to the raw category name.
 const CAT_DISPLAY: Record<string, string> = {
-  Cartridge: "Cartridges", Disposable: "Disposables", Pod: "Pods",
-  Concentrate: "Concentrates", Edible: "Edibles", Beverage: "Beverages",
-  Capsule: "Capsules", Tincture: "Tinctures", Topical: "Topicals",
-  Accessory: "Accessories", "Pre-Roll": "Pre-Rolls",
+  Cartridge: "Cartridges",
+  Disposable: "Disposables",
+  Pod: "Pods",
+  Concentrate: "Concentrates",
+  Edible: "Edibles",
+  Beverage: "Beverages",
+  Capsule: "Capsules",
+  Tincture: "Tinctures",
+  Topical: "Topicals",
+  Accessory: "Accessories",
+  "Pre-Roll": "Pre-Rolls",
 };
 
 const STRAIN_COLORS: Record<string, { badge: string; dot: string }> = {
-  Sativa: { badge: "bg-amber-100 text-amber-700 border-amber-200",   dot: "bg-amber-400" },
+  Sativa: { badge: "bg-amber-100 text-amber-700 border-amber-200", dot: "bg-amber-400" },
   Indica: { badge: "bg-purple-100 text-purple-700 border-purple-200", dot: "bg-purple-400" },
-  Hybrid: { badge: "bg-green-100 text-green-700 border-green-200",   dot: "bg-green-400" },
-  CBD:    { badge: "bg-blue-100 text-blue-700 border-blue-200",       dot: "bg-blue-400" },
+  Hybrid: { badge: "bg-green-100 text-green-700 border-green-200", dot: "bg-green-400" },
+  CBD: { badge: "bg-blue-100 text-blue-700 border-blue-200", dot: "bg-blue-400" },
 };
 
 const CAT_ICONS: Record<string, string> = {
   Flower: "🌿",
-  "Pre-Rolls": "🫙", "Pre-Roll": "🫙",
-  Vapes: "💨", Cartridge: "💨", Cartridges: "💨",
-  Disposable: "💨", Disposables: "💨", Pod: "💨", Pods: "💨",
-  Concentrates: "💎", Concentrate: "💎",
-  Edibles: "🍬", Edible: "🍬",
-  Beverages: "🥤", Beverage: "🥤",
-  Capsules: "💊", Capsule: "💊",
-  Tinctures: "💧", Tincture: "💧",
-  Topicals: "🧴", Topical: "🧴",
+  "Pre-Rolls": "🫙",
+  "Pre-Roll": "🫙",
+  Vapes: "💨",
+  Cartridge: "💨",
+  Cartridges: "💨",
+  Disposable: "💨",
+  Disposables: "💨",
+  Pod: "💨",
+  Pods: "💨",
+  Concentrates: "💎",
+  Concentrate: "💎",
+  Edibles: "🍬",
+  Edible: "🍬",
+  Beverages: "🥤",
+  Beverage: "🥤",
+  Capsules: "💊",
+  Capsule: "💊",
+  Tinctures: "💧",
+  Tincture: "💧",
+  Topicals: "🧴",
+  Topical: "🧴",
   CBD: "🌱",
-  Accessories: "🔧", Accessory: "🔧",
+  Accessories: "🔧",
+  Accessory: "🔧",
 };
 
 function displayCategory(c: string): string {
@@ -62,7 +101,10 @@ function normalizeCategory(raw: string | null): string | null {
   if (!raw) return null;
   // Strip the WSLCB "DOH " medical-endorsement prefix — these are sold to
   // all adults at retail, just tax-free for medical patients.
-  const s = raw.trim().replace(/^DOH\s+/i, "").trim();
+  const s = raw
+    .trim()
+    .replace(/^DOH\s+/i, "")
+    .trim();
   const lower = s.toLowerCase().replace(/\s+/g, " ");
   if (lower === "sample") return null; // internal trade samples — never sold
   if (/^cartridges?$/.test(lower)) return "Cartridges";
@@ -86,11 +128,17 @@ const STRAIN_TOKENS = new Set(["H", "I", "S", "C", "CBD", "Hybrid", "Indica", "S
 const WEIGHT_RX = /^\d+(?:\.\d+)?\s*(?:g|mg|ml|oz)$/i;
 
 function parseProductName(p: MenuProduct): { name: string; weight: string | null } {
-  const parts = p.name.split(/\s+-\s+/).map((s) => s.trim()).filter(Boolean);
+  const parts = p.name
+    .split(/\s+-\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
   let weight: string | null = null;
   const kept: string[] = [];
   for (const part of parts) {
-    if (WEIGHT_RX.test(part)) { if (!weight) weight = part.toLowerCase().replace(/\s+/g, ""); continue; }
+    if (WEIGHT_RX.test(part)) {
+      if (!weight) weight = part.toLowerCase().replace(/\s+/g, "");
+      continue;
+    }
     if (p.brand && part.toLowerCase() === p.brand.toLowerCase()) continue;
     if (p.category && part.toLowerCase() === p.category.toLowerCase()) continue;
     if (STRAIN_TOKENS.has(part)) continue;
@@ -133,7 +181,9 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
     try {
       const saved = localStorage.getItem("gl_cart");
       return saved ? (JSON.parse(saved) as CartItem[]) : [];
-    } catch { return []; }
+    } catch {
+      return [];
+    }
   });
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -161,7 +211,7 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       const slots = getPickupSlots();
       setOrderingStatus(status);
       setPickupSlots(slots);
-      setPickupTime((prev) => (prev && slots.some((s) => s.value === prev) ? prev : slots[0]?.value ?? ""));
+      setPickupTime((prev) => (prev && slots.some((s) => s.value === prev) ? prev : (slots[0]?.value ?? "")));
     }
     refresh();
     const id = setInterval(refresh, 60_000);
@@ -223,15 +273,25 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       if (brandFilter && p.brand !== brandFilter) return false;
       if (search) {
         const q = search.toLowerCase();
-        return (p.name + (p.brand ?? "") + (p.category ?? "") + (p.strainType ?? "")).toLowerCase().includes(q);
+        return (p.name + (p.brand ?? "") + (p.category ?? "") + (p.strainType ?? ""))
+          .toLowerCase()
+          .includes(q);
       }
       return true;
     });
     switch (sortBy) {
-      case "price-asc":  result.sort((a, b) => (a.unitPrice ?? Infinity) - (b.unitPrice ?? Infinity)); break;
-      case "price-desc": result.sort((a, b) => (b.unitPrice ?? -Infinity) - (a.unitPrice ?? -Infinity)); break;
-      case "thc-desc":   result.sort((a, b) => (b.thcPct ?? -Infinity) - (a.thcPct ?? -Infinity)); break;
-      case "name":       result.sort((a, b) => a.name.localeCompare(b.name)); break;
+      case "price-asc":
+        result.sort((a, b) => (a.unitPrice ?? Infinity) - (b.unitPrice ?? Infinity));
+        break;
+      case "price-desc":
+        result.sort((a, b) => (b.unitPrice ?? -Infinity) - (a.unitPrice ?? -Infinity));
+        break;
+      case "thc-desc":
+        result.sort((a, b) => (b.thcPct ?? -Infinity) - (a.thcPct ?? -Infinity));
+        break;
+      case "name":
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
     }
     return result;
   }, [products, search, activeCategory, strainFilter, brandFilter, sortBy]);
@@ -252,13 +312,17 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
   function addToCart(product: MenuProduct) {
     setCart((prev) => {
       const existing = prev.find((i) => i.id === product.id);
-      if (existing) return prev.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
+      if (existing) return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
       return [...prev, { ...product, quantity: 1 }];
     });
   }
 
   function updateQty(id: string, delta: number) {
-    setCart((prev) => prev.map((i) => i.id === id ? { ...i, quantity: i.quantity + delta } : i).filter((i) => i.quantity > 0));
+    setCart((prev) =>
+      prev
+        .map((i) => (i.id === id ? { ...i, quantity: i.quantity + delta } : i))
+        .filter((i) => i.quantity > 0),
+    );
   }
 
   function selectCategory(cat: string | null) {
@@ -280,15 +344,23 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
     setPlacing(true);
     try {
       const items = cart.map((i) => ({
-        productId: i.id, productName: i.name, brand: i.brand, category: i.category,
-        strainType: i.strainType, unitPrice: i.unitPrice ?? 0, quantity: i.quantity,
+        productId: i.id,
+        productName: i.name,
+        brand: i.brand,
+        category: i.category,
+        strainType: i.strainType,
+        unitPrice: i.unitPrice ?? 0,
+        quantity: i.quantity,
       }));
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items, notes: notes || undefined, pickupTime }),
       });
-      if (res.status === 401) { router.push("/sign-in?redirect_url=/order"); return; }
+      if (res.status === 401) {
+        router.push("/sign-in?redirect_url=/order");
+        return;
+      }
       if (res.ok) {
         const body = await res.json().catch(() => null);
         localStorage.removeItem("gl_cart");
@@ -300,7 +372,9 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       } else if (res.status === 409) {
         // Inventory mismatch — strip the unavailable items from the cart and
         // tell the customer what changed so they can try again.
-        const body = await res.json().catch(() => null) as { issues?: Array<{ productId: string; productName: string; reason: string; onHand: number }> } | null;
+        const body = (await res.json().catch(() => null)) as {
+          issues?: Array<{ productId: string; productName: string; reason: string; onHand: number }>;
+        } | null;
         const issues = body?.issues ?? [];
         if (issues.length > 0) {
           const offendingIds = new Set(issues.map((i) => i.productId));
@@ -327,7 +401,12 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
         <div className="text-5xl mb-4">🌿</div>
         <p className="text-stone-700 text-xl font-semibold">Menu coming soon</p>
-        <p className="text-stone-400 text-sm">Call us to place an order: <a href={`tel:${STORE.phoneTel}`} className="text-green-700 font-semibold">{STORE.phone}</a></p>
+        <p className="text-stone-400 text-sm">
+          Call us to place an order:{" "}
+          <a href={`tel:${STORE.phoneTel}`} className="text-green-700 font-semibold">
+            {STORE.phone}
+          </a>
+        </p>
       </div>
     );
   }
@@ -336,19 +415,34 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-32">
       {/* Search bar */}
       <div className="relative mb-4">
-        <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+        <svg
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"
+          />
         </svg>
         <input
           type="search"
           placeholder="Search products, brands, strains…"
           value={search}
-          onChange={(e) => { setSearch(e.target.value); setActiveCategory(null); }}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setActiveCategory(null);
+          }}
           className="w-full rounded-2xl border border-stone-200 pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white shadow-sm"
         />
         {search && (
-          <button onClick={() => setSearch("")}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-300 text-xs">
+          <button
+            onClick={() => setSearch("")}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-300 text-xs"
+          >
             ×
           </button>
         )}
@@ -367,7 +461,8 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
           {categories.map((c) => {
             const count = visibleProducts.reduce((n, p) => n + (p.category === c ? 1 : 0), 0);
             return (
-              <button key={c}
+              <button
+                key={c}
                 onClick={() => selectCategory(c)}
                 className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${activeCategory === c ? "bg-green-100 text-green-800" : "text-stone-500 hover:bg-stone-100"}`}
               >
@@ -390,11 +485,13 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
               All
             </button>
             {categories.map((c) => (
-              <button key={c}
+              <button
+                key={c}
                 onClick={() => selectCategory(activeCategory === c ? null : c)}
                 className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors ${activeCategory === c ? "bg-green-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}
               >
-                <span>{CAT_ICONS[c] ?? "•"}</span>{displayCategory(c)}
+                <span>{CAT_ICONS[c] ?? "•"}</span>
+                {displayCategory(c)}
               </button>
             ))}
           </div>
@@ -409,11 +506,14 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                     const colors = STRAIN_COLORS[s];
                     const active = strainFilter === s;
                     return (
-                      <button key={s}
+                      <button
+                        key={s}
                         onClick={() => setStrainFilter(active ? null : s)}
                         className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${active ? `${colors?.badge ?? "bg-green-100 text-green-800 border-green-200"} ring-2 ring-offset-1 ring-stone-300` : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
                       >
-                        {colors && <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`} />}
+                        {colors && (
+                          <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`} />
+                        )}
                         {s}
                       </button>
                     );
@@ -428,7 +528,11 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                   className="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="">All brands ({availableBrands.length})</option>
-                  {availableBrands.map((b) => <option key={b} value={b}>{b}</option>)}
+                  {availableBrands.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
                 </select>
               )}
 
@@ -446,7 +550,11 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
               {(strainFilter || brandFilter || sortBy !== "default") && (
                 <button
-                  onClick={() => { setStrainFilter(null); setBrandFilter(null); setSortBy("default"); }}
+                  onClick={() => {
+                    setStrainFilter(null);
+                    setBrandFilter(null);
+                    setSortBy("default");
+                  }}
                   className="text-xs font-semibold text-stone-500 hover:text-stone-700 px-2 py-1.5"
                 >
                   Clear
@@ -467,117 +575,143 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
               const visibleItems = isCapped ? items.slice(0, 24) : items;
               const hiddenCount = items.length - visibleItems.length;
               return (
-              <section key={category}>
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{CAT_ICONS[category] ?? "🌱"}</span>
-                  <h2 className="text-xl font-extrabold text-stone-900 tracking-tight">{displayCategory(category)}</h2>
-                  <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">{items.length}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {visibleItems.map((product) => {
-                    const cartItem = cart.find((i) => i.id === product.id);
-                    const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
-                    const parsed = parseProductName(product);
-                    return (
-                      <div key={product.id}
-                        className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                        {/* Image */}
-                        <div className="relative w-full h-44 overflow-hidden bg-stone-100">
-                          <ProductImage src={product.imageUrl} alt={product.name} category={product.category} />
-                          {strain && (
-                            <span className={`absolute top-2.5 left-2.5 text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}>
-                              <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${strain.dot}`} />
-                              {product.strainType}
-                            </span>
-                          )}
-                          {parsed.weight && (
-                            <span className="absolute bottom-2.5 left-2.5 text-[11px] px-2 py-0.5 rounded-full font-bold bg-white/90 text-stone-700 border border-stone-200 shadow-sm">
-                              {parsed.weight}
-                            </span>
-                          )}
-                          {product.isNew && (
-                            <span className="absolute top-2.5 right-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-green-700 text-white shadow-md uppercase tracking-wide">
-                              New
-                            </span>
-                          )}
-                          {cartItem && !product.isNew && (
-                            <span className="absolute top-2.5 right-2.5 bg-green-700 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md">
-                              {cartItem.quantity}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Info */}
-                        <div className="p-4 space-y-3">
-                          <div>
-                            {product.brand && (
-                              <div className="text-xs text-stone-400 font-semibold uppercase tracking-widest mb-0.5">{product.brand}</div>
+                <section key={category}>
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="text-2xl">{CAT_ICONS[category] ?? "🌱"}</span>
+                    <h2 className="text-xl font-extrabold text-stone-900 tracking-tight">
+                      {displayCategory(category)}
+                    </h2>
+                    <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">
+                      {items.length}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {visibleItems.map((product) => {
+                      const cartItem = cart.find((i) => i.id === product.id);
+                      const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
+                      const parsed = parseProductName(product);
+                      return (
+                        <div
+                          key={product.id}
+                          className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all duration-200"
+                        >
+                          {/* Image */}
+                          <div className="relative w-full h-44 overflow-hidden bg-stone-100">
+                            <ProductImage
+                              src={product.imageUrl}
+                              alt={product.name}
+                              category={product.category}
+                            />
+                            {strain && (
+                              <span
+                                className={`absolute top-2.5 left-2.5 text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}
+                              >
+                                <span
+                                  className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${strain.dot}`}
+                                />
+                                {product.strainType}
+                              </span>
                             )}
-                            <div className="font-bold text-stone-900 text-sm leading-snug">{parsed.name}</div>
+                            {parsed.weight && (
+                              <span className="absolute bottom-2.5 left-2.5 text-[11px] px-2 py-0.5 rounded-full font-bold bg-white/90 text-stone-700 border border-stone-200 shadow-sm">
+                                {parsed.weight}
+                              </span>
+                            )}
+                            {product.isNew && (
+                              <span className="absolute top-2.5 right-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-green-700 text-white shadow-md uppercase tracking-wide">
+                                New
+                              </span>
+                            )}
+                            {cartItem && !product.isNew && (
+                              <span className="absolute top-2.5 right-2.5 bg-green-700 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md">
+                                {cartItem.quantity}
+                              </span>
+                            )}
                           </div>
 
-                          {/* Potency badges */}
-                          {(product.thcPct != null || product.cbdPct != null) && (
-                            <div className="flex flex-wrap gap-1.5">
-                              {product.thcPct != null && (
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 font-medium">
-                                  THC {product.thcPct.toFixed(1)}%
-                                </span>
+                          {/* Info */}
+                          <div className="p-4 space-y-3">
+                            <div>
+                              {product.brand && (
+                                <div className="text-xs text-stone-400 font-semibold uppercase tracking-widest mb-0.5">
+                                  {product.brand}
+                                </div>
                               )}
-                              {product.cbdPct != null && product.cbdPct > 0 && (
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">
-                                  CBD {product.cbdPct.toFixed(1)}%
-                                </span>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Effects / terpenes */}
-                          {product.effects && (
-                            <p className="text-xs text-stone-400 leading-relaxed line-clamp-1">
-                              ✨ {product.effects}
-                            </p>
-                          )}
-
-                          {/* Price + Add */}
-                          <div className="flex items-center justify-between pt-1 border-t border-stone-50">
-                            <div className="font-extrabold text-stone-900 text-base">
-                              {product.unitPrice != null ? `$${product.unitPrice.toFixed(2)}` : "—"}
-                            </div>
-                            {cartItem ? (
-                              <div className="flex items-center gap-2">
-                                <button onClick={() => updateQty(product.id, -1)}
-                                  className="w-8 h-8 rounded-full border-2 border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:border-stone-300 text-sm font-bold transition-colors">
-                                  −
-                                </button>
-                                <span className="w-6 text-center text-sm font-extrabold text-stone-900">{cartItem.quantity}</span>
-                                <button onClick={() => updateQty(product.id, 1)}
-                                  className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-sm font-bold transition-colors shadow-md shadow-green-900/20">
-                                  +
-                                </button>
+                              <div className="font-bold text-stone-900 text-sm leading-snug">
+                                {parsed.name}
                               </div>
-                            ) : (
-                              <button onClick={() => addToCart(product)}
-                                disabled={product.unitPrice == null}
-                                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5">
-                                + Add
-                              </button>
+                            </div>
+
+                            {/* Potency badges */}
+                            {(product.thcPct != null || product.cbdPct != null) && (
+                              <div className="flex flex-wrap gap-1.5">
+                                {product.thcPct != null && (
+                                  <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 font-medium">
+                                    THC {product.thcPct.toFixed(1)}%
+                                  </span>
+                                )}
+                                {product.cbdPct != null && product.cbdPct > 0 && (
+                                  <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">
+                                    CBD {product.cbdPct.toFixed(1)}%
+                                  </span>
+                                )}
+                              </div>
                             )}
+
+                            {/* Effects / terpenes */}
+                            {product.effects && (
+                              <p className="text-xs text-stone-400 leading-relaxed line-clamp-1">
+                                ✨ {product.effects}
+                              </p>
+                            )}
+
+                            {/* Price + Add */}
+                            <div className="flex items-center justify-between pt-1 border-t border-stone-50">
+                              <div className="font-extrabold text-stone-900 text-base">
+                                {product.unitPrice != null ? `$${product.unitPrice.toFixed(2)}` : "—"}
+                              </div>
+                              {cartItem ? (
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => updateQty(product.id, -1)}
+                                    className="w-8 h-8 rounded-full border-2 border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:border-stone-300 text-sm font-bold transition-colors"
+                                  >
+                                    −
+                                  </button>
+                                  <span className="w-6 text-center text-sm font-extrabold text-stone-900">
+                                    {cartItem.quantity}
+                                  </span>
+                                  <button
+                                    onClick={() => updateQty(product.id, 1)}
+                                    className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-sm font-bold transition-colors shadow-md shadow-green-900/20"
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => addToCart(product)}
+                                  disabled={product.unitPrice == null}
+                                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                                >
+                                  + Add
+                                </button>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                {hiddenCount > 0 && (
-                  <button
-                    onClick={() => selectCategory(category)}
-                    className="mt-5 w-full text-center text-sm font-bold text-green-700 hover:text-green-600 py-3 rounded-xl border border-stone-100 hover:border-green-200 hover:bg-green-50/50 transition-colors"
-                  >
-                    Show all {items.length} {displayCategory(category).toLowerCase()} →
-                  </button>
-                )}
-              </section>
+                      );
+                    })}
+                  </div>
+                  {hiddenCount > 0 && (
+                    <button
+                      onClick={() => selectCategory(category)}
+                      className="mt-5 w-full text-center text-sm font-bold text-green-700 hover:text-green-600 py-3 rounded-xl border border-stone-100 hover:border-green-200 hover:bg-green-50/50 transition-colors"
+                    >
+                      Show all {items.length} {displayCategory(category).toLowerCase()} →
+                    </button>
+                  )}
+                </section>
               );
             })}
           </div>
@@ -586,7 +720,12 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
             <div className="py-20 text-center space-y-3">
               <div className="text-4xl">🔍</div>
               <p className="text-stone-500 font-medium">No products match &ldquo;{search}&rdquo;</p>
-              <button onClick={() => setSearch("")} className="text-sm text-green-700 font-semibold hover:underline">Clear search</button>
+              <button
+                onClick={() => setSearch("")}
+                className="text-sm text-green-700 font-semibold hover:underline"
+              >
+                Clear search
+              </button>
             </div>
           )}
         </div>
@@ -594,15 +733,25 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
       {/* ─── Floating cart bar ─────────────────────────────────────────────── */}
       {cartCount > 0 && (
-        <div className="fixed left-0 right-0 px-4 z-40 animate-slide-up" style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem))" }}>
+        <div
+          className="fixed left-0 right-0 px-4 z-40 animate-slide-up"
+          style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem))" }}
+        >
           <div className="max-w-lg mx-auto">
             {cartOpen ? (
               <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl overflow-hidden animate-pop">
                 {/* Cart header */}
                 <div className="px-5 py-4 bg-gradient-to-r from-green-900 to-green-800 text-white flex items-center justify-between">
-                  <span className="font-bold text-base">Your Order · {cartCount} {cartCount === 1 ? "item" : "items"}</span>
-                  <button onClick={() => { setCartOpen(false); setOrderError(null); }}
-                    className="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-lg leading-none transition-colors">
+                  <span className="font-bold text-base">
+                    Your Order · {cartCount} {cartCount === 1 ? "item" : "items"}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setCartOpen(false);
+                      setOrderError(null);
+                    }}
+                    className="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-lg leading-none transition-colors"
+                  >
                     ×
                   </button>
                 </div>
@@ -616,11 +765,21 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                         {item.brand && <div className="text-xs text-stone-400 truncate">{item.brand}</div>}
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
-                        <button onClick={() => updateQty(item.id, -1)}
-                          className="w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 text-xs font-bold">−</button>
-                        <span className="w-5 text-center font-extrabold text-stone-900 text-xs">{item.quantity}</span>
-                        <button onClick={() => updateQty(item.id, 1)}
-                          className="w-6 h-6 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-xs font-bold">+</button>
+                        <button
+                          onClick={() => updateQty(item.id, -1)}
+                          className="w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 text-xs font-bold"
+                        >
+                          −
+                        </button>
+                        <span className="w-5 text-center font-extrabold text-stone-900 text-xs">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQty(item.id, 1)}
+                          className="w-6 h-6 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-xs font-bold"
+                        >
+                          +
+                        </button>
                       </div>
                       <span className="text-xs font-bold text-stone-700 w-14 text-right shrink-0">
                         ${((item.unitPrice ?? 0) * item.quantity).toFixed(2)}
@@ -634,7 +793,10 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                   {/* Pickup time picker */}
                   {orderingStatus?.state === "open" && pickupSlots.length > 0 && (
                     <div className="space-y-1.5">
-                      <label htmlFor="pickup-time" className="block text-xs font-bold text-stone-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="pickup-time"
+                        className="block text-xs font-bold text-stone-700 uppercase tracking-wide"
+                      >
                         Pick up at
                       </label>
                       <select
@@ -644,7 +806,9 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                         className="w-full rounded-xl border border-stone-200 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
                       >
                         {pickupSlots.map((s) => (
-                          <option key={s.value} value={s.value}>{s.label}</option>
+                          <option key={s.value} value={s.value}>
+                            {s.label}
+                          </option>
                         ))}
                       </select>
                       <p className="text-[11px] text-stone-400">
@@ -659,11 +823,12 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                         <p>Opens at {orderingStatus.opensAt} today.</p>
                       )}
                       {orderingStatus.state === "after_last_call" && (
-                        <p>Last call is 15 min before close ({orderingStatus.closesToday}). Reopens at {orderingStatus.reopensAt}.</p>
+                        <p>
+                          Last call is 15 min before close ({orderingStatus.closesToday}). Reopens at{" "}
+                          {orderingStatus.reopensAt}.
+                        </p>
                       )}
-                      {orderingStatus.state === "closed_today" && (
-                        <p>Reopens at {orderingStatus.opensAt}.</p>
-                      )}
+                      {orderingStatus.state === "closed_today" && <p>Reopens at {orderingStatus.opensAt}.</p>}
                     </div>
                   )}
 
@@ -676,7 +841,13 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                   />
                   {orderError && (
                     <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
-                      <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd"/></svg>
+                      <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {orderError}
                     </div>
                   )}
@@ -694,14 +865,31 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                     </button>
                   </div>
                   <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-amber-50 border border-amber-100">
-                    <svg className="w-3.5 h-3.5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>
-                    <p className="text-xs text-amber-700 font-medium">Quick sign-in required — your cart will be saved</p>
+                    <svg
+                      className="w-3.5 h-3.5 text-amber-500 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-xs text-amber-700 font-medium">
+                      Quick sign-in required — your cart will be saved
+                    </p>
                   </div>
                 </div>
               </div>
             ) : (
-              <button onClick={() => { setCartOpen(true); setOrderError(null); }}
-                className="w-full bg-gradient-to-r from-green-900 to-green-800 hover:from-green-800 hover:to-green-700 text-white rounded-3xl py-4 px-5 flex items-center justify-between shadow-2xl transition-all hover:-translate-y-0.5">
+              <button
+                onClick={() => {
+                  setCartOpen(true);
+                  setOrderError(null);
+                }}
+                className="w-full bg-gradient-to-r from-green-900 to-green-800 hover:from-green-800 hover:to-green-700 text-white rounded-3xl py-4 px-5 flex items-center justify-between shadow-2xl transition-all hover:-translate-y-0.5"
+              >
                 <div className="flex items-center gap-3">
                   <span className="bg-green-500 text-white text-xs font-extrabold w-7 h-7 rounded-full flex items-center justify-center shadow-md">
                     {cartCount}
@@ -710,7 +898,13 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="font-extrabold text-lg">${cartTotal.toFixed(2)}</span>
-                  <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 opacity-70"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                   </svg>
                 </div>

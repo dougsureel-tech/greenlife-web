@@ -46,7 +46,9 @@ export function PushSubscribe({ compact = false }: { compact?: boolean } = {}) {
       }
     }
     check();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function subscribe() {
@@ -127,7 +129,8 @@ export function PushSubscribe({ compact = false }: { compact?: boolean } = {}) {
             <span className="text-base">🔔</span> Drop Alerts
           </h3>
           <p className="text-xs text-stone-500 leading-relaxed">
-            Get a notification when new product hits the shelf — no email, no SMS, no spam. One tap to turn off.
+            Get a notification when new product hits the shelf — no email, no SMS, no spam. One tap to turn
+            off.
           </p>
         </div>
       )}
@@ -145,7 +148,13 @@ export function PushSubscribe({ compact = false }: { compact?: boolean } = {}) {
         </button>
         {isSubscribed && !compact && (
           <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
             On
           </span>
         )}

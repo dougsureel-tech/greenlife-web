@@ -57,10 +57,17 @@ export default async function BrandsPage() {
       />
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
-        <div className="absolute inset-0 opacity-[0.07]"
-          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }}
+        />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Shelves</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Brands We Carry</h1>
@@ -78,7 +85,10 @@ export default async function BrandsPage() {
             <div className="text-5xl">🌿</div>
             <p className="text-xl font-semibold text-stone-700">Brands loading soon</p>
             <p className="text-stone-400 text-sm">Check back or browse our full menu</p>
-            <Link href="/menu" className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-semibold transition-colors">
+            <Link
+              href="/menu"
+              className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-semibold transition-colors"
+            >
               View Menu →
             </Link>
           </div>
@@ -126,7 +136,9 @@ export default async function BrandsPage() {
                 {withLogo.length > 0 && (
                   <div className="flex items-center gap-3 mb-5">
                     <div className="h-px flex-1 bg-stone-200" />
-                    <span className="text-xs text-stone-400 font-medium uppercase tracking-widest">More Brands</span>
+                    <span className="text-xs text-stone-400 font-medium uppercase tracking-widest">
+                      More Brands
+                    </span>
                     <div className="h-px flex-1 bg-stone-200" />
                   </div>
                 )}
@@ -153,8 +165,10 @@ export default async function BrandsPage() {
 
             {/* Footer link */}
             <div className="text-center pt-4">
-              <Link href="/menu"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-stone-200 hover:border-green-300 hover:bg-green-50 text-sm font-semibold text-stone-700 hover:text-green-800 transition-all">
+              <Link
+                href="/menu"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-stone-200 hover:border-green-300 hover:bg-green-50 text-sm font-semibold text-stone-700 hover:text-green-800 transition-all"
+              >
                 Browse All Products by Category →
               </Link>
             </div>

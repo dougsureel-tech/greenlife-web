@@ -18,7 +18,8 @@ export const POSTS: Post[] = [
   {
     slug: "complete-guide-cannabis-wenatchee-valley",
     title: "The Complete Guide to Cannabis in Wenatchee Valley",
-    description: "Everything you need to know about buying cannabis in Wenatchee, WA — laws, products, dispensaries, what to look for, and how to make sense of the menu.",
+    description:
+      "Everything you need to know about buying cannabis in Wenatchee, WA — laws, products, dispensaries, what to look for, and how to make sense of the menu.",
     category: "Guide",
     publishedAt: "2026-04-30",
     readingMinutes: 14,
@@ -93,7 +94,7 @@ Consumption is **not** legal in retail stores, parking lots, or most public spac
 
 ## Cannabis around Wenatchee Valley
 
-The Wenatchee Valley has multiple licensed dispensaries — competition is healthy here. ${STORE.name} is at ${STORE.address.full}, with free parking out front and ${(STORE.hours.find(h => h.day === "Monday")?.open ?? "8 AM")} opens daily.
+The Wenatchee Valley has multiple licensed dispensaries — competition is healthy here. ${STORE.name} is at ${STORE.address.full}, with free parking out front and ${STORE.hours.find((h) => h.day === "Monday")?.open ?? "8 AM"} opens daily.
 
 If you're driving in from out of town: we're about 25 minutes from Leavenworth, 45 minutes from Lake Chelan, an hour from Quincy, an hour and a half from Moses Lake. We see a lot of customers stopping in on the way through; come on by.
 
@@ -114,7 +115,8 @@ If you have questions we didn't cover, [come ask us](/contact) or [give us a cal
   {
     slug: "vendor-spotlight-template",
     title: "How We Pick Our Producers — A Vendor Spotlight",
-    description: "Behind the scenes on how we evaluate and choose the Washington cannabis producers we carry on our shelves.",
+    description:
+      "Behind the scenes on how we evaluate and choose the Washington cannabis producers we carry on our shelves.",
     category: "Vendor Spotlight",
     publishedAt: "2026-04-29",
     readingMinutes: 6,

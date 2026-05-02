@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const CATEGORY_TINT: Record<string, string> = {
-  "Guide":            "bg-emerald-100 text-emerald-700 border-emerald-200",
+  Guide: "bg-emerald-100 text-emerald-700 border-emerald-200",
   "Vendor Spotlight": "bg-amber-100 text-amber-700 border-amber-200",
-  "Education":        "bg-blue-100 text-blue-700 border-blue-200",
-  "Local":            "bg-rose-100 text-rose-700 border-rose-200",
+  Education: "bg-blue-100 text-blue-700 border-blue-200",
+  Local: "bg-rose-100 text-rose-700 border-rose-200",
 };
 
 export default function BlogIndex() {
@@ -43,13 +43,23 @@ export default function BlogIndex() {
 
       {/* Header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
-        <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }}
+        />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Field Notes</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Guides & Vendor Spotlights</h1>
           <p className="text-green-300/70 mt-2 max-w-xl text-sm sm:text-base">
-            Long-form writing on cannabis, our producers, and the Wenatchee Valley — by the people who work the counter.
+            Long-form writing on cannabis, our producers, and the Wenatchee Valley — by the people who work
+            the counter.
           </p>
         </div>
       </div>
@@ -66,16 +76,24 @@ export default function BlogIndex() {
             >
               <article className="px-6 py-5 space-y-2">
                 <div className="flex items-center gap-3 text-xs">
-                  <span className={`px-2.5 py-0.5 rounded-full font-semibold border ${CATEGORY_TINT[p.category] ?? "bg-stone-100 text-stone-600 border-stone-200"}`}>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full font-semibold border ${CATEGORY_TINT[p.category] ?? "bg-stone-100 text-stone-600 border-stone-200"}`}
+                  >
                     {p.category}
                   </span>
                   <span className="text-stone-400 tabular-nums">
-                    {new Date(p.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    {new Date(p.publishedAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </span>
                   <span className="text-stone-300">·</span>
                   <span className="text-stone-400">{p.readingMinutes} min read</span>
                 </div>
-                <h2 className="text-xl font-extrabold text-stone-900 group-hover:text-green-800 transition-colors leading-snug">{p.title}</h2>
+                <h2 className="text-xl font-extrabold text-stone-900 group-hover:text-green-800 transition-colors leading-snug">
+                  {p.title}
+                </h2>
                 <p className="text-stone-500 text-sm leading-relaxed">{p.description}</p>
                 <p className="text-sm font-semibold text-green-700 group-hover:text-green-600 pt-1">Read →</p>
               </article>

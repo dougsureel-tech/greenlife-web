@@ -21,7 +21,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const user = await currentUser();
-    const portalUser = await getOrCreatePortalUser(userId, user?.emailAddresses[0]?.emailAddress, user?.fullName);
+    const portalUser = await getOrCreatePortalUser(
+      userId,
+      user?.emailAddresses[0]?.emailAddress,
+      user?.fullName,
+    );
     await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn });
     return NextResponse.json({ ok: true });
   } catch (err) {

@@ -30,7 +30,13 @@ function fmtCountdown(msLeft: number): string {
   return `ends in ${secs}s`;
 }
 
-export function DealBanner({ deals, accent = "green" }: { deals: ActiveDeal[]; accent?: "green" | "indigo" }) {
+export function DealBanner({
+  deals,
+  accent = "green",
+}: {
+  deals: ActiveDeal[];
+  accent?: "green" | "indigo";
+}) {
   const [now, setNow] = useState<number | null>(null);
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
@@ -52,9 +58,10 @@ export function DealBanner({ deals, accent = "green" }: { deals: ActiveDeal[]; a
     }
   }
 
-  const grad = accent === "indigo"
-    ? "from-indigo-700 via-indigo-800 to-purple-900 text-indigo-50"
-    : "from-emerald-700 via-green-800 to-teal-900 text-emerald-50";
+  const grad =
+    accent === "indigo"
+      ? "from-indigo-700 via-indigo-800 to-purple-900 text-indigo-50"
+      : "from-emerald-700 via-green-800 to-teal-900 text-emerald-50";
 
   return (
     <Link
@@ -63,10 +70,11 @@ export function DealBanner({ deals, accent = "green" }: { deals: ActiveDeal[]; a
       aria-label={`View deal: ${top.name}`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-3 text-center">
-        <span className="text-base sm:text-lg" aria-hidden>🔥</span>
+        <span className="text-base sm:text-lg" aria-hidden>
+          🔥
+        </span>
         <span className="text-xs sm:text-sm font-bold tracking-tight">
-          <span className="opacity-90">Today:</span>{" "}
-          <span>{top.name}</span>
+          <span className="opacity-90">Today:</span> <span>{top.name}</span>
           <span className="hidden sm:inline opacity-70 mx-2">·</span>
           <span className="hidden sm:inline opacity-90">{top.short}</span>
           {countdownLabel && (

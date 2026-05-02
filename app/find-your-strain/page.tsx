@@ -32,7 +32,10 @@ const finderSchema = {
   },
   hasPart: [
     { "@type": "Question", name: "What's the moment? (Energize, Chill, Sleep, Creative, Social, Relief)" },
-    { "@type": "Question", name: "What form do you prefer? (Flower, Pre-roll, Edible, Vape, Concentrate, Tincture)" },
+    {
+      "@type": "Question",
+      name: "What form do you prefer? (Flower, Pre-roll, Edible, Vape, Concentrate, Tincture)",
+    },
     { "@type": "Question", name: "Which strain type? (Sativa, Indica, Hybrid, or no preference)" },
   ],
 };
@@ -50,13 +53,16 @@ export default function FindYourStrainPage() {
   return (
     <div className="min-h-screen bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(finderSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       <section className="border-b border-stone-200 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-200 text-[11px] font-bold uppercase tracking-[0.18em] text-green-700">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            3 questions · live menu
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />3 questions ·
+            live menu
           </div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
             Find your <span className="text-green-700">strain.</span>
@@ -75,7 +81,9 @@ export default function FindYourStrainPage() {
         <p className="text-xs text-stone-400">
           Not legal advice. 21+. {STORE.name}, {STORE.address.city} WA.
           {" · "}
-          <Link href="/menu" className="hover:text-green-700 transition-colors">Skip and browse all →</Link>
+          <Link href="/menu" className="hover:text-green-700 transition-colors">
+            Skip and browse all →
+          </Link>
         </p>
       </section>
     </div>

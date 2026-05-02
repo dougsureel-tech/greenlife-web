@@ -13,12 +13,12 @@ const STEPS: { key: StepKey; question: string; intro: string; options: Choice[] 
     question: "What's the moment?",
     intro: "Pick the feeling. We'll match the cannabis to it.",
     options: [
-      { value: "chill",    emoji: "😌", label: "Chill",    sub: "Wind down · low-key" },
+      { value: "chill", emoji: "😌", label: "Chill", sub: "Wind down · low-key" },
       { value: "energize", emoji: "⚡", label: "Energize", sub: "Get going · stay sharp" },
-      { value: "sleep",    emoji: "💤", label: "Sleepy",   sub: "Bedtime · body-heavy" },
+      { value: "sleep", emoji: "💤", label: "Sleepy", sub: "Bedtime · body-heavy" },
       { value: "creative", emoji: "🎨", label: "Creative", sub: "Focus · flow state" },
-      { value: "social",   emoji: "🥂", label: "Social",   sub: "Friends · good company" },
-      { value: "",         emoji: "🤷", label: "No idea",  sub: "Show me what's good" },
+      { value: "social", emoji: "🥂", label: "Social", sub: "Friends · good company" },
+      { value: "", emoji: "🤷", label: "No idea", sub: "Show me what's good" },
     ],
   },
   {
@@ -26,12 +26,12 @@ const STEPS: { key: StepKey; question: string; intro: string; options: Choice[] 
     question: "How do you want to take it?",
     intro: "Different forms hit differently — pick the one that fits the day.",
     options: [
-      { value: "Flower",        emoji: "🌿", label: "Flower",       sub: "Classic · roll your own" },
-      { value: "Pre-Rolls",     emoji: "🫙", label: "Pre-rolls",    sub: "Ready to go" },
-      { value: "Edibles",       emoji: "🍬", label: "Edibles",      sub: "Discreet · long lasting" },
-      { value: "Vapes",         emoji: "💨", label: "Vapes",        sub: "Quick · clean" },
-      { value: "Concentrates",  emoji: "💎", label: "Concentrates", sub: "Strongest · advanced" },
-      { value: "",              emoji: "✨", label: "Surprise me",  sub: "Open to anything" },
+      { value: "Flower", emoji: "🌿", label: "Flower", sub: "Classic · roll your own" },
+      { value: "Pre-Rolls", emoji: "🫙", label: "Pre-rolls", sub: "Ready to go" },
+      { value: "Edibles", emoji: "🍬", label: "Edibles", sub: "Discreet · long lasting" },
+      { value: "Vapes", emoji: "💨", label: "Vapes", sub: "Quick · clean" },
+      { value: "Concentrates", emoji: "💎", label: "Concentrates", sub: "Strongest · advanced" },
+      { value: "", emoji: "✨", label: "Surprise me", sub: "Open to anything" },
     ],
   },
   {
@@ -39,10 +39,10 @@ const STEPS: { key: StepKey; question: string; intro: string; options: Choice[] 
     question: "Sativa, indica, or hybrid?",
     intro: "Quick rule of thumb: indica = body, sativa = head, hybrid = both.",
     options: [
-      { value: "sativa", emoji: "☀️", label: "Sativa",  sub: "Daytime · uplifting" },
-      { value: "indica", emoji: "🌙", label: "Indica",  sub: "Nighttime · relaxing" },
-      { value: "hybrid", emoji: "🍃", label: "Hybrid",  sub: "Best of both" },
-      { value: "",       emoji: "🤝", label: "No pref", sub: "All three are good" },
+      { value: "sativa", emoji: "☀️", label: "Sativa", sub: "Daytime · uplifting" },
+      { value: "indica", emoji: "🌙", label: "Indica", sub: "Nighttime · relaxing" },
+      { value: "hybrid", emoji: "🍃", label: "Hybrid", sub: "Best of both" },
+      { value: "", emoji: "🤝", label: "No pref", sub: "All three are good" },
     ],
   },
 ];
@@ -51,7 +51,9 @@ export function StrainFinderClient() {
   const router = useRouter();
   const [stepIdx, setStepIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<StepKey, string>>({
-    vibe: "", form: "", strain: "",
+    vibe: "",
+    form: "",
+    strain: "",
   });
   const [submitting, setSubmitting] = useState(false);
 
@@ -75,8 +77,8 @@ export function StrainFinderClient() {
   function submit(final: Record<StepKey, string>) {
     setSubmitting(true);
     const params = new URLSearchParams();
-    if (final.vibe)   params.set("vibe", final.vibe);
-    if (final.form)   params.set("category", final.form);
+    if (final.vibe) params.set("vibe", final.vibe);
+    if (final.form) params.set("category", final.form);
     if (final.strain) params.set("strain", final.strain);
     router.push(params.toString() ? `/menu?${params}` : "/menu");
   }
@@ -88,7 +90,9 @@ export function StrainFinderClient() {
       {/* Progress strip */}
       <div className="space-y-2">
         <div className="flex justify-between text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-500">
-          <span>Step {stepIdx + 1} of {STEPS.length}</span>
+          <span>
+            Step {stepIdx + 1} of {STEPS.length}
+          </span>
           <span className="capitalize">{step.key}</span>
         </div>
         <div className="h-1.5 rounded-full bg-stone-200 overflow-hidden">
@@ -121,12 +125,12 @@ export function StrainFinderClient() {
               }`}
             >
               <div className="text-3xl mb-1.5">{opt.emoji}</div>
-              <div className={`text-sm font-semibold transition-colors ${selected ? "text-green-800" : "text-stone-900 group-hover:text-green-700"}`}>
+              <div
+                className={`text-sm font-semibold transition-colors ${selected ? "text-green-800" : "text-stone-900 group-hover:text-green-700"}`}
+              >
                 {opt.label}
               </div>
-              {opt.sub && (
-                <div className="mt-0.5 text-[11px] text-stone-500 leading-snug">{opt.sub}</div>
-              )}
+              {opt.sub && <div className="mt-0.5 text-[11px] text-stone-500 leading-snug">{opt.sub}</div>}
             </button>
           );
         })}
@@ -147,7 +151,9 @@ export function StrainFinderClient() {
       </div>
 
       {submitting && (
-        <p className="text-center text-sm text-green-700 font-semibold animate-pulse">Finding your matches…</p>
+        <p className="text-center text-sm text-green-700 font-semibold animate-pulse">
+          Finding your matches…
+        </p>
       )}
     </div>
   );

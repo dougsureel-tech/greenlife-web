@@ -9,33 +9,31 @@ export const contentType = "image/png";
 
 export async function GET() {
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#022c22",
+        color: "#86efac",
+        fontFamily: "system-ui, sans-serif",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#022c22",
-          color: "#86efac",
-          fontFamily: "system-ui, sans-serif",
+          fontSize: 180,
+          fontWeight: 900,
+          lineHeight: 1,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 180,
-            fontWeight: 900,
-            lineHeight: 1,
-          }}
-        >
-          GL
-        </div>
+        GL
       </div>
-    ),
-    { width: 512, height: 512 }
+    </div>,
+    { width: 512, height: 512 },
   );
 }

@@ -10,7 +10,10 @@ export function isSmsConfigured() {
   return !!(ACCOUNT_SID && AUTH_TOKEN && FROM_NUMBER);
 }
 
-export async function sendSms(to: string, body: string): Promise<{ success: boolean; sid?: string; error?: string }> {
+export async function sendSms(
+  to: string,
+  body: string,
+): Promise<{ success: boolean; sid?: string; error?: string }> {
   if (!isSmsConfigured()) {
     return { success: false, error: "SMS not configured" };
   }

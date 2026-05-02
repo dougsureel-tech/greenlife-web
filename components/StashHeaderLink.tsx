@@ -10,7 +10,9 @@ export function StashHeaderLink({ dark }: { dark: boolean }) {
   const stash = useStash();
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const count = mounted ? stash.count : 0;
 

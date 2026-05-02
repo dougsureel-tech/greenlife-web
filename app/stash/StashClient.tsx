@@ -14,15 +14,23 @@ const STRAIN_BADGE: Record<string, string> = {
 };
 
 const CAT_ICONS: Record<string, string> = {
-  Flower: "🌿", "Pre-Rolls": "🫙", Vapes: "💨", Concentrates: "🧴",
-  Edibles: "🍬", Tinctures: "💊", Topicals: "🧼", Accessories: "🔧",
+  Flower: "🌿",
+  "Pre-Rolls": "🫙",
+  Vapes: "💨",
+  Concentrates: "🧴",
+  Edibles: "🍬",
+  Tinctures: "💊",
+  Topicals: "🧼",
+  Accessories: "🔧",
 };
 
 export function StashClient({ products }: { products: MenuProduct[] }) {
   const stash = useStash();
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Build O(1) ID → product map once
   const byId = new Map(products.map((p) => [p.id, p]));
@@ -41,7 +49,15 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
     return (
       <section className="max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-rose-50 text-rose-400 mb-5">
-          <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            className="w-10 h-10"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
           </svg>
         </div>
@@ -116,29 +132,46 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                     )}
                     <StashButton productId={p.id} />
                     {p.strainType && STRAIN_BADGE[p.strainType] && (
-                      <span className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full font-bold border ${STRAIN_BADGE[p.strainType]}`}>
+                      <span
+                        className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded-full font-bold border ${STRAIN_BADGE[p.strainType]}`}
+                      >
                         {p.strainType}
                       </span>
                     )}
                   </div>
                   <div className="p-3 space-y-1.5">
                     {p.brand && (
-                      <div className="text-[11px] text-stone-400 font-bold uppercase tracking-wide truncate">{p.brand}</div>
+                      <div className="text-[11px] text-stone-400 font-bold uppercase tracking-wide truncate">
+                        {p.brand}
+                      </div>
                     )}
-                    <h3 className="font-semibold text-stone-900 text-sm leading-snug line-clamp-2 min-h-[2.5em]">{p.name}</h3>
+                    <h3 className="font-semibold text-stone-900 text-sm leading-snug line-clamp-2 min-h-[2.5em]">
+                      {p.name}
+                    </h3>
                     <div className="flex flex-wrap gap-1">
                       {p.thcPct != null && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-stone-100 text-stone-600 font-medium tabular-nums">THC {p.thcPct.toFixed(1)}%</span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-stone-100 text-stone-600 font-medium tabular-nums">
+                          THC {p.thcPct.toFixed(1)}%
+                        </span>
                       )}
                       {p.cbdPct != null && p.cbdPct > 0 && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-medium tabular-nums">CBD {p.cbdPct.toFixed(1)}%</span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-medium tabular-nums">
+                          CBD {p.cbdPct.toFixed(1)}%
+                        </span>
                       )}
                     </div>
                     <div className="flex items-center justify-between pt-1">
                       <span className="font-extrabold text-green-800 tabular-nums">
-                        {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : <span className="text-stone-400 text-sm font-medium">In store</span>}
+                        {p.unitPrice != null && p.unitPrice > 0 ? (
+                          `$${p.unitPrice.toFixed(2)}`
+                        ) : (
+                          <span className="text-stone-400 text-sm font-medium">In store</span>
+                        )}
                       </span>
-                      <Link href="/menu" className="text-[11px] font-bold text-green-700 hover:text-green-600 transition-colors">
+                      <Link
+                        href="/menu"
+                        className="text-[11px] font-bold text-green-700 hover:text-green-600 transition-colors"
+                      >
                         Order →
                       </Link>
                     </div>

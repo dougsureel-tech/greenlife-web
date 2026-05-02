@@ -7,17 +7,13 @@ import { recordView } from "@/lib/recently-viewed";
 // Heart toggle that persists to localStorage via useStash. Renders a
 // neutral heart pre-mount to avoid SSR/CSR hydration mismatch (the server
 // can't know what's in localStorage).
-export function StashButton({
-  productId,
-  size = "md",
-}: {
-  productId: string;
-  size?: "sm" | "md";
-}) {
+export function StashButton({ productId, size = "md" }: { productId: string; size?: "sm" | "md" }) {
   const stash = useStash();
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const saved = mounted && stash.has(productId);
   const dim = size === "sm";

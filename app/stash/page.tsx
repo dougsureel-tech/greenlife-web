@@ -29,7 +29,8 @@ export default async function StashPage() {
             The stuff you saved.
           </h1>
           <p className="mt-2 text-stone-600 max-w-xl">
-            Heart anything on the menu and it lands here. Lives in your browser only — no account, no email, no tracking. Clear it any time.
+            Heart anything on the menu and it lands here. Lives in your browser only — no account, no email,
+            no tracking. Clear it any time.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Link

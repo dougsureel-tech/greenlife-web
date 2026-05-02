@@ -29,32 +29,47 @@ export default async function DealsPage() {
 
   // SEO: Each deal becomes a SpecialAnnouncement so AI engines and Google's
   // local-pack carry the promo text verbatim. Limited-time deals win here.
-  const dealsSchema = deals.length > 0 ? deals.map((d) => ({
-    "@context": "https://schema.org",
-    "@type": "SpecialAnnouncement",
-    "@id": `${STORE.website}/deals#${d.id}`,
-    name: d.name,
-    text: d.description ?? d.short,
-    category: "https://www.wikidata.org/wiki/Q1622659", // discount/sale
-    spatialCoverage: { "@id": `${STORE.website}/#dispensary` },
-    ...(d.endDate ? { datePosted: new Date().toISOString(), expires: `${d.endDate}T23:59:59-08:00` } : {}),
-  })) : [];
+  const dealsSchema =
+    deals.length > 0
+      ? deals.map((d) => ({
+          "@context": "https://schema.org",
+          "@type": "SpecialAnnouncement",
+          "@id": `${STORE.website}/deals#${d.id}`,
+          name: d.name,
+          text: d.description ?? d.short,
+          category: "https://www.wikidata.org/wiki/Q1622659", // discount/sale
+          spatialCoverage: { "@id": `${STORE.website}/#dispensary` },
+          ...(d.endDate
+            ? { datePosted: new Date().toISOString(), expires: `${d.endDate}T23:59:59-08:00` }
+            : {}),
+        }))
+      : [];
 
   return (
     <div className="min-h-screen bg-stone-50">
       {dealsSchema.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dealsSchema) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(dealsSchema) }}
+        />
       )}
 
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-green-800 to-teal-900 text-white">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle, #fff 1.5px, transparent 1.5px)", backgroundSize: "32px 32px" }} />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1.5px, transparent 1.5px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">🔥 Live Deals</p>
           <h1 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight">
             What&apos;s on sale right now.
           </h1>
           <p className="mt-3 text-emerald-100/80 max-w-md mx-auto">
-            Updated continuously from our live menu. WSLCB-compliant — percent-off and dollar-off only, never below cost.
+            Updated continuously from our live menu. WSLCB-compliant — percent-off and dollar-off only, never
+            below cost.
           </p>
         </div>
       </section>
@@ -76,22 +91,27 @@ export default async function DealsPage() {
       ) : (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-4">
           {deals.map((d, i) => {
-            const linkHref = d.appliesTo && d.appliesTo !== "all"
-              ? `/menu?category=${encodeURIComponent(d.appliesTo)}`
-              : "/menu";
+            const linkHref =
+              d.appliesTo && d.appliesTo !== "all"
+                ? `/menu?category=${encodeURIComponent(d.appliesTo)}`
+                : "/menu";
             const isFirst = i === 0;
             return (
               <Link
                 key={d.id}
                 href={linkHref}
                 className={`block rounded-2xl border bg-white p-5 sm:p-6 hover:shadow-lg transition-all ${
-                  isFirst ? "border-emerald-300 shadow-md ring-1 ring-emerald-100" : "border-stone-200 hover:border-emerald-300"
+                  isFirst
+                    ? "border-emerald-300 shadow-md ring-1 ring-emerald-100"
+                    : "border-stone-200 hover:border-emerald-300"
                 }`}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
-                    isFirst ? "bg-emerald-100" : "bg-stone-100"
-                  }`}>
+                  <div
+                    className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
+                      isFirst ? "bg-emerald-100" : "bg-stone-100"
+                    }`}
+                  >
                     🔥
                   </div>
                   <div className="flex-1 min-w-0">

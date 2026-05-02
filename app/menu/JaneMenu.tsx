@@ -119,9 +119,15 @@ const JANE_APP_SETTINGS = {
   moengageWorkspaceId: "FBMS77MLGF4QMXGVHT88GWLW",
   monerisEnv: "prod",
   monerisJsSdkUrl: "https://gateway.moneris.com/chkt/js/chkt_v1.00.js",
-  rootsOnlyCustomRowStoreIds: [771, 1236, 1589, 3405, 3406, 4098, 4594, 4595, 4596, 4597, 4598, 4599, 4600, 4601, 4602, 4659, 4780, 4862, 4886, 4936, 4937, 4938, 5298, 5350, 5351, 5360, 5374, 5405, 5407, 5408, 5430],
+  rootsOnlyCustomRowStoreIds: [
+    771, 1236, 1589, 3405, 3406, 4098, 4594, 4595, 4596, 4597, 4598, 4599, 4600, 4601, 4602, 4659, 4780, 4862,
+    4886, 4936, 4937, 4938, 5298, 5350, 5351, 5360, 5374, 5405, 5407, 5408, 5430,
+  ],
   roundingBetaStoreIds: [3747, 3246, 3241, 3245, 2929, 4988],
-  ruleBasedCustomRowsStoreIds: [1920, 2723, 1687, 1688, 2724, 2725, 1468, 1469, 4242, 4243, 2453, 2440, 3451, 3460, 2943, 2997, 3452, 3453, 2163, 2590, 2083, 2087, 3442, 3443, 3487, 4436],
+  ruleBasedCustomRowsStoreIds: [
+    1920, 2723, 1687, 1688, 2724, 2725, 1468, 1469, 4242, 4243, 2453, 2440, 3451, 3460, 2943, 2997, 3452,
+    3453, 2163, 2590, 2083, 2087, 3442, 3443, 3487, 4436,
+  ],
   squareApplicationId: "sq0idp-E7bBL_4jkDu0l61NXYQFPg",
   squareWebPaymentsSdkUrl: "https://web.squarecdn.com/v1/square.js",
   strongholdEnv: "live",
@@ -131,13 +137,7 @@ const JANE_APP_SETTINGS = {
   useEmailOverSMS: true,
 };
 
-export function JaneMenu({
-  storeId,
-  embedConfigId,
-}: {
-  storeId: number;
-  embedConfigId: number;
-}) {
+export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedConfigId: number }) {
   const runtime = {
     runtimeConfig: {
       embedConfigId,

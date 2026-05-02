@@ -119,7 +119,9 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
                       >
                         {isDone ? "✓" : i + 1}
                       </span>
-                      <span className={`truncate ${isDone ? "text-zinc-500 line-through" : "text-zinc-300 group-hover:text-zinc-100"}`}>
+                      <span
+                        className={`truncate ${isDone ? "text-zinc-500 line-through" : "text-zinc-300 group-hover:text-zinc-100"}`}
+                      >
                         {t.title}
                       </span>
                     </a>
@@ -135,7 +137,8 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
           {!signedIn && (
             <div className="rounded-xl border border-emerald-700/30 bg-emerald-950/20 px-4 py-3 flex items-center justify-between gap-3">
               <p className="text-xs text-emerald-200">
-                <span className="font-semibold">Want to track your progress?</span> Sign in and we&apos;ll save which topics you&apos;ve read.
+                <span className="font-semibold">Want to track your progress?</span> Sign in and we&apos;ll
+                save which topics you&apos;ve read.
               </p>
               <Link
                 href="/sign-in"
@@ -161,11 +164,15 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
                 }`}
               >
                 <div className="flex items-start gap-4">
-                  <div className="text-3xl shrink-0 leading-none mt-1" aria-hidden="true">{t.icon}</div>
+                  <div className="text-3xl shrink-0 leading-none mt-1" aria-hidden="true">
+                    {t.icon}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-[10px] font-mono text-zinc-600">#{i + 1}</span>
-                      <h2 className={`text-lg sm:text-xl font-semibold ${isDone ? "text-emerald-200" : "text-zinc-100"}`}>
+                      <h2
+                        className={`text-lg sm:text-xl font-semibold ${isDone ? "text-emerald-200" : "text-zinc-100"}`}
+                      >
                         {t.title}
                       </h2>
                       {isDone && (
@@ -187,11 +194,7 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
                               : "bg-emerald-600 hover:bg-emerald-500 text-white"
                           }`}
                         >
-                          {isPending
-                            ? "…"
-                            : isDone
-                            ? "Mark unread"
-                            : "Got it ✓"}
+                          {isPending ? "…" : isDone ? "Mark unread" : "Got it ✓"}
                         </button>
                       </div>
                     )}

@@ -29,9 +29,11 @@ const clerkAppearance = {
     card: "shadow-none border border-stone-200 rounded-2xl bg-white",
     headerTitle: "hidden",
     headerSubtitle: "hidden",
-    socialButtonsBlockButton: "border border-stone-200 hover:border-green-300 hover:bg-stone-50 transition-colors",
+    socialButtonsBlockButton:
+      "border border-stone-200 hover:border-green-300 hover:bg-stone-50 transition-colors",
     formButtonPrimary: "bg-green-700 hover:bg-green-600 transition-colors normal-case font-bold",
-    formFieldInput: "border border-stone-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500",
+    formFieldInput:
+      "border border-stone-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500",
     footerActionLink: "text-green-700 hover:text-green-600 font-bold",
     identityPreviewEditButton: "text-green-700",
   },
@@ -49,8 +51,18 @@ export default async function SignUpPage({ searchParams }: Props) {
         {/* Branding header */}
         <div className="text-center space-y-1">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-green-700 mb-3">
-            <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7 text-green-200" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 5-3 8-3 9s1.5 3 3 3 3-2 3-3-3-4-3-9z" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              className="w-7 h-7 text-green-200"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3c0 5-3 8-3 9s1.5 3 3 3 3-2 3-3-3-4-3-9z"
+              />
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 12c3 0 5-1 6-3 1 2 3 3 6 3" />
             </svg>
           </div>
@@ -63,7 +75,9 @@ export default async function SignUpPage({ searchParams }: Props) {
         <ul className="rounded-2xl border border-green-100 bg-white px-5 py-4 space-y-2.5">
           {BENEFITS.map((b) => (
             <li key={b.label} className="flex items-center gap-3 text-sm text-stone-700">
-              <span className="text-base shrink-0" aria-hidden>{b.emoji}</span>
+              <span className="text-base shrink-0" aria-hidden>
+                {b.emoji}
+              </span>
               <span>{b.label}</span>
             </li>
           ))}
@@ -83,8 +97,9 @@ export default async function SignUpPage({ searchParams }: Props) {
 
         {/* Age + privacy reassurance */}
         <p className="text-[11px] text-center text-stone-400 leading-relaxed">
-          By creating an account you confirm you&apos;re <strong className="text-stone-500">21 or older</strong>.
-          We don&apos;t sell your data. SMS opt-in is separate and always optional. Cash payment at the store.
+          By creating an account you confirm you&apos;re{" "}
+          <strong className="text-stone-500">21 or older</strong>. We don&apos;t sell your data. SMS opt-in is
+          separate and always optional. Cash payment at the store.
         </p>
       </div>
     </div>

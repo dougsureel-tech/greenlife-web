@@ -27,10 +27,14 @@ export async function POST(req: NextRequest) {
   for (const item of items) {
     const i = item as Record<string, unknown>;
     if (
-      typeof item !== "object" || item === null ||
+      typeof item !== "object" ||
+      item === null ||
       typeof i.productName !== "string" ||
-      typeof i.unitPrice !== "number" || (i.unitPrice as number) <= 0 ||
-      typeof i.quantity !== "number" || (i.quantity as number) < 1 || !Number.isInteger(i.quantity)
+      typeof i.unitPrice !== "number" ||
+      (i.unitPrice as number) <= 0 ||
+      typeof i.quantity !== "number" ||
+      (i.quantity as number) < 1 ||
+      !Number.isInteger(i.quantity)
     ) {
       return NextResponse.json({ error: "Invalid item" }, { status: 400 });
     }
@@ -61,7 +65,7 @@ export async function POST(req: NextRequest) {
     const portalUser = await getOrCreatePortalUser(
       userId,
       user?.emailAddresses[0]?.emailAddress,
-      user?.fullName
+      user?.fullName,
     );
     const orderId = await placeOrder(
       portalUser.id,
@@ -74,7 +78,9 @@ export async function POST(req: NextRequest) {
     // waits on Twilio. No-ops if SMS isn't configured or the user has no phone.
     if (portalUser.phone && isSmsConfigured()) {
       const pickupLabel = new Date(pickupISO).toLocaleTimeString("en-US", {
-        timeZone: "America/Los_Angeles", hour: "numeric", minute: "2-digit",
+        timeZone: "America/Los_Angeles",
+        hour: "numeric",
+        minute: "2-digit",
       });
       after(async () => {
         await sendSms(

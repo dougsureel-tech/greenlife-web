@@ -28,15 +28,24 @@ export default async function OrderPage() {
     <>
       {/* Premium page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10">
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        <div className="absolute inset-0 opacity-25"
-          style={{ backgroundImage: "radial-gradient(ellipse 70% 80% at 20% 50%, #4ade80, transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{ backgroundImage: "radial-gradient(ellipse 70% 80% at 20% 50%, #4ade80, transparent)" }}
+        />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end gap-4">
           <div className="flex-1 space-y-2">
             <p className="text-green-400 text-xs font-bold uppercase tracking-widest">Pickup Menu</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Order for Pickup</h1>
-            <p className="text-green-300/70 text-sm">Browse · Add to cart · Pick up &amp; pay cash · Earn points</p>
+            <p className="text-green-300/70 text-sm">
+              Browse · Add to cart · Pick up &amp; pay cash · Earn points
+            </p>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-2 text-xs">
             {status.state === "open" && status.minutesUntilLastCall <= 60 && (
@@ -51,8 +60,8 @@ export default async function OrderPage() {
                 {status.state === "before_open"
                   ? `Online ordering opens at ${status.opensAt}`
                   : status.state === "after_last_call"
-                  ? `Online ordering closed · reopens at ${status.reopensAt}`
-                  : `Online ordering closed · reopens at ${status.opensAt}`}
+                    ? `Online ordering closed · reopens at ${status.reopensAt}`
+                    : `Online ordering closed · reopens at ${status.opensAt}`}
               </span>
             )}
             {status.state === "open" && (

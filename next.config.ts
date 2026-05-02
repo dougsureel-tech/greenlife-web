@@ -16,9 +16,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "**" },
-    ],
+    remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
   // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
   // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane

@@ -12,9 +12,9 @@ import { STORE } from "@/lib/store";
 type Review = {
   author: string;
   city: string;
-  rating: number;        // 1-5
+  rating: number; // 1-5
   text: string;
-  date: string;          // YYYY-MM-DD
+  date: string; // YYYY-MM-DD
 };
 
 const REVIEWS: Review[] = [
@@ -84,7 +84,11 @@ export function ReviewsSection() {
         "@type": "Review",
         "@id": `${STORE.website}/#review-${i}`,
         itemReviewed: { "@id": `${STORE.website}/#dispensary` },
-        author: { "@type": "Person", name: r.author, address: { "@type": "PostalAddress", addressLocality: r.city, addressRegion: "WA" } },
+        author: {
+          "@type": "Person",
+          name: r.author,
+          address: { "@type": "PostalAddress", addressLocality: r.city, addressRegion: "WA" },
+        },
         datePublished: r.date,
         reviewBody: r.text,
         reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
@@ -96,17 +100,22 @@ export function ReviewsSection() {
     <section className="bg-white border-y border-stone-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">From the neighborhood</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">
+            From the neighborhood
+          </p>
           <div className="flex items-center justify-center gap-3 mt-3">
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((n) => (
                 <Star key={n} filled={n <= Math.round(avgRating)} />
               ))}
             </div>
-            <span className="text-2xl font-extrabold text-stone-900 tabular-nums">{avgRating.toFixed(1)}</span>
+            <span className="text-2xl font-extrabold text-stone-900 tabular-nums">
+              {avgRating.toFixed(1)}
+            </span>
           </div>
           <p className="text-stone-600 mt-2 text-sm">
-            <strong className="text-stone-800 tabular-nums">{totalReviews}</strong> recent reviews from real Wenatchee customers
+            <strong className="text-stone-800 tabular-nums">{totalReviews}</strong> recent reviews from real
+            Wenatchee customers
           </p>
         </div>
 
@@ -128,7 +137,10 @@ export function ReviewsSection() {
                   <div className="text-[11px] text-stone-500">{r.city}, WA</div>
                 </div>
                 <time className="text-[11px] text-stone-500 tabular-nums" dateTime={r.date}>
-                  {new Date(r.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                  {new Date(r.date + "T12:00:00").toLocaleDateString("en-US", {
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </time>
               </div>
             </article>
@@ -148,14 +160,12 @@ export function ReviewsSection() {
             Leave us a review on Google
           </a>
           <p className="text-[11px] text-stone-500 text-center">
-            Reviews come from in-store comment cards and Google Maps. We don&apos;t edit, filter, or curate them — the bad and the great both go up.
+            Reviews come from in-store comment cards and Google Maps. We don&apos;t edit, filter, or curate
+            them — the bad and the great both go up.
           </p>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsLd) }} />
       </div>
     </section>
   );
@@ -164,7 +174,12 @@ export function ReviewsSection() {
 function Star({ filled, small = false }: { filled: boolean; small?: boolean }) {
   const cls = small ? "w-3.5 h-3.5" : "w-5 h-5";
   return (
-    <svg className={`${cls} ${filled ? "text-amber-400" : "text-stone-300"}`} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg
+      className={`${cls} ${filled ? "text-amber-400" : "text-stone-300"}`}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+    >
       <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
     </svg>
   );

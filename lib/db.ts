@@ -16,7 +16,10 @@ export function getClient() {
   if (!url) throw new Error("DATABASE_URL is not set");
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { neon } = require("@neondatabase/serverless");
-  return neon(url) as (strings: TemplateStringsArray, ...values: unknown[]) => Promise<Record<string, unknown>[]>;
+  return neon(url) as (
+    strings: TemplateStringsArray,
+    ...values: unknown[]
+  ) => Promise<Record<string, unknown>[]>;
 }
 
 export type MenuProduct = {
@@ -174,13 +177,13 @@ export async function getPickupEta(): Promise<{ depth: number; label: string }> 
     FROM online_orders
     WHERE status IN ('pending', 'in_progress')
   `;
-  const n = ((rows[0]?.n as number) ?? 0);
+  const n = (rows[0]?.n as number) ?? 0;
   let label: string;
-  if (n === 0)      label = "Usually ready in under 10 min";
-  else if (n <= 2)  label = "Most orders ready in 10–15 min";
-  else if (n <= 5)  label = "Currently averaging ~20 min";
+  if (n === 0) label = "Usually ready in under 10 min";
+  else if (n <= 2) label = "Most orders ready in 10–15 min";
+  else if (n <= 5) label = "Currently averaging ~20 min";
   else if (n <= 10) label = "Busy right now — about 25–35 min";
-  else              label = "Heavy queue — we'll text when ready";
+  else label = "Heavy queue — we'll text when ready";
   return { depth: n, label };
 }
 
@@ -218,7 +221,7 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
     const applies = (r.applies_to ?? null) as string | null;
     let short: string;
     if (val == null) {
-      short = (r.name as string);
+      short = r.name as string;
     } else if (dt === "percent") {
       short = `${val}% off${applies && applies !== "all" ? ` ${applies}` : ""}`;
     } else {
@@ -320,8 +323,16 @@ export async function getBrandProducts(vendorId: string) {
     ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
   `;
   return rows as Array<{
-    id: string; name: string; brand: string | null; category: string | null;
-    strain_type: string | null; thc_pct: number | null; cbd_pct: number | null;
-    unit_price: number | null; image_url: string | null; effects: string | null; terpenes: string | null;
+    id: string;
+    name: string;
+    brand: string | null;
+    category: string | null;
+    strain_type: string | null;
+    thc_pct: number | null;
+    cbd_pct: number | null;
+    unit_price: number | null;
+    image_url: string | null;
+    effects: string | null;
+    terpenes: string | null;
   }>;
 }

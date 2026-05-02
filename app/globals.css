@@ -3,7 +3,7 @@
 :root {
   --background: #fafaf9;
   --foreground: #1c1917;
-  --green-50:  #f0fdf4;
+  --green-50: #f0fdf4;
   --green-100: #dcfce7;
   --green-600: #16a34a;
   --green-700: #15803d;
@@ -30,29 +30,63 @@ body {
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes pop {
-  0%   { transform: scale(0.9); opacity: 0; }
-  70%  { transform: scale(1.04); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.animate-fade-up   { animation: fade-up  0.4s ease both; }
-.animate-slide-up  { animation: slide-up 0.35s ease both; }
-.animate-fade-in   { animation: fade-in  0.3s ease both; }
-.animate-pop       { animation: pop      0.3s ease both; }
+.animate-fade-up {
+  animation: fade-up 0.4s ease both;
+}
+.animate-slide-up {
+  animation: slide-up 0.35s ease both;
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+.animate-pop {
+  animation: pop 0.3s ease both;
+}
 
-details[open] > summary ~ * { animation: fade-up 0.2s ease both; }
+details[open] > summary ~ * {
+  animation: fade-up 0.2s ease both;
+}
 
 /* Product image shimmer */
 .img-placeholder {
@@ -61,6 +95,10 @@ details[open] > summary ~ * { animation: fade-up 0.2s ease both; }
   animation: shimmer 1.5s infinite;
 }
 @keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
