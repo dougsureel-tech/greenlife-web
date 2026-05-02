@@ -1,26 +1,18 @@
 import { ImageResponse } from "next/og";
 import { STORE } from "@/lib/store";
 
-// Homepage OG card — what shows in iMessage / Slack / Twitter / Facebook /
-// LinkedIn previews when greenlifecannabis.com gets pasted. Built to match
-// the homepage hero v2 energy that just shipped (commit 6fcaf1e):
-// dark green-950 base, radial green-400 glow upper-right, warm amber wash
-// bottom-left for the "evergreen + sunset" PNW vibe, big bold headline,
-// and the right-side "Serves the Wenatchee Valley" pill cluster reusing
-// the same town list as the homepage hero (STORE.nearbyTowns).
-//
-// Self-contained on purpose — no DB, no JSON-LD imports, no Clerk. Runs
-// statically at build time + on-demand for new edges, must stay fast.
+// Per-route OG card for /brands. Headline pivots to the producer story
+// — "WA producers we carry" — and the right column shows category labels
+// for the catalog. Self-contained: doesn't query the DB so build-time
+// generation stays fast.
 
-export const alt = `${STORE.name} — Wenatchee's Premier Cannabis Dispensary`;
+export const alt = `Washington-state cannabis brands carried at ${STORE.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Top 4 towns from STORE.nearbyTowns (skipping "Wenatchee" itself since
-// the headline already says it) for the right-side service-area cluster.
-const VALLEY_PILLS = ["Cashmere", "Leavenworth", "East Wenatchee", "Lake Chelan"];
+const BRAND_PILLS = ["Flower", "Concentrates", "Vapes", "Edibles"];
 
-export default function OG() {
+export default function BrandsOG() {
   return new ImageResponse(
     (
       <div
@@ -35,10 +27,6 @@ export default function OG() {
           position: "relative",
         }}
       >
-        {/* Same depth treatment as the homepage hero — radial green glow
-            top-right, warm amber wash bottom-left. Without these the card
-            reads as a flat gradient and loses all the energy of the live
-            page it's meant to preview. */}
         <div
           style={{
             position: "absolute",
@@ -51,7 +39,6 @@ export default function OG() {
           }}
         />
 
-        {/* Left column — brand mark, headline, address + status pill, URL. */}
         <div
           style={{
             position: "relative",
@@ -63,7 +50,6 @@ export default function OG() {
             flexShrink: 0,
           }}
         >
-          {/* GLC corner logo — boxed leaf glyph + wordmark. */}
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
             <div
               style={{
@@ -86,12 +72,11 @@ export default function OG() {
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
               <span style={{ fontSize: 26, fontWeight: 800 }}>{STORE.name}</span>
               <span style={{ fontSize: 17, color: "#86efac", marginTop: 2, letterSpacing: 1 }}>
-                WSLCB · LIC {STORE.wslcbLicense} · 21+
+                Brands · {STORE.address.city}, WA
               </span>
             </div>
           </div>
 
-          {/* Headline + subtitle block. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div
               style={{
@@ -102,15 +87,12 @@ export default function OG() {
                 color: "white",
               }}
             >
-              Wenatchee's Premier Cannabis
+              WA producers we carry
             </div>
             <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
-              {STORE.address.street} · {STORE.address.city}, {STORE.address.state}
+              Curated from Washington's top growers, processors, and infusers
             </div>
 
-            {/* Live status pill — pulse dot + hours range. Hardcoded
-                copy ("Open daily · 8 AM – 11 PM") since OG runs at build
-                time and we don't want the card flickering open/closed. */}
             <div
               style={{
                 marginTop: 4,
@@ -134,35 +116,21 @@ export default function OG() {
                 }}
               />
               <span style={{ fontSize: 20, fontWeight: 700, color: "#bbf7d0" }}>
-                Open daily · 8 AM – 11 PM
+                Lab-tested · WSLCB-licensed
               </span>
             </div>
           </div>
 
-          {/* Footer URL + amenity strip. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div
-              style={{
-                display: "flex",
-                gap: 18,
-                fontSize: 18,
-                color: "#a7f3d0",
-                fontWeight: 600,
-              }}
-            >
-              <span>Cash only</span>
-              <span style={{ color: "#10b981" }}>·</span>
-              <span>ATM on site</span>
-              <span style={{ color: "#10b981" }}>·</span>
-              <span>Free parking</span>
+            <div style={{ fontSize: 18, color: "#a7f3d0", fontWeight: 600 }}>
+              {STORE.address.street} · Open daily
             </div>
             <div style={{ fontSize: 22, color: "#86efac", fontWeight: 700 }}>
-              greenlifecannabis.com
+              greenlifecannabis.com/brands
             </div>
           </div>
         </div>
 
-        {/* Right column — "Serves the Wenatchee Valley" pill cluster. */}
         <div
           style={{
             position: "relative",
@@ -201,21 +169,14 @@ export default function OG() {
                 color: "#fcd34d",
               }}
             >
-              Serves the Valley
+              Across categories
             </span>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              alignItems: "flex-start",
-            }}
-          >
-            {VALLEY_PILLS.map((town) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+            {BRAND_PILLS.map((pill) => (
               <div
-                key={town}
+                key={pill}
                 style={{
                   padding: "12px 22px",
                   borderRadius: 999,
@@ -227,7 +188,7 @@ export default function OG() {
                   display: "flex",
                 }}
               >
-                {town}
+                {pill}
               </div>
             ))}
           </div>

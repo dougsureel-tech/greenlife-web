@@ -1,26 +1,22 @@
 import { ImageResponse } from "next/og";
 import { STORE } from "@/lib/store";
 
-// Homepage OG card — what shows in iMessage / Slack / Twitter / Facebook /
-// LinkedIn previews when greenlifecannabis.com gets pasted. Built to match
-// the homepage hero v2 energy that just shipped (commit 6fcaf1e):
-// dark green-950 base, radial green-400 glow upper-right, warm amber wash
-// bottom-left for the "evergreen + sunset" PNW vibe, big bold headline,
-// and the right-side "Serves the Wenatchee Valley" pill cluster reusing
-// the same town list as the homepage hero (STORE.nearbyTowns).
-//
-// Self-contained on purpose — no DB, no JSON-LD imports, no Clerk. Runs
-// statically at build time + on-demand for new edges, must stay fast.
+// Per-route OG card for /deals — same template family as the homepage.
+// Headline reads as a "deals are live" hook; right column shows the
+// always-on savings ladder customers can stack.
 
-export const alt = `${STORE.name} — Wenatchee's Premier Cannabis Dispensary`;
+export const alt = `Today's cannabis deals at ${STORE.name} in ${STORE.address.city}, WA`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Top 4 towns from STORE.nearbyTowns (skipping "Wenatchee" itself since
-// the headline already says it) for the right-side service-area cluster.
-const VALLEY_PILLS = ["Cashmere", "Leavenworth", "East Wenatchee", "Lake Chelan"];
+const SAVINGS_PILLS = [
+  "15% off online orders",
+  "Loyalty rewards",
+  "Military discounts",
+  "Daily specials",
+];
 
-export default function OG() {
+export default function DealsOG() {
   return new ImageResponse(
     (
       <div
@@ -35,10 +31,6 @@ export default function OG() {
           position: "relative",
         }}
       >
-        {/* Same depth treatment as the homepage hero — radial green glow
-            top-right, warm amber wash bottom-left. Without these the card
-            reads as a flat gradient and loses all the energy of the live
-            page it's meant to preview. */}
         <div
           style={{
             position: "absolute",
@@ -47,11 +39,10 @@ export default function OG() {
             right: 0,
             bottom: 0,
             backgroundImage:
-              "radial-gradient(circle at 80% 20%, rgba(74,222,128,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(251,191,36,0.16), transparent 50%)",
+              "radial-gradient(circle at 80% 20%, rgba(74,222,128,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(251,191,36,0.20), transparent 50%)",
           }}
         />
 
-        {/* Left column — brand mark, headline, address + status pill, URL. */}
         <div
           style={{
             position: "relative",
@@ -63,7 +54,6 @@ export default function OG() {
             flexShrink: 0,
           }}
         >
-          {/* GLC corner logo — boxed leaf glyph + wordmark. */}
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
             <div
               style={{
@@ -85,32 +75,28 @@ export default function OG() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
               <span style={{ fontSize: 26, fontWeight: 800 }}>{STORE.name}</span>
-              <span style={{ fontSize: 17, color: "#86efac", marginTop: 2, letterSpacing: 1 }}>
-                WSLCB · LIC {STORE.wslcbLicense} · 21+
+              <span style={{ fontSize: 17, color: "#fcd34d", marginTop: 2, letterSpacing: 1 }}>
+                Daily Deals · {STORE.address.city}, WA
               </span>
             </div>
           </div>
 
-          {/* Headline + subtitle block. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div
               style={{
-                fontSize: 78,
+                fontSize: 82,
                 fontWeight: 900,
                 lineHeight: 1.02,
                 letterSpacing: -2.5,
                 color: "white",
               }}
             >
-              Wenatchee's Premier Cannabis
+              Today's Deals
             </div>
-            <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
-              {STORE.address.street} · {STORE.address.city}, {STORE.address.state}
+            <div style={{ fontSize: 28, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
+              Live cannabis specials at {STORE.name}
             </div>
 
-            {/* Live status pill — pulse dot + hours range. Hardcoded
-                copy ("Open daily · 8 AM – 11 PM") since OG runs at build
-                time and we don't want the card flickering open/closed. */}
             <div
               style={{
                 marginTop: 4,
@@ -119,8 +105,8 @@ export default function OG() {
                 gap: 12,
                 padding: "10px 18px",
                 borderRadius: 999,
-                background: "rgba(16,185,129,0.18)",
-                border: "1px solid rgba(74,222,128,0.45)",
+                background: "rgba(251,191,36,0.18)",
+                border: "1px solid rgba(251,191,36,0.45)",
                 alignSelf: "flex-start",
               }}
             >
@@ -129,40 +115,26 @@ export default function OG() {
                   width: 12,
                   height: 12,
                   borderRadius: 99,
-                  background: "#4ade80",
-                  boxShadow: "0 0 16px #4ade80",
+                  background: "#fbbf24",
+                  boxShadow: "0 0 16px rgba(251,191,36,0.8)",
                 }}
               />
-              <span style={{ fontSize: 20, fontWeight: 700, color: "#bbf7d0" }}>
-                Open daily · 8 AM – 11 PM
+              <span style={{ fontSize: 20, fontWeight: 700, color: "#fcd34d" }}>
+                Updated daily · WSLCB-compliant
               </span>
             </div>
           </div>
 
-          {/* Footer URL + amenity strip. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div
-              style={{
-                display: "flex",
-                gap: 18,
-                fontSize: 18,
-                color: "#a7f3d0",
-                fontWeight: 600,
-              }}
-            >
-              <span>Cash only</span>
-              <span style={{ color: "#10b981" }}>·</span>
-              <span>ATM on site</span>
-              <span style={{ color: "#10b981" }}>·</span>
-              <span>Free parking</span>
+            <div style={{ fontSize: 18, color: "#a7f3d0", fontWeight: 600 }}>
+              Open daily 8 AM – 11 PM · Cash only · 21+
             </div>
             <div style={{ fontSize: 22, color: "#86efac", fontWeight: 700 }}>
-              greenlifecannabis.com
+              greenlifecannabis.com/deals
             </div>
           </div>
         </div>
 
-        {/* Right column — "Serves the Wenatchee Valley" pill cluster. */}
         <div
           style={{
             position: "relative",
@@ -201,33 +173,26 @@ export default function OG() {
                 color: "#fcd34d",
               }}
             >
-              Serves the Valley
+              Always on
             </span>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              alignItems: "flex-start",
-            }}
-          >
-            {VALLEY_PILLS.map((town) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+            {SAVINGS_PILLS.map((pill) => (
               <div
-                key={town}
+                key={pill}
                 style={{
                   padding: "12px 22px",
                   borderRadius: 999,
                   background: "rgba(255,255,255,0.08)",
                   border: "1px solid rgba(187,247,208,0.28)",
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: 700,
                   color: "white",
                   display: "flex",
                 }}
               >
-                {town}
+                {pill}
               </div>
             ))}
           </div>
