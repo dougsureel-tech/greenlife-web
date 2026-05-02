@@ -129,6 +129,53 @@ export async function getOrder(
   };
 }
 
+// Loyalty points live on `customers.loyalty_points` in the staff-side
+// inventoryapp tables (POS-driven — every transaction increments). The portal
+// surface bridges via email match: portal_users.email → customers.email →
+// customers.loyalty_points. Returns null if the customer hasn't transacted in
+// store yet (no matching customers row), so the UI can show a "join the
+// loyalty program — earn 1 pt per $1 in store" prompt instead of "0 pts".
+//
+// 100 points = $1 redeemable (matches the inventoryapp marketing helper text).
+const POINTS_PER_DOLLAR = 100;
+
+export type LoyaltySnapshot = {
+  points: number;
+  dollarValue: number;
+  visitCount: number;
+  lastVisitAt: string | null;
+};
+
+export async function getLoyaltyForPortalUser(portalUserId: string): Promise<LoyaltySnapshot | null> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT
+      c.loyalty_points::int AS points,
+      COALESCE(c.last_visit_at, c.created_at) AS last_visit_at,
+      (
+        SELECT COUNT(*)::int
+        FROM transactions t
+        WHERE t.customer_id = c.id AND t.status = 'completed'
+      ) AS visit_count
+    FROM portal_users pu
+    JOIN customers c ON LOWER(c.email) = LOWER(pu.email)
+    WHERE pu.id = ${portalUserId}
+      AND pu.email IS NOT NULL
+      AND c.email IS NOT NULL
+    ORDER BY c.last_visit_at DESC NULLS LAST
+    LIMIT 1
+  `;
+  if (rows.length === 0) return null;
+  const r = rows[0] as { points: number; last_visit_at: Date | null; visit_count: number };
+  const points = r.points ?? 0;
+  return {
+    points,
+    dollarValue: Math.floor(points / POINTS_PER_DOLLAR),
+    visitCount: r.visit_count ?? 0,
+    lastVisitAt: r.last_visit_at ? r.last_visit_at.toISOString() : null,
+  };
+}
+
 // Fire web push for any orders that just flipped to "ready" within the
 // last READY_WINDOW_SECONDS for this portal user. Idempotency is handled by
 // the browser's notification `tag` collapsing duplicate fires; the time-

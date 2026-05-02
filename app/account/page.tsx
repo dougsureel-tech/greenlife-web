@@ -1,9 +1,10 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getOrCreatePortalUser, getOrders } from "@/lib/portal";
+import { getOrCreatePortalUser, getOrders, getLoyaltyForPortalUser } from "@/lib/portal";
 import { STORE } from "@/lib/store";
 import { PushSubscribe } from "@/components/PushSubscribe";
+import { LoyaltyCard } from "@/components/LoyaltyCard";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -64,7 +65,10 @@ export default async function AccountPage({ searchParams }: Props) {
     user?.emailAddresses[0]?.emailAddress,
     user?.fullName,
   );
-  const orders = await getOrders(portalUser.id);
+  const [orders, loyalty] = await Promise.all([
+    getOrders(portalUser.id),
+    getLoyaltyForPortalUser(portalUser.id).catch(() => null),
+  ]);
   const activeOrders = orders.filter((o) => !["picked_up", "cancelled"].includes(o.status));
   const pastOrders = orders.filter((o) => ["picked_up", "cancelled"].includes(o.status)).slice(0, 5);
   const firstName = portalUser.name?.split(" ")[0] ?? null;
@@ -115,29 +119,13 @@ export default async function AccountPage({ searchParams }: Props) {
         </Link>
       </div>
 
-      {/* Loyalty card */}
-      <div className="rounded-3xl overflow-hidden relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-700 via-emerald-700 to-green-900" />
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(ellipse at 80% 0%, #4ade80, transparent 60%)" }}
-        />
-        <div className="relative px-5 sm:px-6 py-6 sm:py-7 flex items-center justify-between gap-4">
-          <div className="space-y-1 min-w-0">
-            <div className="text-green-200 text-xs font-bold uppercase tracking-widest">Loyalty Points</div>
-            <div className="text-5xl sm:text-6xl font-extrabold text-white leading-none tabular-nums">
-              {portalUser.loyaltyPoints.toLocaleString()}
-            </div>
-            <div className="text-green-300 text-xs sm:text-sm font-medium">points earned at {STORE.name}</div>
-          </div>
-          <div className="text-right space-y-1 shrink-0">
-            <div className="text-4xl sm:text-5xl opacity-20 select-none">🌿</div>
-            {portalUser.name && (
-              <div className="text-green-300/80 text-xs font-medium">{portalUser.name}</div>
-            )}
-          </div>
-        </div>
-      </div>
+      {/* Loyalty card — pulls real points balance from the staff-side
+          customers table via email match (lib/portal.getLoyaltyForPortalUser).
+          Renders a "join the program" prompt when no customer record matches
+          yet (new portal account that hasn't transacted in store). The old
+          card was reading portal_users.loyaltyPoints which was never written
+          by the POS — always showed 0. */}
+      <LoyaltyCard snapshot={loyalty} />
 
       {/* Drop alerts */}
       <PushSubscribe />
