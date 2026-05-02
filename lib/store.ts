@@ -11,7 +11,7 @@ export const STORE = {
   phone: "(509) 663-9980",
   phoneTel: "+15096639980",
   email: "info@greenlifecannabis.com",
-  website: "https://www.greenlifecannabis.com",
+  website: "https://greenlifecannabis.com",
   geo: { lat: 47.4116, lng: -120.3108 },
   googleMapsUrl: "https://maps.google.com/?q=3012+Center+Road+Ste+A+Wenatchee+WA+98801",
   googleMapsEmbed:
