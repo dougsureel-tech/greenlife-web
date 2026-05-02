@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import type { MenuProduct } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 
@@ -163,12 +164,14 @@ function ProductImage({ src, alt, category }: { src: string | null; alt: string;
   return (
     <>
       {!loaded && <div className="absolute inset-0 img-placeholder" />}
-      <img
+      <Image
         src={src}
         alt={alt}
+        fill
+        sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 95vw"
         onLoad={() => setLoaded(true)}
         onError={() => setErrored(true)}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+        className={`object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
       />
     </>
   );

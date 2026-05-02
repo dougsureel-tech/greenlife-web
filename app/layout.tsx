@@ -5,6 +5,7 @@ import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { CartResumeBanner } from "@/components/CartResumeBanner";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { STORE } from "@/lib/store";
 import "./globals.css";
@@ -192,6 +193,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AgeGate />
         <AnnouncementBar />
         <SiteHeader />
+        <CartResumeBanner />
         <main id="main" className="flex-1">
           {children}
         </main>
