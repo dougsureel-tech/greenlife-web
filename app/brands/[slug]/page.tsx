@@ -6,6 +6,9 @@ import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
 import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
+import FairwindsBrandPage from "./_brands/fairwinds-manufacturing";
+import SparkIndustriesBrandPage from "./_brands/spark-industries";
+import MfusedBrandPage from "./_brands/mfused";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +27,9 @@ type BrandComponentProps = {
 const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> = {
   "northwest-cannabis-solutions": NWCSBrandPage,
   "grow-op-farms": GrowOpFarmsBrandPage,
+  "fairwinds-manufacturing": FairwindsBrandPage,
+  "spark-industries": SparkIndustriesBrandPage,
+  "mfused": MfusedBrandPage,
 };
 
 type Props = { params: Promise<{ slug: string }> };
