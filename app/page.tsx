@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { DropTicker } from "@/components/DropTicker";
 import { ReviewsSection } from "@/components/Reviews";
 
@@ -452,16 +451,42 @@ export default async function HomePage() {
               by month, but Chelan stays warm through October and the framing also
               works for fall hikes, hot tubs, and ski cabins. */}
       <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-amber-50/60 to-rose-50 border-y border-stone-100">
-        {/* Subtle horizon line — soft mountain silhouette and water ripple gesture. */}
-        <svg
-          className="absolute inset-x-0 bottom-0 w-full h-24 sm:h-32 text-sky-100/60 pointer-events-none"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          fill="currentColor"
+        {/* Three-layer atmospheric horizon, top to bottom:
+            1) Drifting clouds (white-ish, soft) — the "flying high" gesture.
+              Animated with a slow 60s linear translate so it reads as motion
+              without being distracting; respects prefers-reduced-motion via the
+              motion-safe / motion-reduce variants below.
+            2) Mountain silhouette (stone-200) — Cascades shoulder.
+            3) Water ripple (sky-100) — Columbia/Lake Chelan gesture. */}
+        <div
+          className="absolute inset-x-0 top-4 sm:top-6 h-12 sm:h-16 pointer-events-none motion-safe:animate-[drift_60s_linear_infinite] motion-reduce:animate-none"
+          style={{ width: "200%" }}
           aria-hidden="true"
         >
-          <path d="M0 80 C 200 40, 400 100, 600 70 C 800 40, 1000 90, 1200 60 L1200 120 L0 120 Z" />
-        </svg>
+          <svg
+            className="w-1/2 h-full text-white/70 inline-block"
+            viewBox="0 0 600 60"
+            preserveAspectRatio="none"
+            fill="currentColor"
+          >
+            <ellipse cx="80" cy="30" rx="45" ry="14" />
+            <ellipse cx="220" cy="22" rx="65" ry="16" />
+            <ellipse cx="380" cy="34" rx="50" ry="13" />
+            <ellipse cx="510" cy="20" rx="40" ry="12" />
+          </svg>
+          <svg
+            className="w-1/2 h-full text-white/70 inline-block"
+            viewBox="0 0 600 60"
+            preserveAspectRatio="none"
+            fill="currentColor"
+          >
+            <ellipse cx="80" cy="30" rx="45" ry="14" />
+            <ellipse cx="220" cy="22" rx="65" ry="16" />
+            <ellipse cx="380" cy="34" rx="50" ry="13" />
+            <ellipse cx="510" cy="20" rx="40" ry="12" />
+          </svg>
+        </div>
+        <style>{`@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
         <svg
           className="absolute inset-x-0 top-12 w-full h-16 text-stone-200/50 pointer-events-none"
           viewBox="0 0 1200 60"
@@ -471,11 +496,20 @@ export default async function HomePage() {
         >
           <path d="M0 40 L150 10 L260 25 L380 5 L520 30 L660 12 L820 35 L960 15 L1080 28 L1200 18 L1200 60 L0 60 Z" />
         </svg>
+        <svg
+          className="absolute inset-x-0 bottom-0 w-full h-24 sm:h-32 text-sky-100/60 pointer-events-none"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M0 80 C 200 40, 400 100, 600 70 C 800 40, 1000 90, 1200 60 L1200 120 L0 120 Z" />
+        </svg>
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-10 sm:mb-12">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700/80 mb-3">
-              <span className="text-sm">☀️</span> Hangin&apos; in the valley
+              <span className="text-sm">☁️</span> Flying high through the valley
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
               Pick the move. We&apos;ll cover the shelf.
@@ -968,8 +1002,8 @@ export default async function HomePage() {
       {/* ─── FAQ — AI Overview / Google rich-result fuel ────────────────────── */}
       <FaqSection />
 
-      {/* Mobile sticky CTA — appears after scrolling past the hero */}
-      <MobileStickyCta />
+      {/* MobileStickyCta moved to root layout — now appears on every page
+          (except /menu, /sign-in, /sign-up, /account where it's hidden) */}
 
       {/* ─── CTA band ───────────────────────────────────────────────────────── */}
       <section className="bg-green-950 text-white">

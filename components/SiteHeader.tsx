@@ -3,8 +3,40 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { STORE } from "@/lib/store";
+import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { StashHeaderLink } from "./StashHeaderLink";
+
+// Live "Open · Closes 11 PM" / "Closed · Opens 8 AM" indicator.
+// useEffect-mounted so SSR doesn't lock in a wrong status; refreshes every
+// 60s so the pill flips correctly as the store opens/closes during a
+// session. Calls into lib/store helpers, which compute against
+// America/Los_Angeles regardless of the visitor's clock.
+function StatusPill({ dark }: { dark: boolean }) {
+  const [status, setStatus] = useState<{ open: boolean; label: string } | null>(null);
+  useEffect(() => {
+    const update = () => setStatus({ open: isOpenNow(), label: nextOpenLabel() });
+    update();
+    const id = setInterval(update, 60_000);
+    return () => clearInterval(id);
+  }, []);
+  if (!status) return null;
+  const dotColor = status.open ? "bg-green-500" : "bg-stone-400";
+  return (
+    <span
+      aria-live="polite"
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
+        dark
+          ? "bg-white/10 text-white/90 border border-white/15"
+          : "bg-stone-100 text-stone-700 border border-stone-200"
+      }`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full ${dotColor} ${status.open ? "animate-pulse" : ""}`} />
+      <span>
+        {status.open ? "Open" : "Closed"} · {status.label.replace(/^(Closes|Opens) at /, "")}
+      </span>
+    </span>
+  );
+}
 
 const NAV = [
   { href: "/menu", label: "Menu" },
@@ -87,6 +119,13 @@ export function SiteHeader() {
             </span>
           </Link>
 
+          {/* Open/Closed pill — at-a-glance store status on every page.
+              Hidden on the smallest phones so the logo + hamburger don't
+              get cramped; visible from sm: and up. */}
+          <div className="hidden sm:flex items-center">
+            <StatusPill dark={dark} />
+          </div>
+
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5">
             {NAV.map(({ href, label }) => {
@@ -126,7 +165,7 @@ export function SiteHeader() {
             <StashHeaderLink dark={dark} />
             {/* Always show Sign in link — signed-in visitors are routed to
                 /account by Clerk's session cookie when they land on /sign-in. */}
-            {(
+            {
               <Link
                 href="/sign-in"
                 title="Sign in"
@@ -138,7 +177,7 @@ export function SiteHeader() {
               >
                 Sign in
               </Link>
-            )}
+            }
             <Link
               href="/menu"
               className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 shadow-sm ${
@@ -208,6 +247,10 @@ export function SiteHeader() {
           </button>
         </div>
 
+        <div className="px-5 py-3 border-b border-stone-100">
+          <StatusPill dark={false} />
+        </div>
+
         <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
           {NAV.map(({ href, label }) => {
             const active = pathname.startsWith(href);
@@ -270,13 +313,7 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:border-green-300 hover:text-green-800 transition-all"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

@@ -4,6 +4,7 @@ import { AgeGate } from "@/components/AgeGate";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { STORE } from "@/lib/store";
 import "./globals.css";
@@ -184,6 +185,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <SiteFooter />
+        <MobileStickyCta />
         <ServiceWorkerRegister />
       </body>
     </html>
