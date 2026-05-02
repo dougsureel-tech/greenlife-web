@@ -11,6 +11,31 @@ import { StashHeaderLink } from "./StashHeaderLink";
 // 60s so the pill flips correctly as the store opens/closes during a
 // session. Calls into lib/store helpers, which compute against
 // America/Los_Angeles regardless of the visitor's clock.
+// Small pulsing dot rendered next to nav items when something live is
+// happening at that destination. Currently used by the Deals nav entry —
+// fetches /api/deals/top once on mount (60s edge cache) and lights up
+// when any deal is active. Silent failure: dot just stays off.
+function LiveDot() {
+  const [live, setLive] = useState(false);
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch("/api/deals/top", { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { deal: unknown } | null) => {
+        if (d?.deal) setLive(true);
+      })
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, []);
+  if (!live) return null;
+  return (
+    <span
+      aria-label="Live deal"
+      className="ml-1.5 inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_6px_#ef4444]"
+    />
+  );
+}
+
 function StatusPill({ dark }: { dark: boolean }) {
   const [status, setStatus] = useState<{ open: boolean; label: string } | null>(null);
   useEffect(() => {
@@ -97,7 +122,7 @@ export function SiteHeader() {
             : "bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-sm"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div
@@ -157,6 +182,7 @@ export function SiteHeader() {
                   }`}
                 >
                   {label}
+                  {href === "/deals" && <LiveDot />}
                 </Link>
               );
             })}
@@ -285,7 +311,10 @@ export function SiteHeader() {
                     : "text-stone-700 hover:bg-stone-50 hover:text-green-800"
                 }`}
               >
-                {label}
+                <span className="inline-flex items-center">
+                  {label}
+                  {href === "/deals" && <LiveDot />}
+                </span>
                 {active && <span className="w-1.5 h-1.5 rounded-full bg-green-600 shrink-0" />}
               </Link>
             );

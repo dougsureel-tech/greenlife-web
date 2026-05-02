@@ -1,16 +1,20 @@
 import type { MetadataRoute } from "next";
-import { getActiveBrands } from "@/lib/db";
+import { getActiveBrands, getActiveDeals } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { getPosts } from "@/lib/posts";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const brands = await getActiveBrands().catch(() => []);
+  const [brands, deals] = await Promise.all([
+    getActiveBrands().catch(() => []),
+    getActiveDeals().catch(() => []),
+  ]);
   const posts = getPosts();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: STORE.website, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${STORE.website}/menu`, lastModified: new Date(), changeFrequency: "daily", priority: 0.95 },
     { url: `${STORE.website}/order`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${STORE.website}/deals`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${STORE.website}/visit`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
     {
       url: `${STORE.website}/find-your-strain`,
@@ -25,6 +29,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${STORE.website}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${STORE.website}/learn`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.75 },
   ];
+
+  // Per-deal deep pages — only currently-active deals, since /deals/[id]
+  // 404s on expired ones and Google penalizes sitemaps with dead URLs.
+  // changeFrequency: daily because the page surface (end-date pill, copy)
+  // can change as the deal nears expiry.
+  const dealPages: MetadataRoute.Sitemap = deals.map((d) => ({
+    url: `${STORE.website}/deals/${d.id}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: 0.85,
+  }));
 
   // Dedupe brand slugs — `getActiveBrands` groups by `v.id` but the slug is
   // derived from `v.name`, so two vendor rows with the same name produce
@@ -52,5 +67,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...brandPages, ...postPages];
+  return [...staticPages, ...dealPages, ...brandPages, ...postPages];
 }
