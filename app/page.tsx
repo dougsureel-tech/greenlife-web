@@ -147,8 +147,8 @@ export default async function HomePage() {
                   <span className="text-green-100/70 font-light">Shop.</span>
                 </h1>
                 <p className="text-green-100/60 text-lg sm:text-xl leading-relaxed max-w-lg mt-5">
-                  Chelan to Cascades, dock to porch — pull up, pick what fits the day. Top WA brands, real
-                  budtenders, five-minute pickup. First time or your fiftieth.
+                  Right off Sunnyslope. Pybus to Lake Chelan, Saddlerock to the Cascades — pull up, pick what
+                  fits the day. Top WA brands, real budtenders, five-minute pickup.
                 </p>
               </div>
 
@@ -475,14 +475,14 @@ export default async function HomePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-10 sm:mb-12">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700/80 mb-3">
-              <span className="text-sm">☀️</span> Where you headed?
+              <span className="text-sm">☀️</span> Hangin&apos; in the valley
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-              Pick the move. We&apos;ll cover the rest.
+              Pick the move. We&apos;ll cover the shelf.
             </h2>
             <p className="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
-              Chelan, the orchards, the back porch, the Cascades. Five minutes off your route — pull up, grab
-              what fits the day, hit the road.
+              Right off Sunnyslope. Pybus to Chelan, Saddlerock to the Cascades — pull up, grab what fits the
+              day, hit it.
             </p>
           </div>
 
@@ -490,32 +490,32 @@ export default async function HomePage() {
             {[
               {
                 emoji: "🚤",
-                label: "Boat day",
-                pitch: "Pre-rolls — no grinder, no mess, dock-ready",
+                label: "Lake day",
+                pitch: "Pre-rolls — Chelan, Wapato, the docks. No grinder, dock-ready.",
                 href: "/menu",
                 ring: "ring-sky-200/80 hover:ring-sky-400",
                 accent: "text-sky-700",
               },
               {
-                emoji: "🌅",
-                label: "Porch sit",
-                pitch: "Edibles & drinks — slow afternoons, no smell, low-key",
+                emoji: "🍎",
+                label: "Pybus & the riverfront",
+                pitch: "Edibles & drinks — Saturday market, river loop, low-key, no smell",
                 href: "/menu",
                 ring: "ring-amber-200/80 hover:ring-amber-400",
                 accent: "text-amber-700",
               },
               {
                 emoji: "🥾",
-                label: "Trail day",
-                pitch: "Vapes & carts — pocket-sized, sand-proof, loops back at sunset",
+                label: "Saddlerock & the loop",
+                pitch: "Vapes & carts — Apple Capital Loop or up the rock, pocket-sized",
                 href: "/menu",
                 ring: "ring-emerald-200/80 hover:ring-emerald-400",
                 accent: "text-emerald-700",
               },
               {
                 emoji: "🔥",
-                label: "Cabin & campfire",
-                pitch: "Sealed flower — stays fresh, burns clean, smells like home",
+                label: "Cabin & Cascades",
+                pitch: "Sealed flower — Stehekin, Methow, Stevens Pass. Stays fresh, smells like home.",
                 href: "/menu",
                 ring: "ring-rose-200/80 hover:ring-rose-400",
                 accent: "text-rose-700",
