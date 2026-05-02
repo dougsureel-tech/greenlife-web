@@ -8,7 +8,8 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: `Profile | ${STORE.name}`,
+  // Root layout's title.template appends " | <STORE.name>" automatically.
+  title: "Profile",
   robots: { index: false },
 };
 

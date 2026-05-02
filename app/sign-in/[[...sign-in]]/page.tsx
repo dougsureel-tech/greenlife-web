@@ -2,7 +2,8 @@ import Link from "next/link";
 import { SignIn } from "@clerk/nextjs";
 
 export const metadata = {
-  title: "Sign In | Green Life Cannabis",
+  // Root layout's title.template appends " | Green Life Cannabis" automatically.
+  title: "Sign In",
   robots: { index: false },
 };
 

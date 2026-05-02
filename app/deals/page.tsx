@@ -7,7 +7,9 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: `Cannabis Deals & Specials | ${STORE.name}`,
+  // Root layout's title.template wraps this with " | <STORE.name>", so don't
+  // include the brand here — was rendering "... | Green Life Cannabis | Green Life Cannabis".
+  title: "Cannabis Deals & Specials",
   description: `Live cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, and concentrates — all WA-WSLCB-compliant percent-off and dollar-off promotions.`,
   alternates: { canonical: "/deals" },
   openGraph: {
