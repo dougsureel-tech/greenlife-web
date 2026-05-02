@@ -256,8 +256,34 @@ export async function placeOrder(
 ): Promise<string> {
   const sql = getClient();
   const orderId = crypto.randomUUID();
-  const subtotal = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
-  const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
+
+  // Re-fetch authoritative unit_price for every item with a productId,
+  // because the cart's `unitPrice` is client-supplied and a tampered
+  // request could place a $200 order at $0.01. Items without a productId
+  // are text-only menu lines (rare; staff resolve at pickup) — those keep
+  // the supplied price.
+  const productIds = items.map((i) => i.productId).filter((id): id is string => !!id);
+  const priceById = new Map<string, number>();
+  if (productIds.length > 0) {
+    const rows = await sql`
+      SELECT id, unit_price::float AS unit_price
+      FROM products
+      WHERE id = ANY(${productIds}::text[])
+    `;
+    for (const r of rows) {
+      const price = r.unit_price as number | null;
+      if (price != null) priceById.set(r.id as string, price);
+    }
+  }
+  const pricedItems = items.map((i) => {
+    if (i.productId && priceById.has(i.productId)) {
+      return { ...i, unitPrice: priceById.get(i.productId)! };
+    }
+    return i;
+  });
+
+  const subtotal = pricedItems.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
+  const itemCount = pricedItems.reduce((sum, i) => sum + i.quantity, 0);
 
   // Pull portal user info so the staff queue shows the customer's name + how
   // to reach them, instead of "Unknown customer".
@@ -280,7 +306,7 @@ export async function placeOrder(
       'pending',
       ${subtotal},
       ${itemCount},
-      ${JSON.stringify(items)},
+      ${JSON.stringify(pricedItems)},
       ${notes ?? null},
       'portal',
       ${pickupTimeISO ?? null},
@@ -290,7 +316,7 @@ export async function placeOrder(
     )
   `;
 
-  for (const item of items) {
+  for (const item of pricedItems) {
     const itemId = crypto.randomUUID();
     await sql`
       INSERT INTO online_order_items (id, order_id, product_id, product_name, brand, category, strain_type, unit_price, quantity, line_total)
