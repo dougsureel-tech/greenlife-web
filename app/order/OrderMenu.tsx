@@ -566,13 +566,18 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
           {/* Product grid by category */}
           <div className="space-y-12">
             {[...grouped.entries()].map(([category, items]) => {
-              // In the All-Items view, cap each category at 24 cards so the
-              // initial render isn't 10K+ products / 17MB of HTML. The
-              // "Show all" button switches to that category, which then
-              // renders the full list. When a category is already selected
-              // or the user has filtered/searched, render every match.
+              // All-Items view is a teaser strip — 6 cards per category, then
+              // a "Show all N flower →" button that scopes the view to that
+              // category and renders every match. The previous 24-per-category
+              // cap was technically OK for HTML weight but produced a wall of
+              // ~150 cards on the All-Items landing that scrolled too far
+              // before the customer found anything. 6 is roughly one phone
+              // screen per category — sample, tap, browse.
+              //
+              // When a category is selected or any filter (search/strain/
+              // brand) is active, render every match (no cap).
               const isCapped = activeCategory === null && !search && !strainFilter && !brandFilter;
-              const visibleItems = isCapped ? items.slice(0, 24) : items;
+              const visibleItems = isCapped ? items.slice(0, 6) : items;
               const hiddenCount = items.length - visibleItems.length;
               return (
                 <section key={category}>
