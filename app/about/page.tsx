@@ -280,6 +280,17 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        {/* Subtle handoff to the team-roster page. Doesn't shout — sits as
+            a quiet link before the bottom CTA for readers who want more. */}
+        <section className="text-center">
+          <Link
+            href="/our-story"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
+          >
+            Meet the people who built this place →
+          </Link>
+        </section>
+
         {/* Bottom CTA */}
         <section className="rounded-3xl bg-green-950 text-white p-8 text-center space-y-4">
           <p className="font-bold text-xl">Come see us in Wenatchee</p>

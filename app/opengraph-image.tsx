@@ -28,7 +28,10 @@ export default function OG() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: "radial-gradient(circle at 80% 20%, rgba(74,222,128,0.25), transparent 60%)",
+          // Same depth treatment as the homepage hero — green top-right +
+          // warm amber bottom-left for "evergreen + sunset" PNW vibe.
+          backgroundImage:
+            "radial-gradient(circle at 80% 20%, rgba(74,222,128,0.30), transparent 60%), radial-gradient(circle at 15% 90%, rgba(251,191,36,0.15), transparent 55%)",
         }}
       />
       <div style={{ display: "flex", alignItems: "center", gap: 16, position: "relative" }}>
@@ -73,6 +76,8 @@ export default function OG() {
           <span>Cash only</span>
           <span style={{ color: "#10b981" }}>·</span>
           <span>21+</span>
+          <span style={{ color: "#10b981" }}>·</span>
+          <span>ATM on site</span>
         </div>
         <div style={{ fontSize: 20, color: "#86efac", fontWeight: 500 }}>greenlifecannabis.com</div>
       </div>
