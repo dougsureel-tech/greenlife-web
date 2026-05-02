@@ -72,7 +72,7 @@ export default function BrandsOG() {
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
               <span style={{ fontSize: 26, fontWeight: 800 }}>{STORE.name}</span>
               <span style={{ fontSize: 17, color: "#86efac", marginTop: 2, letterSpacing: 1 }}>
-                Brands · {STORE.address.city}, WA
+                {`Brands · ${STORE.address.city}, WA`}
               </span>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function BrandsOG() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 18, color: "#a7f3d0", fontWeight: 600 }}>
-              {STORE.address.street} · Open daily
+              {`${STORE.address.street} · Open daily`}
             </div>
             <div style={{ fontSize: 22, color: "#86efac", fontWeight: 700 }}>
               greenlifecannabis.com/brands

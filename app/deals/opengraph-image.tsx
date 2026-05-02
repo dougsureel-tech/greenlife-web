@@ -76,7 +76,7 @@ export default function DealsOG() {
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
               <span style={{ fontSize: 26, fontWeight: 800 }}>{STORE.name}</span>
               <span style={{ fontSize: 17, color: "#fcd34d", marginTop: 2, letterSpacing: 1 }}>
-                Daily Deals · {STORE.address.city}, WA
+                {`Daily Deals · ${STORE.address.city}, WA`}
               </span>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function DealsOG() {
               Today's Deals
             </div>
             <div style={{ fontSize: 28, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
-              Live cannabis specials at {STORE.name}
+              {`Live cannabis specials at ${STORE.name}`}
             </div>
 
             <div

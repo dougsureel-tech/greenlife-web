@@ -86,7 +86,7 @@ export default function OG() {
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
               <span style={{ fontSize: 26, fontWeight: 800 }}>{STORE.name}</span>
               <span style={{ fontSize: 17, color: "#86efac", marginTop: 2, letterSpacing: 1 }}>
-                WSLCB · LIC {STORE.wslcbLicense} · 21+
+                {`WSLCB · LIC ${STORE.wslcbLicense} · 21+`}
               </span>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function OG() {
               Wenatchee's Premier Cannabis
             </div>
             <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
-              {STORE.address.street} · {STORE.address.city}, {STORE.address.state}
+              {`${STORE.address.street} · ${STORE.address.city}, ${STORE.address.state}`}
             </div>
 
             {/* Live status pill — pulse dot + hours range. Hardcoded
