@@ -4,6 +4,8 @@ import { STORE, isOpenNow, nextOpenLabel, minutesUntilClose } from "@/lib/store"
 import { getActiveDeals, type ActiveDeal } from "@/lib/db";
 import { DealCountdown } from "@/components/DealCountdown";
 import { computeDealCountdown } from "@/lib/deal-countdown";
+import { DealArt } from "@/components/DealArt";
+import { matchDealVendor } from "@/lib/deal-vendor-match";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,28 +27,6 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
 };
-
-// Map appliesTo bucket → emoji + accent class for the card medallion. Keeps
-// the visual rhythm of the homepage category grid without invoking next/image
-// for vendor logos (deals are category-scoped in our schema, not vendor-
-// scoped, so there's no logoUrl on ActiveDeal).
-const CATEGORY_MEDALLION: Record<string, { emoji: string; bg: string; text: string }> = {
-  flower: { emoji: "🌿", bg: "bg-emerald-100", text: "text-emerald-700" },
-  edibles: { emoji: "🍬", bg: "bg-rose-100", text: "text-rose-700" },
-  vapes: { emoji: "💨", bg: "bg-sky-100", text: "text-sky-700" },
-  concentrates: { emoji: "🧴", bg: "bg-violet-100", text: "text-violet-700" },
-  "pre-rolls": { emoji: "🫙", bg: "bg-amber-100", text: "text-amber-700" },
-  prerolls: { emoji: "🫙", bg: "bg-amber-100", text: "text-amber-700" },
-  tinctures: { emoji: "💧", bg: "bg-teal-100", text: "text-teal-700" },
-  topicals: { emoji: "🌱", bg: "bg-lime-100", text: "text-lime-700" },
-  beverages: { emoji: "🥤", bg: "bg-orange-100", text: "text-orange-700" },
-  all: { emoji: "🎟️", bg: "bg-emerald-100", text: "text-emerald-700" },
-};
-
-function medallionFor(appliesTo: string | null) {
-  const key = (appliesTo ?? "all").toLowerCase().trim();
-  return CATEGORY_MEDALLION[key] ?? CATEGORY_MEDALLION.all;
-}
 
 // Schema.org Offer per running deal — feeds AI engines (ChatGPT/Perplexity)
 // and Google rich-results so "are there deals at Green Life today" gets a
@@ -343,9 +323,9 @@ export default async function DealsPage() {
           </div>
         </section>
       ) : (
-        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-4">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-5">
           {deals.map((d, i) => {
-            const med = medallionFor(d.appliesTo);
+            const vendor = matchDealVendor(d.name, d.description);
             const initial = computeDealCountdown(d.endDate);
             const isFirst = i === 0;
             // CTA target: per `feedback_customer_ctas_point_to_menu_only.md`,
@@ -355,89 +335,94 @@ export default async function DealsPage() {
             return (
               <article
                 key={d.id}
-                className={`rounded-2xl border bg-white p-5 sm:p-6 transition-all hover:shadow-lg ${
+                className={`group rounded-2xl border bg-white overflow-hidden transition-all hover:shadow-xl hover:-translate-y-0.5 ${
                   isFirst
                     ? "border-emerald-300 shadow-md ring-1 ring-emerald-100"
                     : "border-stone-200 hover:border-emerald-300"
                 }`}
               >
-                <div className="flex items-start gap-4">
-                  {/* Category medallion — emoji + tinted bubble. Replaces the
-                      vendor-logo slot the brief sketched (deals are
-                      category-scoped, not vendor-scoped, in our schema). */}
-                  <div
-                    className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl ${med.bg} ${med.text}`}
-                    aria-hidden
-                  >
-                    {med.emoji}
+                {/* Wide bud-art hero strip — vendor photo + logo card when
+                    we recognize the brand, category-themed gradient when we
+                    don't. Mirrors the visual language of the dialed-in
+                    /brands/[slug] pages so the surface feels coherent. */}
+                <DealArt
+                  vendor={vendor}
+                  appliesTo={d.appliesTo}
+                  short={d.short}
+                  paletteAccent="green"
+                />
+
+                <div className="p-5 sm:p-6">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {isFirst && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-600 text-white uppercase tracking-wide">
+                        Ending Soonest
+                      </span>
+                    )}
+                    <DealCountdown
+                      endDate={d.endDate}
+                      initialLabel={initial.label}
+                      initialUrgent={initial.urgent}
+                    />
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {isFirst && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-600 text-white uppercase tracking-wide">
-                          Ending Soonest
-                        </span>
-                      )}
-                      <DealCountdown
-                        endDate={d.endDate}
-                        initialLabel={initial.label}
-                        initialUrgent={initial.urgent}
-                      />
-                    </div>
+                  <h2 className="mt-2 text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight leading-tight">
+                    <Link
+                      href={`/deals/${d.id}`}
+                      className="hover:text-emerald-800 transition-colors"
+                    >
+                      {d.name}
+                    </Link>
+                  </h2>
 
-                    <h2 className="mt-2 text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight leading-tight">
-                      <Link
-                        href={`/deals/${d.id}`}
-                        className="hover:text-emerald-800 transition-colors"
-                      >
-                        {d.name}
-                      </Link>
-                    </h2>
+                  {d.description && (
+                    <p className="mt-2 text-stone-600 text-sm leading-relaxed">
+                      {d.description}
+                    </p>
+                  )}
 
-                    <p className="mt-1 text-emerald-800 text-base font-bold">{d.short}</p>
-
-                    {d.description && (
-                      <p className="mt-2 text-stone-600 text-sm leading-relaxed">
-                        {d.description}
-                      </p>
-                    )}
-
-                    {/* Qualifier badges. "Stacks with loyalty" is universally
-                        true at Green Life (loyalty applies at the counter
-                        regardless of deal); the first-time-customer 15% off
-                        chip surfaces only on the lead deal so it doesn't get
-                        repeated noise. */}
-                    <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200">
-                        Stacks with loyalty
+                  {/* Qualifier badges. "Stacks with loyalty" is universally
+                      true at Green Life (loyalty applies at the counter
+                      regardless of deal); the first-time-customer 15% off
+                      chip surfaces only on the lead deal so it doesn't get
+                      repeated noise. */}
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200">
+                      Stacks with loyalty
+                    </span>
+                    {isFirst && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-amber-50 text-amber-800 ring-1 ring-amber-200">
+                        First-time customer · 15% off
                       </span>
-                      {isFirst && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-amber-50 text-amber-800 ring-1 ring-amber-200">
-                          First-time customer · 15% off
-                        </span>
-                      )}
-                      {d.appliesTo && d.appliesTo !== "all" && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-stone-50 text-stone-700 ring-1 ring-stone-200 capitalize">
-                          {d.appliesTo}
-                        </span>
-                      )}
-                    </div>
+                    )}
+                    {d.appliesTo && d.appliesTo !== "all" && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-stone-50 text-stone-700 ring-1 ring-stone-200 capitalize">
+                        {d.appliesTo}
+                      </span>
+                    )}
+                    {vendor && (
+                      <Link
+                        href={`/brands/${vendor.slug}`}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-stone-900 text-white hover:bg-stone-700 transition-colors"
+                      >
+                        Shop {vendor.displayName} →
+                      </Link>
+                    )}
+                  </div>
 
-                    <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <Link
-                        href="/menu"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-sm"
-                      >
-                        View on menu →
-                      </Link>
-                      <Link
-                        href={`/deals/${d.id}`}
-                        className="text-sm font-semibold text-emerald-800 hover:text-emerald-600 transition-colors"
-                      >
-                        Deal details
-                      </Link>
-                    </div>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <Link
+                      href="/menu"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-sm"
+                    >
+                      View on menu →
+                    </Link>
+                    <Link
+                      href={`/deals/${d.id}`}
+                      className="text-sm font-semibold text-emerald-800 hover:text-emerald-600 transition-colors"
+                    >
+                      Deal details
+                    </Link>
                   </div>
                 </div>
               </article>
