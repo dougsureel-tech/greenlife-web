@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
+import { ATTR_COOKIE, ATTR_TTL_DAYS, validateAttrValue } from "@/lib/attribution";
 
 // Routes where Clerk's middleware runs (so its UI components can hydrate
 // session state) — includes the auth pages themselves so <SignIn /> renders.
@@ -85,6 +86,29 @@ export default async function middleware(req: NextRequest) {
   if (isClerkRoute(req)) {
     // Defer to Clerk only on auth-relevant paths.
     return (clerk as unknown as (req: NextRequest) => Promise<Response> | Response)(req);
+  }
+
+  // Marketing attribution capture — last-touch wins. Whenever a request
+  // carries `?from=<source>:<slug>` matching the SOURCE_KINDS allowlist,
+  // we write it to the gl_attr_source cookie (30-day TTL). Subsequent
+  // visits + the eventual order flow can read this back to know what
+  // surface drove the customer in. Validation lives in lib/attribution.ts
+  // so the cookie value is always a known shape — protects the admin
+  // attribution dashboard from rendering injected text.
+  const fromParam = url.searchParams.get("from");
+  if (fromParam) {
+    const validated = validateAttrValue(fromParam);
+    if (validated) {
+      const res = NextResponse.next();
+      res.cookies.set(ATTR_COOKIE, validated, {
+        maxAge: 60 * 60 * 24 * ATTR_TTL_DAYS,
+        path: "/",
+        sameSite: "lax",
+        httpOnly: false,
+        secure: url.protocol === "https:",
+      });
+      return res;
+    }
   }
   return NextResponse.next();
 }

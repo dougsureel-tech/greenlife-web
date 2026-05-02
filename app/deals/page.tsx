@@ -6,6 +6,7 @@ import { DealCountdown } from "@/components/DealCountdown";
 import { computeDealCountdown } from "@/lib/deal-countdown";
 import { DealArt } from "@/components/DealArt";
 import { matchDealVendor } from "@/lib/deal-vendor-match";
+import { withAttr } from "@/lib/attribution";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -402,7 +403,7 @@ export default async function DealsPage() {
                     )}
                     {vendor && (
                       <Link
-                        href={`/brands/${vendor.slug}`}
+                        href={withAttr(`/brands/${vendor.slug}`, "deals-card", `${d.id}-vendor`)}
                         className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-stone-900 text-white hover:bg-stone-700 transition-colors"
                       >
                         Shop {vendor.displayName} →
@@ -412,7 +413,7 @@ export default async function DealsPage() {
 
                   <div className="mt-4 flex flex-wrap items-center gap-3">
                     <Link
-                      href="/menu"
+                      href={withAttr("/menu", "deals-card", d.id)}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-sm"
                     >
                       View on menu →
