@@ -178,7 +178,13 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
         type="application/json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JANE_APP_SETTINGS) }}
       />
-      {/* 3. Boost module — hydrates the menu inline into the body */}
+      {/* 3. Boost module — hydrates the menu inline into the body.
+          `type="module"` is async-by-default per HTML spec and runs after
+          the inline runtime config + JSON blobs above; that load order is
+          load-bearing so DON'T add `async` (which would race them) or
+          migrate to next/script (which restages execution). The
+          no-sync-scripts lint rule misfires here. */}
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script type="module" crossOrigin="anonymous" src={BOOST_SCRIPT_URL} />
     </>
   );

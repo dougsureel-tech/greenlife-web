@@ -4,7 +4,7 @@
 // yet — adding one wrong cache rule on a dispensary site (stale prices,
 // stale inventory) is worse than no cache at all.
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
@@ -17,7 +17,7 @@ self.addEventListener("push", (event) => {
   if (event.data) {
     try {
       payload = { ...payload, ...event.data.json() };
-    } catch (_) {
+    } catch {
       payload.body = event.data.text();
     }
   }
@@ -48,7 +48,7 @@ self.addEventListener("notificationclick", (event) => {
             client.navigate(targetUrl).catch(() => {});
             return client.focus();
           }
-        } catch (_) {}
+        } catch {}
       }
       if (self.clients.openWindow) {
         return self.clients.openWindow(targetUrl);

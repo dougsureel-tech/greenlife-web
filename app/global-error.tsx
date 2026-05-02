@@ -51,8 +51,10 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
             >
               Try again
             </button>
-            <a
-              href="/"
+            <button
+              onClick={() => {
+                window.location.href = "/";
+              }}
               style={{
                 padding: "0.625rem 1.25rem",
                 borderRadius: "0.75rem",
@@ -61,11 +63,11 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 border: "1px solid #d6d3d1",
-                textDecoration: "none",
+                cursor: "pointer",
               }}
             >
               Go home
-            </a>
+            </button>
           </div>
         </div>
       </body>
