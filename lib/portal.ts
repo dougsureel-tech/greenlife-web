@@ -1,5 +1,17 @@
 import "server-only";
 import { getClient } from "./db";
+import { sendPushToClerkUser } from "./push-db";
+
+// "Order is ready" web push — fired server-side from /account/orders +
+// /order/confirmation page renders. The OrderStatusRefresh component on
+// those pages polls every 45s; when staff flips an order to "ready", the
+// next poll triggers a re-render which calls `notifyReadyOrders`. The
+// 90-second `ready_at > NOW() - INTERVAL '90 seconds'` window means a push
+// fires once shortly after the flip; subsequent renders skip it. Browser
+// `tag: order-ready-{id}` collapses any duplicate fires within a session.
+//
+// Stateless dedupe — no extra `notified_at` column / migration required.
+const READY_WINDOW_SECONDS = 90;
 
 export type PortalUser = {
   id: string;
@@ -115,6 +127,41 @@ export async function getOrder(
     pickupTime: r.pickup_time ? (r.pickup_time as Date).toISOString() : null,
     items: items.map(mapOrderItem),
   };
+}
+
+// Fire web push for any orders that just flipped to "ready" within the
+// last READY_WINDOW_SECONDS for this portal user. Idempotency is handled by
+// the browser's notification `tag` collapsing duplicate fires; the time-
+// window keeps server-side sends bounded to one short burst per flip.
+//
+// Designed to be called from page-render side-effects (via after()) on
+// /account/orders + /order/confirmation. Cheap when no qualifying order
+// exists (single SELECT, no row → no work). Safe to call on every render.
+export async function notifyReadyOrders(portalUserId: string): Promise<{ sent: number }> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT o.id, pu.clerk_user_id, COALESCE(o.item_count, 0)::int AS item_count
+    FROM online_orders o
+    JOIN portal_users pu ON pu.id = o.portal_user_id
+    WHERE o.portal_user_id = ${portalUserId}
+      AND o.status = 'ready'
+      AND o.ready_at IS NOT NULL
+      AND o.ready_at > NOW() - (${READY_WINDOW_SECONDS} || ' seconds')::interval
+  `;
+  if (rows.length === 0) return { sent: 0 };
+  let total = 0;
+  for (const r of rows as unknown as { id: string; clerk_user_id: string; item_count: number }[]) {
+    if (!r.clerk_user_id) continue;
+    const itemNote = r.item_count > 0 ? `${r.item_count} item${r.item_count === 1 ? "" : "s"} ready` : "Ready for pickup";
+    const { sent } = await sendPushToClerkUser(r.clerk_user_id, {
+      title: "Your order is ready 🛍️",
+      body: `${itemNote}. Bring ID and cash — see you soon.`,
+      url: `/order/confirmation/${r.id}`,
+      tag: `order-ready-${r.id}`,
+    });
+    total += sent;
+  }
+  return { sent: total };
 }
 
 export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {

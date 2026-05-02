@@ -1,11 +1,13 @@
 import { auth } from "@clerk/nextjs/server";
+import { after } from "next/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Metadata } from "next";
-import { getOrCreatePortalUser, getOrder } from "@/lib/portal";
+import { getOrCreatePortalUser, getOrder, notifyReadyOrders } from "@/lib/portal";
 import { STORE } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
+import { NotifyMeButton } from "@/components/NotifyMeButton";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Order confirmed" };
@@ -51,6 +53,17 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
   const pickupDay = order.pickupTime ? fmtPickupDay(order.pickupTime) : null;
   const isActive =
     order.status === "pending" || order.status === "preparing" || order.status === "ready";
+  const inFlight = order.status === "pending" || order.status === "preparing";
+
+  // Same push trigger as /account/orders — fires for any of this user's
+  // orders that just flipped to "ready". Browser tag dedupes display.
+  after(async () => {
+    try {
+      await notifyReadyOrders(portalUser.id);
+    } catch (e) {
+      console.error("[order-confirmation] notifyReadyOrders failed", e);
+    }
+  });
   const cancelled = order.status === "cancelled";
   const stageIdx = STAGES.findIndex((s) => s.key === order.status);
   // Find the live stage. cancelled = -1 (handled separately); unknown statuses
@@ -86,6 +99,15 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
           <p className="text-sm text-green-100/90 leading-relaxed">
             We&rsquo;ll text you the moment it&rsquo;s ready. Bring your ID and cash — that&rsquo;s it.
           </p>
+          {/* Web push subscribe — bonus channel on top of SMS. Server fires
+              push when order flips to "ready" via lib/portal.notifyReadyOrders.
+              Component self-hides if already subscribed or browser doesn't
+              support push. Only shown while order is in flight. */}
+          {inFlight && (
+            <div className="rounded-2xl bg-white/10 px-4 py-3 inline-block">
+              <NotifyMeButton />
+            </div>
+          )}
         </div>
 
         {/* Status timeline — 4 dots tracking pending → preparing → ready →

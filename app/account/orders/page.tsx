@@ -1,9 +1,11 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { after } from "next/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getOrCreatePortalUser, getOrders } from "@/lib/portal";
+import { getOrCreatePortalUser, getOrders, notifyReadyOrders } from "@/lib/portal";
 import { STORE } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
+import { NotifyMeButton } from "@/components/NotifyMeButton";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -75,6 +77,21 @@ export default async function OrderHistoryPage() {
   const hasActiveOrder = orders.some(
     (o) => o.status === "pending" || o.status === "preparing" || o.status === "ready",
   );
+  const hasJustReady = orders.some(
+    (o) => o.status === "ready" && o.readyAt && Date.now() - new Date(o.readyAt).getTime() < 5 * 60_000,
+  );
+
+  // Fire web push for any order that flipped to "ready" within the last
+  // 90 seconds. Runs after the response is sent so the page render isn't
+  // delayed by the push fan-out. Browser tag dedupes display, so calling
+  // this on every render of /account/orders is safe.
+  after(async () => {
+    try {
+      await notifyReadyOrders(portalUser.id);
+    } catch (e) {
+      console.error("[orders] notifyReadyOrders failed", e);
+    }
+  });
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 space-y-6">
@@ -112,6 +129,25 @@ export default async function OrderHistoryPage() {
           </span>
         )}
       </div>
+
+      {/* "Notify me when ready" prompt — only renders when there's an active
+          order, only when the customer hasn't already subscribed (component
+          self-hides). Once subscribed, server-side notifyReadyOrders() fires
+          on every page render where an order has just flipped to ready. */}
+      {hasActiveOrder && (
+        <div className="rounded-2xl border border-indigo-200 bg-gradient-to-r from-indigo-50 via-violet-50 to-indigo-50 px-5 py-4 flex items-center justify-between gap-3 flex-wrap">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-indigo-900">Get a heads-up the second it&apos;s ready</p>
+            <p className="text-xs text-indigo-700/80 mt-0.5">
+              Free, no SMS — works even if this tab is closed.
+              {hasJustReady && (
+                <span className="ml-1 text-emerald-700 font-semibold">Order ready right now ↓</span>
+              )}
+            </p>
+          </div>
+          <NotifyMeButton />
+        </div>
+      )}
 
       {orders.length === 0 ? (
         <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center space-y-4 shadow-sm">
