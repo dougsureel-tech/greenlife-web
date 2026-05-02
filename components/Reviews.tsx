@@ -65,6 +65,32 @@ const REVIEWS: Review[] = [
 const totalReviews = REVIEWS.length;
 const avgRating = REVIEWS.reduce((s, r) => s + r.rating, 0) / totalReviews;
 
+// Stable per-author color so the initial-avatar feels personal but doesn't
+// reshuffle on every render. Green-leaning palette to stay on-brand.
+const AVATAR_COLORS = [
+  "bg-green-100 text-green-700",
+  "bg-emerald-100 text-emerald-700",
+  "bg-teal-100 text-teal-700",
+  "bg-amber-100 text-amber-700",
+  "bg-rose-100 text-rose-700",
+  "bg-sky-100 text-sky-700",
+];
+
+function colorFor(author: string): string {
+  let hash = 0;
+  for (let i = 0; i < author.length; i++) hash = (hash * 31 + author.charCodeAt(i)) | 0;
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
+
+function initialsOf(author: string): string {
+  return author
+    .split(" ")
+    .map((s) => s[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 export function ReviewsSection() {
   // Per-review + aggregate JSON-LD. Linked to the LocalBusiness @id from
   // layout.tsx so AI engines + Google connect them to the right entity.
@@ -98,32 +124,34 @@ export function ReviewsSection() {
 
   return (
     <section className="bg-white border-y border-stone-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="text-center mb-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        {/* Heading: bigger star + rating treatment for a real focal point. */}
+        <div className="text-center mb-12">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">
             From the neighborhood
           </p>
-          <div className="flex items-center justify-center gap-3 mt-3">
-            <div className="flex items-center gap-0.5">
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((n) => (
-                <Star key={n} filled={n <= Math.round(avgRating)} />
+                <Star key={n} filled={n <= Math.round(avgRating)} large />
               ))}
             </div>
-            <span className="text-2xl font-extrabold text-stone-900 tabular-nums">
+            <span className="text-4xl font-extrabold text-stone-900 tabular-nums">
               {avgRating.toFixed(1)}
             </span>
+            <span className="text-sm font-medium text-stone-500">/ 5</span>
           </div>
-          <p className="text-stone-600 mt-2 text-sm">
+          <p className="text-stone-600 mt-3 text-sm">
             <strong className="text-stone-800 tabular-nums">{totalReviews}</strong> recent reviews from real
             Wenatchee customers
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {REVIEWS.map((r, i) => (
             <article
               key={i}
-              className="rounded-2xl border border-stone-200 bg-stone-50 p-5 flex flex-col gap-3"
+              className="group rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 flex flex-col gap-3.5 hover:border-green-300 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
               <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((n) => (
@@ -131,12 +159,18 @@ export function ReviewsSection() {
                 ))}
               </div>
               <p className="text-sm text-stone-700 leading-relaxed line-clamp-5">&ldquo;{r.text}&rdquo;</p>
-              <div className="mt-auto pt-2 border-t border-stone-200/70 flex items-center justify-between gap-2">
-                <div>
-                  <div className="text-sm font-semibold text-stone-900">{r.author}</div>
+              <div className="mt-auto pt-3 border-t border-stone-100 flex items-center gap-3">
+                <span
+                  className={`shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-bold ${colorFor(r.author)}`}
+                  aria-hidden="true"
+                >
+                  {initialsOf(r.author)}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold text-stone-900 truncate">{r.author}</div>
                   <div className="text-[11px] text-stone-500">{r.city}, WA</div>
                 </div>
-                <time className="text-[11px] text-stone-500 tabular-nums" dateTime={r.date}>
+                <time className="text-[11px] text-stone-400 tabular-nums shrink-0" dateTime={r.date}>
                   {new Date(r.date + "T12:00:00").toLocaleDateString("en-US", {
                     month: "short",
                     year: "numeric",
@@ -147,7 +181,7 @@ export function ReviewsSection() {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-2.5">
+        <div className="mt-10 flex flex-col items-center gap-2.5">
           <a
             href={STORE.googleMapsUrl}
             target="_blank"
@@ -171,11 +205,19 @@ export function ReviewsSection() {
   );
 }
 
-function Star({ filled, small = false }: { filled: boolean; small?: boolean }) {
-  const cls = small ? "w-3.5 h-3.5" : "w-5 h-5";
+function Star({
+  filled,
+  small = false,
+  large = false,
+}: {
+  filled: boolean;
+  small?: boolean;
+  large?: boolean;
+}) {
+  const cls = large ? "w-7 h-7" : small ? "w-3.5 h-3.5" : "w-5 h-5";
   return (
     <svg
-      className={`${cls} ${filled ? "text-amber-400" : "text-stone-300"}`}
+      className={`${cls} ${filled ? "text-amber-400" : "text-stone-200"}`}
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden
