@@ -22,6 +22,13 @@ export const metadata: Metadata = {
     url: `${STORE.website}/menu`,
     type: "website",
   },
+  // Partner-presence signal the WP plugin emits. The WP origin (208.109.64.51)
+  // shipped <meta name="jane:version" content="1.4.7"/> on every /menu page;
+  // our Vercel deploy doesn't, and that's the lone Jane-touching DOM diff
+  // between WP (where Boost works) and Vercel (where the API CORS-rejects).
+  // Untested hypothesis but a safe one-liner to flush from the diagnosis tree.
+  // See ~/Documents/CODE/MENU_LOG.md hypothesis #5.
+  other: { "jane:version": "1.4.7" },
 };
 
 // Wenatchee config recovered from the WP archive. embedConfigId is provisioned
