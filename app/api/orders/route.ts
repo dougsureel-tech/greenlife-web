@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   const { items, notes, pickupTime } = body as { items?: unknown; notes?: unknown; pickupTime?: unknown };
 

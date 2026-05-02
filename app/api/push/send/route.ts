@@ -38,6 +38,9 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   const title = typeof body.title === "string" ? body.title.slice(0, 120) : null;
   const text = typeof body.body === "string" ? body.body.slice(0, 280) : "";

@@ -10,6 +10,9 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
   const endpoint = typeof body.endpoint === "string" ? body.endpoint : null;
   if (!endpoint) return NextResponse.json({ error: "Missing endpoint" }, { status: 400 });
 
