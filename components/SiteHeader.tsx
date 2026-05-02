@@ -33,8 +33,8 @@ export function SiteHeader() {
   }, []);
 
   // Close drawer on navigation. Genuine side-effect — state can't be derived from props alone.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
   }, [pathname]);
 

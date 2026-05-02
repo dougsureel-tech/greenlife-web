@@ -10,8 +10,8 @@ import { recordView } from "@/lib/recently-viewed";
 export function StashButton({ productId, size = "md" }: { productId: string; size?: "sm" | "md" }) {
   const stash = useStash();
   const [mounted, setMounted] = useState(false);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

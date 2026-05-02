@@ -38,8 +38,8 @@ export function DealBanner({
   accent?: "green" | "indigo";
 }) {
   const [now, setNow] = useState<number | null>(null);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(Date.now());
     const id = setInterval(() => setNow(Date.now()), 60_000);
     return () => clearInterval(id);

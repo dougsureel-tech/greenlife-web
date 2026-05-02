@@ -97,6 +97,7 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
       if (show && counts[cat] !== undefined) counts[cat]++;
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleCounts(counts);
 
     document.querySelectorAll<HTMLElement>("[data-category-section]").forEach((sec) => {
