@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { withAttr } from "@/lib/attribution";
 
 type StepKey = "vibe" | "form" | "strain";
 type Choice = { value: string; emoji: string; label: string; sub?: string };
@@ -151,7 +152,10 @@ export function StrainFinderClient() {
         >
           ← Back
         </button>
-        <Link href="/menu" className="text-xs text-stone-500 hover:text-stone-700 font-semibold">
+        <Link
+          href={withAttr("/menu", "quiz", "skip")}
+          className="text-xs text-stone-500 hover:text-stone-700 font-semibold"
+        >
           Skip and browse all →
         </Link>
       </div>

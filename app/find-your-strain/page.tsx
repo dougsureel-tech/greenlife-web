@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { StrainFinderClient } from "./StrainFinderClient";
+import { withAttr } from "@/lib/attribution";
 
 export const metadata: Metadata = {
   title: "Find Your Strain — 3-Question Cannabis Quiz",
@@ -82,7 +83,10 @@ export default function FindYourStrainPage() {
         <p className="text-xs text-stone-400">
           Not legal advice. 21+. {STORE.name}, {STORE.address.city} WA.
           {" · "}
-          <Link href="/menu" className="hover:text-green-700 transition-colors">
+          <Link
+            href={withAttr("/menu", "quiz", "footer-skip")}
+            className="hover:text-green-700 transition-colors"
+          >
             Skip and browse all →
           </Link>
         </p>
