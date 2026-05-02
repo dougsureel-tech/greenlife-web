@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 // Jane Boost — iHeartJane's iframeless menu embed. The whole product catalog,
 // cart, and checkout hydrate inline on greenlifecannabis.com/menu (no iframe,
 // no off-domain redirect).
@@ -160,14 +162,29 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
              WordPress's theme had this baked in; we don't, so we emit it
              ourselves. Empty <div> matches the WP plugin's emit shape. */}
       <div id="app" className="app" />
-      {/* 1. Runtime config — must be parsed before the Boost module loads */}
-      <script
+      {/* 1. Runtime config — must be parsed before the Boost module loads.
+             Routed through next/script so React 19's "Encountered a script
+             tag while rendering React component" warning doesn't fire on
+             every /menu visit (executable scripts trigger it; JSON-data
+             blobs below don't — see React's `isScriptDataBlock`). The
+             previous "DON'T migrate to next/script" pin came off when
+             Next 16 + React 19 made the inline form impractical. Same
+             `afterInteractive` strategy on every Script keeps them in
+             declaration order, which is the load-order Boost needs. */}
+      <Script
         id="jane_frameless_embed_runtime_config"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `window.___JANE___ = ${JSON.stringify(runtime)};`,
         }}
       />
-      {/* 2. Public iHeartJane client keys — read by Boost via querySelector */}
+      {/* 2. Public iHeartJane client keys — read by Boost via querySelector
+             on `#jane-app-secrets` / `#jane-app-settings`. These are JSON
+             data containers, not executable. Kept as plain `<script
+             type="application/json">` because React 19 explicitly
+             whitelists data-block script types from the warning, and the
+             selector contract with Boost depends on the literal `<script>`
+             tag. */}
       <script
         id="jane-app-secrets"
         type="application/json"
@@ -178,14 +195,18 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
         type="application/json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JANE_APP_SETTINGS) }}
       />
-      {/* 3. Boost module — hydrates the menu inline into the body.
-          `type="module"` is async-by-default per HTML spec and runs after
-          the inline runtime config + JSON blobs above; that load order is
-          load-bearing so DON'T add `async` (which would race them) or
-          migrate to next/script (which restages execution). The
-          no-sync-scripts lint rule misfires here. */}
-      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-      <script type="module" crossOrigin="anonymous" src={BOOST_SCRIPT_URL} />
+      {/* 3. Boost module — hydrates the menu inline into the body. Same
+             `afterInteractive` strategy as the runtime config above so
+             execution order is "runtime ⇒ Boost". `type="module"` would
+             trip React 19's warning if rendered as a plain `<script>`,
+             which is why this also goes through next/script. */}
+      <Script
+        id="jane-boost-module"
+        strategy="afterInteractive"
+        type="module"
+        crossOrigin="anonymous"
+        src={BOOST_SCRIPT_URL}
+      />
     </>
   );
 }
