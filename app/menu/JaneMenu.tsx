@@ -153,6 +153,13 @@ export function JaneMenu({
 
   return (
     <>
+      {/* 0. Mount point — Boost's bundled `react-modal` calls
+             ReactModal.setAppElement("#app") during init. If no element with
+             id="app" exists, it throws "react-modal: No elements were found
+             for selector #app" and the menu silently fails to hydrate.
+             WordPress's theme had this baked in; we don't, so we emit it
+             ourselves. Empty <div> matches the WP plugin's emit shape. */}
+      <div id="app" className="app" />
       {/* 1. Runtime config — must be parsed before the Boost module loads */}
       <script
         id="jane_frameless_embed_runtime_config"
