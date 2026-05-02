@@ -22,7 +22,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Hours",
     q: "What are your hours?",
-    a: `We're open ${(STORE.hours.find(h => h.day === "Monday")?.open ?? "8:00 AM")}–${(STORE.hours.find(h => h.day === "Monday")?.close ?? "9:00 PM")} Monday–Thursday & Sunday, and ${(STORE.hours.find(h => h.day === "Friday")?.open ?? "8:00 AM")}–${(STORE.hours.find(h => h.day === "Friday")?.close ?? "10:00 PM")} Friday–Saturday. Hours are subject to change on holidays.`,
+    a: `We're open ${STORE.hours.find((h) => h.day === "Monday")?.open ?? "8:00 AM"}–${STORE.hours.find((h) => h.day === "Monday")?.close ?? "9:00 PM"} Monday–Thursday & Sunday, and ${STORE.hours.find((h) => h.day === "Friday")?.open ?? "8:00 AM"}–${STORE.hours.find((h) => h.day === "Friday")?.close ?? "11:00 PM"} Friday–Saturday. Hours are subject to change on holidays.`,
   },
   {
     tag: "Location",
@@ -83,34 +83,40 @@ const faqSchema = {
 
 const TAG_COLORS: Record<string, string> = {
   "First Visit": "bg-emerald-100 text-emerald-700",
-  Payment:       "bg-amber-100 text-amber-700",
-  Hours:         "bg-blue-100 text-blue-700",
-  Location:      "bg-rose-100 text-rose-700",
-  Education:     "bg-purple-100 text-purple-700",
-  Legal:         "bg-stone-100 text-stone-600",
-  Rewards:       "bg-orange-100 text-orange-700",
-  Ordering:      "bg-teal-100 text-teal-700",
-  Medical:       "bg-sky-100 text-sky-700",
+  Payment: "bg-amber-100 text-amber-700",
+  Hours: "bg-blue-100 text-blue-700",
+  Location: "bg-rose-100 text-rose-700",
+  Education: "bg-purple-100 text-purple-700",
+  Legal: "bg-stone-100 text-stone-600",
+  Rewards: "bg-orange-100 text-orange-700",
+  Ordering: "bg-teal-100 text-teal-700",
+  Medical: "bg-sky-100 text-sky-700",
 };
 
 export default function FaqPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
-        <div className="absolute inset-0 opacity-[0.07]"
-          style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade80, transparent)" }}
+        />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Help Center</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Frequently Asked Questions</h1>
-          <p className="text-green-300/70 mt-2 text-sm sm:text-base">Everything you need to know before your visit</p>
+          <p className="text-green-300/70 mt-2 text-sm sm:text-base">
+            Everything you need to know before your visit
+          </p>
         </div>
       </div>
 
@@ -123,7 +129,9 @@ export default function FaqPage() {
             <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none select-none group-open:bg-green-50 transition-colors">
               <div className="flex items-center gap-3 min-w-0">
                 {tag && (
-                  <span className={`shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full hidden sm:inline-block ${TAG_COLORS[tag] ?? "bg-stone-100 text-stone-500"}`}>
+                  <span
+                    className={`shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full hidden sm:inline-block ${TAG_COLORS[tag] ?? "bg-stone-100 text-stone-500"}`}
+                  >
                     {tag}
                   </span>
                 )}
@@ -133,7 +141,10 @@ export default function FaqPage() {
               </div>
               <svg
                 className="w-5 h-5 shrink-0 text-stone-300 group-open:text-green-500 group-open:rotate-180 transition-all duration-200"
-                fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -151,12 +162,16 @@ export default function FaqPage() {
             Our budtenders are happy to help — call us or stop by and ask anything.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <a href={`tel:${STORE.phoneTel}`}
-              className="px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-sm font-semibold text-white transition-all">
+            <a
+              href={`tel:${STORE.phoneTel}`}
+              className="px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-sm font-semibold text-white transition-all"
+            >
               Call {STORE.phone}
             </a>
-            <Link href="/contact"
-              className="px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all">
+            <Link
+              href="/contact"
+              className="px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all"
+            >
               Contact Us
             </Link>
           </div>
