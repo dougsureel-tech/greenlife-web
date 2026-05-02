@@ -9,6 +9,9 @@ import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
 import FairwindsBrandPage from "./_brands/fairwinds-manufacturing";
 import SparkIndustriesBrandPage from "./_brands/spark-industries";
 import MfusedBrandPage from "./_brands/mfused";
+import BondiFarmsBrandPage from "./_brands/bondi-farms";
+import OoweeBrandPage from "./_brands/oowee";
+import Brand2727Page from "./_brands/2727";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +33,9 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "fairwinds-manufacturing": FairwindsBrandPage,
   "spark-industries": SparkIndustriesBrandPage,
   "mfused": MfusedBrandPage,
+  "bondi-farms": BondiFarmsBrandPage,
+  "oowee": OoweeBrandPage,
+  "2727": Brand2727Page,
 };
 
 type Props = { params: Promise<{ slug: string }> };
