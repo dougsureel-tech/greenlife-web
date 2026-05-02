@@ -77,10 +77,16 @@ export function StrainFinderClient() {
   function submit(final: Record<StepKey, string>) {
     setSubmitting(true);
     const params = new URLSearchParams();
+    // vibe is currently informational — neither /menu nor /order filter on
+    // it. We still pass it for future use (e.g. analytics or a future
+    // recommendation engine).
     if (final.vibe) params.set("vibe", final.vibe);
     if (final.form) params.set("category", final.form);
     if (final.strain) params.set("strain", final.strain);
-    router.push(params.toString() ? `/menu?${params}` : "/menu");
+    // Redirect to /order (native menu) instead of /menu (Boost embed) — only
+    // /order reads these params, so a hand-off to /menu was a dead-end UX
+    // and the whole quiz felt useless.
+    router.push(params.toString() ? `/order?${params}` : "/order");
   }
 
   const progress = ((stepIdx + 1) / STEPS.length) * 100;

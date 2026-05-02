@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { MenuProduct } from "@/lib/db";
@@ -189,9 +189,23 @@ export function OrderMenu({ products, signedIn = false }: { products: MenuProduc
       return [];
     }
   });
+  // URL params can pre-fill filters — currently the only producer is
+  // /find-your-strain which redirects here with ?category=Flower&strain=hybrid.
+  // Reading once at mount; subsequent param changes don't re-key state since
+  // the user is then driving via the in-page controls.
+  const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [strainFilter, setStrainFilter] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(
+    () => searchParams?.get("category") ?? null,
+  );
+  const [strainFilter, setStrainFilter] = useState<string | null>(() => {
+    const s = searchParams?.get("strain");
+    if (!s) return null;
+    // Quiz emits lower-case (sativa/indica/hybrid); strain pills compare
+    // exact-case with what the DB returned. Title-case canonicalize so a
+    // ?strain=sativa link selects the "Sativa" pill.
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  });
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortKey>("default");
   const [cartOpen, setCartOpen] = useState(false);
