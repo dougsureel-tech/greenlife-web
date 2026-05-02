@@ -1,7 +1,15 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
 
-const isAccountRoute = createRouteMatcher(["/account(.*)", "/sign-in(.*)", "/sign-up(.*)"]);
+// Routes where Clerk's middleware runs (so its UI components can hydrate
+// session state) — includes the auth pages themselves so <SignIn /> renders.
+const isClerkRoute = createRouteMatcher(["/account(.*)", "/sign-in(.*)", "/sign-up(.*)"]);
+
+// Routes that REQUIRE an authenticated session. /sign-in and /sign-up are
+// deliberately NOT in this list — they're the pages an unauthed user is
+// SENT TO. Including them caused a self-redirect loop: visit /sign-in →
+// auth.protect() sends to /sign-in?redirect_url=/sign-in → loop.
+const isProtectedRoute = createRouteMatcher(["/account(.*)"]);
 
 // Canonical production host — every visitor should land here. Anyone hitting
 // a per-deployment URL (like greenlife-abc123-dougsureel-3370s-projects.
@@ -40,6 +48,7 @@ function isCanonicalOrLocal(host: string): boolean {
 // where it belongs (auth flows) and removes the cookie/header noise from
 // every other route.
 const clerk = clerkMiddleware(async (auth, req) => {
+  if (!isProtectedRoute(req)) return;
   // auth.protect() defaults to 404 for unauthed users — bad UX. Redirect
   // them to the sign-in page so they can come back to /account after.
   const signInUrl = new URL("/sign-in", req.url);
@@ -56,7 +65,7 @@ export default async function middleware(req: NextRequest) {
     target.port = "";
     return NextResponse.redirect(target.toString(), 308);
   }
-  if (isAccountRoute(req)) {
+  if (isClerkRoute(req)) {
     // Defer to Clerk only on auth-relevant paths.
     return (clerk as unknown as (req: NextRequest) => Promise<Response> | Response)(req);
   }
