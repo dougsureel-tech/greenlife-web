@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { StashHeaderLink } from "./StashHeaderLink";
+import { withAttr } from "@/lib/attribution";
 
 // Live "Open · Closes 11 PM" / "Closed · Opens 8 AM" indicator.
 // useEffect-mounted so SSR doesn't lock in a wrong status; refreshes every
@@ -193,7 +194,7 @@ export function SiteHeader() {
               </Link>
             }
             <Link
-              href="/menu"
+              href={withAttr("/menu", "header", "order-now")}
               className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 shadow-sm ${
                 dark
                   ? "bg-green-400 text-green-950 hover:bg-green-300 shadow-black/20"
@@ -354,7 +355,7 @@ export function SiteHeader() {
             ✨ Create Account · 15% off first order
           </Link>
           <Link
-            href="/menu"
+            href={withAttr("/menu", "header", "mobile-order")}
             onClick={() => setOpen(false)}
             className="flex items-center justify-center px-4 py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-bold transition-colors shadow-md"
           >
