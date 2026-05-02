@@ -476,8 +476,12 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
         {/* Main content */}
         <div className="flex-1 min-w-0">
-          {/* Mobile category pills */}
-          <div className="lg:hidden flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1">
+          {/* Mobile category pills — sticky at the top of the viewport so the
+              user can switch sections without scrolling back up. SiteHeader
+              is sticky at top:0 with h-16 (64px); these pills sit at top:16
+              just below it. Backdrop-blur + translucent so the row still
+              feels like part of the page, not an opaque overlay. */}
+          <div className="lg:hidden sticky top-16 z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 py-2 mb-4 bg-stone-50/85 backdrop-blur-md border-b border-stone-200/60 flex gap-2 overflow-x-auto">
             <button
               onClick={() => selectCategory(null)}
               className={`shrink-0 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors ${activeCategory === null ? "bg-green-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}
