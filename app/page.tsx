@@ -4,6 +4,7 @@ import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
 import { DropTicker } from "@/components/DropTicker";
+import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
 
 export const dynamic = "force-dynamic";
@@ -291,6 +292,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Recently looking at — returning-visitor fast-lane. Renders
+            client-side only, hidden on first-time visits (no localStorage
+            stash). Fetches lean product cards via /api/products/by-ids
+            so the home payload stays small. */}
+      <RecentlyViewedAutoStrip accent="green" />
 
       {/* ─── Active deals strip — only renders when something's actually
             running. Surfaces the savings BEFORE the mood/category sections
