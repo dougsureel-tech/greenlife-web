@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
       (i.unitPrice as number) <= 0 ||
       typeof i.quantity !== "number" ||
       (i.quantity as number) < 1 ||
+      (i.quantity as number) > 100 ||
       !Number.isInteger(i.quantity)
     ) {
       return NextResponse.json({ error: "Invalid item" }, { status: 400 });
