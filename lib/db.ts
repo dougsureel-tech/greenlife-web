@@ -240,6 +240,47 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
   });
 }
 
+// Single-deal lookup for the /deals/[id] deep page (SMS-shareable).
+// Honors the same active-window filter as getActiveDeals so a stale/expired
+// share link 404s instead of showing an old promo.
+export async function getDealById(id: string): Promise<ActiveDeal | null> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT
+      id, name, description, discount_type, discount_value::float AS discount_value,
+      applies_to, end_date::text AS end_date
+    FROM deals
+    WHERE id = ${id}
+      AND status = 'active'
+      AND (start_date IS NULL OR start_date <= CURRENT_DATE)
+      AND (end_date IS NULL OR end_date >= CURRENT_DATE)
+    LIMIT 1
+  `;
+  const r = rows[0];
+  if (!r) return null;
+  const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
+  const val = (r.discount_value ?? null) as number | null;
+  const applies = (r.applies_to ?? null) as string | null;
+  let short: string;
+  if (val == null) {
+    short = r.name as string;
+  } else if (dt === "percent") {
+    short = `${val}% off${applies && applies !== "all" ? ` ${applies}` : ""}`;
+  } else {
+    short = `$${val.toFixed(0)} off${applies && applies !== "all" ? ` ${applies}` : ""}`;
+  }
+  return {
+    id: r.id as string,
+    name: r.name as string,
+    description: (r.description ?? null) as string | null,
+    discountType: dt,
+    discountValue: val,
+    appliesTo: applies,
+    endDate: (r.end_date ?? null) as string | null,
+    short,
+  };
+}
+
 export async function getActiveBrands(): Promise<VendorBrand[]> {
   const sql = getClient();
   const rows = await sql`

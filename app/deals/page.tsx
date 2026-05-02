@@ -97,10 +97,10 @@ export default async function DealsPage() {
       ) : (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-4">
           {deals.map((d, i) => {
-            const linkHref =
-              d.appliesTo && d.appliesTo !== "all"
-                ? `/menu?category=${encodeURIComponent(d.appliesTo)}`
-                : "/menu";
+            // Deep-link to the per-deal page so the card shares an SMS-friendly
+            // URL (one tap → focused landing → /menu). Was previously a direct
+            // /menu link, which lost the share path entirely.
+            const linkHref = `/deals/${d.id}`;
             const isFirst = i === 0;
             return (
               <Link
