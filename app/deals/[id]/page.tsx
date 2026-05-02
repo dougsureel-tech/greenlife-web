@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
-import { getDealById } from "@/lib/db";
+import { getDealById, getPickupEta } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -47,12 +47,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function DealDetailPage({ params }: Params) {
   const { id } = await params;
-  const deal = await getDealById(id).catch(() => null);
+  const [deal, eta] = await Promise.all([
+    getDealById(id).catch(() => null),
+    getPickupEta().catch(() => null),
+  ]);
   if (!deal) notFound();
 
+  // CTA target depends on whether the deal is category-scoped:
+  //  - appliesTo set: route to /order?category=X — /order reads URL params
+  //    and pre-filters; Boost (/menu) ignores them, so a category deal-CTA
+  //    pointing at /menu would land on the unfiltered embed.
+  //  - appliesTo "all" / null: keep /menu (Boost) — full inventory browse.
   const linkHref =
     deal.appliesTo && deal.appliesTo !== "all"
-      ? `/menu?category=${encodeURIComponent(deal.appliesTo)}`
+      ? `/order?category=${encodeURIComponent(deal.appliesTo)}`
       : "/menu";
 
   // Per-deal SpecialAnnouncement schema — same shape as the index but
@@ -108,6 +116,26 @@ export default async function DealDetailPage({ params }: Params) {
 
       <section className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         <div className="rounded-2xl bg-white border border-stone-200 shadow-sm p-6 sm:p-8 text-center">
+          {eta && (
+            // Live queue depth → bucketed wait label so the customer knows
+            // walking-in-now expectations alongside the deal. Bucketed
+            // because precise ETAs are fake confidence (we don't track
+            // per-order processing time).
+            <p className="inline-flex items-center gap-1.5 mb-4 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold uppercase tracking-wide text-emerald-800">
+              <svg
+                className="w-3 h-3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+              {eta.label}
+            </p>
+          )}
           <p className="text-sm text-stone-600 mb-5">
             Stackable with loyalty points at the counter — 100 pts = $1 off.
           </p>
