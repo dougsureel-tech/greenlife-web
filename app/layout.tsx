@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import { AgeGate } from "@/components/AgeGate";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -151,35 +150,42 @@ const localBusinessSchema = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // ClerkProvider deliberately NOT here — it preloads `clerk.accounts.dev`
+  // (or the satellite Clerk URL) on every page including /menu, which
+  // injects scripts and cookies that interfere with the iHeartJane Boost
+  // embed's cross-origin XHR. Provider is now scoped to /account, /sign-in,
+  // /sign-up via per-route layout.tsx files. SiteHeader's previous
+  // `useAuth()` was removed (always shows "Sign in" link — Clerk redirects
+  // signed-in visitors to /account on the /sign-in page). Server-side
+  // helpers from `@clerk/nextjs/server` (auth, currentUser) work without
+  // ClerkProvider so /account pages still authenticate correctly.
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${geistSans.variable} h-full`}>
-        <head>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-          />
-        </head>
-        <body className="min-h-full flex flex-col bg-stone-50 text-stone-900">
-          {/* Skip-to-main — keyboard + screen-reader users tab here first
-              so they can bypass the header/announcement nav. Visually hidden
-              until focused, then becomes a fixed pill at the top-left. */}
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-green-700 focus:text-white focus:font-bold focus:text-sm focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
-          >
-            Skip to main content
-          </a>
-          <AgeGate />
-          <AnnouncementBar />
-          <SiteHeader />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-          <ServiceWorkerRegister />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className={`${geistSans.variable} h-full`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-stone-50 text-stone-900">
+        {/* Skip-to-main — keyboard + screen-reader users tab here first
+            so they can bypass the header/announcement nav. Visually hidden
+            until focused, then becomes a fixed pill at the top-left. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-green-700 focus:text-white focus:font-bold focus:text-sm focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
+        <AgeGate />
+        <AnnouncementBar />
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
+        <ServiceWorkerRegister />
+      </body>
+    </html>
   );
 }
