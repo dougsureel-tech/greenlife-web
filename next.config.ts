@@ -12,8 +12,16 @@ const SECURITY_HEADERS = [
   // Stops the browser from sniffing MIME types — defends against MIME
   // confusion attacks on user-uploaded assets (none today, but cheap).
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // Send origin only to cross-origin requests, never the path/query.
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  // `no-referrer-when-downgrade` not `strict-origin-when-cross-origin` —
+  // iHeartJane's Boost API (api.iheartjane.com/whoami + /stores/{id})
+  // appears to use the Referer for partner allowlisting and silently CORS-
+  // rejects requests where Referer was truncated to just the origin. The
+  // earlier strict-origin policy broke /menu (MENU_LOG hypothesis #4 → confirmed).
+  // no-referrer-when-downgrade still strips Referer when downgrading
+  // HTTPS→HTTP (defense against accidental leaking) but preserves full
+  // URL on same-protocol cross-origin requests, which is what the Boost
+  // API needs.
+  { key: "Referrer-Policy", value: "no-referrer-when-downgrade" },
   // Disable browser features the site doesn't use. geolocation=self only
   // because the "find a store" map widget might want it; everything else off.
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self), payment=()" },
