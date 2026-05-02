@@ -37,8 +37,14 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       {/* Profile fields */}
       <div className="rounded-2xl border border-stone-200 bg-white divide-y divide-stone-100 overflow-hidden shadow-sm">
         <div className="px-5 py-4 space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wide text-stone-400">Full Name</label>
+          <label
+            htmlFor="profile-name"
+            className="text-xs font-semibold uppercase tracking-wide text-stone-400 block"
+          >
+            Full Name
+          </label>
           <input
+            id="profile-name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -47,8 +53,14 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           />
         </div>
         <div className="px-5 py-4 space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wide text-stone-400">Phone Number</label>
+          <label
+            htmlFor="profile-phone"
+            className="text-xs font-semibold uppercase tracking-wide text-stone-400 block"
+          >
+            Phone Number
+          </label>
           <input
+            id="profile-phone"
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
