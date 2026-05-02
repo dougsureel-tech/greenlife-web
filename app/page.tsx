@@ -147,8 +147,8 @@ export default async function HomePage() {
                   <span className="text-green-100/70 font-light">Shop.</span>
                 </h1>
                 <p className="text-green-100/60 text-lg sm:text-xl leading-relaxed max-w-lg mt-5">
-                  Expert budtenders, top brands, and a welcoming space — whether it&apos;s your first time or
-                  your fiftieth.
+                  On the way to Chelan, the orchards, or your back porch — top WA brands, real budtenders, and
+                  a five-minute pickup. First time or your fiftieth.
                 </p>
               </div>
 
@@ -440,6 +440,108 @@ export default async function HomePage() {
               </svg>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* ─── Lake-day vibes — summer-leaning section between categories and pickup-how-to.
+              Wenatchee is on the Columbia, Lake Chelan an hour north, the Methow another
+              hour past that. Most of our customers are picking something up on the way
+              out of town, not after work. The category grid above is functional ("what we
+              carry") — this section is the inverse: pick the trip, we'll point at the
+              shelf. Always-on for now; if winter copy starts feeling stale we can gate
+              by month, but Chelan stays warm through October and the framing also
+              works for fall hikes, hot tubs, and ski cabins. */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-amber-50/60 to-rose-50 border-y border-stone-100">
+        {/* Subtle horizon line — soft mountain silhouette and water ripple gesture. */}
+        <svg
+          className="absolute inset-x-0 bottom-0 w-full h-24 sm:h-32 text-sky-100/60 pointer-events-none"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M0 80 C 200 40, 400 100, 600 70 C 800 40, 1000 90, 1200 60 L1200 120 L0 120 Z" />
+        </svg>
+        <svg
+          className="absolute inset-x-0 top-12 w-full h-16 text-stone-200/50 pointer-events-none"
+          viewBox="0 0 1200 60"
+          preserveAspectRatio="none"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M0 40 L150 10 L260 25 L380 5 L520 30 L660 12 L820 35 L960 15 L1080 28 L1200 18 L1200 60 L0 60 Z" />
+        </svg>
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+          <div className="text-center mb-10 sm:mb-12">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700/80 mb-3">
+              <span className="text-sm">☀️</span> Lake-day essentials
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+              Heading to Chelan? Out to the river?
+            </h2>
+            <p className="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+              Pack the cooler. We&apos;ve got the rest. Stop in on the way out of Wenatchee — orchards on one
+              side, lake on the other, you&apos;re ready in five.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {[
+              {
+                emoji: "🚤",
+                label: "Boat day",
+                pitch: "Pre-rolls — no grinder, no mess, dock-ready",
+                href: "/menu",
+                ring: "ring-sky-200/80 hover:ring-sky-400",
+                accent: "text-sky-700",
+              },
+              {
+                emoji: "🌅",
+                label: "Porch sit",
+                pitch: "Edibles & drinks — slow afternoons, low-key, no smell",
+                href: "/menu",
+                ring: "ring-amber-200/80 hover:ring-amber-400",
+                accent: "text-amber-700",
+              },
+              {
+                emoji: "🥾",
+                label: "Trail or trail beer",
+                pitch: "Vapes & carts — pocket-sized, sand-proof, easy",
+                href: "/menu",
+                ring: "ring-emerald-200/80 hover:ring-emerald-400",
+                accent: "text-emerald-700",
+              },
+              {
+                emoji: "🔥",
+                label: "Campfire & cabin",
+                pitch: "Flower in sealed tins — keeps fresh, smells like home",
+                href: "/menu",
+                ring: "ring-rose-200/80 hover:ring-rose-400",
+                accent: "text-rose-700",
+              },
+            ].map((v) => (
+              <Link
+                key={v.label}
+                href={v.href}
+                className={`group flex flex-col rounded-2xl bg-white/85 backdrop-blur-sm p-5 sm:p-6 ring-1 ${v.ring} shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}
+              >
+                <span className="text-3xl mb-3" aria-hidden="true">
+                  {v.emoji}
+                </span>
+                <div className={`text-[11px] font-bold uppercase tracking-widest ${v.accent}`}>{v.label}</div>
+                <p className="text-sm text-stone-700 leading-snug mt-1.5 flex-1">{v.pitch}</p>
+                <span className="text-xs text-stone-500 group-hover:text-stone-800 mt-3 transition-colors">
+                  Browse menu →
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-stone-500 mt-8 sm:mt-10">
+            21+ with valid ID · cash only · keep it sealed in the car (WA open-container rules apply to
+            cannabis too) · please don&apos;t drive impaired
+          </p>
         </div>
       </section>
 
