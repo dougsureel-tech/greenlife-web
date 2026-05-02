@@ -117,6 +117,7 @@ export default function FaqPage() {
         {FAQS.map(({ q, a, tag }) => (
           <details
             key={q}
+            open
             className="group rounded-2xl border border-stone-200 bg-white overflow-hidden open:border-green-300 open:shadow-sm transition-all"
           >
             <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none select-none group-open:bg-green-50 transition-colors">
