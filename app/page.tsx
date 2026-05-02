@@ -147,8 +147,8 @@ export default async function HomePage() {
                   <span className="text-green-100/70 font-light">Shop.</span>
                 </h1>
                 <p className="text-green-100/60 text-lg sm:text-xl leading-relaxed max-w-lg mt-5">
-                  On the way to Chelan, the orchards, or your back porch — top WA brands, real budtenders, and
-                  a five-minute pickup. First time or your fiftieth.
+                  Chelan to Cascades, dock to porch — pull up, pick what fits the day. Top WA brands, real
+                  budtenders, five-minute pickup. First time or your fiftieth.
                 </p>
               </div>
 
@@ -475,14 +475,14 @@ export default async function HomePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-10 sm:mb-12">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700/80 mb-3">
-              <span className="text-sm">☀️</span> Lake-day essentials
+              <span className="text-sm">☀️</span> Where you headed?
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-              Heading to Chelan? Out to the river?
+              Pick the move. We&apos;ll cover the rest.
             </h2>
             <p className="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
-              Pack the cooler. We&apos;ve got the rest. Stop in on the way out of Wenatchee — orchards on one
-              side, lake on the other, you&apos;re ready in five.
+              Chelan, the orchards, the back porch, the Cascades. Five minutes off your route — pull up, grab
+              what fits the day, hit the road.
             </p>
           </div>
 
@@ -499,23 +499,23 @@ export default async function HomePage() {
               {
                 emoji: "🌅",
                 label: "Porch sit",
-                pitch: "Edibles & drinks — slow afternoons, low-key, no smell",
+                pitch: "Edibles & drinks — slow afternoons, no smell, low-key",
                 href: "/menu",
                 ring: "ring-amber-200/80 hover:ring-amber-400",
                 accent: "text-amber-700",
               },
               {
                 emoji: "🥾",
-                label: "Trail or trail beer",
-                pitch: "Vapes & carts — pocket-sized, sand-proof, easy",
+                label: "Trail day",
+                pitch: "Vapes & carts — pocket-sized, sand-proof, loops back at sunset",
                 href: "/menu",
                 ring: "ring-emerald-200/80 hover:ring-emerald-400",
                 accent: "text-emerald-700",
               },
               {
                 emoji: "🔥",
-                label: "Campfire & cabin",
-                pitch: "Flower in sealed tins — keeps fresh, smells like home",
+                label: "Cabin & campfire",
+                pitch: "Sealed flower — stays fresh, burns clean, smells like home",
                 href: "/menu",
                 ring: "ring-rose-200/80 hover:ring-rose-400",
                 accent: "text-rose-700",
@@ -539,8 +539,7 @@ export default async function HomePage() {
           </div>
 
           <p className="text-center text-xs text-stone-500 mt-8 sm:mt-10">
-            21+ with valid ID · cash only · keep it sealed in the car (WA open-container rules apply to
-            cannabis too) · please don&apos;t drive impaired
+            21+ with the ID · cash at the counter · keep it sealed in the ride · drive sober, every time
           </p>
         </div>
       </section>
