@@ -103,7 +103,7 @@ export default function VisitPage() {
               Get Directions
             </a>
             <Link
-              href="/order"
+              href="/menu"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all"
             >
               Order Ahead
@@ -244,7 +244,7 @@ export default function VisitPage() {
               Browse Menu
             </Link>
             <Link
-              href="/order"
+              href="/menu"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all"
             >
               Order Ahead

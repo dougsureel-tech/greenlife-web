@@ -130,7 +130,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
             All my orders
           </Link>
           <Link
-            href="/order"
+            href="/menu"
             className="flex-1 text-center px-5 py-3 rounded-2xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-colors"
           >
             Order more

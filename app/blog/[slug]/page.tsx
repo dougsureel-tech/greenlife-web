@@ -176,7 +176,7 @@ export default async function BlogPost({ params }: Props) {
             <Link href="/menu" className="px-4 py-2 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-colors">
               Browse Menu
             </Link>
-            <Link href="/order" className="px-4 py-2 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white text-sm font-semibold transition-colors">
+            <Link href="/menu" className="px-4 py-2 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white text-sm font-semibold transition-colors">
               Order for Pickup
             </Link>
           </div>

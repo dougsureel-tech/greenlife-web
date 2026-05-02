@@ -89,7 +89,7 @@ export default async function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/order"
+                <Link href="/menu"
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 active:bg-green-500 text-green-950 font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5">
                   Order for Pickup
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -249,7 +249,7 @@ export default async function HomePage() {
               <div className="text-2xl">⏱️</div>
               <h3 className="font-bold text-stone-900 text-base">Plan ~15 minutes</h3>
               <p className="text-stone-600 text-sm leading-relaxed">
-                Walk-in browse usually runs 10–15 min. Order ahead at <Link href="/order" className="font-semibold text-green-700 hover:text-green-600">/order</Link> and pickup is closer to 5 — pay cash at the counter and you&apos;re out the door.
+                Walk-in browse usually runs 10–15 min. Order ahead at <Link href="/menu" className="font-semibold text-green-700 hover:text-green-600">/menu</Link> and pickup is closer to 5 — pay cash at the counter and you&apos;re out the door.
               </p>
               <p className="text-xs text-stone-500 pt-1">Tax is baked into shelf price. What you see is what you pay.</p>
             </div>
@@ -309,7 +309,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="/order"
+            <Link href="/menu"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-green-800 hover:bg-green-700 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
               Start Your Order →
             </Link>
@@ -573,7 +573,7 @@ export default async function HomePage() {
             <p className="text-green-300/80 text-sm">Order ahead or walk in — open every day at 8 AM, later on Fri &amp; Sat.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <Link href="/order"
+            <Link href="/menu"
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 text-green-950 font-bold text-base transition-all shadow-lg hover:-translate-y-0.5">
               Order for Pickup
             </Link>

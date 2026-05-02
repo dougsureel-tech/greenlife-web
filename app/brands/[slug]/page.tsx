@@ -182,7 +182,7 @@ export default async function BrandPage({ params }: Props) {
             <p className="font-bold text-base">Want to order {brand.name}?</p>
             <p className="text-green-200/80 text-sm">Place a pickup order and it&apos;ll be ready when you arrive.</p>
           </div>
-          <Link href="/order"
+          <Link href="/menu"
             className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all shadow-md hover:-translate-y-0.5">
             Order for Pickup →
           </Link>
@@ -258,7 +258,7 @@ export default async function BrandPage({ params }: Props) {
                             ) : (
                               <span className="text-stone-300">—</span>
                             )}
-                            <Link href="/order"
+                            <Link href="/menu"
                               className="text-xs font-bold text-green-700 hover:text-green-600 transition-colors">
                               Order →
                             </Link>

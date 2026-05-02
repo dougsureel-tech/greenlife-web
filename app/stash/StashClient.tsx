@@ -138,7 +138,7 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                       <span className="font-extrabold text-green-800 tabular-nums">
                         {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : <span className="text-stone-400 text-sm font-medium">In store</span>}
                       </span>
-                      <Link href="/order" className="text-[11px] font-bold text-green-700 hover:text-green-600 transition-colors">
+                      <Link href="/menu" className="text-[11px] font-bold text-green-700 hover:text-green-600 transition-colors">
                         Order →
                       </Link>
                     </div>

@@ -54,7 +54,7 @@ export function RecentlyViewedStrip({
           {items.map((p) => (
             <Link
               key={p.id}
-              href="/order"
+              href="/menu"
               className="shrink-0 snap-start w-32 sm:w-36 group rounded-xl border border-stone-200 bg-white overflow-hidden hover:border-stone-300 hover:shadow-md transition-all"
             >
               <div className="aspect-square bg-stone-100 overflow-hidden relative">

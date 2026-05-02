@@ -13,7 +13,7 @@ export function SiteFooter() {
             <p className="text-green-400/70 text-xs mt-0.5">Open daily · {STORE.address.city}, WA</p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <Link href="/order"
+            <Link href="/menu"
               className="px-4 py-2 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-colors">
               Order for Pickup
             </Link>

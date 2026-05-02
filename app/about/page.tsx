@@ -217,7 +217,7 @@ export default function AboutPage() {
             Open every day. No appointment needed. Walk-ins always welcome.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <Link href="/order"
+            <Link href="/menu"
               className="px-5 py-2.5 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-all shadow-md hover:-translate-y-0.5">
               Order for Pickup
             </Link>

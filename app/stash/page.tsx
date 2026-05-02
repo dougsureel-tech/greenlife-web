@@ -39,7 +39,7 @@ export default async function StashPage() {
               ← Browse menu
             </Link>
             <Link
-              href="/order"
+              href="/menu"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-stone-200 hover:border-green-300 hover:text-green-700 text-stone-600 text-sm font-bold transition-all"
             >
               Order for pickup

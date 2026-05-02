@@ -28,7 +28,7 @@ export function MobileStickyCta() {
     >
       <div className="flex gap-2 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200 shadow-2xl shadow-stone-900/15 p-2">
         <Link
-          href="/order"
+          href="/menu"
           className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white font-bold text-sm transition-colors"
         >
           Order for Pickup

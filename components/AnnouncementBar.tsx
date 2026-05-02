@@ -16,7 +16,7 @@ export function AnnouncementBar() {
           : `Closed · ${status}`}
       </span>
       <span className="hidden sm:block opacity-40">|</span>
-      <Link href="/order" className="opacity-75 hover:opacity-100 transition-opacity hidden sm:block font-semibold">
+      <Link href="/menu" className="opacity-75 hover:opacity-100 transition-opacity hidden sm:block font-semibold">
         Order for Pickup →
       </Link>
       <span className="hidden sm:block opacity-40">|</span>
