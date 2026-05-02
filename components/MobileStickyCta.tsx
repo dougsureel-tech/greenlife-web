@@ -128,7 +128,7 @@ export function MobileStickyCta() {
     switch (mode.kind) {
       case "open-normal":
         return {
-          primaryHref: "/order" as const,
+          primaryHref: "/menu" as const,
           primaryLabel: "Order for Pickup",
           primaryClass: "bg-green-700 hover:bg-green-600 text-white",
           secondaryClass: "border border-stone-200 bg-white text-stone-800 hover:bg-stone-50",
@@ -149,7 +149,7 @@ export function MobileStickyCta() {
         };
       case "open-closing":
         return {
-          primaryHref: "/order" as const,
+          primaryHref: "/menu" as const,
           primaryLabel: `Order now · closes in ${mode.minsLeft}m`,
           primaryClass: "bg-amber-600 hover:bg-amber-500 text-white",
           secondaryClass: "border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100",

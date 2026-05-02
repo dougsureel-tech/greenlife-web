@@ -63,11 +63,13 @@ function StatusPill({ dark }: { dark: boolean }) {
   );
 }
 
+// /order is the in-tree native pickup-cart flow — still in dev. Until
+// Doug ships it, the public nav routes everyone to /menu (iHeartJane
+// Boost). See feedback memory `feedback_customer_ctas_point_to_menu_only.md`.
 const NAV = [
   { href: "/menu", label: "Menu" },
   { href: "/deals", label: "Deals" },
   { href: "/find-your-strain", label: "Find Strain" },
-  { href: "/order", label: "Order" },
   { href: "/brands", label: "Brands" },
   { href: "/blog", label: "Guides" },
   { href: "/faq", label: "FAQ" },
@@ -217,7 +219,7 @@ export function SiteHeader() {
               </Link>
             }
             <Link
-              href="/order"
+              href="/menu"
               className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 shadow-sm ${
                 dark
                   ? "bg-green-400 text-green-950 hover:bg-green-300 shadow-black/20"
@@ -379,7 +381,7 @@ export function SiteHeader() {
             ✨ Create Account · 15% off first order
           </Link>
           <Link
-            href="/order"
+            href="/menu"
             onClick={() => setOpen(false)}
             className="flex items-center justify-center px-4 py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-bold transition-colors shadow-md"
           >
