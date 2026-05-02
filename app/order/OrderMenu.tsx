@@ -54,6 +54,30 @@ function displayCategory(c: string): string {
   return CAT_DISPLAY[c] ?? c;
 }
 
+// The DB has 30+ category strings — DOH-prefixed copies, plural/singular
+// variants, "Edible (Liquid)" subforms, "Paraphernalia", etc. Customers
+// should see one clean bucket per product type. Returning null filters
+// the product out (e.g. internal "Sample" SKUs).
+function normalizeCategory(raw: string | null): string | null {
+  if (!raw) return null;
+  // Strip the WSLCB "DOH " medical-endorsement prefix — these are sold to
+  // all adults at retail, just tax-free for medical patients.
+  const s = raw.trim().replace(/^DOH\s+/i, "").trim();
+  const lower = s.toLowerCase().replace(/\s+/g, " ");
+  if (lower === "sample") return null; // internal trade samples — never sold
+  if (/^cartridges?$/.test(lower)) return "Cartridges";
+  if (/^concentrates?$/.test(lower)) return "Concentrates";
+  if (lower === "flower") return "Flower";
+  if (/^(infused )?pre[-]?rolls?$/.test(lower)) return "Pre-Rolls";
+  if (/^topicals?$/.test(lower)) return "Topicals";
+  if (lower === "paraphernalia") return "Accessories";
+  if (/^edibles? \(tincture\)$/.test(lower)) return "Tinctures";
+  if (/^edibles? \(capsule\)$/.test(lower)) return "Capsules";
+  if (/^(edibles? \(liquid\)|infused drinks?)$/.test(lower)) return "Beverages";
+  if (/^edibles?( \(solid\))?$/.test(lower)) return "Edibles";
+  return s;
+}
+
 // Strip duplicated brand / category / strain-type tokens from the SKU-shaped
 // title and pull out a weight chip. e.g. "1g - Blueberry Pancakes - 2727 -
 // Cartridge - H" with brand="2727", category="Cartridge", strainType="Hybrid"
@@ -144,12 +168,23 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
     return () => clearInterval(id);
   }, [cartOpen]);
 
+  // Normalize raw DB categories to clean buckets ("DOH Cartridge" → "Cartridges",
+  // "Edible (Liquid)" → "Beverages") and drop products with no displayable
+  // category (e.g. internal "Sample" SKUs that aren't for sale).
+  const visibleProducts = useMemo(() => {
+    return products.flatMap((p) => {
+      const cat = normalizeCategory(p.category);
+      if (!cat) return [];
+      return [{ ...p, category: cat }];
+    });
+  }, [products]);
+
   // Real categories from data, ordered by CATEGORY_ORDER first, then any
   // unknowns appended alphabetically. The sidebar always reflects what's
   // actually in stock — no whitelist drift.
   const categories = useMemo(() => {
     const seen = new Set<string>();
-    for (const p of products) if (p.category) seen.add(p.category);
+    for (const p of visibleProducts) if (p.category) seen.add(p.category);
     const orderIndex = new Map(CATEGORY_ORDER.map((c, i) => [c, i]));
     return [...seen].sort((a, b) => {
       const ai = orderIndex.get(a) ?? Number.MAX_SAFE_INTEGER;
@@ -157,32 +192,32 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
       if (ai !== bi) return ai - bi;
       return a.localeCompare(b);
     });
-  }, [products]);
+  }, [visibleProducts]);
 
   // Brands available within the currently-selected category, so the brand
   // dropdown narrows as you drill in.
   const availableBrands = useMemo(() => {
     const set = new Set<string>();
-    for (const p of products) {
+    for (const p of visibleProducts) {
       if (activeCategory && p.category !== activeCategory) continue;
       if (p.brand) set.add(p.brand);
     }
     return [...set].sort((a, b) => a.localeCompare(b));
-  }, [products, activeCategory]);
+  }, [visibleProducts, activeCategory]);
 
   // Strain types present after category narrowing — hide pills that wouldn't
   // match anything (e.g. CBD when there's no CBD product in this category).
   const availableStrains = useMemo(() => {
     const set = new Set<string>();
-    for (const p of products) {
+    for (const p of visibleProducts) {
       if (activeCategory && p.category !== activeCategory) continue;
       if (p.strainType) set.add(p.strainType);
     }
     return [...set];
-  }, [products, activeCategory]);
+  }, [visibleProducts, activeCategory]);
 
   const filtered = useMemo(() => {
-    const result = products.filter((p) => {
+    const result = visibleProducts.filter((p) => {
       if (activeCategory && p.category !== activeCategory) return false;
       if (strainFilter && p.strainType !== strainFilter) return false;
       if (brandFilter && p.brand !== brandFilter) return false;
@@ -327,10 +362,10 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
             className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${activeCategory === null && !search ? "bg-green-100 text-green-800" : "text-stone-500 hover:bg-stone-100"}`}
           >
             <span className="text-base">🛒</span> All Items
-            <span className="ml-auto text-[11px] text-stone-400">{products.length}</span>
+            <span className="ml-auto text-[11px] text-stone-400">{visibleProducts.length}</span>
           </button>
           {categories.map((c) => {
-            const count = products.reduce((n, p) => n + (p.category === c ? 1 : 0), 0);
+            const count = visibleProducts.reduce((n, p) => n + (p.category === c ? 1 : 0), 0);
             return (
               <button key={c}
                 onClick={() => selectCategory(c)}

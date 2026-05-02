@@ -38,7 +38,13 @@ export default clerkMiddleware(async (auth, req) => {
     target.port = "";
     return NextResponse.redirect(target.toString(), 308);
   }
-  if (isProtectedRoute(req)) await auth.protect();
+  if (isProtectedRoute(req)) {
+    // auth.protect() defaults to 404 for unauthed users — bad UX. Redirect
+    // them to the sign-in page so they can come back to /account after.
+    const signInUrl = new URL("/sign-in", req.url);
+    signInUrl.searchParams.set("redirect_url", req.url);
+    await auth.protect({ unauthenticatedUrl: signInUrl.toString() });
+  }
 });
 
 export const config = {
