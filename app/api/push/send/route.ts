@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import webpush from "web-push";
-import { listPushSubscriptions, pruneEndpoints } from "@/lib/push-db";
+import { listPushSubscriptions, pruneEndpoints, sendPushToClerkUser } from "@/lib/push-db";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -19,6 +19,11 @@ type SendBody = {
   body?: unknown;
   url?: unknown;
   tag?: unknown;
+  // Optional per-user filter — when present, push goes only to subscriptions
+  // tied to this clerk_user_id (used for transactional notifications like
+  // "your order is ready"). Omitted → fan-out to every active sub on this
+  // site (used for drop alerts).
+  toClerkUserId?: unknown;
 };
 
 export async function POST(req: NextRequest) {
@@ -46,7 +51,15 @@ export async function POST(req: NextRequest) {
   const text = typeof body.body === "string" ? body.body.slice(0, 280) : "";
   const url = typeof body.url === "string" ? body.url.slice(0, 500) : "/";
   const tag = typeof body.tag === "string" ? body.tag.slice(0, 80) : undefined;
+  const toClerkUserId = typeof body.toClerkUserId === "string" ? body.toClerkUserId : null;
   if (!title) return NextResponse.json({ error: "Missing title" }, { status: 400 });
+
+  // Per-user transactional path — delegate to the lib helper which already
+  // handles VAPID setup, parallel sends, and 404/410 pruning.
+  if (toClerkUserId) {
+    const result = await sendPushToClerkUser(toClerkUserId, { title, body: text, url, tag });
+    return NextResponse.json({ ok: true, sent: result.sent, dead: result.dead, total: result.sent + result.dead });
+  }
 
   const subs = await listPushSubscriptions();
   if (subs.length === 0) {
