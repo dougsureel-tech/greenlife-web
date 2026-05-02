@@ -5,21 +5,45 @@ import { useSyncExternalStore } from "react";
 // Same localStorage / custom-event pattern as lib/stash.ts. Holds the last
 // 12 product IDs the visitor showed intent on (saved to stash, tapped the
 // Order link, etc.) so we can surface them as a "Recently looking at" strip.
+//
+// Snapshot caching is mandatory — without it, useSyncExternalStore loops on
+// React #185 ("Maximum update depth exceeded") because every getSnapshot
+// call returns a freshly-parsed array (different reference). Same incident
+// pattern as 2026-05-01 17:30 PT in INCIDENTS.md, just on a different file
+// and never reproduced after the stash.ts fix because RecentlyViewedStrip
+// is mounted less aggressively than StashHeaderLink.
 
 const KEY = "gl-recently-viewed";
 const EVENT = "gl-recent-change";
 const MAX = 12;
+const EMPTY: readonly string[] = Object.freeze([]);
 
-function readIds(): string[] {
-  if (typeof window === "undefined") return [];
+let cachedRaw: string | null | undefined = undefined;
+let cachedIds: readonly string[] = EMPTY;
+
+function readIds(): readonly string[] {
+  if (typeof window === "undefined") return EMPTY;
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return [];
+    if (raw === cachedRaw) return cachedIds;
+    cachedRaw = raw;
+    if (!raw) {
+      cachedIds = EMPTY;
+      return cachedIds;
+    }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
+    cachedIds = Array.isArray(parsed)
+      ? Object.freeze(parsed.filter((x: unknown): x is string => typeof x === "string"))
+      : EMPTY;
+    return cachedIds;
   } catch {
-    return [];
+    cachedIds = EMPTY;
+    return cachedIds;
   }
+}
+
+function getServerSnapshot(): readonly string[] {
+  return EMPTY;
 }
 
 function writeIds(ids: string[]): void {
@@ -28,6 +52,7 @@ function writeIds(ids: string[]): void {
   } catch {
     /* quota / disabled */
   }
+  cachedRaw = undefined;
   window.dispatchEvent(new Event(EVENT));
 }
 
@@ -50,6 +75,6 @@ export function recordView(productId: string): void {
 }
 
 export function useRecentlyViewed() {
-  const ids = useSyncExternalStore(subscribe, readIds, () => [] as string[]);
+  const ids = useSyncExternalStore(subscribe, readIds, getServerSnapshot);
   return { ids, count: ids.length };
 }
