@@ -50,7 +50,9 @@ export async function getMenuProducts(): Promise<MenuProduct[]> {
       WHERE quantity_on_hand > 0
       GROUP BY product_id
     ) fs ON fs.product_id = p.id
-    WHERE p.carry_status != 'discontinued' AND p.unit_price IS NOT NULL
+    WHERE p.carry_status != 'discontinued'
+      AND p.unit_price IS NOT NULL
+      AND p.unit_price >= 1.99
     ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
   `;
   return rows.map((r) => ({
