@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
-import { getDealById, getPickupEta } from "@/lib/db";
+import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -45,23 +45,37 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
+const STRAIN_DOT: Record<string, string> = {
+  Sativa: "bg-amber-400",
+  Indica: "bg-purple-400",
+  Hybrid: "bg-green-400",
+};
+
 export default async function DealDetailPage({ params }: Params) {
   const { id } = await params;
-  const [deal, eta] = await Promise.all([
-    getDealById(id).catch(() => null),
+  const dealResult = await getDealById(id).catch(() => null);
+  if (!dealResult) notFound();
+  const deal = dealResult;
+
+  // Now we know the deal exists, fetch the secondary data in parallel.
+  // Skip preview when appliesTo isn't a single category — there's no
+  // sensible filter to apply.
+  const isScoped = !!deal.appliesTo && deal.appliesTo !== "all";
+  const [eta, previewProducts] = await Promise.all([
     getPickupEta().catch(() => null),
+    isScoped
+      ? getCategoryPreviewProducts(deal.appliesTo as string, 6).catch(() => [])
+      : Promise.resolve([]),
   ]);
-  if (!deal) notFound();
 
   // CTA target depends on whether the deal is category-scoped:
   //  - appliesTo set: route to /order?category=X — /order reads URL params
   //    and pre-filters; Boost (/menu) ignores them, so a category deal-CTA
   //    pointing at /menu would land on the unfiltered embed.
   //  - appliesTo "all" / null: keep /menu (Boost) — full inventory browse.
-  const linkHref =
-    deal.appliesTo && deal.appliesTo !== "all"
-      ? `/order?category=${encodeURIComponent(deal.appliesTo)}`
-      : "/menu";
+  const linkHref = isScoped
+    ? `/order?category=${encodeURIComponent(deal.appliesTo as string)}`
+    : "/menu";
 
   // Per-deal SpecialAnnouncement schema — same shape as the index but
   // canonicalized to this deep URL so an SMS share gets richer Google/AI
@@ -149,6 +163,79 @@ export default async function DealDetailPage({ params }: Params) {
             Cash only · 21+ with valid ID · {STORE.name}, {STORE.address.full}
           </p>
         </div>
+
+        {previewProducts.length > 0 && (
+          // Live "what's actually in stock right now" preview. Customer
+          // sees real product cards before committing to the click — fixes
+          // the trust gap where /deals/[id] just promised "20% off flower"
+          // with no proof anything was actually available. Sorted by
+          // updated_at DESC in the query, so freshest SKUs surface first.
+          <div className="mt-10">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-800">
+                On sale right now
+              </h2>
+              <span className="text-[11px] text-stone-400">
+                {previewProducts.length} of {deal.appliesTo}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {previewProducts.map((p) => (
+                <Link
+                  key={p.id}
+                  href={linkHref}
+                  className="group rounded-xl border border-stone-200 bg-white overflow-hidden hover:border-emerald-300 hover:shadow-md transition-all"
+                >
+                  <div className="aspect-square bg-stone-100 overflow-hidden relative">
+                    {p.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={p.imageUrl}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-stone-100 to-stone-200">
+                        🌱
+                      </div>
+                    )}
+                    {p.strainType && STRAIN_DOT[p.strainType] && (
+                      <span
+                        className={`absolute top-1.5 left-1.5 w-2 h-2 rounded-full ${STRAIN_DOT[p.strainType]} shadow-sm`}
+                        aria-hidden
+                      />
+                    )}
+                  </div>
+                  <div className="px-2.5 py-2 space-y-0.5">
+                    {p.brand && (
+                      <div className="text-[9px] text-stone-400 font-bold uppercase tracking-wide truncate">
+                        {p.brand}
+                      </div>
+                    )}
+                    <div className="text-[12px] text-stone-800 leading-snug line-clamp-2 min-h-[2.4em] font-medium">
+                      {p.name}
+                    </div>
+                    <div className="flex items-center justify-between pt-0.5">
+                      <span className="text-[12px] font-bold tabular-nums text-emerald-700">
+                        {p.unitPrice != null ? `$${p.unitPrice.toFixed(2)}` : "—"}
+                      </span>
+                      {p.thcPct != null && (
+                        <span className="text-[10px] text-stone-500 tabular-nums">
+                          THC {p.thcPct.toFixed(0)}%
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <p className="text-[11px] text-stone-500 mt-3 text-center">
+              Live in-stock. Tap any to filter the menu — discount applied at
+              the counter.
+            </p>
+          </div>
+        )}
 
         <div className="mt-6 text-center">
           <Link

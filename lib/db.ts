@@ -240,6 +240,51 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
   });
 }
 
+// Small product preview for the /deals/[id] deep page — show 6 in-stock
+// products that match the deal's appliesTo category so the customer sees
+// what's actually on sale before clicking through to /menu or /order.
+//
+// Match is case-insensitive ILIKE on the raw category column. Categories
+// in the DB look like "Flower", "DOH Flower", "Pre-Roll", etc.; the deal's
+// appliesTo is the bucket label ("flower", "pre-rolls"). ILIKE %label%
+// catches the spelling variants without us re-implementing normalization
+// here.
+export async function getCategoryPreviewProducts(
+  category: string,
+  limit = 6,
+): Promise<MenuProduct[]> {
+  const sql = getClient();
+  // Strip trailing "s" so "Edibles" → "Edible" matches both forms.
+  const stem = category.replace(/s$/i, "");
+  const pat = `%${stem}%`;
+  const rows = await sql`
+    SELECT id, name, brand, category, strain_type,
+      thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
+      unit_price::float AS unit_price, image_url, effects, terpenes
+    FROM products
+    WHERE carry_status = 'active'
+      AND unit_price IS NOT NULL AND unit_price > 0
+      AND image_url IS NOT NULL
+      AND category ILIKE ${pat}
+    ORDER BY updated_at DESC
+    LIMIT ${limit}
+  `;
+  return rows.map((r) => ({
+    id: r.id as string,
+    name: r.name as string,
+    brand: (r.brand ?? null) as string | null,
+    category: (r.category ?? null) as string | null,
+    strainType: (r.strain_type ?? null) as string | null,
+    thcPct: (r.thc_pct ?? null) as number | null,
+    cbdPct: (r.cbd_pct ?? null) as number | null,
+    unitPrice: (r.unit_price ?? null) as number | null,
+    imageUrl: (r.image_url ?? null) as string | null,
+    effects: (r.effects ?? null) as string | null,
+    terpenes: (r.terpenes ?? null) as string | null,
+    isNew: false,
+  }));
+}
+
 // Single-deal lookup for the /deals/[id] deep page (SMS-shareable).
 // Honors the same active-window filter as getActiveDeals so a stale/expired
 // share link 404s instead of showing an old promo.
