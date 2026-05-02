@@ -26,12 +26,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${STORE.website}/learn`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.75 },
   ];
 
-  const brandPages: MetadataRoute.Sitemap = brands.map((b) => ({
-    url: `${STORE.website}/brands/${b.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  // Dedupe brand slugs — `getActiveBrands` groups by `v.id` but the slug is
+  // derived from `v.name`, so two vendor rows with the same name produce
+  // the same slug and the sitemap was emitting 56 duplicate `<loc>` entries
+  // out of 231 (24% bloat). Search engines de-prioritize sitemaps with
+  // dupes. Underlying data fix (merging duplicate vendor rows) is separate.
+  const seenBrandSlugs = new Set<string>();
+  const brandPages: MetadataRoute.Sitemap = brands
+    .filter((b) => {
+      if (seenBrandSlugs.has(b.slug)) return false;
+      seenBrandSlugs.add(b.slug);
+      return true;
+    })
+    .map((b) => ({
+      url: `${STORE.website}/brands/${b.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
 
   const postPages: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${STORE.website}/blog/${p.slug}`,
