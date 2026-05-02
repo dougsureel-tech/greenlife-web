@@ -2,64 +2,81 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 // Sticky-under-header recovery prompt for customers who left a cart on /order
 // without checking out. Cannabis customers add-and-decide-later constantly;
 // the previous design buried the cart in localStorage with no way back unless
 // they manually re-navigated to /order.
 //
-// Reads the cart on mount, on pathname change, and when the tab becomes
-// visible again — that covers the three common return paths (fresh visit,
-// in-session navigation, switch-tab-and-come-back). Same-tab updates from
-// /order itself (where the cart drawer lives) don't need to be reflected
-// here because /order is in HIDE_ON.
+// Cart state lives in localStorage (gl_cart). We read via useSyncExternalStore
+// so React owns the subscription correctly and we don't trip the
+// set-state-in-effect cascading-renders rule (that pattern was a real
+// React #185 risk per `feedback_use_sync_external_store_caching.md` —
+// snapshot caches by raw string so identical reads return the SAME array
+// reference, which is the contract useSyncExternalStore requires).
 
 const HIDE_ON = ["/order", "/sign-in", "/sign-up"];
 const CART_KEY = "gl_cart";
 
 type CartItem = { quantity: number; unitPrice: number | null };
 
-function readCart(): CartItem[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(CART_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? (parsed as CartItem[]) : [];
-  } catch {
-    return [];
+const SERVER_SNAPSHOT: CartItem[] = [];
+let cachedRaw: string | null = "__init__";
+let cachedItems: CartItem[] = SERVER_SNAPSHOT;
+
+function getSnapshot(): CartItem[] {
+  if (typeof window === "undefined") return SERVER_SNAPSHOT;
+  const raw = window.localStorage.getItem(CART_KEY);
+  if (raw === cachedRaw) return cachedItems;
+  cachedRaw = raw;
+  if (!raw) {
+    cachedItems = SERVER_SNAPSHOT;
+    return cachedItems;
   }
+  try {
+    const parsed = JSON.parse(raw);
+    cachedItems = Array.isArray(parsed) ? (parsed as CartItem[]) : SERVER_SNAPSHOT;
+  } catch {
+    cachedItems = SERVER_SNAPSHOT;
+  }
+  return cachedItems;
+}
+
+function subscribe(callback: () => void): () => void {
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === CART_KEY) callback();
+  };
+  const onVis = () => {
+    if (document.visibilityState === "visible") callback();
+  };
+  window.addEventListener("storage", onStorage);
+  document.addEventListener("visibilitychange", onVis);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    document.removeEventListener("visibilitychange", onVis);
+  };
 }
 
 export function CartResumeBanner() {
   const pathname = usePathname();
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const cart = useSyncExternalStore(subscribe, getSnapshot, () => SERVER_SNAPSHOT);
   const [mounted, setMounted] = useState(false);
 
+  // Mount flag avoids hydration-mismatch flash — server renders nothing,
+  // client re-renders once and shows the banner if a cart exists.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    setCart(readCart());
   }, []);
 
+  // Pathname change: invalidate the snapshot cache so the next render reads
+  // fresh from localStorage. Bumping cachedRaw to a sentinel forces re-parse
+  // without calling setState (which is what the set-state-in-effect rule
+  // was complaining about in the prior version).
   useEffect(() => {
-    setCart(readCart());
+    cachedRaw = "__pathname_changed__";
   }, [pathname]);
-
-  useEffect(() => {
-    const onVis = () => {
-      if (document.visibilityState === "visible") setCart(readCart());
-    };
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === CART_KEY) setCart(readCart());
-    };
-    document.addEventListener("visibilitychange", onVis);
-    window.addEventListener("storage", onStorage);
-    return () => {
-      document.removeEventListener("visibilitychange", onVis);
-      window.removeEventListener("storage", onStorage);
-    };
-  }, []);
 
   if (!mounted) return null;
   if (HIDE_ON.some((p) => pathname.startsWith(p))) return null;

@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import type { MenuProduct } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
@@ -177,7 +178,7 @@ function ProductImage({ src, alt, category }: { src: string | null; alt: string;
   );
 }
 
-export function OrderMenu({ products }: { products: MenuProduct[] }) {
+export function OrderMenu({ products, signedIn = false }: { products: MenuProduct[]; signedIn?: boolean }) {
   const router = useRouter();
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window === "undefined") return [];
@@ -416,6 +417,46 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-32">
+      {/* Sign-in nudge — saves customers from finding out at the place-order
+          step that they need an account. Cart already persists in localStorage,
+          so signing in mid-browse doesn't lose the in-progress cart. */}
+      {!signedIn && (
+        <Link
+          href="/sign-in?redirect_url=/order"
+          className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 border border-green-200 px-4 py-3 text-sm hover:border-green-300 hover:from-green-100 hover:to-green-100 transition-colors"
+        >
+          <span className="flex items-center gap-2.5 min-w-0">
+            <svg
+              className="w-4 h-4 shrink-0 text-green-700"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            <span className="truncate">
+              <strong className="text-green-900 font-bold">Sign in</strong>
+              <span className="text-green-800/80"> to save your cart and earn loyalty points</span>
+            </span>
+          </span>
+          <span className="shrink-0 inline-flex items-center gap-1 text-green-700 font-bold text-xs whitespace-nowrap">
+            Sign in
+            <svg
+              className="w-3 h-3"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+        </Link>
+      )}
+
       {/* Search bar */}
       <div className="relative mb-4">
         <svg
