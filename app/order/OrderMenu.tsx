@@ -764,24 +764,26 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                         <div className="text-xs font-bold text-stone-700 truncate">{item.name}</div>
                         {item.brand && <div className="text-xs text-stone-400 truncate">{item.brand}</div>}
                       </div>
-                      <div className="flex items-center gap-1.5 shrink-0">
+                      <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={() => updateQty(item.id, -1)}
-                          className="w-6 h-6 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 text-xs font-bold"
+                          aria-label={`Decrease quantity of ${item.name}`}
+                          className="w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 active:bg-stone-300 text-base font-bold transition-colors"
                         >
                           −
                         </button>
-                        <span className="w-5 text-center font-extrabold text-stone-900 text-xs">
+                        <span className="w-6 text-center font-extrabold text-stone-900 text-sm tabular-nums">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQty(item.id, 1)}
-                          className="w-6 h-6 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-xs font-bold"
+                          aria-label={`Increase quantity of ${item.name}`}
+                          className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 active:bg-green-800 text-base font-bold transition-colors"
                         >
                           +
                         </button>
                       </div>
-                      <span className="text-xs font-bold text-stone-700 w-14 text-right shrink-0">
+                      <span className="text-sm font-bold text-stone-700 w-16 text-right shrink-0 tabular-nums">
                         ${((item.unitPrice ?? 0) * item.quantity).toFixed(2)}
                       </span>
                     </div>
