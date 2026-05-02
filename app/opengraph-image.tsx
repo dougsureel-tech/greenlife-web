@@ -108,9 +108,10 @@ export default function OG() {
               {`${STORE.address.street} · ${STORE.address.city}, ${STORE.address.state}`}
             </div>
 
-            {/* Live status pill — pulse dot + hours range. Hardcoded
-                copy ("Open daily · 8 AM – 11 PM") since OG runs at build
-                time and we don't want the card flickering open/closed. */}
+            {/* Live status pill — pulse dot + hours range. Hardcoded copy
+                since OG runs at build time and we don't want the card
+                flickering open/closed. Wenatchee hours: Sun–Thu 8 AM – 9 PM,
+                Fri–Sat 8 AM – 11 PM (latest = 11 PM). */}
             <div
               style={{
                 marginTop: 4,
@@ -134,7 +135,7 @@ export default function OG() {
                 }}
               />
               <span style={{ fontSize: 20, fontWeight: 700, color: "#bbf7d0" }}>
-                Open daily · 8 AM – 11 PM
+                Open daily · 8 AM – 9 PM (Fri/Sat til 11)
               </span>
             </div>
           </div>

@@ -127,7 +127,7 @@ export default function DealsOG() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 18, color: "#a7f3d0", fontWeight: 600 }}>
-              Open daily 8 AM – 11 PM · Cash only · 21+
+              Open daily 8 AM – 9 PM (Fri/Sat til 11) · Cash only · 21+
             </div>
             <div style={{ fontSize: 22, color: "#86efac", fontWeight: 700 }}>
               greenlifecannabis.com/deals
