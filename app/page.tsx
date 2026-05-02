@@ -122,6 +122,28 @@ export default async function HomePage() {
                     </span>
                   )}
                 </div>
+                {/* Pickup ETA pill — concrete time expectation next to the
+                    Open-Now indicator so the "is it open / how fast" answer
+                    is one glance, not a scroll. ~5 min covers the typical
+                    end-to-end (online order → arrive → cash → out the door)
+                    when ordering ahead during open hours; goes quiet when
+                    the store is closed. */}
+                {open && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-300/15 border border-amber-300/30 text-amber-200">
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                      <circle cx="12" cy="12" r="9" />
+                    </svg>
+                    ~5 min pickup
+                  </span>
+                )}
                 <span className="text-green-400/60 text-xs font-medium uppercase tracking-widest">
                   Wenatchee, WA
                 </span>

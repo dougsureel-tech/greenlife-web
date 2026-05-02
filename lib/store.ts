@@ -129,6 +129,19 @@ export function getOrderingStatus(): OrderingStatus {
   return { state: "open", closeMin, lastCallMin, minutesUntilLastCall: lastCallMin - cur };
 }
 
+// Convenience for the announcement bar / hero — minutes until the store
+// closes today, or null when closed. Lets the UI flip from "8 AM-9 PM"
+// to "Closes in 22 min" when a visitor lands late and the time-remaining
+// is the actual decision they're making.
+export function minutesUntilClose(): number | null {
+  const today = STORE.hours.find((h) => h.day === todayDay());
+  if (!today) return null;
+  const cur = nowMin();
+  const closeMin = toMin(today.close);
+  if (cur < toMin(today.open) || cur >= closeMin) return null;
+  return closeMin - cur;
+}
+
 function nextDayOpening(): OrderingStatus {
   const order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const day = todayDay();
