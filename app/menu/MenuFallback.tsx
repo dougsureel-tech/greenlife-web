@@ -22,8 +22,13 @@ import { STORE } from "@/lib/store";
 // `children.length === 0` check missed the case where Boost mounts its
 // spinner but never resolves to products — that's *exactly* the failure
 // mode customers were seeing.
+//
+// Checks fire at 2s/6s/12s. First check is fast because Boost is currently
+// CORS-blocked — making customers wait 10s before any CTA shows means most
+// of them bounce. If Boost later hydrates we hide the panel so the working
+// menu isn't covered.
 
-const WAIT_MS = 10_000;
+const CHECK_MS = [2_000, 6_000, 12_000];
 const LOADED_MIN_CHARS = 500;
 const IHEARTJANE_URL = "https://www.iheartjane.com/stores/5294/green-life-cannabis";
 
@@ -35,14 +40,10 @@ export function MenuFallback() {
       const mount = document.getElementById("app");
       if (!mount) return;
       const text = mount.textContent?.trim() ?? "";
-      if (text.length < LOADED_MIN_CHARS) setShow(true);
+      setShow(text.length < LOADED_MIN_CHARS);
     }
-    const t1 = setTimeout(check, WAIT_MS);
-    const t2 = setTimeout(check, WAIT_MS * 1.5);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    const timers = CHECK_MS.map((ms) => setTimeout(check, ms));
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   if (!show) return null;
