@@ -52,7 +52,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Rewards",
     q: "Do you offer deals or loyalty rewards?",
-    a: "Yes! Ask your budtender about our current deals and how to sign up for our loyalty program to earn points on every purchase.",
+    a: `Yes. Live deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and 100 points = $1 off, redeemable at the counter any time. Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — the 15% off your first online order applies on top of any active deal.`,
   },
   {
     tag: "Ordering",
@@ -81,17 +81,10 @@ const faqSchema = {
   })),
 };
 
-const TAG_COLORS: Record<string, string> = {
-  "First Visit": "bg-emerald-100 text-emerald-700",
-  Payment: "bg-amber-100 text-amber-700",
-  Hours: "bg-blue-100 text-blue-700",
-  Location: "bg-rose-100 text-rose-700",
-  Education: "bg-purple-100 text-purple-700",
-  Legal: "bg-stone-100 text-stone-600",
-  Rewards: "bg-orange-100 text-orange-700",
-  Ordering: "bg-teal-100 text-teal-700",
-  Medical: "bg-sky-100 text-sky-700",
-};
+// Single muted pill for every tag — categorical signal stays, rainbow goes.
+// All FAQ tags now read with the same visual weight; the question is the
+// thing the user is scanning for, not the tag.
+const TAG_PILL_CLASS = "bg-stone-100 text-stone-600 border border-stone-200";
 
 export default function FaqPage() {
   return (
@@ -130,7 +123,7 @@ export default function FaqPage() {
               <div className="flex items-center gap-3 min-w-0">
                 {tag && (
                   <span
-                    className={`shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full hidden sm:inline-block ${TAG_COLORS[tag] ?? "bg-stone-100 text-stone-500"}`}
+                    className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full hidden sm:inline-block ${TAG_PILL_CLASS}`}
                   >
                     {tag}
                   </span>
