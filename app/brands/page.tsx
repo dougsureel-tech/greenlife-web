@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getActiveBrands } from "@/lib/db";
 import { STORE } from "@/lib/store";
+import { withAttr } from "@/lib/attribution";
 
 export const dynamic = "force-dynamic";
 
@@ -100,7 +101,7 @@ export default async function BrandsPage() {
                 {withLogo.map((brand) => (
                   <Link
                     key={brand.id}
-                    href={`/brands/${brand.slug}`}
+                    href={withAttr(`/brands/${brand.slug}`, "brand", `grid-${brand.slug}`)}
                     className="group flex flex-col items-center gap-3 rounded-2xl border border-stone-200 bg-white hover:border-green-400 hover:shadow-lg transition-all text-center overflow-hidden"
                   >
                     {/* Logo well — soft contrast bg makes any logo pop, no
@@ -146,7 +147,7 @@ export default async function BrandsPage() {
                   {withoutLogo.map((brand) => (
                     <Link
                       key={brand.id}
-                      href={`/brands/${brand.slug}`}
+                      href={withAttr(`/brands/${brand.slug}`, "brand", `grid-${brand.slug}`)}
                       className="group flex flex-col items-center gap-2 p-4 rounded-2xl border border-stone-100 bg-white hover:border-green-300 hover:shadow-sm transition-all text-center"
                     >
                       <div className="h-12 w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
@@ -166,7 +167,7 @@ export default async function BrandsPage() {
             {/* Footer link */}
             <div className="text-center pt-4">
               <Link
-                href="/menu"
+                href={withAttr("/menu", "brand", "list-bottom")}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-stone-200 hover:border-green-300 hover:bg-green-50 text-sm font-semibold text-stone-700 hover:text-green-800 transition-all"
               >
                 Browse All Products by Category →
