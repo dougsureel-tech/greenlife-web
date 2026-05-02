@@ -294,7 +294,7 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
         break;
     }
     return result;
-  }, [products, search, activeCategory, strainFilter, brandFilter, sortBy]);
+  }, [visibleProducts, search, activeCategory, strainFilter, brandFilter, sortBy]);
 
   const grouped = useMemo(() => {
     const map = new Map<string, MenuProduct[]>();
