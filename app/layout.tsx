@@ -51,6 +51,14 @@ export const metadata: Metadata = {
   other: {
     rating: "adult",
     "mobile-web-app-capable": "yes",
+    // Geo SEO meta — paid display + CRM ad networks (Meta/Google Ads/
+    // Klaviyo) anchor location-targeted creative off these. ICBM +
+    // geo.position duplicate each other on purpose; different crawlers
+    // prefer different conventions.
+    "geo.region": "US-WA",
+    "geo.placename": `${STORE.address.city}, WA`,
+    "geo.position": `${STORE.geo.lat};${STORE.geo.lng}`,
+    ICBM: `${STORE.geo.lat}, ${STORE.geo.lng}`,
   },
 };
 
@@ -60,15 +68,16 @@ export const viewport = {
   initialScale: 1,
 };
 
+// Headline towns in the Wenatchee Valley footprint live in `STORE.nearbyTowns`
+// so the homepage hero pill cluster + town card grid pull from the same
+// source as the JSON-LD areaServed graph below. The longer list here adds
+// the smaller communities + neighborhoods we also serve so search engines
+// see the full geographic reach without the homepage rendering a marketing
+// wall of pills.
 const NEARBY_CITIES = [
-  "Wenatchee",
-  "East Wenatchee",
-  "Cashmere",
-  "Leavenworth",
-  "Chelan",
+  ...STORE.nearbyTowns.map((t) => t.name),
   "Quincy",
   "Waterville",
-  "Entiat",
   "Malaga",
   "Monitor",
   "Sunnyslope",

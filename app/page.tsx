@@ -6,13 +6,28 @@ import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
 import { DropTicker } from "@/components/DropTicker";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
+import { TownCardLink } from "@/components/TownCardLink";
 
 export const dynamic = "force-dynamic";
 
+// Headline town footprint, used in metadata description + the homepage hero
+// pill cluster. STORE.nearbyTowns is the source of truth for the geographic
+// reach Doug wants the public to see — Cashmere, Leavenworth, Chelan, etc.
+const TOWN_NAMES = STORE.nearbyTowns.map((t) => t.name).join(", ");
+
 export const metadata: Metadata = {
   title: `${STORE.name} | Cannabis Dispensary Wenatchee, WA`,
-  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's premier cannabis shop — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
+  description: `${STORE.name} at ${STORE.address.full}. Serving ${TOWN_NAMES}. Wenatchee's premier cannabis shop — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
   alternates: { canonical: "/" },
+  // Geo SEO meta — paid display + CRM ad networks anchor location-targeted
+  // creative off these. ICBM + geo.position duplicate each other on purpose;
+  // different crawlers prefer different conventions.
+  other: {
+    "geo.region": "US-WA",
+    "geo.placename": `${STORE.address.city}, WA`,
+    "geo.position": `${STORE.geo.lat};${STORE.geo.lng}`,
+    ICBM: `${STORE.geo.lat}, ${STORE.geo.lng}`,
+  },
 };
 
 const CATEGORIES = [
@@ -212,62 +227,133 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Right: store info card (desktop only) */}
+            {/* Right: store info card (desktop only). Wenatchee parity with
+                Seattle's 4b44d2b hero refresh — bumped to 360px wide with a
+                live status block, address, transit/highway pill, "Serves the
+                Wenatchee Valley" pill cluster, the existing amenity chips,
+                and a Get Directions CTA. Same visual weight as Seattle's so
+                returning visitors who jump between sites don't feel a step
+                down. Green/emerald palette throughout (NOT indigo — indigo
+                is Seattle's identity). */}
             <div className="hidden lg:block shrink-0">
               <div
-                className="rounded-3xl border border-white/15 p-6 w-72 space-y-5"
-                style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)" }}
+                className="rounded-3xl border border-white/15 p-7 w-[360px] space-y-5"
+                style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(14px)" }}
               >
+                {/* Status block — primary "should I bother right now?" answer. */}
                 <div className="flex items-center gap-3">
                   <span
-                    className={`w-3 h-3 rounded-full shrink-0 ${open ? "bg-green-400 shadow-[0_0_8px_#4ade80] animate-pulse" : "bg-red-400"}`}
+                    className={`w-3.5 h-3.5 rounded-full shrink-0 ${open ? "bg-green-400 shadow-[0_0_10px_#4ade80] animate-pulse" : "bg-red-400"}`}
                   />
                   <div>
-                    <div className="text-white font-bold text-sm">
-                      {statusLabel || (open ? "Open today" : "Closed today")}
+                    <div className="text-white font-extrabold text-base leading-tight">
+                      {open ? "Open Now" : "Closed"}
+                      {statusLabel && (
+                        <span className="text-green-200/80 font-semibold">
+                          {" · "}
+                          {statusLabel}
+                        </span>
+                      )}
                     </div>
                     {todayHours && (
-                      <div className="text-green-300/70 text-xs">
-                        Today {todayHours.open} – {todayHours.close}
+                      <div className="text-green-300/70 text-xs mt-0.5">
+                        Today {todayHours.open} – {todayHours.close} · 365 days a year
                       </div>
                     )}
                   </div>
                 </div>
+
                 <div className="h-px bg-white/10" />
-                <div className="flex items-start gap-3">
-                  <svg
-                    className="w-4 h-4 mt-0.5 text-green-400 shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                  </svg>
-                  <div>
-                    <div className="text-white text-sm font-medium">{STORE.address.street}</div>
-                    <div className="text-white/50 text-xs">
-                      {STORE.address.city}, WA {STORE.address.zip}
+
+                {/* Address + highway pill row. Address gets the bigger
+                    treatment; the US-2 / US-97 pill sits beside it as the
+                    "and here's how you actually get here" answer. */}
+                <div>
+                  <div className="flex items-start gap-3">
+                    <svg
+                      className="w-5 h-5 mt-0.5 text-emerald-300 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                    </svg>
+                    <div>
+                      <div className="text-white text-base font-bold leading-tight">
+                        {STORE.address.street}
+                      </div>
+                      <div className="text-white/50 text-xs mt-0.5">
+                        {STORE.address.city}, WA {STORE.address.zip}
+                      </div>
                     </div>
                   </div>
+                  {/* Highway pill — Sunnyslope sits just off US-2/US-97
+                      where it splits north to Chelan. Spelled out so a
+                      visitor from Cashmere or Leavenworth knows the
+                      approach without firing up Maps. */}
+                  <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-amber-300/10 border border-amber-300/30 text-amber-200 text-[11px] font-bold">
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 2" />
+                    </svg>
+                    Off US-2 / US-97 — Sunnyslope exit
+                  </div>
                 </div>
+
                 <div className="h-px bg-white/10" />
-                <div className="grid grid-cols-2 gap-y-3 gap-x-3">
+
+                {/* Serves-the-Wenatchee-Valley pill cluster — Doug's
+                    headline ask. Tight cluster, name-only pills (no extra
+                    text). Visual rhythm beats density; the town card grid
+                    below the hero carries the drive-time + directions
+                    detail. */}
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-300/80 mb-2">
+                    Serves the Wenatchee Valley
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {STORE.nearbyTowns.map((t) => (
+                      <span
+                        key={t.id}
+                        className="text-[11px] px-2.5 py-1 rounded-full bg-white/8 border border-white/15 text-white/85 font-semibold"
+                      >
+                        {t.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="h-px bg-white/10" />
+
+                {/* Amenity chips — kept from previous version, refreshed to
+                    Free Parking · Cash Only · ATM On-Site · 21+ Required
+                    matching the Seattle parity layout. */}
+                <div className="grid grid-cols-2 gap-y-2.5 gap-x-3">
                   {[
                     { icon: "🅿️", text: "Free Parking" },
                     { icon: "💵", text: "Cash Only" },
                     { icon: "🏧", text: "ATM On-Site" },
                     { icon: "🪪", text: "21+ Required" },
                   ].map(({ icon, text }) => (
-                    <div key={text} className="flex items-center gap-2 text-white/60 text-xs">
+                    <div key={text} className="flex items-center gap-2 text-white/65 text-xs">
                       <span className="text-base leading-none">{icon}</span>
                       {text}
                     </div>
                   ))}
                 </div>
+
                 <a
                   href={STORE.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-semibold transition-all"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-sm font-bold transition-all"
                 >
                   Get Directions ↗
                 </a>
@@ -290,6 +376,64 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── We serve — Wenatchee Valley town card grid. Wenatchee is rural
+            (towns 5-25mi apart, separated by orchards + the river) so an SVG
+            "neighborhood map" doesn't add the value Seattle's does. This grid
+            is the geo-targeting groundwork instead — drive time per town,
+            blurb, and a Get-directions deep-link that hands off to Google
+            Maps. Mirrors Seattle's mobile fallback card style for cross-store
+            consistency. Pixel/CRM seam: every card carries `data-town` and
+            writes `localStorage.gl_last_town` on click; future Pixel snippets
+            (Meta, Google Ads, Klaviyo) read this for segmentation and fire
+            a `TownView` custom event from the same handler:
+              window.fbq?.('trackCustom', 'TownView', { town });
+              window.gtag?.('event', 'town_view', { town });
+            Look for the // PIXEL_SEAM marker. */}
+      <section className="bg-white border-b border-stone-100" aria-labelledby="towns-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="text-center mb-8 sm:mb-10">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">
+              The Wenatchee Valley
+            </p>
+            <h2
+              id="towns-heading"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight mt-2"
+            >
+              We serve the whole valley.
+            </h2>
+            <p className="text-stone-600 mt-3 text-base max-w-2xl mx-auto leading-relaxed">
+              Cashmere, Leavenworth, Chelan — even Entiat coming down the Columbia.
+              Pull up the directions, we&apos;ll have it pulled and bagged.
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {STORE.nearbyTowns.map((t) => {
+              const directionsHref = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+                `${t.name}, WA`,
+              )}&destination=${encodeURIComponent(STORE.address.full)}`;
+              const driveLabel = t.driveMin === 0 ? "In town" : `${t.driveMin} min drive`;
+              return (
+                <li key={t.id}>
+                  {/* PIXEL_SEAM — `data-town` on every card + localStorage
+                      write inside TownCardLink (client component). Future
+                      Pixel/Klaviyo segmentation reads from these. */}
+                  <TownCardLink
+                    townId={t.id}
+                    townName={t.name}
+                    driveLabel={driveLabel}
+                    blurb={t.blurb}
+                    directionsHref={directionsHref}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+          <p className="text-center text-xs text-stone-500 mt-8">
+            Drive times are wall-clock from the shop on Center Road — easy in summer, plan extra over the pass in winter.
+          </p>
         </div>
       </section>
 

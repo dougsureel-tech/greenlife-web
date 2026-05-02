@@ -32,6 +32,21 @@ export const STORE = {
   wslcbLicense: "413490",
   amenities: ["Free parking", "ATM on-site", "ADA accessible", "Walk-ins welcome", "Online ordering"],
   perks: ["Knowledgeable budtenders", "Loyalty rewards", "Military discounts", "15% off online orders"],
+  // Towns in the Wenatchee Valley + foothills we serve. Used by the homepage
+  // hero pill cluster, the "We serve" town card grid, the LocalBusiness
+  // JSON-LD `areaServed` graph, and the metadata description so geo-targeted
+  // ads + organic SEO have a consistent footprint. Drive minutes are
+  // wall-clock from the shop (3012 Center Rd) — conservative, not best-case.
+  // `mapsOrigin` is the URL-encoded origin for `maps/dir/?origin=...` so the
+  // town card "Get directions" deep-link hands off to the user's mapping app.
+  nearbyTowns: [
+    { id: "wenatchee", name: "Wenatchee", driveMin: 0, blurb: "Right in town — Sunnyslope, Pybus, the river loop." },
+    { id: "east-wenatchee", name: "East Wenatchee", driveMin: 8, blurb: "Across the bridge — Pangborn, Eastmont, the orchards." },
+    { id: "cashmere", name: "Cashmere", driveMin: 18, blurb: "Up US-2 — Aplets & Cotlets, the hills, easy run." },
+    { id: "leavenworth", name: "Leavenworth", driveMin: 35, blurb: "Bavarian village, Icicle Creek, Stevens Pass on the way." },
+    { id: "lake-chelan", name: "Lake Chelan", driveMin: 60, blurb: "North up the Columbia — wineries, the lake, summer base camp." },
+    { id: "entiat", name: "Entiat", driveMin: 25, blurb: "On the way to Chelan — river access, fly-fishing, the cabin road." },
+  ],
 } as const;
 
 const TZ = "America/Los_Angeles";
