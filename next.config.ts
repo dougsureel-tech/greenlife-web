@@ -14,9 +14,25 @@ import type { NextConfig } from "next";
 // confound. Add back individually with confirmed-safe values once /menu
 // is rendering products.
 
+// Permissions-Policy verbatim from the still-working WordPress origin's
+// /menu response (curl --resolve www.{domain}:443:208.109.64.51). Grants
+// Private State Token redemption + issuance for Cloudflare's challenge
+// endpoints — that's how iHeartJane's Cloudflare WAF verifies a real
+// browser without CAPTCHA. Without this header, browsers default to
+// "self only" and Cloudflare can't redeem the trust token issued during
+// the page load → flags Boost's API requests as bot traffic → CORS
+// rejection. This was the lone HTTP-header delta between WP (works) and
+// our Vercel deploy (CORS-blocks).
+const PERMISSIONS_POLICY =
+  'private-state-token-redemption=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
+  'private-state-token-issuance=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com")';
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
+  },
+  async headers() {
+    return [{ source: "/:path*", headers: [{ key: "Permissions-Policy", value: PERMISSIONS_POLICY }] }];
   },
   // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
   // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane
