@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description: `${STORE.address.full} · ${STORE.phone} · Free parking, ATM on-site.`,
     url: `${STORE.website}/visit`,
     type: "website",
+    images: ["/opengraph-image"],
   },
 };
 

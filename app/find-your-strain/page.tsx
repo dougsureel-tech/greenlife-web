@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Quick 3-question quiz to match you with the right cannabis. Live menu in Wenatchee, WA.",
     url: `${STORE.website}/find-your-strain`,
     type: "website",
+    images: ["/opengraph-image"],
   },
 };
 

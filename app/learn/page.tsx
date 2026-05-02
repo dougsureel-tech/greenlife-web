@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cannabis 101 · Learn the Basics",
     description: "Indica vs sativa, dosing, THC %, terpenes — plain-English answers.",
+    images: ["/opengraph-image"],
   },
 };
 
