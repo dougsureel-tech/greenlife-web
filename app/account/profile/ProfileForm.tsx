@@ -10,17 +10,26 @@ export function ProfileForm({ user }: { user: PortalUser }) {
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function save() {
     setSaving(true);
-    await fetch("/api/profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, smsOptIn }),
-    });
-    setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    setError(null);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, smsOptIn }),
+      });
+      if (!res.ok) throw new Error(`save failed (${res.status})`);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (e) {
+      console.error("[profile] save failed", e);
+      setError("Couldn't save. Check your connection and try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -83,6 +92,9 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             </span>
           ) : saving ? "Saving…" : "Save Changes"}
         </button>
+        {error && (
+          <p className="text-xs text-red-600 text-center" role="alert">{error}</p>
+        )}
       </div>
 
       {/* Account info */}
