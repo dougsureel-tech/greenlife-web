@@ -39,7 +39,7 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
   if (!mounted) {
     // SSR + first paint placeholder — keep height stable.
     return (
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="text-center text-stone-400 text-sm">Loading your stash…</div>
       </section>
     );
@@ -84,7 +84,7 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
   }
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-12">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <p className="text-sm text-stone-600">
           <span className="font-bold text-stone-900">{saved.length}</span>{" "}

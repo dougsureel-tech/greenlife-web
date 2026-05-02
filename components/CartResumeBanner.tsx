@@ -90,7 +90,7 @@ export function CartResumeBanner() {
       href="/order"
       className="block bg-gradient-to-r from-green-800 to-green-700 hover:from-green-700 hover:to-green-600 text-white text-sm font-semibold transition-colors"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
         <span className="flex items-center gap-2 min-w-0">
           <svg
             className="w-4 h-4 shrink-0 text-green-200"

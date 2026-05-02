@@ -164,7 +164,7 @@ export default async function BrandPage({ params }: Props) {
 
       {/* Header */}
       <div className="bg-green-950 text-white py-10 sm:py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
           {brand.logoUrl ? (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white flex items-center justify-center shadow-xl relative overflow-hidden">
               <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain p-4" unoptimized />
@@ -202,7 +202,7 @@ export default async function BrandPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10 sm:space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10 sm:space-y-12">
         {/* Order CTA */}
         <div className="rounded-2xl bg-gradient-to-r from-green-800 to-emerald-800 text-white px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>

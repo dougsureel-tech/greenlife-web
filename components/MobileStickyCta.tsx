@@ -108,8 +108,12 @@ export function MobileStickyCta() {
   // Recompute mode every 60s so the bar flips automatically as the store
   // crosses closing-soon → last-call → closed boundaries during a long
   // session (someone scrolling the menu just before close, etc.). Re-keyed
-  // on the deal so a late arrival hot-swaps the copy.
+  // on the deal so a late arrival hot-swaps the copy. The synchronous
+  // setMode here re-runs only when `deal` changes (not on every render),
+  // so the cascading-renders concern doesn't apply — disable scoped to
+  // the line that needs it.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(computeMode(deal));
     const id = window.setInterval(() => setMode(computeMode(deal)), 60_000);
     return () => window.clearInterval(id);

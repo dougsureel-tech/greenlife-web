@@ -69,7 +69,7 @@ export function DealBanner({
       className={`relative block bg-gradient-to-r ${grad} hover:brightness-110 transition-all border-b border-white/10`}
       aria-label={`View deal: ${top.name}`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-3 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-3 text-center">
         <span className="text-base sm:text-lg" aria-hidden>
           🔥
         </span>

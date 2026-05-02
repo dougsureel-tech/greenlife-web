@@ -42,7 +42,7 @@ export default async function OrderPage() {
           className="absolute inset-0 opacity-25"
           style={{ backgroundImage: "radial-gradient(ellipse 70% 80% at 20% 50%, #4ade80, transparent)" }}
         />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end gap-4">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end gap-4">
           <div className="flex-1 space-y-2">
             <p className="text-green-400 text-xs font-bold uppercase tracking-widest">Pickup Menu</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Order for Pickup</h1>

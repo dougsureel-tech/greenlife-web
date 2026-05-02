@@ -159,7 +159,7 @@ export function MenuSearch({ categories }: { categories: { slug: string; name: s
 
   return (
     <div className="sticky top-16 z-30 border-b border-stone-200 bg-white/95 backdrop-blur-md shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 space-y-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 space-y-3">
         {/* Search box */}
         <div className="relative">
           <svg

@@ -47,7 +47,7 @@ export function RecentlyViewedStrip({
 
   return (
     <section aria-label="Recently looking at" className="border-b border-stone-200 bg-stone-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between mb-2">
           <p className={`text-[11px] font-bold uppercase tracking-wide ${text}`}>👀 Recently looking at</p>
           <span className="text-[11px] text-stone-400">stays in your browser only</span>

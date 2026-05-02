@@ -124,7 +124,7 @@ export function ReviewsSection() {
 
   return (
     <section className="bg-white border-y border-stone-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Heading: bigger star + rating treatment for a real focal point. */}
         <div className="text-center mb-12">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">

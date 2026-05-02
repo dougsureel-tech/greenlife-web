@@ -77,8 +77,14 @@ export default async function OrderHistoryPage() {
   const hasActiveOrder = orders.some(
     (o) => o.status === "pending" || o.status === "preparing" || o.status === "ready",
   );
+  // Server component renders per-request (force-dynamic), so Date.now() is
+  // the correct "is this 5-min-fresh?" probe. react-hooks rule fires because
+  // it can't distinguish server from client; the call IS pure relative to
+  // this single request execution.
+  // eslint-disable-next-line react-hooks/purity
+  const nowMs = Date.now();
   const hasJustReady = orders.some(
-    (o) => o.status === "ready" && o.readyAt && Date.now() - new Date(o.readyAt).getTime() < 5 * 60_000,
+    (o) => o.status === "ready" && o.readyAt && nowMs - new Date(o.readyAt).getTime() < 5 * 60_000,
   );
 
   // Fire web push for any order that flipped to "ready" within the last

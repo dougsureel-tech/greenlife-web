@@ -102,7 +102,7 @@ export default async function HomePage() {
           style={{ background: "radial-gradient(circle, #4ade80, transparent 70%)" }}
         />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-32">
           <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
             {/* Left: content */}
             <div className="flex-1 space-y-7">
@@ -281,7 +281,7 @@ export default async function HomePage() {
 
       {/* ─── Stats strip ────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-stone-100">
             {STATS.map(({ val, label }) => (
               <div key={val} className="py-5 px-4 sm:px-6 text-center">
@@ -308,7 +308,7 @@ export default async function HomePage() {
             today floats to the front). */}
       {deals.length > 0 && (
         <section className="bg-gradient-to-b from-amber-50/70 via-white to-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
             <div className="flex items-end justify-between gap-3 mb-5 flex-wrap">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
@@ -384,7 +384,7 @@ export default async function HomePage() {
 
       {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="text-center mb-7">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">How can we help?</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
@@ -468,7 +468,7 @@ export default async function HomePage() {
 
       {/* ─── First-timer reassurance ────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
           <div className="text-center mb-8">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">First time?</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
@@ -585,7 +585,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Category grid ──────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">What We Carry</h2>
           <p className="text-stone-600 mt-2 text-sm">
@@ -683,7 +683,7 @@ export default async function HomePage() {
           <path d="M0 80 C 200 40, 400 100, 600 70 C 800 40, 1000 90, 1200 60 L1200 120 L0 120 Z" />
         </svg>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-10 sm:mb-12">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-700/80 mb-3">
               <span className="text-sm">☁️</span> Flying high through the valley
@@ -757,7 +757,7 @@ export default async function HomePage() {
 
       {/* ─── How Pickup Works ───────────────────────────────────────────────── */}
       <section className="bg-stone-50 border-y border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
               How Pickup Works
@@ -858,7 +858,7 @@ export default async function HomePage() {
       {/* ─── Featured products ──────────────────────────────────────────────── */}
       {featured.length > 0 && (
         <section className="py-12 sm:py-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-8 gap-4">
               <div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
@@ -957,7 +957,7 @@ export default async function HomePage() {
 
       {/* ─── Why Green Life ─────────────────────────────────────────────────── */}
       <section className="bg-stone-50 border-y border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight text-center mb-10">
             Why Green Life?
           </h2>
@@ -1004,7 +1004,7 @@ export default async function HomePage() {
 
       {/* ─── Hours + Map ────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">Visit Us</h2>
@@ -1105,7 +1105,7 @@ export default async function HomePage() {
 
       {/* ─── Brands ─────────────────────────────────────────────────────────── */}
       {brands.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="flex items-end justify-between mb-8 gap-4">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
@@ -1184,7 +1184,7 @@ export default async function HomePage() {
 
       {/* ─── CTA band ───────────────────────────────────────────────────────── */}
       <section className="bg-green-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="space-y-2 text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-extrabold">Ready to shop?</h2>
             <p className="text-green-300/80 text-sm">

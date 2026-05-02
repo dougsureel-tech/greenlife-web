@@ -23,7 +23,7 @@ export default async function StashPage() {
   return (
     <div className="min-h-screen bg-stone-50">
       <section className="border-b border-stone-200 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-rose-600">Your Stash</p>
           <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
             The stuff you saved.

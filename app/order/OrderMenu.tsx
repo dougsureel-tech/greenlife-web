@@ -402,7 +402,7 @@ export function OrderMenu({ products, signedIn = false }: { products: MenuProduc
 
   if (products.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
         <div className="text-5xl mb-4">🌿</div>
         <p className="text-stone-700 text-xl font-semibold">Menu coming soon</p>
         <p className="text-stone-400 text-sm">
@@ -416,7 +416,7 @@ export function OrderMenu({ products, signedIn = false }: { products: MenuProduc
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-32">
       {/* Sign-in nudge — saves customers from finding out at the place-order
           step that they need an account. Cart already persists in localStorage,
           so signing in mid-browse doesn't lose the in-progress cart. */}
