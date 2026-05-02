@@ -20,6 +20,7 @@ import AgroCoutureBrandPage from "./_brands/agro-couture";
 import MinglewoodBrandPage from "./_brands/minglewood-brands";
 import SeattleBubbleWorksBrandPage from "./_brands/seattle-bubble-works";
 import GreenRevolutionBrandPage from "./_brands/green-revolution";
+import TwoKGardensBrandPage from "./_brands/2k-gardens";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +53,7 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "minglewood-brands": MinglewoodBrandPage,
   "seattle-bubble-works": SeattleBubbleWorksBrandPage,
   "green-revolution": GreenRevolutionBrandPage,
+  "2k-gardens": TwoKGardensBrandPage,
 };
 
 // Slug aliases — friendly customer-facing URLs that map to the actual
