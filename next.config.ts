@@ -1,40 +1,24 @@
 import type { NextConfig } from "next";
 
-// Baseline security headers — applied to every response. Light-touch set
-// that doesn't break Clerk, Jane Boost, Mapbox, or Algolia (all of which
-// inject scripts + iframes that we need). CSP is intentionally NOT here;
-// adding one means inventorying every third-party origin we use and
-// keeping it in sync — separate task.
-const SECURITY_HEADERS = [
-  // SAMEORIGIN (not DENY) so Clerk's hosted account pages can iframe back
-  // into the site if Doug ever uses the hosted-flow option.
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  // Stops the browser from sniffing MIME types — defends against MIME
-  // confusion attacks on user-uploaded assets (none today, but cheap).
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  // `no-referrer-when-downgrade` not `strict-origin-when-cross-origin` —
-  // iHeartJane's Boost API (api.iheartjane.com/whoami + /stores/{id})
-  // appears to use the Referer for partner allowlisting and silently CORS-
-  // rejects requests where Referer was truncated to just the origin. The
-  // earlier strict-origin policy broke /menu (MENU_LOG hypothesis #4 → confirmed).
-  // no-referrer-when-downgrade still strips Referer when downgrading
-  // HTTPS→HTTP (defense against accidental leaking) but preserves full
-  // URL on same-protocol cross-origin requests, which is what the Boost
-  // API needs.
-  { key: "Referrer-Policy", value: "no-referrer-when-downgrade" },
-  // Disable browser features the site doesn't use. geolocation=self only
-  // because the "find a store" map widget might want it; everything else off.
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self), payment=()" },
-];
+// SECURITY HEADERS — TEMPORARILY REMOVED (2026-05-01 22:55 PT).
+//
+// MENU_LOG hypotheses #4–#6 (Referrer-Policy swap, jane:version meta tag,
+// Clerk middleware scoping) didn't unblock Boost on the new Vercel deploy,
+// despite identical bootstrap config to the still-working WP origin. The
+// remaining cross-origin-affecting diff between WP responses and ours is
+// these added security headers: WP sends NONE of them; we send four. The
+// strongest suspect is `Permissions-Policy: payment=()` — Boost feature-
+// detects the Payment Request API on init, and a blocking policy could
+// abort hydration silently. Removing the whole block puts us byte-for-byte
+// on WP's profile so we can confirm or rule out the policy class as a
+// confound. Add back individually with confirmed-safe values once /menu
+// is rendering products.
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**" },
     ],
-  },
-  async headers() {
-    return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },
   // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
   // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane
