@@ -144,7 +144,7 @@ export function MobileStickyCta() {
           primaryLabel: `${mode.deal.short} →`,
           primaryClass: "bg-emerald-700 hover:bg-emerald-600 text-white",
           secondaryClass: "border border-emerald-200 bg-white text-emerald-900 hover:bg-emerald-50",
-          urgency: "🔥 Live deal — tap to see what's on sale",
+          urgency: "Live deal — tap to see what's on sale",
           urgencyClass: "text-emerald-800",
         };
       case "open-closing":
