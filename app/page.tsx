@@ -720,7 +720,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {featured.map((p) => (
+              {featured.map((p, i) => (
                 <Link
                   key={p.id}
                   href="/menu"
@@ -734,6 +734,11 @@ export default async function HomePage() {
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        // First card is above-the-fold and is typically the LCP element on
+                        // mobile (single column) → mark priority so it skips lazy-load and
+                        // gets fetchPriority="high". Without this, Next defaults to lazy
+                        // and hurts the Core Web Vitals score on the home page.
+                        priority={i === 0}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-stone-100 to-stone-200">
