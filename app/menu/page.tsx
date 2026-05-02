@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import { STORE } from "@/lib/store";
 import { JaneMenu } from "./JaneMenu";
 
-// /menu = iHeartJane embedded menu. Customer stays on greenlifecannabis.com,
-// the iHeartJane SDK injects the live menu via their official embed script.
-// (Tried a naive `<iframe>` first — iHeartJane sets X-Frame-Options:
-// SAMEORIGIN, which blocks browser-side embedding. The official SDK is the
-// only path that actually renders.)
+// /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
+// greenlifecannabis.com — the Boost JS module hydrates the menu inline.
+// Naive iframe is blocked (iHeartJane sets X-Frame-Options: SAMEORIGIN).
 //
-// Future: when in-house menu + checkout are ready, swap this back to the
-// live-inventory page (preserved in git history at greenlife-web's earlier
-// commits — search for `getMenuProducts`).
+// Config + script tags live in JaneMenu.tsx; values were recovered from
+// the WordPress site archive on web.archive.org (2026-01-12 snapshot).
+// See also INCIDENTS.md (2026-05-01 entry) for the regression history.
 
 export const dynamic = "force-static";
 
@@ -26,7 +24,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Wenatchee config recovered from the WP archive. embedConfigId is provisioned
+// per-partner-store on iHeartJane's side; Seattle (5295) needs its own.
 const IHEARTJANE_STORE_ID = 5294;
+const IHEARTJANE_EMBED_CONFIG_ID = 234;
 
 export default function MenuPage() {
   return (
@@ -37,7 +38,7 @@ export default function MenuPage() {
           Real-time inventory from {STORE.name}. Pickup orders open daily 8 AM–{STORE.hours[0]?.close ?? "9 PM"}. Cash only at the counter, 21+ with valid ID.
         </p>
       </div>
-      <JaneMenu storeId={IHEARTJANE_STORE_ID} />
+      <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
     </div>
   );
 }
