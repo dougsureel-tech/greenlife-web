@@ -33,7 +33,8 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
           <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>😔</div>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: "0 0 0.5rem" }}>Something went wrong</h1>
           <p style={{ fontSize: "0.9rem", color: "#57534e", margin: "0 0 1.5rem" }}>
-            We hit an unexpected error. Try refreshing the page, or call us at {STORE.phone} — we can take your order over the phone.
+            We hit an unexpected error. Try refreshing the page, or call us at {STORE.phone} — we can take
+            your order over the phone.
           </p>
           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
             <button
