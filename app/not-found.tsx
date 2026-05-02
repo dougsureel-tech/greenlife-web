@@ -10,7 +10,7 @@ const VIBES = [
 
 const POPULAR = [
   { href: "/menu", label: "Live menu", desc: "100+ Washington products" },
-  { href: "/order", label: "Order for pickup", desc: "Pay cash on arrival" },
+  { href: "/menu", label: "Order for pickup", desc: "Pay cash on arrival" },
   { href: "/find-your-strain", label: "Find your strain", desc: "Quiz, takes 30 seconds" },
   { href: "/brands", label: "Brands we carry", desc: "Local cultivators + more" },
   { href: "/learn", label: "Cannabis 101", desc: "First-timer guide" },
