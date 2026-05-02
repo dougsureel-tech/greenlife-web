@@ -457,7 +457,16 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
 
           {/* Product grid by category */}
           <div className="space-y-12">
-            {[...grouped.entries()].map(([category, items]) => (
+            {[...grouped.entries()].map(([category, items]) => {
+              // In the All-Items view, cap each category at 24 cards so the
+              // initial render isn't 10K+ products / 17MB of HTML. The
+              // "Show all" button switches to that category, which then
+              // renders the full list. When a category is already selected
+              // or the user has filtered/searched, render every match.
+              const isCapped = activeCategory === null && !search && !strainFilter && !brandFilter;
+              const visibleItems = isCapped ? items.slice(0, 24) : items;
+              const hiddenCount = items.length - visibleItems.length;
+              return (
               <section key={category}>
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{CAT_ICONS[category] ?? "🌱"}</span>
@@ -465,7 +474,7 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                   <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">{items.length}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {items.map((product) => {
+                  {visibleItems.map((product) => {
                     const cartItem = cart.find((i) => i.id === product.id);
                     const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
                     const parsed = parseProductName(product);
@@ -560,8 +569,17 @@ export function OrderMenu({ products }: { products: MenuProduct[] }) {
                     );
                   })}
                 </div>
+                {hiddenCount > 0 && (
+                  <button
+                    onClick={() => selectCategory(category)}
+                    className="mt-5 w-full text-center text-sm font-bold text-green-700 hover:text-green-600 py-3 rounded-xl border border-stone-100 hover:border-green-200 hover:bg-green-50/50 transition-colors"
+                  >
+                    Show all {items.length} {displayCategory(category).toLowerCase()} →
+                  </button>
+                )}
               </section>
-            ))}
+              );
+            })}
           </div>
 
           {filtered.length === 0 && (
