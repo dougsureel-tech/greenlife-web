@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { withAttr } from "@/lib/attribution";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
@@ -193,7 +194,7 @@ export default async function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
-                  href="/menu"
+                  href={withAttr("/menu", "home", "hero-order")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 active:bg-green-500 text-green-950 font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5"
                 >
                   Order for Pickup
@@ -203,12 +204,13 @@ export default async function HomePage() {
                     stroke="currentColor"
                     strokeWidth="2.5"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Link>
                 <Link
-                  href="/menu"
+                  href={withAttr("/menu", "home", "hero-browse")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
                 >
                   Browse Menu
@@ -1337,13 +1339,13 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link
-              href="/menu"
+              href={withAttr("/menu", "home", "bottom-order")}
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 text-green-950 font-bold text-base transition-all shadow-lg hover:-translate-y-0.5"
             >
               Order for Pickup
             </Link>
             <Link
-              href="/menu"
+              href={withAttr("/menu", "home", "bottom-browse")}
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
             >
               Browse Menu

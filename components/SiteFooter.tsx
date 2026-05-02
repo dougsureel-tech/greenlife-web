@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
+import { withAttr } from "@/lib/attribution";
 
 export function SiteFooter() {
   return (
@@ -14,13 +15,13 @@ export function SiteFooter() {
           </div>
           <div className="flex gap-3 shrink-0">
             <Link
-              href="/menu"
+              href={withAttr("/menu", "footer", "order")}
               className="px-4 py-2 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-colors"
             >
               Order for Pickup
             </Link>
             <Link
-              href="/menu"
+              href={withAttr("/menu", "footer", "browse")}
               className="px-4 py-2 rounded-xl border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-medium transition-all"
             >
               Browse Menu
