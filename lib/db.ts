@@ -203,9 +203,13 @@ export type ActiveDeal = {
 // AND either always-active (day_of_week IS NULL) or day_of_week matches
 // today's Pacific-time DOW (0=Sun..6=Sat). DOW filter runs server-side so
 // the WA-day-of-week is consistent regardless of the visitor's clock.
-// Sorted by day-of-week first (always-on rises to top) then end-date
-// ascending; LIMIT bumped to 8 so the always-on duo + a 3-deal weekday all
-// show on the /deals card list without a second-page roll.
+//
+// Order: today's day-specific deals FIRST (so the daily-deal mailer headline
+// always wins above always-on / loyalty-stacker / senior-10 / etc.), then
+// always-on, sorted within each tier by end_date ascending then name. LIMIT
+// 20 because pre-existing accumulated always-on deals (industry-20, first-
+// online-15, loyalty-stacker, senior-10, vet-mil-10) plus the seed mailer
+// (2 always-on + 3 daily) easily exceed any tighter cap.
 export async function getActiveDeals(): Promise<ActiveDeal[]> {
   const sql = getClient();
   const rows = await sql`
@@ -217,8 +221,8 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
       AND (start_date IS NULL OR start_date <= CURRENT_DATE)
       AND (end_date IS NULL OR end_date >= CURRENT_DATE)
       AND (day_of_week IS NULL OR day_of_week = EXTRACT(DOW FROM (now() AT TIME ZONE 'America/Los_Angeles'))::smallint)
-    ORDER BY day_of_week NULLS FIRST, end_date NULLS LAST, name
-    LIMIT 8
+    ORDER BY (day_of_week IS NULL) ASC, end_date NULLS LAST, name
+    LIMIT 20
   `;
   return rows.map((r) => {
     const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
