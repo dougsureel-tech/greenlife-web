@@ -94,6 +94,18 @@ export default async function OrderHistoryPage() {
         </Link>
         <div className="h-4 w-px bg-stone-200" />
         <h1 className="text-xl font-bold text-stone-900">Order History</h1>
+        {hasActiveOrder && (
+          <span
+            className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700"
+            title="This page updates automatically — no need to refresh."
+          >
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+              <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </span>
+            Live
+          </span>
+        )}
         {orders.length > 0 && (
           <span className="ml-auto text-xs text-stone-400">
             {orders.length} order{orders.length !== 1 ? "s" : ""}
