@@ -38,6 +38,17 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "2727": Brand2727Page,
 };
 
+// Slug aliases — friendly customer-facing URLs that map to the actual
+// vendor row's auto-generated slug. Sub-brands of multi-brand producers
+// get their own URL even though the products live under the parent
+// vendor (e.g. Plaid Jacket is a Spark Industries sub-brand). The page
+// renders the parent's custom layout; SMS shares using the recognizable
+// brand name still land on a focused page.
+const SLUG_ALIASES: Record<string, string> = {
+  "plaid-jacket": "spark-industries",
+  "phat-panda": "grow-op-farms",
+};
+
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
@@ -81,7 +92,8 @@ const CAT_ICONS: Record<string, string> = {
 };
 
 export default async function BrandPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = SLUG_ALIASES[rawSlug] ?? rawSlug;
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) notFound();
 
