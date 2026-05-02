@@ -199,9 +199,13 @@ export type ActiveDeal = {
   short: string;
 };
 
-// Active deals — status = 'active' AND today is within the start/end window.
-// Sorted by end-date ascending (NULLS LAST) so "ends today" floats to the top
-// and a banner can confidently show deals[0] as "the one ending soonest".
+// Active deals — status = 'active', today is within the start/end window,
+// AND either always-active (day_of_week IS NULL) or day_of_week matches
+// today's Pacific-time DOW (0=Sun..6=Sat). DOW filter runs server-side so
+// the WA-day-of-week is consistent regardless of the visitor's clock.
+// Sorted by day-of-week first (always-on rises to top) then end-date
+// ascending; LIMIT bumped to 8 so the always-on duo + a 3-deal weekday all
+// show on the /deals card list without a second-page roll.
 export async function getActiveDeals(): Promise<ActiveDeal[]> {
   const sql = getClient();
   const rows = await sql`
@@ -212,8 +216,9 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
     WHERE status = 'active'
       AND (start_date IS NULL OR start_date <= CURRENT_DATE)
       AND (end_date IS NULL OR end_date >= CURRENT_DATE)
-    ORDER BY end_date NULLS LAST, name
-    LIMIT 5
+      AND (day_of_week IS NULL OR day_of_week = EXTRACT(DOW FROM (now() AT TIME ZONE 'America/Los_Angeles'))::smallint)
+    ORDER BY day_of_week NULLS FIRST, end_date NULLS LAST, name
+    LIMIT 8
   `;
   return rows.map((r) => {
     const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
@@ -299,6 +304,7 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
       AND status = 'active'
       AND (start_date IS NULL OR start_date <= CURRENT_DATE)
       AND (end_date IS NULL OR end_date >= CURRENT_DATE)
+      AND (day_of_week IS NULL OR day_of_week = EXTRACT(DOW FROM (now() AT TIME ZONE 'America/Los_Angeles'))::smallint)
     LIMIT 1
   `;
   const r = rows[0];
