@@ -75,8 +75,11 @@ export async function POST(req: NextRequest) {
     );
 
     // Confirmation SMS — fires after response is sent so the customer never
-    // waits on Twilio. No-ops if SMS isn't configured or the user has no phone.
-    if (portalUser.phone && isSmsConfigured()) {
+    // waits on Twilio. No-ops if SMS isn't configured, the user has no phone,
+    // or the user explicitly turned off SMS in their profile (TCPA — even
+    // transactional messages must respect the opt-out flag for cannabis
+    // partners under heightened scrutiny).
+    if (portalUser.phone && portalUser.smsOptIn && isSmsConfigured()) {
       const pickupLabel = new Date(pickupISO).toLocaleTimeString("en-US", {
         timeZone: "America/Los_Angeles",
         hour: "numeric",
