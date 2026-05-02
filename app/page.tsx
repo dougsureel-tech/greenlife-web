@@ -311,7 +311,8 @@ export default async function HomePage() {
                   Today&apos;s deals
                 </h2>
                 <p className="text-stone-600 mt-1 text-sm">
-                  Stack with your loyalty points at the counter — cash savings on the way out.
+                  Stackable with your loyalty points at the counter — 100 pts = $1 off — cash savings on the
+                  way out.
                 </p>
               </div>
               <Link
@@ -470,6 +471,69 @@ export default async function HomePage() {
               A lot of our regulars started right where you are. Here&apos;s the cheat sheet.
             </p>
           </div>
+
+          {/* 4-tap flow strip — the literal "what do I actually do?" answer
+              for a first-time visitor. Sits above the three reassurance
+              cards (which explain WHY each thing matters); this is the
+              what-then-what shortcut. Numbered tiles with arrows between
+              them on desktop, stacked on mobile. */}
+          <ol className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-3 mb-7" aria-label="How to order">
+            {[
+              {
+                emoji: "🌿",
+                step: "Browse",
+                detail: "Tap the menu, see live inventory + prices",
+                href: "/menu",
+              },
+              {
+                emoji: "📲",
+                step: "Order ahead",
+                detail: "Pick your products, choose pickup time",
+                href: "/menu",
+              },
+              {
+                emoji: "🪪",
+                step: "Walk in",
+                detail: "Bring cash + valid ID. Counter has it ready",
+                href: null,
+              },
+              {
+                emoji: "🚪",
+                step: "Out in 5",
+                detail: "Pay cash, grab the bag, you're done",
+                href: null,
+              },
+            ].map((s, i) => {
+              const inner = (
+                <div className="relative h-full rounded-2xl border border-stone-200 bg-stone-50 group-hover:border-green-300 group-hover:bg-white transition-all p-4 sm:p-5">
+                  <span className="absolute -top-2.5 left-4 text-[10px] font-bold uppercase tracking-widest text-white bg-green-700 px-2 py-0.5 rounded-full">
+                    Step {i + 1}
+                  </span>
+                  <div className="flex items-start gap-3 sm:flex-col sm:gap-2">
+                    <span className="text-2xl shrink-0" aria-hidden="true">
+                      {s.emoji}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-bold text-stone-900 text-sm">{s.step}</p>
+                      <p className="text-xs text-stone-600 leading-snug mt-0.5">{s.detail}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+              return (
+                <li key={s.step} className="group">
+                  {s.href ? (
+                    <Link href={s.href} className="block h-full">
+                      {inner}
+                    </Link>
+                  ) : (
+                    inner
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
               <div className="text-2xl">💵</div>
