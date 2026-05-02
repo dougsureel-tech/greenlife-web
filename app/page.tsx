@@ -117,7 +117,7 @@ export default async function HomePage() {
           style={{ background: "radial-gradient(circle, #4ade80, transparent 70%)" }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-32">
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-20 sm:py-28 lg:py-32">
           <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
             {/* Left: content */}
             <div className="flex-1 space-y-7">
