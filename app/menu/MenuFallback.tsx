@@ -4,19 +4,25 @@ import { useEffect, useState } from "react";
 import { STORE } from "@/lib/store";
 
 // Renders nothing while the Boost embed is hydrating. If after WAIT_MS the
-// `<div id="app">` mount point still has no Boost-injected children, the
-// embed silently failed (Cloudflare bot-block, ad-blocker, mobile-emulation
-// fingerprint, hash rotation we missed, etc.) — show a graceful fallback
-// pointing the customer at the phone + address instead of a blank page.
+// `<div id="app">` mount point still hasn't loaded any actual product
+// content, the embed silently failed (Cloudflare bot-block on the API,
+// ad-blocker, mobile-emulation fingerprint, hash rotation we missed, etc.)
+// — show a graceful fallback pointing the customer at the phone + address
+// instead of a stuck loading spinner.
 //
-// Per Doug's pin: don't bounce customers off-domain. The fallback keeps them
-// on greenlifecannabis.com with an actionable next step (call the store).
+// Per Doug's pin: don't bounce customers off-domain. The fallback keeps
+// them on greenlifecannabis.com with an actionable next step (call the
+// store).
 //
-// The watchdog re-checks twice (at WAIT_MS and 1.5×WAIT_MS) in case Boost is
-// just slow on a cold connection. If either tick finds Boost has hydrated
-// (children > 0 under #app), the fallback never appears.
+// "Stuck" detection: textContent length. Boost's loading squiggle is a few
+// dozen characters of SVG/skeleton; a loaded menu has thousands of chars
+// (product names, brands, prices, "Add to Cart" buttons, …). The original
+// `children.length === 0` check missed the case where Boost mounts its
+// spinner but never resolves to products — that's *exactly* the failure
+// mode customers were seeing.
 
 const WAIT_MS = 10_000;
+const LOADED_MIN_CHARS = 500;
 
 export function MenuFallback() {
   const [show, setShow] = useState(false);
@@ -24,7 +30,9 @@ export function MenuFallback() {
   useEffect(() => {
     function check() {
       const mount = document.getElementById("app");
-      if (mount && mount.children.length === 0) setShow(true);
+      if (!mount) return;
+      const text = mount.textContent?.trim() ?? "";
+      if (text.length < LOADED_MIN_CHARS) setShow(true);
     }
     const t1 = setTimeout(check, WAIT_MS);
     const t2 = setTimeout(check, WAIT_MS * 1.5);
