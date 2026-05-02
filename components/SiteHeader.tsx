@@ -75,6 +75,17 @@ export function SiteHeader() {
     setOpen(false);
   }, [pathname]);
 
+  // Esc-dismiss for the mobile drawer — keyboard a11y parity with the rest
+  // of the modal-Esc sweep across both stores. Only mounted while open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
   const dark = isHome && !scrolled;
 
   return (
@@ -127,13 +138,14 @@ export function SiteHeader() {
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav className="hidden md:flex items-center gap-0.5" aria-label="Primary">
             {NAV.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               return (
                 <Link
                   key={href}
                   href={href}
+                  aria-current={active ? "page" : undefined}
                   className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     dark
                       ? active
@@ -194,7 +206,9 @@ export function SiteHeader() {
           <button
             className={`md:hidden p-2 rounded-lg transition-colors ${dark ? "text-white/80 hover:bg-white/10" : "text-stone-600 hover:bg-stone-100"}`}
             onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav-drawer"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               {open ? (
@@ -215,6 +229,11 @@ export function SiteHeader() {
 
       {/* Slide-over drawer */}
       <div
+        id="mobile-nav-drawer"
+        role="dialog"
+        aria-label="Site navigation"
+        aria-modal={open}
+        aria-hidden={!open}
         className={`fixed top-0 right-0 bottom-0 z-50 w-72 bg-white shadow-2xl md:hidden flex flex-col transition-transform duration-300 ease-in-out ${open ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100 bg-green-950">
@@ -239,6 +258,7 @@ export function SiteHeader() {
           </div>
           <button
             onClick={() => setOpen(false)}
+            aria-label="Close menu"
             className="p-1.5 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
