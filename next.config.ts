@@ -1,10 +1,32 @@
 import type { NextConfig } from "next";
 
+// Baseline security headers — applied to every response. Light-touch set
+// that doesn't break Clerk, Jane Boost, Mapbox, or Algolia (all of which
+// inject scripts + iframes that we need). CSP is intentionally NOT here;
+// adding one means inventorying every third-party origin we use and
+// keeping it in sync — separate task.
+const SECURITY_HEADERS = [
+  // SAMEORIGIN (not DENY) so Clerk's hosted account pages can iframe back
+  // into the site if Doug ever uses the hosted-flow option.
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  // Stops the browser from sniffing MIME types — defends against MIME
+  // confusion attacks on user-uploaded assets (none today, but cheap).
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  // Send origin only to cross-origin requests, never the path/query.
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  // Disable browser features the site doesn't use. geolocation=self only
+  // because the "find a store" map widget might want it; everything else off.
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self), payment=()" },
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**" },
     ],
+  },
+  async headers() {
+    return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },
   // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
   // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane
