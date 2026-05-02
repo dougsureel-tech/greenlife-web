@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { STORE } from "@/lib/store";
+import { getActiveDeals } from "@/lib/db";
 import { JaneMenu } from "./JaneMenu";
 import { MenuFallback } from "./MenuFallback";
 
@@ -10,8 +11,12 @@ import { MenuFallback } from "./MenuFallback";
 // Config + script tags live in JaneMenu.tsx; values were recovered from
 // the WordPress site archive on web.archive.org (2026-01-12 snapshot).
 // See also INCIDENTS.md (2026-05-01 entry) for the regression history.
+//
+// Was force-static (embed config is static), now ISR 60s so MenuFallback
+// can show the most-urgent active deal without losing the cache benefit.
+// One getActiveDeals() call per minute per region — negligible.
 
-export const dynamic = "force-static";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Cannabis Menu — Live Inventory",
@@ -37,7 +42,14 @@ export const metadata: Metadata = {
 const IHEARTJANE_STORE_ID = 5294;
 const IHEARTJANE_EMBED_CONFIG_ID = 234;
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  // Pull the currently-running active deal nearest its end-date — passed
+  // through to MenuFallback so a customer hitting a stuck embed still sees
+  // the savings hook. Falls back to no-deal silently if the table is empty
+  // or the query errors.
+  const deals = await getActiveDeals().catch(() => []);
+  const featuredDeal = deals[0] ?? null;
+
   return (
     <div className="bg-stone-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
@@ -48,7 +60,7 @@ export default function MenuPage() {
         </p>
       </div>
       <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
-      <MenuFallback />
+      <MenuFallback featuredDeal={featuredDeal} />
     </div>
   );
 }

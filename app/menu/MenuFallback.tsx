@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { STORE } from "@/lib/store";
 
+// Passed in from the parent /menu page (ISR 60s). Keeps the deal hook
+// visible to the stuck-embed customer so they don't bounce off-site
+// without seeing the savings.
+type FeaturedDeal = {
+  short: string; // precomputed display string ("20% off Flower" / "$5 off vapes")
+  name: string;
+  endDate: string | null; // YYYY-MM-DD or null = ongoing
+} | null;
+
 // Renders nothing while the Boost embed is hydrating. If after WAIT_MS the
 // `<div id="app">` mount point still hasn't loaded any actual product
 // content, the embed silently failed (Cloudflare bot-block on the API,
@@ -32,7 +41,7 @@ const CHECK_MS = [2_000, 6_000, 12_000];
 const LOADED_MIN_CHARS = 500;
 const IHEARTJANE_URL = "https://www.iheartjane.com/stores/5294/green-life-cannabis";
 
-export function MenuFallback() {
+export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedDeal }) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -48,8 +57,43 @@ export function MenuFallback() {
 
   if (!show) return null;
 
+  // Format the deal end-date as urgency copy. Today/tomorrow get strong
+  // language; this-week gets the weekday; everything else is "ongoing".
+  const dealEndsLabel = featuredDeal?.endDate
+    ? (() => {
+        const date = new Date(`${featuredDeal.endDate}T23:59:59`);
+        const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
+        if (days <= 0) return "ends today — show this at the counter";
+        if (days === 1) return "ends tomorrow";
+        if (days <= 7)
+          return `ends ${date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}`;
+        return null;
+      })()
+    : null;
+
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 my-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 my-8 space-y-3">
+      {/* Deal pill — only shown when there's an active deal AND the embed
+          is stuck. Customer who'd otherwise just bounce now sees the
+          savings hook + reason to either click through to iHeartJane
+          (ordering still works) or call/walk in. */}
+      {featuredDeal && (
+        <div className="rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-100 via-amber-50 to-amber-100 px-4 py-3 sm:px-5 sm:py-3.5 flex items-center gap-3">
+          <span className="text-xl shrink-0" aria-hidden="true">
+            🎟️
+          </span>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-amber-950">
+              <span className="uppercase tracking-wide text-[10px] text-amber-700 mr-1.5">Live now:</span>
+              {featuredDeal.short}
+            </p>
+            <p className="text-xs text-amber-800/80 truncate">
+              {featuredDeal.name}
+              {dealEndsLabel && <span> · {dealEndsLabel}</span>}
+            </p>
+          </div>
+        </div>
+      )}
       <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 sm:p-6 text-amber-950">
         <div className="flex items-start gap-3">
           <div className="shrink-0 mt-0.5">
