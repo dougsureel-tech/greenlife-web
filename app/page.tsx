@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
-import { getActiveBrands, getFeaturedProducts } from "@/lib/db";
+import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
 import { DropTicker } from "@/components/DropTicker";
 import { ReviewsSection } from "@/components/Reviews";
 
@@ -67,9 +67,10 @@ const STATS = [
 ];
 
 export default async function HomePage() {
-  const [brands, featured] = await Promise.all([
+  const [brands, featured, deals] = await Promise.all([
     getActiveBrands().catch(() => []),
     getFeaturedProducts(8).catch(() => []),
+    getActiveDeals().catch(() => []),
   ]);
   const featuredBrands = brands.filter((b) => b.logoUrl).slice(0, 10);
   const open = isOpenNow();
@@ -290,6 +291,88 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Active deals strip — only renders when something's actually
+            running. Surfaces the savings BEFORE the mood/category sections
+            so a customer sees "20% off Flower today" alongside "what's
+            good?", instead of needing to dig into /deals. Source of truth
+            stays /deals (full list); this is just the top-3-by-end-date
+            teaser sorted via getActiveDeals (NULLS LAST so a deal ending
+            today floats to the front). */}
+      {deals.length > 0 && (
+        <section className="bg-gradient-to-b from-amber-50/70 via-white to-white border-b border-stone-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+            <div className="flex items-end justify-between gap-3 mb-5 flex-wrap">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
+                  Live now
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                  Today&apos;s deals
+                </h2>
+                <p className="text-stone-600 mt-1 text-sm">
+                  Stack with your loyalty points at the counter — cash savings on the way out.
+                </p>
+              </div>
+              <Link
+                href="/deals"
+                className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors whitespace-nowrap"
+              >
+                All deals →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {deals.slice(0, 3).map((d) => {
+                const ends = d.endDate
+                  ? (() => {
+                      const date = new Date(`${d.endDate}T12:00:00`);
+                      // force-dynamic page: server-rendered per request, Date.now() OK.
+                      // eslint-disable-next-line react-hooks/purity
+                      const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
+                      if (days <= 0) return { label: "Ends today", urgent: true };
+                      if (days === 1) return { label: "Ends tomorrow", urgent: true };
+                      if (days <= 7)
+                        return {
+                          label: `Ends ${date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}`,
+                          urgent: false,
+                        };
+                      return { label: "Ongoing", urgent: false };
+                    })()
+                  : { label: "Ongoing", urgent: false };
+                return (
+                  <Link
+                    key={d.id}
+                    href="/deals"
+                    className="group flex flex-col rounded-2xl border border-amber-200 bg-white p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-amber-300 transition-all"
+                  >
+                    <span className="inline-flex items-center self-start gap-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wide px-2.5 py-1">
+                      <span aria-hidden="true">🎟️</span> {d.short}
+                    </span>
+                    <h3 className="font-bold text-stone-900 text-base mt-3 group-hover:text-green-800 transition-colors">
+                      {d.name}
+                    </h3>
+                    {d.description && (
+                      <p className="text-sm text-stone-600 mt-1 leading-snug line-clamp-2 flex-1">
+                        {d.description}
+                      </p>
+                    )}
+                    <p
+                      className={`text-xs font-medium mt-3 ${ends.urgent ? "text-rose-700" : "text-stone-500"}`}
+                    >
+                      {ends.label}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+            {deals.length > 3 && (
+              <p className="text-xs text-stone-500 mt-4 text-center">
+                +{deals.length - 3} more on the deals page
+              </p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
