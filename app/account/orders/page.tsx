@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getOrCreatePortalUser, getOrders } from "@/lib/portal";
 import { STORE } from "@/lib/store";
+import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -71,9 +72,15 @@ export default async function OrderHistoryPage() {
     user?.fullName,
   );
   const orders = await getOrders(portalUser.id);
+  const hasActiveOrder = orders.some(
+    (o) => o.status === "pending" || o.status === "preparing" || o.status === "ready",
+  );
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 space-y-6">
+      {/* Live-refresh while any order is in flight — no manual reload needed
+          to see "Ready for pickup" appear during the most anxious wait. */}
+      <OrderStatusRefresh active={hasActiveOrder} />
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link

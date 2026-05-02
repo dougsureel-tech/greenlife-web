@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getOrCreatePortalUser, getOrder } from "@/lib/portal";
 import { STORE } from "@/lib/store";
+import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Order confirmed" };
@@ -40,9 +41,14 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
 
   const pickupLabel = order.pickupTime ? fmtPickupTime(order.pickupTime) : null;
   const pickupDay = order.pickupTime ? fmtPickupDay(order.pickupTime) : null;
+  const isActive =
+    order.status === "pending" || order.status === "preparing" || order.status === "ready";
 
   return (
     <div className="min-h-screen bg-stone-50">
+      {/* Live-refresh while this order is in flight — page reflects "Ready
+          for pickup" the moment staff flip it without a manual reload. */}
+      <OrderStatusRefresh active={isActive} />
       <div className="max-w-xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         {/* Hero confirmation */}
         <div className="rounded-3xl bg-gradient-to-br from-green-900 to-green-800 text-white p-8 shadow-xl space-y-4">
