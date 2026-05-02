@@ -146,8 +146,9 @@ export default async function HomePage() {
                   <span className="text-green-100/70 font-light">Shop.</span>
                 </h1>
                 <p className="text-green-100/60 text-lg sm:text-xl leading-relaxed max-w-lg mt-5">
-                  Right off Sunnyslope. Pybus to Lake Chelan, Saddlerock to the Cascades — pull up, pick what
-                  fits the day. Top WA brands, real budtenders, five-minute pickup.
+                  Right off Sunnyslope, Ohme Gardens up the bluff. Pybus to Lake Chelan, Saddlerock to the
+                  Cascades — pull up, pick what fits the day. Top WA brands, real budtenders, five-minute
+                  pickup.
                 </p>
               </div>
 
@@ -515,8 +516,8 @@ export default async function HomePage() {
               Pick the move. We&apos;ll cover the shelf.
             </h2>
             <p className="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
-              Right off Sunnyslope. Pybus to Chelan, Saddlerock to the Cascades — pull up, grab what fits the
-              day, hit it.
+              Right off Sunnyslope — Ohme Gardens up the bluff, Pybus down by the river, Chelan an hour north,
+              Saddlerock right out back. Pull up, grab what fits the day, hit it.
             </p>
           </div>
 
