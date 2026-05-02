@@ -3,7 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
-export const BUILD_VERSION = "1.0";
+export const BUILD_VERSION = "1.1";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??

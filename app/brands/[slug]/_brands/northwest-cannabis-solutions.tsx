@@ -1,8 +1,46 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { VendorBrand } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { PaginatedProductsGrid } from "./PaginatedProductsGrid";
+import { StickyOrderCTA } from "./StickyOrderCTA";
+
+// About-NWCS Q&A surfaces verified facts in a format that's also FAQPage
+// JSON-LD-eligible — helps when LLM-driven discovery answers "where is
+// NWCS made" or "who founded Northwest Cannabis Solutions" — and since
+// every <details> renders open by default the answers are visible to
+// human readers too.
+const ABOUT_QA: { q: string; a: string }[] = [
+  {
+    q: "Where is Northwest Cannabis Solutions made?",
+    a: "Olympia, Washington — at their facility on Lathrop Industrial Drive SW. Production has been running there since February 2015.",
+  },
+  {
+    q: "Who founded NWCS?",
+    a: "Co-founders Leo Gontmakher and Vlad Orlovskii started the company in 2014. The Olympia facility came online the following year and has been in continuous operation since.",
+  },
+  {
+    q: "How many brands does NWCS run?",
+    a: "Sixteen in-house brands across more than three hundred SKUs — flower, pre-rolls, vapes, edibles, concentrates, capsules, and topicals. Legends, Private Reserve, Magic Kitchen, Mini Budz, Evergreen, EZ Vape, GoldLine, and THCaps are the lines you'll see on our shelf most often.",
+  },
+  {
+    q: "What makes NWCS different from other Washington producers?",
+    a: "Scale plus consistency. They're one of Washington's largest producer-processors and they run the whole stack — cultivation, extraction, edibles kitchen, and packaging — all in-house. The result on the floor is that the flower comes in cured properly, the carts hit the way they should, and the edibles dose exactly the way the package says they will.",
+  },
+];
+
+const aboutFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: ABOUT_QA.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 
 // Per-brand custom layout — Northwest Cannabis Solutions (NWCS).
 //
@@ -90,6 +128,21 @@ export default function NWCSBrandPage({
   brand: VendorBrand;
   products: Product[];
 }) {
+  // Sub-brand filter — clicking a sub-brand card filters the products grid
+  // below to items whose name includes that sub-brand label. Toggle off
+  // by clicking the active card again or by hitting the clear chip in
+  // the filter header.
+  const [activeSubBrand, setActiveSubBrand] = useState<string | null>(null);
+
+  // Sub-brand counts — let the cards show a live "12 in stock" badge so
+  // customers see whether a sub-brand actually has anything to filter to.
+  // Cheap O(N×M) but M is 8 and N rarely exceeds a few hundred per brand.
+  const subBrandCounts = SUB_BRANDS.reduce<Record<string, number>>((acc, sb) => {
+    const needle = sb.name.toLowerCase();
+    acc[sb.name] = products.filter((p) => (p.name ?? "").toLowerCase().includes(needle)).length;
+    return acc;
+  }, {});
+
   return (
     <div className="bg-stone-50">
       {/* HERO ----------------------------------------------------------- */}
@@ -231,20 +284,81 @@ export default function NWCSBrandPage({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SUB_BRANDS.map((sb) => (
-              <div
-                key={sb.name}
-                className="bg-white rounded-2xl border border-stone-200 p-5 hover:border-[#c8b06b] hover:shadow-md transition-all"
-              >
-                <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <h3 className="font-extrabold text-stone-900 text-lg leading-tight">{sb.name}</h3>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#0e2a1f] bg-[#c8b06b]/30 px-2 py-0.5 rounded-full whitespace-nowrap">
-                    {sb.tag}
-                  </span>
-                </div>
-                <p className="text-sm text-stone-600 leading-relaxed">{sb.line}</p>
-              </div>
-            ))}
+            {SUB_BRANDS.map((sb) => {
+              const count = subBrandCounts[sb.name] ?? 0;
+              const active = activeSubBrand === sb.name;
+              const disabled = count === 0;
+              return (
+                <button
+                  key={sb.name}
+                  type="button"
+                  onClick={() => {
+                    if (disabled) return;
+                    setActiveSubBrand(active ? null : sb.name);
+                    // Scroll to the products section so the customer sees
+                    // the filtered result land — otherwise the click feels
+                    // like nothing happened on long pages.
+                    if (!active) {
+                      requestAnimationFrame(() => {
+                        document
+                          .getElementById("products")
+                          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      });
+                    }
+                  }}
+                  aria-pressed={active}
+                  disabled={disabled}
+                  className={`text-left rounded-2xl border p-5 transition-all duration-200 ${
+                    active
+                      ? "bg-[#0e2a1f] border-[#c8b06b] shadow-lg ring-2 ring-[#c8b06b]/40"
+                      : disabled
+                        ? "bg-stone-50 border-stone-100 opacity-50 cursor-not-allowed"
+                        : "bg-white border-stone-200 hover:border-[#c8b06b] hover:shadow-md hover:-translate-y-0.5"
+                  }`}
+                >
+                  <div className="flex items-baseline justify-between gap-2 mb-2">
+                    <h3
+                      className={`font-extrabold text-lg leading-tight ${
+                        active ? "text-white" : "text-stone-900"
+                      }`}
+                    >
+                      {sb.name}
+                    </h3>
+                    <span
+                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap ${
+                        active
+                          ? "bg-[#c8b06b] text-[#0e2a1f]"
+                          : "bg-[#c8b06b]/30 text-[#0e2a1f]"
+                      }`}
+                    >
+                      {sb.tag}
+                    </span>
+                  </div>
+                  <p
+                    className={`text-sm leading-relaxed ${
+                      active ? "text-stone-200" : "text-stone-600"
+                    }`}
+                  >
+                    {sb.line}
+                  </p>
+                  <p
+                    className={`text-[11px] font-semibold uppercase tracking-wider mt-3 ${
+                      active
+                        ? "text-[#c8b06b]"
+                        : count > 0
+                          ? "text-emerald-700"
+                          : "text-stone-400"
+                    }`}
+                  >
+                    {count > 0
+                      ? active
+                        ? `Filtering · ${count} on shelf`
+                        : `${count} on shelf · tap to filter`
+                      : "Not in stock"}
+                  </p>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -319,7 +433,56 @@ export default function NWCSBrandPage({
             paginated 25 per page.
           </p>
 
-          <PaginatedProductsGrid products={products} perPage={25} />
+          <PaginatedProductsGrid
+            products={products}
+            perPage={25}
+            nameContains={activeSubBrand}
+            nameContainsLabel={activeSubBrand ?? undefined}
+            onClearNameFilter={() => setActiveSubBrand(null)}
+          />
+        </div>
+      </section>
+
+      {/* ABOUT — Q&A ---------------------------------------------------- */}
+      <section className="bg-white border-t border-stone-200">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqSchema) }}
+        />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+          <p className="text-[#0e2a1f] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+            About NWCS
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-8 leading-tight">
+            Quick facts
+          </h2>
+          <div className="space-y-3">
+            {ABOUT_QA.map(({ q, a }) => (
+              <details
+                key={q}
+                open
+                className="group rounded-2xl border border-stone-200 bg-stone-50 overflow-hidden open:border-[#c8b06b] open:bg-white open:shadow-sm transition-all"
+              >
+                <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none select-none transition-colors">
+                  <span className="font-semibold text-stone-800 group-open:text-[#0e2a1f] text-sm leading-snug transition-colors">
+                    {q}
+                  </span>
+                  <svg
+                    className="w-5 h-5 shrink-0 text-stone-300 group-open:text-[#c8b06b] group-open:rotate-180 transition-all duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-5 pb-5 pt-1 text-stone-600 text-sm leading-relaxed border-t border-[#c8b06b]/30">
+                  {a}
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -399,6 +562,8 @@ export default function NWCSBrandPage({
           </div>
         </div>
       </section>
+
+      <StickyOrderCTA label="Order NWCS →" />
     </div>
   );
 }
