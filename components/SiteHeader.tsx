@@ -57,7 +57,7 @@ function StatusPill({ dark }: { dark: boolean }) {
     >
       <span className={`w-1.5 h-1.5 rounded-full ${dotColor} ${status.open ? "animate-pulse" : ""}`} />
       <span>
-        {status.open ? "Open" : "Closed"} · {status.label.replace(/^(Closes|Opens) at /, "")}
+        {status.open ? `Open · ${status.label.replace(/^Closes at /, "")}` : status.label}
       </span>
     </span>
   );
@@ -69,7 +69,7 @@ function StatusPill({ dark }: { dark: boolean }) {
 const NAV = [
   { href: "/menu", label: "Menu" },
   { href: "/deals", label: "Deals" },
-  { href: "/find-your-strain", label: "Find Strain" },
+  { href: "/find-your-strain", label: "Strains" },
   { href: "/brands", label: "Brands" },
   { href: "/blog", label: "Guides" },
   { href: "/faq", label: "FAQ" },
