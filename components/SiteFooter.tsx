@@ -82,12 +82,15 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <address className="not-italic text-sm text-green-300/80 space-y-1.5">
+          <address className="speakable-address not-italic text-sm text-green-300/80 space-y-1.5">
             <p>{STORE.address.street}</p>
             <p>
               {STORE.address.city}, {STORE.address.state} {STORE.address.zip}
             </p>
-            <a href={`tel:${STORE.phoneTel}`} className="block hover:text-white transition-colors">
+            <a
+              href={`tel:${STORE.phoneTel}`}
+              className="speakable-phone block hover:text-white transition-colors"
+            >
               {STORE.phone}
             </a>
             <a href={`mailto:${STORE.email}`} className="block hover:text-white transition-colors text-xs">
@@ -154,7 +157,7 @@ export function SiteFooter() {
         </div>
 
         {/* Hours */}
-        <div className="space-y-3">
+        <div className="speakable-hours space-y-3">
           <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Hours</h3>
           <ul className="space-y-1.5">
             {STORE.hours.map((h) => (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
+import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 
 // Hack #7 — Heroes cohort SEO landing pages.
 //
@@ -310,10 +311,18 @@ export default async function HeroesCohortPage({
     url: `${STORE.website}/heroes/${c.slug}`,
   };
 
+  // BreadcrumbList — gives AI engines explicit nav graph: Home > Heroes > <cohort>
+  const breadcrumbSchema = breadcrumbJsonLd([
+    HOME_CRUMB,
+    { name: "Heroes", url: "/heroes" },
+    { name: c.label, url: `/heroes/${c.slug}` },
+  ]);
+
   return (
     <main className="min-h-[80vh] bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">

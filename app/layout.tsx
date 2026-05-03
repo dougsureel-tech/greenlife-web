@@ -309,6 +309,16 @@ const localBusinessSchema = {
     target: `${STORE.website}/order`,
     deliveryMethod: "http://purl.org/goodrelations/v1#DeliveryModePickUp",
   },
+  // Speakable spec — tells voice assistants (Siri / Google Assistant /
+  // Alexa / Apple Intelligence) which DOM nodes to read aloud when a
+  // user asks "what are the hours of Green Life Cannabis" via a
+  // voice-only surface. Pairs with `className="speakable-*"` tags on
+  // the SiteFooter address + hours + phone elements so the schema and
+  // the prose stay coupled.
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".speakable-address", ".speakable-hours", ".speakable-phone"],
+  },
   sameAs: sameAsLinks,
 };
 
