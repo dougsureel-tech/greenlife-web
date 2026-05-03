@@ -312,6 +312,21 @@ export default async function HomePage() {
 
                 <div className="h-px bg-white/10" />
 
+                {/* Tenure tag — "Founded 2014 · 12+ years · same building
+                    since opening." Lives between the address block and the
+                    Valley pill cluster so the eye lands on it on the way
+                    down the card. Single line on desktop, wraps on mobile. */}
+                <div className="flex items-baseline justify-between gap-3 flex-wrap">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-300/80">
+                    Founded 2014
+                  </div>
+                  <div className="text-[11px] text-white/85 font-semibold">
+                    12+ years · same building
+                  </div>
+                </div>
+
+                <div className="h-px bg-white/10" />
+
                 {/* Serves-the-Wenatchee-Valley pill cluster — Doug's
                     headline ask. Tight cluster, name-only pills (no extra
                     text). Visual rhythm beats density; the town card grid
