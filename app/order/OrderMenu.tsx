@@ -266,6 +266,11 @@ export function OrderMenu({
 }) {
   const router = useRouter();
   const initialCart = useMemo(() => loadCart(), []);
+  // Stale-cart prompt: when a saved cart is older than 48h, show a one-time
+  // banner inside the drawer offering to clear. Once dismissed (Clear OR Keep),
+  // never re-prompts in this session. (UX_AUDIT P1-2 closure.)
+  const STALE_CART_THRESHOLD_MS = 48 * 60 * 60 * 1000;
+  const [staleCartDismissed, setStaleCartDismissed] = useState(false);
   const [cart, setCart] = useState<CartItem[]>(() => initialCart.items);
   const [cartSavedAt] = useState<number | null>(initialCart.savedAt);
   // URL params can pre-fill filters — currently the only producer is
@@ -1280,6 +1285,37 @@ export function OrderMenu({
                   </button>
                 </div>
 
+                {/* Stale-cart banner — fires when a saved cart is >48h old +
+                 * not yet dismissed in this session. Customer reads "you left
+                 * this here a while ago" + can clear in one tap. (P1-2.) */}
+                {!staleCartDismissed &&
+                  cartSavedAt != null &&
+                  Date.now() - cartSavedAt > STALE_CART_THRESHOLD_MS && (
+                    <div className="px-4 py-3 bg-amber-50 border-b border-amber-200 flex items-center justify-between gap-3">
+                      <p className="text-xs text-amber-900 leading-snug">
+                        Your cart from{" "}
+                        {Math.floor((Date.now() - cartSavedAt) / (24 * 60 * 60 * 1000))} days ago is
+                        still here — start fresh?
+                      </p>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => {
+                            setCart([]);
+                            setStaleCartDismissed(true);
+                          }}
+                          className="text-[11px] font-bold px-2.5 py-1 rounded border border-amber-700 bg-amber-700 text-white hover:bg-amber-800"
+                        >
+                          Clear
+                        </button>
+                        <button
+                          onClick={() => setStaleCartDismissed(true)}
+                          className="text-[11px] font-medium text-amber-800 hover:text-amber-900"
+                        >
+                          Keep
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 {/* Items */}
                 <div className="p-4 space-y-2 max-h-52 overflow-y-auto">
                   {cart.map((item) => (
