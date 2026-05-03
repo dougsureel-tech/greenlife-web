@@ -56,8 +56,9 @@ export default function AlumniLoginPage() {
     }
     const hit = ALUMNI_SECRETS.find((s) => s.secret === candidate);
     if (!hit) {
-      // Stay vague on purpose — don't tell them what's wrong.
-      setError("That doesn't match. Try again.");
+      // Stay vague on purpose — don't tell them what's wrong (no character
+      // count, no field hint). Doug tells alumni the format verbally.
+      setError("Not quite — try again, or email us if you're stuck.");
       return;
     }
     setMatched({ name: hit.name, role: hit.role });
