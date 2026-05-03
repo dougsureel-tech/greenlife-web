@@ -273,11 +273,22 @@ export function SiteFooter() {
             {STORE.wslcbLicense && <span className="font-mono">#{STORE.wslcbLicense}</span>}
           </p>
         </div>
-        {/* Build identity — intentionally subtle. Doug's at-a-glance "did the
-            deploy land" signal. SHA comes from Vercel; v# is hand-bumped for
-            major releases. */}
-        <p className="max-w-7xl mx-auto mt-2 text-[9px] font-mono tabular-nums text-green-500/30 text-right select-all">
-          v{BUILD_VERSION} · {BUILD_SHA}
+        {/* Built-by-Sureel-AI credit + build identity. Sureel AI is
+            Doug's AI services company — the same hub we point at when
+            people ask "who built this?" Subtle, lives next to the
+            deploy-identity stamp. Doug 2026-05-02. */}
+        <p className="max-w-7xl mx-auto mt-2 flex items-center justify-between text-[9px] font-mono tabular-nums text-green-500/30">
+          <a
+            href="https://sureel.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-sans text-[10px] hover:text-green-300/80 transition-colors"
+          >
+            Built by Sureel AI ↗
+          </a>
+          <span className="select-all">
+            v{BUILD_VERSION} · {BUILD_SHA}
+          </span>
         </p>
       </div>
     </footer>
