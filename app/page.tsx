@@ -10,7 +10,15 @@ import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
 import { TownCardLink } from "@/components/TownCardLink";
 
-export const dynamic = "force-dynamic";
+// ISR: home page hits Neon 3x per request (getActiveBrands, getFeaturedProducts,
+// getActiveDeals). Was force-dynamic so every visit ran all three. 60s
+// revalidate keeps the "Today's Picks" + "Today's deals" + brands grid fresh
+// while the headline cache-hit ratio jumps into the high 90s. Live status
+// pill is rendered client-side in <SiteHeader> + the hero re-derives from
+// `isOpenNow()` at request time on each rebuild so the "Open Now" indicator
+// stays accurate within ~60s — well under the granularity customers care
+// about for "is it open?" pre-walk-in.
+export const revalidate = 60;
 
 // Headline town footprint, used in metadata description + the homepage hero
 // pill cluster. STORE.nearbyTowns is the source of truth for the geographic

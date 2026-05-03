@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 
-export const dynamic = "force-dynamic";
+// ISR: only dynamic data is "is the store open NOW" + which day-row to
+// highlight. 5-minute revalidate keeps that fresh enough that customers
+// looking up hours pre-visit get the right "Open / Closed" state without
+// a per-visit Neon round-trip (this page doesn't even use Neon).
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Visit — Hours, Directions, What to Bring",

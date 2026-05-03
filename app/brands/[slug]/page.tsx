@@ -23,7 +23,12 @@ import GreenRevolutionBrandPage from "./_brands/green-revolution";
 import TwoKGardensBrandPage from "./_brands/2k-gardens";
 import AvitasBrandPage from "./_brands/avitas";
 
-export const dynamic = "force-dynamic";
+// ISR: brand detail pages are pre-rendered for known slugs (via
+// `generateStaticParams` below) and refreshed every 5 min. Was force-dynamic
+// — every visit ran getBrandBySlug + getBrandProducts against Neon, even for
+// the same brand viewed twice in 30 seconds. Inventory rotates on the order
+// of hours, not seconds, so 300s is well within freshness budget.
+export const revalidate = 300;
 
 // Per-brand custom page overrides. Add a new entry here when a brand
 // graduates from the generic template to a boutique layout — the

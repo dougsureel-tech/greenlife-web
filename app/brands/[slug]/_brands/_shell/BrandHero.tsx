@@ -97,6 +97,8 @@ export function BrandHero({
                 alt={logoAlt ?? `${crumb} logo`}
                 fill
                 unoptimized
+                priority
+                sizes="(max-width: 640px) 128px, 160px"
                 className="object-contain p-5"
               />
             ) : (

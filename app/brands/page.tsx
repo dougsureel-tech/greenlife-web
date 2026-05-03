@@ -5,7 +5,11 @@ import { getActiveBrands } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 
-export const dynamic = "force-dynamic";
+// ISR: brand list updates when SKU counts change; 5-min revalidate is plenty
+// for "what brands do we carry" — this used to be force-dynamic which meant
+// every visit hit Neon for the full vendor + activeSkus aggregation. Now the
+// HTML is pre-rendered and shared across visitors.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Brands",
