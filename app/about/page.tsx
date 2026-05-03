@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { ALUMNI_TEAM, initialOf } from "@/lib/team";
 
 export const metadata: Metadata = {
-  title: "About — Locally Owned Wenatchee Cannabis Dispensary",
-  description: `${STORE.name} is a locally owned WSLCB-licensed cannabis dispensary in ${STORE.address.full}. Founded 2014, same building since opening, community-rooted, education-first. Curated Washington-state cannabis from producers we know and trust.`,
+  title: "About — Wenatchee's Best Cannabis Staff Since 2014",
+  description: `${STORE.name} — Wenatchee's longest-running cannabis dispensary, founded 2014, same building since opening. Knowledgeable budtenders, curated Washington-state cannabis, education-first. ${STORE.address.full}.`,
   alternates: { canonical: "/about" },
   openGraph: {
-    title: `About ${STORE.name} — locally owned in Wenatchee`,
-    description: `Locally owned, community-rooted cannabis dispensary in ${STORE.address.city}, WA. Education first.`,
+    title: `About ${STORE.name} — Wenatchee's best cannabis staff`,
+    description: `Wenatchee cannabis dispensary, founded 2014. Knowledgeable budtenders, curated catalog, education first.`,
     url: `${STORE.website}/about`,
     type: "website",
   },
@@ -23,7 +24,7 @@ const aboutSchema = {
   "@type": "AboutPage",
   name: `About ${STORE.name}`,
   url: `${STORE.website}/about`,
-  description: `Locally owned cannabis dispensary in ${STORE.address.city}, Washington — education-first, community-rooted, founded 2014.`,
+  description: `Wenatchee cannabis dispensary — founded 2014, same building since opening, the Valley's best cannabis staff, education-first.`,
   mainEntity: { "@id": `${STORE.website}/#dispensary` },
   inLanguage: "en-US",
   isPartOf: { "@id": `${STORE.website}/#website` },
@@ -64,7 +65,7 @@ export default function AboutPage() {
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Story</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">About Green Life Cannabis</h1>
           <p className="text-green-300/70 mt-2 text-sm sm:text-base">
-            Wenatchee&apos;s locally owned cannabis dispensary
+            The Valley&apos;s best cannabis staff · since 2014
           </p>
         </div>
       </div>
@@ -75,9 +76,9 @@ export default function AboutPage() {
           <div className="space-y-5">
             <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">Who We Are</h2>
             <p className="text-stone-600 leading-relaxed">
-              Green Life Cannabis is a locally owned and operated dispensary in the heart of Wenatchee,
-              Washington. We believe cannabis should be approachable, educational, and enjoyable — for
-              everyone from first-time customers to seasoned enthusiasts.
+              Green Life Cannabis has been a Wenatchee dispensary since 2014 — same building, same
+              standards, same crew you&apos;ll see again. We believe cannabis should be approachable,
+              educational, and enjoyable — for everyone from first-time customers to seasoned enthusiasts.
             </p>
             <p className="text-stone-600 leading-relaxed">
               Our team of knowledgeable budtenders takes time to understand what you&apos;re looking for and
@@ -142,6 +143,59 @@ export default function AboutPage() {
                 <span className="text-3xl">{icon}</span>
                 <h3 className="font-bold text-stone-900">{title}</h3>
                 <p className="text-stone-500 text-sm leading-relaxed">{body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Featured alumni — standout past staff who shaped the shop. Doug
+            asked these be featured here (in addition to the full roster on
+            /our-story) so first-time visitors landing on /about see the
+            crew that built the staff reputation. Deep-link out to /our-story
+            for the full team. */}
+        <section className="space-y-6">
+          <div className="flex items-end justify-between gap-4 flex-wrap">
+            <div>
+              <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">
+                The crew that built our reputation
+              </h2>
+              <p className="text-stone-500 text-sm mt-1.5 max-w-xl">
+                Twelve years of standout budtenders. A few who&apos;ve moved on, but the standards they set
+                are still on the floor every day.
+              </p>
+            </div>
+            <Link
+              href="/our-story"
+              className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
+            >
+              Full team roster →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {ALUMNI_TEAM.map((m) => (
+              <div
+                key={m.name}
+                className="rounded-2xl bg-white border border-stone-200 p-5 flex items-start gap-4"
+              >
+                <div className="shrink-0">
+                  {m.photoSrc ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={m.photoSrc}
+                      alt={`${m.name} — ${m.role}`}
+                      className="w-12 h-12 rounded-xl object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-800 font-bold text-sm tracking-wide">
+                      {initialOf(m.name)}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-bold text-stone-900 text-sm leading-tight">{m.name}</div>
+                  <div className="text-green-700 text-xs font-semibold mt-0.5">{m.role}</div>
+                  <p className="text-stone-600 text-xs leading-relaxed mt-2">{m.oneLine}</p>
+                </div>
               </div>
             ))}
           </div>

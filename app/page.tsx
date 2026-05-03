@@ -80,7 +80,7 @@ const CATEGORIES = [
 const STATS = [
   { val: "Open Daily", label: "8 AM · later Fri & Sat" },
   { val: "Free Parking", label: "Right out front" },
-  { val: "Locally Owned", label: "& community-first" },
+  { val: "Best Staff in WA", label: "12+ yrs · Center Rd" },
   { val: "Cash Only", label: "ATM on-site" },
 ];
 

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA`,
     template: `%s | ${STORE.name}`,
   },
-  description: `${STORE.name} — ${STORE.address.city}'s locally owned cannabis dispensary, founded 2014, same building since opening. Shop flower, concentrates, edibles, vapes, and more. Open daily. ${STORE.address.full}.`,
+  description: `${STORE.name} — ${STORE.address.city}'s longest-running cannabis dispensary, founded 2014, same building since opening. The Valley's best cannabis staff. Shop flower, concentrates, edibles, vapes, and more. Open daily. ${STORE.address.full}.`,
   keywords: [
     "cannabis dispensary Wenatchee",
     "marijuana dispensary Wenatchee WA",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: STORE.name,
     title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA`,
-    description: `Shop premium cannabis at ${STORE.name} — ${STORE.address.city}'s locally owned dispensary, founded 2014. Flower, edibles, concentrates, vapes & more.`,
+    description: `Shop premium cannabis at ${STORE.name} — Wenatchee's best cannabis staff, founded 2014. Flower, edibles, concentrates, vapes & more.`,
   },
   twitter: {
     card: "summary_large_image",
@@ -90,7 +90,7 @@ const localBusinessSchema = {
   name: STORE.name,
   legalName: STORE.name,
   alternateName: ["Green Life", "Green Life Wenatchee"],
-  description: `Licensed cannabis dispensary in ${STORE.address.city}, WA — locally owned, founded 2014, same building since opening. Premium flower, pre-rolls, vapes, concentrates, edibles, tinctures and topicals from Washington-state producers. Cash only, 21+ with valid ID.`,
+  description: `Licensed cannabis dispensary in ${STORE.address.city}, WA — founded 2014, same building since opening, the Valley's best cannabis staff. Premium flower, pre-rolls, vapes, concentrates, edibles, tinctures and topicals from Washington-state producers. Cash only, 21+ with valid ID.`,
   slogan: STORE.tagline,
   url: STORE.website,
   telephone: STORE.phoneTel,
