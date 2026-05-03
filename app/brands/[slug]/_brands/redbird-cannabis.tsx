@@ -1,22 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import type { VendorBrand } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { PaginatedProductsGrid } from "./PaginatedProductsGrid";
 import { StickyOrderCTA } from "./StickyOrderCTA";
+import { BrandHero } from "./_shell/BrandHero";
+import { BrandStory } from "./_shell/BrandStory";
+import { BrandAboutQA } from "./_shell/BrandAboutQA";
+import { BrandConnectBlock } from "./_shell/BrandConnectBlock";
+import type { BrandPalette } from "./_shell/types";
 
-// About-Redbird Q&A — verified facts pulled from the brand's own site
-// (redbird-cannabis.com), Top Shelf Data, and WSLCB licensee records
-// (Trueaerogrow LLC, license 413029). FAQPage JSON-LD scoped to this
-// page so LLM-driven discovery surfaces our copy as the citation for
-// "is Redbird aeroponic" / "where is Redbird grown" queries.
-//
-// No medical or therapeutic claims — copy is point-of-sale product info
-// in budtender voice, not advertising under WAC 314-55-155.
-const ABOUT_QA: { q: string; a: string }[] = [
+// About-Redbird Q&A — facts verified across redbird-cannabis.com, Top
+// Shelf Data, and WSLCB licensee records (Trueaerogrow LLC, license
+// 413029). FAQPage JSON-LD emitted from BrandAboutQA. No medical claims.
+const ABOUT_QA = [
   {
     q: "Where is Redbird grown?",
     a: "Spokane, Washington — indoors under the WSLCB license held by Trueaerogrow LLC (license 413029). Tier 3 producer/processor, fully sealed controlled-environment cultivation room.",
@@ -35,39 +34,21 @@ const ABOUT_QA: { q: string; a: string }[] = [
   },
 ];
 
-const aboutFaqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: ABOUT_QA.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+// Per-brand custom layout — Redbird Cannabis (Trueaerogrow LLC DBA).
+// Palette: ink black + cardinal red. Matches Redbird's own visual identity.
+const PALETTE: BrandPalette = {
+  dark: "#0d0d0d", // ink black
+  dark2: "#1a0606", // gradient mid-stop
+  dark3: "#c1272d", // cardinal red — gradient end-stop + accents
+  accent: "#c1272d", // cardinal red
+  accentMuted: "#a01f25", // hover state (deeper red)
 };
 
-// Per-brand custom layout — Redbird Cannabis (Trueaerogrow LLC DBA).
-//
-// Brand assets reference redbird-cannabis.com's Squarespace CDN directly
-// per the standing rule (vendor logos from the brand's own CDN only).
-// "KO_black" is the knock-out (white-on-dark) logo variant — perfect for
-// the cardinal-red hero. If a specific asset path 404s in production the
-// surrounding gradient + wordmark hero degrades gracefully.
-//
-// Color palette — cardinal red + ink black, distinct from the 8 prior
-// brand pages (NWCS forest+gold, Phat Panda pink+black, Fairwinds
-// teal+sand, MFUSED navy+cyan, Spark slate+plaid-red, Bondi blue+coral,
-// OOWEE violet+cream, 2727 terracotta+cream). Matches Redbird's own
-// black + cardinal-red visual identity from their site.
 const RB_LOGO =
   "https://images.squarespace-cdn.com/content/v1/6511d95f3eb1ba362c729a4c/ff355e9a-9a11-4661-a7ef-669fb1b4830c/Redbird_Logo_Primary_KO_black.png";
 const RB_HERO =
   "https://images.squarespace-cdn.com/content/v1/6511d95f3eb1ba362c729a4c/1695677008965-QQJ62AWX6BZVWMYG9VXX/Tropicana-Garlic-6.jpg";
 
-// Sub-brand cards drawn from Redbird's own product line taxonomy
-// (redbird-cannabis.com/products). Click a card → filters the products
-// grid below by category or product-name substring. We don't have a
-// rich sub-brand structure here — Redbird is one cohesive brand — so
-// the cards split by FORMAT, which is what customers actually shop by.
 const SUB_BRANDS: Array<{
   name: string;
   tag: string;
@@ -152,8 +133,29 @@ export default function RedbirdBrandPage({
 
   return (
     <div className="bg-neutral-50">
-      {/* HERO ----------------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-[#0d0d0d] text-white">
+      <BrandHero
+        palette={PALETTE}
+        crumb="Redbird Cannabis"
+        logoUrl={RB_LOGO}
+        logoAlt="Redbird Cannabis logo"
+        title="Redbird Cannabis"
+        tagline="Consistency, dialed in."
+        subtitle="Aeroponic cannabis out of Spokane — roots in mist, every variable locked down, year-round. Same flavor, same potency, same quality batch after batch."
+        pills={[
+          { kind: "muted", label: "Spokane, WA", dot: true },
+          { kind: "muted", label: "Aeroponic / CEA" },
+          { kind: "filled", label: `${brand.activeSkus} on our shelf` },
+        ]}
+        ctas={[
+          { href: "/menu", label: "Order Redbird for Pickup →", variant: "primary" },
+          {
+            href: "https://redbird-cannabis.com/",
+            label: "Visit redbird-cannabis.com ↗",
+            variant: "secondary",
+            external: true,
+          },
+        ]}
+      >
         <Image
           src={RB_HERO}
           alt=""
@@ -163,10 +165,7 @@ export default function RedbirdBrandPage({
           aria-hidden
           className="object-cover opacity-30"
         />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-br from-[#0d0d0d] via-[#1a0606]/90 to-[#c1272d]/55"
-        />
+        {/* Diagonal cardinal-red stripe pattern. */}
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.07]"
@@ -176,107 +175,38 @@ export default function RedbirdBrandPage({
             backgroundSize: "32px 32px",
           }}
         />
+      </BrandHero>
 
-        <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#f4b9bc] text-[11px] font-bold uppercase tracking-[0.2em] mb-5">
-            <Link href="/brands" className="hover:text-white transition-colors">
-              All Brands
-            </Link>
-            <span className="mx-2 opacity-50">/</span>
-            Redbird Cannabis
-          </p>
+      <BrandStory palette={PALETTE} eyebrow="Our Story" headline="Roots in mist. Variables on lockdown.">
+        <p>
+          Redbird is a Tier 3 producer/processor in Spokane operating under Trueaerogrow LLC
+          (WSLCB license 413029). The grow uses high-pressure aeroponics inside a
+          controlled-environment room — roots hang in air, a fine nutrient mist saturates them
+          on schedule, and the plant gets near-100% oxygen at the root zone. No soil, no flood
+          tables, 98% less water than standard hydroponics.
+        </p>
+        <p>
+          Every variable is dialed in per strain — temperature, humidity, CO2, light, nutrient
+          mix, pH. The point isn&apos;t novelty for its own sake; it&apos;s consistency.
+          Customers who liked the last jar of Tropicana Garlic should get the same jar two
+          months later.
+        </p>
+        <p>
+          We carry Redbird at {STORE.name} because the aeroponic process produces flower with
+          very predictable terpene and potency profiles — and because the rosin and pre-rolls
+          come from the same flower as the jars, not trim. Look for Flower, Pre-Rolled Joints,
+          Micro-Bud (popcorn nugs at a value tier), and dry-sift Rosin.
+        </p>
+      </BrandStory>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-8 md:gap-10">
-            <div className="shrink-0 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-[#0d0d0d] border-2 border-[#c1272d]/40 shadow-2xl flex items-center justify-center p-5 relative">
-              <Image
-                src={RB_LOGO}
-                alt="Redbird Cannabis logo"
-                fill
-                unoptimized
-                className="object-contain p-5"
-              />
-            </div>
-            <div className="space-y-4 max-w-2xl">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
-                Redbird Cannabis
-                <br />
-                <span className="text-[#c1272d]">Consistency, dialed in.</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-neutral-200/90 leading-relaxed">
-                Aeroponic cannabis out of Spokane — roots in mist, every variable locked down,
-                year-round. Same flavor, same potency, same quality batch after batch.
-              </p>
-              <div className="flex flex-wrap items-center gap-2.5 pt-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold border border-white/15">
-                  <span className="text-[#c1272d]">●</span> Spokane, WA
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold border border-white/15">
-                  Aeroponic / CEA
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#c1272d] text-white text-xs font-bold">
-                  {brand.activeSkus} on our shelf
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-3 pt-3">
-                <Link
-                  href="/menu"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#c1272d] hover:bg-[#a01f25] text-white text-sm font-bold transition-all shadow-lg hover:-translate-y-0.5"
-                >
-                  Order Redbird for Pickup →
-                </Link>
-                <a
-                  href="https://redbird-cannabis.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-all border border-white/20"
-                >
-                  Visit redbird-cannabis.com ↗
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* STORY ---------------------------------------------------------- */}
-      <section className="bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-            Our Story
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 mb-8 leading-tight">
-            Roots in mist. Variables on lockdown.
-          </h2>
-          <div className="space-y-5 text-neutral-700 text-lg leading-relaxed">
-            <p>
-              Redbird is a Tier 3 producer/processor in Spokane operating under Trueaerogrow LLC
-              (WSLCB license 413029). The grow uses high-pressure aeroponics inside a
-              controlled-environment room — roots hang in air, a fine nutrient mist saturates them
-              on schedule, and the plant gets near-100% oxygen at the root zone. No soil, no flood
-              tables, 98% less water than standard hydroponics.
-            </p>
-            <p>
-              Every variable is dialed in per strain — temperature, humidity, CO2, light, nutrient
-              mix, pH. The point isn&apos;t novelty for its own sake; it&apos;s consistency.
-              Customers who liked the last jar of Tropicana Garlic should get the same jar two
-              months later.
-            </p>
-            <p>
-              We carry Redbird at {STORE.name} because the aeroponic process produces flower with
-              very predictable terpene and potency profiles — and because the rosin and pre-rolls
-              come from the same flower as the jars, not trim. Look for Flower, Pre-Rolled Joints,
-              Micro-Bud (popcorn nugs at a value tier), and dry-sift Rosin.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SUB-BRANDS ----------------------------------------------------- */}
       <section className="bg-neutral-50 border-y border-neutral-200">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
           <div className="flex items-end justify-between flex-wrap gap-3 mb-10">
             <div>
-              <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+              <p
+                className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3"
+                style={{ color: PALETTE.accent }}
+              >
                 The Lineup
               </p>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 leading-tight">
@@ -319,11 +249,7 @@ export default function RedbirdBrandPage({
                   }`}
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-2">
-                    <h3
-                      className={`font-extrabold text-lg leading-tight ${
-                        active ? "text-white" : "text-neutral-900"
-                      }`}
-                    >
+                    <h3 className={`font-extrabold text-lg leading-tight ${active ? "text-white" : "text-neutral-900"}`}>
                       {sb.name}
                     </h3>
                     <span
@@ -334,18 +260,12 @@ export default function RedbirdBrandPage({
                       {sb.tag}
                     </span>
                   </div>
-                  <p
-                    className={`text-sm leading-relaxed ${active ? "text-neutral-300" : "text-neutral-600"}`}
-                  >
+                  <p className={`text-sm leading-relaxed ${active ? "text-neutral-300" : "text-neutral-600"}`}>
                     {sb.line}
                   </p>
                   <p
                     className={`text-[11px] font-semibold uppercase tracking-wider mt-3 ${
-                      active
-                        ? "text-[#c1272d]"
-                        : count > 0
-                          ? "text-emerald-700"
-                          : "text-neutral-400"
+                      active ? "text-[#c1272d]" : count > 0 ? "text-emerald-700" : "text-neutral-400"
                     }`}
                   >
                     {count > 0
@@ -361,10 +281,12 @@ export default function RedbirdBrandPage({
         </div>
       </section>
 
-      {/* PRODUCTS ------------------------------------------------------- */}
       <section id="products" className="bg-neutral-50 border-y border-neutral-200 scroll-mt-20">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+          <p
+            className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3"
+            style={{ color: PALETTE.accent }}
+          >
             On Our Shelf
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 mb-2 leading-tight">
@@ -391,125 +313,29 @@ export default function RedbirdBrandPage({
         </div>
       </section>
 
-      {/* ABOUT — Q&A ---------------------------------------------------- */}
-      <section className="bg-white border-t border-neutral-200">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqSchema) }}
-        />
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-            About Redbird
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 mb-8 leading-tight">
-            Quick facts
-          </h2>
-          <div className="space-y-3">
-            {ABOUT_QA.map(({ q, a }) => (
-              <details
-                key={q}
-                open
-                className="group rounded-2xl border border-neutral-200 bg-neutral-50 overflow-hidden open:border-[#c1272d] open:bg-white open:shadow-sm transition-all"
-              >
-                <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none select-none transition-colors">
-                  <span className="font-semibold text-neutral-800 group-open:text-[#c1272d] text-sm leading-snug transition-colors">
-                    {q}
-                  </span>
-                  <svg
-                    className="w-5 h-5 shrink-0 text-neutral-300 group-open:text-[#c1272d] group-open:rotate-180 transition-all duration-200"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </summary>
-                <div className="px-5 pb-5 pt-1 text-neutral-600 text-sm leading-relaxed border-t border-[#c1272d]/20">
-                  {a}
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrandAboutQA palette={PALETTE} brandName="Redbird" items={ABOUT_QA} />
 
-      {/* CONNECT -------------------------------------------------------- */}
-      <section className="bg-[#0d0d0d] text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-              Connect with Redbird
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6 leading-tight">
-              Find them online
-            </h2>
-            <ul className="space-y-3 text-neutral-200">
-              <li className="flex items-center gap-3">
-                <span className="text-[#c1272d] w-20 text-xs font-bold uppercase tracking-wider">
-                  Web
-                </span>
-                <a
-                  href="https://redbird-cannabis.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline underline-offset-4 decoration-[#c1272d]/40"
-                >
-                  redbird-cannabis.com
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-[#c1272d] w-20 text-xs font-bold uppercase tracking-wider">
-                  Instagram
-                </span>
-                <a
-                  href="https://www.instagram.com/redbird_wa/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline underline-offset-4 decoration-[#c1272d]/40"
-                >
-                  @redbird_wa
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-[#c1272d] w-20 text-xs font-bold uppercase tracking-wider">
-                  License
-                </span>
-                <span>WSLCB 413029 — Trueaerogrow LLC, Spokane, WA</span>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
-            <div>
-              <p className="text-[#c1272d] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-                Pickup at {STORE.name}
-              </p>
-              <p className="text-xl font-extrabold mb-1">
-                {brand.activeSkus} Redbird product{brand.activeSkus !== 1 ? "s" : ""} ready in{" "}
-                {STORE.address.city}
-              </p>
-              <p className="text-sm text-neutral-300/90 leading-relaxed">
-                Order ahead and your kit&apos;s waiting at the counter. {STORE.address.full}.
-                21+ with valid ID. Cash only.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <Link
-                href="/menu"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#c1272d] hover:bg-[#a01f25] text-white text-sm font-bold transition-all"
-              >
-                Order for Pickup →
-              </Link>
-              <Link
-                href="/brands"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-all"
-              >
-                ← All Brands
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BrandConnectBlock
+        palette={PALETTE}
+        brandName="Redbird"
+        links={[
+          { label: "Web", href: "https://redbird-cannabis.com/", text: "redbird-cannabis.com" },
+          { label: "Instagram", href: "https://www.instagram.com/redbird_wa/", text: "@redbird_wa" },
+          { label: "License", text: "WSLCB 413029 — Trueaerogrow LLC, Spokane, WA" },
+        ]}
+        pickup={{
+          eyebrow: `Pickup at ${STORE.name}`,
+          headline: `${brand.activeSkus} Redbird product${brand.activeSkus !== 1 ? "s" : ""} ready in ${STORE.address.city}`,
+          body: (
+            <>
+              Order ahead and your kit&apos;s waiting at the counter. {STORE.address.full}.
+              21+ with valid ID. Cash only.
+            </>
+          ),
+          primaryCta: { href: "/menu", label: "Order for Pickup →" },
+          secondaryCta: { href: "/brands", label: "← All Brands" },
+        }}
+      />
 
       <StickyOrderCTA label="Order Redbird →" />
     </div>
