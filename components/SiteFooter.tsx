@@ -168,26 +168,23 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        {/* Explore links */}
+        {/* Explore — top-10 most-clicked routes only. Press / Accessibility /
+            Contact / FAQ / Cannabis 101 / Account moved to the small
+            secondary-links row below the main grid so Explore stays a
+            scan-able marketing column, not a sitemap dump. */}
         <div className="space-y-3">
           <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Explore</h3>
           <ul className="space-y-2">
             {[
               { href: "/menu", label: "Shop Menu" },
               { href: "/order", label: "Order for Pickup" },
-              { href: "/visit", label: "Visit Us" },
+              { href: "/heroes", label: "Heroes Discount" },
               { href: "/find-your-strain", label: "Find your strain" },
               { href: "/brands", label: "Our Brands" },
-              { href: "/heroes", label: "Heroes Discount" },
+              { href: "/visit", label: "Visit Us" },
               { href: "/community", label: "Our Community" },
               { href: "/blog", label: "Guides" },
-              { href: "/learn", label: "Cannabis 101" },
-              { href: "/faq", label: "FAQ" },
               { href: "/about", label: "About Us" },
-              { href: "/contact", label: "Contact" },
-              { href: "/press", label: "Press" },
-              { href: "/account", label: "My Account" },
-              { href: "/accessibility", label: "Accessibility" },
             ].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="text-xs text-green-300/80 hover:text-white transition-colors">
@@ -222,6 +219,47 @@ export function SiteFooter() {
             Easy drive from anywhere in NCW. On US-2 between Cascades and Lake Chelan.
           </p>
         </div>
+      </div>
+
+      {/* Secondary links row — Contact / FAQ / Cannabis 101 / Account /
+          Press / Accessibility. Reference + utility routes that don't
+          belong in the marketing Explore column. */}
+      <div className="border-t border-green-900/40 px-4 sm:px-6 py-4">
+        <ul className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] text-green-400/70">
+          {[
+            { href: "/contact", label: "Contact" },
+            { href: "/faq", label: "FAQ" },
+            { href: "/learn", label: "Cannabis 101" },
+            { href: "/account", label: "My Account" },
+            { href: "/press", label: "Press" },
+            { href: "/accessibility", label: "Accessibility" },
+          ].map(({ href, label }) => (
+            <li key={href}>
+              <Link href={href} className="hover:text-white transition-colors">
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* WAC 314-55-082 statutory health warning. VERBATIM from the
+          Washington statute — same text Uncle Ike's renders site-wide.
+          Sits above the copyright bar so it reads as compliance copy,
+          not marketing. Amber tint signals "warning/legal", not "promo".
+          Doug 2026-05-02 greenlit per `Green Life/PLAN_LEGAL_WARNINGS.md`. */}
+      <div className="border-t border-amber-300/30 bg-amber-400/5 py-4 px-4 sm:px-6">
+        <p className="max-w-7xl mx-auto text-[11px] leading-relaxed text-amber-200/85">
+          <span className="font-extrabold uppercase tracking-widest text-amber-300">
+            Warning ·
+          </span>{" "}
+          This product has intoxicating effects and may be habit forming. Smoking is hazardous to
+          your health. There may be health risks associated with consumption of this product.
+          Should not be used by women that are pregnant or breast feeding. Marijuana can impair
+          concentration, coordination, and judgment. Do not operate a vehicle or machinery while
+          under the influence of this drug. For use only by adults twenty-one and older. Keep out
+          of the reach of children.
+        </p>
       </div>
 
       {/* Bottom bar */}
