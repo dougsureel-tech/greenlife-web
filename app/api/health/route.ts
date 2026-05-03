@@ -59,9 +59,48 @@ async function checkDb(): Promise<CheckResult> {
   }
 }
 
+// Content-level signal — counts of customer-visible surfaces (active
+// products + active deals). A deploy can pass DB connectivity but
+// break a query that returns the customer-facing content; this surfaces
+// that failure mode to external monitors without auth.
+//
+// Returns counts even on error so the response shape stays stable.
+// The health `ok` field stays bound to db.ok only — content counts
+// are informational, not 503-tripping (a temporarily empty deals
+// table is not a system outage). Monitor consumers can grep on
+// `productsActive=0` if they want a stricter degradation signal.
+async function checkContent(): Promise<{
+  productsActive: number;
+  dealsActive: number;
+  error: string | null;
+}> {
+  try {
+    const sql = getClient();
+    const [productRows, dealRows] = await Promise.all([
+      sql`SELECT COUNT(*)::int AS n FROM products WHERE carry_status = 'active'`,
+      sql`SELECT COUNT(*)::int AS n FROM deals
+          WHERE active = true
+            AND (starts_at IS NULL OR starts_at <= NOW())
+            AND (ends_at IS NULL OR ends_at > NOW())`,
+    ]);
+    const products = (productRows as Array<{ n: number }>)[0]?.n ?? 0;
+    const deals = (dealRows as Array<{ n: number }>)[0]?.n ?? 0;
+    return { productsActive: products, dealsActive: deals, error: null };
+  } catch (err) {
+    return {
+      productsActive: 0,
+      dealsActive: 0,
+      error: err instanceof Error ? err.message.slice(0, 200) : "unknown content error",
+    };
+  }
+}
+
 export async function GET() {
   const startedAt = Date.now();
-  const db = await checkDb();
+  // Parallelize the two read paths so the slower one bounds the latency
+  // (the DB check is ~30ms warm, the content counts ~50-80ms; serial
+  // would hit ~110ms p95, parallel stays ~80ms).
+  const [db, content] = await Promise.all([checkDb(), checkContent()]);
   const elapsedMs = Date.now() - startedAt;
 
   const allOk = db.ok;
@@ -71,7 +110,7 @@ export async function GET() {
     sha: BUILD_SHA,
     ts: new Date().toISOString(),
     elapsedMs,
-    checks: { db },
+    checks: { db, content },
   };
 
   return NextResponse.json(body, {
