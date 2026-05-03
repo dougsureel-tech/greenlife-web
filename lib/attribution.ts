@@ -35,6 +35,7 @@ export const SOURCE_KINDS = [
   "sms", // SMS campaign deep-link — slug = campaign id
   "push", // push-notification deep-link — slug = campaign id
   "email", // email deep-link — slug = template id
+  "menu", // surfaces wrapped around the /menu Boost embed — slug = "local-strip-visit" etc.
 ] as const;
 
 export type SourceKind = (typeof SOURCE_KINDS)[number];

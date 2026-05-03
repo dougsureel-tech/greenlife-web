@@ -3,6 +3,8 @@ import { STORE } from "@/lib/store";
 import { getActiveDeals } from "@/lib/db";
 import { JaneMenu } from "./JaneMenu";
 import { MenuFallback } from "./MenuFallback";
+import { MenuLocalStrip } from "@/components/MenuLocalStrip";
+import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 
 // /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
 // greenlifecannabis.com — the Boost JS module hydrates the menu inline.
@@ -60,7 +62,21 @@ export default async function MenuPage() {
         </p>
       </div>
       <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
+      {/* Active-deals strip — every running deal as a brand-tinted chip.
+          Boost is third-party and can't ribbon individual product cards;
+          this is the pragmatic substitute that keeps the discount surface
+          loud directly under the embed. See MENU_TREE_AUDIT.md priority #3. */}
+      <MenuActiveDealsStrip deals={deals} />
       <MenuFallback featuredDeal={featuredDeal} />
+      {/* Geo-cohort tie-back. Homepage hero already promises "we serve
+          the whole valley" with full town cards; here we surface the
+          same STORE.nearbyTowns set as a compact strip so deep-link
+          customers landing on /menu without seeing the homepage still
+          read the same local-cohort signal — and so search-engine
+          crawls of /menu get the geographic reinforcement. Source of
+          truth (STORE.nearbyTowns + LocalBusiness JSON-LD) is in the
+          root layout; this is the surface render. */}
+      <MenuLocalStrip />
     </div>
   );
 }
