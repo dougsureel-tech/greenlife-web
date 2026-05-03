@@ -19,6 +19,9 @@ How the public site sends transactional + marketing email.
 | `RESEND_FROM` | No | `Green Life Cannabis <hi@greenlifecannabis.com>` |
 | `ORDER_CONFIRMATION_EMAIL_ENABLED` | Per-feature gate | `"false"` (off until set to `"true"`) |
 | `WELCOME_EMAIL_ENABLED` | Per-feature gate | `"false"` (off until set to `"true"`) |
+| `QUIZ_NURTURE_ENABLED` | Per-feature gate (Hack #6) | `"false"` — gates the public-site D+0 capture API |
+| `NEXT_PUBLIC_QUIZ_NURTURE_ENABLED` | Per-feature gate (Hack #6, client-visible) | `"false"` — gates the capture-card render in `StrainFinderClient.tsx` |
+| `NEXT_PUBLIC_SITE_ORIGIN` | No | `https://greenlifecannabis.com` — used when building unsubscribe URLs in nurture emails |
 
 Set on each Vercel project (greenlife-web preview + production). Without `RESEND_API_KEY`, `sendEmail()` returns the no-op result and never throws — safe to call from any Server Action / route handler.
 
@@ -97,6 +100,8 @@ For email opt-in we'll add a `portal_users.email_opt_in BOOLEAN DEFAULT FALSE` c
 |---|---|---|
 | Order confirmation (pickup details + items) | `lib/order-confirmation-email.ts` → `sendOrderConfirmationEmail()`, fired from `app/api/orders/route.ts` after order INSERT commits, dispatched via `after()` | `ORDER_CONFIRMATION_EMAIL_ENABLED=true` AND `portal_users.email IS NOT NULL` AND `RESEND_API_KEY` set |
 | Welcome (first-visit essentials) | `lib/welcome-email.ts` → `sendWelcomeEmail()`, fired from `app/account/page.tsx` (post-signup landing) inside `after()` only when `getOrCreatePortalUserWithCreated()` returns `created: true` | `WELCOME_EMAIL_ENABLED=true` AND `portal_users.email IS NOT NULL` AND `RESEND_API_KEY` set |
+| Quiz capture D+0 (Hack #6 — "Your strain match is in") | `lib/quiz-nurture-email.ts` → `sendQuizMatchEmail()`, fired from `app/api/quiz/capture/route.ts` after the `quiz_captures` INSERT commits, dispatched via `after()` | `QUIZ_NURTURE_ENABLED=true` AND email passes regex validation AND `RESEND_API_KEY` set |
+| Quiz nurture D+5 + D+12 (Hack #6 — "What to expect" + "Last days") | inventoryapp `src/app/api/cron/quiz-nurture/route.ts` (NOT this repo — the table lives in inventoryapp's Neon DB, the cron runs there, the Resend setup there sends per-store branded emails) | inventoryapp feature flag `quiz_capture_nurture` ON at `/admin/control-panel` |
 
 **Order confirmation specifics:**
 
@@ -120,10 +125,25 @@ For email opt-in we'll add a `portal_users.email_opt_in BOOLEAN DEFAULT FALSE` c
 - Transactional under CAN-SPAM ("transactional / relationship" — sent in response to the user's own signup action). The footer still includes a STOP / `info@` opt-out for marketing-channel hygiene; one-click unsub will land alongside the inventoryapp `portal_users.email_opt_in` migration.
 - **No audit-log write.** Same cross-DB constraint as the order-confirmation send.
 
+**Quiz capture nurture series (Hack #6) specifics:**
+
+- Three-stage drip on rows captured by `app/api/quiz/capture/route.ts`: D+0 (this repo, fires immediately on capture via `after()`) → D+5 + D+12 (inventoryapp cron). Each stage carries the same per-row 256-bit `unsubscribed_token` (generated at capture time via `crypto.randomBytes(32).toString("hex")`), so a single one-click `/quiz/unsubscribe?token=…` page silences all three.
+- **Capture API security checks:** strict email regex (`^[^\s@<>"'\`\\;]+@[^\s@<>"'\`\\;]+\.[^\s@<>"'\`\\;]+$` — rejects header injection by construction), max-length 254 chars, explicit reject on `[\r\n]`, `(LOWER(email), source)` 7-day dedupe BEFORE INSERT (a button-mash returns `{ ok: true, dedupe: true }` and the D+0 doesn't re-fire). Other quiz fields are sliced to 64 chars + null on miss; SQL is parameterized via the neon template-tag, never concatenated.
+- **Source column:** `'greenlife'` for this repo, `'seattle'` for the SCC repo. The inventoryapp cron uses `source` to pick the right FROM-address + branded palette per row.
+- **Public-site D+0 sender:** `lib/quiz-nurture-email.ts` (Wenatchee green palette mirrors `lib/order-confirmation-email.ts`). Footer carries the unsubscribe deep link + STOP-reply note. `firstName` is null at this stage — quiz UI doesn't ask for name.
+- **Inventoryapp D+5 + D+12 sender:** `Inventory App/src/app/api/cron/quiz-nurture/route.ts`. Self-contained branded HTML (Wenatchee or Seattle per row) and uses the same `unsubscribe_token` so cancellation via either stage works against the same row.
+- **Idempotency:** the cron candidate query filters on `nurture_d{5,12}_sent_at IS NULL AND unsubscribed_at IS NULL`, and the stamp UPDATE only happens AFTER a successful Resend response. A transient Resend error retries on the next cron tick. The capture-API D+0 is idempotent at the table level — the dedupe gate above blocks INSERT, and the helper itself silently no-ops on missing `to`/`RESEND_API_KEY`.
+- **Unsubscribe page:** `app/quiz/unsubscribe/page.tsx`. Validates token shape (`/^[0-9a-f]{64}$/`), runs a single `UPDATE … SET unsubscribed_at = NOW() WHERE unsubscribed_token = ? AND unsubscribed_at IS NULL`. UI renders the SAME confirmation in found/not-found/already-unsubscribed cases — no token-validity leak. No per-IP rate limiting because the 256-bit token space makes brute-forcing infeasible.
+- **No audit-log write from public-site capture.** Same cross-DB constraint as the order-confirmation + welcome sends.
+
 ## See also
 
 - `lib/email.ts` — the helper itself (read it; it's ~100 lines)
 - `lib/order-confirmation-email.ts` — first wired send site; mirror its shape for future transactional emails
 - `lib/welcome-email.ts` — second wired send site; same template skeleton as order-confirmation but for the post-signup essentials
+- `lib/quiz-nurture-email.ts` — Hack #6 D+0 helper (`sendQuizMatchEmail`, `sendQuizPickupTipsEmail`, `sendQuizFirstVisitDealEmail`); D+0 fires from this repo, D+5/D+12 from the inventoryapp cron
+- `app/api/quiz/capture/route.ts` — POST endpoint for the quiz capture step; INSERTs `quiz_captures` + fires D+0
+- `app/quiz/unsubscribe/page.tsx` — one-click unsub page; flips `unsubscribed_at` for the matching token
+- `Inventory App/src/app/api/cron/quiz-nurture/route.ts` — D+5 + D+12 nurture cron (the only place those sends originate)
 - `lib/sms.ts` — Twilio sibling with the same no-op pattern
 - `Inventory App/src/lib/email.ts` — richer templates (LIQ-1295 tax export, monthly cash export, staff welcome) — port the `base()` wrapper here when the first transactional template lands
