@@ -273,7 +273,12 @@ export function OrderMenu({
   // Reading once at mount; subsequent param changes don't re-key state since
   // the user is then driving via the in-page controls.
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState("");
+  // Read `?q=` on mount so case-card QR codes (Inventory App Hack #18 —
+  // budtender-frees-up via in-store self-service) can deep-link to a
+  // pre-filtered product view. Customer scans the case card on the floor,
+  // lands here with the product name already searched. No effect on
+  // direct visitors who arrive without the param.
+  const [search, setSearch] = useState<string>(() => searchParams?.get("q") ?? "");
   const [activeCategory, setActiveCategory] = useState<string | null>(
     () => searchParams?.get("category") ?? null,
   );
