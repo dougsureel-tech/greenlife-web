@@ -28,6 +28,11 @@ export async function GET() {
       headers: {
         "cache-control": "no-store, must-revalidate",
         "x-health-status": "ok",
+        // Mirror version + sha as response headers so monitors can
+        // detect deploy SHA changes via `curl --head` without JSON
+        // parsing.
+        "x-version": BUILD_VERSION,
+        "x-sha": BUILD_SHA,
       },
     },
   );
