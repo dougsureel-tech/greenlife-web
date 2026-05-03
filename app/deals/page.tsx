@@ -74,9 +74,44 @@ function dealsOfferSchema(deals: ActiveDeal[]) {
   }));
 }
 
-export default async function DealsPage() {
-  const deals = await getActiveDeals().catch(() => []);
+type Props = { searchParams: Promise<{ cat?: string }> };
+
+// Order matters — these are the chip labels in render order. "All" first
+// so the default state always reads as "showing everything." Categories
+// derived from the deal.appliesTo bucket labels we set in /admin/deals.
+const FILTER_CATS = ["flower", "pre-rolls", "vapes", "concentrates", "edibles"] as const;
+type FilterCat = (typeof FILTER_CATS)[number];
+
+function normalizeCat(cat: string | null): FilterCat | "all" {
+  const v = (cat ?? "").toLowerCase();
+  if (FILTER_CATS.includes(v as FilterCat)) return v as FilterCat;
+  return "all";
+}
+
+export default async function DealsPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const activeFilter = normalizeCat(sp.cat ?? null);
+  const allDeals = await getActiveDeals().catch(() => []);
+  const deals =
+    activeFilter === "all"
+      ? allDeals
+      : allDeals.filter((d) => normalizeCat(d.appliesTo) === activeFilter);
   const offerSchema = dealsOfferSchema(deals);
+
+  // Per-category counts — drives the chip badges so customers know which
+  // filters have content vs which would land them on an empty state.
+  const catCounts: Record<FilterCat | "all", number> = {
+    all: allDeals.length,
+    flower: 0,
+    "pre-rolls": 0,
+    vapes: 0,
+    concentrates: 0,
+    edibles: 0,
+  };
+  for (const d of allDeals) {
+    const c = normalizeCat(d.appliesTo);
+    if (c !== "all") catCounts[c] += 1;
+  }
 
   const open = isOpenNow();
   const statusLabel = nextOpenLabel();
@@ -295,29 +330,92 @@ export default async function DealsPage() {
         <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-stone-50 to-transparent" />
       </section>
 
+      {/* ─── Category filter chips ────────────────────────────────────────── */}
+      {/* Only render chips if we actually have multiple categories on tap.
+          Otherwise the row is decoration without value. */}
+      {allDeals.length > 1 && (
+        <section className="border-b border-stone-200 bg-white sticky top-0 z-20 backdrop-blur-md bg-white/90">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 overflow-x-auto scrollbar-none">
+            {(["all", ...FILTER_CATS] as const).map((cat) => {
+              const count = catCounts[cat];
+              const isActive = activeFilter === cat;
+              const isEmpty = count === 0;
+              const href = cat === "all" ? "/deals" : `/deals?cat=${cat}`;
+              return (
+                <Link
+                  key={cat}
+                  href={href}
+                  className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold capitalize transition-all ${
+                    isActive
+                      ? "bg-emerald-700 text-white shadow-sm"
+                      : isEmpty
+                        ? "bg-stone-100 text-stone-400 cursor-default pointer-events-none"
+                        : "bg-stone-100 text-stone-700 hover:bg-stone-200"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {cat === "all" ? "All deals" : cat}
+                  <span
+                    className={`text-[10px] tabular-nums px-1.5 py-0.5 rounded-full ${
+                      isActive
+                        ? "bg-emerald-900/40 text-emerald-100"
+                        : isEmpty
+                          ? "bg-stone-200 text-stone-400"
+                          : "bg-stone-200 text-stone-600"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* ─── Deal list / empty state ──────────────────────────────────────── */}
       {deals.length === 0 ? (
         <section className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-          {/* Empty state — calm, not apologetic. Loyalty + everyday-value
-              framing so a customer who lands here without a running deal
-              still has somewhere to go. */}
+          {/* Empty state — calm, not apologetic. Filter-aware: when a
+              category filter zeros out, point back to all deals before the
+              loyalty-everyday-value fallback. */}
           <div className="rounded-3xl border border-stone-200 bg-white p-8 sm:p-10 text-center shadow-sm">
             <div className="text-4xl mb-4" aria-hidden>
               🌿
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-              No deals today — but loyalty stacks every day.
-            </h2>
-            <p className="text-stone-600 mt-3 max-w-md mx-auto leading-relaxed">
-              100 points = $1 off at the counter, on top of any everyday-low pricing. Browse the
-              live menu — we&apos;ll have what you&apos;re after.
-            </p>
-            <Link
-              href="/menu"
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-600 text-white font-bold transition-colors shadow-sm"
-            >
-              Browse the menu →
-            </Link>
+            {activeFilter !== "all" && allDeals.length > 0 ? (
+              <>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+                  No <span className="capitalize">{activeFilter}</span> deals right now.
+                </h2>
+                <p className="text-stone-600 mt-3 max-w-md mx-auto leading-relaxed">
+                  We have {allDeals.length} other deal{allDeals.length === 1 ? "" : "s"} running
+                  — pop the filter off to see them.
+                </p>
+                <Link
+                  href="/deals"
+                  className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold transition-colors shadow-sm"
+                >
+                  See all deals →
+                </Link>
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+                  No deals today — but loyalty stacks every day.
+                </h2>
+                <p className="text-stone-600 mt-3 max-w-md mx-auto leading-relaxed">
+                  100 points = $1 off at the counter, on top of any everyday-low pricing. Browse
+                  the live menu — we&apos;ll have what you&apos;re after.
+                </p>
+                <Link
+                  href="/menu"
+                  className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-600 text-white font-bold transition-colors shadow-sm"
+                >
+                  Browse the menu →
+                </Link>
+              </>
+            )}
             <p className="text-xs text-stone-500 mt-5">
               Cash only · 21+ with valid ID · {STORE.address.full}
             </p>

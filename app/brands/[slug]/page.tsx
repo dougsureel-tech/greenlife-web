@@ -21,6 +21,7 @@ import MinglewoodBrandPage from "./_brands/minglewood-brands";
 import SeattleBubbleWorksBrandPage from "./_brands/seattle-bubble-works";
 import GreenRevolutionBrandPage from "./_brands/green-revolution";
 import TwoKGardensBrandPage from "./_brands/2k-gardens";
+import AvitasBrandPage from "./_brands/avitas";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,7 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "seattle-bubble-works": SeattleBubbleWorksBrandPage,
   "green-revolution": GreenRevolutionBrandPage,
   "2k-gardens": TwoKGardensBrandPage,
+  "avitas": AvitasBrandPage,
 };
 
 // Slug aliases — friendly customer-facing URLs that map to the actual
@@ -70,6 +72,11 @@ const SLUG_ALIASES: Record<string, string> = {
   "dewey-botanicals": "dewey-cannabis-co",
   "dewey-botanicals-llc": "dewey-cannabis-co",
   "slab-mechanix": "agro-couture",
+  // Avitas vendor row may be named "Avitas", "Avitas Cannabis", or "Avitas
+  // Grown" depending on how WSLCB filed it — point all variants at the
+  // canonical slug used by avitas.tsx.
+  "avitas-cannabis": "avitas",
+  "avitas-grown": "avitas",
 };
 
 type Props = { params: Promise<{ slug: string }> };
