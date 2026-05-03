@@ -17,8 +17,11 @@ How the public site sends transactional + marketing email.
 |---|---|---|
 | `RESEND_API_KEY` | **Yes** | (unset → no-op) |
 | `RESEND_FROM` | No | `Green Life Cannabis <hi@greenlifecannabis.com>` |
+| `ORDER_CONFIRMATION_EMAIL_ENABLED` | Per-feature gate | `"false"` (off until set to `"true"`) |
 
 Set on each Vercel project (greenlife-web preview + production). Without `RESEND_API_KEY`, `sendEmail()` returns the no-op result and never throws — safe to call from any Server Action / route handler.
+
+**Why an env var instead of a feature flag?** The inventoryapp `feature_flags` Postgres table is owned by a different Neon DB; this public-site repo has no cross-DB read path (and adding one would mean a new HMAC-signed `/api/feature-flags/[key]` endpoint on inventoryapp + caching here — disproportionate for an on/off switch we'll flip once). The env-var approach mirrors the same flip-once-and-redeploy pattern Doug already uses for `RESEND_API_KEY` itself, with no new infra.
 
 ## Verified-domain prerequisite (Doug-action)
 
@@ -87,8 +90,26 @@ For email opt-in we'll add a `portal_users.email_opt_in BOOLEAN DEFAULT FALSE` c
 - Same SDK + helper shape as the inventoryapp (`src/lib/email.ts`) — one mental model across all three Green Life repos
 - Domain verification flow is straightforward (GoDaddy DNS records pasted directly)
 
+## Wired send sites
+
+| Send site | File | Gating |
+|---|---|---|
+| Order confirmation (pickup details + items) | `lib/order-confirmation-email.ts` → `sendOrderConfirmationEmail()`, fired from `app/api/orders/route.ts` after order INSERT commits, dispatched via `after()` | `ORDER_CONFIRMATION_EMAIL_ENABLED=true` AND `portal_users.email IS NOT NULL` AND `RESEND_API_KEY` set |
+
+**Order confirmation specifics:**
+
+- Branded HTML + plain-text body — green header gradient mirrors the inventoryapp template + the SiteHeader `green-700` accent. Renders pickup window, order ID (8-char prefix), itemized list, subtotal, store address with "Get directions" button.
+- Customer email is sourced from `portal_users.email` (created lazily by `getOrCreatePortalUser()` in `lib/portal.ts` from Clerk's `emailAddresses[0]?.emailAddress`).
+- `firstName` is derived from `portal_users.name` (first whitespace-split token); falls back to "there" when null.
+- `subtotal` is recomputed from the request items (matches the cart, not the server-recomputed `placeOrder` total) so the email matches what the customer just saw on the cart page. The authoritative price for billing purposes lives in `online_orders.order_total`; this is a receipt confirmation, not a billing document.
+- Send happens inside `after()` — order response is sent to the browser BEFORE the email dispatches. Resend latency or failure can never block order placement.
+- On send failure we log a single line `[order-confirmation-email] send failed for order <8-char-id>: <error>` (no recipient, no body content). The order is committed and the SMS already fired; the email is best-effort.
+- Transactional under CAN-SPAM (receipt for a transaction the recipient initiated). The footer still includes a STOP / `info@greenlifecannabis.com` opt-out line for marketing-channel hygiene + parity with our SMS pattern. When the inventoryapp `portal_users.email_opt_in` migration ships we'll wire one-click unsub here.
+- **No audit-log write.** The `customer_campaign_touches` table lives in inventoryapp's Neon DB; there is no clean cross-DB write path from this repo. This matches the existing pickup SMS dispatch in the same file, which also doesn't audit-log here.
+
 ## See also
 
 - `lib/email.ts` — the helper itself (read it; it's ~100 lines)
+- `lib/order-confirmation-email.ts` — first wired send site; mirror its shape for future transactional emails
 - `lib/sms.ts` — Twilio sibling with the same no-op pattern
 - `Inventory App/src/lib/email.ts` — richer templates (LIQ-1295 tax export, monthly cash export, staff welcome) — port the `base()` wrapper here when the first transactional template lands

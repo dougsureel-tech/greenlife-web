@@ -3,6 +3,7 @@ import { NextRequest, NextResponse, after } from "next/server";
 import { getOrCreatePortalUser, placeOrder, checkAvailability } from "@/lib/portal";
 import { validatePickupTime, pickupTimeToISO, STORE } from "@/lib/store";
 import { sendSms, isSmsConfigured, normalizePhone } from "@/lib/sms";
+import { sendOrderConfirmationEmail } from "@/lib/order-confirmation-email";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -83,17 +84,57 @@ export async function POST(req: NextRequest) {
     // or the user explicitly turned off SMS in their profile (TCPA — even
     // transactional messages must respect the opt-out flag for cannabis
     // partners under heightened scrutiny).
+    const pickupLabel = new Date(pickupISO).toLocaleTimeString("en-US", {
+      timeZone: "America/Los_Angeles",
+      hour: "numeric",
+      minute: "2-digit",
+    });
     if (portalUser.phone && portalUser.smsOptIn && isSmsConfigured()) {
-      const pickupLabel = new Date(pickupISO).toLocaleTimeString("en-US", {
-        timeZone: "America/Los_Angeles",
-        hour: "numeric",
-        minute: "2-digit",
-      });
       after(async () => {
         await sendSms(
           normalizePhone(portalUser.phone!),
           `${STORE.name}: order received! Ready for pickup at ${pickupLabel}. Bring ID + cash. Reply STOP to opt out.`,
         );
+      });
+    }
+
+    // Order-confirmation email — fires AFTER the response so Resend latency
+    // never blocks the customer. Gated by env var (default OFF) until Doug
+    // verifies the Resend domain + flips the flag in Vercel — see
+    // docs/email-infra.md. The helper additionally re-checks the env var +
+    // RESEND_API_KEY + email presence (defense in depth) so this branch is
+    // safe to leave unguarded once enabled. Mirrors the SMS dispatch shape
+    // immediately above; we do NOT write to `customer_campaign_touches`
+    // because that table lives in inventoryapp's DB and there's no clean
+    // cross-DB write path from this repo (matches the existing SMS
+    // pattern, which also doesn't audit-log here).
+    if (
+      process.env.ORDER_CONFIRMATION_EMAIL_ENABLED === "true" &&
+      portalUser.email
+    ) {
+      const emailItems = (items as Array<Record<string, unknown>>).map((i) => ({
+        productName: String(i.productName ?? ""),
+        quantity: Number(i.quantity ?? 1),
+        unitPrice: Number(i.unitPrice ?? 0),
+      }));
+      const subtotal = emailItems.reduce(
+        (sum, i) => sum + i.unitPrice * i.quantity,
+        0,
+      );
+      const firstName = portalUser.name?.trim().split(/\s+/)[0] ?? null;
+      const customerEmail = portalUser.email;
+      after(async () => {
+        await sendOrderConfirmationEmail({
+          to: customerEmail,
+          firstName,
+          orderId,
+          items: emailItems,
+          subtotal,
+          pickupWindowText: pickupLabel,
+          storeName: STORE.name,
+          storeAddress: STORE.address.full,
+          mapUrl: STORE.googleMapsUrl,
+        });
       });
     }
 
