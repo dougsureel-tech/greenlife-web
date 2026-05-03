@@ -99,6 +99,24 @@ export default function OurStoryPage() {
                 <PersonCard key={m.name} member={m} muted />
               ))}
             </ul>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-emerald-900">
+                  Past staff: want to be featured here?
+                </p>
+                <p className="text-xs text-emerald-800/80 mt-0.5 leading-relaxed">
+                  We&apos;re building this out. If you used to work here, you can claim your spot.{" "}
+                  <Link href="/alumni" className="font-semibold underline hover:no-underline">
+                    Sign in →
+                  </Link>
+                </p>
+              </div>
+            </div>
           </section>
         )}
 

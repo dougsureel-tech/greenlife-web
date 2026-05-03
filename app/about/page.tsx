@@ -164,12 +164,20 @@ export default function AboutPage() {
                 are still on the floor every day.
               </p>
             </div>
-            <Link
-              href="/our-story"
-              className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
-            >
-              Full team roster →
-            </Link>
+            <div className="flex items-center gap-4 flex-wrap">
+              <Link
+                href="/alumni"
+                className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
+              >
+                Past staff: claim your profile →
+              </Link>
+              <Link
+                href="/our-story"
+                className="text-sm font-semibold text-stone-500 hover:text-green-600 transition-colors"
+              >
+                Full team roster →
+              </Link>
+            </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {ALUMNI_TEAM.map((m) => (
