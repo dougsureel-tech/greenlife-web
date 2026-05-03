@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
+import { withAttr } from "@/lib/attribution";
+import { CURRENT_TEAM, initialOf } from "@/lib/team";
 
 // Map a product to a running deal it qualifies for, if any. Deals are
 // category-scoped in our schema (`appliesTo` = "flower", "edibles", "all"
@@ -494,7 +496,11 @@ export function OrderMenu({
           so signing in mid-browse doesn't lose the in-progress cart. */}
       {!signedIn && (
         <Link
-          href="/sign-in?redirect_url=/order"
+          // sign-in nudge is the highest-leverage cookie-stamp surface on /order:
+          // any unsigned customer who clicks-through here is then identifiable
+          // when they place an order. attribution lets us trace which page sent
+          // them through the sign-in funnel later.
+          href={withAttr("/sign-in?redirect_url=/order", "order", "sign-in-nudge")}
           className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 border border-green-200 px-4 py-3 text-sm hover:border-green-300 hover:from-green-100 hover:to-green-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
         >
           <span className="flex items-center gap-2.5 min-w-0">
@@ -1043,7 +1049,12 @@ export function OrderMenu({
 
       {/* Crew + walk-in CTA — closing strip so the menu doesn't end with a
           pile of products and nothing else. Best-staff framing per Doug
-          2026-05-02. */}
+          2026-05-02. Names + role chips pull from `lib/team.ts` so this row
+          stays in sync with /our-story rather than drifting into fake
+          budtender names. We feature the customer-facing managers (GM +
+          Asst Mgr) — they're the constant the regulars know. Owner row in
+          team.ts deliberately filtered out so the chips stay "people you'll
+          actually see at the counter". */}
       <section className="mt-12 max-w-3xl mx-auto">
         <div className="rounded-3xl bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 text-white p-6 sm:p-8 relative overflow-hidden">
           <div
@@ -1060,18 +1071,59 @@ export function OrderMenu({
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">
               The best crew in Wenatchee.
             </h2>
-            <p className="text-green-100/85 text-sm leading-relaxed mb-5 max-w-xl">
-              The menu is a starting point. Our budtenders have been here for years — tell them what you
-              liked, what you didn&apos;t, what you&apos;re trying to do tonight, they&apos;ll dial it
-              from there.
+            <p className="text-green-100/85 text-sm leading-relaxed mb-4 max-w-xl">
+              The menu is a starting point. Tell us what you liked, what you didn&apos;t, what
+              you&apos;re trying to do tonight — we&apos;ll dial it from there.
             </p>
+            {/* Named-crew chips — currents-only, owner deliberately excluded so
+                customers see the floor-runners they'll actually meet at the
+                counter. Photo placeholder uses initials when team.ts photoSrc
+                is null (today: all three current entries are placeholderless). */}
+            {(() => {
+              const featured = CURRENT_TEAM.filter((m) => m.role !== "Owner").slice(0, 3);
+              if (featured.length === 0) return null;
+              return (
+                <div className="mb-5 flex flex-wrap gap-2.5">
+                  {featured.map((m) => (
+                    <div
+                      key={m.name}
+                      className="inline-flex items-center gap-2 rounded-2xl bg-white/10 border border-white/15 px-3 py-1.5"
+                    >
+                      {m.photoSrc ? (
+                        <Image
+                          src={m.photoSrc}
+                          alt=""
+                          width={28}
+                          height={28}
+                          className="w-7 h-7 rounded-full object-cover border border-white/25"
+                        />
+                      ) : (
+                        <span
+                          aria-hidden
+                          className="w-7 h-7 rounded-full bg-emerald-700/70 flex items-center justify-center text-white text-xs font-extrabold tracking-tight"
+                        >
+                          {initialOf(m.name)}
+                        </span>
+                      )}
+                      <span className="leading-tight">
+                        <span className="block text-sm font-bold text-white">{m.name}</span>
+                        <span className="block text-[11px] text-green-200/85 font-medium">{m.role}</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
             <div className="flex flex-wrap gap-2.5">
               <Link
-                href="/visit"
+                href={withAttr("/visit", "order", "bottom-visit")}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-green-900 text-sm font-bold hover:bg-green-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
               >
                 📍 Visit us
               </Link>
+              {/* tel: links are no-op'd by withAttr (cookie carries the
+                  breadcrumb on return visits anyway) — kept call-through in
+                  voice with the rest of the row but skipping the wrap. */}
               <a
                 href={`tel:${STORE.phoneTel}`}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
@@ -1079,7 +1131,7 @@ export function OrderMenu({
                 📞 {STORE.phone}
               </a>
               <Link
-                href="/find-your-strain"
+                href={withAttr("/find-your-strain", "order", "bottom-quiz")}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
               >
                 🌿 Take the strain quiz

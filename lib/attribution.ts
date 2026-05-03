@@ -36,6 +36,7 @@ export const SOURCE_KINDS = [
   "push", // push-notification deep-link — slug = campaign id
   "email", // email deep-link — slug = template id
   "menu", // surfaces wrapped around the /menu Boost embed — slug = "local-strip-visit" etc.
+  "order", // surfaces on the native /order page itself — slug = "sign-in-nudge" | "bottom-visit" | "bottom-call" | "bottom-quiz" etc. (kept distinct from "menu" so we can split iHeartJane-Boost-driven from native-/order-driven attribution)
 ] as const;
 
 export type SourceKind = (typeof SOURCE_KINDS)[number];
