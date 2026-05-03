@@ -32,7 +32,24 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
   async headers() {
-    return [{ source: "/:path*", headers: [{ key: "Permissions-Policy", value: PERMISSIONS_POLICY }] }];
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Permissions-Policy", value: PERMISSIONS_POLICY },
+          // X-Content-Type-Options nosniff: prevents browsers from MIME-
+          // sniffing a response away from its declared Content-Type. Was
+          // NOT in the 2026-05-01 removal — that pass yanked Referrer-Policy,
+          // X-Frame-Options, X-XSS-Protection, and Strict-Transport-Security
+          // to match the still-working WordPress origin's iHJ-compatible
+          // header set. nosniff has zero interaction with iHeartJane Boost
+          // (no MIME-sniffing involved), is universally safe, and closes a
+          // small XSS-via-mismatched-Content-Type gap. Add other classic
+          // security headers back individually after iHJ regression-testing.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+        ],
+      },
+    ];
   },
   // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
   // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane
