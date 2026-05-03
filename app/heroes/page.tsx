@@ -26,37 +26,48 @@ export const metadata: Metadata = {
   },
 };
 
+// `cohortHref` maps each eligibility card to its long-tail cohort SEO
+// landing page (Hack #7 follow-up — internal-link mesh for PageRank flow).
+// Law Enforcement + Fire & EMS both fall under the consolidated
+// /heroes/first-responders cohort. Cards without a clean mapping omit
+// `cohortHref` and render as plain divs.
 const ELIGIBILITY = [
   {
     icon: "🪖",
     title: "Active Military",
     detail:
       "Active duty, National Guard, Reserves. Show your CAC, military ID, or current orders.",
+    cohortHref: "/heroes/military",
   },
   {
     icon: "🎖️",
     title: "Veterans",
     detail: "Any branch, any era. DD-214, VA card, or VHIC works.",
+    cohortHref: "/heroes/veterans",
   },
   {
     icon: "🚓",
     title: "Law Enforcement",
     detail: "Police, sheriff, corrections, federal LE. Show your badge or department ID.",
+    cohortHref: "/heroes/first-responders",
   },
   {
     icon: "🚒",
     title: "Fire & EMS",
     detail: "Firefighters, paramedics, EMTs. Department ID or current cert.",
+    cohortHref: "/heroes/first-responders",
   },
   {
     icon: "🏥",
     title: "Healthcare Workers",
     detail: "Nurses, doctors, techs, paramedics, hospital + clinic staff. Show your badge.",
+    cohortHref: "/heroes/healthcare",
   },
   {
     icon: "🎓",
     title: "K-12 Teachers",
     detail: "Currently teaching at a Washington-state public or private K-12 school. Show your district ID or pay stub.",
+    cohortHref: "/heroes/teachers",
   },
 ];
 
@@ -160,18 +171,32 @@ export default function HeroesPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {ELIGIBILITY.map(({ icon, title, detail }) => (
-              <div
-                key={title}
-                className="rounded-2xl bg-white border border-stone-200 hover:border-green-300 transition-all p-5 sm:p-6"
-              >
-                <div className="text-3xl mb-3" aria-hidden="true">
-                  {icon}
+            {ELIGIBILITY.map(({ icon, title, detail, cohortHref }) => {
+              const cardClass =
+                "rounded-2xl bg-white border border-stone-200 hover:border-green-300 transition-all p-5 sm:p-6";
+              const cardInner = (
+                <>
+                  <div className="text-3xl mb-3" aria-hidden="true">
+                    {icon}
+                  </div>
+                  <h3 className="font-bold text-stone-900 text-base">{title}</h3>
+                  <p className="text-stone-600 text-sm mt-1.5 leading-relaxed">{detail}</p>
+                </>
+              );
+              return cohortHref ? (
+                <Link
+                  key={title}
+                  href={cohortHref}
+                  className={`${cardClass} block hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600`}
+                >
+                  {cardInner}
+                </Link>
+              ) : (
+                <div key={title} className={cardClass}>
+                  {cardInner}
                 </div>
-                <h3 className="font-bold text-stone-900 text-base">{title}</h3>
-                <p className="text-stone-600 text-sm mt-1.5 leading-relaxed">{detail}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

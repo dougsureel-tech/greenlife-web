@@ -460,6 +460,12 @@ export default async function HeroesCohortPage({
               View menu →
             </Link>
             <Link
+              href="/heroes"
+              className="px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white/20 transition-colors"
+            >
+              Verify your eligibility →
+            </Link>
+            <Link
               href="/visit"
               className="px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white/20 transition-colors"
             >
