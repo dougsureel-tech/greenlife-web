@@ -76,12 +76,18 @@ async function checkContent(): Promise<{
 }> {
   try {
     const sql = getClient();
+    // Column names mirror lib/db.ts (getMenuProducts / getActiveDeals):
+    //   products.carry_status  (NOT products.active)
+    //   deals.status           (NOT deals.active)
+    //   deals.start_date / deals.end_date  (NOT starts_at / ends_at)
+    // Earlier versions of this probe assumed timestamp-style names and
+    // tripped a "column does not exist" error on every monitor poll.
     const [productRows, dealRows] = await Promise.all([
       sql`SELECT COUNT(*)::int AS n FROM products WHERE carry_status = 'active'`,
       sql`SELECT COUNT(*)::int AS n FROM deals
-          WHERE active = true
-            AND (starts_at IS NULL OR starts_at <= NOW())
-            AND (ends_at IS NULL OR ends_at > NOW())`,
+          WHERE status = 'active'
+            AND (start_date IS NULL OR start_date <= CURRENT_DATE)
+            AND (end_date IS NULL OR end_date >= CURRENT_DATE)`,
     ]);
     const products = (productRows as Array<{ n: number }>)[0]?.n ?? 0;
     const deals = (dealRows as Array<{ n: number }>)[0]?.n ?? 0;
