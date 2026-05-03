@@ -124,6 +124,10 @@ export async function GET() {
     headers: {
       "cache-control": "no-store, must-revalidate",
       "x-health-status": allOk ? "ok" : "degraded",
+      // Mirror version + sha as response headers (parity with /ping
+      // route) so monitors detect deploy SHA via curl --head.
+      "x-version": BUILD_VERSION,
+      "x-sha": BUILD_SHA,
     },
   });
 }
