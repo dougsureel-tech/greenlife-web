@@ -178,6 +178,8 @@ export function SiteFooter() {
               { href: "/visit", label: "Visit Us" },
               { href: "/find-your-strain", label: "Find your strain" },
               { href: "/brands", label: "Our Brands" },
+              { href: "/heroes", label: "Heroes Discount" },
+              { href: "/community", label: "Our Community" },
               { href: "/blog", label: "Guides" },
               { href: "/learn", label: "Cannabis 101" },
               { href: "/faq", label: "FAQ" },
