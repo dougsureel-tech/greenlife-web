@@ -2,16 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { ALUMNI_TEAM, initialOf } from "@/lib/team";
+import { withAttr } from "@/lib/attribution";
+
+// ISR — content rarely changes; today-row highlight is the only dynamic
+// bit and a 5-minute cache window is plenty.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About — Wenatchee's Best Cannabis Staff Since 2014",
-  description: `${STORE.name} — Wenatchee's longest-running cannabis dispensary, founded 2014, same building since opening. Knowledgeable budtenders, curated Washington-state cannabis, education-first. ${STORE.address.full}.`,
+  description: `${STORE.name} — Wenatchee's cannabis dispensary, founded 2014, same building since opening. Knowledgeable budtenders, curated Washington-state cannabis, education-first. ${STORE.address.full}.`,
   alternates: { canonical: "/about" },
+  keywords: [
+    "Wenatchee cannabis dispensary",
+    "Wenatchee best dispensary",
+    "Green Life Cannabis history",
+    "Wenatchee cannabis staff",
+    "Sunnyslope dispensary",
+    "Wenatchee dispensary since 2014",
+    "best budtenders Wenatchee",
+  ],
   openGraph: {
     title: `About ${STORE.name} — Wenatchee's best cannabis staff`,
     description: `Wenatchee cannabis dispensary, founded 2014. Knowledgeable budtenders, curated catalog, education first.`,
     url: `${STORE.website}/about`,
     type: "website",
+    images: ["/opengraph-image"],
   },
 };
 
@@ -298,8 +313,8 @@ export default function AboutPage() {
                   Get Directions ↗
                 </a>
                 <Link
-                  href="/contact"
-                  className="px-4 py-2 rounded-xl border border-stone-200 hover:border-green-300 text-sm font-semibold text-stone-700 hover:text-green-700 transition-colors"
+                  href={withAttr("/contact", "header", "about-location")}
+                  className="px-4 py-2 rounded-xl border border-stone-200 hover:border-green-300 text-sm font-semibold text-stone-700 hover:text-green-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
                 >
                   Contact Us
                 </Link>
@@ -353,6 +368,53 @@ export default function AboutPage() {
           </Link>
         </section>
 
+        {/* Internal-link mesh — surfaces highest-converting next pages so
+            the about-page reader has a clear next move. */}
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link
+            href={withAttr("/heroes", "header", "about-mesh-heroes")}
+            className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          >
+            <div className="text-2xl mb-2" aria-hidden="true">🎖️</div>
+            <h3 className="font-bold text-stone-900 text-sm">Heroes 20% off</h3>
+            <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+              Military, vets, first responders, healthcare, K-12 teachers.
+            </p>
+            <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+              Eligibility
+              <span aria-hidden="true">→</span>
+            </span>
+          </Link>
+          <Link
+            href={withAttr("/brands", "header", "about-mesh-brands")}
+            className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          >
+            <div className="text-2xl mb-2" aria-hidden="true">🌿</div>
+            <h3 className="font-bold text-stone-900 text-sm">Brands we curate</h3>
+            <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+              Hand-picked Washington-state producers across every category.
+            </p>
+            <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+              See the lineup
+              <span aria-hidden="true">→</span>
+            </span>
+          </Link>
+          <Link
+            href={withAttr("/find-your-strain", "quiz", "about-mesh")}
+            className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          >
+            <div className="text-2xl mb-2" aria-hidden="true">🧭</div>
+            <h3 className="font-bold text-stone-900 text-sm">Find your strain</h3>
+            <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+              Tell us how you want to feel — we&apos;ll match you to the right cultivar.
+            </p>
+            <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+              Take the quiz
+              <span aria-hidden="true">→</span>
+            </span>
+          </Link>
+        </section>
+
         {/* Bottom CTA */}
         <section className="rounded-3xl bg-green-950 text-white p-8 text-center space-y-4">
           <p className="font-bold text-xl">Come see us in Wenatchee</p>
@@ -361,14 +423,14 @@ export default function AboutPage() {
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
             <Link
-              href="/menu"
-              className="px-5 py-2.5 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-all shadow-md hover:-translate-y-0.5"
+              href={withAttr("/menu", "menu", "about-bottom")}
+              className="px-5 py-2.5 rounded-xl bg-green-400 hover:bg-green-300 text-green-950 text-sm font-bold transition-all shadow-md hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300 focus-visible:ring-offset-2 focus-visible:ring-offset-green-950"
             >
               Order for Pickup
             </Link>
             <Link
-              href="/contact"
-              className="px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white text-sm font-semibold transition-all"
+              href={withAttr("/contact", "header", "about-bottom")}
+              className="px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
             >
               Contact Us
             </Link>

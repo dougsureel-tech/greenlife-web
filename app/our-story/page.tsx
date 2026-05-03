@@ -2,21 +2,64 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { CURRENT_TEAM, ALUMNI_TEAM, initialOf, type TeamMember } from "@/lib/team";
+import { withAttr } from "@/lib/attribution";
+
+// ISR — team copy changes maybe quarterly. 24h is plenty.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Our Story",
-  description: `The story of ${STORE.name} — a Wenatchee neighborhood dispensary built by everyone who's worked here. WSLCB licensed since 2014.`,
+  title: "Our Story — Built by Everyone Who's Worked Here",
+  description: `The story of ${STORE.name} — a Wenatchee neighborhood cannabis dispensary built by everyone who's worked here since 2014. WSLCB License #${STORE.wslcbLicense}. Same building on Sunnyslope.`,
   alternates: { canonical: "/our-story" },
+  keywords: [
+    "Green Life Cannabis team",
+    "Wenatchee dispensary staff",
+    "Wenatchee cannabis history",
+    "Sunnyslope dispensary",
+    "Green Life Cannabis budtenders",
+  ],
   openGraph: {
     title: `Our Story · ${STORE.name}`,
     description: `Built by everyone who's worked here. ${STORE.address.full}.`,
     url: `${STORE.website}/our-story`,
+    type: "website",
+    images: ["/opengraph-image"],
   },
+};
+
+// AboutPage schema — links the team-roster page back to the LocalBusiness
+// @id from layout.tsx so AI engines + Google graph this as the same store
+// entity. Big GEO add for "who works at Green Life Cannabis" / "Green
+// Life Cannabis owner" / "Green Life Cannabis history" queries.
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: `Our Story · ${STORE.name}`,
+  url: `${STORE.website}/our-story`,
+  description: `${STORE.name} — Wenatchee cannabis dispensary built by everyone who's worked here since 2014. The team, the alumni, and the standards they set.`,
+  mainEntity: { "@id": `${STORE.website}/#dispensary` },
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${STORE.website}/#website` },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Our Story", item: `${STORE.website}/our-story` },
+  ],
 };
 
 export default function OurStoryPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero — gradient bookend matching the rest of the site. */}
       <div className="relative overflow-hidden bg-gradient-to-br from-green-950 via-emerald-950 to-green-950 text-white py-12 sm:py-16">
         <div
@@ -127,14 +170,27 @@ export default function OurStoryPage() {
             We&apos;ll take care of the rest.
           </p>
           <div className="flex flex-wrap gap-3 pt-1 text-sm">
-            <Link href="/visit" className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors">
+            <Link
+              href={withAttr("/visit", "header", "our-story-bottom")}
+              className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded px-1"
+            >
               Hours + directions →
             </Link>
-            <span className="text-stone-300">·</span>
-            <Link href="/menu" className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors">
+            <span className="text-stone-300" aria-hidden="true">·</span>
+            <Link
+              href={withAttr("/menu", "menu", "our-story-bottom")}
+              className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded px-1"
+            >
               Today&apos;s menu →
             </Link>
-            <span className="text-stone-300">·</span>
+            <span className="text-stone-300" aria-hidden="true">·</span>
+            <Link
+              href={withAttr("/heroes", "header", "our-story-bottom")}
+              className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded px-1"
+            >
+              Heroes 20% off →
+            </Link>
+            <span className="text-stone-300" aria-hidden="true">·</span>
             <span className="text-stone-500">WSLCB License #{STORE.wslcbLicense}</span>
           </div>
         </section>
