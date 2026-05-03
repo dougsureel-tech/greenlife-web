@@ -4,11 +4,11 @@ import { STORE } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "About — Locally Owned Wenatchee Cannabis Dispensary",
-  description: `${STORE.name} is a locally owned WSLCB-licensed cannabis dispensary in ${STORE.address.full}. Veteran-owned, community-rooted, education-first. Curated Washington-state cannabis from producers we know and trust.`,
+  description: `${STORE.name} is a locally owned WSLCB-licensed cannabis dispensary in ${STORE.address.full}. Founded 2014, same building since opening, community-rooted, education-first. Curated Washington-state cannabis from producers we know and trust.`,
   alternates: { canonical: "/about" },
   openGraph: {
     title: `About ${STORE.name} — locally owned in Wenatchee`,
-    description: `Locally owned, veteran-rooted cannabis dispensary in ${STORE.address.city}, WA. Education first.`,
+    description: `Locally owned, community-rooted cannabis dispensary in ${STORE.address.city}, WA. Education first.`,
     url: `${STORE.website}/about`,
     type: "website",
   },
@@ -23,7 +23,7 @@ const aboutSchema = {
   "@type": "AboutPage",
   name: `About ${STORE.name}`,
   url: `${STORE.website}/about`,
-  description: `Locally owned cannabis dispensary in ${STORE.address.city}, Washington — education-first, community-rooted, veteran-owned.`,
+  description: `Locally owned cannabis dispensary in ${STORE.address.city}, Washington — education-first, community-rooted, founded 2014.`,
   mainEntity: { "@id": `${STORE.website}/#dispensary` },
   inLanguage: "en-US",
   isPartOf: { "@id": `${STORE.website}/#website` },

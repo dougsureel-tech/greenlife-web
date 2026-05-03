@@ -5,7 +5,7 @@ import { CURRENT_TEAM, ALUMNI_TEAM, initialOf, type TeamMember } from "@/lib/tea
 
 export const metadata: Metadata = {
   title: "Our Story",
-  description: `The story of ${STORE.name} — a Wenatchee neighborhood dispensary built by everyone who's worked here. Veteran-owned, WSLCB licensed.`,
+  description: `The story of ${STORE.name} — a Wenatchee neighborhood dispensary built by everyone who's worked here. Locally owned, WSLCB licensed.`,
   alternates: { canonical: "/our-story" },
   openGraph: {
     title: `Our Story · ${STORE.name}`,
@@ -39,7 +39,7 @@ export default function OurStoryPage() {
             A Wenatchee shop, built by the people who&apos;ve worked here.
           </h1>
           <p className="text-emerald-100/80 mt-4 text-base sm:text-lg leading-relaxed max-w-2xl">
-            We&apos;re a small, veteran-owned cannabis shop on {STORE.address.street.split(",")[0]}.
+            We&apos;re a small, locally owned cannabis shop on {STORE.address.street.split(",")[0]}.
             Open every day. Cash only with an ATM on site. WSLCB licensed.
           </p>
         </div>

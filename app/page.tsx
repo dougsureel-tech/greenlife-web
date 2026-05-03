@@ -80,7 +80,7 @@ const CATEGORIES = [
 const STATS = [
   { val: "Open Daily", label: "8 AM · later Fri & Sat" },
   { val: "Free Parking", label: "Right out front" },
-  { val: "Veteran-Owned", label: "& community-first" },
+  { val: "Locally Owned", label: "& community-first" },
   { val: "Cash Only", label: "ATM on-site" },
 ];
 

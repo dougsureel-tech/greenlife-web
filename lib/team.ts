@@ -24,7 +24,7 @@ export const TEAM: TeamMember[] = [
     role: "Owner",
     era: "current",
     photoSrc: null,
-    oneLine: "Veteran. Started Green Life because Wenatchee deserved a real shop, not a tourist trap.",
+    oneLine: "Started Green Life because Wenatchee deserved a real shop, not a tourist trap.",
   },
   {
     name: "Kat",
