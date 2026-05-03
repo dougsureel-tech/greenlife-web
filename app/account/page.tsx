@@ -1,8 +1,14 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import Link from "next/link";
-import { getOrCreatePortalUser, getOrders, getLoyaltyForPortalUser } from "@/lib/portal";
-import { STORE } from "@/lib/store";
+import {
+  getOrCreatePortalUserWithCreated,
+  getOrders,
+  getLoyaltyForPortalUser,
+} from "@/lib/portal";
+import { STORE, hoursSummary } from "@/lib/store";
+import { sendWelcomeEmail } from "@/lib/welcome-email";
 import { PushSubscribe } from "@/components/PushSubscribe";
 import { LoyaltyCard } from "@/components/LoyaltyCard";
 import type { Metadata } from "next";
@@ -60,11 +66,45 @@ export default async function AccountPage({ searchParams }: Props) {
   if (!userId) redirect("/sign-in");
 
   const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
+  const { user: portalUser, created } = await getOrCreatePortalUserWithCreated(
     userId,
     user?.emailAddresses[0]?.emailAddress,
     user?.fullName,
   );
+
+  // Welcome email — fires AFTER the page renders so Resend latency never
+  // delays the post-signup paint. Gated by env var (default OFF) until
+  // Doug verifies the Resend domain + flips the flag in Vercel — see
+  // docs/email-infra.md. The `created` flag from
+  // `getOrCreatePortalUserWithCreated()` guarantees once-per-account
+  // dispatch (true only on the first-ever portal_users INSERT for this
+  // Clerk userId), so subsequent /account visits never re-fire even
+  // though this page is the canonical post-signup landing. Helper does
+  // defense-in-depth re-checks of the env var + isEmailConfigured() +
+  // recipient validity. We do NOT use a Clerk webhook for this — the
+  // sidecar-INSERT signal is more accurate (a Clerk `user.created` event
+  // can fire before our portal_users row exists, or for a flow that
+  // never lands here), and avoids the Svix signature infra we don't run.
+  if (
+    created &&
+    process.env.WELCOME_EMAIL_ENABLED === "true" &&
+    portalUser.email
+  ) {
+    const customerEmail = portalUser.email;
+    const firstName = portalUser.name?.trim().split(/\s+/)[0] ?? null;
+    after(async () => {
+      await sendWelcomeEmail({
+        to: customerEmail,
+        firstName,
+        storeName: STORE.name,
+        storeAddress: STORE.address.full,
+        mapUrl: STORE.googleMapsUrl,
+        hoursText: hoursSummary(),
+        deepLinkOrder: `${STORE.website}/menu`,
+      });
+    });
+  }
+
   const [orders, loyalty] = await Promise.all([
     getOrders(portalUser.id),
     getLoyaltyForPortalUser(portalUser.id).catch(() => null),

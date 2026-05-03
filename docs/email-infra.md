@@ -18,6 +18,7 @@ How the public site sends transactional + marketing email.
 | `RESEND_API_KEY` | **Yes** | (unset → no-op) |
 | `RESEND_FROM` | No | `Green Life Cannabis <hi@greenlifecannabis.com>` |
 | `ORDER_CONFIRMATION_EMAIL_ENABLED` | Per-feature gate | `"false"` (off until set to `"true"`) |
+| `WELCOME_EMAIL_ENABLED` | Per-feature gate | `"false"` (off until set to `"true"`) |
 
 Set on each Vercel project (greenlife-web preview + production). Without `RESEND_API_KEY`, `sendEmail()` returns the no-op result and never throws — safe to call from any Server Action / route handler.
 
@@ -95,6 +96,7 @@ For email opt-in we'll add a `portal_users.email_opt_in BOOLEAN DEFAULT FALSE` c
 | Send site | File | Gating |
 |---|---|---|
 | Order confirmation (pickup details + items) | `lib/order-confirmation-email.ts` → `sendOrderConfirmationEmail()`, fired from `app/api/orders/route.ts` after order INSERT commits, dispatched via `after()` | `ORDER_CONFIRMATION_EMAIL_ENABLED=true` AND `portal_users.email IS NOT NULL` AND `RESEND_API_KEY` set |
+| Welcome (first-visit essentials) | `lib/welcome-email.ts` → `sendWelcomeEmail()`, fired from `app/account/page.tsx` (post-signup landing) inside `after()` only when `getOrCreatePortalUserWithCreated()` returns `created: true` | `WELCOME_EMAIL_ENABLED=true` AND `portal_users.email IS NOT NULL` AND `RESEND_API_KEY` set |
 
 **Order confirmation specifics:**
 
@@ -107,9 +109,21 @@ For email opt-in we'll add a `portal_users.email_opt_in BOOLEAN DEFAULT FALSE` c
 - Transactional under CAN-SPAM (receipt for a transaction the recipient initiated). The footer still includes a STOP / `info@greenlifecannabis.com` opt-out line for marketing-channel hygiene + parity with our SMS pattern. When the inventoryapp `portal_users.email_opt_in` migration ships we'll wire one-click unsub here.
 - **No audit-log write.** The `customer_campaign_touches` table lives in inventoryapp's Neon DB; there is no clean cross-DB write path from this repo. This matches the existing pickup SMS dispatch in the same file, which also doesn't audit-log here.
 
+**Welcome email specifics:**
+
+- Branded HTML + plain-text body — same green header gradient as the order-confirmation template. Renders a warm greeting, a "First-visit essentials" callout (cash-only / 21+ ID / hours), a Browse-the-menu CTA button, and the store address with a Get-directions link. STOP / `info@greenlifecannabis.com` opt-out footer for marketing-channel hygiene.
+- **Hook location:** `app/account/page.tsx`. Post-signup landing — Clerk's `SignUp` component uses `fallbackRedirectUrl="/account"` (the same page is also hit on every subsequent sign-in). Idempotency lives in `lib/portal.ts → getOrCreatePortalUserWithCreated()`, a sibling of the long-standing `getOrCreatePortalUser()` that returns `{ user, created }`. The `created` flag is `true` only when the SELECT returned no row AND the INSERT path took the new-row branch (`xmax = 0` on the RETURNING row, which distinguishes a fresh INSERT from an `ON CONFLICT DO UPDATE` outcome — handles the rare race where two parallel auth callbacks both miss the SELECT). Welcome dispatch is wrapped in `if (created && env-on && portalUser.email)` and runs inside `after()` so signup paint is never blocked by Resend latency.
+- **Why not a Clerk webhook?** A `user.created` Svix webhook would require new infra (signature verification, env vars Doug doesn't have set, an exposed `/api/webhooks/clerk` route). The sidecar-INSERT signal is also strictly more accurate for our purposes — we want "first time we have a usable customer record" not "first time Clerk minted an auth identity" (those are not the same in flows that bounce off `/account` to `/menu` or `/order/confirmation`).
+- `firstName` is derived from `portal_users.name` (first whitespace-split token); falls back to "there" when null.
+- `hoursText` is `hoursSummary()` from `lib/store.ts` — uniform-day shorthand or "common · later Fri & Sat" form. `deepLinkOrder` is `${STORE.website}/menu` (absolute URL — emails are clicked from inboxes that don't know our origin).
+- On send failure we log a single line `[welcome-email] send failed: <error>` (no recipient, no body content). The signup is committed and the customer is already inside `/account`; the email is best-effort.
+- Transactional under CAN-SPAM ("transactional / relationship" — sent in response to the user's own signup action). The footer still includes a STOP / `info@` opt-out for marketing-channel hygiene; one-click unsub will land alongside the inventoryapp `portal_users.email_opt_in` migration.
+- **No audit-log write.** Same cross-DB constraint as the order-confirmation send.
+
 ## See also
 
 - `lib/email.ts` — the helper itself (read it; it's ~100 lines)
 - `lib/order-confirmation-email.ts` — first wired send site; mirror its shape for future transactional emails
+- `lib/welcome-email.ts` — second wired send site; same template skeleton as order-confirmation but for the post-signup essentials
 - `lib/sms.ts` — Twilio sibling with the same no-op pattern
 - `Inventory App/src/lib/email.ts` — richer templates (LIQ-1295 tax export, monthly cash export, staff welcome) — port the `base()` wrapper here when the first transactional template lands

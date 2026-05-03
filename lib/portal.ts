@@ -53,12 +53,29 @@ export async function getOrCreatePortalUser(
   email?: string | null,
   name?: string | null,
 ): Promise<PortalUser> {
+  const { user } = await getOrCreatePortalUserWithCreated(clerkUserId, email, name);
+  return user;
+}
+
+/** Same as `getOrCreatePortalUser` but reports whether THIS call was the
+ *  one that inserted the row. Use this when you need a once-per-account
+ *  side effect (welcome email, signup analytics) — fire only when
+ *  `created` is `true`. The flag derives from whether the initial SELECT
+ *  found nothing AND the subsequent INSERT path took the new-row branch
+ *  (Postgres `xmax = 0` on the RETURNING row distinguishes a fresh
+ *  INSERT from an `ON CONFLICT DO UPDATE` outcome — handles the rare
+ *  race where two parallel auth callbacks both miss the SELECT). */
+export async function getOrCreatePortalUserWithCreated(
+  clerkUserId: string,
+  email?: string | null,
+  name?: string | null,
+): Promise<{ user: PortalUser; created: boolean }> {
   const sql = getClient();
   const existing = await sql`
     SELECT id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in
     FROM portal_users WHERE clerk_user_id = ${clerkUserId} LIMIT 1
   `;
-  if (existing[0]) return mapPortalUser(existing[0]);
+  if (existing[0]) return { user: mapPortalUser(existing[0]), created: false };
 
   const id = crypto.randomUUID();
   const rows = await sql`
@@ -68,9 +85,16 @@ export async function getOrCreatePortalUser(
       name = COALESCE(portal_users.name, EXCLUDED.name),
       email = COALESCE(portal_users.email, EXCLUDED.email),
       updated_at = now()
-    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in
+    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in,
+              (xmax = 0) AS inserted
   `;
-  return mapPortalUser(rows[0]);
+  const row = rows[0];
+  // `inserted` is true only when the row was actually INSERTed (not when
+  // ON CONFLICT DO UPDATE fired). Combined with the empty-SELECT guard
+  // above this gives us a tight "first time we've ever seen this clerk
+  // user" signal even under racing parallel session callbacks.
+  const created = row.inserted === true;
+  return { user: mapPortalUser(row), created };
 }
 
 export async function updatePortalUser(
