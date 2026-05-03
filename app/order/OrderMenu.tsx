@@ -495,7 +495,7 @@ export function OrderMenu({
       {!signedIn && (
         <Link
           href="/sign-in?redirect_url=/order"
-          className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 border border-green-200 px-4 py-3 text-sm hover:border-green-300 hover:from-green-100 hover:to-green-100 transition-colors"
+          className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 border border-green-200 px-4 py-3 text-sm hover:border-green-300 hover:from-green-100 hover:to-green-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
         >
           <span className="flex items-center gap-2.5 min-w-0">
             <svg
@@ -547,6 +547,8 @@ export function OrderMenu({
         <input
           type="search"
           placeholder="Search products, brands, strains…"
+          aria-label="Search products, brands, and strains"
+          autoComplete="off"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -900,24 +902,200 @@ export function OrderMenu({
 
           {filtered.length === 0 && (
             <div className="py-20 text-center space-y-3">
-              <div className="text-4xl">🔍</div>
-              <p className="text-stone-500 font-medium">No products match &ldquo;{search}&rdquo;</p>
-              <button
-                onClick={() => setSearch("")}
-                className="text-sm text-green-700 font-semibold hover:underline"
-              >
-                Clear search
-              </button>
+              <div className="text-4xl" aria-hidden>🔍</div>
+              <p className="text-stone-500 font-medium">
+                {search ? (
+                  <>No products match &ldquo;{search}&rdquo;</>
+                ) : (
+                  <>No products match those filters.</>
+                )}
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {search && (
+                  <button
+                    onClick={() => setSearch("")}
+                    className="text-sm text-green-700 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"
+                  >
+                    Clear search
+                  </button>
+                )}
+                {(strainFilter || brandFilter || priceTier !== "all" || thcTier !== "all" || sortBy !== "default") && (
+                  <button
+                    onClick={() => {
+                      setStrainFilter(null);
+                      setBrandFilter(null);
+                      setPriceTier("all");
+                      setThcTier("all");
+                      setSortBy("default");
+                    }}
+                    className="text-sm text-green-700 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"
+                  >
+                    Reset filters
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>
       </div>
 
+      {/* ─── Below-the-grid trust + education ──────────────────────────────
+          The grid above is "what's available." This strip is "what to expect
+          + how to read it." Lives below so it doesn't compete with shopping
+          intent but catches the curious-but-uncertain customer who scrolls
+          past the grid looking for context. WAC 314-55-155 safe — these are
+          process explainers + glossary, not efficacy claims. */}
+
+      {/* How pickup works — three-step explainer for customers new to the
+          flow. Online ordering is still novel for the cannabis aisle in
+          Wenatchee; people land here unsure if "online" means "delivered". */}
+      <section className="mt-16 pt-10 border-t border-stone-200">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-stone-400 text-center mb-2">
+          How pickup works
+        </p>
+        <h2 className="text-2xl font-extrabold text-stone-900 text-center tracking-tight mb-8">
+          From cart to counter in three steps.
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="rounded-2xl border border-stone-200 bg-white p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-7 h-7 rounded-full bg-green-100 text-green-800 font-extrabold text-sm flex items-center justify-center">
+                1
+              </span>
+              <div className="text-sm font-bold text-stone-900">Build your cart</div>
+            </div>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Add products, pick a 15-min pickup window. Online orders open from open until 15 min before
+              close — staff need that buffer to pull and stage.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-7 h-7 rounded-full bg-green-100 text-green-800 font-extrabold text-sm flex items-center justify-center">
+                2
+              </span>
+              <div className="text-sm font-bold text-stone-900">Sign in &amp; submit</div>
+            </div>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Quick account so we can find your order and ring it through with your loyalty points. Your cart
+              stays put while you sign in.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-7 h-7 rounded-full bg-green-100 text-green-800 font-extrabold text-sm flex items-center justify-center">
+                3
+              </span>
+              <div className="text-sm font-bold text-stone-900">Pick up &amp; pay cash</div>
+            </div>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Drive in, show your 21+ ID, pay cash at the counter. ATM on-site. Usually out the door in under
+              5 min once you walk in.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Mini-FAQ — answers the questions our budtenders hear most. WAC-safe
+          (informational, not therapeutic). Lives in plain copy not <details>
+          on purpose — short answers, scannable, no clicks-to-read. */}
+      <section className="mt-12 max-w-3xl mx-auto">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-stone-400 text-center mb-2">
+          Quick reference
+        </p>
+        <h2 className="text-2xl font-extrabold text-stone-900 text-center tracking-tight mb-6">
+          New to the menu? Here&apos;s the short version.
+        </h2>
+        <div className="space-y-3">
+          <div className="rounded-2xl border border-stone-200 bg-white p-4">
+            <p className="text-sm font-bold text-stone-900 mb-1">Sativa, indica, hybrid — what&apos;s the difference?</p>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Rough rule the budtenders use: sativa skews head-forward, indica skews body-forward, hybrid
+              splits the difference. Real life is messier — terpene profile and dose matter just as much.
+              Filter by strain type to narrow, then ask us when you walk in.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-4">
+            <p className="text-sm font-bold text-stone-900 mb-1">What does the THC % actually mean?</p>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              It&apos;s the lab-tested cannabinoid content of the flower or product. Higher isn&apos;t
+              automatically better — the 15–20% band is plenty for most folks. New to it? Start lower and
+              work up. Tolerance comes back faster than you&apos;d think.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-4">
+            <p className="text-sm font-bold text-stone-900 mb-1">Why cash only?</p>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Federal banking rules around cannabis are still cleaning up — most WA shops are cash. We have
+              an ATM on-site if you forget.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-4">
+            <p className="text-sm font-bold text-stone-900 mb-1">Can I change my order after I submit?</p>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Call us — {STORE.phone}. As long as we haven&apos;t pulled it yet we can swap things out. If
+              we already pulled it, easiest is to just tell the budtender at the counter what you&apos;d like
+              to switch.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Crew + walk-in CTA — closing strip so the menu doesn't end with a
+          pile of products and nothing else. Best-staff framing per Doug
+          2026-05-02. */}
+      <section className="mt-12 max-w-3xl mx-auto">
+        <div className="rounded-3xl bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 text-white p-6 sm:p-8 relative overflow-hidden">
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-15"
+            style={{
+              backgroundImage: "radial-gradient(circle at 80% 20%, #4ade80, transparent 40%)",
+            }}
+          />
+          <div className="relative">
+            <p className="text-green-300 text-xs font-bold uppercase tracking-widest mb-2">
+              Stuck? Walk in.
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">
+              The best crew in Wenatchee.
+            </h2>
+            <p className="text-green-100/85 text-sm leading-relaxed mb-5 max-w-xl">
+              The menu is a starting point. Our budtenders have been here for years — tell them what you
+              liked, what you didn&apos;t, what you&apos;re trying to do tonight, they&apos;ll dial it
+              from there.
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              <Link
+                href="/visit"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-green-900 text-sm font-bold hover:bg-green-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
+              >
+                📍 Visit us
+              </Link>
+              <a
+                href={`tel:${STORE.phoneTel}`}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
+              >
+                📞 {STORE.phone}
+              </a>
+              <Link
+                href="/find-your-strain"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-900"
+              >
+                🌿 Take the strain quiz
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Floating cart bar ─────────────────────────────────────────────── */}
       {cartCount > 0 && (
         <div
-          className="fixed left-0 right-0 px-4 z-40 animate-slide-up"
+          className="fixed left-0 right-0 px-4 z-40 animate-slide-up motion-reduce:animate-none"
           style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem))" }}
+          role="region"
+          aria-label="Cart summary and checkout"
         >
           <div className="max-w-lg mx-auto">
             {cartOpen ? (
@@ -1072,7 +1250,8 @@ export function OrderMenu({
                   setCartOpen(true);
                   setOrderError(null);
                 }}
-                className="w-full bg-gradient-to-r from-green-900 to-green-800 hover:from-green-800 hover:to-green-700 text-white rounded-3xl py-4 px-5 flex items-center justify-between shadow-2xl transition-all hover:-translate-y-0.5"
+                aria-label={`View order — ${cartCount} ${cartCount === 1 ? "item" : "items"}, $${cartTotal.toFixed(2)}`}
+                className="w-full bg-gradient-to-r from-green-900 to-green-800 hover:from-green-800 hover:to-green-700 text-white rounded-3xl py-4 px-5 flex items-center justify-between shadow-2xl transition-all hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300 focus-visible:ring-offset-2"
               >
                 <div className="flex items-center gap-3">
                   <span className="bg-green-500 text-white text-xs font-extrabold w-7 h-7 rounded-full flex items-center justify-center shadow-md">
