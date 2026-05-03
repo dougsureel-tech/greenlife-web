@@ -260,7 +260,25 @@ export function OrderMenu({
   const [priceTier, setPriceTier] = useState<PriceTier>("all");
   const [thcTier, setThcTier] = useState<ThcTier>("all");
   const [sortBy, setSortBy] = useState<SortKey>("default");
-  const [cartOpen, setCartOpen] = useState(false);
+  // Auto-reopen the cart drawer when arriving from the sign-in detour. The
+  // sign-in URLs stamp `?cart=open` (UX_AUDIT_2026_05_03 P0 #4); reading the
+  // param + the persisted cart in this lazy initializer means the drawer is
+  // open on first paint — no flash of "menu without cart bar". A separate
+  // mount-only effect strips the param so a refresh / back-nav doesn't keep
+  // re-opening. Doing this in useState (not useEffect) sidesteps the React 19
+  // set-state-in-effect lint and avoids a render-then-open flicker.
+  const [cartOpen, setCartOpen] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("cart") !== "open") return false;
+    try {
+      const saved = localStorage.getItem("gl_cart");
+      const parsed = saved ? (JSON.parse(saved) as CartItem[]) : [];
+      return Array.isArray(parsed) && parsed.length > 0;
+    } catch {
+      return false;
+    }
+  });
   const [placing, setPlacing] = useState(false);
   const [orderError, setOrderError] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
@@ -271,6 +289,18 @@ export function OrderMenu({
   useEffect(() => {
     localStorage.setItem("gl_cart", JSON.stringify(cart));
   }, [cart]);
+
+  // One-shot URL hygiene: strip `?cart=open` after the lazy initializer above
+  // has consumed it, so a page refresh / back-nav doesn't keep re-arming the
+  // drawer. No setState here — pure side-effect against window.history, which
+  // is what the React 19 lint wants for "external system" effects.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has("cart")) return;
+    url.searchParams.delete("cart");
+    window.history.replaceState(null, "", url.toString());
+  }, []);
 
   // Refresh pickup window while the cart drawer is open so slots shrink as
   // close approaches and the closed-state message updates at the cutoff.
@@ -436,7 +466,14 @@ export function OrderMenu({
         body: JSON.stringify({ items, notes: notes || undefined, pickupTime }),
       });
       if (res.status === 401) {
-        router.push("/sign-in?redirect_url=/order");
+        // After Clerk redirects back, the `?cart=open` param tells the mount
+        // effect to re-open the drawer so the customer sees their saved cart
+        // immediately. Per UX_AUDIT_2026_05_03 P0 #4. encodeURIComponent on
+        // the redirect_url because of the embedded `?` — Clerk handles both
+        // shapes but the encoded form is the clean contract.
+        router.push(
+          `/sign-in?redirect_url=${encodeURIComponent("/order?cart=open")}`,
+        );
         return;
       }
       if (res.ok) {
@@ -500,7 +537,15 @@ export function OrderMenu({
           // any unsigned customer who clicks-through here is then identifiable
           // when they place an order. attribution lets us trace which page sent
           // them through the sign-in funnel later.
-          href={withAttr("/sign-in?redirect_url=/order", "order", "sign-in-nudge")}
+          // `cart=open` armed for the post-sign-in mount — if the customer
+          // has anything in their persisted cart by then, the drawer will
+          // re-open automatically (P0 #4). The redirect_url is encoded so
+          // the embedded `?cart=open` survives Clerk's redirect handling.
+          href={withAttr(
+            `/sign-in?redirect_url=${encodeURIComponent("/order?cart=open")}`,
+            "order",
+            "sign-in-nudge",
+          )}
           className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 border border-green-200 px-4 py-3 text-sm hover:border-green-300 hover:from-green-100 hover:to-green-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
         >
           <span className="flex items-center gap-2.5 min-w-0">
@@ -563,11 +608,22 @@ export function OrderMenu({
           className="w-full rounded-2xl border border-stone-200 pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white shadow-sm"
         />
         {search && (
+          // Hit area is 44×44 (Apple HIG floor) — visual disc stays 5×5 (20px)
+          // via the inner span so the search bar doesn't visually grow. The
+          // outer button supplies the tappable surface; `flex items-center`
+          // centers the disc so the X stays optically pinned to the right
+          // edge it always lived at.
           <button
             onClick={() => setSearch("")}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-300 text-xs"
+            aria-label="Clear search"
+            className="absolute right-1 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-end pr-2 text-stone-500 hover:text-stone-700"
           >
-            ×
+            <span
+              aria-hidden
+              className="w-5 h-5 rounded-full bg-stone-200 flex items-center justify-center text-xs"
+            >
+              ×
+            </span>
           </button>
         )}
       </div>
@@ -637,7 +693,11 @@ export function OrderMenu({
                       <button
                         key={s}
                         onClick={() => setStrainFilter(active ? null : s)}
-                        className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${active ? `${colors?.badge ?? "bg-green-100 text-green-800 border-green-200"} ring-2 ring-offset-1 ring-stone-300` : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
+                        // 44px tap target on mobile (Apple HIG) — visual stays
+                        // py-1.5 on sm+ where pointer precision is fine. Mobile
+                        // floor uses min-h-[44px] to clear the Fitts violation
+                        // flagged in UX_AUDIT_2026_05_03 P0 #2.
+                        className={`text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center rounded-full border transition-colors ${active ? `${colors?.badge ?? "bg-green-100 text-green-800 border-green-200"} ring-2 ring-offset-1 ring-stone-300` : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
                       >
                         {colors && (
                           <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`} />
@@ -653,7 +713,7 @@ export function OrderMenu({
                 <select
                   value={brandFilter ?? ""}
                   onChange={(e) => setBrandFilter(e.target.value || null)}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="">All brands ({availableBrands.length})</option>
                   {availableBrands.map((b) => (
@@ -667,7 +727,7 @@ export function OrderMenu({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortKey)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500 ml-auto"
+                className="text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500 ml-auto"
               >
                 <option value="default">Sort: Featured</option>
                 <option value="price-asc">Price: Low → High</option>
@@ -687,7 +747,7 @@ export function OrderMenu({
                     <button
                       key={t.key}
                       onClick={() => setPriceTier(active ? "all" : t.key)}
-                      className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${active ? "bg-green-700 text-white border-green-700" : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
+                      className={`text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center rounded-full border transition-colors ${active ? "bg-green-700 text-white border-green-700" : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
                     >
                       {t.label}
                     </button>
@@ -708,7 +768,7 @@ export function OrderMenu({
                     <button
                       key={t.key}
                       onClick={() => setThcTier(active ? "all" : t.key)}
-                      className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${active ? "bg-emerald-700 text-white border-emerald-700" : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
+                      className={`text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center rounded-full border transition-colors ${active ? "bg-emerald-700 text-white border-emerald-700" : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
                     >
                       {t.label}
                     </button>
@@ -725,7 +785,7 @@ export function OrderMenu({
                     setThcTier("all");
                     setSortBy("default");
                   }}
-                  className="text-xs font-semibold text-stone-500 hover:text-stone-700 px-2 py-1.5"
+                  className="text-xs font-semibold text-stone-500 hover:text-stone-700 px-2 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center"
                 >
                   Clear
                 </button>
@@ -864,7 +924,11 @@ export function OrderMenu({
                                 <div className="flex items-center gap-2">
                                   <button
                                     onClick={() => updateQty(product.id, -1)}
-                                    className="w-8 h-8 rounded-full border-2 border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:border-stone-300 text-sm font-bold transition-colors"
+                                    aria-label={`Decrease quantity of ${parsed.name}`}
+                                    // 44×44 (Apple HIG floor) — was w-8 h-8 (32px),
+                                    // flagged P0 #2 in UX_AUDIT_2026_05_03 for
+                                    // mistap risk on the adjacent price chip.
+                                    className="w-11 h-11 rounded-full border-2 border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:border-stone-300 text-base font-bold transition-colors"
                                   >
                                     −
                                   </button>
@@ -873,7 +937,8 @@ export function OrderMenu({
                                   </span>
                                   <button
                                     onClick={() => updateQty(product.id, 1)}
-                                    className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-sm font-bold transition-colors shadow-md shadow-green-900/20"
+                                    aria-label={`Increase quantity of ${parsed.name}`}
+                                    className="w-11 h-11 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 text-base font-bold transition-colors shadow-md shadow-green-900/20"
                                   >
                                     +
                                   </button>
@@ -882,7 +947,11 @@ export function OrderMenu({
                                 <button
                                   onClick={() => addToCart(product)}
                                   disabled={product.unitPrice == null}
-                                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                                  aria-label={`Add ${parsed.name} to cart`}
+                                  // min-h-[44px] floor (Apple HIG) — visually
+                                  // unchanged on desktop where px-4 py-2 already
+                                  // hits ~36px and pointer precision is fine.
+                                  className="flex items-center gap-1.5 px-4 py-2 min-h-[44px] sm:min-h-0 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
                                 >
                                   + Add
                                 </button>
@@ -1180,7 +1249,11 @@ export function OrderMenu({
                         <button
                           onClick={() => updateQty(item.id, -1)}
                           aria-label={`Decrease quantity of ${item.name}`}
-                          className="w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 active:bg-stone-300 text-base font-bold transition-colors"
+                          // 44×44 (Apple HIG) — was 32px, P0 #2 in
+                          // UX_AUDIT_2026_05_03. Cart-drawer rows sit close
+                          // together so the bigger hit area also reduces
+                          // mistap onto the row above/below.
+                          className="w-11 h-11 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-200 active:bg-stone-300 text-base font-bold transition-colors"
                         >
                           −
                         </button>
@@ -1190,7 +1263,7 @@ export function OrderMenu({
                         <button
                           onClick={() => updateQty(item.id, 1)}
                           aria-label={`Increase quantity of ${item.name}`}
-                          className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 active:bg-green-800 text-base font-bold transition-colors"
+                          className="w-11 h-11 rounded-full bg-green-700 flex items-center justify-center text-white hover:bg-green-600 active:bg-green-800 text-base font-bold transition-colors"
                         >
                           +
                         </button>
@@ -1270,30 +1343,33 @@ export function OrderMenu({
                       <div className="text-xs text-stone-400">Est. total · cash in store</div>
                       <div className="text-2xl font-extrabold text-stone-900">${cartTotal.toFixed(2)}</div>
                     </div>
+                    {/* Button label flips for unsigned customers so they
+                        see the sign-in detour BEFORE they tap, not after.
+                        UX_AUDIT_2026_05_03 P0 #3: Nielsen #1 (visibility of
+                        system status). Same handler — placeOrder hits the
+                        API, gets 401, and bounces to /sign-in?redirect_url=
+                        /order?cart=open which re-opens the drawer on return. */}
                     <button
                       onClick={placeOrder}
                       disabled={placing || orderingStatus?.state !== "open" || !pickupTime}
-                      className="px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                      className="px-6 py-3 min-h-[44px] rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
                     >
-                      {placing ? "Placing…" : "Place Order →"}
+                      {placing
+                        ? "Placing…"
+                        : signedIn
+                          ? "Place Order →"
+                          : "Sign in to place order →"}
                     </button>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-amber-50 border border-amber-100">
-                    <svg
-                      className="w-3.5 h-3.5 text-amber-500 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p className="text-xs text-amber-700 font-medium">
-                      Quick sign-in required — your cart will be saved
+                  {!signedIn && (
+                    // Replaces the old "Quick sign-in required" yellow callout
+                    // (which was below the CTA, telling people the same thing
+                    // the button now says). Kept the saved-cart reassurance —
+                    // that's the actual new information for the customer.
+                    <p className="text-[11px] text-stone-500 text-right px-1">
+                      We&apos;ll save your cart while you sign in.
                     </p>
-                  </div>
+                  )}
                 </div>
               </div>
             ) : (
