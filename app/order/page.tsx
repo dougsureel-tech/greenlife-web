@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
-import { getMenuProducts, getPickupEta } from "@/lib/db";
+import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { STORE, getOrderingStatus } from "@/lib/store";
 import { OrderMenu } from "./OrderMenu";
 
@@ -19,10 +19,11 @@ function minToLabel(min: number): string {
 }
 
 export default async function OrderPage() {
-  const [products, eta, { userId }] = await Promise.all([
+  const [products, eta, { userId }, activeDeals] = await Promise.all([
     getMenuProducts().catch(() => []),
     getPickupEta().catch(() => ({ depth: 0, label: "Usually ready in under 10 min" })),
     auth(),
+    getActiveDeals().catch(() => []),
   ]);
   const status = getOrderingStatus();
   const signedIn = !!userId;
@@ -80,7 +81,7 @@ export default async function OrderPage() {
           </div>
         </div>
       </div>
-      <OrderMenu products={products} signedIn={signedIn} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} />
     </>
   );
 }

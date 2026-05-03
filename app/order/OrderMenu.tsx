@@ -4,8 +4,28 @@ import { useState, useMemo, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import type { MenuProduct } from "@/lib/db";
+import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
+
+// Map a product to a running deal it qualifies for, if any. Deals are
+// category-scoped in our schema (`appliesTo` = "flower", "edibles", "all"
+// etc.). We do a stem-match against the product's raw category string —
+// the same fuzzy logic the SQL preview already uses on /deals/[id]. First
+// match wins (deal list is already ordered by ending-soonest, so the
+// urgency-leading deal is the one a card surfaces).
+function findDealForProduct(p: MenuProduct, deals: ActiveDeal[]): ActiveDeal | null {
+  if (!deals || deals.length === 0) return null;
+  const cat = (p.category ?? "").toLowerCase();
+  for (const d of deals) {
+    if (!d.appliesTo || d.appliesTo === "all") {
+      // Storewide deal — every product qualifies.
+      return d;
+    }
+    const stem = d.appliesTo.toLowerCase().replace(/s$/, "");
+    if (cat.includes(stem)) return d;
+  }
+  return null;
+}
 
 type CartItem = MenuProduct & { quantity: number };
 type SortKey = "default" | "price-asc" | "price-desc" | "thc-desc" | "name";
@@ -178,7 +198,15 @@ function ProductImage({ src, alt, category }: { src: string | null; alt: string;
   );
 }
 
-export function OrderMenu({ products, signedIn = false }: { products: MenuProduct[]; signedIn?: boolean }) {
+export function OrderMenu({
+  products,
+  signedIn = false,
+  activeDeals = [],
+}: {
+  products: MenuProduct[];
+  signedIn?: boolean;
+  activeDeals?: ActiveDeal[];
+}) {
   const router = useRouter();
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window === "undefined") return [];
@@ -657,6 +685,11 @@ export function OrderMenu({ products, signedIn = false }: { products: MenuProduc
                       const cartItem = cart.find((i) => i.id === product.id);
                       const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
                       const parsed = parseProductName(product);
+                      // "On Sale" chip surfaces when the product's category
+                      // matches an active deal. We render it bottom-right —
+                      // bottom-left is the weight chip, top-right is reserved
+                      // for the New / cart-quantity badge, top-left is strain.
+                      const deal = findDealForProduct(product, activeDeals);
                       return (
                         <div
                           key={product.id}
@@ -683,6 +716,16 @@ export function OrderMenu({ products, signedIn = false }: { products: MenuProduc
                               <span className="absolute bottom-2.5 left-2.5 text-[11px] px-2 py-0.5 rounded-full font-bold bg-white/90 text-stone-700 border border-stone-200 shadow-sm">
                                 {parsed.weight}
                               </span>
+                            )}
+                            {deal && (
+                              <Link
+                                href={`/deals/${deal.id}?from=order-card%3A${encodeURIComponent(deal.id)}`}
+                                aria-label={`Active deal: ${deal.short}`}
+                                className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-full font-extrabold bg-emerald-600 text-white shadow-md uppercase tracking-wide hover:bg-emerald-500 transition-colors"
+                              >
+                                <span aria-hidden>★</span>
+                                {deal.short}
+                              </Link>
                             )}
                             {product.isNew && (
                               <span className="absolute top-2.5 right-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-green-700 text-white shadow-md uppercase tracking-wide">
