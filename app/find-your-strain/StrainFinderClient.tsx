@@ -210,7 +210,7 @@ export function StrainFinderClient() {
           href={withAttr("/menu", "quiz", "skip")}
           className="text-xs text-stone-500 hover:text-stone-700 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"
         >
-          Skip and browse all →
+          Open the live menu →
         </Link>
       </div>
 
