@@ -55,6 +55,11 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
     a: `Yes. Live deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and 100 points = $1 off, redeemable at the counter any time. Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — the 15% off your first online order applies on top of any active deal.`,
   },
   {
+    tag: "Rewards",
+    q: "Do you offer a Heroes / service discount?",
+    a: `Yes — 20% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show a valid 21+ ID alongside your service or work credential at the register. Full eligibility + how it works is at ${STORE.website}/heroes.`,
+  },
+  {
     tag: "Ordering",
     q: "Can I order online for pickup?",
     a: "Yes — create an account, browse our menu, and place an order for in-store pickup. Your order is held at the counter and ready when you arrive.",
