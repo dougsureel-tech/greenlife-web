@@ -29,6 +29,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // Heroes cohort SEO landings (hack #7) — high priority because they
+    // capture cohort-specific search traffic ("veteran cannabis discount
+    // Wenatchee" etc.) before any other site does. Static-rendered.
+    ...["veterans", "military", "first-responders", "healthcare", "teachers"].map((slug) => ({
+      url: `${STORE.website}/heroes/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
     {
       url: `${STORE.website}/community`,
       lastModified: new Date(),
