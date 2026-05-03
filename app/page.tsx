@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
+import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
@@ -1144,6 +1145,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Loyalty arc — tier vocabulary that matches POS/account ─── */}
+      <LoyaltyArc />
 
       {/* ─── Reviews + AggregateRating schema ───────────────────────────────── */}
       <ReviewsSection />
