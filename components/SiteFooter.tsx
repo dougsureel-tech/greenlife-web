@@ -234,6 +234,7 @@ export function SiteFooter() {
             { href: "/press", label: "Press" },
             { href: "/accessibility", label: "Accessibility" },
             { href: "/health-data-policy", label: "Health Data" },
+            { href: "/terms-of-use", label: "Terms" },
           ].map(({ href, label }) => (
             <li key={href}>
               <Link href={href} className="hover:text-white transition-colors">
