@@ -108,11 +108,41 @@ const localBusinessSchema = {
     latitude: STORE.geo.lat,
     longitude: STORE.geo.lng,
   },
-  areaServed: NEARBY_CITIES.map((name) => ({
-    "@type": "City",
-    name,
-    containedInPlace: { "@type": "State", name: "Washington" },
-  })),
+  areaServed: [
+    // City-level served-area entries — what we already had, drives "{city}
+    // dispensary" intent.
+    ...NEARBY_CITIES.map((name) => ({
+      "@type": "City",
+      name,
+      containedInPlace: { "@type": "State", name: "Washington" },
+    })),
+    // ZIP-code-level served-area entries (Hack #8 — Local SEO).
+    // Drives "cannabis 98801" / "weed near 98826" intent — zip-code
+    // queries are 2-3× higher purchase intent than city queries because
+    // they typically come from people checking what's actually near them
+    // RIGHT NOW. Schema.org PostalCodeSpecification under areaServed is
+    // the canonical way to advertise the radius without lying about
+    // delivery (we're pickup-only — these are the ZIPs we DRAW from,
+    // not where we ship to). Snohomish-county-cities and Quincy excluded
+    // since those are 2hr+ drives. Wenatchee Valley + immediate I-90
+    // / US-2 corridor only.
+    ...[
+      { zip: "98801", area: "Wenatchee + Sunnyslope" },
+      { zip: "98802", area: "East Wenatchee" },
+      { zip: "98815", area: "Cashmere" },
+      { zip: "98826", area: "Leavenworth" },
+      { zip: "98816", area: "Chelan + Lake Chelan" },
+      { zip: "98822", area: "Entiat" },
+      { zip: "98823", area: "Quincy + Ephrata corridor" },
+      { zip: "98847", area: "Peshastin" },
+    ].map(({ zip, area }) => ({
+      "@type": "PostalAddress",
+      postalCode: zip,
+      addressRegion: "WA",
+      addressCountry: "US",
+      description: area,
+    })),
+  ],
   openingHoursSpecification: STORE.hours.map((h) => ({
     "@type": "OpeningHoursSpecification",
     dayOfWeek: `https://schema.org/${h.day}`,
