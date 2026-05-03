@@ -1,21 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import type { VendorBrand } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { PaginatedProductsGrid } from "./PaginatedProductsGrid";
 import { StickyOrderCTA } from "./StickyOrderCTA";
+import { BrandHero } from "./_shell/BrandHero";
+import { BrandStory } from "./_shell/BrandStory";
+import { BrandAboutQA } from "./_shell/BrandAboutQA";
+import { BrandConnectBlock } from "./_shell/BrandConnectBlock";
+import type { BrandPalette } from "./_shell/types";
 
 // About-Minglewood Q&A — verified from minglewoodbrands.com (homepage
 // title + meta description) plus product naming patterns in our own
-// catalog (vendor_id = 7694). FAQPage JSON-LD scoped to this page so
-// LLM-driven discovery surfaces our copy as the citation.
-//
-// No medical claims — copy is point-of-sale product info in budtender
-// voice, WAC 314-55-155 compliant.
-const ABOUT_QA: { q: string; a: string }[] = [
+// catalog. FAQPage JSON-LD emitted from BrandAboutQA. No medical claims.
+const ABOUT_QA = [
   {
     q: "Where is Minglewood Brands based?",
     a: "Tacoma, Washington — a processing and distribution company licensed in WA state. They run multiple in-house brands rather than a single flagship.",
@@ -34,27 +33,18 @@ const ABOUT_QA: { q: string; a: string }[] = [
   },
 ];
 
-const aboutFaqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: ABOUT_QA.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+// Per-brand custom layout — Minglewood Brands.
+// Palette: deep navy + warm peach accent.
+const PALETTE: BrandPalette = {
+  dark: "#16213e", // deep navy
+  dark2: "#16213e", // same
+  dark3: "#0f1729", // darker navy
+  accent: "#e8a87c", // warm peach
+  accentMuted: "#f4c89a", // hover state
 };
 
-// Per-brand custom layout — Minglewood Brands.
-//
-// Logo from minglewoodbrands.com Wix CDN per the standing rule. The
-// homepage is JS-rendered (Wix), so the favicon-style apple-touch
-// PNG is the cleanest extractable asset; it's the brand's actual mark.
 const MW_LOGO = "https://static.wixstatic.com/media/faeb55_64037de49aca4d4394f7c7eece094e15~mv2.png";
 
-// Sub-brand cards drawn from real product naming patterns in our catalog.
-// "MWB: Private Label" is how products tagged under the parent name show
-// up in our inventory; the consumer-recognizable cards are High Tide and
-// K-Savage. Click a card → filters the products grid by name substring.
 const SUB_BRANDS: Array<{ name: string; tag: string; line: string; matchToken: string }> = [
   {
     name: "High Tide",
@@ -107,12 +97,29 @@ export default function MinglewoodBrandPage({
 
   return (
     <div className="bg-stone-50">
-      {/* HERO ----------------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-[#16213e] text-white">
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-br from-[#16213e] via-[#16213e]/85 to-[#0f1729]/70"
-        />
+      <BrandHero
+        palette={PALETTE}
+        crumb="Minglewood Brands"
+        logoUrl={MW_LOGO}
+        logoAlt="Minglewood Brands logo"
+        title="Minglewood"
+        tagline="Brands."
+        subtitle="Tacoma-based cannabis processing and distribution. Three lines under one roof — High Tide, K-Savage, and a private-label series — built for shelf-side variety without losing QA discipline."
+        pills={[
+          { kind: "muted", label: "Tacoma, WA", dot: true },
+          { kind: "muted", label: "Processor / Distributor" },
+          { kind: "filled", label: `${brand.activeSkus} on our shelf` },
+        ]}
+        ctas={[
+          { href: "/menu", label: "Order Minglewood for Pickup →", variant: "primary" },
+          {
+            href: "https://www.minglewoodbrands.com/",
+            label: "Visit minglewoodbrands.com ↗",
+            variant: "secondary",
+            external: true,
+          },
+        ]}
+      >
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.06]"
@@ -121,101 +128,37 @@ export default function MinglewoodBrandPage({
             backgroundSize: "28px 28px",
           }}
         />
+      </BrandHero>
 
-        <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#e8a87c] text-[11px] font-bold uppercase tracking-[0.2em] mb-5">
-            <Link href="/brands" className="hover:text-[#f4c89a] transition-colors">
-              All Brands
-            </Link>
-            <span className="mx-2 opacity-50">/</span>
-            Minglewood Brands
-          </p>
+      <BrandStory palette={PALETTE} eyebrow="Our Story" headline="One processor. Three brands. WA-only.">
+        <p>
+          Minglewood is a Tacoma-based cannabis processing and distribution company. They
+          don&apos;t cultivate flower under their own name — they take in raw material,
+          process and package it into finished SKUs, and ship it out under a few different
+          brand identities. Sales are wholesale-only to established WA dispensaries.
+        </p>
+        <p>
+          We carry three of their lines at {STORE.name}: <strong>High Tide</strong> is the
+          flagship — most of what you&apos;ll see is High Tide flower, pre-rolls, or rosin.
+          <strong> K-Savage</strong> covers the DOH-compliant patient-side packaging (med-bar
+          QA, available recreationally too). The <strong>MWB private-label</strong> series
+          picks up collaboration runs and limited releases.
+        </p>
+        <p>
+          The reason we keep them on the shelf is that the QA bar holds across all three
+          lines. Same Tacoma facility, same testing discipline — the brands differentiate
+          positioning, not quality.
+        </p>
+      </BrandStory>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-8 md:gap-10">
-            <div className="shrink-0 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white shadow-2xl flex items-center justify-center p-5 relative">
-              <Image src={MW_LOGO} alt="Minglewood Brands logo" fill unoptimized className="object-contain p-5" />
-            </div>
-            <div className="space-y-4 max-w-2xl">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
-                Minglewood
-                <br />
-                <span className="text-[#e8a87c]">Brands.</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-stone-200/90 leading-relaxed">
-                Tacoma-based cannabis processing and distribution. Three lines under one roof —
-                High Tide, K-Savage, and a private-label series — built for shelf-side variety
-                without losing QA discipline.
-              </p>
-              <div className="flex flex-wrap items-center gap-2.5 pt-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold border border-white/15">
-                  <span className="text-[#e8a87c]">●</span> Tacoma, WA
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold border border-white/15">
-                  Processor / Distributor
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#e8a87c] text-[#16213e] text-xs font-bold">
-                  {brand.activeSkus} on our shelf
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-3 pt-3">
-                <Link
-                  href="/menu"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e8a87c] hover:bg-[#f4c89a] text-[#16213e] text-sm font-bold transition-all shadow-lg hover:-translate-y-0.5"
-                >
-                  Order Minglewood for Pickup →
-                </Link>
-                <a
-                  href="https://www.minglewoodbrands.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-all border border-white/20"
-                >
-                  Visit minglewoodbrands.com ↗
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* STORY ---------------------------------------------------------- */}
-      <section className="bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#16213e] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-            Our Story
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-8 leading-tight">
-            One processor. Three brands. WA-only.
-          </h2>
-          <div className="space-y-5 text-stone-700 text-lg leading-relaxed">
-            <p>
-              Minglewood is a Tacoma-based cannabis processing and distribution company. They
-              don&apos;t cultivate flower under their own name — they take in raw material,
-              process and package it into finished SKUs, and ship it out under a few different
-              brand identities. Sales are wholesale-only to established WA dispensaries.
-            </p>
-            <p>
-              We carry three of their lines at {STORE.name}: <strong>High Tide</strong> is the
-              flagship — most of what you&apos;ll see is High Tide flower, pre-rolls, or rosin.
-              <strong>K-Savage</strong> covers the DOH-compliant patient-side packaging (med-bar
-              QA, available recreationally too). The <strong>MWB private-label</strong> series
-              picks up collaboration runs and limited releases.
-            </p>
-            <p>
-              The reason we keep them on the shelf is that the QA bar holds across all three
-              lines. Same Tacoma facility, same testing discipline — the brands differentiate
-              positioning, not quality.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SUB-BRANDS ----------------------------------------------------- */}
       <section className="bg-stone-50 border-y border-stone-200">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
           <div className="flex items-end justify-between flex-wrap gap-3 mb-10">
             <div>
-              <p className="text-[#16213e] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+              <p
+                className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3"
+                style={{ color: PALETTE.dark }}
+              >
                 The Lineup
               </p>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 leading-tight">
@@ -290,10 +233,12 @@ export default function MinglewoodBrandPage({
         </div>
       </section>
 
-      {/* PRODUCTS ------------------------------------------------------- */}
       <section id="products" className="bg-stone-50 border-y border-stone-200 scroll-mt-20">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#16213e] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+          <p
+            className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3"
+            style={{ color: PALETTE.dark }}
+          >
             On Our Shelf
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-2 leading-tight">
@@ -320,108 +265,28 @@ export default function MinglewoodBrandPage({
         </div>
       </section>
 
-      {/* ABOUT — Q&A ---------------------------------------------------- */}
-      <section className="bg-white border-t border-stone-200">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqSchema) }}
-        />
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
-          <p className="text-[#16213e] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-            About Minglewood
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-8 leading-tight">
-            Quick facts
-          </h2>
-          <div className="space-y-3">
-            {ABOUT_QA.map(({ q, a }) => (
-              <details
-                key={q}
-                open
-                className="group rounded-2xl border border-stone-200 bg-stone-50 overflow-hidden open:border-[#e8a87c] open:bg-white open:shadow-sm transition-all"
-              >
-                <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none select-none transition-colors">
-                  <span className="font-semibold text-stone-800 group-open:text-[#16213e] text-sm leading-snug transition-colors">
-                    {q}
-                  </span>
-                  <svg
-                    className="w-5 h-5 shrink-0 text-stone-300 group-open:text-[#e8a87c] group-open:rotate-180 transition-all duration-200"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </summary>
-                <div className="px-5 pb-5 pt-1 text-stone-600 text-sm leading-relaxed border-t border-[#e8a87c]/30">
-                  {a}
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrandAboutQA palette={PALETTE} brandName="Minglewood" items={ABOUT_QA} />
 
-      {/* CONNECT -------------------------------------------------------- */}
-      <section className="bg-[#16213e] text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <p className="text-[#e8a87c] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-              Connect with Minglewood
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6 leading-tight">
-              Find them online
-            </h2>
-            <ul className="space-y-3 text-stone-200">
-              <li className="flex items-center gap-3">
-                <span className="text-[#e8a87c] w-20 text-xs font-bold uppercase tracking-wider">Web</span>
-                <a
-                  href="https://www.minglewoodbrands.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline underline-offset-4 decoration-[#e8a87c]/40"
-                >
-                  minglewoodbrands.com
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-[#e8a87c] w-20 text-xs font-bold uppercase tracking-wider">HQ</span>
-                <span>Tacoma, WA</span>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
-            <div>
-              <p className="text-[#e8a87c] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-                Pickup at {STORE.name}
-              </p>
-              <p className="text-xl font-extrabold mb-1">
-                {brand.activeSkus} Minglewood product{brand.activeSkus !== 1 ? "s" : ""} ready in{" "}
-                {STORE.address.city}
-              </p>
-              <p className="text-sm text-stone-300/90 leading-relaxed">
-                Order ahead and your kit&apos;s waiting at the counter. {STORE.address.full}.
-                21+ with valid ID. Cash only.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <Link
-                href="/menu"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e8a87c] hover:bg-[#f4c89a] text-[#16213e] text-sm font-bold transition-all"
-              >
-                Order for Pickup →
-              </Link>
-              <Link
-                href="/brands"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-all"
-              >
-                ← All Brands
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BrandConnectBlock
+        palette={PALETTE}
+        brandName="Minglewood"
+        links={[
+          { label: "Web", href: "https://www.minglewoodbrands.com/", text: "minglewoodbrands.com" },
+          { label: "HQ", text: "Tacoma, WA" },
+        ]}
+        pickup={{
+          eyebrow: `Pickup at ${STORE.name}`,
+          headline: `${brand.activeSkus} Minglewood product${brand.activeSkus !== 1 ? "s" : ""} ready in ${STORE.address.city}`,
+          body: (
+            <>
+              Order ahead and your kit&apos;s waiting at the counter. {STORE.address.full}.
+              21+ with valid ID. Cash only.
+            </>
+          ),
+          primaryCta: { href: "/menu", label: "Order for Pickup →" },
+          secondaryCta: { href: "/brands", label: "← All Brands" },
+        }}
+      />
 
       <StickyOrderCTA label="Order Minglewood →" />
     </div>
