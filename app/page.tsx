@@ -26,9 +26,29 @@ export const revalidate = 60;
 const TOWN_NAMES = STORE.nearbyTowns.map((t) => t.name).join(", ");
 
 export const metadata: Metadata = {
-  title: `${STORE.name} | Cannabis Dispensary Wenatchee, WA`,
-  description: `${STORE.name} at ${STORE.address.full}. Serving ${TOWN_NAMES}. Wenatchee's premier cannabis shop — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
+  // Homepage-specific title overrides the layout default. Slightly
+  // different copy from the layout default so / and /menu have visibly
+  // distinct SERP titles — / is the brand-anchor, /menu is "Live
+  // Inventory". Title differentiation is what tells Google the two
+  // pages aren't competing for the same query.
+  title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
+  description: `${STORE.name} at ${STORE.address.full}. Serving ${TOWN_NAMES}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
   alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: STORE.website,
+    siteName: STORE.name,
+    title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
+    description: `Wenatchee's cannabis shop since 2014. Best staff in the Valley. ${STORE.address.full}.`,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${STORE.name} — Wenatchee Cannabis Dispensary`,
+      },
+    ],
+  },
   // Geo SEO meta — paid display + CRM ad networks anchor location-targeted
   // creative off these. ICBM + geo.position duplicate each other on purpose;
   // different crawlers prefer different conventions.

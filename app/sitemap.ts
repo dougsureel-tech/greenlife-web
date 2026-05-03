@@ -12,7 +12,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: STORE.website, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
-    { url: `${STORE.website}/menu`, lastModified: new Date(), changeFrequency: "daily", priority: 0.95 },
+    // /menu is the live-inventory Boost embed and customer CTAs all
+    // route to it, but the brand-search ("Green Life") result MUST
+    // land on / not /menu. Demoted from 0.95 → 0.85 so / clearly
+    // outranks in sitemap priority signaling. Pairs with the new
+    // Organization + WebSite JSON-LD in app/layout.tsx that anchors
+    // / as the entity hub.
+    { url: `${STORE.website}/menu`, lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
     { url: `${STORE.website}/order`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${STORE.website}/deals`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${STORE.website}/visit`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
