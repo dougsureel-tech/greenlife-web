@@ -397,6 +397,106 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ─── Why Customers Love Us — value-prop card grid. 7 cards, no
+            images (icons inline SVG), green/emerald palette consistent with
+            the hero. Lands between the stats strip and the towns grid so the
+            scroll rhythm is: hero → stats (proof) → why us (selling) → where
+            we serve (geo). Each card body stays tight (~2 lines) so the
+            grid reads at a glance. Tenure card leads since it's the
+            differentiator vs chains. Cash-only card explicitly reframes a
+            common objection ("you don't take cards?") as a savings benefit. */}
+      <section className="bg-stone-50 border-b border-stone-100" aria-labelledby="why-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">
+              Why customers love us
+            </p>
+            <h2
+              id="why-heading"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight mt-2"
+            >
+              The Valley&apos;s best cannabis staff.
+            </h2>
+            <p className="text-stone-600 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+              Twelve years on Center Road has built one thing above everything else — a crew that actually
+              knows the products. Ask any question. Get a real answer.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {[
+              {
+                title: "Best Staff in the Valley",
+                body: "Real budtenders trained on terps, tolerance, and effect — not a commission script. Same crew you&apos;ll see again.",
+                iconPath:
+                  "M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z",
+              },
+              {
+                title: "12+ Years on Center Road",
+                body: "Same building since 2014. We know the producers, the seasons, and what to drop when something stops being good.",
+                iconPath: "M3 21V10l9-7 9 7v11h-6v-7H9v7H3z",
+              },
+              {
+                title: "Curated Catalog",
+                body: "We drop product that doesn&apos;t meet our standard. Quality over shelf count — every SKU is here on purpose.",
+                iconPath: "M5 3v18l7-3 7 3V3H5zm9 9l-2 2-2-2 2-2 2 2z",
+              },
+              {
+                title: "Supporting Local Heroes · 20%",
+                body: "Active military, veterans, first responders, healthcare, K-12 teachers. The people who keep the Valley running. Show ID at the register.",
+                iconPath:
+                  "M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4zm-1 14l-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z",
+              },
+              {
+                title: "Daily Deal Mailer",
+                body: "A real rotation — Mama J&apos;s Monday, Smokiez Saturday, and so on. Sign up for SMS, get the day&apos;s deal at 8 AM.",
+                iconPath:
+                  "M4 4h16v16H4V4zm2 4l6 4 6-4v10H6V8zm12-2l-6 4-6-4h12z",
+              },
+              {
+                title: "Loyalty Stacks With Deals",
+                body: "Points stack with %-off promos. Build status: Visitor → Regular → Local → Family. Every visit counts.",
+                iconPath:
+                  "M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6L12 2z",
+              },
+              {
+                title: "Cash-Only = Lower Prices",
+                body: "Federal banking law won&apos;t process cards for cannabis. We pass the saved card-fees to you. ATM on-site.",
+                iconPath:
+                  "M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm0 5a3 3 0 110 6 3 3 0 010-6zm0 14c-1.7 0-5-2.5-5-7 0-.5.1-1 .2-1.5C8.4 12.4 10.1 13 12 13s3.6-.6 4.8-1.5c.1.5.2 1 .2 1.5 0 4.5-3.3 7-5 7z",
+              },
+            ].map(({ title, body, iconPath }) => (
+              <div
+                key={title}
+                className="bg-white rounded-2xl border border-stone-200 hover:border-green-300 hover:shadow-md transition-all p-5 sm:p-6 flex gap-4 sm:gap-5"
+              >
+                <div className="shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-green-100 flex items-center justify-center text-green-800">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-6 h-6"
+                      aria-hidden="true"
+                    >
+                      <path d={iconPath} />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-tight">
+                    {title}
+                  </h3>
+                  <p
+                    className="text-xs sm:text-sm text-stone-600 mt-1.5 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: body }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── We serve — Wenatchee Valley town card grid. Wenatchee is rural
             (towns 5-25mi apart, separated by orchards + the river) so an SVG
             "neighborhood map" doesn't add the value Seattle's does. This grid
