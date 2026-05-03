@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
+import { STORE } from "@/lib/store";
 
 // Health check for external uptime monitors + the auto-rollback path
 // (PLAN_RELIABILITY.md). Returns 200 + diagnostics when everything is up,
@@ -124,10 +125,12 @@ export async function GET() {
     headers: {
       "cache-control": "no-store, must-revalidate",
       "x-health-status": allOk ? "ok" : "degraded",
-      // Mirror version + sha as response headers (parity with /ping
-      // route) so monitors detect deploy SHA via curl --head.
+      // Mirror version + sha + store-name as response headers so
+      // monitors detect deploy SHA + identify which store responded
+      // via curl --head, without JSON parsing.
       "x-version": BUILD_VERSION,
       "x-sha": BUILD_SHA,
+      "x-store-name": STORE.name,
     },
   });
 }

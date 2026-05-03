@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
+import { STORE } from "@/lib/store";
 
 // Minimal liveness endpoint — no DB hit, no external calls. Returns
 // 200 + version + sha + ts in <5ms warm. For uptime monitors that ping
@@ -33,6 +34,7 @@ export async function GET() {
         // parsing.
         "x-version": BUILD_VERSION,
         "x-sha": BUILD_SHA,
+        "x-store-name": STORE.name,
       },
     },
   );
