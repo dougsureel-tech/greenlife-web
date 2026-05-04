@@ -304,6 +304,74 @@ export default async function BrandPage({ params }: Props) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10 sm:space-y-12">
+        {/* Brand bio + socials — vendor-authored via /vmi/profile. Both
+            blocks render only when the vendor has filled them in (avoids a
+            half-empty section on brands that haven't logged in yet). The
+            handle is sanitized to [A-Za-z0-9._-] before being concatenated
+            into a URL — without this, a vendor could put `realbrand?phish=1`
+            in their handle to add unwanted query params, or worse use `..` to
+            climb the path. The /vmi Server Action only strips a leading `@`. */}
+        {(() => {
+          const safe = (h: string | null) => (h ? (h.match(/^[A-Za-z0-9._-]+$/) ? h : null) : null);
+          const ig = safe(brand.socialInstagram);
+          const x = safe(brand.socialX);
+          const fb = safe(brand.socialFacebook);
+          if (!brand.brandBio && !ig && !x && !fb) return null;
+          return (
+            <section className="rounded-2xl border border-stone-100 bg-white p-6 sm:p-8 space-y-5">
+              {brand.brandBio && (
+                <div className="space-y-3">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-green-700">
+                    About {brand.name}
+                  </p>
+                  {brand.brandBio.split(/\n{2,}/).map((para, i) => (
+                    <p key={i} className="text-stone-700 leading-relaxed">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {(ig || x || fb) && (
+                <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-stone-100">
+                  <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                    Follow them
+                  </p>
+                  {ig && (
+                    <a
+                      href={`https://instagram.com/${ig}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-green-700 hover:text-green-600 font-semibold underline underline-offset-2"
+                    >
+                      @{ig} on Instagram
+                    </a>
+                  )}
+                  {x && (
+                    <a
+                      href={`https://x.com/${x}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-green-700 hover:text-green-600 font-semibold underline underline-offset-2"
+                    >
+                      @{x} on X
+                    </a>
+                  )}
+                  {fb && (
+                    <a
+                      href={`https://facebook.com/${fb}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-green-700 hover:text-green-600 font-semibold underline underline-offset-2"
+                    >
+                      {fb} on Facebook
+                    </a>
+                  )}
+                </div>
+              )}
+            </section>
+          );
+        })()}
+
         {/* Order CTA */}
         <div className="rounded-2xl bg-gradient-to-r from-green-800 to-emerald-800 text-white px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
