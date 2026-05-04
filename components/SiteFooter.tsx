@@ -77,7 +77,7 @@ export function SiteFooter() {
               <div className="text-white font-bold text-base leading-tight">{STORE.name}</div>
               <div className="text-green-400/70 text-xs mt-0.5">{STORE.tagline}</div>
               <div className="text-emerald-300/70 text-[10px] mt-1 font-semibold uppercase tracking-[0.14em]">
-                Founded 2014 · The Valley&apos;s best cannabis staff
+                12+ yrs · Wenatchee&apos;s most-known team
               </div>
             </div>
           </div>

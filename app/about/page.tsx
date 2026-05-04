@@ -80,7 +80,7 @@ export default function AboutPage() {
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Story</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">About Green Life Cannabis</h1>
           <p className="text-green-300/70 mt-2 text-sm sm:text-base">
-            The Valley&apos;s best cannabis staff · since 2014
+            12+ yrs · Wenatchee&apos;s most-known team
           </p>
         </div>
       </div>

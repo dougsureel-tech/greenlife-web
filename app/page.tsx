@@ -108,7 +108,7 @@ const CATEGORIES = [
 const STATS = [
   { val: "Open Daily", label: "8 AM · later Fri & Sat" },
   { val: "Free Parking", label: "Right out front" },
-  { val: "Best Staff in WA", label: "12+ yrs · Center Rd" },
+  { val: "Best Staff in WA", label: "12+ yrs · Wenatchee's most-known team" },
   { val: "Cash Only", label: "ATM on-site" },
 ];
 
