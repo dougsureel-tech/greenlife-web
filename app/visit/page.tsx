@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
+import { fetchClosureStatus } from "@/lib/closure-status";
+import { ClosureBanner } from "@/components/ClosureBanner";
 
 // ISR: only dynamic data is "is the store open NOW" + which day-row to
 // highlight. 5-minute revalidate keeps that fresh enough that customers
@@ -79,11 +81,15 @@ const NEARBY = [
   { name: "US-97 north to Lake Chelan", direction: "Direct on-ramp" },
 ];
 
-export default function VisitPage() {
+export default async function VisitPage() {
   const open = isOpenNow();
   const statusLabel = nextOpenLabel();
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
   const todayHours = STORE.hours.find((h) => h.day === today);
+  // Customers landing here pre-drive should know if we've flagged today
+  // closed via /admin/hours-override even when our static configured hours
+  // would normally say "open". 5-min ISR on the page bounds fetch frequency.
+  const closure = await fetchClosureStatus();
 
   return (
     <>
@@ -92,6 +98,12 @@ export default function VisitPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+
+      {closure.isClosed && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
+          <ClosureBanner closure={closure} />
+        </div>
+      )}
 
       {/* Hero */}
       <section className="relative bg-green-950 text-white overflow-hidden">
