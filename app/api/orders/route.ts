@@ -141,6 +141,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ orderId });
   } catch (err) {
     console.error("Order placement failed:", err);
-    return NextResponse.json({ error: "Failed to place order" }, { status: 500 });
+    return NextResponse.json({ error: "Couldn't place your order. Try again." }, { status: 500 });
   }
 }
