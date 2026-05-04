@@ -25,7 +25,7 @@ const FACTS: { label: string; value: string }[] = [
   { label: "Hours", value: "8 AM daily; later Fri & Sat — see /visit for current schedule" },
   { label: "WSLCB License", value: STORE.wslcbLicense },
   { label: "Founded", value: FOUNDED_YEAR },
-  { label: "Owner", value: "Doug Waun" },
+  { label: "Owner", value: "Verve Mgmt LLC · privately held" },
   { label: "Region", value: "Wenatchee Valley + greater Chelan / Douglas County" },
 ];
 
@@ -123,7 +123,7 @@ export default function PressPage() {
             &ldquo;We didn&apos;t open a dispensary to sell weed. We opened it to give Wenatchee a place where
             you can ask any question and get a real answer — same as you&apos;d get at a craft brewery or a
             good bookshop.&rdquo;
-            <footer className="mt-2 not-italic text-xs text-stone-500">— Doug Waun, owner</footer>
+            <footer className="mt-2 not-italic text-xs text-stone-500">— the owner</footer>
           </blockquote>
           <p className="text-xs text-stone-500">
             Need a custom quote, owner interview, or background-only call? Email {PRESS_EMAIL} and we&apos;ll
