@@ -165,6 +165,38 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
 
 export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   const sql = getClient();
+  // Curated mode (migration 0154 / Doug 2026-05-04): if Kat has flipped
+  // ON `is_featured` for any active product at /admin/marketing/featured,
+  // those win — sorted by featured_priority DESC, name ASC. Falls back to
+  // auto-mode (recent updated_at on brands-with-sales) when zero curated.
+  const curated = await sql`
+    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+      FALSE AS is_new
+    FROM products p
+    WHERE p.is_featured = TRUE
+      AND p.carry_status = 'active'
+      AND p.unit_price IS NOT NULL
+    ORDER BY p.featured_priority DESC NULLS LAST, p.name ASC
+    LIMIT ${limit}
+  `;
+  if (curated.length > 0) {
+    return curated.map((r) => ({
+      id: r.id as string,
+      name: r.name as string,
+      brand: (r.brand ?? null) as string | null,
+      category: (r.category ?? null) as string | null,
+      strainType: (r.strain_type ?? null) as string | null,
+      thcPct: (r.thc_pct ?? null) as number | null,
+      cbdPct: (r.cbd_pct ?? null) as number | null,
+      unitPrice: (r.unit_price ?? null) as number | null,
+      imageUrl: (r.image_url ?? null) as string | null,
+      effects: (r.effects ?? null) as string | null,
+      terpenes: (r.terpenes ?? null) as string | null,
+      isNew: false,
+    }));
+  }
   // Bug fix 2026-05-04 (round 3): extends brands_with_recent_sales gate
   // so the home-page featured carousel doesn't surface leaked-brand SKUs.
   const rows = await sql`
