@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { STORE } from "@/lib/store";
 import { getActiveDeals } from "@/lib/db";
+import { fetchClosureStatus } from "@/lib/closure-status";
 import { JaneMenu } from "./JaneMenu";
 import { MenuFallback } from "./MenuFallback";
 import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
+import { ClosureBanner } from "@/components/ClosureBanner";
 
 // /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
 // greenlifecannabis.com — the Boost JS module hydrates the menu inline.
@@ -49,12 +51,16 @@ export default async function MenuPage() {
   // through to MenuFallback so a customer hitting a stuck embed still sees
   // the savings hook. Falls back to no-deal silently if the table is empty
   // or the query errors.
-  const deals = await getActiveDeals().catch(() => []);
+  const [deals, closure] = await Promise.all([
+    getActiveDeals().catch(() => []),
+    fetchClosureStatus(),
+  ]);
   const featuredDeal = deals[0] ?? null;
 
   return (
     <div className="bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
+        <ClosureBanner closure={closure} />
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">Live Menu</h1>
         <p className="text-sm text-stone-600">
           Real-time inventory from {STORE.name}. Pickup orders open daily 8 AM–
