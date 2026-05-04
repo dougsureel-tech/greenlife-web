@@ -73,7 +73,7 @@ const CATEGORIES = [
     label: "Edibles",
     desc: "Gummies, chocolates & more",
     href: "/menu",
-    color: "from-orange-500 to-rose-700",
+    color: "from-pink-400 to-rose-600",
   },
   {
     icon: "💨",
@@ -83,25 +83,25 @@ const CATEGORIES = [
     color: "from-sky-500 to-blue-800",
   },
   {
-    icon: "🧴",
+    icon: "💎",
     label: "Concentrates",
-    desc: "Wax, live resin & shatter",
+    desc: "Wax, live resin & rosin",
     href: "/menu",
-    color: "from-purple-500 to-violet-800",
+    color: "from-amber-400 to-orange-600",
   },
   {
     icon: "🫙",
     label: "Pre-Rolls",
     desc: "Singles & multi-packs",
     href: "/menu",
-    color: "from-amber-500 to-orange-700",
+    color: "from-orange-500 to-red-700",
   },
   {
-    icon: "💧",
+    icon: "🧪",
     label: "Tinctures",
-    desc: "Oils & capsules",
+    desc: "Measured drops & capsules",
     href: "/menu",
-    color: "from-teal-500 to-green-700",
+    color: "from-indigo-500 to-violet-700",
   },
 ];
 
