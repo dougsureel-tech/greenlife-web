@@ -196,8 +196,9 @@ export default async function HomePage() {
                 </span>
               </div>
 
-              {/* Live drop ticker — cycles through newest products */}
-              {featured.length > 0 && (
+              {/* TEMPORARILY REMOVED 2026-05-04 per Doug — these surface products that read as
+                  a preview of the in-dev /order tree menu. Restore when /order ships to prod. */}
+              {false && featured.length > 0 && (
                 <DropTicker
                   drops={featured
                     .slice(0, 5)
@@ -1164,7 +1165,10 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Featured products ──────────────────────────────────────────────── */}
-      {featured.length > 0 && (
+      {/* TEMPORARILY REMOVED 2026-05-04 per Doug — surfaces products that read as
+          a preview of the in-dev /order tree menu. Restore (drop the `false &&`)
+          when /order ships to prod. */}
+      {false && featured.length > 0 && (
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-8 gap-4">
