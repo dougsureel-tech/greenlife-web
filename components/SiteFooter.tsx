@@ -267,6 +267,24 @@ export function SiteFooter() {
         </p>
       </div>
 
+      {/* Sister-shop cross-link — separate WA cannabis retailer over in
+          Seattle. Mutual link helps both domains' authority + serves the
+          actual customer who travels between the two regions. Footer
+          placement keeps it as a "good neighbor" mention rather than
+          competing with our own primary CTAs. */}
+      <div className="border-t border-green-900/60 py-3 px-4 sm:px-6 text-center">
+        <p className="text-xs text-green-400/70">
+          Visiting Seattle? Our friends at{" "}
+          <a
+            href="https://www.seattlecannabis.co"
+            className="font-semibold text-green-300 underline-offset-4 hover:underline hover:text-green-200 transition-colors"
+          >
+            Seattle Cannabis Co.
+          </a>{" "}
+          — Rainier Valley, family-run since 2010.
+        </p>
+      </div>
+
       {/* Bottom bar */}
       <div className="border-t border-green-900/60 py-5 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-green-500/70">
