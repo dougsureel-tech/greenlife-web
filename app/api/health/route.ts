@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { STORE } from "@/lib/store";
+import { isEmailConfigured } from "@/lib/email";
 
 // Health check for external uptime monitors + the auto-rollback path
 // (PLAN_RELIABILITY.md). Returns 200 + diagnostics when everything is up,
@@ -124,6 +125,10 @@ export async function GET() {
     ts: new Date().toISOString(),
     elapsedMs,
     checks: { db, content },
+    // Boolean only — never expose the API key. `true` means RESEND_API_KEY
+    // is set on this deployment; `false` means email helper falls back to
+    // the no-op skip path (logs a single line, never throws).
+    emailConfigured: isEmailConfigured(),
   };
 
   return NextResponse.json(body, {
