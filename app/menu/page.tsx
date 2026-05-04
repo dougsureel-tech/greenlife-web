@@ -47,14 +47,45 @@ export const metadata: Metadata = {
 const IHEARTJANE_STORE_ID = 5294;
 const IHEARTJANE_EMBED_CONFIG_ID = 234;
 
+// Server-side prewarm — touches iHeartJane's edge cache for this store's
+// Dutchie-backed `menu_products` query BEFORE the page response reaches
+// the customer. Reason: Boost runs `afterInteractive`, which means the
+// browser doesn't query the same URL until after Next hydration completes.
+// If Dutchie's API hadn't been hit recently for this store, the cold-start
+// can take 8-15s — long enough that `MenuFallback`'s 6s watchdog flips
+// the amber "menu is taking a moment to load" panel even though Boost is
+// just-about to succeed. Doug 2026-05-04 confirmed this matches the
+// "menu error coming up first pass" customer report. See MENU_LOG.md +
+// MenuFallback.tsx FALLBACK_AFTER_MS for the visible threshold this
+// dodges.
+//
+// Best-effort + non-blocking: 1.5s AbortSignal timeout caps the impact on
+// /menu TTFB if Jane/Dutchie is unreachable. Failure is silently swallowed
+// — page render proceeds normally and the existing MenuFallback handles
+// the customer-visible side. We run it inside Promise.all alongside the
+// awaited DB fetches so the prewarm RTT overlaps with our own queries
+// instead of stacking serially.
+async function prewarmDutchieMenu(): Promise<void> {
+  try {
+    await fetch(
+      `https://api.iheartjane.com/api/v1/stores/${IHEARTJANE_STORE_ID}/menu_products?per_page=1`,
+      { signal: AbortSignal.timeout(1500), cache: "no-store" },
+    );
+  } catch {
+    // expected: timeout, Jane down, network blip — page render proceeds
+  }
+}
+
 export default async function MenuPage() {
   // Pull the currently-running active deal nearest its end-date — passed
   // through to MenuFallback so a customer hitting a stuck embed still sees
   // the savings hook. Falls back to no-deal silently if the table is empty
-  // or the query errors.
+  // or the query errors. Third element prewarms Jane's cache; result
+  // unused (helper returns void).
   const [deals, closure] = await Promise.all([
     getActiveDeals().catch(() => []),
     fetchClosureStatus(),
+    prewarmDutchieMenu(),
   ]);
   const featuredDeal = deals[0] ?? null;
 
