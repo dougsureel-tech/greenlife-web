@@ -4,7 +4,7 @@ import { withAttr } from "@/lib/attribution";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
-import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
+import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { DropTicker } from "@/components/DropTicker";
@@ -115,9 +115,10 @@ const STATS = [
 ];
 
 export default async function HomePage() {
-  const [brands, featured, deals, closure] = await Promise.all([
+  const [brands, featured, justIn, deals, closure] = await Promise.all([
     getActiveBrands().catch(() => []),
     getFeaturedProducts(8).catch(() => []),
+    getJustInProducts(12).catch(() => []),
     getActiveDeals().catch(() => []),
     fetchClosureStatus(),
   ]);
@@ -1179,6 +1180,108 @@ export default async function HomePage() {
           />
         </div>
       </section>
+
+      {/* ─── 🆕 Just In This Week ──────────────────────────────────────────── */}
+      {/* Auto-derived from inventory_snapshots first_seen ≤ 7d. Distinct from
+          the curated /admin/marketing/featured surface (that's "hot picks");
+          this is "what's new". CTAs link to /menu (the iHeartJane Boost embed
+          in prod) — different from the in-dev /order tree menu, so safe. */}
+      {justIn.length > 0 && (
+        <section className="py-12 sm:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex items-end justify-between mb-8 gap-4">
+              <div>
+                <p className="text-green-700 text-xs font-bold uppercase tracking-widest mb-1">
+                  🆕 New this week
+                </p>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+                  Just In
+                </h2>
+                <p className="text-stone-600 mt-1 text-sm">
+                  Fresh arrivals — first stocked in the last 7 days.
+                </p>
+              </div>
+              <Link
+                href="/menu"
+                className="shrink-0 text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
+              >
+                Full menu →
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {justIn.map((p) => (
+                <Link
+                  key={p.id}
+                  href="/menu"
+                  className="group bg-white rounded-2xl border border-stone-100 overflow-hidden hover:border-green-300 hover:shadow-lg transition-all relative"
+                >
+                  <span className="absolute top-2 right-2 z-10 text-[10px] font-bold uppercase tracking-wider bg-green-700 text-white px-2 py-0.5 rounded-full shadow">
+                    🆕 New
+                  </span>
+                  <div className="aspect-square bg-stone-100 overflow-hidden relative">
+                    {p.imageUrl ? (
+                      <Image
+                        src={p.imageUrl}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-stone-100 to-stone-200">
+                        🌱
+                      </div>
+                    )}
+                    {p.strainType && (
+                      <span
+                        className={`absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full font-semibold ${
+                          p.strainType === "Sativa"
+                            ? "bg-amber-100 text-amber-700"
+                            : p.strainType === "Indica"
+                              ? "bg-purple-100 text-purple-700"
+                              : "bg-green-100 text-green-700"
+                        }`}
+                      >
+                        {p.strainType}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-3 space-y-1">
+                    {p.brand && (
+                      <div className="text-xs text-stone-600 font-medium uppercase tracking-wide truncate">
+                        {p.brand}
+                      </div>
+                    )}
+                    <div className="font-semibold text-stone-900 text-sm leading-tight line-clamp-2">
+                      {p.name}
+                    </div>
+                    <div className="flex items-center justify-between pt-1">
+                      <span className="font-bold text-green-800">
+                        {p.unitPrice != null && p.unitPrice > 0 ? (
+                          `$${p.unitPrice.toFixed(2)}`
+                        ) : (
+                          <span className="text-stone-600 font-medium">In store</span>
+                        )}
+                      </span>
+                      {p.thcPct != null && (
+                        <span className="text-xs text-stone-600">THC {p.thcPct.toFixed(1)}%</span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <Link
+                href="/menu"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-green-800 hover:bg-green-700 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+              >
+                Browse Full Menu →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── Featured products ──────────────────────────────────────────────── */}
       {/* TEMPORARILY REMOVED 2026-05-04 per Doug — surfaces products that read as

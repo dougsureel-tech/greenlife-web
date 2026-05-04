@@ -322,6 +322,69 @@ export type ActiveDeal = {
 // today's Pacific-time DOW (0=Sun..6=Sat). DOW filter runs server-side so
 // the WA-day-of-week is consistent regardless of the visitor's clock.
 //
+// "Just In" — products first stocked within the last 7 days, currently
+// in stock, with images. Doug's original phrasing was "featured new
+// products"; the curated /admin/marketing/featured surface answers
+// "featured", and this answers "new". Distinct from getFeaturedProducts:
+//   curated: admin-picked, override
+//   just-in: auto-derived from inventory_snapshots first-seen
+// Same brands_with_recent_sales gate as getMenuProducts so we don't
+// surface leaked-brand SKUs.
+export async function getJustInProducts(limit = 12): Promise<MenuProduct[]> {
+  const sql = getClient();
+  const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
+      FROM inventory_snapshots
+      WHERE location_id = 'default'
+      ORDER BY product_id, captured_at DESC
+    ),
+    first_seen AS (
+      SELECT product_id, MIN(captured_at) AS first_at
+      FROM inventory_snapshots
+      WHERE quantity_on_hand > 0
+      GROUP BY product_id
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
+    )
+    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+      TRUE AS is_new
+    FROM products p
+    INNER JOIN first_seen fs ON fs.product_id = p.id
+    INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+    WHERE p.carry_status = 'active'
+      AND p.unit_price IS NOT NULL
+      AND p.unit_price > 0
+      AND p.image_url IS NOT NULL
+      AND li.qty > 0
+      AND fs.first_at >= NOW() - INTERVAL '7 days'
+    ORDER BY fs.first_at DESC, p.name ASC
+    LIMIT ${limit}
+  `;
+  return rows.map((r) => ({
+    id: r.id as string,
+    name: r.name as string,
+    brand: (r.brand ?? null) as string | null,
+    category: (r.category ?? null) as string | null,
+    strainType: (r.strain_type ?? null) as string | null,
+    thcPct: (r.thc_pct ?? null) as number | null,
+    cbdPct: (r.cbd_pct ?? null) as number | null,
+    unitPrice: (r.unit_price ?? null) as number | null,
+    imageUrl: (r.image_url ?? null) as string | null,
+    effects: (r.effects ?? null) as string | null,
+    terpenes: (r.terpenes ?? null) as string | null,
+    isNew: true,
+  }));
+}
+
 // Order: today's day-specific deals FIRST (so the daily-deal mailer headline
 // always wins above always-on / loyalty-stacker / senior-10 / etc.), then
 // always-on, sorted within each tier by end_date ascending then name. LIMIT
