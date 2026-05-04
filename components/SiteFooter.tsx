@@ -183,7 +183,6 @@ export function SiteFooter() {
               { href: "/order", label: "Order for Pickup" },
               { href: "/heroes", label: "Heroes Discount" },
               { href: "/find-your-strain", label: "Find your strain" },
-              { href: "/brands", label: "Our Brands" },
               { href: "/visit", label: "Visit Us" },
               { href: "/community", label: "Our Community" },
               { href: "/blog", label: "Guides" },

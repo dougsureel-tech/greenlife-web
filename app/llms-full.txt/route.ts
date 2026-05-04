@@ -76,7 +76,7 @@ Curated Washington-state cannabis across every category:
 - **Topicals** — balms, lotions, transdermal patches.
 - **CBD-dominant** — full CBD line across every category.
 
-Brands are hand-picked Washington-state producers; the curated catalog is at ${website}/brands.
+Brands are hand-picked Washington-state producers — the active catalog is in the live menu at ${website}/menu.
 
 ## About — Who we are
 

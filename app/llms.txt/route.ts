@@ -64,7 +64,6 @@ function render(): string {
 - [Our Story](${website}/our-story): Same-building-since-2014 narrative + alumni team.
 - [Heroes program](${website}/heroes): 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers — every visit, with valid ID.
 - [Find Your Strain](${website}/find-your-strain): Quiz that maps how-you-want-to-feel to a real strain we carry.
-- [Brands](${website}/brands): Curated Washington-state producers we stock.
 - [Blog / Learn](${website}/blog): Education-first cannabis content (terpenes, dosing, methods, WA law).
 - [FAQ](${website}/faq): Hours, ID, payment, parking, first-time visit, Heroes, loyalty.
 - [Contact](${website}/contact): Phone, email, social.

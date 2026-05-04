@@ -220,8 +220,7 @@ export default async function BrandPage({ params }: Props) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
-        { "@type": "ListItem", position: 2, name: "Brands", item: `${STORE.website}/brands` },
-        { "@type": "ListItem", position: 3, name: brand.name, item: brandUrl },
+        { "@type": "ListItem", position: 2, name: brand.name, item: brandUrl },
       ],
     },
   };
@@ -276,13 +275,6 @@ export default async function BrandPage({ params }: Props) {
             </div>
           )}
           <div>
-            <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-1.5">
-              <Link href="/brands" className="hover:text-green-300 transition-colors">
-                All Brands
-              </Link>
-              <span className="mx-1.5 opacity-50">/</span>
-              {brand.name}
-            </p>
             <h1 className="text-3xl font-extrabold tracking-tight">{brand.name}</h1>
             <p className="text-green-300/70 text-sm mt-1 flex flex-wrap items-center gap-3">
               <span>
@@ -483,15 +475,6 @@ export default async function BrandPage({ params }: Props) {
           })
         )}
 
-        {/* Back link */}
-        <div className="pt-4 border-t border-stone-100">
-          <Link
-            href="/brands"
-            className="text-sm text-stone-500 hover:text-green-700 font-semibold transition-colors"
-          >
-            ← All Brands
-          </Link>
-        </div>
       </div>
     </>
   );

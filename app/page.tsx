@@ -1430,12 +1430,6 @@ export default async function HomePage() {
                 Washington&apos;s finest producers, on our shelves
               </p>
             </div>
-            <Link
-              href="/brands"
-              className="shrink-0 text-sm font-semibold text-green-700 hover:text-green-600 transition-colors"
-            >
-              All {brands.length} brands →
-            </Link>
           </div>
           {featuredBrands.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -1464,30 +1458,8 @@ export default async function HomePage() {
                   </div>
                 </Link>
               ))}
-              {brands.length > featuredBrands.length && (
-                <Link
-                  href="/brands"
-                  className="group flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-stone-300 hover:border-green-400 bg-stone-50 hover:bg-green-50 transition-all"
-                >
-                  <span className="text-3xl font-extrabold text-stone-500 group-hover:text-green-700 transition-colors">
-                    +{brands.length - featuredBrands.length}
-                  </span>
-                  <span className="text-xs text-stone-600 font-medium group-hover:text-green-700 transition-colors px-2 text-center">
-                    See all brands →
-                  </span>
-                </Link>
-              )}
             </div>
-          ) : (
-            <Link
-              href="/brands"
-              className="block rounded-2xl border-2 border-dashed border-stone-200 hover:border-green-300 hover:bg-green-50 transition-all py-14 text-center group"
-            >
-              <p className="text-stone-600 group-hover:text-green-600 transition-colors font-semibold">
-                See all brands we carry →
-              </p>
-            </Link>
-          )}
+          ) : null}
         </section>
       )}
 
