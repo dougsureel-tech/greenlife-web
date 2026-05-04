@@ -34,6 +34,13 @@ import "server-only";
 const API_KEY = process.env.RESEND_API_KEY;
 const DEFAULT_FROM =
   process.env.RESEND_FROM ?? "Green Life Cannabis <hi@greenlifecannabis.com>";
+// Reply-To override. When set, customer replies to outbound mail land
+// here instead of the From address. Pattern: From = `info@…` (brand-
+// facing), Reply-To = `buyer@…` (actively monitored mailbox). Without
+// the override, replies default to From — which means replies bounce
+// silently when the From address isn't actively monitored. See
+// memory `project_info_email_unmonitored.md` for the load-bearing case.
+const DEFAULT_REPLY_TO = process.env.RESEND_REPLY_TO ?? null;
 
 export type SendEmailArgs = {
   to: string;
@@ -80,7 +87,9 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
       subject: args.subject,
       html: args.html,
       text: args.text,
-      replyTo: args.replyTo,
+      // Per-call replyTo wins when supplied; otherwise fall through to
+      // the env-var default; otherwise undefined (Resend defaults to From).
+      replyTo: args.replyTo ?? DEFAULT_REPLY_TO ?? undefined,
     });
     // Resend's response shape varies between SDK versions; try common
     // id paths defensively (matches the inventoryapp helper).
