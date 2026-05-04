@@ -405,19 +405,26 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
 
 export async function getActiveBrands(): Promise<VendorBrand[]> {
   const sql = getClient();
-  // Bug fix 2026-05-04: pre-fix this only filtered carry_status + price > 0,
-  // so brands appeared on /brands and per-brand pages even when we hadn't
-  // had any of their products in stock for months. Now joins through to
-  // the latest inventory snapshot per product and only counts SKUs with
-  // current qty > 0 — mirrors the canonical `getMenuProducts` pattern
-  // above. If a brand drops to zero in-stock SKUs, it falls off /brands
-  // entirely (matches customer expectation that listed brands are actually
-  // shoppable today).
+  // Bug fix 2026-05-04 (round 2): v3.187 added qty>0 guard, but Doug
+  // showed a screenshot of "ABS Buds" (Wenatchee-era brand) rendering
+  // on Seattle. Root cause was leaked inventory_snapshots from a seed
+  // migration. Adding `brands_with_recent_sales` CTE — each Neon DB
+  // only has THAT store's sales, so a sale_line_item row = customer
+  // paid for it at this register (per CLAUDE.md). Brand only renders
+  // if it has ≥1 sale in last 365d. Mirrored on seattle-cannabis-web.
+  // Tradeoff: brand-new vendor before first sale is hidden — acceptable.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT
       v.id,
@@ -438,6 +445,7 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
           AND COALESCE(li.qty, 0) > 0
       )::int AS active_skus
     FROM vendors v
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
     LEFT JOIN products p ON p.vendor_id = v.id
     LEFT JOIN latest_inv li ON li.product_id = p.id
     GROUP BY v.id
@@ -467,16 +475,22 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
 
 export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> {
   const sql = getClient();
-  // Bug fix 2026-05-04: same `latest_inv` join as getActiveBrands so the
-  // active_skus count shown in the hero ("X products in stock") matches
-  // what the page actually renders. Without this, the hero might claim
-  // "12 products" but the grid below renders 4 — the other 8 had zero
-  // inventory.
+  // Bug fix 2026-05-04 (round 2): adds same brands_with_recent_sales
+  // gate as getActiveBrands. Direct /brands/abs-buds visit returns null →
+  // page 404s instead of rendering an empty-products page or worse, a
+  // hand-authored brand override component for a brand we don't carry.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT
       v.id,
@@ -497,6 +511,7 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
           AND COALESCE(li.qty, 0) > 0
       )::int AS active_skus
     FROM vendors v
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
     LEFT JOIN products p ON p.vendor_id = v.id
     LEFT JOIN latest_inv li ON li.product_id = p.id
     GROUP BY v.id
