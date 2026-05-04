@@ -80,6 +80,13 @@ const COLORS = {
   divider: "#e7e5e4",
 } as const;
 
+// Wenatchee static facts — kept in-file so the footer renders without
+// pulling more from STORE than the args already give us. License is the
+// WSLCB retailer license issued to Verve Mgmt LLC (dba Green Life Cannabis).
+const PHONE_DISPLAY = "(509) 663-9980";
+const PHONE_TEL = "+15096639980";
+const WSLCB_LICENSE = "WSLCB License 414755";
+
 function buildHtml(args: OrderConfirmationArgs): string {
   const {
     firstName,
@@ -103,13 +110,16 @@ function buildHtml(args: OrderConfirmationArgs): string {
     .map((it) => {
       const name = safe(it.productName);
       const qty = Number.isInteger(it.quantity) ? it.quantity : 1;
+      const unit = fmtUsd(it.unitPrice);
       const line = fmtUsd(it.unitPrice * qty);
       return `<tr>
-        <td style="padding:10px 0;border-bottom:1px solid ${COLORS.divider};font-size:14px;color:${COLORS.textBody};">
+        <td style="padding:10px 0;border-bottom:1px solid ${COLORS.divider};font-size:14px;color:${COLORS.textBody};line-height:1.5;">
+          <span style="font-variant-numeric:tabular-nums;color:${COLORS.textMuted};">${qty} ×</span>
           ${name}
-          <span style="color:${COLORS.textFaint};font-size:13px;"> · ${qty}</span>
+          <br/>
+          <span style="font-size:12px;color:${COLORS.textFaint};font-variant-numeric:tabular-nums;">@ ${unit} each</span>
         </td>
-        <td style="padding:10px 0;border-bottom:1px solid ${COLORS.divider};font-size:14px;color:${COLORS.textBody};text-align:right;font-variant-numeric:tabular-nums;">
+        <td style="padding:10px 0;border-bottom:1px solid ${COLORS.divider};font-size:14px;color:${COLORS.textBody};text-align:right;font-variant-numeric:tabular-nums;vertical-align:top;">
           ${line}
         </td>
       </tr>`;
@@ -131,14 +141,15 @@ function buildHtml(args: OrderConfirmationArgs): string {
         <p style="margin:0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:${COLORS.headerText};font-weight:700;">
           ${safeStoreName}
         </p>
-        <p style="margin:6px 0 0;font-size:20px;font-weight:700;color:#ffffff;line-height:1.3;">
-          We got your order
+        <p style="margin:6px 0 0;font-size:22px;font-weight:700;color:#ffffff;line-height:1.3;">
+          We got your order, ${greetingName}.
         </p>
       </td></tr>
 
       <tr><td style="padding:28px 28px 8px;">
         <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:${COLORS.textBody};">
-          Hey ${greetingName} — thanks for ordering with us. Your pickup is locked in.
+          Thanks for ordering with us. Your pickup is locked in — we'll have
+          it ready and waiting at the counter.
         </p>
 
         <div style="background:${COLORS.accentBg};border-radius:10px;padding:16px 18px;margin:8px 0 20px;">
@@ -154,24 +165,53 @@ function buildHtml(args: OrderConfirmationArgs): string {
           Order #${safeOrderId}
         </p>
 
-        <table width="100%" cellpadding="0" cellspacing="0" style="margin:6px 0 16px;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;">
           ${itemRows}
           <tr>
-            <td style="padding:14px 0 0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${COLORS.textMuted};">
+            <td style="padding:14px 0 4px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${COLORS.textMuted};">
               Subtotal
             </td>
-            <td style="padding:14px 0 0;font-size:16px;font-weight:700;color:${COLORS.textBody};text-align:right;font-variant-numeric:tabular-nums;">
+            <td style="padding:14px 0 4px;font-size:15px;color:${COLORS.textBody};text-align:right;font-variant-numeric:tabular-nums;">
               ${fmtUsd(subtotal)}
             </td>
           </tr>
           <tr>
-            <td colspan="2" style="padding:4px 0 0;font-size:12px;color:${COLORS.textFaint};">
-              Tax calculated at pickup. Cash only.
+            <td style="padding:2px 0;font-size:13px;color:${COLORS.textMuted};">
+              Excise tax (37%) + state sales tax
+            </td>
+            <td style="padding:2px 0;font-size:13px;color:${COLORS.textFaint};text-align:right;font-variant-numeric:tabular-nums;">
+              calculated at register
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0 0;border-top:1px solid ${COLORS.divider};font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${COLORS.textBody};">
+              Estimated total
+            </td>
+            <td style="padding:8px 0 0;border-top:1px solid ${COLORS.divider};font-size:17px;font-weight:700;color:${COLORS.textBody};text-align:right;font-variant-numeric:tabular-nums;">
+              ${fmtUsd(subtotal * 1.37)}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:6px 0 0;font-size:12px;color:${COLORS.textFaint};line-height:1.5;">
+              Estimate includes WA's 37% cannabis excise tax. Final tax + total
+              shown on your receipt at pickup. Cash only.
             </td>
           </tr>
         </table>
 
-        <div style="border-top:1px solid ${COLORS.divider};padding-top:18px;margin-top:8px;">
+        <div style="background:${COLORS.accentBg};border-radius:10px;padding:14px 18px;margin:22px 0 8px;">
+          <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${COLORS.accentText};">
+            What to bring
+          </p>
+          <p style="margin:0 0 4px;font-size:14px;color:${COLORS.textBody};line-height:1.55;">
+            <strong>Cash</strong> — ATM in the lobby if you need it.
+          </p>
+          <p style="margin:0;font-size:14px;color:${COLORS.textBody};line-height:1.55;">
+            <strong>Government-issued ID, 21+</strong> — every visit, every time.
+          </p>
+        </div>
+
+        <div style="border-top:1px solid ${COLORS.divider};padding-top:18px;margin-top:20px;">
           <p style="margin:0 0 4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${COLORS.textMuted};">
             Pickup at
           </p>
@@ -183,16 +223,36 @@ function buildHtml(args: OrderConfirmationArgs): string {
           </a>
         </div>
 
-        <p style="margin:24px 0 0;font-size:13px;color:${COLORS.textFaint};line-height:1.6;">
-          Bring a valid government-issued ID (21+) and cash. We'll text you when your order is ready.
+        <p style="margin:22px 0 0;font-size:13px;color:${COLORS.textMuted};line-height:1.6;">
+          <strong>Running late or can't make it?</strong> We hold your order
+          for 2 hours past the pickup window, then it goes back on the
+          floor. Give us a ring at
+          <a href="tel:${PHONE_TEL}" style="color:${COLORS.accentText};text-decoration:underline;">${PHONE_DISPLAY}</a>
+          if you need a longer hold — usually no problem.
+        </p>
+
+        <p style="margin:18px 0 0;font-size:14px;color:${COLORS.textBody};line-height:1.6;">
+          See you soon, ${greetingName}. We'll text you when it's ready.
         </p>
       </td></tr>
 
-      <tr><td style="padding:18px 28px 22px;border-top:1px solid ${COLORS.divider};background:${COLORS.bgPage};">
-        <p style="margin:0;font-size:11px;color:${COLORS.textFaint};line-height:1.6;">
+      <tr><td style="padding:20px 28px 22px;border-top:1px solid ${COLORS.divider};background:${COLORS.bgPage};">
+        <p style="margin:0 0 4px;font-size:12px;color:${COLORS.textMuted};line-height:1.55;font-weight:600;">
+          ${safeStoreName}
+        </p>
+        <p style="margin:0 0 4px;font-size:12px;color:${COLORS.textMuted};line-height:1.55;">
+          ${safeStoreAddress} ·
+          <a href="${safeMapUrl}" style="color:${COLORS.accentText};text-decoration:underline;">Directions</a>
+        </p>
+        <p style="margin:0 0 10px;font-size:12px;color:${COLORS.textMuted};line-height:1.55;">
+          <a href="tel:${PHONE_TEL}" style="color:${COLORS.accentText};text-decoration:none;">${PHONE_DISPLAY}</a>
+          · ${WSLCB_LICENSE}
+        </p>
+        <p style="margin:0;font-size:11px;color:${COLORS.textFaint};line-height:1.55;">
           You're getting this because you placed an order at ${safeStoreName}.
-          This is a transactional confirmation — to stop future marketing emails,
-          reply STOP or email <a href="mailto:info@greenlifecannabis.com" style="color:${COLORS.accentText};text-decoration:underline;">info@greenlifecannabis.com</a>.
+          This is a transactional confirmation — to stop future marketing
+          emails, reply STOP or email
+          <a href="mailto:info@greenlifecannabis.com" style="color:${COLORS.accentText};text-decoration:underline;">info@greenlifecannabis.com</a>.
         </p>
       </td></tr>
     </table>
@@ -208,13 +268,14 @@ function buildText(args: OrderConfirmationArgs): string {
   const lines = items
     .map((it) => {
       const qty = Number.isInteger(it.quantity) ? it.quantity : 1;
-      return `  - ${it.productName} x${qty}  ${fmtUsd(it.unitPrice * qty)}`;
+      return `  - ${qty} × ${it.productName} @ ${fmtUsd(it.unitPrice)} = ${fmtUsd(it.unitPrice * qty)}`;
     })
     .join("\n");
+  const estTotal = fmtUsd(subtotal * 1.37);
   return [
     `${storeName} — order received`,
     "",
-    `Hey ${greeting} — thanks for ordering. Your pickup is locked in.`,
+    `We got your order, ${greeting}. Pickup is locked in.`,
     "",
     `Pickup window: ${pickupWindowText}`,
     `Order #${orderId.slice(0, 8)}`,
@@ -222,14 +283,29 @@ function buildText(args: OrderConfirmationArgs): string {
     "Items:",
     lines,
     "",
-    `Subtotal: ${fmtUsd(subtotal)}  (tax calculated at pickup; cash only)`,
+    `Subtotal:        ${fmtUsd(subtotal)}`,
+    `Excise + sales tax: calculated at register`,
+    `Estimated total: ${estTotal}  (includes WA 37% cannabis excise; final on receipt)`,
+    "Cash only.",
+    "",
+    "What to bring:",
+    "  - Cash (ATM in the lobby if you need it).",
+    "  - Government-issued ID, 21+. Every visit, every time.",
     "",
     `Pickup at: ${storeAddress}`,
     `Directions: ${mapUrl}`,
     "",
-    "Bring a valid government-issued ID (21+) and cash. We'll text you when your order is ready.",
+    `Running late or can't make it? We hold your order for 2 hours past the`,
+    `pickup window, then it goes back on the floor. Call ${PHONE_DISPLAY} if`,
+    `you need a longer hold — usually no problem.`,
+    "",
+    `See you soon, ${greeting}. We'll text you when it's ready.`,
     "",
     "—",
+    `${storeName}`,
+    `${storeAddress}`,
+    `${PHONE_DISPLAY} · ${WSLCB_LICENSE}`,
+    "",
     `Transactional confirmation from ${storeName}. To stop future marketing emails, reply STOP or email info@greenlifecannabis.com.`,
   ].join("\n");
 }
