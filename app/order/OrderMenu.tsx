@@ -8,6 +8,7 @@ import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { CURRENT_TEAM, initialOf } from "@/lib/team";
+import { fetchClosureStatus, type ClosureStatus } from "@/lib/closure-status";
 
 // Map a product to a running deal it qualifies for, if any. Deals are
 // category-scoped in our schema (`appliesTo` = "flower", "edibles", "all"
@@ -318,10 +319,26 @@ export function OrderMenu({
   const [pickupTime, setPickupTime] = useState<string>("");
   const [pickupSlots, setPickupSlots] = useState<PickupSlot[]>([]);
   const [orderingStatus, setOrderingStatus] = useState<OrderingStatus | null>(null);
+  // Emergency-closure status from the inventoryapp. Mount-fetch + before-submit
+  // re-check (placeOrder). isClosed=true blocks the Place Order button +
+  // surfaces an amber banner. Any network/timeout failure degrades to
+  // isClosed=false (lib helper guarantees this) so a flaky closure endpoint
+  // never silently blocks customers during normal hours.
+  const [closure, setClosure] = useState<ClosureStatus>({ isClosed: false, reason: null });
 
   useEffect(() => {
     saveCart(cart);
   }, [cart]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchClosureStatus().then((c) => {
+      if (!cancelled) setClosure(c);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // One-shot URL hygiene: strip `?cart=open` after the lazy initializer above
   // has consumed it, so a page refresh / back-nav doesn't keep re-arming the
@@ -513,6 +530,19 @@ export function OrderMenu({
       setOrderError("Pick a pickup time before placing your order.");
       return;
     }
+    // Re-check closure right before submit so a closure activated mid-browse
+    // is caught before we hit /api/orders. If the endpoint is unreachable we
+    // proceed normally (helper degrades to isClosed=false).
+    const liveClosure = await fetchClosureStatus();
+    if (liveClosure.isClosed) {
+      setClosure(liveClosure);
+      setOrderError(
+        liveClosure.reason
+          ? `We're temporarily closed today — ${liveClosure.reason}. Online orders paused until we reopen.`
+          : "We're temporarily closed today. Online orders paused until we reopen.",
+      );
+      return;
+    }
     setPlacing(true);
     try {
       const items = cart.map((i) => ({
@@ -592,6 +622,40 @@ export function OrderMenu({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-32">
+      {/* Emergency-closure banner. Renders only when a manager has flagged
+          today closed via inventoryapp /admin/hours-override. Pairs with the
+          `disabled` flag below on Place Order + the before-submit re-check
+          inside placeOrder(). Reason text is customer-facing — see the
+          public-closure-status endpoint for sourcing. */}
+      {closure.isClosed && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="mb-4 rounded-2xl border-2 border-amber-300 bg-amber-50 px-4 py-4"
+        >
+          <div className="flex items-start gap-3">
+            <svg
+              className="w-5 h-5 shrink-0 text-amber-700 mt-0.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.008v.008H12v-.008z" />
+            </svg>
+            <div className="min-w-0">
+              <p className="font-bold text-amber-900">
+                We&apos;re temporarily closed today
+                {closure.reason ? <> — {closure.reason}</> : null}
+              </p>
+              <p className="text-sm text-amber-800/80 mt-0.5">
+                Online orders are paused until we reopen. Try us back soon.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Sign-in nudge — saves customers from finding out at the place-order
           step that they need an account. Cart already persists in localStorage,
           so signing in mid-browse doesn't lose the in-progress cart. */}
@@ -1461,14 +1525,16 @@ export function OrderMenu({
                         /order?cart=open which re-opens the drawer on return. */}
                     <button
                       onClick={placeOrder}
-                      disabled={placing || orderingStatus?.state !== "open" || !pickupTime}
+                      disabled={placing || orderingStatus?.state !== "open" || !pickupTime || closure.isClosed}
                       className="px-6 py-3 min-h-[44px] rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
                     >
                       {placing
                         ? "Placing…"
-                        : signedIn
-                          ? "Place Order →"
-                          : "Sign in to place order →"}
+                        : closure.isClosed
+                          ? "Closed today"
+                          : signedIn
+                            ? "Place Order →"
+                            : "Sign in to place order →"}
                     </button>
                   </div>
                   {!signedIn && (
