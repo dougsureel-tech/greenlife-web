@@ -5,6 +5,8 @@ import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts } from "@/lib/db";
+import { fetchClosureStatus } from "@/lib/closure-status";
+import { ClosureBanner } from "@/components/ClosureBanner";
 import { DropTicker } from "@/components/DropTicker";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
@@ -113,19 +115,33 @@ const STATS = [
 ];
 
 export default async function HomePage() {
-  const [brands, featured, deals] = await Promise.all([
+  const [brands, featured, deals, closure] = await Promise.all([
     getActiveBrands().catch(() => []),
     getFeaturedProducts(8).catch(() => []),
     getActiveDeals().catch(() => []),
+    fetchClosureStatus(),
   ]);
   const featuredBrands = brands.filter((b) => b.logoUrl).slice(0, 10);
-  const open = isOpenNow();
+  // `open` flips false whenever an emergency closure is active so all 3
+  // "Open Now / Closed" indicators on the page (hero pill, status strip,
+  // pre-footer chip) read consistently. The static configured-hours check
+  // alone would still say "open" today even after a manager flipped the
+  // override — customer would drive to a closed store. ClosureBanner above
+  // the hero gives the customer the reason inline.
+  const open = isOpenNow() && !closure.isClosed;
   const statusLabel = nextOpenLabel();
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
   const todayHours = STORE.hours.find((h) => h.day === today);
 
   return (
     <>
+      {closure.isClosed && (
+        <div className="bg-amber-50 border-b-2 border-amber-300">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+            <ClosureBanner closure={closure} />
+          </div>
+        </div>
+      )}
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div
