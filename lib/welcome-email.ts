@@ -94,6 +94,15 @@ const COLORS = {
 const PHONE_DISPLAY = "(509) 663-9980";
 const PHONE_TEL = "+15096639980";
 const WSLCB_LICENSE = "WSLCB License 414755";
+// Customer-facing opt-out address. Pre-fix the body said
+// "reply STOP or email info@greenlifecannabis.com" — but info@ is the
+// archival auto-email address, NOT actively monitored (per inventoryapp
+// memory `project_info_email_unmonitored`). Customers replying to opt
+// out hit a black hole. Fix matches order-confirmation-email v3.330+:
+// prefer `RESEND_REPLY_TO` env (Doug set this to buyer@ inbox v3.325 —
+// that one IS monitored), fall through to STORE.email only if env-var
+// isn't set.
+const OPT_OUT_EMAIL = process.env.RESEND_REPLY_TO ?? STORE.email;
 
 function buildHtml(args: WelcomeEmailArgs): string {
   const { firstName, storeName, storeAddress, mapUrl, hoursText, deepLinkOrder } = args;
@@ -211,7 +220,7 @@ function buildHtml(args: WelcomeEmailArgs): string {
           You're getting this because you just created an account at
           ${safeStoreName}. To stop future marketing emails, reply STOP or
           email
-          <a href="mailto:info@greenlifecannabis.com" style="color:${COLORS.accentText};text-decoration:underline;">info@greenlifecannabis.com</a>.
+          <a href="mailto:${OPT_OUT_EMAIL}" style="color:${COLORS.accentText};text-decoration:underline;">${OPT_OUT_EMAIL}</a>.
         </p>
       </td></tr>
     </table>
@@ -259,7 +268,7 @@ function buildText(args: WelcomeEmailArgs): string {
     `Directions: ${mapUrl}`,
     `${PHONE_DISPLAY} · ${WSLCB_LICENSE}`,
     "",
-    `Welcome email from ${storeName}. To stop future marketing emails, reply STOP or email info@greenlifecannabis.com.`,
+    `Welcome email from ${storeName}. To stop future marketing emails, reply STOP or email ${OPT_OUT_EMAIL}.`,
   ].join("\n");
 }
 
