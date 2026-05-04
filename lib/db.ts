@@ -150,14 +150,27 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
 
 export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   const sql = getClient();
+  // Bug fix 2026-05-04: pre-fix featured-products carousel could surface
+  // products we hadn't had in stock for months (only filtered carry_status
+  // + price + image_url). Now requires current qty > 0 via latest_inv CTE,
+  // matching getMenuProducts. Fallback below also gets the same gate.
   const rows = await sql`
-    SELECT id, name, brand, category, strain_type,
-      thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
-      unit_price::float AS unit_price, image_url, effects, terpenes,
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    )
+    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
       FALSE AS is_new
-    FROM products
-    WHERE carry_status = 'active' AND unit_price IS NOT NULL AND image_url IS NOT NULL
-    ORDER BY updated_at DESC
+    FROM products p
+    INNER JOIN latest_inv li ON li.product_id = p.id
+    WHERE p.carry_status = 'active'
+      AND p.unit_price IS NOT NULL
+      AND p.image_url IS NOT NULL
+      AND li.qty > 0
+    ORDER BY p.updated_at DESC
     LIMIT ${limit}
   `;
   const mapped = rows.map((r) => ({
@@ -176,13 +189,21 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   }));
   if (mapped.length < 4) {
     const fallback = await sql`
-      SELECT id, name, brand, category, strain_type,
-        thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
-        unit_price::float AS unit_price, image_url, effects, terpenes,
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
         FALSE AS is_new
-      FROM products
-      WHERE carry_status = 'active' AND unit_price IS NOT NULL
-      ORDER BY updated_at DESC
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND li.qty > 0
+      ORDER BY p.updated_at DESC
       LIMIT ${limit}
     `;
     return fallback.map((r) => ({
@@ -302,16 +323,26 @@ export async function getCategoryPreviewProducts(
   // Strip trailing "s" so "Edibles" → "Edible" matches both forms.
   const stem = category.replace(/s$/i, "");
   const pat = `%${stem}%`;
+  // Bug fix 2026-05-04: pre-fix category preview cards on the home page could
+  // surface products with no current inventory. Now joins latest_inv +
+  // qty > 0 same as getMenuProducts.
   const rows = await sql`
-    SELECT id, name, brand, category, strain_type,
-      thc_pct::float AS thc_pct, cbd_pct::float AS cbd_pct,
-      unit_price::float AS unit_price, image_url, effects, terpenes
-    FROM products
-    WHERE carry_status = 'active'
-      AND unit_price IS NOT NULL AND unit_price > 0
-      AND image_url IS NOT NULL
-      AND category ILIKE ${pat}
-    ORDER BY updated_at DESC
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    )
+    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes
+    FROM products p
+    INNER JOIN latest_inv li ON li.product_id = p.id
+    WHERE p.carry_status = 'active'
+      AND p.unit_price IS NOT NULL AND p.unit_price > 0
+      AND p.image_url IS NOT NULL
+      AND p.category ILIKE ${pat}
+      AND li.qty > 0
+    ORDER BY p.updated_at DESC
     LIMIT ${limit}
   `;
   return rows.map((r) => ({
@@ -374,7 +405,20 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
 
 export async function getActiveBrands(): Promise<VendorBrand[]> {
   const sql = getClient();
+  // Bug fix 2026-05-04: pre-fix this only filtered carry_status + price > 0,
+  // so brands appeared on /brands and per-brand pages even when we hadn't
+  // had any of their products in stock for months. Now joins through to
+  // the latest inventory snapshot per product and only counts SKUs with
+  // current qty > 0 — mirrors the canonical `getMenuProducts` pattern
+  // above. If a brand drops to zero in-stock SKUs, it falls off /brands
+  // entirely (matches customer expectation that listed brands are actually
+  // shoppable today).
   const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    )
     SELECT
       v.id,
       v.name,
@@ -391,14 +435,17 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
         WHERE p.carry_status = 'active'
           AND p.unit_price IS NOT NULL
           AND p.unit_price > 0
+          AND COALESCE(li.qty, 0) > 0
       )::int AS active_skus
     FROM vendors v
     LEFT JOIN products p ON p.vendor_id = v.id
+    LEFT JOIN latest_inv li ON li.product_id = p.id
     GROUP BY v.id
     HAVING COUNT(p.id) FILTER (
       WHERE p.carry_status = 'active'
         AND p.unit_price IS NOT NULL
         AND p.unit_price > 0
+        AND COALESCE(li.qty, 0) > 0
     ) > 0
     ORDER BY v.name
   `;
@@ -420,7 +467,17 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
 
 export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> {
   const sql = getClient();
+  // Bug fix 2026-05-04: same `latest_inv` join as getActiveBrands so the
+  // active_skus count shown in the hero ("X products in stock") matches
+  // what the page actually renders. Without this, the hero might claim
+  // "12 products" but the grid below renders 4 — the other 8 had zero
+  // inventory.
   const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    )
     SELECT
       v.id,
       v.name,
@@ -437,9 +494,11 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
         WHERE p.carry_status = 'active'
           AND p.unit_price IS NOT NULL
           AND p.unit_price > 0
+          AND COALESCE(li.qty, 0) > 0
       )::int AS active_skus
     FROM vendors v
     LEFT JOIN products p ON p.vendor_id = v.id
+    LEFT JOIN latest_inv li ON li.product_id = p.id
     GROUP BY v.id
     HAVING LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) = ${slug}
     LIMIT 1
@@ -464,7 +523,18 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
 
 export async function getBrandProducts(vendorId: string) {
   const sql = getClient();
+  // Bug fix 2026-05-04: pre-fix listed every active+priced product for the
+  // vendor regardless of whether we'd had it in stock recently. /brands/[slug]
+  // pages were showing "ghost SKUs" — products marked active but with no
+  // inventory for months. Now INNER JOINs to latest snapshot, qty > 0, same
+  // pattern as getMenuProducts above. Customer-trust + WSLCB
+  // advertising-accuracy fix.
   const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    )
     SELECT
       p.id,
       p.name,
@@ -478,10 +548,12 @@ export async function getBrandProducts(vendorId: string) {
       p.effects,
       p.terpenes
     FROM products p
+    INNER JOIN latest_inv li ON li.product_id = p.id
     WHERE p.vendor_id = ${vendorId}
       AND p.carry_status = 'active'
       AND p.unit_price IS NOT NULL
       AND p.unit_price > 0
+      AND li.qty > 0
     ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
   `;
   return rows as Array<{
