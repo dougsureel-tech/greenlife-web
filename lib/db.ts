@@ -44,22 +44,30 @@ export type MenuProduct = {
 
 export async function getMenuProducts(): Promise<MenuProduct[]> {
   const sql = getClient();
-  // Bug fix 2026-05-04 (Doug: "saying we have things that we dont"):
-  //   1. Was `carry_status != 'discontinued'` — INCLUDED phasing_out
-  //      products (we're selling through but not reordering); they showed
-  //      on menu even when shelf was empty. Now strict `= 'active'`,
-  //      matching the rest of this file (lines 127/152/278/359/367/405/450).
-  //   2. NO current-stock filter at all pre-fix — only the historical
-  //      `is_new` first-seen subquery had `qty > 0`. A product with stock
-  //      Mon that sold out Wed still showed Thu. Now INNER JOIN to a
-  //      `latest_inv` CTE forces current qty > 0, mirroring the
-  //      inventoryapp `lib/menu-server.ts` canonical pattern.
-  //   Customer-trust + WSLCB advertising-accuracy issue.
+  // Bug fix 2026-05-04 (round 3): extends the brand-level sales-history
+  // gate from getActiveBrands/getBrandBySlug (v3.205) down to product
+  // surfaces. A leaked Wenatchee-era brand (e.g. ABS Buds) had stale
+  // qty>0 inventory_snapshots in Seattle's Neon, so its products were
+  // showing on /shop and /order even though the brand-page index had
+  // already been gated. Same fix here: products without their vendor
+  // appearing in `brands_with_recent_sales` (≥1 sale_line_items at THIS
+  // store in last 365d) are excluded. Each Neon DB only has THAT store's
+  // sales (per CLAUDE.md), so this is the cleanest "actually carried
+  // here" signal. Tradeoff: a brand-new vendor before first sale would
+  // be hidden — acceptable, onboarding-side friction is far less
+  // customer-visible than ghost-product listings.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT
       p.id, p.name, p.brand, p.category, p.strain_type,
@@ -68,6 +76,7 @@ export async function getMenuProducts(): Promise<MenuProduct[]> {
       COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
     LEFT JOIN (
       SELECT product_id, MIN(captured_at) AS first_seen
       FROM inventory_snapshots
@@ -103,17 +112,22 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
   if (ids.length === 0) return [];
   const sql = getClient();
   // Sister bug-fix to getMenuProducts above. /stash hydrates this from
-  // localStorage IDs; pre-fix it returned stash items even when out of
-  // stock or in `phasing_out` carry-status. Customer thinks they can
-  // order from /stash + cart silently has nothing addable. Now strict
-  // active + qty > 0 — items that vanish from /stash post-fix means
-  // we genuinely don't have them, which is exactly what /stash should
-  // reflect.
+  // localStorage IDs; same `brands_with_recent_sales` gate so a stash
+  // item from a leaked Wenatchee-era brand silently disappears from
+  // the customer's stash on Seattle (correct — they couldn't have
+  // legitimately stashed it; localStorage was carrying a ghost id).
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT
       p.id, p.name, p.brand, p.category, p.strain_type,
@@ -122,6 +136,7 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
       COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
     LEFT JOIN (
       SELECT product_id, MIN(captured_at) AS first_seen
       FROM inventory_snapshots
@@ -150,15 +165,20 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
 
 export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   const sql = getClient();
-  // Bug fix 2026-05-04: pre-fix featured-products carousel could surface
-  // products we hadn't had in stock for months (only filtered carry_status
-  // + price + image_url). Now requires current qty > 0 via latest_inv CTE,
-  // matching getMenuProducts. Fallback below also gets the same gate.
+  // Bug fix 2026-05-04 (round 3): extends brands_with_recent_sales gate
+  // so the home-page featured carousel doesn't surface leaked-brand SKUs.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT p.id, p.name, p.brand, p.category, p.strain_type,
       p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
@@ -166,6 +186,7 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
       FALSE AS is_new
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
     WHERE p.carry_status = 'active'
       AND p.unit_price IS NOT NULL
       AND p.image_url IS NOT NULL
@@ -193,6 +214,13 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
         SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
         FROM inventory_snapshots
         ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
       )
       SELECT p.id, p.name, p.brand, p.category, p.strain_type,
         p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
@@ -200,6 +228,7 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
         FALSE AS is_new
       FROM products p
       INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
       WHERE p.carry_status = 'active'
         AND p.unit_price IS NOT NULL
         AND li.qty > 0
@@ -323,20 +352,27 @@ export async function getCategoryPreviewProducts(
   // Strip trailing "s" so "Edibles" → "Edible" matches both forms.
   const stem = category.replace(/s$/i, "");
   const pat = `%${stem}%`;
-  // Bug fix 2026-05-04: pre-fix category preview cards on the home page could
-  // surface products with no current inventory. Now joins latest_inv +
-  // qty > 0 same as getMenuProducts.
+  // Bug fix 2026-05-04 (round 3): extends brands_with_recent_sales gate
+  // so home-page category previews don't surface leaked-brand SKUs.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT p.id, p.name, p.brand, p.category, p.strain_type,
       p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
       p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
     WHERE p.carry_status = 'active'
       AND p.unit_price IS NOT NULL AND p.unit_price > 0
       AND p.image_url IS NOT NULL
@@ -538,17 +574,23 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
 
 export async function getBrandProducts(vendorId: string) {
   const sql = getClient();
-  // Bug fix 2026-05-04: pre-fix listed every active+priced product for the
-  // vendor regardless of whether we'd had it in stock recently. /brands/[slug]
-  // pages were showing "ghost SKUs" — products marked active but with no
-  // inventory for months. Now INNER JOINs to latest snapshot, qty > 0, same
-  // pattern as getMenuProducts above. Customer-trust + WSLCB
-  // advertising-accuracy fix.
+  // Bug fix 2026-05-04 (round 3): the brand-level gate at getBrandBySlug
+  // already prevents this function from being called for leaked brands
+  // (the page 404s before reaching here). But add the same product-level
+  // sales guard for defense-in-depth — if a future surface calls this
+  // bypassing the brand filter, we still don't render leaked SKUs.
   const rows = await sql`
     WITH latest_inv AS (
       SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
       FROM inventory_snapshots
       ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
     )
     SELECT
       p.id,
@@ -564,6 +606,7 @@ export async function getBrandProducts(vendorId: string) {
       p.terpenes
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
     WHERE p.vendor_id = ${vendorId}
       AND p.carry_status = 'active'
       AND p.unit_price IS NOT NULL
