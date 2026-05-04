@@ -74,7 +74,16 @@ export default async function middleware(req: NextRequest) {
   //     "This page couldn't load" screen because auth can't complete.
   // 308 is permanent + preserves request method (matters for any future
   // POSTs like contact forms).
-  if (!isCanonicalOrLocal(url.hostname)) {
+  //
+  // /api/health is exempt: external monitors and the post-deploy LKG
+  // verification curl (per OPERATING_PRINCIPLES) need to hit any host
+  // alias and get a clean 200 with `sha` + `version`. A 308 response
+  // body has no JSON to parse, and following the redirect would mask
+  // host-specific liveness signal (e.g. confirming the apex Vercel
+  // alias is responding from the right deployment, or smoke-testing
+  // a per-deploy URL during a rolling release). Mirrors the same
+  // exemption on seattle-cannabis-web/proxy.ts.
+  if (!isCanonicalOrLocal(url.hostname) && url.pathname !== "/api/health") {
     const target = new URL(req.url);
     target.hostname = CANONICAL_HOST;
     target.protocol = "https:";
