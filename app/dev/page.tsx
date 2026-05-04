@@ -39,7 +39,9 @@ const LINKS: DevLink[] = [
     status: "live",
   },
   { href: "/account", label: "Account", blurb: "Signed-in customer dashboard.", status: "live" },
-  { href: "/brands", label: "Brand pages", blurb: "Per-vendor product listings.", status: "live" },
+  // /brands index was deleted 2026-05-04 (308 → /menu via proxy.ts middleware
+  // per v3.290). Per-brand boutique pages live on; sample one for preview.
+  { href: "/brands/nwcs", label: "Brand page (sample)", blurb: "Per-vendor /brands/[slug] template — boutique override or generic fallback. Index deleted; only individual brand pages exist now.", status: "live" },
   { href: "/deals", label: "Deals", blurb: "Active deals page.", status: "live" },
 ];
 
