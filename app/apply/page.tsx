@@ -61,6 +61,10 @@ export default function ApplyPage() {
   const [position, setPosition] = useState<Position>("budtender");
   const [storePref, setStorePref] = useState<StorePref>("wenatchee");
   const [coverLetter, setCoverLetter] = useState("");
+  // Personality prompts — written-only signal (no photo) per WA RCW 49.60 +
+  // EEOC pre-offer guidance. Both optional; server clips at 500/1000 chars.
+  const [productPitch, setProductPitch] = useState("");
+  const [recoveryStory, setRecoveryStory] = useState("");
   const [availability, setAvailability] = useState("");
   const [resume, setResume] = useState<File | null>(null);
   const [resumeError, setResumeError] = useState<string | null>(null);
@@ -175,6 +179,8 @@ export default function ApplyPage() {
     fd.append("positionInterestedIn", position);
     fd.append("storePreference", storePref);
     fd.append("coverLetter", coverLetter.trim());
+    fd.append("productRecommendationPitch", productPitch.trim());
+    fd.append("customerRecoveryStory", recoveryStory.trim());
     fd.append("availability", availability.trim());
     fd.append("age21Confirmed", String(age21Confirmed));
     if (hasWaWorkerPermit !== null) {
@@ -395,6 +401,35 @@ export default function ApplyPage() {
             {/* ── Resume ── */}
             <Field label="Resume (PDF)" required hint="Up to 10MB. PDF only.">
               <ResumeDrop file={resume} onFile={handleResumeChange} error={resumeError} />
+            </Field>
+
+            {/* ── Personality prompts (written-only — no photo per WA RCW 49.60 / EEOC) ── */}
+            <Field label="What's a strain or product you'd love to recommend to a customer, and why?">
+              <textarea
+                value={productPitch}
+                onChange={(e) => setProductPitch(e.target.value.slice(0, 500))}
+                rows={4}
+                maxLength={500}
+                className={`${inputClass} resize-y`}
+                placeholder="A few sentences is plenty."
+              />
+              <span className="block text-[11px] text-stone-400 mt-1">
+                Optional — share as much or as little as you&apos;d like. {productPitch.length} / 500
+              </span>
+            </Field>
+
+            <Field label="Tell us about a time you turned a frustrated customer into a happy one.">
+              <textarea
+                value={recoveryStory}
+                onChange={(e) => setRecoveryStory(e.target.value.slice(0, 1000))}
+                rows={5}
+                maxLength={1000}
+                className={`${inputClass} resize-y`}
+                placeholder="What happened, what you did, how it landed."
+              />
+              <span className="block text-[11px] text-stone-400 mt-1">
+                Optional — share as much or as little as you&apos;d like. {recoveryStory.length} / 1000
+              </span>
             </Field>
 
             {/* ── References ── */}
