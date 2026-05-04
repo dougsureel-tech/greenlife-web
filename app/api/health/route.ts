@@ -28,15 +28,21 @@ export const dynamic = "force-dynamic";
 
 type CheckResult = { ok: true; host: string | null } | { ok: false; error: string; host: string | null };
 
-// Extract just the hostname from DATABASE_URL — no creds, no path. Used
-// for cross-wiring diagnostics (see Inventory App's v6.327 store-identity
-// guardrail). If two stores ever share a Neon host, this field exposes
-// the collision without leaking credentials.
+// Extract REDACTED hostname from DATABASE_URL — no creds, no path,
+// no unique Neon endpoint ID. Used for cross-wiring diagnostics (see
+// Inventory App's v6.327 store-identity guardrail). The leading
+// endpoint label (`ep-divine-voice-ant9tbpu`) is replaced with `***`
+// so anonymous health-check callers can't pin the deployment to a
+// unique Neon project. Region + cluster + provider suffix preserved
+// so ops still get the "is this Neon? right region?" signal.
 function dbHost(): string | null {
   const url = process.env.DATABASE_URL ?? process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL ?? "";
   if (!url) return null;
   try {
-    return new URL(url).host;
+    const host = new URL(url).host;
+    const firstDot = host.indexOf(".");
+    if (firstDot < 0) return host;
+    return `***${host.slice(firstDot)}`;
   } catch {
     return null;
   }
