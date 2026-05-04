@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.311 — vendor-ads `daily_impression_cap` render-side enforcement (companion to inventoryapp v49.705 + migration 0158). `getActiveVendorAds()` now (1) excludes any ad whose TODAY's count has already hit cap via WHERE branch — `last_impression_day IS DISTINCT FROM today OR impressions_today < cap`, (2) atomic post-SELECT UPDATE increments `impressions_today` (or resets to 1 if day rolled over). Day boundary computed in `America/Los_Angeles` so rollover lines up with Kat's calendar. Lazy-reset semantics — no daily cron required. UPDATE failure swallowed (render quality > telemetry). Mirror on seattle-cannabis-web v4.211.
 // 3.305 — `/api/health` redacts Neon endpoint ID from `db.host`. Pre-fix exposed `ep-divine-voice-ant9tbpu-pooler.c-6.us-east-1.aws.neon.tech` to anonymous health-check callers — the leading label uniquely identifies the Neon project. Now redacts to `***.c-6.us-east-1.aws.neon.tech` — keeps cluster/region/provider for ops "is this Neon? right region?" debug, drops project-uniqueness leak. Same fix on seattle-cannabis-web v4.200 + inventoryapp v49.045. Auth'd ops reading raw env var still see full hostname.
 // 3.300 — Stale `/brands` index reference cleaned up in dev landing page (`app/dev/page.tsx`). Row was pointing at the deleted index (308's to /menu via v3.290 middleware) with a misleading "Per-vendor product listings" blurb. Repurposed to point at a sample boutique override page (`/brands/nwcs`) so Doug + devs previewing the dev menu can see the live `/brands/[slug]` template. Greenlife-only — Seattle has no `/dev` route. Single-file ship, single-line + comment block.
 // 3.295 — VendorAdSlot wired to 4 remaining placement slots: homepage_top (above hero), homepage_under_brands (below brands carousel), menu_sidebar (above iHeartJane Boost embed on /menu), brand_page_top (top of /brands/[slug] generic template). All slots silent until admin curates active ads at inventoryapp /admin/marketing/vendor-ads. Now 5 of 5 schema-enum slots are mounted. Mirror on seattle-cannabis-web v4.195.
@@ -31,7 +32,7 @@
 // 3.161 — /brands/[slug] generic-template renders vendor-authored brand bio + Instagram/X/Facebook handles when filled in via /vmi/profile (inventoryapp). Section sits above the order CTA, only renders when at least one field is non-null. Handles are sanitized to /^[A-Za-z0-9._-]+$/ before being concatenated into URLs (prevents query-param injection or path traversal). Per-brand override components (NWCS, Mfused, Avitas etc.) intentionally NOT touched — those are graduated, hand-authored layouts.
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.305";
+export const BUILD_VERSION = "3.311";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??
