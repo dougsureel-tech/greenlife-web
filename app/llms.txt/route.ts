@@ -110,7 +110,7 @@ A: Indica = traditionally relaxing, body-heavy. Sativa = traditionally energizin
 **Q: Does ${name} carry CBD-only products?**
 A: Yes — full CBD-dominant tincture, edible, and topical lineup is on the menu. Filter by category on ${website}/menu.
 
-**Q: Is ${name} locally owned?**
+**Q: Who runs ${name}?**
 A: ${name} is operated by Verve Mgmt LLC. Founded 2014 in the same building on Sunnyslope it operates from today — known for the Valley's best cannabis staff.
 
 ## Social
