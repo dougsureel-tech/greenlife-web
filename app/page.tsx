@@ -7,6 +7,7 @@ import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
+import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { DropTicker } from "@/components/DropTicker";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
@@ -1178,6 +1179,16 @@ export default async function HomePage() {
               }),
             }}
           />
+        </div>
+      </section>
+
+      {/* ─── Vendor / house ad slot — under hero ────────────────────────────── */}
+      {/* Renders ads admin-curated at inventoryapp /admin/marketing/vendor-ads
+          for placement_slot='homepage_under_hero'. Server-side fetch; renders
+          nothing when zero active ads (graceful no-op). */}
+      <section className="bg-stone-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <VendorAdSlot slot="homepage_under_hero" />
         </div>
       </section>
 

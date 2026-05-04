@@ -322,6 +322,59 @@ export type ActiveDeal = {
 // today's Pacific-time DOW (0=Sun..6=Sat). DOW filter runs server-side so
 // the WA-day-of-week is consistent regardless of the visitor's clock.
 //
+// Vendor display ads — stage 2 public-site read for the admin curation
+// surface in inventoryapp /admin/marketing/vendor-ads (migration 0156).
+// Returns active ads for a given placement slot, scoped to this store
+// (wenatchee here, seattle on the sister repo). Multiple ads in same slot
+// → priority DESC, fallback to most-recent. Date window respected.
+
+export type VendorAd = {
+  id: string;
+  kind: "vendor" | "house";
+  vendorName: string | null;
+  imageUrl: string | null;
+  headline: string | null;
+  body: string | null;
+  ctaLabel: string | null;
+  ctaUrl: string | null;
+  placementSlot: string;
+  priority: number | null;
+};
+
+export async function getActiveVendorAds(slot: string, limit = 3): Promise<VendorAd[]> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT
+      va.id, va.kind,
+      v.name AS vendor_name,
+      COALESCE(ass.file_url, va.image_url) AS image_url,
+      va.headline, va.body, va.cta_label, va.cta_url,
+      va.placement_slot, va.priority
+    FROM vendor_ads va
+    LEFT JOIN vendors v ON v.id = va.vendor_id
+    LEFT JOIN vendor_assets ass ON ass.id = va.source_asset_id
+    WHERE va.status = 'active'
+      AND va.placement_slot = ${slot}
+      AND (va.start_date IS NULL OR va.start_date <= CURRENT_DATE)
+      AND (va.end_date IS NULL OR va.end_date >= CURRENT_DATE)
+      AND (va.store_scope IS NULL OR va.store_scope = 'wenatchee')
+    ORDER BY va.priority DESC NULLS LAST, va.created_at DESC
+    LIMIT ${limit}
+  `;
+  return rows.map((r) => ({
+    id: r.id as string,
+    kind: ((r.kind ?? "vendor") as "vendor" | "house"),
+    vendorName: (r.vendor_name ?? null) as string | null,
+    imageUrl: (r.image_url ?? null) as string | null,
+    headline: (r.headline ?? null) as string | null,
+    body: (r.body ?? null) as string | null,
+    ctaLabel: (r.cta_label ?? null) as string | null,
+    ctaUrl: (r.cta_url ?? null) as string | null,
+    placementSlot: r.placement_slot as string,
+    priority: (r.priority ?? null) as number | null,
+  }));
+}
+
 // "Just In" — products first stocked within the last 7 days, currently
 // in stock, with images. Doug's original phrasing was "featured new
 // products"; the curated /admin/marketing/featured surface answers

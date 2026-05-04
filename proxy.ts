@@ -28,6 +28,17 @@ const isProtectedRoute = createRouteMatcher(["/account(.*)"]);
 // canonical hostname ever changes.
 const CANONICAL_HOST = process.env.NEXT_PUBLIC_CANONICAL_HOST || "www.greenlifecannabis.com";
 
+// Belt-and-suspenders: even if NEXT_PUBLIC_CANONICAL_HOST is ever
+// misconfigured at deploy time (e.g. a stale value from when the deployment
+// alias was canonical, or accidentally set to a per-deployment Vercel URL),
+// the production customer-facing host MUST always be treated as canonical
+// so we never accidentally redirect customers AWAY from
+// www.greenlifecannabis.com. Same defense class as the cross-store warp
+// canonical-host hardening on the inventoryapp side (v45.205) — env-var
+// misconfig should not be able to break the SSO/CORS pinning. Mirrors
+// seattle-cannabis-web/proxy.ts.
+const ALWAYS_CANONICAL_HOSTS = new Set(["www.greenlifecannabis.com"]);
+
 // Hosts we never want to redirect from: localhost (dev), the canonical
 // host itself, and *.localhost subdomains. Apex (greenlifecannabis.com)
 // is intentionally NOT in this list — it 308-redirects to www so we have
@@ -36,6 +47,7 @@ function isCanonicalOrLocal(host: string): boolean {
   if (!host) return true;
   const h = host.toLowerCase().split(":")[0];
   if (h === CANONICAL_HOST.toLowerCase()) return true;
+  if (ALWAYS_CANONICAL_HOSTS.has(h)) return true;
   if (h === "localhost" || h.endsWith(".localhost")) return true;
   if (h === "127.0.0.1" || h === "[::1]") return true;
   return false;
@@ -62,6 +74,21 @@ const clerk = clerkMiddleware(async (auth, req) => {
 
 export default async function middleware(req: NextRequest) {
   const url = new URL(req.url);
+
+  // /brands index → /menu (308 permanent). The brands index was deleted
+  // 2026-05-04 (Doug + Kat call) but the page-level `permanentRedirect()`
+  // approach in `app/brands/page.tsx` didn't produce a true HTTP 308 even
+  // with `dynamic = "force-dynamic"` (Next 16 quirk — response body came
+  // back as homepage HTML at HTTP 200). Middleware-level intercept runs
+  // BEFORE rendering and emits a real 308. Per-brand pages /brands/[slug]
+  // are kept (graduated boutique pages) — only the bare /brands index
+  // redirects. `next-router-prefetch` + RSC variants of the request also
+  // get the 308; Vercel's internal probe paths don't matter (this matcher
+  // only catches the literal `/brands` path).
+  if (url.pathname === "/brands" || url.pathname === "/brands/") {
+    const target = new URL("/menu", req.url);
+    return NextResponse.redirect(target.toString(), 308);
+  }
 
   // Site-wide canonical-host enforcement. Anything that isn't the canonical
   // host or a local-dev host gets 308-redirected to CANONICAL_HOST. This
