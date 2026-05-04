@@ -2,10 +2,10 @@ import { ImageResponse } from "next/og";
 import { STORE } from "@/lib/store";
 
 // /heroes OG card — when shared on social or in support-network group
-// chats ("hey, this place gives 20% to nurses"), the preview should
+// chats ("hey, this place gives 30% to nurses"), the preview should
 // signal the program clearly with the cohort + percent + ID line.
 
-export const alt = `Heroes Discount · 20% off · ${STORE.name}`;
+export const alt = `Heroes Discount · 30% off · ${STORE.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -106,7 +106,7 @@ export default function HeroesOG() {
             local heroes.
           </span>
           <span style={{ fontSize: 26, color: "#bbf7d0", marginTop: 22, fontWeight: 600, lineHeight: 1.3 }}>
-            20% off · Active military · Veterans · First responders · Healthcare · Teachers
+            30% off · Active military · Veterans · First responders · Healthcare · Teachers
           </span>
         </div>
 

@@ -188,7 +188,7 @@ export default function OurStoryPage() {
               href={withAttr("/heroes", "header", "our-story-bottom")}
               className="font-semibold text-emerald-700 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded px-1"
             >
-              Heroes 20% off →
+              Heroes 30% off →
             </Link>
             <span className="text-stone-300" aria-hidden="true">·</span>
             <span className="text-stone-500">WSLCB License #{STORE.wslcbLicense}</span>

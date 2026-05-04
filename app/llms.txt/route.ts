@@ -62,7 +62,7 @@ function render(): string {
 - [Visit](${website}/visit): Hours, address, parking, neighborhood, ADA accessibility.
 - [About](${website}/about): Founding story, what makes the staff the Valley's best.
 - [Our Story](${website}/our-story): Same-building-since-2014 narrative + alumni team.
-- [Heroes program](${website}/heroes): 20% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers — every visit, with valid ID.
+- [Heroes program](${website}/heroes): 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers — every visit, with valid ID.
 - [Find Your Strain](${website}/find-your-strain): Quiz that maps how-you-want-to-feel to a real strain we carry.
 - [Brands](${website}/brands): Curated Washington-state producers we stock.
 - [Blog / Learn](${website}/blog): Education-first cannabis content (terpenes, dosing, methods, WA law).
@@ -90,7 +90,7 @@ A: 21 or older with a valid government-issued photo ID. WSLCB-regulated retail u
 A: No — ${name} is pickup-only. Order online and pick up at the counter. Last online order is 15 minutes before close so staff can stage the bag.
 
 **Q: Does ${name} offer a military, veteran, first responder, healthcare, or teacher discount?**
-A: Yes — the Heroes program is 20% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show a valid 21+ ID alongside service or work credential at the register. Details at ${website}/heroes.
+A: Yes — the Heroes program is 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show a valid 21+ ID alongside service or work credential at the register. Details at ${website}/heroes.
 
 **Q: How much can I buy in one transaction?**
 A: Washington State law caps a recreational transaction at 1 ounce of usable cannabis, 7 grams of concentrates, and 16 ounces of cannabis-infused solid edibles (or 72 ounces liquid).

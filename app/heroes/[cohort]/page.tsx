@@ -51,11 +51,11 @@ const COHORTS: Record<string, Cohort> = {
     slug: "veterans",
     label: "Veterans",
     metaTitle: `Veteran Cannabis Discount in Wenatchee, WA — ${STORE.name}`,
-    metaDescription: `${STORE.name} thanks Wenatchee-area veterans with 20% off every visit. DD-214, VA card, or VHIC accepted. Any branch, any era.`,
+    metaDescription: `${STORE.name} thanks Wenatchee-area veterans with 30% off every visit. DD-214, VA card, or VHIC accepted. Any branch, any era.`,
     heroEyebrow: "For veterans",
     heroH1: "Thank you for your service.",
     heroLead:
-      "Any branch, any era — once you've served, you're family here. Twenty percent off every visit, no expiration, no fine print. We verify your DD-214, VA card, or VHIC at the counter on your first visit and you're set going forward.",
+      "Any branch, any era — once you've served, you're family here. Thirty percent off every visit, no expiration, no fine print. We verify your DD-214, VA card, or VHIC at the counter on your first visit and you're set going forward.",
     recognitionLine: "We see you, and we appreciate what you carried so the rest of us didn't have to.",
     idRequired: "Bring your 21+ ID plus one of:",
     idExamples: ["DD-214 (any era — original or copy)", "VA Health ID Card (VHIC)", "Veterans ID Card", "Honorable-discharge documentation"],
@@ -74,7 +74,7 @@ const COHORTS: Record<string, Cohort> = {
       },
       {
         q: "Can I combine with daily deals?",
-        a: "We apply whichever discount is bigger — Heroes 20% wins over most daily deals. Loyalty points stack independently.",
+        a: "We apply whichever discount is bigger — Heroes 30% wins over most daily deals. Loyalty points stack independently.",
       },
     ],
     searchKeywords: [
@@ -89,11 +89,11 @@ const COHORTS: Record<string, Cohort> = {
     slug: "military",
     label: "Active Military",
     metaTitle: `Active Military Cannabis Discount Wenatchee — ${STORE.name}`,
-    metaDescription: `${STORE.name} offers active-duty service members 20% off every visit. CAC, military ID, or current orders accepted. National Guard + Reserves welcome.`,
+    metaDescription: `${STORE.name} offers active-duty service members 30% off every visit. CAC, military ID, or current orders accepted. National Guard + Reserves welcome.`,
     heroEyebrow: "For active duty",
     heroH1: "On post or off, we've got you.",
     heroLead:
-      "Active duty, National Guard, Reserves — twenty percent off every visit when you show your CAC, military ID, or current orders. Recognized once at the counter, then it's automatic on every visit going forward.",
+      "Active duty, National Guard, Reserves — thirty percent off every visit when you show your CAC, military ID, or current orders. Recognized once at the counter, then it's automatic on every visit going forward.",
     recognitionLine: "Service is service. We're glad you stopped in.",
     idRequired: "Bring your 21+ ID plus one of:",
     idExamples: ["Common Access Card (CAC)", "Active military ID", "Current orders / TDY paperwork", "National Guard or Reserve ID"],
@@ -108,7 +108,7 @@ const COHORTS: Record<string, Cohort> = {
       },
       {
         q: "Does the discount stack with daily deals?",
-        a: "Heroes is 20%, daily deals usually run 10-15%. We apply whichever is bigger. Loyalty points stack on top of either.",
+        a: "Heroes is 30%, daily deals usually run 10-15%. We apply whichever is bigger. Loyalty points stack on top of either.",
       },
     ],
     searchKeywords: [
@@ -122,11 +122,11 @@ const COHORTS: Record<string, Cohort> = {
     slug: "first-responders",
     label: "First Responders",
     metaTitle: `First Responder Cannabis Discount Wenatchee — ${STORE.name}`,
-    metaDescription: `${STORE.name} thanks Wenatchee-area first responders with 20% off every visit. Police, sheriff, fire, EMS, paramedics — show your badge or department ID.`,
+    metaDescription: `${STORE.name} thanks Wenatchee-area first responders with 30% off every visit. Police, sheriff, fire, EMS, paramedics — show your badge or department ID.`,
     heroEyebrow: "For first responders",
     heroH1: "The shift is hard. We get it.",
     heroLead:
-      "Police, sheriff, corrections, fire, EMS, paramedics — the work doesn't stop, and we want to make off-time a little easier. Twenty percent off every visit, badge or department ID at the counter on your first visit, then it's automatic.",
+      "Police, sheriff, corrections, fire, EMS, paramedics — the work doesn't stop, and we want to make off-time a little easier. Thirty percent off every visit, badge or department ID at the counter on your first visit, then it's automatic.",
     recognitionLine: "What you carry to work matters. We're glad you have a place to set it down.",
     idRequired: "Bring your 21+ ID plus one of:",
     idExamples: [
@@ -160,11 +160,11 @@ const COHORTS: Record<string, Cohort> = {
     slug: "healthcare",
     label: "Healthcare Workers",
     metaTitle: `Healthcare Worker Cannabis Discount Wenatchee — ${STORE.name}`,
-    metaDescription: `${STORE.name} offers nurses, doctors, hospital staff, and clinic workers 20% off every visit. Show your hospital, clinic, or department badge.`,
+    metaDescription: `${STORE.name} offers nurses, doctors, hospital staff, and clinic workers 30% off every visit. Show your hospital, clinic, or department badge.`,
     heroEyebrow: "For healthcare",
     heroH1: "We see what you do.",
     heroLead:
-      "Nurses, doctors, techs, hospital staff, clinic staff — twenty percent off every visit when you show your healthcare badge. Show it once at the counter and we tag your account for every visit going forward.",
+      "Nurses, doctors, techs, hospital staff, clinic staff — thirty percent off every visit when you show your healthcare badge. Show it once at the counter and we tag your account for every visit going forward.",
     recognitionLine: "The care you give matters. After-shift should feel like care, too.",
     idRequired: "Bring your 21+ ID plus one of:",
     idExamples: [
@@ -202,11 +202,11 @@ const COHORTS: Record<string, Cohort> = {
     slug: "teachers",
     label: "K-12 Teachers",
     metaTitle: `Teacher Cannabis Discount Wenatchee, WA — ${STORE.name}`,
-    metaDescription: `${STORE.name} offers Washington-state K-12 teachers 20% off every visit. Show your district ID or pay stub. Public, private, charter — all welcome.`,
+    metaDescription: `${STORE.name} offers Washington-state K-12 teachers 30% off every visit. Show your district ID or pay stub. Public, private, charter — all welcome.`,
     heroEyebrow: "For teachers",
     heroH1: "Thank you for shaping the next generation.",
     heroLead:
-      "Currently teaching at any Washington-state K-12 school — public, private, or charter? Twenty percent off every visit. Bring your district ID or current pay stub on your first visit and we'll tag your account.",
+      "Currently teaching at any Washington-state K-12 school — public, private, or charter? Thirty percent off every visit. Bring your district ID or current pay stub on your first visit and we'll tag your account.",
     recognitionLine: "What you do in the classroom outlasts everything we sell here. We're grateful.",
     idRequired: "Bring your 21+ ID plus one of:",
     idExamples: [
@@ -287,14 +287,14 @@ export default async function HeroesCohortPage({
   };
 
   // LocalBusiness + Offer schema for the cohort discount — gives Google
-  // direct semantic signal of "20% discount available at this location
+  // direct semantic signal of "30% discount available at this location
   // for this audience."
   const offerSchema = {
     "@context": "https://schema.org",
     "@type": "Offer",
     name: `${c.label} Discount — ${STORE.name}`,
     description: c.metaDescription,
-    discount: "20",
+    discount: "30",
     discountCode: c.label,
     eligibleCustomerType: c.label,
     seller: {
@@ -353,7 +353,7 @@ export default async function HeroesCohortPage({
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400 text-green-950 text-sm font-bold">
-              <span className="text-base">★</span> 20% off · every visit
+              <span className="text-base">★</span> 30% off · every visit
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold">
               No expiration · stacks with loyalty

@@ -17,11 +17,11 @@ import { STORE } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Heroes Discount — Service & Industry Recognition",
-  description: `${STORE.name} supports local heroes — active military, veterans, first responders, healthcare workers, and K-12 teachers. 20% off, every visit, with valid ID. Wenatchee, WA.`,
+  description: `${STORE.name} supports local heroes — active military, veterans, first responders, healthcare workers, and K-12 teachers. 30% off, every visit, with valid ID. Wenatchee, WA.`,
   alternates: { canonical: "/heroes" },
   openGraph: {
     title: `Heroes Discount · ${STORE.name}`,
-    description: `20% off for active military, veterans, first responders, healthcare workers, and K-12 teachers. Show valid ID at the register.`,
+    description: `30% off for active military, veterans, first responders, healthcare workers, and K-12 teachers. Show valid ID at the register.`,
     url: `${STORE.website}/heroes`,
   },
 };
@@ -77,7 +77,7 @@ const ELIGIBILITY = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Does the discount stack with daily deals?",
-    a: "No — the discount that's bigger applies. Heroes is 20%, daily deals usually run 10-15%, so Heroes wins. If you're unsure, ask the budtender.",
+    a: "No — the discount that's bigger applies. Heroes is 30%, daily deals usually run 10-15%, so Heroes wins. If you're unsure, ask the budtender.",
   },
   {
     q: "Does it expire?",
@@ -140,13 +140,13 @@ export default function HeroesPage() {
             We support local heroes.
           </h1>
           <p className="text-emerald-100/85 mt-4 text-base sm:text-lg leading-relaxed max-w-2xl">
-            Twenty percent off for active military, veterans, first responders, healthcare workers,
+            Thirty percent off for active military, veterans, first responders, healthcare workers,
             and K-12 teachers — the people who keep the Valley running. Every visit, with valid ID.
             No expiration, no fine print.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400 text-green-950 text-sm font-bold">
-              <span className="text-base">★</span> 20% off · every visit
+              <span className="text-base">★</span> 30% off · every visit
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold">
               Stacks with loyalty points
@@ -207,7 +207,7 @@ export default function HeroesPage() {
               How it works
             </p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-1.5">
-              Walk up. Show ID. Save 20%.
+              Walk up. Show ID. Save 30%.
             </h2>
           </div>
           <ol className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
@@ -225,7 +225,7 @@ export default function HeroesPage() {
               {
                 step: "Step 3",
                 title: "Save automatically",
-                detail: "20% off your subtotal. Stacks with your loyalty points.",
+                detail: "30% off your subtotal. Stacks with your loyalty points.",
               },
             ].map(({ step, title, detail }) => (
               <li

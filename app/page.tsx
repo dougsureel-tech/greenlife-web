@@ -471,7 +471,7 @@ export default async function HomePage() {
                 iconPath: "M5 3v18l7-3 7 3V3H5zm9 9l-2 2-2-2 2-2 2 2z",
               },
               {
-                title: "Supporting Local Heroes · 20%",
+                title: "Supporting Local Heroes · 30%",
                 body: "Active military, veterans, first responders, healthcare, K-12 teachers. The people who keep the Valley running. Show ID at the register.",
                 iconPath:
                   "M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4zm-1 14l-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z",
