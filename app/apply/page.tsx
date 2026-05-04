@@ -21,15 +21,51 @@
 // in-memory rate-limit (3/hr/IP) as a backstop, and Doug can flip the env var
 // on without redeploying the form.
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const API_URL = "https://inventoryapp-ivory.vercel.app/api/applications";
+const POSITIONS_API =
+  "https://inventoryapp-ivory.vercel.app/api/positions/open?store=wenatchee";
 const SOURCE_ORIGIN = "greenlife-web";
 const MAX_RESUME_BYTES = 10 * 1024 * 1024; // 10MB (mirror API)
 
 type Position = "budtender" | "inventory" | "lead" | "other";
 type StorePref = "wenatchee" | "seattle" | "either";
+
+// Shape returned by inventoryapp /api/positions/open. role_match values come
+// from the canonical role taxonomy on the inventoryapp side ('budtender' |
+// 'inventory_manager' | 'lead' | 'manager' | 'general_manager' | 'purchasing'
+// | 'bookkeeper' | 'other'). The form's select uses a slightly narrower set
+// so we map via mapRoleMatchToFormPosition() — anything we can't pre-select
+// cleanly falls back to "other".
+interface OpenPosition {
+  id: string;
+  title: string;
+  role_match?: string | null;
+  store_origin?: string | null;
+  description_md?: string | null;
+  pay_range?: string | null;
+  hours_pattern?: string | null;
+  posted_at?: string | null;
+}
+
+function mapRoleMatchToFormPosition(roleMatch: string | null | undefined): Position {
+  switch (roleMatch) {
+    case "budtender":
+      return "budtender";
+    case "inventory_manager":
+    case "purchasing":
+      return "inventory";
+    case "lead":
+    case "manager":
+    case "general_manager":
+      return "lead";
+    default:
+      return "other";
+  }
+}
 
 interface Reference {
   name: string;
@@ -53,7 +89,41 @@ declare global {
   }
 }
 
+// Default export wraps the client component in a Suspense boundary so that
+// `useSearchParams()` inside ApplyForm doesn't bail out the whole tree to
+// client-render — Next.js 16 enforces this for any route that reads search
+// params on the client. The fallback is a quiet skeleton that matches the
+// final form's hero so there's no layout jump on hydration.
 export default function ApplyPage() {
+  return (
+    <Suspense fallback={<ApplyFormSkeleton />}>
+      <ApplyForm />
+    </Suspense>
+  );
+}
+
+function ApplyFormSkeleton() {
+  return (
+    <main className="min-h-[80vh] bg-stone-50 py-16">
+      <div className="max-w-md mx-auto px-4 text-center">
+        <p className="text-stone-500 text-sm">Loading application form…</p>
+      </div>
+    </main>
+  );
+}
+
+function ApplyForm() {
+  const searchParams = useSearchParams();
+  const positionIdParam = searchParams.get("position");
+
+  // Position deep-link state — when /careers links to /apply?position={id} we
+  // fetch the position from inventoryapp, pre-select the closest role, show
+  // a pill at the top of the form, and pass `positionId` along to the API.
+  // Failure modes (fetch error, position no longer open) all fall back to the
+  // standard form silently — the user can still submit a generic application.
+  const [positionDeepLink, setPositionDeepLink] = useState<OpenPosition | null>(null);
+  const [positionStaleNotice, setPositionStaleNotice] = useState(false);
+
   // Form state
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -114,6 +184,40 @@ export default function ApplyPage() {
     };
     document.head.appendChild(script);
   }, [turnstileSiteKey]);
+
+  // Resolve `?position=` deep-link → fetch the matching position, pre-select
+  // the role select, show a pill. AbortController on cleanup so a fast
+  // unmount/navigate doesn't setState on an unmounted component. All failure
+  // paths are silent — the form remains usable without pre-selection.
+  useEffect(() => {
+    if (!positionIdParam) return;
+    const ctrl = new AbortController();
+    (async () => {
+      try {
+        const res = await fetch(POSITIONS_API, { signal: ctrl.signal });
+        if (!res.ok) return;
+        const json = (await res.json().catch(() => null)) as
+          | { positions?: OpenPosition[] }
+          | null;
+        if (!json || !Array.isArray(json.positions)) return;
+        const match = json.positions.find((p) => p.id === positionIdParam);
+        if (!match) {
+          // Position id present in URL but not in the open-positions list —
+          // either filled or pulled. Show a subtle "no longer open" notice so
+          // the applicant knows why we didn't pre-fill, and let them apply
+          // anyway with the default selection.
+          setPositionStaleNotice(true);
+          return;
+        }
+        setPositionDeepLink(match);
+        setPosition(mapRoleMatchToFormPosition(match.role_match));
+      } catch {
+        // Network drop, CORS, parse error — silently fall back to the default
+        // form. The applicant is unaffected.
+      }
+    })();
+    return () => ctrl.abort();
+  }, [positionIdParam]);
 
   const handleResumeChange = useCallback((file: File | null) => {
     setResumeError(null);
@@ -197,6 +301,13 @@ export default function ApplyPage() {
       .filter((r) => r.name.length > 0);
     fd.append("references", JSON.stringify(cleanedRefs));
     fd.append("sourceOrigin", SOURCE_ORIGIN);
+    // When the applicant arrived from /careers?position={id} and the position
+    // resolved cleanly, pass the id along so the inventoryapp side can link
+    // the application back to the posting. Field is omitted when there's no
+    // deep-link or the position turned out to be no-longer-open. The
+    // inventoryapp /api/applications endpoint may ignore positionId today —
+    // that's fine; this wires the field for a follow-up server change.
+    if (positionDeepLink) fd.append("positionId", positionDeepLink.id);
     if (turnstileToken) fd.append("turnstileToken", turnstileToken);
     fd.append("resume", resume, resume.name);
 
@@ -287,6 +398,48 @@ export default function ApplyPage() {
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-6 sm:p-10">
+          {/* ── Position deep-link pill (when /careers linked here with ?position=) ── */}
+          {positionDeepLink && (
+            <div className="mb-6 rounded-2xl border border-green-200 bg-green-50 p-4 flex items-start gap-3">
+              <span
+                aria-hidden
+                className="mt-0.5 inline-flex w-7 h-7 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-800 text-sm font-bold"
+              >
+                ✓
+              </span>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold uppercase tracking-wider text-green-700">
+                  Applying for
+                </p>
+                <p className="text-sm font-semibold text-stone-900 mt-0.5">
+                  {positionDeepLink.title}
+                  {positionDeepLink.pay_range && (
+                    <span className="text-stone-600 font-normal">
+                      {" "}— {positionDeepLink.pay_range}
+                    </span>
+                  )}
+                </p>
+                <Link
+                  href="/careers"
+                  className="text-xs text-green-700 hover:text-green-800 underline mt-1 inline-block"
+                >
+                  ← Back to all open roles
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* ── Stale-link notice (id was in URL but position is no longer open) ── */}
+          {positionStaleNotice && !positionDeepLink && (
+            <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              That role isn&apos;t open right now — feel free to apply for another. We&apos;ll match you up if a fit
+              opens up.{" "}
+              <Link href="/careers" className="underline font-semibold">
+                See current openings →
+              </Link>
+            </div>
+          )}
+
           <p className="text-stone-600 text-sm leading-relaxed mb-6">
             Tell us a bit about yourself, attach your resume, and share three references. We review every application
             and reach out within 1–2 weeks if there&apos;s a fit.
