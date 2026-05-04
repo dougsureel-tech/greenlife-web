@@ -1092,7 +1092,7 @@ export default async function HomePage() {
                 icon: "💵",
                 step: "3",
                 title: "Pay Cash & Go",
-                body: "Head to the counter, pay cash, and you're out the door. Fast and easy.",
+                body: "Head to the counter, pay cash, and you're out the door. Most orders 10-20 minutes.",
               },
             ].map(({ icon, step, title, body }) => (
               <div key={step} className="flex flex-col items-center text-center gap-3 relative">
