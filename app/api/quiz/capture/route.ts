@@ -171,6 +171,6 @@ export async function POST(req: NextRequest) {
     // log internally with a non-PII trace id so we can correlate.
     const msg = err instanceof Error ? err.message : String(err);
     console.error(`[quiz/capture] insert failed: ${msg}`);
-    return NextResponse.json({ error: "Capture failed" }, { status: 500 });
+    return NextResponse.json({ error: "Couldn't save your email. Try again." }, { status: 500 });
   }
 }
