@@ -566,7 +566,7 @@ export function OrderMenu({
         setPlacing(false);
       } else {
         const body = await res.json().catch(() => null);
-        setOrderError(body?.error ?? "Something went wrong. Please try again.");
+        setOrderError(body?.error ?? "Couldn't place your order. Try again.");
         setPlacing(false);
       }
     } catch {
