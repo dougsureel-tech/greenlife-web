@@ -7,6 +7,7 @@ import { MenuFallback } from "./MenuFallback";
 import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { ClosureBanner } from "@/components/ClosureBanner";
+import { VendorAdSlot } from "@/components/VendorAdSlot";
 
 // /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
 // greenlifecannabis.com — the Boost JS module hydrates the menu inline.
@@ -66,6 +67,9 @@ export default async function MenuPage() {
           Real-time inventory from {STORE.name}. Pickup orders open daily 8 AM–
           {STORE.hours[0]?.close ?? "9 PM"}. Cash only at the counter, 21+ with valid ID.
         </p>
+        {/* Vendor / house ad — sidebar-style banner above the Boost embed.
+            Slot key matches admin curation surface (placement_slot='menu_sidebar'). */}
+        <VendorAdSlot slot="menu_sidebar" />
       </div>
       <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
       {/* Active-deals strip — every running deal as a brand-tinted chip.

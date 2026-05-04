@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.295 — VendorAdSlot wired to 4 remaining placement slots: homepage_top (above hero), homepage_under_brands (below brands carousel), menu_sidebar (above iHeartJane Boost embed on /menu), brand_page_top (top of /brands/[slug] generic template). All slots silent until admin curates active ads at inventoryapp /admin/marketing/vendor-ads. Now 5 of 5 schema-enum slots are mounted. Mirror on seattle-cannabis-web v4.195.
 // 3.290 — `/brands` redirect FINAL FIX in `proxy.ts` middleware. v3.265's page-level approach (`permanentRedirect()` + `dynamic = "force-dynamic"`) deployed but did NOT produce a real HTTP 308 — Next 16 served HTTP 200 with homepage HTML body even though page was rendered dynamically (no `x-vercel-cache: HIT`). Middleware-level intercept runs BEFORE Next's render pipeline; response is a guaranteed real HTTP 308 with `location: /menu`. Page-level fallback in `app/brands/page.tsx` remains as defense-in-depth. Closes the `🟡 /brands redirect caveat` flag in LIVE.md. Mirror on seattle-cannabis-web v4.190.
 // 3.281 — `proxy.ts` `ALWAYS_CANONICAL_HOSTS` belt-and-suspenders set added (parity with seattle-cannabis-web). Defends against `NEXT_PUBLIC_CANONICAL_HOST` env-var misconfiguration — if anyone ever sets it to a stale value or per-deployment Vercel URL, `isCanonicalOrLocal()` still treats `www.greenlifecannabis.com` as canonical and won't redirect customers AWAY from it. Same defense class as the inventoryapp cross-store warp hardening (v45.205) — env-var misconfig shouldn't be able to break SSO/CORS pinning. Mirror of Seattle's existing pattern. Single-line addition + comment block. Single-file. tsc clean.
 // 3.270 — `/brands` redirect moved to proxy.ts middleware (FIRST attempt — see v3.290 for the actual ship). Note: this entry never landed in production with the middleware change because the proxy.ts edit didn't get committed in the same push. Kept here as historical narrative.
@@ -28,7 +29,7 @@
 // 3.161 — /brands/[slug] generic-template renders vendor-authored brand bio + Instagram/X/Facebook handles when filled in via /vmi/profile (inventoryapp). Section sits above the order CTA, only renders when at least one field is non-null. Handles are sanitized to /^[A-Za-z0-9._-]+$/ before being concatenated into URLs (prevents query-param injection or path traversal). Per-brand override components (NWCS, Mfused, Avitas etc.) intentionally NOT touched — those are graduated, hand-authored layouts.
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.290";
+export const BUILD_VERSION = "3.295";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??
