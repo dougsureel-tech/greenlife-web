@@ -82,6 +82,7 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
   const dealEndsLabel = featuredDeal?.endDate
     ? (() => {
         const date = new Date(`${featuredDeal.endDate}T23:59:59`);
+        // eslint-disable-next-line react-hooks/purity -- Only renders after `show` flips true (post-watchdog); `featuredDeal` is stable per parent render so the impurity stays bounded.
         const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
         if (days <= 0) return "ends today — show this at the counter";
         if (days === 1) return "ends tomorrow";

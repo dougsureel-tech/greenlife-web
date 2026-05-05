@@ -28,6 +28,7 @@ export function DealCountdown({
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Hydration-safe ticker: SSR ships `initialLabel`/`initialUrgent`, then we reconcile to client-time on mount before the 60s interval takes over.
     setState(computeDealCountdown(endDate));
     const id = setInterval(() => setState(computeDealCountdown(endDate)), 60_000);
     return () => clearInterval(id);

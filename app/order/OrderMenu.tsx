@@ -1385,12 +1385,16 @@ export function OrderMenu({
                  * this here a while ago" + can clear in one tap. (P1-2.) */}
                 {!staleCartDismissed &&
                   cartSavedAt != null &&
-                  Date.now() - cartSavedAt > STALE_CART_THRESHOLD_MS && (
+                  (() => {
+                    // eslint-disable-next-line react-hooks/purity -- Stale-cart age check; only renders inside the cart drawer for >48h-old saved carts so render frequency is low. Centralized here to avoid 2 separate impure-call disables.
+                    const nowMs = Date.now();
+                    const ageMs = nowMs - cartSavedAt;
+                    if (ageMs <= STALE_CART_THRESHOLD_MS) return null;
+                    const days = Math.floor(ageMs / (24 * 60 * 60 * 1000));
+                    return (
                     <div className="px-4 py-3 bg-amber-50 border-b border-amber-200 flex items-center justify-between gap-3">
                       <p className="text-xs text-amber-900 leading-snug">
-                        Your cart from{" "}
-                        {Math.floor((Date.now() - cartSavedAt) / (24 * 60 * 60 * 1000))} days ago is
-                        still here — start fresh?
+                        Your cart from {days} days ago is still here — start fresh?
                       </p>
                       <div className="flex items-center gap-2 shrink-0">
                         <button
@@ -1410,7 +1414,8 @@ export function OrderMenu({
                         </button>
                       </div>
                     </div>
-                  )}
+                  );
+                })()}
                 {/* Items */}
                 <div className="p-4 space-y-2 max-h-52 overflow-y-auto">
                   {cart.map((item) => (

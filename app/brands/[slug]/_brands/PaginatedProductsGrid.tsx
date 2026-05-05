@@ -93,6 +93,7 @@ export function PaginatedProductsGrid({
   // Reset to page 0 whenever the outer name filter changes — same reason
   // as strain/sort: avoids "page 4 of 1" if the new filter shrinks the list.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Canonical "reset child pagination on filter prop change" pattern. Derive-during-render rewrite is a larger refactor.
     setPage(0);
   }, [nameContains]);
 
