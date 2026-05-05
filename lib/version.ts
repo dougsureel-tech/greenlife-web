@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.365 — `app/page.tsx` — drop unused `eslint-disable-next-line react-hooks/purity` on `Date.now()` deal-countdown calc. The rule wasn't actually firing (force-dynamic page lets Date.now() through), so the directive was dead. Lint cleanup. tsc clean.
 // 3.360 — 3 more unused-var/import cleanups: `bondi-farms.tsx` (unused `Image`) + `avitas.tsx` (unused `BRAND_AMBER_LIGHT` const) + `PaginatedProductsGrid.tsx` (dropped 17-line dead `buckets` useMemo — category-grouping computation that nothing rendered). tsc clean.
 // 3.355 — 2 unused-import lint cleanups: `app/account/profile/page.tsx` (unused `STORE`) + `app/brands/[slug]/_brands/2k-gardens.tsx` (unused `Link`). Both leftover from prior refactors. tsc clean.
 // 3.350 — `app/alumni/page.tsx` — `<a href="/">` → `<Link>` for the customer-facing "Back to the shop" CTA. Real perf fix: `<a>` does a full page reload while `<Link>` does client-side nav (preserves cart state, reuses cached data, faster). Caught by `@next/next/no-html-link-for-pages` lint. tsc clean.
@@ -42,7 +43,7 @@
 // 3.161 — /brands/[slug] generic-template renders vendor-authored brand bio + Instagram/X/Facebook handles when filled in via /vmi/profile (inventoryapp). Section sits above the order CTA, only renders when at least one field is non-null. Handles are sanitized to /^[A-Za-z0-9._-]+$/ before being concatenated into URLs (prevents query-param injection or path traversal). Per-brand override components (NWCS, Mfused, Avitas etc.) intentionally NOT touched — those are graduated, hand-authored layouts.
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.360";
+export const BUILD_VERSION = "3.365";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??
