@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { STORE, getOrderingStatus } from "@/lib/store";
+import { getLoyaltyByClerkId } from "@/lib/portal";
 import { OrderMenu } from "./OrderMenu";
 
 export const dynamic = "force-dynamic";
@@ -34,6 +35,11 @@ export default async function OrderPage() {
   ]);
   const status = getOrderingStatus();
   const signedIn = !!userId;
+  const initialLoyalty = userId
+    ? await getLoyaltyByClerkId(userId)
+        .then((s) => (s ? { points: s.points, tieredFlagOn: s.tieredFlagOn } : null))
+        .catch(() => null)
+    : null;
 
   return (
     <>
@@ -95,7 +101,7 @@ export default async function OrderPage() {
           </div>
         </div>
       </div>
-      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} />
     </>
   );
 }

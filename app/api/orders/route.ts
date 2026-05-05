@@ -19,7 +19,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { items, notes, pickupTime } = body as { items?: unknown; notes?: unknown; pickupTime?: unknown };
+  const { items, notes, pickupTime, loyaltyTierPointCost } = body as {
+    items?: unknown;
+    notes?: unknown;
+    pickupTime?: unknown;
+    loyaltyTierPointCost?: unknown;
+  };
+  const VALID_TIER_COSTS = [50, 100, 200, 250, 300, 400];
+  const resolvedLoyaltyTier: number | null =
+    typeof loyaltyTierPointCost === "number" && VALID_TIER_COSTS.includes(loyaltyTierPointCost)
+      ? loyaltyTierPointCost
+      : null;
 
   if (!Array.isArray(items) || items.length === 0) {
     return NextResponse.json({ error: "No items" }, { status: 400 });
@@ -77,6 +87,7 @@ export async function POST(req: NextRequest) {
       items as Parameters<typeof placeOrder>[1],
       notesStr,
       pickupISO,
+      resolvedLoyaltyTier,
     );
 
     // Confirmation SMS — fires after response is sent so the customer never

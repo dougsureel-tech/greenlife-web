@@ -9,6 +9,7 @@ import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type Pic
 import { withAttr } from "@/lib/attribution";
 import { CURRENT_TEAM, initialOf } from "@/lib/team";
 import { fetchClosureStatus, type ClosureStatus } from "@/lib/closure-status";
+import { eligibleRedemptionTiers, applyRedemptionTier, type RedemptionTier } from "@/lib/loyalty-redemption";
 
 // Map a product to a running deal it qualifies for, if any. Deals are
 // category-scoped in our schema (`appliesTo` = "flower", "edibles", "all"
@@ -256,14 +257,18 @@ function ProductImage({ src, alt, category }: { src: string | null; alt: string;
   );
 }
 
+type LoyaltyInfo = { points: number; tieredFlagOn: boolean } | null;
+
 export function OrderMenu({
   products,
   signedIn = false,
   activeDeals = [],
+  initialLoyalty = null,
 }: {
   products: MenuProduct[];
   signedIn?: boolean;
   activeDeals?: ActiveDeal[];
+  initialLoyalty?: LoyaltyInfo;
 }) {
   const router = useRouter();
   const initialCart = useMemo(() => loadCart(), []);
@@ -325,6 +330,7 @@ export function OrderMenu({
   // isClosed=false (lib helper guarantees this) so a flaky closure endpoint
   // never silently blocks customers during normal hours.
   const [closure, setClosure] = useState<ClosureStatus>({ isClosed: false, reason: null });
+  const [selectedTierPointCost, setSelectedTierPointCost] = useState<number | null>(null);
 
   useEffect(() => {
     saveCart(cart);
@@ -498,6 +504,21 @@ export function OrderMenu({
   const cartTotal = cart.reduce((s, i) => s + (i.unitPrice ?? 0) * i.quantity, 0);
   const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
 
+  const eligibleTiers: RedemptionTier[] = useMemo(
+    () =>
+      signedIn && initialLoyalty?.tieredFlagOn
+        ? eligibleRedemptionTiers(initialLoyalty.points, cartTotal)
+        : [],
+    [signedIn, initialLoyalty, cartTotal],
+  );
+
+  const appliedDiscount = useMemo(() => {
+    if (selectedTierPointCost == null) return null;
+    const tier = eligibleTiers.find((t) => t.pointCost === selectedTierPointCost);
+    if (!tier) return null;
+    return applyRedemptionTier(tier, cartTotal);
+  }, [selectedTierPointCost, eligibleTiers, cartTotal]);
+
   function addToCart(product: MenuProduct) {
     setCart((prev) => {
       const existing = prev.find((i) => i.id === product.id);
@@ -557,7 +578,12 @@ export function OrderMenu({
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, notes: notes || undefined, pickupTime }),
+        body: JSON.stringify({
+          items,
+          notes: notes || undefined,
+          pickupTime,
+          loyaltyTierPointCost: appliedDiscount != null ? selectedTierPointCost : null,
+        }),
       });
       if (res.status === 401) {
         // After Clerk redirects back, the `?cart=open` param tells the mount
@@ -1517,10 +1543,59 @@ export function OrderMenu({
                       {orderError}
                     </div>
                   )}
+                  {/* Loyalty tier picker — shown when feature flag is ON, customer is signed in,
+                      and at least one tier is eligible at the current cart total. */}
+                  {signedIn && eligibleTiers.length > 0 && (
+                    <div className="rounded-xl border border-green-200 bg-green-50 p-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-semibold text-green-800">Redeem Points</span>
+                        <span className="text-xs text-green-700">{initialLoyalty!.points} pts available</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedTierPointCost(null)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-colors ${
+                            selectedTierPointCost === null
+                              ? "bg-green-700 text-white border-green-700"
+                              : "bg-white text-stone-600 border-stone-200 hover:border-green-400"
+                          }`}
+                        >
+                          No discount
+                        </button>
+                        {eligibleTiers.map((tier) => (
+                          <button
+                            type="button"
+                            key={tier.pointCost}
+                            onClick={() => setSelectedTierPointCost(tier.pointCost)}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-colors ${
+                              selectedTierPointCost === tier.pointCost
+                                ? "bg-green-700 text-white border-green-700"
+                                : "bg-white text-stone-600 border-stone-200 hover:border-green-400"
+                            }`}
+                          >
+                            {tier.label} · {tier.pointCost} pts
+                          </button>
+                        ))}
+                      </div>
+                      {appliedDiscount != null && (
+                        <p className="text-xs text-green-700 font-medium">
+                          −${appliedDiscount.discountDollars.toFixed(2)} off · {selectedTierPointCost} pts used
+                        </p>
+                      )}
+                    </div>
+                  )}
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-xs text-stone-400">Est. total · cash in store</div>
-                      <div className="text-2xl font-extrabold text-stone-900">${cartTotal.toFixed(2)}</div>
+                      {appliedDiscount != null ? (
+                        <>
+                          <div className="text-sm text-stone-400 line-through">${cartTotal.toFixed(2)}</div>
+                          <div className="text-2xl font-extrabold text-green-700">${appliedDiscount.netSubtotal.toFixed(2)}</div>
+                        </>
+                      ) : (
+                        <div className="text-2xl font-extrabold text-stone-900">${cartTotal.toFixed(2)}</div>
+                      )}
                     </div>
                     {/* Button label flips for unsigned customers so they
                         see the sign-in detour BEFORE they tap, not after.
