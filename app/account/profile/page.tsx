@@ -2,7 +2,6 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getOrCreatePortalUser } from "@/lib/portal";
-import { STORE } from "@/lib/store";
 import { ProfileForm } from "./ProfileForm";
 import type { Metadata } from "next";
 

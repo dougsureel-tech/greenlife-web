@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import type { VendorBrand } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
