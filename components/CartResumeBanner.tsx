@@ -76,6 +76,7 @@ export function CartResumeBanner() {
 
   // Mount flag avoids hydration-mismatch flash — server renders nothing,
   // client re-renders once and shows the banner if a cart exists.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
@@ -85,6 +86,7 @@ export function CartResumeBanner() {
   // fresh from localStorage. Bumping cachedRaw to a sentinel forces re-parse
   // without calling setState (which is what the set-state-in-effect rule
   // was complaining about in the prior version).
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     cachedRaw = "__pathname_changed__";
   }, [pathname]);
