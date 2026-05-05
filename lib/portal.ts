@@ -22,6 +22,7 @@ export type PortalUser = {
   loyaltyPoints: number;
   smsOptIn: boolean;
   noSubstitutePref: boolean;
+  heroesSelfAttestType: string | null;
 };
 
 export type OnlineOrder = {
@@ -73,8 +74,16 @@ export async function getOrCreatePortalUserWithCreated(
 ): Promise<{ user: PortalUser; created: boolean }> {
   const sql = getClient();
   const existing = await sql`
-    SELECT id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, no_substitute_pref
-    FROM portal_users WHERE clerk_user_id = ${clerkUserId} LIMIT 1
+    SELECT pu.id, pu.clerk_user_id, pu.name, pu.email, pu.phone, pu.loyalty_points, pu.sms_opt_in, pu.no_substitute_pref,
+           c.heroes_self_attest_type
+    FROM portal_users pu
+    LEFT JOIN LATERAL (
+      SELECT heroes_self_attest_type FROM customers
+      WHERE LOWER(email) = LOWER(pu.email) AND pu.email IS NOT NULL
+      ORDER BY last_visit_at DESC NULLS LAST LIMIT 1
+    ) c ON TRUE
+    WHERE pu.clerk_user_id = ${clerkUserId}
+    LIMIT 1
   `;
   if (existing[0]) return { user: mapPortalUser(existing[0]), created: false };
 
@@ -87,6 +96,7 @@ export async function getOrCreatePortalUserWithCreated(
       email = COALESCE(portal_users.email, EXCLUDED.email),
       updated_at = now()
     RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, no_substitute_pref,
+              NULL AS heroes_self_attest_type,
               (xmax = 0) AS inserted
   `;
   const row = rows[0];
@@ -96,6 +106,17 @@ export async function getOrCreatePortalUserWithCreated(
   // user" signal even under racing parallel session callbacks.
   const created = row.inserted === true;
   return { user: mapPortalUser(row), created };
+}
+
+export async function updateHeroesAttest(id: string, type: string | null) {
+  const sql = getClient();
+  const VALID = ["active_military", "veteran", "first_responder", "healthcare", "k12_teacher"];
+  const safeType = type === null || VALID.includes(type) ? type : null;
+  await sql`
+    UPDATE customers SET
+      heroes_self_attest_type = ${safeType}
+    WHERE LOWER(email) = (SELECT LOWER(email) FROM portal_users WHERE id = ${id})
+  `;
 }
 
 export async function updatePortalUser(
@@ -560,6 +581,7 @@ function mapPortalUser(r: Record<string, unknown>): PortalUser {
     loyaltyPoints: (r.loyalty_points as number) ?? 0,
     smsOptIn: (r.sms_opt_in as boolean) ?? false,
     noSubstitutePref: (r.no_substitute_pref as boolean) ?? false,
+    heroesSelfAttestType: (r.heroes_self_attest_type as string | null) ?? null,
   };
 }
 

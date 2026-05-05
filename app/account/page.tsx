@@ -170,6 +170,42 @@ export default async function AccountPage({ searchParams }: Props) {
       {/* Drop alerts */}
       <PushSubscribe />
 
+      {/* Heroes discount */}
+      <Link
+        href="/account/heroes"
+        className="flex items-center justify-between gap-4 rounded-2xl border border-stone-200 bg-white px-5 py-4 hover:border-green-300 hover:shadow-sm transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">🎖️</span>
+          <div>
+            <div className="text-sm font-bold text-stone-800">Heroes Discount</div>
+            <div className="text-xs text-stone-400 mt-0.5">
+              {portalUser.heroesSelfAttestType
+                ? (() => {
+                    const labels: Record<string, string> = {
+                      active_military: "Active Military",
+                      veteran: "Veteran",
+                      first_responder: "First Responder",
+                      healthcare: "Healthcare Worker",
+                      k12_teacher: "K–12 Teacher",
+                    };
+                    return `On file: ${labels[portalUser.heroesSelfAttestType] ?? portalUser.heroesSelfAttestType}`;
+                  })()
+                : "Military, veterans, first responders, healthcare, teachers — 20% off"}
+            </div>
+          </div>
+        </div>
+        <svg
+          className="w-4 h-4 text-stone-300 group-hover:text-green-500 transition-colors shrink-0"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </Link>
+
       {/* Active orders */}
       {activeOrders.length > 0 && (
         <section className="space-y-3">
