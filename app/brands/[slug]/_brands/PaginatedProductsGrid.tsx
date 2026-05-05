@@ -183,24 +183,6 @@ export function PaginatedProductsGrid({
   const start = safePage * perPage;
   const visible = sorted.slice(start, start + perPage);
 
-  // Group the visible slice back into category buckets so headers + counts
-  // match what the customer sees on this page (not the global totals).
-  const buckets = useMemo(() => {
-    const map = new Map<string, Product[]>();
-    for (const p of visible) {
-      const cat = p.category ?? "Other";
-      if (!map.has(cat)) map.set(cat, []);
-      map.get(cat)!.push(p);
-    }
-    return [...map.entries()].sort((a, b) => {
-      const ai = CATEGORY_ORDER.indexOf(a[0]);
-      const bi = CATEGORY_ORDER.indexOf(b[0]);
-      const ax = ai < 0 ? CATEGORY_ORDER.length : ai;
-      const bx = bi < 0 ? CATEGORY_ORDER.length : bi;
-      return ax - bx;
-    });
-  }, [visible]);
-
   const filterChips: { id: StrainFilter; label: string; emoji: string }[] = [
     { id: "all", label: "All", emoji: "🌱" },
     { id: "sativa", label: "Sativa", emoji: "☀️" },

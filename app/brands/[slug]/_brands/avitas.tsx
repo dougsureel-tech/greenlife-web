@@ -48,7 +48,6 @@ const PALETTE: BrandPalette = {
 
 const BRAND_DARK = PALETTE.dark2!;
 const BRAND_AMBER = PALETTE.accent;
-const BRAND_AMBER_LIGHT = PALETTE.accentMuted!;
 
 // Topographic-line decoration — evokes contour maps + the PNW mountain
 // landscape Avitas leans on. Pure CSS, no asset.
