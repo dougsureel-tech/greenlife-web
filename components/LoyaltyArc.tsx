@@ -48,7 +48,7 @@ export function LoyaltyArc() {
             id="loyalty-arc-heading"
             className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight"
           >
-            We're a relationship, not a points app.
+            We&rsquo;re a relationship, not a points app.
           </h2>
           <p className="text-stone-600 mt-3 leading-relaxed">
             Four tiers — Visitor, Regular, Local, Family. You move through them by showing up.
