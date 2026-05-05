@@ -102,7 +102,7 @@ export default function OG() {
                 color: "white",
               }}
             >
-              Wenatchee's Premier Cannabis
+              Wenatchee’s Premier Cannabis
             </div>
             <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
               {`${STORE.address.street} · ${STORE.address.city}, ${STORE.address.state}`}

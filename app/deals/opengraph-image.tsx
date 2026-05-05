@@ -91,7 +91,7 @@ export default function DealsOG() {
                 color: "white",
               }}
             >
-              Today's Deals
+              Today’s Deals
             </div>
             <div style={{ fontSize: 28, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
               {`Live cannabis specials at ${STORE.name}`}

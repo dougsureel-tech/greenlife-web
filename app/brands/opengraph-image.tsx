@@ -90,7 +90,7 @@ export default function BrandsOG() {
               WA producers we carry
             </div>
             <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
-              Curated from Washington's top growers, processors, and infusers
+              Curated from Washington’s top growers, processors, and infusers
             </div>
 
             <div
