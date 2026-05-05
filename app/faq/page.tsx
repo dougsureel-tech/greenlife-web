@@ -81,6 +81,11 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   },
   {
     tag: "Rewards",
+    q: "Can I stack loyalty points with other discounts?",
+    a: "Yes. Loyalty points always apply on top of any active deal or promotion — they're earned cash you're spending, not a discount layer. So if there's a 20% category deal running, you can still redeem points on the same transaction.",
+  },
+  {
+    tag: "Rewards",
     q: "Do you offer a Heroes / service discount?",
     a: `Yes — 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show a valid 21+ ID alongside your service or work credential at the register. Full eligibility + how it works is at ${STORE.website}/heroes.`,
   },
