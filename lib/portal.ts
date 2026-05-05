@@ -21,6 +21,7 @@ export type PortalUser = {
   phone: string | null;
   loyaltyPoints: number;
   smsOptIn: boolean;
+  noSubstitutePref: boolean;
 };
 
 export type OnlineOrder = {
@@ -72,7 +73,7 @@ export async function getOrCreatePortalUserWithCreated(
 ): Promise<{ user: PortalUser; created: boolean }> {
   const sql = getClient();
   const existing = await sql`
-    SELECT id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in
+    SELECT id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, no_substitute_pref
     FROM portal_users WHERE clerk_user_id = ${clerkUserId} LIMIT 1
   `;
   if (existing[0]) return { user: mapPortalUser(existing[0]), created: false };
@@ -85,7 +86,7 @@ export async function getOrCreatePortalUserWithCreated(
       name = COALESCE(portal_users.name, EXCLUDED.name),
       email = COALESCE(portal_users.email, EXCLUDED.email),
       updated_at = now()
-    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in,
+    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, no_substitute_pref,
               (xmax = 0) AS inserted
   `;
   const row = rows[0];
@@ -99,7 +100,7 @@ export async function getOrCreatePortalUserWithCreated(
 
 export async function updatePortalUser(
   id: string,
-  data: { name?: string; phone?: string; smsOptIn?: boolean },
+  data: { name?: string; phone?: string; smsOptIn?: boolean; noSubstitutePref?: boolean },
 ) {
   const sql = getClient();
   await sql`
@@ -107,9 +108,21 @@ export async function updatePortalUser(
       name = COALESCE(${data.name ?? null}, name),
       phone = COALESCE(${data.phone ?? null}, phone),
       sms_opt_in = COALESCE(${data.smsOptIn ?? null}, sms_opt_in),
+      no_substitute_pref = COALESCE(${data.noSubstitutePref ?? null}, no_substitute_pref),
       updated_at = now()
     WHERE id = ${id}
   `;
+  // Mirror no_substitute_pref onto the linked customers row so the POS
+  // substitute route (which reads customers.no_substitute_pref) honors the
+  // preference set from the customer-account profile page. Affects 0 rows
+  // for online-only customers with no in-store record — safe to no-op.
+  if (data.noSubstitutePref !== undefined) {
+    await sql`
+      UPDATE customers SET
+        no_substitute_pref = ${data.noSubstitutePref}
+      WHERE LOWER(email) = (SELECT LOWER(email) FROM portal_users WHERE id = ${id})
+    `;
+  }
 }
 
 // Single-order fetch for the confirmation page. Requires the requesting
@@ -459,6 +472,7 @@ function mapPortalUser(r: Record<string, unknown>): PortalUser {
     phone: r.phone as string | null,
     loyaltyPoints: (r.loyalty_points as number) ?? 0,
     smsOptIn: (r.sms_opt_in as boolean) ?? false,
+    noSubstitutePref: (r.no_substitute_pref as boolean) ?? false,
   };
 }
 

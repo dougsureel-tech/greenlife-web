@@ -8,6 +8,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
   const [name, setName] = useState(user.name ?? "");
   const [phone, setPhone] = useState(user.phone ?? "");
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
+  const [noSubstitutePref, setNoSubstitutePref] = useState(user.noSubstitutePref);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +20,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, smsOptIn }),
+        body: JSON.stringify({ name, phone, smsOptIn, noSubstitutePref }),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);
@@ -81,6 +82,22 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           >
             <span
               className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${smsOptIn ? "translate-x-5" : ""}`}
+            />
+          </button>
+        </div>
+        <div className="px-5 py-4 flex items-center justify-between">
+          <div>
+            <div className="text-sm font-medium text-stone-800">No Substitutions</div>
+            <div className="text-xs text-stone-400 mt-0.5">Don&apos;t swap unavailable items — leave them off my order</div>
+          </div>
+          <button
+            onClick={() => setNoSubstitutePref(!noSubstitutePref)}
+            aria-checked={noSubstitutePref}
+            role="switch"
+            className={`relative w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${noSubstitutePref ? "bg-green-600" : "bg-stone-200"}`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${noSubstitutePref ? "translate-x-5" : ""}`}
             />
           </button>
         </div>

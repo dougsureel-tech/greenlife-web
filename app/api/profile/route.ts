@@ -16,11 +16,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, smsOptIn } = body as Record<string, unknown>;
+  const { name, phone, smsOptIn, noSubstitutePref } = body as Record<string, unknown>;
 
   const cleanName = typeof name === "string" ? name.trim().slice(0, 100) : undefined;
   const cleanPhone = typeof phone === "string" ? phone.replace(/[^\d+()\s-]/g, "").slice(0, 20) : undefined;
   const cleanSmsOptIn = typeof smsOptIn === "boolean" ? smsOptIn : undefined;
+  const cleanNoSubstitutePref = typeof noSubstitutePref === "boolean" ? noSubstitutePref : undefined;
 
   try {
     const user = await currentUser();
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
       user?.emailAddresses[0]?.emailAddress,
       user?.fullName,
     );
-    await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn });
+    await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn, noSubstitutePref: cleanNoSubstitutePref });
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Profile update failed:", err);
