@@ -95,7 +95,6 @@ export function MobileStickyCta() {
     fetch("/api/deals/top", { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`status ${r.status}`))))
       .then((d: { deal: TopDeal | null }) => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDeal(d.deal);
       })
       .catch((e) => {

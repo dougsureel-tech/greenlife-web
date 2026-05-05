@@ -35,13 +35,11 @@ export function RecentlyViewedAutoStrip({ accent = "green" }: { accent?: "green"
     fetch(`/api/products/by-ids?ids=${ids.join(",")}`, { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`status ${r.status}`))))
       .then((d: { products: MenuProduct[] }) => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setProducts(d.products);
       })
       .catch((e) => {
         if (e.name !== "AbortError") {
           console.error("[recently-viewed] fetch failed", e);
-          // eslint-disable-next-line react-hooks/set-state-in-effect
           setProducts([]);
         }
       });
