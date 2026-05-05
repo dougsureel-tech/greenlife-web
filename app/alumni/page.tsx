@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { TEAM } from "@/lib/team";
 import { STORE } from "@/lib/store";
 
@@ -319,12 +320,12 @@ function ThanksCard({
         </a>{" "}
         to open it manually.
       </p>
-      <a
+      <Link
         href="/"
         className="inline-block mt-7 px-5 py-2.5 rounded-xl border border-stone-300 hover:border-green-300 text-sm font-semibold text-stone-700 hover:text-green-700 transition-colors"
       >
         Back to the shop →
-      </a>
+      </Link>
     </div>
   );
 }
