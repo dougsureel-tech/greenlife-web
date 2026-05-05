@@ -24,6 +24,7 @@ export async function AnnouncementBar() {
   const deals = open && !closingSoon && orderingStatus.state !== "after_last_call" ? await getActiveDeals().catch(() => []) : [];
   const urgentDeal = (() => {
     if (deals.length === 0) return null;
+    // eslint-disable-next-line react-hooks/purity -- Server Component renders per-request; timestamp is intentional for "ends today/tomorrow" math.
     const todayMs = Date.now();
     for (const d of deals) {
       if (!d.endDate) continue;

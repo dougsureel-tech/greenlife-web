@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.385 — `components/AnnouncementBar.tsx` — silence `react-hooks/purity` on the `urgentDeal` IIFE's `Date.now()` (line 27). Server Component is rendered per-request (parent pages are dynamic via `await getActiveDeals()`), so the timestamp drives "ends today/tomorrow" math correctly — false-positive on a Server Component. Inline `eslint-disable-next-line react-hooks/purity` with a why-comment so the next reader doesn't strip it. Lint sweep continues. tsc clean.
 // 3.380 — 2-file dead-disable cleanup: `MobileStickyCta.tsx` (line 98 `react-hooks/set-state-in-effect` inside `.then(...)` async callback — rule doesn't fire on async setState) + `RecentlyViewedAutoStrip.tsx` (2 of 3 disables: the `.then()` + `.catch()` async setState branches were dead, kept the synchronous `setProducts([])` early-return disable since the rule does fire there). Verified via `pnpm lint` — no new errors introduced. Sister to v3.345 cleanup philosophy: trim disables that no longer guard a real rule firing so future real lint warnings don't get drowned in stale-noise. tsc clean.
 // 3.365 — `app/page.tsx` — drop unused `eslint-disable-next-line react-hooks/purity` on `Date.now()` deal-countdown calc. The rule wasn't actually firing (force-dynamic page lets Date.now() through), so the directive was dead. Lint cleanup. tsc clean.
 // 3.360 — 3 more unused-var/import cleanups: `bondi-farms.tsx` (unused `Image`) + `avitas.tsx` (unused `BRAND_AMBER_LIGHT` const) + `PaginatedProductsGrid.tsx` (dropped 17-line dead `buckets` useMemo — category-grouping computation that nothing rendered). tsc clean.
@@ -44,7 +45,7 @@
 // 3.161 — /brands/[slug] generic-template renders vendor-authored brand bio + Instagram/X/Facebook handles when filled in via /vmi/profile (inventoryapp). Section sits above the order CTA, only renders when at least one field is non-null. Handles are sanitized to /^[A-Za-z0-9._-]+$/ before being concatenated into URLs (prevents query-param injection or path traversal). Per-brand override components (NWCS, Mfused, Avitas etc.) intentionally NOT touched — those are graduated, hand-authored layouts.
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.380";
+export const BUILD_VERSION = "3.385";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??
