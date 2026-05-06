@@ -12,7 +12,7 @@ import { STORE } from "@/lib/store";
 // Self-contained on purpose — no DB, no JSON-LD imports, no Clerk. Runs
 // statically at build time + on-demand for new edges, must stay fast.
 
-export const alt = `${STORE.name} — Wenatchee's Premier Cannabis Dispensary`;
+export const alt = `${STORE.name} — Wenatchee's Best Cannabis Staff Since 2014`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -102,7 +102,7 @@ export default function OG() {
                 color: "white",
               }}
             >
-              Wenatchee’s Premier Cannabis
+              Wenatchee’s Best Cannabis Staff
             </div>
             <div style={{ fontSize: 26, color: "#bbf7d0", fontWeight: 500, lineHeight: 1.3 }}>
               {`${STORE.address.street} · ${STORE.address.city}, ${STORE.address.state}`}
