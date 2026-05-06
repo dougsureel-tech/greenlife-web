@@ -1627,16 +1627,16 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link
-              href={withAttr("/menu", "home", "bottom-order")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 text-green-950 font-bold text-base transition-all shadow-lg hover:-translate-y-0.5"
-            >
-              Order for Pickup
-            </Link>
-            <Link
               href={withAttr("/menu", "home", "bottom-browse")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl animate-gradient bg-[length:200%_auto] bg-gradient-to-r from-green-400 via-emerald-300 to-green-400 text-green-950 font-bold text-base transition-all shadow-lg hover:-translate-y-0.5 hover:scale-[1.02]"
             >
               Browse Menu
+            </Link>
+            <Link
+              href={withAttr("/menu", "home", "bottom-order")}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
+            >
+              Order for Pickup
             </Link>
           </div>
         </div>
