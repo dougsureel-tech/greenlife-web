@@ -91,7 +91,7 @@ export default async function OrderPage() {
             {status.state === "open" && (
               <span className="inline-flex items-center gap-1.5 text-green-200/95 font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_4px_#4ade80] animate-pulse" />
-                ⚡ {eta.label}
+                <span aria-hidden="true">⚡ </span>{eta.label}
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 text-green-300/60">

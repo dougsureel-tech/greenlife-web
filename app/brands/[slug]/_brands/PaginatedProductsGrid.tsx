@@ -499,7 +499,7 @@ function FeaturedCard({
             </div>
           )}
           <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-stone-900 shadow-sm">
-            ⭐ Featured
+            <span aria-hidden="true">⭐ </span>Featured
           </span>
         </div>
         <div className="flex flex-col justify-between p-6 sm:p-8 gap-5">

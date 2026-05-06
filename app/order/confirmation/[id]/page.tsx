@@ -191,7 +191,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
           {order.substitutions.length > 0 && (
             <div className="px-5 py-3 bg-blue-50 border-t border-blue-100 space-y-1.5">
               <p className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-                🔄 Substitution{order.substitutions.length === 1 ? "" : "s"}
+                <span aria-hidden="true">🔄 </span>Substitution{order.substitutions.length === 1 ? "" : "s"}
               </p>
               <ul className="space-y-1">
                 {order.substitutions.map((s, i) => (
@@ -287,7 +287,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
               href={`tel:${STORE.phoneTel}`}
               className="shrink-0 font-bold text-green-700 hover:text-green-600 whitespace-nowrap"
             >
-              📞 {STORE.phone}
+              <span aria-hidden="true">📞 </span>{STORE.phone}
             </a>
           </div>
         )}

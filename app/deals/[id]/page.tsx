@@ -127,7 +127,7 @@ export default async function DealDetailPage({ params }: Params) {
         />
         <div className="relative max-w-2xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">
-            🔥 Limited-time deal
+            <span aria-hidden="true">🔥 </span>Limited-time deal
           </p>
           <h1 className="mt-3 text-5xl sm:text-6xl font-extrabold tracking-tight leading-none">
             {deal.short}

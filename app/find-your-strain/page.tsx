@@ -174,19 +174,19 @@ export default function FindYourStrainPage() {
               href={`tel:${STORE.phoneTel}`}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white border border-stone-200 text-xs font-bold text-stone-800 hover:border-green-300 hover:text-green-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
             >
-              📞 Call {STORE.phone}
+              <span aria-hidden="true">📞 </span>Call {STORE.phone}
             </a>
             <Link
               href={withAttr("/visit", "quiz", "stuck-visit")}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white border border-stone-200 text-xs font-bold text-stone-800 hover:border-green-300 hover:text-green-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
             >
-              📍 Walk in
+              <span aria-hidden="true">📍 </span>Walk in
             </Link>
             <Link
               href={withAttr("/menu", "quiz", "stuck-browse")}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white border border-stone-200 text-xs font-bold text-stone-800 hover:border-green-300 hover:text-green-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
             >
-              🛒 Browse everything
+              <span aria-hidden="true">🛒 </span>Browse everything
             </Link>
           </div>
         </div>
