@@ -77,7 +77,10 @@ export default function ApplyThanksPage() {
 
           <p className="text-stone-500 text-xs leading-relaxed mt-8">
             Questions in the meantime? Email{" "}
-            <a href={`mailto:${STORE.email}`} className="text-green-700 font-semibold hover:underline">
+            <a
+              href={`mailto:${STORE.email}?subject=${encodeURIComponent("Job application — follow up")}`}
+              className="text-green-700 font-semibold hover:underline"
+            >
               {STORE.email}
             </a>{" "}
             or call{" "}
