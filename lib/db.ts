@@ -377,7 +377,9 @@ export async function getActiveVendorAds(slot: string, limit = 3): Promise<Vendo
   const ads = rows.map((r) => ({
     id: r.id as string,
     kind: ((r.kind ?? "vendor") as "vendor" | "house"),
-    vendorName: (r.vendor_name ?? null) as string | null,
+    vendorName: r.vendor_name
+      ? (cleanBrandName(r.vendor_name as string) || (r.vendor_name as string))
+      : null,
     imageUrl: (r.image_url ?? null) as string | null,
     headline: (r.headline ?? null) as string | null,
     body: (r.body ?? null) as string | null,
