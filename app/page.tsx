@@ -123,7 +123,7 @@ export default async function HomePage() {
     getActiveDeals().catch(() => []),
     fetchClosureStatus(),
   ]);
-  const featuredBrands = brands.filter((b) => b.logoUrl).slice(0, 10);
+  const featuredBrands = brands.slice(0, 10);
   // `open` flips false whenever an emergency closure is active so all 3
   // "Open Now / Closed" indicators on the page (hero pill, status strip,
   // pre-footer chip) read consistently. The static configured-hours check
@@ -248,10 +248,10 @@ export default async function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
-                  href={withAttr("/menu", "home", "hero-order")}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-green-400 hover:bg-green-300 active:bg-green-500 text-green-950 font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5"
+                  href={withAttr("/menu", "home", "hero-browse")}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl animate-gradient bg-[length:200%_auto] bg-gradient-to-r from-green-400 via-emerald-300 to-green-400 text-green-950 font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5 hover:scale-[1.02]"
                 >
-                  Order for Pickup
+                  Browse Menu
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -264,10 +264,10 @@ export default async function HomePage() {
                   </svg>
                 </Link>
                 <Link
-                  href={withAttr("/menu", "home", "hero-browse")}
+                  href={withAttr("/menu", "home", "hero-order")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
                 >
-                  Browse Menu
+                  Order for Pickup
                 </Link>
               </div>
 
@@ -449,6 +449,56 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Brands strip — compact logo grid between stats and why-us */}
+      {featuredBrands.length > 0 && (
+        <section className="bg-white border-b border-stone-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <div className="flex items-baseline justify-between mb-5">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-green-700 mb-1">
+                  Washington&apos;s finest producers
+                </p>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight">
+                  Top Brands
+                </h2>
+              </div>
+              <Link href="/brands" className="text-sm font-semibold text-green-700 hover:text-green-900 transition-colors">
+                All brands →
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-3">
+              {featuredBrands.map((brand) => (
+                <Link
+                  key={brand.id}
+                  href={`/brands/${brand.slug}`}
+                  className="group flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl border border-stone-100 bg-stone-50 hover:border-green-300 hover:bg-white hover:shadow-md hover:shadow-green-500/10 hover:-translate-y-0.5 transition-all duration-200 aspect-square"
+                >
+                  {brand.logoUrl ? (
+                    <Image
+                      src={brand.logoUrl}
+                      alt={brand.name}
+                      width={80}
+                      height={40}
+                      className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-emerald-100 border border-green-200/60 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                      <span className="text-base font-extrabold text-green-700 leading-none">
+                        {brand.name.trim().charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+                  <span className="text-[10px] text-stone-400 group-hover:text-green-700 transition-colors text-center leading-tight font-medium truncate w-full text-center">
+                    {brand.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── Why Customers Love Us — value-prop card grid. 7 cards, no
             images (icons inline SVG), green/emerald palette consistent with
@@ -1552,51 +1602,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ─── Brands ─────────────────────────────────────────────────────────── */}
-      {brands.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-          <div className="flex items-end justify-between mb-8 gap-4">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-                Top Brands
-              </h2>
-              <p className="text-stone-600 mt-1 text-sm">
-                Washington&apos;s finest producers, on our shelves
-              </p>
-            </div>
-          </div>
-          {featuredBrands.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {featuredBrands.map((brand) => (
-                <Link
-                  key={brand.id}
-                  href={`/brands/${brand.slug}`}
-                  className="group flex flex-col rounded-2xl border border-stone-200 bg-white hover:border-green-400 hover:shadow-lg transition-all overflow-hidden"
-                >
-                  {/* Logo well — soft contrast bg + generous space so the
-                      brand mark reads at a glance, like in the case. */}
-                  <div className="aspect-[5/3] bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center p-6 border-b border-stone-100">
-                    <Image
-                      src={brand.logoUrl!}
-                      alt={brand.name}
-                      width={240}
-                      height={144}
-                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="px-3 py-3 text-center">
-                    <span className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-green-700 transition-colors leading-tight block truncate">
-                      {brand.name}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : null}
-        </section>
-      )}
 
       {/* Vendor / house ad slot — under brands carousel */}
       <section className="bg-stone-50">
