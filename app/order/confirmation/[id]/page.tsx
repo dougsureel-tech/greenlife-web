@@ -79,7 +79,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
         {/* Hero confirmation */}
         <div className="rounded-3xl bg-gradient-to-br from-green-900 to-green-800 text-white p-8 shadow-xl space-y-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-2xl">
+            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-2xl" aria-hidden="true">
               ✓
             </div>
             <div>

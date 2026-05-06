@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.945 — `/order/confirmation/[id]` decorative ✓ checkmark icon `aria-hidden="true"`. Pre-fix screen readers announced 'check mark' before reading 'Order placed / You're all set' heading. The heading already says the order is placed; the icon is purely decorative. Mirror on seattle-cannabis-web v4.705. tsc clean.
 // 3.935 — Decorative-emoji a11y sweep — 5 inline span emojis on public-site surfaces wrapped with `aria-hidden="true"`. (1) `app/account/page.tsx` Place Order tile 🛒, (2) same Order History tile 📋, (3) `app/order/OrderMenu.tsx` 'All Items' filter button 🛒, (4) `app/account/heroes/HeroesForm.tsx` 'Bring your ID' callout 🪪, (5) `components/PushSubscribe.tsx` Drop Alerts heading 🔔. Heading + tile labels carry the meaning. Mirror on seattle-cannabis-web v4.695. tsc clean.
 // 3.925 — Decorative-emoji a11y sweep — 2 more public-site surfaces. `aria-hidden="true"` on (1) homepage 'Plan ~15 minutes' card ⏱️ — heading carries the meaning, (2) `/account` Heroes Discount card 🎖️ — 'Heroes Discount' label is the actual link text. Continuation of v3.915 sweep. Mirror on seattle-cannabis-web v4.685 (Heroes only — no homepage equivalent on Seattle layout). tsc clean.
 // 3.915 — Decorative-emoji a11y sweep across 4 customer empty-state surfaces. `aria-hidden="true"` added to: (1) `/order` OrderMenu 'Menu coming soon' 🌿, (2) `/brands/[slug]` 'No products currently in stock' 🌿, (3) `/brands/[slug]` PaginatedProductsGrid in-stock-filter 🌿, (4) `/account` order history 'No orders yet' 🛒. Pre-fix screen readers announced the emoji ("seedling" / "shopping cart") before the actual heading + body. Post-fix the heading carries the meaning and assistive tech skips the decoration. Companion to v3.885 global-error 😔 sweep — same pattern, broader application. Mirror on seattle-cannabis-web v4.675. tsc clean.
@@ -84,7 +85,7 @@
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.625 — /order place-order error messages reassure customer their cart is preserved on failure. Was: 'Network error. Check your connection and try again.' Now: 'Connection issue — your cart is still here. Try Place Order again.' Same for the server-error path. Mirror on seattle-cannabis-web v4.465. Reduces customer panic when a Place Order tap fails — most customers assume the cart is gone.
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.935";
+export const BUILD_VERSION = "3.945";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??
