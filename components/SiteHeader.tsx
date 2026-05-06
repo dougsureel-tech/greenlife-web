@@ -47,9 +47,8 @@ const NAV = [
   { href: "/deals", label: "Deals" },
   { href: "/find-your-strain", label: "Strains" },
   { href: "/blog", label: "Guides" },
-  { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
-  { href: "/apply", label: "Careers" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 export function SiteHeader() {
