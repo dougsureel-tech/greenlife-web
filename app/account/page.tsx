@@ -176,7 +176,7 @@ export default async function AccountPage({ searchParams }: Props) {
         className="flex items-center justify-between gap-4 rounded-2xl border border-stone-200 bg-white px-5 py-4 hover:border-green-300 hover:shadow-sm transition-all group"
       >
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🎖️</span>
+          <span className="text-2xl" aria-hidden="true">🎖️</span>
           <div>
             <div className="text-sm font-bold text-stone-800">Heroes Discount</div>
             <div className="text-xs text-stone-400 mt-0.5">

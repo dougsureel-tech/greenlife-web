@@ -955,7 +955,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
-              <div className="text-2xl">⏱️</div>
+              <div className="text-2xl" aria-hidden="true">⏱️</div>
               <h3 className="font-bold text-stone-900 text-base">Plan ~15 minutes</h3>
               <p className="text-stone-600 text-sm leading-relaxed">
                 Walk-in browse usually runs 10–15 min. Order ahead at{" "}
