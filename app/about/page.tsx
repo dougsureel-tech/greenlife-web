@@ -92,8 +92,8 @@ export default function AboutPage() {
             <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight">Who We Are</h2>
             <p className="text-stone-600 leading-relaxed">
               Green Life Cannabis has been a Wenatchee dispensary since 2014 — same building, same
-              standards, same crew you&apos;ll see again. We believe cannabis should be approachable,
-              educational, and enjoyable — for everyone from first-time customers to seasoned enthusiasts.
+              standards, same crew you&apos;ll see again. We make cannabis approachable, educational,
+              and enjoyable — for everyone from first-time customers to seasoned enthusiasts.
             </p>
             <p className="text-stone-600 leading-relaxed">
               Our team of knowledgeable budtenders takes time to understand what you&apos;re looking for and
