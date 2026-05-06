@@ -118,7 +118,7 @@ export default async function VisitPage() {
           className="absolute inset-0"
           style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 80% 50%, #4ade8033, transparent)" }}
         />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 sm:py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 lg:py-20">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-400">Visit Us</p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mt-2">{STORE.address.street}</h1>
           <p className="text-green-300/80 mt-2">
