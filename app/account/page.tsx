@@ -262,7 +262,7 @@ export default async function AccountPage({ searchParams }: Props) {
                 </div>
                 {isReady && (
                   <div className="rounded-xl bg-green-600 text-white px-4 py-3 text-sm font-bold text-center">
-                    🎉 Your order is ready! Come in and pay cash at the counter.
+                    <span aria-hidden="true">🎉 </span>Your order is ready! Come in and pay cash at the counter.
                   </div>
                 )}
               </div>

@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 4.005 — Decorative-emoji a11y sweep — 4 more leading icons wrapped in `<span aria-hidden="true">`. (1) `/menu` MenuSearch ✨ 'Just In (last 7 days)' filter checkbox label. (2) `/account` 🎉 order-ready callout. (3) `/account/orders` 🔄 'Substitution(s) made by staff' panel. (4) `SiteHeader` mobile drawer ✨ 'Create Account · 15% off' Link. Mirror on seattle-cannabis-web v4.755. tsc clean.
 // 3.995 — Decorative-emoji a11y sweep — 7 more leading icons across customer surfaces wrapped in `<span aria-hidden="true">`. (1) `/order` ETA chip ⚡. (2) `/order/confirmation/[id]` 🔄 'Substitution' panel + (3) phone-link 📞. (4) `/brands/[slug]` PaginatedProductsGrid ⭐ 'Featured' chip. (5+6+7) `/find-your-strain` stuck-fallback 📞 Call / 📍 Walk in / 🛒 Browse everything. (8) `/deals/[id]` 🔥 'Limited-time deal' kicker. Mirror on seattle-cannabis-web v4.745. tsc clean.
 // 3.985 — Decorative-emoji a11y sweep — 4 leading icons in `/order` OrderMenu wrapped in `<span aria-hidden="true">`. (1) Per-product effects-summary line ✨. (2) Bottom-of-menu 'Visit us' Link 📍. (3) Bottom phone-call link 📞. (4) Bottom 'Take the strain quiz' Link 🌿. Heading + label text in each case carries the meaning. Continuation of v3.955 sweep. Mirror on seattle-cannabis-web v4.735. tsc clean.
 // 3.975 — `/press` 3 plain-text email mentions converted to clickable mailto links with contextual subject prefills. (1) Fact-sheet 'tell us at <addr>' → `?subject=Press fact-sheet correction`. (2) Quote/interview 'Email <addr>' → `?subject=Press — interview request`. (3) Logo/assets 'email <addr>' → `?subject=Press — high-res asset request`. Press surface targeted by news outlets needs frictionless mailto routing. Mirror on seattle-cannabis-web v4.725. tsc clean.
@@ -90,7 +91,7 @@
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.625 — /order place-order error messages reassure customer their cart is preserved on failure. Was: 'Network error. Check your connection and try again.' Now: 'Connection issue — your cart is still here. Try Place Order again.' Same for the server-error path. Mirror on seattle-cannabis-web v4.465. Reduces customer panic when a Place Order tap fails — most customers assume the cart is gone.
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.995";
+export const BUILD_VERSION = "4.005";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??

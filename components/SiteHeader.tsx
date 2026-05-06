@@ -351,7 +351,7 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm font-bold hover:bg-green-100 transition-all"
           >
-            ✨ Create Account · 15% off first order
+            <span aria-hidden="true">✨ </span>Create Account · 15% off first order
           </Link>
           <Link
             href={withAttr("/menu", "header", "mobile-order")}

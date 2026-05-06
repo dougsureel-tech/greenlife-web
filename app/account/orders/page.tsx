@@ -316,7 +316,7 @@ export default async function OrderHistoryPage() {
                   {order.substitutions.length > 0 && (
                     <div className="pt-3 border-t border-stone-100 space-y-1.5">
                       <p className="text-xs font-medium text-blue-700">
-                        🔄 Substitution{order.substitutions.length === 1 ? "" : "s"} made by staff
+                        <span aria-hidden="true">🔄 </span>Substitution{order.substitutions.length === 1 ? "" : "s"} made by staff
                       </p>
                       <ul className="space-y-1">
                         {order.substitutions.map((s, i) => (
