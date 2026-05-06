@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LoyaltySnapshot } from "@/lib/portal";
+import { getTierProgress } from "@/lib/loyalty-tiers";
 
 // Loyalty surface for the public site. Two states:
 //
@@ -56,6 +57,7 @@ export function LoyaltyCard({ snapshot }: { snapshot: LoyaltySnapshot | null }) 
 
   // Matched — show the real balance.
   const ptsToNextDollar = POINTS_PER_DOLLAR - (snapshot.points % POINTS_PER_DOLLAR);
+  const tierProgress = getTierProgress(snapshot.lifetimeSpent);
   const visitLine =
     snapshot.visitCount > 0 && snapshot.lastVisitAt
       ? `${snapshot.visitCount} visit${snapshot.visitCount === 1 ? "" : "s"} · last seen ${formatRelative(
@@ -101,6 +103,36 @@ export function LoyaltyCard({ snapshot }: { snapshot: LoyaltySnapshot | null }) 
           </p>
         )}
       </div>
+      {snapshot.lifetimeSpent > 0 && (
+        <div className="mt-4 pt-4 border-t border-white/10">
+          <div className="flex items-baseline justify-between gap-2 mb-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-300">
+              {tierProgress.tier.label}
+            </span>
+            {tierProgress.nextTier && tierProgress.toNext != null ? (
+              <span className="text-xs text-indigo-200/80">
+                <strong className="text-white">${Math.ceil(tierProgress.toNext)}</strong> to{" "}
+                {tierProgress.nextTier.label}
+              </span>
+            ) : (
+              <span className="text-xs text-emerald-300 font-medium">Top tier — thank you 🌿</span>
+            )}
+          </div>
+          <div
+            className="h-1.5 rounded-full bg-white/10 overflow-hidden"
+            role="progressbar"
+            aria-label={`Loyalty tier progress: ${tierProgress.tier.label}${tierProgress.nextTier ? `, ${Math.ceil(tierProgress.toNext ?? 0)} dollars from ${tierProgress.nextTier.label}` : ""}`}
+            aria-valuenow={Math.round(tierProgress.progressPct)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+              className="h-full bg-gradient-to-r from-emerald-400 to-indigo-300 transition-all"
+              style={{ width: `${tierProgress.progressPct}%` }}
+            />
+          </div>
+        </div>
+      )}
       <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between gap-3 flex-wrap text-xs">
         <p className="text-indigo-300/70">
           Hand the budtender your email at checkout — points apply automatically.
