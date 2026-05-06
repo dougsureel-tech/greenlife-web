@@ -387,7 +387,7 @@ export default async function BrandPage({ params }: Props) {
         {/* Products by category */}
         {products.length === 0 ? (
           <div className="text-center py-16 space-y-3">
-            <div className="text-4xl">🌿</div>
+            <div className="text-4xl" aria-hidden="true">🌿</div>
             <p className="text-stone-500 font-medium">No products currently in stock</p>
             <Link href="/menu" className="text-sm text-green-700 font-semibold hover:underline">
               Browse full menu →

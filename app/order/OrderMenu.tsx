@@ -634,7 +634,7 @@ export function OrderMenu({
   if (products.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
-        <div className="text-5xl mb-4">🌿</div>
+        <div className="text-5xl mb-4" aria-hidden="true">🌿</div>
         <p className="text-stone-700 text-xl font-semibold">Menu coming soon</p>
         <p className="text-stone-400 text-sm">
           Call us to place an order:{" "}

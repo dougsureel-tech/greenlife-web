@@ -328,7 +328,7 @@ export default async function AccountPage({ searchParams }: Props) {
       {/* Empty state */}
       {orders.length === 0 && (
         <div className="rounded-2xl border-2 border-dashed border-stone-200 py-14 text-center space-y-4">
-          <div className="text-4xl">🛒</div>
+          <div className="text-4xl" aria-hidden="true">🛒</div>
           <div>
             <p className="font-semibold text-stone-700">No orders yet</p>
             <p className="text-stone-400 text-sm mt-1">Browse our menu and place your first order</p>

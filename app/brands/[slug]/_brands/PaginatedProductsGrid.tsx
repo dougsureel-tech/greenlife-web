@@ -277,7 +277,7 @@ export function PaginatedProductsGrid({
 
       {sorted.length === 0 ? (
         <div className="text-center py-16 space-y-3 bg-white rounded-2xl border border-stone-200">
-          <div className="text-4xl">🌿</div>
+          <div className="text-4xl" aria-hidden="true">🌿</div>
           <p className="text-stone-500 font-medium">
             {strainFilter === "all"
               ? "No products in stock right now"
