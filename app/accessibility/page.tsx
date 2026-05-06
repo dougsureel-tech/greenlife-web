@@ -217,7 +217,7 @@ export default function AccessibilityPage() {
               <p className="mt-1.5 text-stone-600 text-sm sm:text-base">
                 We aim for{" "}
                 <a
-                  href="https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&amp;levels=aaa"
+                  href="https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&amp;levels=a%2Caa"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-600"
