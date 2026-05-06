@@ -357,9 +357,9 @@ export function SiteHeader() {
           <Link
             href={withAttr("/menu", "header", "mobile-order")}
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center px-4 py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-bold transition-colors shadow-md"
+            className="flex items-center justify-center px-4 py-3 rounded-xl animate-gradient bg-[length:200%_auto] bg-gradient-to-r from-green-800 via-emerald-700 to-green-800 hover:from-green-700 hover:via-emerald-600 hover:to-green-700 text-white text-sm font-bold transition-all shadow-md shadow-green-900/20"
           >
-            Order Now →
+            Order Now
           </Link>
         </div>
       </div>
