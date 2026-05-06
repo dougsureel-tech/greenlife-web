@@ -38,6 +38,28 @@ export type OnlineOrder = {
   items: OrderItem[];
 };
 
+// Inventoryapp's POS writes `in_progress` and `fulfilled` to online_orders.status
+// (per src/app/api/pos/online-orders/[id]/route.ts), but customers see this app's
+// vocabulary: `preparing` and `picked_up`. Without a mapping the UI's
+// STATUS_LABEL[order.status] returns undefined and the customer's order-history
+// row + confirmation timeline render blank for those two states.
+function normalizeOrderStatus(raw: unknown): OnlineOrder["status"] {
+  switch (raw) {
+    case "in_progress":
+      return "preparing";
+    case "fulfilled":
+      return "picked_up";
+    case "pending":
+    case "preparing":
+    case "ready":
+    case "picked_up":
+    case "cancelled":
+      return raw;
+    default:
+      return "pending";
+  }
+}
+
 export type OrderItem = {
   id: string;
   productId: string | null;
@@ -175,7 +197,7 @@ export async function getOrder(
   const r = rows[0];
   return {
     id: r.id as string,
-    status: (r.status as OnlineOrder["status"]) ?? "pending",
+    status: normalizeOrderStatus(r.status),
     subtotal: r.subtotal as number,
     itemCount: r.item_count as number,
     notes: r.notes as string | null,
@@ -338,7 +360,7 @@ export async function getOrders(portalUserId: string): Promise<OnlineOrder[]> {
 
   return orders.map((o) => ({
     id: o.id as string,
-    status: (o.status as OnlineOrder["status"]) ?? "pending",
+    status: normalizeOrderStatus(o.status),
     subtotal: o.subtotal as number,
     itemCount: o.item_count as number,
     notes: o.notes as string | null,
