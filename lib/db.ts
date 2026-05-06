@@ -478,11 +478,11 @@ export async function getJustInProducts(limit = 12): Promise<MenuProduct[]> {
 }
 
 // Order: today's day-specific deals FIRST (so the daily-deal mailer headline
-// always wins above always-on / loyalty-stacker / senior-10 / etc.), then
-// always-on, sorted within each tier by end_date ascending then name. LIMIT
-// 20 because pre-existing accumulated always-on deals (industry-20, first-
-// online-15, loyalty-stacker, senior-10, vet-mil-10) plus the seed mailer
-// (2 always-on + 3 daily) easily exceed any tighter cap.
+// always wins above the always-on tier), then always-on, sorted within each
+// tier by end_date ascending then name. LIMIT 20 because the active-deal
+// roster (heroes-30, first-visit-30, birthday-20, online-15/20, industry-20,
+// + rotating daily-deal mailer) easily fits but the cap protects future
+// growth.
 export async function getActiveDeals(): Promise<ActiveDeal[]> {
   const sql = getClient();
   const rows = await sql`
