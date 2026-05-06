@@ -686,7 +686,7 @@ export default async function HomePage() {
             today floats to the front). */}
       {deals.length > 0 && (
         <section className="bg-gradient-to-b from-amber-50/70 via-white to-white border-b border-stone-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
             <div className="flex items-end justify-between gap-3 mb-5 flex-wrap">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
@@ -761,7 +761,7 @@ export default async function HomePage() {
 
       {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
           <div className="text-center mb-7">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">How can we help?</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
