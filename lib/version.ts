@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 3.445 — AgeGate: embed WAC 314-55-082 statutory health warnings (6 bullet warnings) in scrollable panel within the age-verification modal. Single "Yes, I'm 21+" confirm covers both age verification and health warning acknowledgment. 30-day localStorage/cookie TTL unchanged. Mirror on seattle-cannabis-web v4.315. tsc clean.
 // 3.435 — Heroes self-attest Phase 3b: customers can now register their heroes cohort from the public-site account hub. New: /account/heroes page (Server Component + HeroesForm client component), /api/heroes POST route, portal.ts updateHeroesAttest() mirrors to customers.heroes_self_attest_type via email match (no new migration — column already exists from inventoryapp mig 0072). PortalUser type gains heroesSelfAttestType; SELECT query LEFT JOINs LATERAL to customers to surface current value. Account hub (/account) shows a "Heroes Discount" card with current cohort label or default promo copy. Mirror on seattle-cannabis-web v4.305. tsc clean.
 // 3.425 — Loyalty Phase 2: tiered-discount picker on /order checkout. When feature flag `loyalty_tiered_redemption` is ON and the signed-in customer has enough points, a tier picker appears in the cart drawer showing all eligible tiers (5/10/20/25/30% off at 50/100/200/250/300 or 400 pts). Selecting a tier updates the total in real-time; points are deducted atomically at order submission via UPDATE ... WHERE loyalty_points >= X. New: lib/loyalty-redemption.ts (pure tier math, no server-only import), getLoyaltyByClerkId() in portal.ts, placeOrder() 5th param loyaltyTierPointCost, online_orders loyalty_redemption + loyalty_tier_point_cost columns (migration 0179 already applied). Mirror on seattle-cannabis-web v4.295. tsc clean.
 // 3.415 — P4 pickup flow: when a customer saves their "No Substitutions" preference in /account/profile, portal.ts now mirrors it to the linked customers.no_substitute_pref row so the POS substitute route honors the preference end-to-end. lib/portal.ts updatePortalUser 1-query addition. tsc clean.
@@ -50,7 +51,7 @@
 // 3.161 — /brands/[slug] generic-template renders vendor-authored brand bio + Instagram/X/Facebook handles when filled in via /vmi/profile (inventoryapp). Section sits above the order CTA, only renders when at least one field is non-null. Handles are sanitized to /^[A-Za-z0-9._-]+$/ before being concatenated into URLs (prevents query-param injection or path traversal). Per-brand override components (NWCS, Mfused, Avitas etc.) intentionally NOT touched — those are graduated, hand-authored layouts.
 // 3.156 — /apply personality prompts: two optional written prompts (product-recommendation pitch + customer-recovery story) capture personality signal without the photo discrimination risk. Stored in applicants.metadata JSONB on inventoryapp side. Compliance: written-only — no photo (WA RCW 49.60 / EEOC pre-offer photo discrimination risk).
 // 3.151 — Public /apply form: apply-to-work intake with resume upload + 3 references + 21+ confirmation. POSTs to inventoryapp /api/applications. Compliance: no photo / no SSN / no DOB.
-export const BUILD_VERSION = "3.435";
+export const BUILD_VERSION = "3.445";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ??

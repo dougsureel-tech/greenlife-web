@@ -22,6 +22,16 @@ function setVerified() {
   } catch {}
 }
 
+// WAC 314-55-082 statutory health warnings — required on cannabis retail websites.
+const WARNINGS = [
+  "For use by persons 21 and older only. Keep out of reach of children and pets.",
+  "Use of marijuana by pregnant women is dangerous to the health of the developing child.",
+  "Marijuana products may increase your heart rate.",
+  "Marijuana may impair cognition and motor skills. Driving under the influence is illegal.",
+  "It is illegal to give, sell, or provide marijuana to anyone under 21.",
+  "Marijuana products may affect immune system and mental health.",
+];
+
 export function AgeGate() {
   const [show, setShow] = useState(false);
   const [leaving, setLeaving] = useState(false);
@@ -50,7 +60,7 @@ export function AgeGate() {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Age verification"
+      aria-label="Age verification and health warnings"
       className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
     >
       {/* Background */}
@@ -58,7 +68,6 @@ export function AgeGate() {
         className="absolute inset-0"
         style={{ background: "linear-gradient(160deg, #052e16 0%, #14532d 50%, #052e16 100%)" }}
       >
-        {/* subtle dot grid */}
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -66,7 +75,6 @@ export function AgeGate() {
             backgroundSize: "28px 28px",
           }}
         />
-        {/* glow */}
         <div
           className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(ellipse 60% 50% at 50% 80%, #4ade80, transparent)" }}
@@ -75,15 +83,15 @@ export function AgeGate() {
 
       {/* Card */}
       <div
-        className={`relative w-full sm:max-w-md mx-4 sm:mx-auto bg-green-950/90 backdrop-blur-sm border border-green-800/60 rounded-t-3xl sm:rounded-3xl px-8 py-10 text-center space-y-7 shadow-2xl transition-transform duration-300 ${leaving ? "translate-y-4 opacity-0" : ""}`}
+        className={`relative w-full sm:max-w-md mx-4 sm:mx-auto bg-green-950/90 backdrop-blur-sm border border-green-800/60 rounded-t-3xl sm:rounded-3xl px-8 py-8 text-center space-y-5 shadow-2xl transition-transform duration-300 ${leaving ? "translate-y-4 opacity-0" : ""}`}
       >
         {/* Logo mark */}
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-green-700/50 border border-green-600/40 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-14 h-14 rounded-2xl bg-green-700/50 border border-green-600/40 flex items-center justify-center">
             <svg
               viewBox="0 0 24 24"
               fill="none"
-              className="w-9 h-9 text-green-300"
+              className="w-8 h-8 text-green-300"
               stroke="currentColor"
               strokeWidth="1.5"
             >
@@ -101,12 +109,27 @@ export function AgeGate() {
           </div>
         </div>
 
-        {/* Question */}
-        <div className="space-y-2">
+        {/* Age question */}
+        <div className="space-y-1">
           <h1 className="text-white text-2xl font-extrabold tracking-tight">Are you 21 or older?</h1>
           <p className="text-green-300/60 text-sm">
             Washington State law requires you to be 21+ to purchase cannabis.
           </p>
+        </div>
+
+        {/* WAC 314-55-082 health warnings */}
+        <div className="bg-green-900/40 border border-green-800/50 rounded-xl px-4 py-3 text-left max-h-36 overflow-y-auto">
+          <p className="text-green-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+            Washington State Health Warnings
+          </p>
+          <ul className="space-y-1.5">
+            {WARNINGS.map((w, i) => (
+              <li key={i} className="text-green-300/70 text-[11px] leading-snug flex gap-1.5">
+                <span className="text-green-600 shrink-0 mt-0.5">▸</span>
+                {w}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Buttons */}
@@ -126,7 +149,7 @@ export function AgeGate() {
         </div>
 
         <p className="text-green-300/60 text-xs leading-relaxed">
-          By entering you confirm you are of legal age to purchase cannabis in Washington State.
+          By entering you confirm you are 21 or older and acknowledge the health warnings above.
         </p>
       </div>
     </div>
