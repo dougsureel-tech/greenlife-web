@@ -305,6 +305,14 @@ export default async function OrderHistoryPage() {
                       </div>
                     </div>
                   ))}
+                  {order.notes && order.notes.trim().length > 0 && (
+                    <div className="pt-3 border-t border-stone-100 space-y-1">
+                      <p className="text-xs font-medium text-stone-500">📝 Your note to staff</p>
+                      <p className="text-xs text-stone-700 italic whitespace-pre-wrap break-words">
+                        {order.notes.trim()}
+                      </p>
+                    </div>
+                  )}
                   {order.substitutions.length > 0 && (
                     <div className="pt-3 border-t border-stone-100 space-y-1.5">
                       <p className="text-xs font-medium text-blue-700">
