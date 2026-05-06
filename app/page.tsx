@@ -1566,7 +1566,7 @@ export default async function HomePage() {
                 {STORE.phone}
               </a>
               <a
-                href={`mailto:${STORE.email}`}
+                href={`mailto:${STORE.email}?subject=${encodeURIComponent("Question from greenlifecannabis.com")}`}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 hover:border-green-300 hover:bg-green-50 text-sm font-semibold text-stone-700 hover:text-green-700 transition-all"
               >
                 <svg
