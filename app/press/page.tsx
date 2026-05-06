@@ -87,8 +87,14 @@ export default function PressPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Fact sheet</h2>
           <p className="text-stone-500 text-sm mt-1.5">
-            Copy/paste-friendly. If anything is wrong, tell us at {PRESS_EMAIL} and we&apos;ll fix it within
-            the hour.
+            Copy/paste-friendly. If anything is wrong, tell us at{" "}
+            <a
+              href={`mailto:${PRESS_EMAIL}?subject=${encodeURIComponent("Press fact-sheet correction")}`}
+              className="text-green-700 font-semibold hover:text-green-600 underline underline-offset-2"
+            >
+              {PRESS_EMAIL}
+            </a>{" "}
+            and we&apos;ll fix it within the hour.
           </p>
           <dl className="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-4">
             {FACTS.map((f) => (
@@ -126,8 +132,14 @@ export default function PressPage() {
             <footer className="mt-2 not-italic text-xs text-stone-500">— the owner</footer>
           </blockquote>
           <p className="text-xs text-stone-500">
-            Need a custom quote, owner interview, or background-only call? Email {PRESS_EMAIL} and we&apos;ll
-            schedule.
+            Need a custom quote, owner interview, or background-only call? Email{" "}
+            <a
+              href={`mailto:${PRESS_EMAIL}?subject=${encodeURIComponent("Press — interview request")}`}
+              className="text-green-700 font-semibold hover:text-green-600 underline underline-offset-2"
+            >
+              {PRESS_EMAIL}
+            </a>{" "}
+            and we&apos;ll schedule.
           </p>
         </div>
       </section>
@@ -137,8 +149,14 @@ export default function PressPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-6">
           <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Logo & photos</h2>
           <p className="text-stone-500 text-sm">
-            Right-click → Save image. For SVG / vector / hi-res original variants, email {PRESS_EMAIL} —
-            we&apos;ll send within an hour during business hours.
+            Right-click → Save image. For SVG / vector / hi-res original variants, email{" "}
+            <a
+              href={`mailto:${PRESS_EMAIL}?subject=${encodeURIComponent("Press — high-res asset request")}`}
+              className="text-green-700 font-semibold hover:text-green-600 underline underline-offset-2"
+            >
+              {PRESS_EMAIL}
+            </a>{" "}
+            — we&apos;ll send within an hour during business hours.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-center space-y-3">
