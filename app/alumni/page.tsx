@@ -314,7 +314,7 @@ function ThanksCard({
         up from there.
       </p>
       <p className="text-stone-500 text-xs mt-5 leading-relaxed">
-        If nothing happened, your browser may have blocked it.{" "}
+        If nothing happened, your browser blocked it.{" "}
         <a href={mailtoHref} className="text-green-700 font-semibold hover:underline">
           Click here
         </a>{" "}

@@ -223,7 +223,7 @@ export default function AvitasBrandPage({
             </div>
             <p className="text-sm text-stone-500 max-w-md">
               Counts reflect what&apos;s on the {STORE.name} shelf right now — refresh tomorrow,
-              the mix may have rotated.
+              the mix often rotates.
             </p>
           </div>
 
