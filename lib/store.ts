@@ -1,6 +1,6 @@
 export const STORE = {
   name: "Green Life Cannabis",
-  tagline: "Wenatchee's Premier Cannabis Dispensary",
+  tagline: "Wenatchee's best cannabis staff",
   address: {
     street: "3012 Center Road Ste A",
     city: "Wenatchee",
