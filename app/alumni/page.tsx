@@ -175,8 +175,14 @@ function KnockCard({
       </form>
 
       <p className="text-stone-400 text-xs mt-6 leading-relaxed">
-        Not sure if you&apos;re on the list? Reach out to {STORE.email} and we&apos;ll point you in
-        the right direction.
+        Not sure if you&apos;re on the list? Reach out to{" "}
+        <a
+          href={`mailto:${STORE.email}?subject=${encodeURIComponent("Alumni — am I on the list?")}`}
+          className="text-green-700 font-semibold hover:text-green-600 underline underline-offset-2"
+        >
+          {STORE.email}
+        </a>{" "}
+        and we&apos;ll point you in the right direction.
       </p>
     </div>
   );
@@ -217,7 +223,13 @@ function SignupCard({
       </h1>
       <p className="text-stone-600 text-sm mt-3 leading-relaxed">
         Quick info now, evolves over time. Your portrait can come later — just send it to{" "}
-        {STORE.email} when you&apos;re ready.
+        <a
+          href={`mailto:${STORE.email}?subject=${encodeURIComponent("Alumni profile portrait")}`}
+          className="text-green-700 font-semibold hover:text-green-600 underline underline-offset-2"
+        >
+          {STORE.email}
+        </a>{" "}
+        when you&apos;re ready.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
