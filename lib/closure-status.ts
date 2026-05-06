@@ -21,12 +21,24 @@ function inventoryappBase(): string {
   return env && env.startsWith("https://") ? env.replace(/\/+$/, "") : DEFAULT_INVENTORYAPP_URL;
 }
 
-export async function fetchClosureStatus(): Promise<ClosureStatus> {
+// `revalidate` (seconds) opts the call site into Next's data cache instead of
+// the default `no-store`. Use only on read-mostly pages where slightly-stale
+// closure data is acceptable (e.g., `/not-found` — bots hitting it shouldn't
+// pound inventoryapp every time). Don't pass it from `/order` or `/menu` —
+// those need the freshest signal so a customer can't place an order during
+// an active emergency closure.
+export async function fetchClosureStatus(opts?: {
+  revalidate?: number;
+}): Promise<ClosureStatus> {
   const url = `${inventoryappBase()}/api/public/closure-status`;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 5000);
   try {
-    const res = await fetch(url, { signal: controller.signal, cache: "no-store" });
+    const fetchOpts: RequestInit & { next?: { revalidate?: number } } =
+      typeof opts?.revalidate === "number" && opts.revalidate > 0
+        ? { signal: controller.signal, next: { revalidate: opts.revalidate } }
+        : { signal: controller.signal, cache: "no-store" };
+    const res = await fetch(url, fetchOpts);
     if (!res.ok) return { isClosed: false, reason: null };
     const body = (await res.json()) as {
       active?: boolean;

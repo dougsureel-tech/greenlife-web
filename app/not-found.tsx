@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { STORE, isOpenNow } from "@/lib/store";
+import { fetchClosureStatus } from "@/lib/closure-status";
 
 const VIBES = [
   { emoji: "⚡️", label: "Energize", vibe: "energize" },
@@ -16,8 +17,21 @@ const POPULAR = [
   { href: "/faq", label: "FAQ", desc: "Cash, ID, hours" },
 ];
 
-export default function NotFound() {
-  const open = isOpenNow();
+// Closure-aware: parity with /, /menu, /order, /visit (per v3.230 / v3.240 /
+// v3.245 / v3.250). The "open now" chip on the 404 should reflect emergency
+// closure overrides set in /admin/hours-override, not just the configured
+// weekly hours — otherwise customers landing on a stale URL on a closure day
+// see "open now" and may drive over for nothing. fetchClosureStatus() has a
+// 5s AbortController + graceful-degrades to {isClosed:false} on any error,
+// so a flaky inventoryapp endpoint never breaks the 404 render.
+export default async function NotFound() {
+  // 60s revalidate — the 404 is a high-bot-traffic surface (typo URLs,
+  // crawlers, scanners). Slightly-stale closure data is acceptable here
+  // (worst case: a customer sees "open now" up to 60s after a manager
+  // flips emergency closure). The freshness-critical surfaces (/order,
+  // /menu) call without revalidate so they always read live.
+  const closure = await fetchClosureStatus({ revalidate: 60 });
+  const open = isOpenNow() && !closure.isClosed;
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-2xl space-y-10 text-center">
