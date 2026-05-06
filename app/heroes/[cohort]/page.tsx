@@ -379,7 +379,7 @@ export default async function HeroesCohortPage({
                 key={ex}
                 className="rounded-xl bg-white border border-stone-200 p-4 flex items-start gap-3"
               >
-                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                <span className="text-green-600 font-bold mt-0.5" aria-hidden="true">✓</span>
                 <span className="text-stone-700 text-sm leading-relaxed">{ex}</span>
               </li>
             ))}
