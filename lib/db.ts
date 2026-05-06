@@ -1,4 +1,5 @@
 import "server-only";
+import { cleanBrandName } from "./clean-brand-name";
 
 export type VendorBrand = {
   id: string;
@@ -679,7 +680,7 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
   `;
   return rows.map((r) => ({
     id: r.id as string,
-    name: r.name as string,
+    name: cleanBrandName(r.name as string) || (r.name as string),
     slug: r.slug as string,
     website: r.website as string | null,
     logoUrl: r.logo_url as string | null,
@@ -742,7 +743,7 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
   const r = rows[0];
   return {
     id: r.id as string,
-    name: r.name as string,
+    name: cleanBrandName(r.name as string) || (r.name as string),
     slug: r.slug as string,
     website: r.website as string | null,
     logoUrl: r.logo_url as string | null,
