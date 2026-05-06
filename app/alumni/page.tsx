@@ -52,7 +52,7 @@ export default function AlumniLoginPage() {
     setError(null);
     const candidate = input.trim().toLowerCase();
     if (!candidate) {
-      setError("Try again.");
+      setError("Type your secret first — anything you remember from your time on the floor.");
       return;
     }
     const hit = ALUMNI_SECRETS.find((s) => s.secret === candidate);
