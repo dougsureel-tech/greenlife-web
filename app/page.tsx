@@ -123,7 +123,18 @@ export default async function HomePage() {
     getActiveDeals().catch(() => []),
     fetchClosureStatus(),
   ]);
-  const featuredBrands = brands.slice(0, 10);
+  // "Top Brands" carousel renders logo'd brands only. Pre-fix the section
+  // was alphabetical-by-vendor-name, surfacing license-shaped junk like
+  // "1555 Industrial L..." and "AG GROW - 4125..." (raw WSLCB-licensee names)
+  // each rendered as a single-letter initial placeholder — a wall of "A" / "B"
+  // cards with no logos, the opposite of "Washington's finest producers." The
+  // existing initials fallback stays for any single brand on /brands/[slug]
+  // that's logo-less, but the homepage carousel is a curated brand showcase:
+  // no logo → no slot. `featuredBrands.length > 0` gate below hides the whole
+  // section when the filter returns empty.
+  const featuredBrands = brands
+    .filter((b) => b.logoUrl != null && b.logoUrl.trim().length > 0)
+    .slice(0, 10);
   // `open` flips false whenever an emergency closure is active so all 3
   // "Open Now / Closed" indicators on the page (hero pill, status strip,
   // pre-footer chip) read consistently. The static configured-hours check
