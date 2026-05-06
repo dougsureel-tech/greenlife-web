@@ -622,11 +622,11 @@ export function OrderMenu({
         setPlacing(false);
       } else {
         const body = await res.json().catch(() => null);
-        setOrderError(body?.error ?? "Couldn't place your order. Try again.");
+        setOrderError(body?.error ?? "Couldn't place your order — try again. Your cart is still here.");
         setPlacing(false);
       }
     } catch {
-      setOrderError("Network error. Check your connection and try again.");
+      setOrderError("Connection issue — your cart is still here. Try Place Order again.");
       setPlacing(false);
     }
   }
