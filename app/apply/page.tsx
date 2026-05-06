@@ -343,14 +343,14 @@ function ApplyForm() {
       } else if (errorJson?.error && typeof errorJson.error === "string") {
         setSubmitError(errorJson.error);
       } else {
-        setSubmitError(`We couldn't submit your application (server returned ${res.status}). Please try again or email us directly.`);
+        setSubmitError(`Couldn't submit your application (server returned ${res.status}). Try again or email us directly.`);
       }
     } catch (err) {
       // Network drop, CORS misconfig, DNS — all surface here.
       setSubmitError(
         err instanceof Error && err.message
-          ? `Network issue: ${err.message}. Please try again.`
-          : "Network issue. Please check your connection and try again."
+          ? `Network issue: ${err.message}. Try again.`
+          : "Network issue — check your connection and try again."
       );
     } finally {
       setSubmitting(false);
