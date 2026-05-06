@@ -9,6 +9,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
   const [phone, setPhone] = useState(user.phone ?? "");
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
   const [noSubstitutePref, setNoSubstitutePref] = useState(user.noSubstitutePref);
+  const [heroesSelfAttestType, setHeroesSelfAttestType] = useState<string | null>(user.heroesSelfAttestType ?? null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, smsOptIn, noSubstitutePref }),
+        body: JSON.stringify({ name, phone, smsOptIn, noSubstitutePref, heroesSelfAttestType }),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);
@@ -100,6 +101,27 @@ export function ProfileForm({ user }: { user: PortalUser }) {
               className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${noSubstitutePref ? "translate-x-5" : ""}`}
             />
           </button>
+        </div>
+        <div className="px-5 py-4 space-y-2">
+          <div>
+            <div className="text-sm font-medium text-stone-800">Heroes Discount</div>
+            <div className="text-xs text-stone-400 mt-0.5">
+              Military, veterans, first responders, healthcare &amp; K-12 teachers.
+              Bring your credential to verify at the counter — this just lets us know to expect it.
+            </div>
+          </div>
+          <select
+            value={heroesSelfAttestType ?? ""}
+            onChange={(e) => setHeroesSelfAttestType(e.target.value || null)}
+            className="w-full bg-stone-50 border border-stone-200 rounded-lg text-sm text-stone-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            <option value="">None captured</option>
+            <option value="active_military">Active Military</option>
+            <option value="veteran">Veteran</option>
+            <option value="first_responder">First Responder</option>
+            <option value="healthcare">Healthcare Worker</option>
+            <option value="k12_teacher">K-12 Teacher</option>
+          </select>
         </div>
       </div>
 
