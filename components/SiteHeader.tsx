@@ -195,10 +195,10 @@ export function SiteHeader() {
             }
             <Link
               href={withAttr("/menu", "header", "order-now")}
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 shadow-sm ${
+              className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 animate-gradient bg-[length:200%_auto] hover:-translate-y-0.5 ${
                 dark
-                  ? "bg-green-400 text-green-950 hover:bg-green-300 shadow-black/20"
-                  : "bg-green-700 hover:bg-green-600 text-white"
+                  ? "bg-gradient-to-r from-green-400 via-emerald-300 to-green-400 text-green-950 shadow-lg shadow-green-600/40 hover:shadow-xl hover:shadow-emerald-500/50 hover:scale-[1.03]"
+                  : "bg-gradient-to-r from-green-800 via-emerald-700 to-green-800 hover:from-green-700 hover:via-emerald-600 hover:to-green-700 text-white shadow-md shadow-green-900/20 hover:shadow-lg hover:shadow-green-700/30"
               }`}
             >
               Order Now

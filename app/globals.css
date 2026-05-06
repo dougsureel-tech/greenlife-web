@@ -102,3 +102,15 @@ details[open] > summary ~ * {
     background-position: -200% 0;
   }
 }
+
+@keyframes gradient-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradient-drift 8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient { animation: none; }
+}
