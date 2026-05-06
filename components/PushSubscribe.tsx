@@ -126,7 +126,7 @@ export function PushSubscribe({ compact = false }: { compact?: boolean } = {}) {
       {!compact && (
         <div className="space-y-1">
           <h3 className="font-bold text-stone-900 text-sm flex items-center gap-2">
-            <span className="text-base">🔔</span> Drop Alerts
+            <span className="text-base" aria-hidden="true">🔔</span> Drop Alerts
           </h3>
           <p className="text-xs text-stone-500 leading-relaxed">
             Get a notification when new product hits the shelf — no email, no SMS, no spam. One tap to turn

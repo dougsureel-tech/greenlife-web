@@ -789,7 +789,7 @@ export function OrderMenu({
             onClick={() => selectCategory(null)}
             className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${activeCategory === null && !search ? "bg-green-100 text-green-800" : "text-stone-500 hover:bg-stone-100"}`}
           >
-            <span className="text-base">🛒</span> All Items
+            <span className="text-base" aria-hidden="true">🛒</span> All Items
             <span className="ml-auto text-[11px] text-stone-400">{visibleProducts.length}</span>
           </button>
           {categories.map((c) => {

@@ -161,7 +161,7 @@ export function HeroesForm({ current }: { current: HeroesAttestType }) {
       {/* Show-your-card callout */}
       {selected && (
         <div className="rounded-2xl bg-amber-50 border border-amber-200 px-5 py-4 flex items-start gap-3">
-          <span className="text-lg shrink-0 mt-0.5">🪪</span>
+          <span className="text-lg shrink-0 mt-0.5" aria-hidden="true">🪪</span>
           <div>
             <div className="text-sm font-semibold text-amber-900">Bring your ID when you visit</div>
             <div className="text-xs text-amber-700/80 mt-0.5 leading-relaxed">
