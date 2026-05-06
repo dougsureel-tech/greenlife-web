@@ -8,7 +8,7 @@ import { StashButton } from "@/components/StashButton";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_BADGE: Record<string, string> = {
-  Sativa: "bg-amber-100 text-amber-700 border-amber-200",
+  Sativa: "bg-red-100 text-red-700 border-red-200",
   Indica: "bg-purple-100 text-purple-700 border-purple-200",
   Hybrid: "bg-green-100 text-green-700 border-green-200",
 };

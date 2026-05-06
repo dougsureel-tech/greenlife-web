@@ -19,7 +19,7 @@ type Product = {
 };
 
 const STRAIN_COLORS: Record<string, { badge: string }> = {
-  sativa: { badge: "bg-amber-100 text-amber-800 border-amber-200" },
+  sativa: { badge: "bg-red-100 text-red-800 border-red-200" },
   indica: { badge: "bg-purple-100 text-purple-800 border-purple-200" },
   hybrid: { badge: "bg-emerald-100 text-emerald-800 border-emerald-200" },
 };

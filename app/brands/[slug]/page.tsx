@@ -111,7 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const STRAIN_COLORS: Record<string, { badge: string }> = {
-  sativa: { badge: "bg-amber-100 text-amber-700 border-amber-200" },
+  sativa: { badge: "bg-red-100 text-red-700 border-red-200" },
   indica: { badge: "bg-purple-100 text-purple-700 border-purple-200" },
   hybrid: { badge: "bg-green-100 text-green-700 border-green-200" },
 };

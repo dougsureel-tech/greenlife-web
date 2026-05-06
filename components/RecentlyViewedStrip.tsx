@@ -6,7 +6,7 @@ import { useRecentlyViewed } from "@/lib/recently-viewed";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_DOT: Record<string, string> = {
-  Sativa: "bg-amber-400",
+  Sativa: "bg-red-400",
   Indica: "bg-purple-400",
   Hybrid: "bg-green-400",
 };

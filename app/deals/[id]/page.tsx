@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 const STRAIN_DOT: Record<string, string> = {
-  Sativa: "bg-amber-400",
+  Sativa: "bg-red-400",
   Indica: "bg-purple-400",
   Hybrid: "bg-green-400",
 };
