@@ -265,7 +265,7 @@ export default function AccessibilityPage() {
               <p className="mt-1.5 text-stone-600 text-sm sm:text-base">
                 Practical guidance for adults using legal cannabis in Washington. Sourced from{" "}
                 <a
-                  href="https://doh.wa.gov/you-and-your-family/marijuana"
+                  href="https://doh.wa.gov/you-and-your-family/cannabis"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-600"
