@@ -90,8 +90,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: `${STORE.website}/vendor-access`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
+      url: `${STORE.website}/apply`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
     // /alumni intentionally excluded — gated soft-knock route, not for indexing.
-    // /apply intentionally excluded — application form, ?position deep-link, no canonical surface.
+    // /quiz, /stash intentionally excluded — robots:noindex (per-visitor views).
   ];
 
   // Per-deal deep pages — only currently-active deals, since /deals/[id]
