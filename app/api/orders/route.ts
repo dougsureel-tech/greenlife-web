@@ -145,6 +145,7 @@ export async function POST(req: NextRequest) {
           storeName: STORE.name,
           storeAddress: STORE.address.full,
           mapUrl: STORE.googleMapsUrl,
+          notes: notesStr ?? null,
         });
       });
     }

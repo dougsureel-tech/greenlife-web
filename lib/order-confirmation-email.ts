@@ -47,6 +47,10 @@ export type OrderConfirmationArgs = {
   storeName: string;
   storeAddress: string;
   mapUrl: string;
+  /** Customer-supplied notes from checkout. Echoed back so they remember
+   *  what they wrote — and so they have a record if they ever need to
+   *  follow up. Optional + null-safe: not all orders have notes. */
+  notes?: string | null;
 };
 
 // Tiny HTML escape — keep self-contained so the file has no extra deps.
@@ -107,6 +111,7 @@ function buildHtml(args: OrderConfirmationArgs): string {
     storeName,
     storeAddress,
     mapUrl,
+    notes,
   } = args;
 
   const greetingName = firstName ? safe(firstName) : "there";
@@ -115,6 +120,8 @@ function buildHtml(args: OrderConfirmationArgs): string {
   const safeStoreAddress = safe(storeAddress);
   const safeMapUrl = safe(mapUrl);
   const safePickup = safe(pickupWindowText);
+  const trimmedNotes = notes?.trim() ?? "";
+  const safeNotes = trimmedNotes.length > 0 ? safe(trimmedNotes) : "";
 
   const itemRows = items
     .map((it) => {
@@ -209,6 +216,17 @@ function buildHtml(args: OrderConfirmationArgs): string {
           </tr>
         </table>
 
+        ${
+          safeNotes
+            ? `<div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:14px 18px;margin:18px 0 4px;">
+                 <p style="margin:0 0 4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#92400e;">
+                   📝 Your note to staff
+                 </p>
+                 <p style="margin:0;font-size:14px;color:#78350f;font-style:italic;line-height:1.5;white-space:pre-wrap;">${safeNotes}</p>
+               </div>`
+            : ""
+        }
+
         <div style="background:${COLORS.accentBg};border-radius:10px;padding:14px 18px;margin:22px 0 8px;">
           <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${COLORS.accentText};">
             What to bring
@@ -273,7 +291,7 @@ function buildHtml(args: OrderConfirmationArgs): string {
 }
 
 function buildText(args: OrderConfirmationArgs): string {
-  const { firstName, orderId, items, subtotal, pickupWindowText, storeName, storeAddress, mapUrl } = args;
+  const { firstName, orderId, items, subtotal, pickupWindowText, storeName, storeAddress, mapUrl, notes } = args;
   const greeting = firstName ?? "there";
   const lines = items
     .map((it) => {
@@ -282,6 +300,13 @@ function buildText(args: OrderConfirmationArgs): string {
     })
     .join("\n");
   const estTotal = fmtUsd(subtotal * 1.37);
+  const trimmedNotes = notes?.trim() ?? "";
+  const noteSection = trimmedNotes.length > 0
+    ? ["", "Your note to staff:", trimmedNotes
+        .split("\n")
+        .map((l) => `  ${l}`)
+        .join("\n")]
+    : [];
   return [
     `${storeName} — order received`,
     "",
@@ -297,6 +322,7 @@ function buildText(args: OrderConfirmationArgs): string {
     `Excise + sales tax: calculated at register`,
     `Estimated total: ${estTotal}  (includes WA 37% cannabis excise; final on receipt)`,
     "Cash only.",
+    ...noteSection,
     "",
     "What to bring:",
     "  - Cash (ATM in the lobby if you need it).",
