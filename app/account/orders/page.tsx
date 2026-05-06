@@ -305,6 +305,22 @@ export default async function OrderHistoryPage() {
                       </div>
                     </div>
                   ))}
+                  {order.substitutions.length > 0 && (
+                    <div className="pt-3 border-t border-stone-100 space-y-1.5">
+                      <p className="text-xs font-medium text-blue-700">
+                        🔄 Substitution{order.substitutions.length === 1 ? "" : "s"} made by staff
+                      </p>
+                      <ul className="space-y-1">
+                        {order.substitutions.map((s, i) => (
+                          <li key={i} className="text-xs text-stone-600">
+                            <span className="text-stone-400 line-through">{s.originalName}</span>
+                            <span className="text-stone-400 mx-1.5">→</span>
+                            <span className="text-stone-700 font-medium">{s.subName}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center pt-3 border-t border-stone-100">
                     <span className="text-sm text-stone-500">Cash at pickup</span>
                     <span className="text-base font-bold text-stone-900">${order.subtotal.toFixed(2)}</span>

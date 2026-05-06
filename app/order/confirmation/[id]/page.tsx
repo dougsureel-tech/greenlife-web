@@ -188,6 +188,25 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
               </li>
             ))}
           </ul>
+          {order.substitutions.length > 0 && (
+            <div className="px-5 py-3 bg-blue-50 border-t border-blue-100 space-y-1.5">
+              <p className="text-xs font-bold text-blue-700 uppercase tracking-widest">
+                🔄 Substitution{order.substitutions.length === 1 ? "" : "s"}
+              </p>
+              <ul className="space-y-1">
+                {order.substitutions.map((s, i) => (
+                  <li key={i} className="text-xs text-stone-700">
+                    <span className="text-stone-400 line-through">{s.originalName}</span>
+                    <span className="text-stone-400 mx-1.5">→</span>
+                    <span className="font-semibold">{s.subName}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[11px] text-blue-700/80 italic pt-0.5">
+                Same price or less — staff swapped to keep your order whole.
+              </p>
+            </div>
+          )}
           <div className="px-5 py-4 bg-stone-50 flex items-center justify-between">
             <p className="text-sm text-stone-500">Est. total &middot; cash in store</p>
             <p className="text-xl font-extrabold text-stone-900 tabular-nums">${order.subtotal.toFixed(2)}</p>
