@@ -279,8 +279,8 @@ function buildHtml(args: OrderConfirmationArgs): string {
         <p style="margin:0;font-size:11px;color:${COLORS.textFaint};line-height:1.55;">
           You're getting this because you placed an order at ${safeStoreName}.
           This is a transactional confirmation — to stop future marketing
-          emails, reply STOP or email
-          <a href="mailto:${OPT_OUT_EMAIL}" style="color:${COLORS.accentText};text-decoration:underline;">${OPT_OUT_EMAIL}</a>.
+          emails, email
+          <a href="mailto:${OPT_OUT_EMAIL}?subject=Unsubscribe" style="color:${COLORS.accentText};text-decoration:underline;">${OPT_OUT_EMAIL}</a>.
         </p>
       </td></tr>
     </table>
@@ -342,7 +342,7 @@ function buildText(args: OrderConfirmationArgs): string {
     `${storeAddress}`,
     `${PHONE_DISPLAY} · ${WSLCB_LICENSE}`,
     "",
-    `Transactional confirmation from ${storeName}. To stop future marketing emails, reply STOP or email ${OPT_OUT_EMAIL}.`,
+    `Transactional confirmation from ${storeName}. To stop future marketing emails, email ${OPT_OUT_EMAIL}.`,
   ].join("\n");
 }
 
