@@ -30,7 +30,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
         }}
       >
         <div style={{ maxWidth: "28rem", textAlign: "center" }}>
-          <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>😔</div>
+          <div style={{ fontSize: "3rem", marginBottom: "1rem" }} aria-hidden="true">😔</div>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: "0 0 0.5rem" }}>Page didn&rsquo;t load</h1>
           <p style={{ fontSize: "0.9rem", color: "#57534e", margin: "0 0 1.5rem" }}>
             Try a refresh, or call us at {STORE.phone} — we can take your order over the phone.
