@@ -8,6 +8,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
   const [name, setName] = useState(user.name ?? "");
   const [phone, setPhone] = useState(user.phone ?? "");
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
+  const [emailOptIn, setEmailOptIn] = useState(user.emailOptIn);
   const [noSubstitutePref, setNoSubstitutePref] = useState(user.noSubstitutePref);
   const [heroesSelfAttestType, setHeroesSelfAttestType] = useState<string | null>(user.heroesSelfAttestType ?? null);
   const [saving, setSaving] = useState(false);
@@ -21,7 +22,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, smsOptIn, noSubstitutePref, heroesSelfAttestType }),
+        body: JSON.stringify({ name, phone, smsOptIn, emailOptIn, noSubstitutePref, heroesSelfAttestType }),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);
@@ -83,6 +84,23 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           >
             <span
               className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${smsOptIn ? "translate-x-5" : ""}`}
+            />
+          </button>
+        </div>
+        <div className="px-5 py-4 flex items-center justify-between">
+          <div>
+            <div className="text-sm font-medium text-stone-800">Email Notifications</div>
+            <div className="text-xs text-stone-400 mt-0.5">Email receipts + the monthly newsletter</div>
+            <div className="text-[11px] text-green-700 mt-1">Either toggle on = 0.5 pt per $1 spent (vs 0.25)</div>
+          </div>
+          <button
+            onClick={() => setEmailOptIn(!emailOptIn)}
+            aria-checked={emailOptIn}
+            role="switch"
+            className={`relative w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${emailOptIn ? "bg-green-600" : "bg-stone-200"}`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${emailOptIn ? "translate-x-5" : ""}`}
             />
           </button>
         </div>

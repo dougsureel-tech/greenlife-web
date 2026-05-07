@@ -21,6 +21,7 @@ export type PortalUser = {
   phone: string | null;
   loyaltyPoints: number;
   smsOptIn: boolean;
+  emailOptIn: boolean;
   noSubstitutePref: boolean;
   heroesSelfAttestType: string | null;
 };
@@ -151,7 +152,7 @@ export async function updateHeroesAttest(id: string, type: string | null) {
 
 export async function updatePortalUser(
   id: string,
-  data: { name?: string; phone?: string; smsOptIn?: boolean; noSubstitutePref?: boolean },
+  data: { name?: string; phone?: string; smsOptIn?: boolean; emailOptIn?: boolean; noSubstitutePref?: boolean },
 ) {
   const sql = getClient();
   await sql`
@@ -159,6 +160,7 @@ export async function updatePortalUser(
       name = COALESCE(${data.name ?? null}, name),
       phone = COALESCE(${data.phone ?? null}, phone),
       sms_opt_in = COALESCE(${data.smsOptIn ?? null}, sms_opt_in),
+      email_opt_in = COALESCE(${data.emailOptIn ?? null}, email_opt_in),
       no_substitute_pref = COALESCE(${data.noSubstitutePref ?? null}, no_substitute_pref),
       updated_at = now()
     WHERE id = ${id}
@@ -661,6 +663,7 @@ function mapPortalUser(r: Record<string, unknown>): PortalUser {
     phone: r.phone as string | null,
     loyaltyPoints: (r.loyalty_points as number) ?? 0,
     smsOptIn: (r.sms_opt_in as boolean) ?? false,
+    emailOptIn: (r.email_opt_in as boolean) ?? false,
     noSubstitutePref: (r.no_substitute_pref as boolean) ?? false,
     heroesSelfAttestType: (r.heroes_self_attest_type as string | null) ?? null,
   };
