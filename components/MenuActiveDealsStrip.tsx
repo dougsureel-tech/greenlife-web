@@ -25,7 +25,16 @@ import { withAttr } from "@/lib/attribution";
 // MenuFallback amber featured-deal box for the single most-urgent
 // deal; this strip only adds value when there are deals to enumerate.
 
-type Props = { deals: ActiveDeal[] };
+type Props = {
+  deals: ActiveDeal[];
+  /**
+   * Count of products in the staff-curated /treasure-chest clearance lane.
+   * When > 0, prepends an amber Treasure-chest chip to the deals row so
+   * customers browsing /menu can find the clearance lane without leaving
+   * the page. v178.x — Doug 2026-05-07 polish.
+   */
+  treasureChestCount?: number;
+};
 
 const CATEGORY_TINT: Record<string, { bg: string; text: string; border: string }> = {
   flower: { bg: "bg-emerald-50", text: "text-emerald-800", border: "border-emerald-200" },
@@ -45,8 +54,11 @@ function tintFor(appliesTo: string | null) {
   return CATEGORY_TINT[key] ?? CATEGORY_TINT.all;
 }
 
-export function MenuActiveDealsStrip({ deals }: Props) {
-  if (!deals || deals.length === 0) return null;
+export function MenuActiveDealsStrip({ deals, treasureChestCount = 0 }: Props) {
+  // Render when EITHER deals OR treasure-chest has content. Pre-fix the
+  // strip returned null on empty deals — meaning a clearance-only state
+  // (deals=0, treasure=N) hid the treasure chip too.
+  if ((!deals || deals.length === 0) && treasureChestCount === 0) return null;
 
   return (
     <section
@@ -59,7 +71,9 @@ export function MenuActiveDealsStrip({ deals }: Props) {
             id="menu-deals-strip-heading"
             className="text-sm font-extrabold uppercase tracking-[0.18em] text-emerald-800"
           >
-            Live deals · {deals.length} running
+            {deals.length > 0
+              ? `Live deals · ${deals.length} running`
+              : "Clearance lane"}
           </h2>
           <Link
             href={withAttr("/deals", "menu", "deals-strip-all")}
@@ -70,6 +84,17 @@ export function MenuActiveDealsStrip({ deals }: Props) {
         </div>
 
         <div className="flex flex-wrap gap-2">
+          {treasureChestCount > 0 && (
+            <Link
+              href={withAttr("/treasure-chest", "menu", "deals-strip-treasure")}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-300 bg-amber-100 text-amber-900 font-semibold text-xs hover:-translate-y-0.5 hover:bg-amber-200 transition-all"
+            >
+              <span aria-hidden className="text-[10px] uppercase tracking-widest opacity-70">
+                <span aria-hidden="true">🪙</span> Treasure
+              </span>
+              <span className="font-extrabold">{treasureChestCount} on clearance</span>
+            </Link>
+          )}
           {deals.map((d) => {
             const vendor = matchDealVendor(d.name, d.description);
             const tint = tintFor(d.appliesTo);
