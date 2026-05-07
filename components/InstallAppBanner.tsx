@@ -175,7 +175,7 @@ export function InstallAppBanner() {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold leading-tight">Install the Green Life app</p>
               <p className="text-xs text-green-100 mt-0.5 leading-tight">
-                Order faster, see your rewards, get drop notifications.
+                App-only deals · your rewards · drop notifications · faster ordering.
               </p>
             </div>
             <button
