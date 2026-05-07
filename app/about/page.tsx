@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { ALUMNI_TEAM, initialOf } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
 
@@ -331,7 +331,7 @@ export default function AboutPage() {
                   h.day ===
                   new Date().toLocaleDateString("en-US", {
                     weekday: "long",
-                    timeZone: "America/Los_Angeles",
+                    timeZone: STORE_TZ,
                   });
                 return (
                   <div

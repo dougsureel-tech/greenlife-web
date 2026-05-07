@@ -1,7 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse, after } from "next/server";
 import { getOrCreatePortalUser, placeOrder, checkAvailability } from "@/lib/portal";
-import { validatePickupTime, pickupTimeToISO, STORE } from "@/lib/store";
+import { validatePickupTime, pickupTimeToISO, STORE, STORE_TZ } from "@/lib/store";
 import { sendSms, isSmsConfigured, normalizePhone } from "@/lib/sms";
 import { sendOrderConfirmationEmail } from "@/lib/order-confirmation-email";
 
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
     // transactional messages must respect the opt-out flag for cannabis
     // partners under heightened scrutiny).
     const pickupLabel = new Date(pickupISO).toLocaleTimeString("en-US", {
-      timeZone: "America/Los_Angeles",
+      timeZone: STORE_TZ,
       hour: "numeric",
       minute: "2-digit",
     });

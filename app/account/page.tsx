@@ -7,7 +7,7 @@ import {
   getOrders,
   getLoyaltyForPortalUser,
 } from "@/lib/portal";
-import { STORE, hoursSummary } from "@/lib/store";
+import { STORE, STORE_TZ, hoursSummary } from "@/lib/store";
 import { sendWelcomeEmail } from "@/lib/welcome-email";
 import { PushSubscribe } from "@/components/PushSubscribe";
 import { LoyaltyCard } from "@/components/LoyaltyCard";
@@ -16,7 +16,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "My Account", robots: { index: false } };
 
-const TZ = "America/Los_Angeles";
+const TZ = STORE_TZ;
 
 const STATUS_LABEL: Record<string, string> = {
   pending: "Order Received",

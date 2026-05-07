@@ -6,6 +6,8 @@
 // of this code was the cause of the /deals Suspense error digest 2617570418
 // blocking the deals hero from rendering).
 
+import { STORE_TZ } from "./store";
+
 export type DealCountdownState = {
   label: string;
   urgent: boolean;
@@ -34,10 +36,10 @@ export function computeDealCountdown(endDate: string | null): DealCountdownState
     if (hours <= 24 && hours > 0) {
       // If end-of-day today (PT), we want "Ends today". Otherwise "Ends tomorrow".
       const todayPt = new Date(
-        new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+        new Date().toLocaleString("en-US", { timeZone: STORE_TZ }),
       );
       const endPt = new Date(
-        new Date(end).toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+        new Date(end).toLocaleString("en-US", { timeZone: STORE_TZ }),
       );
       const sameDay =
         todayPt.getFullYear() === endPt.getFullYear() &&

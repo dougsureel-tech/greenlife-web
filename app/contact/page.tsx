@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -172,7 +172,7 @@ export default function ContactPage() {
                   h.day ===
                   new Date().toLocaleDateString("en-US", {
                     weekday: "long",
-                    timeZone: "America/Los_Angeles",
+                    timeZone: STORE_TZ,
                   });
                 return (
                   <div

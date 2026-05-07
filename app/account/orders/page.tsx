@@ -3,7 +3,7 @@ import { after } from "next/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getOrCreatePortalUser, getOrders, notifyReadyOrders } from "@/lib/portal";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
 import type { Metadata } from "next";
@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Order History", robots: { index: false } };
 
-const TZ = "America/Los_Angeles";
+const TZ = STORE_TZ;
 
 const STATUS_LABEL: Record<string, string> = {
   pending: "Received",

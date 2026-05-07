@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import type { Metadata } from "next";
 import { getOrCreatePortalUser, getOrder, notifyReadyOrders } from "@/lib/portal";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
 
@@ -19,7 +19,7 @@ const STAGES = [
   { key: "picked_up", label: "Picked up" },
 ] as const;
 
-const TZ = "America/Los_Angeles";
+const TZ = STORE_TZ;
 
 function fmtPickupTime(iso: string): string {
   return new Date(iso).toLocaleTimeString("en-US", {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, isOpenNow, nextOpenLabel, minutesUntilClose } from "@/lib/store";
+import { STORE, STORE_TZ, isOpenNow, nextOpenLabel, minutesUntilClose } from "@/lib/store";
 import { getActiveDeals, type ActiveDeal } from "@/lib/db";
 import { DealCountdown } from "@/components/DealCountdown";
 import { computeDealCountdown } from "@/lib/deal-countdown";
@@ -124,7 +124,7 @@ export default async function DealsPage({ searchParams }: Props) {
   const statusLabel = nextOpenLabel();
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
-    timeZone: "America/Los_Angeles",
+    timeZone: STORE_TZ,
   });
   const todayHours = STORE.hours.find((h) => h.day === today);
   const minsLeft = minutesUntilClose();

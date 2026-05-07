@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
+import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
@@ -84,7 +84,7 @@ const NEARBY = [
 export default async function VisitPage() {
   const open = isOpenNow();
   const statusLabel = nextOpenLabel();
-  const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: STORE_TZ });
   const todayHours = STORE.hours.find((h) => h.day === today);
   // Customers landing here pre-drive should know if we've flagged today
   // closed via /admin/hours-override even when our static configured hours

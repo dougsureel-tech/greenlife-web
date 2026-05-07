@@ -3,7 +3,7 @@ import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
-import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
+import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
@@ -145,7 +145,7 @@ export default async function HomePage() {
   // the hero gives the customer the reason inline.
   const open = isOpenNow() && !closure.isClosed;
   const statusLabel = nextOpenLabel();
-  const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: "America/Los_Angeles" });
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: STORE_TZ });
   const todayHours = STORE.hours.find((h) => h.day === today);
 
   return (

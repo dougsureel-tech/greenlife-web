@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 
 // Sticky bottom-of-screen CTA bar for mobile only. Slides up after the user
@@ -46,7 +46,7 @@ type Mode =
 function computeMode(deal: TopDeal | null): Mode {
   const day = new Date().toLocaleDateString("en-US", {
     weekday: "long",
-    timeZone: "America/Los_Angeles",
+    timeZone: STORE_TZ,
   });
   const today = STORE.hours.find((h) => h.day === day);
   if (!today) return { kind: "closed" };
@@ -55,7 +55,7 @@ function computeMode(deal: TopDeal | null): Mode {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "America/Los_Angeles",
+    timeZone: STORE_TZ,
   });
   const [h, m] = parts.split(":").map(Number);
   const cur = h * 60 + m;

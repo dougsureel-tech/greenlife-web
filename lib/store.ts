@@ -49,7 +49,17 @@ export const STORE = {
   ],
 } as const;
 
-const TZ = "America/Los_Angeles";
+// Pacific Time SSoT — single source of truth for the store's timezone.
+// Every customer-facing datetime renders against this constant. Eight
+// other modules (deal-countdown, store-hours, multiple page.tsx files,
+// AnnouncementBar, MobileStickyCta, account/orders, etc.) import this
+// rather than re-declaring an inline `"America/Los_Angeles"` literal.
+// Sister repo: seattle-cannabis-web also exports STORE_TZ from its own
+// lib/store.ts. Don't re-inline; closes the same arc inventoryapp's
+// `STORE_TZ` consolidation closed in v167.665.
+export const STORE_TZ = "America/Los_Angeles";
+
+const TZ = STORE_TZ;
 
 function toMin(t: string): number {
   const [time, ampm] = t.split(" ");
