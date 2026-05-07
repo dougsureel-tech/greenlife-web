@@ -207,7 +207,7 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
           {/* Completion celebration */}
           {signedIn && allDone && (
             <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-950 p-6 sm:p-8 text-center mt-6">
-              <div className="text-5xl mb-3">🎓</div>
+              <div className="text-5xl mb-3" aria-hidden="true">🎓</div>
               <h3 className="text-2xl font-bold text-white">Cannabis 101 — graduated.</h3>
               <p className="text-sm text-zinc-300 mt-2 max-w-md mx-auto">
                 You&apos;ve read every topic. Come in and put it into practice — or browse the menu.

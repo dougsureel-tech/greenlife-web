@@ -291,7 +291,7 @@ export default async function VisitPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {WHAT_TO_BRING.map((b) => (
               <div key={b.label} className="rounded-2xl border border-stone-200 bg-white p-5 space-y-2">
-                <div className="text-2xl">{b.emoji}</div>
+                <div className="text-2xl" aria-hidden="true">{b.emoji}</div>
                 <h3 className="font-bold text-stone-900 text-sm">{b.label}</h3>
                 <p className="text-xs text-stone-600 leading-relaxed">{b.note}</p>
               </div>
