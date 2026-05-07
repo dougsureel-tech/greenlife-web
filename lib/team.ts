@@ -35,7 +35,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Charity",
-    role: "Assistant Manager",
+    role: "Admin",
     era: "current",
     photoSrc: null,
     oneLine: "Backbone of the team. If you've shopped here in the last three years, you've met her.",
