@@ -4,7 +4,7 @@ import { withAttr } from "@/lib/attribution";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
-import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts } from "@/lib/db";
+import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
@@ -116,13 +116,15 @@ const STATS = [
 ];
 
 export default async function HomePage() {
-  const [brands, featured, justIn, deals, closure] = await Promise.all([
+  const [brands, featured, justIn, deals, closure, treasureChest] = await Promise.all([
     getActiveBrands().catch(() => []),
     getFeaturedProducts(8).catch(() => []),
     getJustInProducts(12).catch(() => []),
     getActiveDeals().catch(() => []),
     fetchClosureStatus(),
+    getTreasureChestProducts(60).catch(() => []),
   ]);
+  const treasureChestCount = treasureChest.length;
   // "Top Brands" carousel renders logo'd brands only. Pre-fix the section
   // was alphabetical-by-vendor-name, surfacing license-shaped junk like
   // "1555 Industrial L..." and "AG GROW - 4125..." (raw WSLCB-licensee names)
@@ -710,12 +712,23 @@ export default async function HomePage() {
                   Best deal applies at the counter — earn loyalty points on every visit either way.
                 </p>
               </div>
-              <Link
-                href="/deals"
-                className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors whitespace-nowrap"
-              >
-                All deals →
-              </Link>
+              <div className="flex items-center gap-3 flex-wrap">
+                {treasureChestCount > 0 && (
+                  <Link
+                    href="/treasure-chest"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wide px-3 py-1.5 transition-colors whitespace-nowrap"
+                  >
+                    <span aria-hidden="true">🪙</span>
+                    Treasure chest · {treasureChestCount}
+                  </Link>
+                )}
+                <Link
+                  href="/deals"
+                  className="text-sm font-semibold text-green-700 hover:text-green-600 transition-colors whitespace-nowrap"
+                >
+                  All deals →
+                </Link>
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {deals.slice(0, 3).map((d) => {
