@@ -93,6 +93,9 @@ export default async function MenuPage() {
 
   return (
     <div className="bg-stone-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
+        <VendorAdSlot slot="menu_top" />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
         <ClosureBanner closure={closure} />
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">Live Menu</h1>

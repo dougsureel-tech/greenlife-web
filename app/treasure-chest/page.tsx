@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
+import { VendorAdSlot } from "@/components/VendorAdSlot";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -82,6 +83,9 @@ export default async function TreasureChestPage() {
 
   return (
     <div className="min-h-screen bg-amber-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
+        <VendorAdSlot slot="treasure_chest_top" />
+      </div>
       <section className="bg-gradient-to-b from-amber-100 via-amber-50 to-stone-50 border-b border-amber-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <p className="text-[11px] font-bold uppercase tracking-widest text-amber-700 mb-3">

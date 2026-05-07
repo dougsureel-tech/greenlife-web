@@ -7,6 +7,7 @@ import { computeDealCountdown } from "@/lib/deal-countdown";
 import { DealArt } from "@/components/DealArt";
 import { matchDealVendor } from "@/lib/deal-vendor-match";
 import { withAttr } from "@/lib/attribution";
+import { VendorAdSlot } from "@/components/VendorAdSlot";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -138,6 +139,10 @@ export default async function DealsPage({ searchParams }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}
         />
       )}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
+        <VendorAdSlot slot="deals_page_top" />
+      </div>
 
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
       {/* Mirrors homepage hero (commit 6fcaf1e): green-950 base + radial
