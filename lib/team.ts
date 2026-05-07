@@ -19,26 +19,16 @@ export type TeamMember = {
 
 export const TEAM: TeamMember[] = [
   // ── Current ─────────────────────────────────────────────────────────
-  {
-    name: "Doug",
-    role: "Owner",
-    era: "current",
-    photoSrc: null,
-    oneLine: "Started Green Life because Wenatchee deserved a real shop, not a tourist trap.",
-  },
+  // Doug + Charity removed from public-facing team page on Doug's call
+  // 2026-05-07 ("take us off the website for now"). Kat carries the
+  // current-team representation on her own. Doug + Charity still run
+  // the place; just not surfaced on the customer-facing /our-story.
   {
     name: "Kat",
     role: "General Manager",
     era: "current",
     photoSrc: null,
     oneLine: "Runs the floor + the books + most things in between. Knows every regular by name.",
-  },
-  {
-    name: "Charity",
-    role: "Admin",
-    era: "current",
-    photoSrc: null,
-    oneLine: "Backbone of the team. If you've shopped here in the last three years, you've met her.",
   },
 
   // ── Alumni — the shop is also built by people who've moved on ──────
