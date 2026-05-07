@@ -165,6 +165,86 @@ We don't always get it right. Sometimes a producer goes off, or a strain stops h
 [Check the live menu](/menu) — every active SKU, with the producer + strain type + THC % on each card. If you want a deeper look at a specific producer we haven't profiled yet, [let us know](/contact) and we'll write one up.
 `,
   },
+  {
+    slug: "terpenes-101",
+    title: "Terpenes 101 — what makes weed smell different",
+    description:
+      "Terpenes are the aromatic compounds that give every strain its smell, flavor, and a lot of its character. Here's how to read them off a label and why a 22% terpy flower can hit harder than a 30% bland one.",
+    category: "Education",
+    publishedAt: "2026-05-08",
+    readingMinutes: 8,
+    body: `## What you're actually smelling
+
+Walk into a dispensary and the first thing you notice is the smell. Pine. Citrus. Diesel. Pepper. Berry. That's not the THC — THC has barely any smell on its own. What you're smelling is **terpenes** — the aromatic oils every cannabis plant produces.
+
+Terpenes aren't unique to cannabis. The same molecule that makes a lemon smell like a lemon (limonene) is in some cannabis strains. The molecule in pine needles (pinene) is in others. Lavender, hops, mango, black pepper, cloves — all the smells you know from non-cannabis plants — show up in cannabis too, in different combinations.
+
+The interesting part: terpenes don't just smell. They shape how a strain *feels* when you use it. Two flowers can have the same THC percentage and feel completely different because their terpene profiles are different.
+
+## The five terpenes worth knowing
+
+You don't need to memorize the periodic table of terpenes. There are dozens, but five of them do most of the heavy lifting on the shelf:
+
+### Myrcene — earthy, mango, herbal
+The most common terpene in commercial cannabis. Carries a sedating reputation — the "couch-lock" feeling people associate with classic indicas. Found in mangoes, hops, lemongrass.
+
+If a strain is described as "relaxing" or "heavy body" — myrcene is usually the headline.
+
+### Limonene — citrus, sweet
+Bright lemon-orange smell. Often described as uplifting, mood-elevating. Found in citrus peels (it's literally the same compound).
+
+If a strain smells like fruit punch or lemon zest, limonene is doing the talking. Common in strains people use during the day or socially.
+
+### Pinene — pine, sharp, fresh
+What you smell when you crack a pine cone. There's some research suggesting pinene supports focus and clear-headedness, though anyone telling you it's a "concentration aid" is overselling — call it a hopeful association, not a prescription.
+
+Common in old-school strains and Northwest-grown flower (no surprise — same biome).
+
+### Caryophyllene — peppery, spicy, woody
+Smells like cracked black pepper. The unusual one in the bunch — it interacts with cannabinoid receptors directly, which is more typical of cannabinoids themselves. Often associated with calming or grounding effects.
+
+Found in black pepper, cloves, hops, rosemary.
+
+### Linalool — floral, lavender
+Lavender's signature compound. Less common in cannabis than the others, but distinct when present. Often associated with relaxation and evening use.
+
+If you've ever picked up a flower that smelled almost soapy-floral, that's linalool.
+
+## How to read a terpene label
+
+Most Washington dispensaries (us included) print the top terpene on case cards or product detail pages. You'll usually see:
+
+- A **percentage** — total terpenes by mass. Anything above 2% is high; 1.5–2% is good; under 1% is faint.
+- A **dominant terpene** — usually the one above 0.5% by itself.
+- Sometimes a **terpene chart** — the top three or four with bars.
+
+A 22% THC flower with 2.5% terpenes is going to feel more interesting than a 30% THC flower with 0.8% terpenes. The terpenes shape the experience; THC sets the intensity. Both matter.
+
+## "The entourage effect"
+
+You'll hear this phrase a lot. The idea: cannabinoids (THC, CBD, etc.) and terpenes work together — the combination produces effects that neither would alone. There's evidence supporting parts of this theory and lots of overstatement around the rest. The honest summary: yes, terpene profile matters; no, nobody can predict exactly how a specific terpene combination will hit you specifically.
+
+What that means for you on the floor: the menu's "indica/sativa" label is a starting point. The terpene profile is what tells you how a specific strain might feel. Two indicas with very different terpene profiles will feel different.
+
+## Three practical reads
+
+**1. Don't chase THC percentage alone.** Highest-THC isn't best — it's just most concentrated. A 24% flower with rich terpenes often beats a 32% flower with stripped-down terpenes for actual experience. Budget-conscious shoppers can save by picking on terpene profile rather than THC headline.
+
+**2. Notice what you like.** Next time you have a strain you really enjoy, look up its terpene profile (we have it in the product detail). Pattern-match across a few sessions. You'll start seeing "I like myrcene-dominant flowers in the evening, limonene-dominant during the day" — that kind of thing. Way more useful than "I like indica."
+
+**3. Ask the budtender.** If you walk in and say "I had a Blue Dream last month, it was great — what's similar?" — we can match you on terpene profile, not just strain name. That's how we steer you toward something you'll like even when the specific strain isn't in stock.
+
+## Limitations
+
+Cannabis hits everyone differently — body chemistry, tolerance, mood, and what you ate matter as much as the chemistry of the flower. Terpenes are a useful organizing concept, not a personality test. Treat the descriptions here as starting points, not promises.
+
+Nothing on this page is medical advice. Cannabis isn't FDA-approved for any condition. Talk to a healthcare provider for medical questions.
+
+## Want to try this on the floor?
+
+[Browse the live menu](/menu) — every flower we carry has the terpene profile in the product detail card. If you want a budtender's pick, [come visit](/visit) and tell us what you've liked before. That's the conversation we're best at.
+`,
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
