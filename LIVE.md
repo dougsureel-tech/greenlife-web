@@ -24,6 +24,10 @@ Verified deploy = (a) HTTP 200, (b) `ok: true`, (c) `sha` matches what was just 
 
 | Date (PT) | Version | SHA | Notes |
 |---|---|---|---|
+| 2026-05-07 | v4.295 | 1e5cab6 | a11y sweep round 3 — 6 data-driven `{m.emoji}` / `{icon}` / `{CAT_ICONS}` wrappers (mood-vibe + category nav + OrderMenu + brands ×2 + about) |
+| 2026-05-07 | v4.285 | b7e36dc | a11y sweep round 2 — /learn 🎓 + /visit `{b.emoji}` |
+| 2026-05-07 | v4.275 | 9c1f974 | a11y sweep — homepage `How visiting works` 3-card row 💵 + 🌿 (⏱️ already had aria-hidden from prior sweep) |
+| 2026-05-07 | v4.265 | 489ddbf | Pre-Next.js legacy URL preservation — 7 WP-era redirects (Wayback CDX 2014–2019) — /about-us /about/mission /about/location + /blog/blog/* + /blog/category/* + /blog/author/* + /author/* + orphaned /amazing-cannabis-plant-grows post |
 | 2026-05-06 | v4.245 | bbc243d | /deals topicals icon 🌱 → 🧴 (lotion is the right glyph for cannabis topicals) |
 | 2026-05-06 | v4.235 | 02707a3 | /deals concentrates icon 🧴 → 💎 (lotion read as soap; diamond is cannabis-vernacular) |
 | 2026-05-06 | v4.225 | fcc28ef | new /blog/indica-vs-sativa guide (weekly-cadence stack 4 → 5) |
