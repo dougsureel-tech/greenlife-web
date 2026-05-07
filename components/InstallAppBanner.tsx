@@ -71,7 +71,28 @@ export function InstallAppBanner() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (isStandalone()) return;
+
+    // Standalone-mode visit = the app is launched from the home-screen icon.
+    // Record once per session as proof-of-install (covers iOS where the
+    // appinstalled event doesn't fire reliably + any prior install where
+    // we never got an attribution call). Per-session sessionStorage sentinel
+    // so a single visit produces one count even with multi-tab. Mirror of
+    // scc v5.305 wiring. Doug 2026-05-07 migration funnel.
+    if (isStandalone()) {
+      try {
+        const SENTINEL = "glw-pwa-launch-recorded";
+        if (!sessionStorage.getItem(SENTINEL)) {
+          sessionStorage.setItem(SENTINEL, "1");
+          void fetch("/api/track-install?source=standalone_launch", {
+            method: "POST",
+            keepalive: true,
+          }).catch(() => {});
+        }
+      } catch {
+        /* sessionStorage blocked (private mode) — skip */
+      }
+      return;
+    }
     if (isDismissed()) return;
 
     const p = detectPlatform();
@@ -106,9 +127,22 @@ export function InstallAppBanner() {
     }
   }
 
+  // Fire-and-forget install attribution. Mirror of scc v5.305 wiring.
+  async function recordInstall(source: string) {
+    try {
+      await fetch(`/api/track-install?source=${encodeURIComponent(source)}`, {
+        method: "POST",
+        keepalive: true,
+      });
+    } catch {
+      // Network blip / offline — don't surface, the install still worked
+    }
+  }
+
   async function install() {
     if (platform === "ios") {
       setIosSheetOpen(true);
+      void recordInstall("ios_sheet_opened");
       return;
     }
     if (platform === "android" && installEvent) {
@@ -117,6 +151,7 @@ export function InstallAppBanner() {
         const choice = await installEvent.userChoice;
         if (choice.outcome === "accepted") {
           setVisible(false);
+          void recordInstall("android_accepted");
         }
       } catch {
         // User cancelled or browser refused — leave banner up

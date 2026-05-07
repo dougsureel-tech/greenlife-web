@@ -316,6 +316,8 @@ export type ActiveDeal = {
   endDate: string | null;
   /** Pretty short label, e.g. "20% off flower". */
   short: string;
+  /** v4.x — when TRUE, deal renders only for PWA-installed customers. */
+  appOnly: boolean;
 };
 
 // Active deals — status = 'active', today is within the start/end window,
@@ -537,17 +539,24 @@ export async function getTreasureChestProducts(limit = 60): Promise<MenuProduct[
 // roster (heroes-30, first-visit-30, birthday-20, online-15/20, industry-20,
 // + rotating daily-deal mailer) easily fits but the cap protects future
 // growth.
-export async function getActiveDeals(): Promise<ActiveDeal[]> {
+export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promise<ActiveDeal[]> {
   const sql = getClient();
+  // App-only filter — caller passes includeAppOnly=true for PWA-installed
+  // customers (cookie set on /api/track-install standalone-launch).
+  // COALESCE handles pre-migration databases where the column hasn't been
+  // added yet (= every deal app_only=false). Doug 2026-05-07.
+  const includeAppOnly = opts?.includeAppOnly === true;
   const rows = await sql`
     SELECT
       id, name, description, discount_type, discount_value::float AS discount_value,
-      applies_to, end_date::text AS end_date
+      applies_to, end_date::text AS end_date,
+      COALESCE(app_only, FALSE) AS app_only
     FROM deals
     WHERE status = 'active'
       AND (start_date IS NULL OR start_date <= CURRENT_DATE)
       AND (end_date IS NULL OR end_date >= CURRENT_DATE)
       AND (day_of_week IS NULL OR day_of_week = EXTRACT(DOW FROM (now() AT TIME ZONE 'America/Los_Angeles'))::smallint)
+      AND (${includeAppOnly} = TRUE OR COALESCE(app_only, FALSE) = FALSE)
     ORDER BY (day_of_week IS NULL) ASC, end_date NULLS LAST, name
     LIMIT 20
   `;
@@ -572,6 +581,7 @@ export async function getActiveDeals(): Promise<ActiveDeal[]> {
       appliesTo: applies,
       endDate: (r.end_date ?? null) as string | null,
       short,
+      appOnly: Boolean(r.app_only),
     };
   });
 }
@@ -677,6 +687,7 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
     appliesTo: applies,
     endDate: (r.end_date ?? null) as string | null,
     short,
+    appOnly: false, // /deals/[id] deep-page consumer; app-only filter happens upstream in getActiveDeals
   };
 }
 
