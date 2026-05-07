@@ -245,6 +245,117 @@ Nothing on this page is medical advice. Cannabis isn't FDA-approved for any cond
 [Browse the live menu](/menu) — every flower we carry has the terpene profile in the product detail card. If you want a budtender's pick, [come visit](/visit) and tell us what you've liked before. That's the conversation we're best at.
 `,
   },
+  {
+    slug: "edibles-dosing-honest-guide",
+    title: "Edibles dosing — the honest first-time guide",
+    description:
+      "Most bad edible experiences come from one mistake: not waiting long enough. Here's how to dose, what to expect, and what to do if you went too far.",
+    category: "Education",
+    publishedAt: "2026-05-09",
+    readingMinutes: 7,
+    body: `## The single rule that prevents a bad edible night
+
+**5 milligrams of THC. Wait two hours. Then decide.**
+
+If you read nothing else on this page, that's it. The most common bad-edible experience in our store's twelve years of operation has the same shape every time: a customer ate something, didn't feel anything in 30 or 45 minutes, ate more, and got hit with the original dose plus the second dose ninety minutes later. By the time they realize they overdid it, the timeline isn't on their side.
+
+Edibles are slow. They feel slow because they *are* slow.
+
+## Why it takes so long
+
+When you smoke or vape cannabis, the THC reaches your bloodstream in about three to ten seconds. That's why you feel it almost immediately. You can dose by feel — one hit, wait, decide.
+
+Edibles go through your digestive system. Your stomach has to break down the food, your small intestine has to absorb the THC, your liver metabolizes it. Best case: 30 minutes if you're on an empty stomach. Average: 60 to 90 minutes. With a heavy meal: up to 2 hours, occasionally more. There's no way to speed this up.
+
+Worse, the THC your liver produces from edibles (called 11-hydroxy-THC) tends to feel stronger and last longer than the THC you get from inhaling. So you wait an hour, you don't feel it, you have another — and now you've doubled your dose right before *both* doses peak. That's the textbook overdose-by-accident.
+
+## Starting doses, by experience level
+
+These are starting points. Everyone's body chemistry is different — what feels mild to one person can feel intense to another.
+
+| You are… | Start with… | Wait | Then |
+|---|---|---|---|
+| **Brand new to cannabis** | 2.5 mg | 2 hours | Most people feel something around 60–90 min |
+| **First-time edible, smoke regularly** | 5 mg | 2 hours | Inhaled tolerance ≠ edible tolerance |
+| **Occasional edibles** | 5–10 mg | 2 hours | Whatever was your last comfortable dose |
+| **Regular edibles** | Your usual | 90 min | You know your body |
+
+Notice the wait time is **two hours** for everything in the "less experienced" rows. Not one hour. Two.
+
+## Reading a Washington edible label
+
+Every legal edible in Washington is required by WSLCB to be packaged so individual servings are 10 mg of THC or less, and the total package can't exceed 100 mg. So a 100 mg gummy package is 10 servings, not one big gummy.
+
+What to look for:
+- **Per serving** — usually shown clearly on the front (5 mg, 10 mg).
+- **Total per package** — for budgeting + storage planning.
+- **Servings per package** — confirms the math.
+- **Onset time** — sometimes printed; usually 30–120 min, fast-acting can be 15–45 min.
+- **Best by** — edibles last months but lose potency over time.
+
+If a chocolate bar is 10 mg per square and you want a 5 mg starting dose, you eat half a square. Cut it before you cook anything yourself — that's how people accidentally take too much. Most modern edibles are made to be easily portioned this way.
+
+## Faster-acting edibles
+
+The newer category is "fast-acting" or "nano-emulsified" edibles — usually drinks, sometimes gummies. The cannabis is processed into smaller particles that absorb partially through your mouth and stomach lining instead of fully through your liver. Onset can be 15 to 45 minutes instead of 60 to 120.
+
+The starting-dose rule still applies: 5 mg, wait — but the wait can be shorter (45 minutes instead of 2 hours). Don't let "fast-acting" trick you into not waiting.
+
+## Common over-dose scenarios (and how to handle them)
+
+If you took too much, you're not in medical danger — there are no documented fatal cannabis overdoses in adults. But the experience can be intensely uncomfortable: anxiety, racing heart, paranoia, occasionally nausea or dizziness. It will pass, usually in 4 to 8 hours.
+
+What helps:
+- **Stay somewhere safe and quiet.** No driving. Don't try to handle stressful tasks.
+- **Hydrate.** Water, juice, anything non-caffeinated.
+- **CBD if you have any handy.** Some people report it takes the edge off — the evidence is mixed, but it's harmless to try.
+- **Black peppercorns.** Old folk remedy with surprising support — chew a few peppercorns. The caryophyllene appears to interact in a way that calms the THC effect for some people.
+- **Sleep through it.** If you can lie down, do.
+- **Time.** This is the main one. The peak is 2 to 4 hours after ingestion; you'll feel the worst of it ease around hour 4.
+
+When to actually call someone:
+- If breathing or heart rate feels seriously off — call a doctor or 911. Cannabis itself isn't usually the cause, but if it triggered a panic attack severe enough to scare you, that's worth a phone call.
+- If a child or pet ingested cannabis — that's an emergency room visit. Their bodies aren't built for adult doses.
+
+## Things people get wrong
+
+**"I have a high tolerance from smoking, I can take more edibles."**
+Inhaled tolerance and edible tolerance are different metabolic pathways. People who smoke daily have been surprised by 10 mg edibles. Start at 5.
+
+**"It's been an hour, I'll just take a little more."**
+This is the most common mistake. Wait the full two hours. There's no harm in being early and patient; there's plenty of harm in being early and impatient.
+
+**"I'll eat it on an empty stomach so it works faster."**
+Mostly true — but the dose hits *harder* on an empty stomach, not just faster. If you're new to edibles, eat something light beforehand to mellow the curve.
+
+**"More milligrams = better experience."**
+No. Past a certain point, more THC mostly means more side effects (anxiety, faster heart rate, dry mouth) without proportionally more of what you actually want. Find your dose, stay there.
+
+**"Edibles wear off in two hours."**
+They peak around 2–4 hours and the body is still processing them up to 8 hours later. Plan accordingly — don't take an edible at 9pm if you have a 7am meeting.
+
+## What we recommend on the floor
+
+If you've never had an edible, walk in and tell us. We'll point you at a 5-mg gummy or a halvable 10-mg square, sell you the smallest available pack, and remind you of the 2-hour wait at checkout. That conversation has prevented a lot of bad nights.
+
+For first-timers we usually steer toward:
+- A balanced THC/CBD product (a 5:5 or 1:1 ratio softens the edge a bit)
+- Fruit-flavored gummies at 5 mg (easy to dose, easy to read the label)
+- Skip the high-dose 100 mg/serving products even if you "think" you need more
+
+## A note on what this isn't
+
+Nothing on this page is medical advice. Cannabis isn't FDA-approved for any medical condition. If you're taking medications — particularly anything with CYP3A4/CYP2D6 metabolism, blood thinners, or sedatives — talk to a pharmacist or doctor before adding edibles to your routine. They interact with more medications than people realize.
+
+If you're pregnant, nursing, or trying to conceive, the WSLCB warning on every legal package applies: don't.
+
+## The conversation we'd rather have
+
+We'd rather you come in, ask which 5 mg gummy is good for a first edible, walk out spending $5, and have a great Saturday night — than overdo it, swear off edibles forever, and tell five friends edibles are awful. Most people who've had a bad edible night had it because nobody warned them. Now you know.
+
+[Check the live menu](/menu) for current edibles + fast-acting drinks. If you want a budtender's pick, [come visit](/visit) and tell us your starting line. That's the right conversation to have at the counter, not in a parking lot reading a label.
+`,
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
