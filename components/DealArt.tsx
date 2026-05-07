@@ -18,7 +18,7 @@ const CATEGORY_ART: Record<string, CategoryArt> = {
   flower: { emoji: "🌿", accentHex: "1f3a2b", accent2Hex: "0a1810", label: "Flower" },
   edibles: { emoji: "🍬", accentHex: "8a1f4a", accent2Hex: "3a0e1f", label: "Edibles" },
   vapes: { emoji: "💨", accentHex: "1f3a6e", accent2Hex: "0e1d3a", label: "Vapes" },
-  concentrates: { emoji: "🧴", accentHex: "4a1f6e", accent2Hex: "200e3a", label: "Concentrates" },
+  concentrates: { emoji: "💎", accentHex: "4a1f6e", accent2Hex: "200e3a", label: "Concentrates" },
   "pre-rolls": { emoji: "🫙", accentHex: "6e4a1f", accent2Hex: "3a200e", label: "Pre-Rolls" },
   prerolls: { emoji: "🫙", accentHex: "6e4a1f", accent2Hex: "3a200e", label: "Pre-Rolls" },
   tinctures: { emoji: "💧", accentHex: "0e6e6a", accent2Hex: "063838", label: "Tinctures" },
