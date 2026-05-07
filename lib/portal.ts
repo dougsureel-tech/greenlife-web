@@ -108,7 +108,7 @@ export async function getOrCreatePortalUserWithCreated(
 ): Promise<{ user: PortalUser; created: boolean }> {
   const sql = getClient();
   const existing = await sql`
-    SELECT pu.id, pu.clerk_user_id, pu.name, pu.email, pu.phone, pu.loyalty_points, pu.sms_opt_in, pu.no_substitute_pref,
+    SELECT pu.id, pu.clerk_user_id, pu.name, pu.email, pu.phone, pu.loyalty_points, pu.sms_opt_in, pu.email_opt_in, pu.frequency_pref, pu.no_substitute_pref,
            c.heroes_self_attest_type
     FROM portal_users pu
     LEFT JOIN LATERAL (
@@ -129,7 +129,7 @@ export async function getOrCreatePortalUserWithCreated(
       name = COALESCE(portal_users.name, EXCLUDED.name),
       email = COALESCE(portal_users.email, EXCLUDED.email),
       updated_at = now()
-    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, no_substitute_pref,
+    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, email_opt_in, frequency_pref, no_substitute_pref,
               NULL AS heroes_self_attest_type,
               (xmax = 0) AS inserted
   `;
