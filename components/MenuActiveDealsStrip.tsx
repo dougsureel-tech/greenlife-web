@@ -101,7 +101,7 @@ export function MenuActiveDealsStrip({ deals }: Props) {
         </div>
 
         <p className="text-[11px] text-stone-500 mt-3">
-          Stack with loyalty at the counter · 21+ with valid ID · Cash only
+          Best deal applies at the counter · 21+ with valid ID · Cash only
         </p>
       </div>
     </section>

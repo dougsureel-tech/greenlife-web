@@ -181,7 +181,7 @@ export default async function DealsPage({ searchParams }: Props) {
                   <span className="text-green-300">{STORE.name}</span>
                 </h1>
                 <p className="text-green-100/70 text-base sm:text-lg leading-relaxed max-w-xl mt-5">
-                  Stack with loyalty · cash only · 21+ ID required. Updated continuously from the
+                  Best deal applies · cash only · 21+ ID required. Updated continuously from the
                   live menu — WSLCB-compliant percent-off and dollar-off only, never below cost.
                 </p>
               </div>
@@ -301,7 +301,7 @@ export default async function DealsPage({ searchParams }: Props) {
                     homepage hero card so the cross-page feel is unified. */}
                 <div className="grid grid-cols-2 gap-y-2.5 gap-x-3">
                   {[
-                    { icon: "🎁", text: "Loyalty stacks" },
+                    { icon: "🎁", text: "Earn points" },
                     { icon: "💵", text: "Cash only" },
                     { icon: "🪪", text: "21+ Required" },
                     { icon: "🅿️", text: "Free Parking" },
@@ -403,10 +403,10 @@ export default async function DealsPage({ searchParams }: Props) {
             ) : (
               <>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-                  No deals today — but loyalty stacks every day.
+                  No deals today — but you still earn points.
                 </h2>
                 <p className="text-stone-600 mt-3 max-w-md mx-auto leading-relaxed">
-                  100 points = $1 off at the counter, on top of any everyday-low pricing. Browse
+                  100 points = $1 off at the counter on a regular-price visit. Browse
                   the live menu — we&apos;ll have what you&apos;re after.
                 </p>
                 <Link
@@ -481,15 +481,12 @@ export default async function DealsPage({ searchParams }: Props) {
                     </p>
                   )}
 
-                  {/* Qualifier badges. "Stacks with loyalty" is universally
-                      true at Green Life (loyalty applies at the counter
-                      regardless of deal); the first-time-customer 15% off
-                      chip surfaces only on the lead deal so it doesn't get
-                      repeated noise. */}
+                  {/* Qualifier badges. First-time-customer chip surfaces only
+                      on the lead deal so it doesn't get repeated noise. Per
+                      no-stacking policy (Doug 2026-05-07) we don't promise
+                      loyalty stacks with the deal — best discount applies and
+                      that's that. */}
                   <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200">
-                      Stacks with loyalty
-                    </span>
                     {isFirst && (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-amber-50 text-amber-800 ring-1 ring-amber-200">
                         First-time customer · 15% off

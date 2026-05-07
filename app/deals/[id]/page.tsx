@@ -168,7 +168,7 @@ export default async function DealDetailPage({ params }: Params) {
             </p>
           )}
           <p className="text-sm text-stone-600 mb-5">
-            Stackable with loyalty points at the counter — 100 pts = $1 off.
+            Best deal applies at the counter — you still earn loyalty points on the visit.
           </p>
           <Link
             href={linkHref}

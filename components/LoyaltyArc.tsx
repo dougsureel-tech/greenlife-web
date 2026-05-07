@@ -52,7 +52,7 @@ export function LoyaltyArc() {
           </h2>
           <p className="text-stone-600 mt-3 leading-relaxed">
             Four tiers — Visitor, Regular, Local, Family. You move through them by showing up.
-            Loyalty stacks with every running deal at the counter.
+            Earn points every visit, save them up, redeem at the counter on a regular-price day.
           </p>
         </div>
 

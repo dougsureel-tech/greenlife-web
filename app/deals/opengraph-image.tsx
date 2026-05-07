@@ -3,7 +3,7 @@ import { STORE } from "@/lib/store";
 
 // Per-route OG card for /deals — same template family as the homepage.
 // Headline reads as a "deals are live" hook; right column shows the
-// always-on savings ladder customers can stack.
+// always-on savings ladder (best discount applies — no stacking).
 
 export const alt = `Today's cannabis deals at ${STORE.name} in ${STORE.address.city}, WA`;
 export const size = { width: 1200, height: 630 };

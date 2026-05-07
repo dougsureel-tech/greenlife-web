@@ -95,7 +95,7 @@ ${name} offers a 30% discount, every visit, for:
 - **Healthcare workers** — nurses, doctors, techs, paramedics, hospital and clinic staff. Hospital or clinic badge.
 - **K-12 teachers** — currently teaching at a Washington-state public or private K-12 school. District ID or pay stub.
 
-The Heroes discount does not stack with daily deals — whichever is bigger applies, and Heroes (30%) almost always wins.
+Discounts do not combine. The Heroes 30% applies in place of any daily deal — best discount wins on the order. Loyalty points are earned on every visit regardless.
 
 Cohort-specific eligibility pages:
 - ${website}/heroes/military

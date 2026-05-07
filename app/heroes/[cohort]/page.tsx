@@ -74,7 +74,7 @@ const COHORTS: Record<string, Cohort> = {
       },
       {
         q: "Can I combine with daily deals?",
-        a: "We apply whichever discount is bigger — Heroes 30% wins over most daily deals. Loyalty points stack independently.",
+        a: "No — discounts don't combine. Heroes 30% applies in place of any daily deal. You'll still earn loyalty points on the visit.",
       },
     ],
     searchKeywords: [
@@ -107,8 +107,8 @@ const COHORTS: Record<string, Cohort> = {
         a: "Absolutely. National Guard and Reserves both qualify under the active-military category. Your unit ID or current drill paperwork works.",
       },
       {
-        q: "Does the discount stack with daily deals?",
-        a: "Heroes is 30%, daily deals usually run 10-15%. We apply whichever is bigger. Loyalty points stack on top of either.",
+        q: "Does the discount combine with daily deals?",
+        a: "No — discounts don't combine. Heroes 30% applies in place of any daily deal. You'll still earn loyalty points on the visit either way.",
       },
     ],
     searchKeywords: [
@@ -356,7 +356,7 @@ export default async function HeroesCohortPage({
               <span className="text-base">★</span> 30% off · every visit
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold">
-              No expiration · stacks with loyalty
+              No expiration · earn points every visit
             </span>
           </div>
         </div>
@@ -408,8 +408,8 @@ export default async function HeroesCohortPage({
             <li className="flex gap-3">
               <span className="font-extrabold text-green-700 shrink-0">3.</span>
               <span>
-                We&rsquo;ll get you signed up for our loyalty program at the same time so the discount
-                AND your loyalty points stack on every future visit. <strong>One signup, lifetime benefit.</strong>
+                We&rsquo;ll get you signed up for our loyalty program at the same time so the discount applies
+                automatically and you start earning points on every future visit. <strong>One signup, lifetime benefit.</strong>
               </span>
             </li>
             <li className="flex gap-3">

@@ -111,7 +111,7 @@ export default function OG() {
             {/* Live status pill — pulse dot + hours range. Hardcoded copy
                 since OG runs at build time and we don't want the card
                 flickering open/closed. Wenatchee hours: Sun–Thu 8 AM – 9 PM,
-                Fri–Sat 8 AM – 11 PM (latest = 11 PM). */}
+                Fri–Sat 8 AM – 10 PM (latest = 10 PM). */}
             <div
               style={{
                 marginTop: 4,
@@ -135,7 +135,7 @@ export default function OG() {
                 }}
               />
               <span style={{ fontSize: 20, fontWeight: 700, color: "#bbf7d0" }}>
-                Open daily · 8 AM – 9 PM (Fri/Sat til 11)
+                Open daily · 8 AM – 9 PM (Fri/Sat til 10)
               </span>
             </div>
           </div>

@@ -564,8 +564,8 @@ export default async function HomePage() {
                   "M4 4h16v16H4V4zm2 4l6 4 6-4v10H6V8zm12-2l-6 4-6-4h12z",
               },
               {
-                title: "Loyalty Stacks With Deals",
-                body: "Points stack with %-off promos. Build status: Visitor → Regular → Local → Family. Every visit counts.",
+                title: "Loyalty That Pays Back",
+                body: "Earn points on every visit. Build status: Visitor → Regular → Local → Family. Best discount applies — points come either way.",
                 iconPath:
                   "M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6L12 2z",
               },
@@ -707,8 +707,7 @@ export default async function HomePage() {
                   Today&apos;s deals
                 </h2>
                 <p className="text-stone-600 mt-1 text-sm">
-                  Stackable with your loyalty points at the counter — 100 pts = $1 off — cash savings on the
-                  way out.
+                  Best deal applies at the counter — earn loyalty points on every visit either way.
                 </p>
               </div>
               <Link

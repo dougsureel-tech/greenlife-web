@@ -21,8 +21,8 @@ export const STORE = {
     { day: "Tuesday", open: "8:00 AM", close: "9:00 PM" },
     { day: "Wednesday", open: "8:00 AM", close: "9:00 PM" },
     { day: "Thursday", open: "8:00 AM", close: "9:00 PM" },
-    { day: "Friday", open: "8:00 AM", close: "11:00 PM" },
-    { day: "Saturday", open: "8:00 AM", close: "11:00 PM" },
+    { day: "Friday", open: "8:00 AM", close: "10:00 PM" },
+    { day: "Saturday", open: "8:00 AM", close: "10:00 PM" },
     { day: "Sunday", open: "8:00 AM", close: "9:00 PM" },
   ],
   social: {

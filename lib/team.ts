@@ -44,20 +44,20 @@ export const TEAM: TeamMember[] = [
   // ── Alumni — the shop is also built by people who've moved on ──────
   {
     name: "Wes",
-    role: "Budtender",
+    role: "Manager",
     era: "alumni",
     photoSrc: null,
     oneLine: "Made every customer feel like the regular they were trying to be.",
   },
   {
     name: "Shailey",
-    role: "Budtender",
+    role: "Manager",
     era: "alumni",
     photoSrc: null,
     oneLine: "Could match anyone to the right strain in about two questions.",
   },
   {
-    name: "Jess Salazar",
+    name: "Jessica",
     role: "Budtender",
     era: "alumni",
     photoSrc: null,

@@ -166,7 +166,7 @@ export default function OurStoryPage() {
         {/* Practical close — the only "CTA" on the page. Subtle. */}
         <section className="rounded-2xl border border-stone-200 bg-stone-50 px-6 py-6 space-y-3">
           <p className="text-stone-700 leading-relaxed">
-            Stop in any day from 8am to 11pm. Bring an ID and cash (or use the ATM in the corner).
+            Stop in any day — we&apos;re open 8am to 9pm (10pm Fri &amp; Sat). Bring an ID and cash (or use the ATM in the corner).
             We&apos;ll take care of the rest.
           </p>
           <div className="flex flex-wrap gap-3 pt-1 text-sm">

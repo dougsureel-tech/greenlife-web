@@ -138,7 +138,7 @@ export function MobileStickyCta() {
       case "open-with-deal":
         // Primary points at the deal landing so the user reads the promo
         // before /menu — gives the deep-link page real traffic and surfaces
-        // the loyalty-stack hint we put there.
+        // the "best deal applies, points still earn" reminder we put there.
         return {
           primaryHref: withAttr(`/deals/${mode.deal.id}`, "sticky", `deal-${mode.deal.id}`),
           primaryLabel: `${mode.deal.short} →`,

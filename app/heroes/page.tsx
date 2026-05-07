@@ -76,8 +76,8 @@ const ELIGIBILITY = [
 // content. Mirror of the pattern used on the brand pages.
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "Does the discount stack with daily deals?",
-    a: "No — the discount that's bigger applies. Heroes is 30%, daily deals usually run 10-15%, so Heroes wins. If you're unsure, ask the budtender.",
+    q: "Does the Heroes discount combine with daily deals?",
+    a: "No — discounts don't combine. Heroes 30% applies in place of any daily deal, and on Heroes orders that's the discount you'll see at the counter.",
   },
   {
     q: "Does it expire?",
@@ -149,7 +149,7 @@ export default function HeroesPage() {
               <span className="text-base">★</span> 30% off · every visit
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold">
-              Stacks with loyalty points
+              Earn loyalty points every visit
             </span>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function HeroesPage() {
               {
                 step: "Step 3",
                 title: "Save automatically",
-                detail: "30% off your subtotal. Stacks with your loyalty points.",
+                detail: "30% off your subtotal. You still earn loyalty points on the visit.",
               },
             ].map(({ step, title, detail }) => (
               <li
