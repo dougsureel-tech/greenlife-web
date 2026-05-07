@@ -22,7 +22,7 @@ const CATEGORY_ART: Record<string, CategoryArt> = {
   "pre-rolls": { emoji: "🫙", accentHex: "6e4a1f", accent2Hex: "3a200e", label: "Pre-Rolls" },
   prerolls: { emoji: "🫙", accentHex: "6e4a1f", accent2Hex: "3a200e", label: "Pre-Rolls" },
   tinctures: { emoji: "💧", accentHex: "0e6e6a", accent2Hex: "063838", label: "Tinctures" },
-  topicals: { emoji: "🌱", accentHex: "3a6e1f", accent2Hex: "1d3a0e", label: "Topicals" },
+  topicals: { emoji: "🧴", accentHex: "3a6e1f", accent2Hex: "1d3a0e", label: "Topicals" },
   beverages: { emoji: "🥤", accentHex: "8a4a1f", accent2Hex: "3a200e", label: "Beverages" },
   all: { emoji: "🎟️", accentHex: "1f3a2b", accent2Hex: "0a1810", label: "Storewide" },
 };
