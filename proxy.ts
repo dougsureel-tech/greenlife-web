@@ -90,6 +90,23 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(target.toString(), 308);
   }
 
+  // /order/* → /menu (307 temporary — remove when native menu goes live).
+  // Doug 2026-05-06: customer hit `/order?vibe=energize&category=Flower&strain=indica`
+  // and got the "That didn't load" error screen. The native /order route is
+  // dev-only per the standing customer-CTAs-point-to-menu rule (memory:
+  // `feedback_customer_ctas_point_to_menu_only` — "Don't reverse — cost 9hr").
+  // 307 (NOT 308) because we want to UN-do this when the native menu ships
+  // and `/order` becomes the customer surface. Mirrors seattle-cannabis-web
+  // proxy.ts (Seattle had this same redirect since 2026-05-04). Whole subtree
+  // is captured (including /order/confirmation/<id>) — no point sending
+  // customers to an order-confirmation page when the order flow itself is
+  // failing. Query params dropped because iHeartJane Boost has its own filter
+  // UI and doesn't honor `?vibe=energize&category=Flower&strain=indica` etc.
+  // Restore: delete this block when the native menu is live.
+  if (url.pathname === "/order" || url.pathname.startsWith("/order/")) {
+    return NextResponse.redirect(new URL("/menu", req.url), 307);
+  }
+
   // Site-wide canonical-host enforcement. Anything that isn't the canonical
   // host or a local-dev host gets 308-redirected to CANONICAL_HOST. This
   // covers:
