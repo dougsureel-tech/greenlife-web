@@ -931,7 +931,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
-              <div className="text-2xl">💵</div>
+              <div className="text-2xl" aria-hidden="true">💵</div>
               <h3 className="font-bold text-stone-900 text-base">Bring cash + ID</h3>
               <p className="text-stone-600 text-sm leading-relaxed">
                 Cannabis is federally illegal so banks won&apos;t process card payments — every WA dispensary
@@ -940,7 +940,7 @@ export default async function HomePage() {
               <p className="text-xs text-stone-500 pt-1">ATM on-site if you forget.</p>
             </div>
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-2">
-              <div className="text-2xl">🌿</div>
+              <div className="text-2xl" aria-hidden="true">🌿</div>
               <h3 className="font-bold text-stone-900 text-base">Not sure what you want?</h3>
               <p className="text-stone-600 text-sm leading-relaxed">
                 Use the &ldquo;What are you in the mood for?&rdquo; chips above to filter the menu by feel —
