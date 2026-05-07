@@ -650,13 +650,20 @@ export async function getCategoryPreviewProducts(
 
 // Single-deal lookup for the /deals/[id] deep page (SMS-shareable).
 // Honors the same active-window filter as getActiveDeals so a stale/expired
-// share link 404s instead of showing an old promo.
+// share link 404s instead of showing an old promo. Now also returns the
+// `app_only` flag so the page can gate visibility — pre-fix the deep page
+// hardcoded `appOnly: false`, meaning a customer could share an app-only
+// deal URL and a non-installed recipient could view it directly,
+// completely bypassing the install incentive that's the whole point of
+// app-only deals (Doug 2026-05-07: "special deals through the app").
+// Sister fix: seattle-cannabis-web v5.605.
 export async function getDealById(id: string): Promise<ActiveDeal | null> {
   const sql = getClient();
   const rows = await sql`
     SELECT
       id, name, description, discount_type, discount_value::float AS discount_value,
-      applies_to, end_date::text AS end_date
+      applies_to, end_date::text AS end_date,
+      COALESCE(app_only, FALSE) AS app_only
     FROM deals
     WHERE id = ${id}
       AND status = 'active'
@@ -687,7 +694,7 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
     appliesTo: applies,
     endDate: (r.end_date ?? null) as string | null,
     short,
-    appOnly: false, // /deals/[id] deep-page consumer; app-only filter happens upstream in getActiveDeals
+    appOnly: Boolean(r.app_only),
   };
 }
 

@@ -32,6 +32,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       robots: { index: false, follow: false },
     };
   }
+  // App-only deals — gate OG preview metadata so a shared link's unfurl
+  // (Messages/Slack/Discord) doesn't leak the discount before install.
+  // Same install-cookie gate as the page render below. Sister: scc v5.605.
+  if (deal.appOnly) {
+    const { cookies } = await import("next/headers");
+    const cookieStore = await cookies();
+    const isInstalled = cookieStore.get("glw_pwa_installed")?.value === "1";
+    if (!isInstalled) {
+      return {
+        title: "Deal not found",
+        robots: { index: false, follow: false },
+      };
+    }
+  }
   const desc = deal.description ?? `${deal.short} at ${STORE.name} in ${STORE.address.city}, WA.`;
   return {
     title: `${deal.short} — ${deal.name}`,
@@ -58,6 +72,21 @@ export default async function DealDetailPage({ params }: Params) {
   const dealResult = await getDealById(id).catch(() => null);
   if (!dealResult) notFound();
   const deal = dealResult;
+
+  // App-only deals — visible only to PWA-installed visitors. Pre-fix the
+  // deep page hardcoded `appOnly: false` upstream, so a customer could
+  // share /deals/<app-only-id> and a non-installed recipient could view
+  // the full discount details, bypassing the install incentive that's
+  // the whole point. Mirror of /deals page filter (which uses the same
+  // glw_pwa_installed cookie via getActiveDeals({ includeAppOnly })).
+  // Behavior: if deal.appOnly && no install cookie, 404 — same response
+  // shape as a stale/expired share link. Sister: scc v5.605.
+  if (deal.appOnly) {
+    const { cookies } = await import("next/headers");
+    const cookieStore = await cookies();
+    const isInstalled = cookieStore.get("glw_pwa_installed")?.value === "1";
+    if (!isInstalled) notFound();
+  }
 
   // Now we know the deal exists, fetch the secondary data in parallel.
   // Skip preview when appliesTo isn't a single category — there's no
