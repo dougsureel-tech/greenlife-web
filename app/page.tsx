@@ -1633,6 +1633,19 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Cross-store + reciprocal-vendor promotion slot — Doug 2026-05-07
+          ask: "we cross advertise on each others sites since we cant
+          exchange money." Cannabis WSLCB blocks money exchange between
+          vendors and dispensaries; this slot is for goodwill swaps
+          (sister-store + vendor partners). VendorAdSlot returns null
+          when no active ad in the slot, so this is invisible until Doug
+          curates an entry on /admin/marketing/vendor-ads. */}
+      <section className="bg-stone-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <VendorAdSlot slot="cross_store_promo" />
+        </div>
+      </section>
+
       {/* ─── FAQ — AI Overview / Google rich-result fuel ────────────────────── */}
       <FaqSection />
 
