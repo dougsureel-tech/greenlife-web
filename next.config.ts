@@ -51,17 +51,46 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // NOTE: do NOT re-add a `redirects()` block here for /menu or /order.
-  // Per Doug, /menu must stay on greenlifecannabis.com with iHeartJane
-  // embedded inline (see app/menu/page.tsx + app/menu/JaneMenu.tsx).
-  // A redirect bounces customers off-domain and breaks the embed model.
+  // **/menu + /order rule (DO NOT REMOVE):** never add a redirect that
+  // bounces /menu or /order to a different domain. /menu hosts the iHeartJane
+  // Boost embed inline (app/menu/page.tsx + JaneMenu.tsx); off-domain redirects
+  // break the embed model. If /menu renders blank, iHeartJane usually rotated
+  // the Boost bundle hash — see ~/Documents/CODE/INCIDENTS.md → "Blank /menu
+  // after iHeartJane rotated the Boost bundle hash" (2026-05-01) for the
+  // diagnostic walk. NEVER bounce off-domain as a workaround.
   //
-  // If /menu renders blank, the most common cause is iHeartJane rotated
-  // the Boost bundle hash and `BOOST_SCRIPT_URL` in JaneMenu.tsx now 404s.
-  // Recovery recipe + diagnostic walk in
-  // ~/Documents/CODE/INCIDENTS.md → "Blank /menu after iHeartJane rotated
-  // the Boost bundle hash" (2026-05-01). DO NOT bounce customers
-  // off-domain as a workaround — find the new hash and redeploy.
+  // **Pre-Next.js legacy URL preservation (added 2026-05-07):** Wayback CDX
+  // shows greenlifecannabis.com had a WordPress era (~2014–2019, "hello-world"
+  // first post 2019-11-27) before this Next.js site replaced it. Some legacy
+  // URL paths still get hit by stale Google index entries + old social-media
+  // links — these 308s preserve SEO juice + customer-trust for inbound links
+  // that survived the platform change. Doug 2026-05-07: "we should also make
+  // sure we did that with seattle and wenatchee if needed" (ref: GW pre-cutover
+  // redirect map shipped same day). Each entry below redirects to the closest
+  // semantic equivalent on the new site. None redirect /menu or /order — those
+  // are protected per the rule above.
+  async redirects() {
+    return [
+      // Same-content-different-name swaps.
+      { source: "/about-us", destination: "/about", permanent: true },
+      { source: "/about/mission", destination: "/about", permanent: true },
+      { source: "/about/location", destination: "/visit", permanent: true },
+
+      // WordPress nested-blog artifact: posts shipped at /blog/blog/<year>/<month>/<slug>/.
+      // Next.js dynamic routes can't easily catch every shape — collapse the
+      // whole subtree to /blog (the new article hub) so any orphaned post URL
+      // lands on something useful instead of 404'ing.
+      { source: "/blog/blog/:path*", destination: "/blog", permanent: true },
+      { source: "/blog/category/:slug*", destination: "/blog", permanent: true },
+      { source: "/blog/author/:slug*", destination: "/blog", permanent: true },
+
+      // Known orphaned WP posts (verified 404 on new site 2026-05-07).
+      { source: "/amazing-cannabis-plant-grows", destination: "/blog", permanent: true },
+
+      // Author-archive WP-ism — never had real customer value, redirect to /blog.
+      { source: "/author/:slug*", destination: "/blog", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
