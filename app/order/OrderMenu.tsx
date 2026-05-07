@@ -228,15 +228,40 @@ function parseProductName(p: MenuProduct): { name: string; weight: string | null
   return { name: kept.join(" — ") || p.name, weight };
 }
 
-function ProductImage({ src, alt, category }: { src: string | null; alt: string; category: string | null }) {
+function ProductImage({
+  src,
+  alt,
+  category,
+  brand,
+}: {
+  src: string | null;
+  alt: string;
+  category: string | null;
+  brand?: string | null;
+}) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
   const icon = CAT_ICONS[category ?? ""] ?? "🌱";
 
   if (!src || errored) {
+    // No image (or load failed): show a graceful placeholder. When the brand is
+    // known, render brand-name text under the category icon — gives the customer
+    // a meaningful card while Doug uploads the real photo (Doug 2026-05-07
+    // image-coverage push). Falls back to icon-only when brand is null.
     return (
-      <div className="w-full h-full bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center text-4xl">
-        {icon}
+      <div
+        role="img"
+        aria-label={alt}
+        className="w-full h-full bg-gradient-to-br from-stone-100 to-stone-200 flex flex-col items-center justify-center gap-1 text-stone-500"
+      >
+        <span className="text-4xl leading-none" aria-hidden="true">
+          {icon}
+        </span>
+        {brand ? (
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-stone-500/80 px-2 text-center line-clamp-1">
+            {brand}
+          </span>
+        ) : null}
       </div>
     );
   }
@@ -248,6 +273,7 @@ function ProductImage({ src, alt, category }: { src: string | null; alt: string;
         src={src}
         alt={alt}
         fill
+        loading="lazy"
         sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 95vw"
         onLoad={() => setLoaded(true)}
         onError={() => setErrored(true)}
@@ -1005,6 +1031,7 @@ export function OrderMenu({
                               src={product.imageUrl}
                               alt={product.name}
                               category={product.category}
+                              brand={product.brand}
                             />
                             {strain && (
                               <span
