@@ -356,6 +356,110 @@ We'd rather you come in, ask which 5 mg gummy is good for a first edible, walk o
 [Check the live menu](/menu) for current edibles + fast-acting drinks. If you want a budtender's pick, [come visit](/visit) and tell us your starting line. That's the right conversation to have at the counter, not in a parking lot reading a label.
 `,
   },
+  {
+    slug: "indica-vs-sativa-mostly-marketing",
+    title: "Indica vs sativa is mostly marketing — what actually matters",
+    description:
+      "The indica/sativa label is a useful shorthand and a misleading prediction at the same time. Here's what the labels actually tell you, what they don't, and how to read a strain so you know what you're getting.",
+    category: "Education",
+    publishedAt: "2026-05-12",
+    readingMinutes: 9,
+    body: `## The two-bucket story you've heard
+
+Walk into any dispensary and you'll get the same elevator pitch:
+
+- **Indica** — body high, relaxing, "in da couch," for nighttime
+- **Sativa** — head high, energizing, social, for daytime
+- **Hybrid** — somewhere in between
+
+It's a useful shorthand. It's also wrong often enough that taking it as a guarantee will get you a strain that does the opposite of what you wanted. Here's the honest version.
+
+## Where the indica/sativa labels actually come from
+
+Originally, indica and sativa were botanical terms describing two regional cannabis subspecies — *Cannabis indica* (short, broad-leaf, mostly from south-central Asia) and *Cannabis sativa* (tall, narrow-leaf, mostly equatorial). The terms described the *plant*, not the *effect*.
+
+Over decades of breeding — especially the last twenty years of intense indoor cultivation — almost everything on a Washington dispensary shelf is a hybrid of those two ancestors. The "pure indica" and "pure sativa" you see labeled today often share more genetics than the labels suggest.
+
+What stuck around is the *experience association*. Old-school growers noticed indica-leaning genetics often produced relaxing, body-focused effects, while sativa-leaning genetics often produced more cerebral, energetic effects. That association became the marketing language. The chemistry it was based on, though — is mostly about *terpene profile*, not the indica/sativa label itself.
+
+## What actually predicts the experience
+
+Three things are doing the heavy lifting:
+
+**1. THC and CBD content.** THC is the primary psychoactive cannabinoid; CBD takes some of the edge off. A 30% THC flower with no CBD will hit harder than a 18% THC flower with 4% CBD even if the labels are flipped. CBD-dominant strains feel almost completely different from THC-dominant ones regardless of indica/sativa labeling.
+
+**2. Terpene profile.** The aromatic compounds (myrcene, limonene, pinene, caryophyllene, linalool — see [Terpenes 101](/blog/terpenes-101)) shape how the strain feels far more reliably than the indica/sativa label. A myrcene-dominant strain tends to feel sedating regardless of whether it's labeled indica or sativa. A limonene-dominant strain tends to feel uplifting either way.
+
+**3. Your body chemistry, set, setting.** What you ate, your mood, your sleep last night, what you're doing while you use it. These matter more than people admit. Two friends sharing the same joint will report different experiences.
+
+## Why the labels still work as a starting point
+
+If terpenes do the actual work, why do indica/sativa labels still hold up at all?
+
+Because the breeding tradition baked in correlations. **Most** indica-labeled strains are bred for myrcene-heavy profiles. **Most** sativa-labeled strains are bred for terpenes that lean uplifting (limonene, pinene). Not always, but often enough that the label is a useful first filter.
+
+What you should NOT do is treat the label as a guarantee. The label is "what category did the breeder pitch this as." The terpene profile is "what's actually in the jar."
+
+## How to read a strain like a pro (in 30 seconds)
+
+When you're standing at the case looking at a flower, here's the order of operations:
+
+1. **THC %.** Is it where you want it? Higher isn't better — somewhere in the 18-26% range is plenty for most people. Above 28% you're trading flavor for intensity.
+2. **Terpenes.** Do they list a top terpene or terpene chart? Match that to what you're trying to feel:
+   - Want relaxing → myrcene, linalool, caryophyllene
+   - Want uplifting → limonene, pinene
+3. **Indica/sativa label.** Treat it as confirmation, not the headline. If terpenes say "relaxing" and the label says "indica" — likely matches the marketing claim. If they conflict, trust the terpenes.
+4. **Brand reputation.** Does this brand have a reputation for matching their labels to actual experience? Some are more careful than others. Your budtender can tell you.
+
+## A few real-world examples
+
+**"Wedding Cake" (typically labeled indica, hybrid in WA):** Often heavy myrcene + caryophyllene. Lives up to the relaxing rep most of the time. Marketing aligns with chemistry.
+
+**"Blue Dream" (typically labeled sativa-leaning hybrid):** Often myrcene-dominant despite the sativa lean. Many people find it more relaxing than the label suggests. The label undersells the body component.
+
+**"Sour Diesel" (typically labeled sativa):** Often limonene + caryophyllene profile. Tends to deliver on the energizing rep. Matches the label well.
+
+**"Northern Lights" (typically labeled indica):** Often myrcene + caryophyllene. Classic sedating profile. Matches the label.
+
+The takeaway: the label is right *most* of the time but you'll find counter-examples in any dispensary. Reading the terpene profile catches those.
+
+## What to ask the budtender
+
+Skip "do you have any good sativas?" — it's the wrong question. Try:
+
+- "I want something for daytime that won't put me on the couch — what terpene profiles should I look at?"
+- "I had Blue Dream last month and it was exactly right — what's similar?"
+- "I'm new to cannabis, want a relaxing evening, prefer not to feel anxious — what would you recommend?"
+
+Those questions get you to the answer faster because they describe the *outcome* you want, not the bucket you think predicts it.
+
+## Where the labels DO matter (still)
+
+Despite all the above, the indica/sativa label has practical uses:
+
+- **Quick scanning of menus** — most dispensary websites filter by it. Useful for narrowing 200 SKUs to 30.
+- **Brand consistency** — same brand's "indica" line tends to be similar across strains. Once you find a brand whose indica matches your preference, the label is more reliable within that brand.
+- **Communicating with budtenders who don't know you** — saying "I want a sativa" is faster than explaining your terpene preferences. The conversation can deepen from there.
+
+## Why dispensaries still print the label
+
+Two reasons. First, customers expect it — pulling the label off the menu would confuse far more people than it would educate. Second, the WSLCB labeling rules implicitly accommodate it, and changing how cannabis is categorized industry-wide takes a long time.
+
+A few brands and labs have started publishing terpene charts directly on the package. When you see those, that's the brand betting on terpene-literate customers. We carry several brands that do this; ask your budtender to point them out.
+
+## Bottom line
+
+The indica/sativa label is a useful starting filter and a misleading prediction. Treat it as the front door of the conversation, not the answer. The terpene profile, THC/CBD ratio, and your own experience over a few sessions will tell you more than the bucket name ever will.
+
+Nothing on this page is medical advice. Cannabis isn't FDA-approved for any condition. Effects vary by person.
+
+## Want the budtender version of this conversation?
+
+[Come visit](/visit) and tell us a strain you've liked recently. We'll match the terpene profile, not just the label. That's where this conversation actually pays off — when you walk out with something that lines up with what you wanted instead of what the marketing said.
+
+[Browse the live menu](/menu) — every flower we carry has terpene info in the product detail card.
+`,
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
