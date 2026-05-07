@@ -16,12 +16,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, smsOptIn, emailOptIn, noSubstitutePref, heroesSelfAttestType } = body as Record<string, unknown>;
+  const { name, phone, smsOptIn, emailOptIn, frequencyPref, noSubstitutePref, heroesSelfAttestType } = body as Record<string, unknown>;
 
   const cleanName = typeof name === "string" ? name.trim().slice(0, 100) : undefined;
   const cleanPhone = typeof phone === "string" ? phone.replace(/[^\d+()\s-]/g, "").slice(0, 20) : undefined;
   const cleanSmsOptIn = typeof smsOptIn === "boolean" ? smsOptIn : undefined;
   const cleanEmailOptIn = typeof emailOptIn === "boolean" ? emailOptIn : undefined;
+  const VALID_FREQ = ["low", "standard", "high"] as const;
+  const cleanFrequencyPref: "low" | "standard" | "high" | undefined =
+    typeof frequencyPref === "string" && (VALID_FREQ as readonly string[]).includes(frequencyPref)
+      ? (frequencyPref as "low" | "standard" | "high")
+      : undefined;
   const cleanNoSubstitutePref = typeof noSubstitutePref === "boolean" ? noSubstitutePref : undefined;
   const VALID_HEROES = ["active_military", "veteran", "first_responder", "healthcare", "k12_teacher"];
   const cleanHeroesType: string | null | undefined =
@@ -38,7 +43,7 @@ export async function POST(req: NextRequest) {
       user?.emailAddresses[0]?.emailAddress,
       user?.fullName,
     );
-    await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn, emailOptIn: cleanEmailOptIn, noSubstitutePref: cleanNoSubstitutePref });
+    await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn, emailOptIn: cleanEmailOptIn, frequencyPref: cleanFrequencyPref, noSubstitutePref: cleanNoSubstitutePref });
     if (cleanHeroesType !== undefined) {
       await updateHeroesAttest(portalUser.id, cleanHeroesType);
     }

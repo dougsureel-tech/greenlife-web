@@ -9,6 +9,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
   const [phone, setPhone] = useState(user.phone ?? "");
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
   const [emailOptIn, setEmailOptIn] = useState(user.emailOptIn);
+  const [frequencyPref, setFrequencyPref] = useState<"low" | "standard" | "high">(user.frequencyPref ?? "standard");
   const [noSubstitutePref, setNoSubstitutePref] = useState(user.noSubstitutePref);
   const [heroesSelfAttestType, setHeroesSelfAttestType] = useState<string | null>(user.heroesSelfAttestType ?? null);
   const [saving, setSaving] = useState(false);
@@ -22,7 +23,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, smsOptIn, emailOptIn, noSubstitutePref, heroesSelfAttestType }),
+        body: JSON.stringify({ name, phone, smsOptIn, emailOptIn, frequencyPref, noSubstitutePref, heroesSelfAttestType }),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);
@@ -103,6 +104,39 @@ export function ProfileForm({ user }: { user: PortalUser }) {
               className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${emailOptIn ? "translate-x-5" : ""}`}
             />
           </button>
+        </div>
+        <div className="px-5 py-4 space-y-2">
+          <div>
+            <div className="text-sm font-medium text-stone-800">Update Frequency</div>
+            <div className="text-xs text-stone-400 mt-0.5">
+              How often you&apos;d like to hear from us. STOP works anytime.
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {([
+              { value: "low", label: "Just essentials", sub: "≤2 / month" },
+              { value: "standard", label: "Standard", sub: "≤4 / month" },
+              { value: "high", label: "More updates", sub: "≤8 / month" },
+            ] as const).map((opt) => {
+              const selected = frequencyPref === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setFrequencyPref(opt.value)}
+                  aria-pressed={selected}
+                  className={`rounded-xl border px-3 py-2.5 text-left transition-all ${
+                    selected
+                      ? "border-green-600 bg-green-50 text-green-900 shadow-sm"
+                      : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+                  }`}
+                >
+                  <div className="text-xs font-semibold">{opt.label}</div>
+                  <div className="text-[11px] mt-0.5 opacity-80">{opt.sub}</div>
+                </button>
+              );
+            })}
+          </div>
         </div>
         <div className="px-5 py-4 flex items-center justify-between">
           <div>
