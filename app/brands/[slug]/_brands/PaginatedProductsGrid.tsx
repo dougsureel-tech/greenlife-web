@@ -330,7 +330,7 @@ export function PaginatedProductsGrid({
         {featuredAwareBuckets.map(([cat, items]) => (
           <div key={cat}>
             <div className="flex items-center gap-3 mb-5">
-              <span className="text-2xl">{CAT_ICONS[cat] ?? "🌱"}</span>
+              <span className="text-2xl" aria-hidden="true">{CAT_ICONS[cat] ?? "🌱"}</span>
               <h3 className="text-xl font-extrabold text-stone-900 tracking-tight">{cat}</h3>
               <span className="text-xs font-medium text-stone-500 bg-white border border-stone-200 px-2 py-0.5 rounded-full">
                 {items.length}

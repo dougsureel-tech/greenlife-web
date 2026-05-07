@@ -155,7 +155,7 @@ export default function AboutPage() {
               },
             ].map(({ icon, title, body, color }) => (
               <div key={title} className={`rounded-2xl border p-6 space-y-3 ${color}`}>
-                <span className="text-3xl">{icon}</span>
+                <span className="text-3xl" aria-hidden="true">{icon}</span>
                 <h3 className="font-bold text-stone-900">{title}</h3>
                 <p className="text-stone-500 text-sm leading-relaxed">{body}</p>
               </div>

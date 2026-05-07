@@ -399,7 +399,7 @@ export default async function BrandPage({ params }: Props) {
             return (
               <section key={cat}>
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{CAT_ICONS[cat] ?? "🌱"}</span>
+                  <span className="text-2xl" aria-hidden="true">{CAT_ICONS[cat] ?? "🌱"}</span>
                   <h2 className="text-xl font-extrabold text-stone-900 tracking-tight">{cat}</h2>
                   <span className="text-xs font-medium text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">
                     {catProducts.length}

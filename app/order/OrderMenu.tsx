@@ -976,7 +976,7 @@ export function OrderMenu({
               return (
                 <section key={category}>
                   <div className="flex items-center gap-3 mb-5">
-                    <span className="text-2xl">{CAT_ICONS[category] ?? "🌱"}</span>
+                    <span className="text-2xl" aria-hidden="true">{CAT_ICONS[category] ?? "🌱"}</span>
                     <h2 className="text-xl font-extrabold text-stone-900 tracking-tight">
                       {displayCategory(category)}
                     </h2>
