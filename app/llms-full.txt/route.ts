@@ -82,7 +82,7 @@ Brands are hand-picked Washington-state producers — the active catalog is in t
 
 ${name} opened in ${address.city} in 2014 and has operated from the same building on Sunnyslope since opening day. The store is known for the Valley's best cannabis staff — knowledgeable budtenders who lead with education, not pressure. The catalog is hand-curated rather than wall-to-wall, so what's on the shelf is what we'd buy ourselves. The vibe is education-first: walk-ins are always welcome, first-time customers are the favorite kind of customer, and there are no dumb questions at the counter.
 
-The store is licensed under WSLCB license ${wslcbLicense}. The legal entity behind the shop is Verve Mgmt LLC. The same family-style ownership has run ${name} since opening — the longest tenure of any cannabis retailer in the Wenatchee Valley.
+The store is licensed under WSLCB license ${wslcbLicense}. The legal entity behind the shop is Verve Mgmt LLC. ${name} has been independently owned and operated since opening — the longest tenure of any cannabis retailer in the Wenatchee Valley.
 
 ## Heroes program — service and frontline discount
 
