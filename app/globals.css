@@ -138,3 +138,23 @@ details[open] > summary ~ * {
     scroll-behavior: auto !important;
   }
 }
+
+/* WCAG 2.4.7 — Focus Visible. Most components have explicit
+   `focus-visible:ring-...` Tailwind classes already, but a few
+   library/legacy buttons rely on browser default outlines after
+   `focus:outline-none` was set on a parent. This safety-net rule
+   guarantees a 2px green ring is visible on keyboard focus for any
+   interactive element that didn't get an explicit Tailwind ring. The
+   `:focus-visible` selector only matches keyboard focus (not mouse
+   clicks) so cosmetic mouse-click flicker isn't introduced.
+   Doug 2026-05-07 ADA accessibility pass. */
+:focus-visible {
+  outline: 2px solid #16a34a; /* tailwind green-600 */
+  outline-offset: 2px;
+}
+/* Components that already paint a custom ring shouldn't double up. */
+button:focus-visible.no-default-focus,
+a:focus-visible.no-default-focus,
+[tabindex]:focus-visible.no-default-focus {
+  outline: none;
+}
