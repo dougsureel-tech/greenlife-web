@@ -58,7 +58,9 @@ const PHYSICAL_AMENITIES = [
 
 const WEB_A11Y_NOTES = [
   "Keyboard navigation: every interactive element is reachable via Tab and operable via Enter / Space.",
+  "Focus indicator: a green outline appears around any element you tab to, so you can always see where you are on the page (WCAG 2.4.7).",
   "Screen reader: pages use semantic HTML, ARIA labels on icon-only buttons, and a skip-to-main link at the top of every page.",
+  "Loading states: when a page is loading, the spinner announces 'Loading' to screen readers so the page never feels unresponsive (WCAG 4.1.3).",
   "Visual contrast: body copy is 4.5:1 or better against its background; large headings are 3:1 or better.",
   "Motion: animations respect prefers-reduced-motion. The home-page hero, /deals card hover, and pin pulses all dim or stop when the OS-level reduce-motion preference is set.",
   "Image alt text: product photos use descriptive alt; decorative imagery is marked aria-hidden so screen readers skip it.",
