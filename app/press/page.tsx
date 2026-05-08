@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const FOUNDED_YEAR = "2018";
+const FOUNDED_YEAR = "2014";
 const PRESS_EMAIL = STORE.email;
 
 const FACTS: { label: string; value: string }[] = [
@@ -114,8 +114,8 @@ export default function PressPage() {
           <div className="prose prose-stone max-w-none text-stone-700 text-base leading-relaxed">
             <p>
               {STORE.name} opened in {FOUNDED_YEAR} in Wenatchee — half-way between the Cascades and the
-              Columbia. Family-staffed since 2014 and stocked almost entirely from Washington-state
-              farms and processors. We&apos;re not the biggest dispensary in the valley; we&apos;re the one
+              Columbia. Family-run and stocked almost entirely from Washington-state farms and processors.
+              We&apos;re not the biggest dispensary in the valley; we&apos;re the one
               your friend recommends because the budtenders actually know the difference between a glass-rosin
               terp profile and a hash-rosin one.
             </p>
