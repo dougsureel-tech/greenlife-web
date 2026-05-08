@@ -50,6 +50,23 @@ const EMAIL_RE = /^[^\s@<>"'`\\;]+@[^\s@<>"'`\\;]+\.[^\s@<>"'`\\;]+$/;
 // + DB index size on the dedupe path.
 const MAX_FIELD_LEN = 64;
 
+// Per-IP rate limit on quiz captures. Each call inserts + fires Resend
+// (per-email billing). 7-day dedupe per (email, source) prevents
+// repeat-to-same-inbox, but different emails from one IP can still loop.
+// 5/min/IP is generous; blocks scripted abuse. Sister to scc same wave.
+const captureRateMap = new Map<string, { count: number; resetAt: number }>();
+function checkCaptureRate(ip: string): boolean {
+  const now = Date.now();
+  const entry = captureRateMap.get(ip);
+  if (!entry || entry.resetAt < now) {
+    captureRateMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    return true;
+  }
+  if (entry.count >= 5) return false;
+  entry.count++;
+  return true;
+}
+
 export async function POST(req: NextRequest) {
   // Defense in depth — the public-site capture card hides itself when
   // NEXT_PUBLIC_QUIZ_NURTURE_ENABLED isn't "true", but a direct curl
@@ -58,6 +75,14 @@ export async function POST(req: NextRequest) {
   // misleading 403 to the customer.
   if (process.env.QUIZ_NURTURE_ENABLED !== "true") {
     return NextResponse.json({ ok: true, skipped: "feature_disabled" });
+  }
+
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!checkCaptureRate(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a minute." },
+      { status: 429, headers: { "Retry-After": "60" } },
+    );
   }
 
   let body: unknown;
