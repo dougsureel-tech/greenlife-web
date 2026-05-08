@@ -84,12 +84,11 @@ const COLORS = {
   divider: "#e7e5e4",
 } as const;
 
-// Wenatchee static facts — kept in-file so the footer renders without
-// pulling more from STORE than the args already give us. License is the
+// Footer constants derived from STORE SSoT (lib/store.ts). License is the
 // WSLCB retailer license issued to Verve Mgmt LLC (dba Green Life Cannabis).
-const PHONE_DISPLAY = "(509) 663-9980";
-const PHONE_TEL = "+15096639980";
-const WSLCB_LICENSE = "WSLCB License 414755";
+const PHONE_DISPLAY = STORE.phone;
+const PHONE_TEL = STORE.phoneTel;
+const WSLCB_LICENSE = `WSLCB License ${STORE.wslcbLicense}`;
 // Customer-facing opt-out address. Pre-fix the body said
 // "reply STOP or email info@greenlifecannabis.com" — but info@ is the
 // archival auto-email address, NOT actively monitored (per inventoryapp
