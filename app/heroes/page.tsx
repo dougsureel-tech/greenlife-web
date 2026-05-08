@@ -12,8 +12,9 @@ import { STORE } from "@/lib/store";
 //      questions ("does my badge work?") before driving over. Answer
 //      those questions on the page so they don't ask at the counter.
 //   3. WAC compliance — keeps the program description on a page we own
-//      so the framing stays inside WAC 314-55-077 (no medical claims)
-//      and WAC 314-55-155 (this is informational, not advertising-style).
+//      so the framing stays inside WAC 314-55-155 (the advertising rule
+//      that prohibits medical/health claims AND requires informational-
+//      not-advertising-style copy on regulated cannabis content).
 
 export const metadata: Metadata = {
   title: "Heroes Discount — Service & Industry Recognition",
