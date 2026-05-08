@@ -70,7 +70,7 @@ const COLORS = {
 // local dev). Never throws; the link still renders, just hits a
 // guaranteed-existing host.
 const PUBLIC_ORIGIN =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://greenlifecannabis.com";
+  process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://greenlifecannabis.com";
 
 function unsubscribeUrl(token: string): string {
   // Token is hex (`[0-9a-f]{64}`) so URL-safe by construction — no

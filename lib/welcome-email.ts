@@ -57,7 +57,7 @@ export type WelcomeEmailArgs = {
 // path) and falls back to the canonical apex if `NEXT_PUBLIC_SITE_URL`
 // isn't set in the env. No trailing slash.
 const SITE_ORIGIN = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://greenlifecannabis.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://greenlifecannabis.com"
 ).replace(/\/+$/, "");
 
 // Tiny HTML escape — keep self-contained so the file has no extra deps.
