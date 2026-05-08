@@ -37,7 +37,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "First Visit",
     q: "Do I need to make an appointment?",
-    a: "No. We're open every day and walk-ins are always welcome. Online orders save 15% on your first visit and skip the line at the counter — but appointments aren't a thing for cannabis retail.",
+    a: "No. We're open every day and walk-ins are always welcome. Online orders save 20% on your first visit and skip the line at the counter — but appointments aren't a thing for cannabis retail.",
   },
   {
     tag: "Payment",
@@ -77,12 +77,12 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Rewards",
     q: "Do you offer deals or loyalty rewards?",
-    a: `Yes. Live deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and 100 points = $1 off, redeemable at the counter when you're not also using a deal (best discount applies — discounts don't combine). Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — first-time online orders qualify for 15% off.`,
+    a: `Yes. Live deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and 100 points = $1 off, redeemable at the counter when you're not also using a deal (best discount applies — discounts don't combine). Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — first-time online orders qualify for 20% off.`,
   },
   {
     tag: "Rewards",
     q: "Can I redeem loyalty points on top of a deal?",
-    a: "No — discounts don't combine. The best applicable discount applies on a given order (Heroes 30%, today's daily deal, online 15%, etc.), so you'd save your points for a regular-price visit when redemption gives you the most. You always earn points on every visit either way.",
+    a: "No — discounts don't combine. The best applicable discount applies on a given order (Heroes 30%, today's daily deal, online 20%, etc.), so you'd save your points for a regular-price visit when redemption gives you the most. You always earn points on every visit either way.",
   },
   {
     tag: "Rewards",

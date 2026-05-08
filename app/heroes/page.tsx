@@ -93,7 +93,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I use it on online orders?",
-    a: "Online ordering already saves 15% automatically. Heroes is in-person only — show ID at the register.",
+    a: "Online ordering already saves 20% automatically. Heroes is in-person only — show ID at the register.",
   },
   {
     q: "Why two IDs?",

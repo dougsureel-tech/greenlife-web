@@ -31,7 +31,7 @@ export const STORE = {
   },
   wslcbLicense: "414755",
   amenities: ["Free parking", "ATM on-site", "ADA accessible", "Walk-ins welcome", "Online ordering"],
-  perks: ["Knowledgeable budtenders", "Loyalty rewards", "Military discounts", "15% off online orders"],
+  perks: ["Knowledgeable budtenders", "Loyalty rewards", "Military discounts", "20% off online orders"],
   // Towns in the Wenatchee Valley + foothills we serve. Used by the homepage
   // hero pill cluster, the "We serve" town card grid, the LocalBusiness
   // JSON-LD `areaServed` graph, and the metadata description so geo-targeted

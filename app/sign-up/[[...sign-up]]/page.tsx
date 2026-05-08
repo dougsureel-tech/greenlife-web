@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const BENEFITS = [
-  { emoji: "🎁", label: "15% off your first online order" },
+  { emoji: "🎁", label: "20% off your first online order" },
   { emoji: "⭐", label: "Earn loyalty points on every purchase" },
   { emoji: "⚡", label: "Faster pickup — your info is saved" },
   { emoji: "🔔", label: "Drop alerts for new arrivals" },

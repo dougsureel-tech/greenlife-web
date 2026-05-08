@@ -115,7 +115,7 @@ Every purchase earns loyalty points. 100 points = $1 off, redeemable at the coun
 - **Local** — frequent patron.
 - **Family** — top tier, top perks.
 
-Tiers unlock automatically as lifetime spend climbs. The first online order is 15% off. Sign up at ${website}/sign-up.
+Tiers unlock automatically as lifetime spend climbs. The first online order is 20% off. Sign up at ${website}/sign-up.
 
 ## Visit — what to expect
 
@@ -133,7 +133,7 @@ Cannabis cannot be consumed in the store, on the property, or in the parking lot
 Yes. A valid, unexpired government-issued photo ID is required for every purchase. Driver's licenses, state IDs, passports, and military IDs are accepted. Must be 21 or older.
 
 **Do I need an appointment?**
-No. ${name} is open every day and walk-ins are always welcome. Online orders save 15% on the first visit and skip the line at the counter, but appointments aren't a thing for cannabis retail.
+No. ${name} is open every day and walk-ins are always welcome. Online orders save 20% on the first visit and skip the line at the counter, but appointments aren't a thing for cannabis retail.
 
 **What forms of payment do you accept?**
 Cash only. ATM on-site. No credit, debit, or digital payments.

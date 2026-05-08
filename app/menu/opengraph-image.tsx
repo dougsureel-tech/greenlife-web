@@ -117,7 +117,7 @@ export default function MenuOG() {
                 }}
               />
               <span style={{ fontSize: 20, fontWeight: 700, color: "#bbf7d0" }}>
-                15% off online orders · cash at pickup
+                20% off online orders · cash at pickup
               </span>
             </div>
           </div>

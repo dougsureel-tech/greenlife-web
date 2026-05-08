@@ -500,7 +500,7 @@ export default async function DealsPage({ searchParams }: Props) {
                   <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
                     {isFirst && (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold bg-amber-50 text-amber-800 ring-1 ring-amber-200">
-                        First-time customer · 15% off
+                        First-time customer · 20% off
                       </span>
                     )}
                     {d.appliesTo && d.appliesTo !== "all" && (

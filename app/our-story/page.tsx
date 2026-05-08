@@ -100,7 +100,7 @@ export default function OurStoryPage() {
           <p>
             We&apos;re open every day of the year, including holidays. We&apos;re cash-only because
             cannabis is still federally illegal and banks won&apos;t process card payments — there&apos;s
-            an ATM on site if you forgot. Walk-ins always welcome, and online orders save 15%.
+            an ATM on site if you forgot. Walk-ins always welcome, and online orders save 20%.
           </p>
           <p>
             We don&apos;t try to be the loudest or the cheapest. We try to be the place you actually

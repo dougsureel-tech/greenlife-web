@@ -101,7 +101,7 @@ A: No. WA law prohibits consumption in retail stores, parking lots, and most pub
 A: Free parking in the dedicated lot directly in front of the store. Flat-grade ADA-accessible entrance.
 
 **Q: How do I order online for pickup?**
-A: Browse the menu at ${website}/menu, sign in or create an account, build your cart, choose a 15-minute pickup window, then pay cash at the counter. First online order is 15% off.
+A: Browse the menu at ${website}/menu, sign in or create an account, build your cart, choose a 15-minute pickup window, then pay cash at the counter. First online order is 20% off.
 
 **Q: What's the difference between indica, sativa, and hybrid?**
 A: Indica = traditionally relaxing, body-heavy. Sativa = traditionally energizing, uplifting. Hybrid = somewhere in between. Terpene profiles and individual chemistry matter more than these categories — staff can guide.

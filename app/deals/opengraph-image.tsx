@@ -10,7 +10,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const SAVINGS_PILLS = [
-  "15% off online orders",
+  "20% off online orders",
   "Loyalty rewards",
   "Military discounts",
   "Daily specials",
