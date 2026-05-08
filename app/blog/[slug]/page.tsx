@@ -6,6 +6,13 @@ import { STORE, STORE_TZ } from "@/lib/store";
 
 type Props = { params: Promise<{ slug: string }> };
 
+// dynamicParams=false means only the slugs from generateStaticParams() are
+// served — unknown slugs return a real 404 (not the soft-404 / 200-with-
+// "not found"-content that Next.js 16 emits by default when dynamicParams=true).
+// SEO impact: Google distinguishes 200-with-error-content from real 404; soft
+// 404s on /blog/[slug] hurt the blog index's authority.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return getPosts().map((p) => ({ slug: p.slug }));
 }

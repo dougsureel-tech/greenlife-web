@@ -242,6 +242,10 @@ const COHORTS: Record<string, Cohort> = {
   },
 };
 
+// dynamicParams=false → unknown cohort slugs return a real 404 (not Next.js's
+// default soft-404 / 200-with-"not found" content). Better SEO signal.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return Object.keys(COHORTS).map((cohort) => ({ cohort }));
 }
