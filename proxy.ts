@@ -136,6 +136,24 @@ export default async function middleware(req: NextRequest) {
     target.port = "";
     return NextResponse.redirect(target.toString(), 308);
   }
+
+  // /admin/* on the public customer site → brapp.greenlifecannabis.com (the
+  // staff inventoryapp subdomain). Doug 2026-05-08: "in case i forget to
+  // type brapp." This catches typos like `greenlifecannabis.com/admin/portals`
+  // → `brapp.greenlifecannabis.com/admin/portals`, where staff URLs aren't
+  // hosted on the public site at all and would otherwise 404. Query string
+  // + path are preserved so deep-links still work post-redirect. 307 (NOT
+  // 308) so we can un-do this if /admin paths ever become public-site-side
+  // (extremely unlikely but cheap insurance). Mirror on seattle-cannabis-web
+  // gets a sister redirect to `brapp.seattlecannabis.co/admin/...`.
+  if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+    const target = new URL(req.url);
+    target.hostname = "brapp.greenlifecannabis.com";
+    target.protocol = "https:";
+    target.port = "";
+    return NextResponse.redirect(target.toString(), 307);
+  }
+
   if (isClerkRoute(req)) {
     // Defer to Clerk only on auth-relevant paths.
     return (clerk as unknown as (req: NextRequest) => Promise<Response> | Response)(req);
