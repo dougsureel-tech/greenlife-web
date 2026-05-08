@@ -53,6 +53,16 @@ export async function POST(req: NextRequest) {
     ) {
       return NextResponse.json({ error: "Invalid item" }, { status: 400 });
     }
+    // Bound string-field lengths so a malicious cart payload can't bloat
+    // the per-row INSERT (online_order_items mirrors these fields). Type
+    // checks above keep typeof === "string"; in-place slice clips values
+    // longer than the natural cap. Cannabis product names are typically
+    // <100 chars; brand <40; category <16; strain-type one of 3 words.
+    if ((i.productName as string).length > 256) i.productName = (i.productName as string).slice(0, 256);
+    if (typeof i.brand === "string" && (i.brand as string).length > 128) i.brand = (i.brand as string).slice(0, 128);
+    if (typeof i.category === "string" && (i.category as string).length > 64) i.category = (i.category as string).slice(0, 64);
+    if (typeof i.strainType === "string" && (i.strainType as string).length > 32) i.strainType = (i.strainType as string).slice(0, 32);
+    if (typeof i.productId === "string" && (i.productId as string).length > 64) i.productId = (i.productId as string).slice(0, 64);
   }
 
   if (typeof pickupTime !== "string") {
