@@ -25,7 +25,7 @@ const FACTS: { label: string; value: string }[] = [
   { label: "Hours", value: "8 AM daily; later Fri & Sat — see /visit for current schedule" },
   { label: "WSLCB License", value: STORE.wslcbLicense },
   { label: "Founded", value: FOUNDED_YEAR },
-  { label: "Owner", value: "Verve Mgmt LLC · privately held" },
+  { label: "Owner", value: "Verve Mgmt LLC · locally owned, independent" },
   { label: "Region", value: "Wenatchee Valley + greater Chelan / Douglas County" },
 ];
 
