@@ -460,6 +460,68 @@ Nothing on this page is medical advice. Cannabis isn't FDA-approved for any cond
 [Browse the live menu](/menu) — every flower we carry has terpene info in the product detail card.
 `,
   },
+  {
+    // Restored from the archived 2014-09-25 WordPress post — Doug 2026-05-07:
+    // "that was a old blog post, we should still have it up because it ranks
+    // high." Wayback snapshot at https://web.archive.org/web/20191214022202/
+    // https://www.greenlifecannabis.com/amazing-cannabis-plant-grows/. Slug
+    // preserved verbatim so existing inbound links + Google index entries
+    // resolve to a real page instead of the previous 308→/blog redirect.
+    // Content is botanical / educational (photoperiod + flowering biology),
+    // WAC-clean — no medical claims, no consumption-method promotion, no
+    // advertising-style copy. Edited for clarity + apostrophe normalization
+    // from the archived raw HTML; substance preserved.
+    slug: "amazing-cannabis-plant-grows",
+    title: "The amazing cannabis plant and how it grows",
+    description:
+      "How photoperiod — the length of day vs. night — controls flowering in cannabis. A plain-English look at the biology that turns a vegetative plant into a budding one.",
+    category: "Education",
+    publishedAt: "2014-09-25",
+    updatedAt: "2026-05-07",
+    readingMinutes: 6,
+    body: `## Photoperiod and flowering
+
+For the cannabis grower, the most important plant/environment interaction to understand is the influence of the photoperiod. The photoperiod is the daily number of hours of day (light) vs. night (dark). In nature, long nights signal the plant that winter is coming and that it's time to flower and produce seeds.
+
+As long as the day-length is long, the plants continue vegetative growth. If female flowers do appear, there will only be a few. These flowers won't form the characteristic large clusters or buds. If the days are too short, the plants flower too soon, and remain small and underdeveloped.
+
+## How the plant senses the dark
+
+The plant "senses" the longer nights by a direct interaction with light. A flowering hormone is present during all stages of growth. This hormone is sensitive to light and is rendered inactive by even low levels of light. When the dark periods are long enough, the hormones increase to a critical level that triggers the reproductive cycle. Vegetative growth ends and flowering begins.
+
+The natural photoperiod changes with the passing of seasons. In the Northern Hemisphere, the length of daylight is longest on June 21. Day-length gradually decreases until it reaches its shortest duration on December 22. The duration of daylight then begins to increase until the cycle is completed the following June 21.
+
+## Latitude matters
+
+Because the Earth is tilted on its axis to the sun, day-length also depends on position (or latitude) on Earth. As you move closer to the equator, changes in the photoperiod are less drastic over the course of a year. At the equator (0° latitude), day-length lasts about 12.5 hours on June 21 and 11.5 hours on December 22. In Maine (about 45° north), day-length varies between about 16 and 9 hours. Near the Arctic Circle on June 21 there is no night; on December 22 the whole day is dark.
+
+The longer day-length toward the north prevents cannabis from flowering until later in the season. Over most of the northern half of the country, flowering is often so late that development can't be completed before the onset of cold weather and heavy frosts.
+
+The actual length of day largely depends on local conditions: cloud cover, altitude, terrain. On a flat Midwest plain, the effective length of day is about 30 minutes longer than sunrise to sunset. In practical terms, it's little help to calculate the photoperiod precisely — what matters is realizing how it affects the plant and how you can use it to your advantage.
+
+Cannabis generally needs about two weeks of successive long nights before the first flowers appear.
+
+## Plants vs animals — different life strategies
+
+Plants use a fundamentally different "life strategy" from animals. Animals are more or less self-contained units that grow and develop to predetermined forms. They use movement and choice of behavior to deal with changing environments.
+
+Plants are organized more as open systems — the simple physical characteristics of the environment, such as sunlight, water, and temperature, directly control their growth, form, and life cycles. Once the seed sprouts, the plant is rooted in place and time. Since growth is regulated by the environment, development happens in accordance with the plant's immediate surroundings. When a balance is struck, the strategy is a success and life flourishes.
+
+Behavior of a plant isn't a matter of choice; it's a fixed response. On a visible level the response, more often than not, is growth — either a new form of growth, or specialized growth. By directly responding, plants in effect "know" when to sprout, when to flower, when to drop leaves to prepare for winter.
+
+Everyone has seen how a plant turns toward light, or how a plant can bend upward if its stem is bent down. The plant turns by growing cells of different length on opposite sides of the stem. The stimulus in the first case is light, in the second gravity, but in either case the plant responds by specialized growth. It's the same with almost all facets of a plant's life — growth is modified and controlled by the immediate environment. The influence of light, wind, rainfall, etc., interacts with the plant's genetic make-up (the genotype) to produce the individual plant (the phenotype).
+
+## The full life cycle
+
+The life cycle of *Cannabis* is usually complete in four to nine months. The actual time depends on variety, but it's regulated by local growing conditions — specifically the photoperiod (length of day vs. night).
+
+Cannabis is a long-night (or short-day) plant. When exposed to a period of two weeks of long nights — that is, 13 or more hours of continuous darkness each night — the plants respond by flowering. This has important implications: it allows the grower to control the life cycle of the plant and adapt it to local growing conditions or unique situations. Since you can control flowering, you control maturation, and therefore the age of the plants at harvest.
+
+---
+
+*Originally published September 25, 2014. The science hasn't changed. We carry flower from Washington producers — both indoor and outdoor — with a wide range of strain types and terpene profiles. [Browse the live menu](/menu) for what's in stock right now, or [come visit us in Wenatchee](/visit) and we'll talk you through what's blooming.*
+`,
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {

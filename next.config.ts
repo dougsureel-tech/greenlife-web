@@ -84,11 +84,84 @@ const nextConfig: NextConfig = {
       { source: "/blog/category/:slug*", destination: "/blog", permanent: true },
       { source: "/blog/author/:slug*", destination: "/blog", permanent: true },
 
-      // Known orphaned WP posts (verified 404 on new site 2026-05-07).
-      { source: "/amazing-cannabis-plant-grows", destination: "/blog", permanent: true },
+      // /amazing-cannabis-plant-grows: NO REDIRECT — Doug 2026-05-07: "that
+      // was an old blog post, we should still have it up because it ranks
+      // high." The post is restored at lib/posts.ts under the same slug
+      // (sourced from web.archive.org snapshot 2019-12-14). The URL itself
+      // is preserved at the original path via a `rewrites()` rule below
+      // (not a redirect — server-side rewrite keeps the URL bar at the
+      // legacy path while serving /blog/[slug] template content). That
+      // preserves the SEO ranking signal Doug flagged.
 
       // Author-archive WP-ism — never had real customer value, redirect to /blog.
       { source: "/author/:slug*", destination: "/blog", permanent: true },
+
+      // Legacy e-commerce paths → /menu (Doug 2026-05-07: "drop forget old
+      // greenlife urls for seo sake"). Mirror of seattle-cannabis-web's same
+      // map — Sea had these from a prior platform-change cleanup, Wen never
+      // got the same sweep. /shop /products /flower /concentrates /edibles
+      // /pre-rolls /vapes /strains all 404'd on the new site pre-fix; now
+      // 308-redirect to /menu (the iHeartJane Boost embed canonical product
+      // surface). All inbound — old social-media links, old Google index
+      // entries, partner-directory listings — now land on something useful
+      // instead of dead-ending.
+      { source: "/shop", destination: "/menu", permanent: true },
+      { source: "/shop/:path*", destination: "/menu", permanent: true },
+      { source: "/products", destination: "/menu", permanent: true },
+      { source: "/products/:path*", destination: "/menu", permanent: true },
+      { source: "/flower", destination: "/menu", permanent: true },
+      { source: "/concentrates", destination: "/menu", permanent: true },
+      { source: "/edibles", destination: "/menu", permanent: true },
+      { source: "/pre-rolls", destination: "/menu", permanent: true },
+      { source: "/prerolls", destination: "/menu", permanent: true },
+      { source: "/vapes", destination: "/menu", permanent: true },
+      { source: "/cartridges", destination: "/menu", permanent: true },
+      { source: "/topicals", destination: "/menu", permanent: true },
+      { source: "/tinctures", destination: "/menu", permanent: true },
+      { source: "/accessories", destination: "/menu", permanent: true },
+      { source: "/strains", destination: "/find-your-strain", permanent: true },
+      { source: "/strain/:slug*", destination: "/find-your-strain", permanent: true },
+
+      // Common WordPress / legacy info-page paths → semantic equivalent on new
+      // site. Verified 404'd on new site 2026-05-07.
+      { source: "/contact-us", destination: "/visit", permanent: true },
+      { source: "/contact", destination: "/visit", permanent: true },
+      { source: "/location", destination: "/visit", permanent: true },
+      { source: "/locations", destination: "/visit", permanent: true },
+      { source: "/find-us", destination: "/visit", permanent: true },
+      { source: "/hours", destination: "/visit", permanent: true },
+      { source: "/our-story", destination: "/about", permanent: true },
+      { source: "/team", destination: "/about", permanent: true },
+      { source: "/staff", destination: "/about", permanent: true },
+      // /privacy and /terms aren't real pages on the new site (cannabis-
+      // retail customer rarely needs them — operating disclosures live on
+      // /about + the WSLCB-required posters in-store). Redirect to /about
+      // so old-indexed URLs land on something rather than 404.
+      { source: "/privacy-policy", destination: "/about", permanent: true },
+      { source: "/privacy", destination: "/about", permanent: true },
+      { source: "/terms-of-service", destination: "/about", permanent: true },
+      { source: "/terms-and-conditions", destination: "/about", permanent: true },
+      { source: "/terms", destination: "/about", permanent: true },
+      { source: "/tos", destination: "/about", permanent: true },
+
+      // WP tag archives — same logic as /author/. Customer never bookmarks a
+      // tag page; collapse to /blog so inbound links don't dead-end.
+      { source: "/tag/:slug*", destination: "/blog", permanent: true },
+      { source: "/category/:slug*", destination: "/blog", permanent: true },
+    ];
+  },
+
+  // Internal rewrites — URL stays at the source, content served from the
+  // destination. Distinct from `redirects()` which sends the browser to a
+  // new URL. Used here to preserve the legacy `/amazing-cannabis-plant-grows`
+  // URL (high-SEO-ranking per Doug 2026-05-07) while serving the post
+  // through the regular /blog/[slug] template.
+  async rewrites() {
+    return [
+      {
+        source: "/amazing-cannabis-plant-grows",
+        destination: "/blog/amazing-cannabis-plant-grows",
+      },
     ];
   },
 };
