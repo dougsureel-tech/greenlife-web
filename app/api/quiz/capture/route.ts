@@ -71,7 +71,14 @@ export async function POST(req: NextRequest) {
   }
 
   const b = body as Record<string, unknown>;
-  const rawEmail = typeof b.email === "string" ? b.email.trim() : "";
+  // Length-bound BEFORE the .trim() — without this, a 10MB email payload
+  // would burn CPU running .trim() over arbitrary input before the
+  // length check below would reject it. 2× MAX_EMAIL_LEN (= 508) is
+  // comfortable above the 254 RFC limit with whitespace room.
+  const rawEmail =
+    typeof b.email === "string" && b.email.length <= MAX_EMAIL_LEN * 2
+      ? b.email.trim()
+      : "";
   // First-line defenses. Reject CRLF (header injection), oversized
   // payloads, and obviously-malformed addresses BEFORE any DB hit.
   if (!rawEmail) {
@@ -92,6 +99,10 @@ export async function POST(req: NextRequest) {
   // bounded.
   const sanitize = (v: unknown): string | null => {
     if (typeof v !== "string") return null;
+    // Length check BEFORE trim — without this, a 10MB field would burn
+    // CPU on .trim() before the slice could cap it. 2× MAX_FIELD_LEN
+    // is comfortable above the 64-char cap with whitespace room.
+    if (v.length > MAX_FIELD_LEN * 2) return null;
     const t = v.trim().slice(0, MAX_FIELD_LEN);
     return t.length > 0 ? t : null;
   };

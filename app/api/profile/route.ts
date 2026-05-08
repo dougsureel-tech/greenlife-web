@@ -18,8 +18,16 @@ export async function POST(req: NextRequest) {
 
   const { name, phone, smsOptIn, emailOptIn, frequencyPref, noSubstitutePref, heroesSelfAttestType } = body as Record<string, unknown>;
 
-  const cleanName = typeof name === "string" ? name.trim().slice(0, 100) : undefined;
-  const cleanPhone = typeof phone === "string" ? phone.replace(/[^\d+()\s-]/g, "").slice(0, 20) : undefined;
+  // Length-bound BEFORE the .trim() and .replace() regex — without this,
+  // a 10MB name/phone payload would burn CPU on the trim/regex before
+  // the .slice would cap downstream use. 200/64 are comfortable above
+  // the natural human-name (~80) and formatted-phone (~20) sizes.
+  const cleanName =
+    typeof name === "string" && name.length <= 200 ? name.trim().slice(0, 100) : undefined;
+  const cleanPhone =
+    typeof phone === "string" && phone.length <= 64
+      ? phone.replace(/[^\d+()\s-]/g, "").slice(0, 20)
+      : undefined;
   const cleanSmsOptIn = typeof smsOptIn === "boolean" ? smsOptIn : undefined;
   const cleanEmailOptIn = typeof emailOptIn === "boolean" ? emailOptIn : undefined;
   const VALID_FREQ = ["low", "standard", "high"] as const;
