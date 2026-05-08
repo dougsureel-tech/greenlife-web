@@ -40,7 +40,7 @@ export default async function HeroesPage() {
           <h1 className="text-2xl font-extrabold text-stone-900">We support local heroes</h1>
           <p className="text-sm text-stone-500 mt-1.5 leading-relaxed">
             Active military, veterans, first responders, healthcare workers, and teachers get{" "}
-            <span className="font-semibold text-stone-700">20% off</span> with a valid ID.
+            <span className="font-semibold text-stone-700">30% off</span> with a valid ID.
             Tell us your background — we&apos;ll have it on file for your next visit.
           </p>
         </div>
