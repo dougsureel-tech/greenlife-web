@@ -18,13 +18,25 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       // Default crawler — Google, Bing, the long tail. /alumni is a
       // gated soft-knock route for past staff, no SEO value. /account
-      // is user-specific. /api, /dev, /devmenu are internal noise —
-      // keep them out of the crawl budget so the brand-anchor pages
-      // get the attention.
+      // is user-specific. /api, /dev, /devmenu are internal noise.
+      // /stash + /quiz/unsubscribe are per-visitor / post-action surfaces
+      // (page-level noindex already handles indexing but adding here
+      // saves the crawl request entirely). Keep them out of the crawl
+      // budget so the brand-anchor pages get the attention.
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/alumni", "/account", "/api/", "/dev", "/devmenu", "/sign-in", "/sign-up"],
+        disallow: [
+          "/alumni",
+          "/account",
+          "/api/",
+          "/dev",
+          "/devmenu",
+          "/quiz/unsubscribe",
+          "/sign-in",
+          "/sign-up",
+          "/stash",
+        ],
       },
       // ── AI search engines — explicit allow ─────────────────────────
       // OpenAI: ChatGPT (incl. browse mode + Atlas)
