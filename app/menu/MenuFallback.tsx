@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { STORE } from "@/lib/store";
+import { STORE, todayCloseLabel } from "@/lib/store";
 
 // Passed in from the parent /menu page (ISR 60s). Keeps the deal hook
 // visible to the stuck-embed customer so they don't bounce off-site
@@ -164,7 +164,7 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
             </div>
             <p className="text-xs text-amber-800/70 mt-3">
               Cash only · 21+ with valid ID · Open daily {STORE.hours[0]?.open ?? "8 AM"}–
-              {STORE.hours[0]?.close ?? "9 PM"}
+              {todayCloseLabel()}
             </p>
           </div>
         </div>

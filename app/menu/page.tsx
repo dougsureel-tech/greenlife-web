@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { STORE } from "@/lib/store";
+import { STORE, todayCloseLabel } from "@/lib/store";
 import { getActiveDeals, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { JaneMenu } from "./JaneMenu";
@@ -109,7 +109,7 @@ export default async function MenuPage() {
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">Live Menu</h1>
         <p className="text-sm text-stone-600">
           Real-time inventory from {STORE.name}. Pickup orders open daily 8 AM–
-          {STORE.hours[0]?.close ?? "9 PM"}. Cash only at the counter, 21+ with valid ID.
+          {todayCloseLabel()}. Cash only at the counter, 21+ with valid ID.
         </p>
         {/* Vendor / house ad — sidebar-style banner above the Boost embed.
             Slot key matches admin curation surface (placement_slot='menu_sidebar'). */}

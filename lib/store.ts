@@ -89,6 +89,15 @@ export function isOpenNow(): boolean {
   return cur >= toMin(hours.open) && cur < toMin(hours.close);
 }
 
+// Today's close-time string (e.g. "9:00 PM" / "10:00 PM"). Used in
+// customer-facing copy that previously read STORE.hours[0]?.close —
+// which always returned Monday's close even on Fri/Sat (when Wen's
+// real close is 10 PM, not 9 PM). Companion sweep to v4.315
+// (which fixed the SSoT but missed `/menu` page copy).
+export function todayCloseLabel(): string {
+  return STORE.hours.find((h) => h.day === todayDay())?.close ?? "9:00 PM";
+}
+
 // "Closes at 9 PM" when open; "Opens at 8 AM" when before open today;
 // "Opens Monday at 8 AM" when after close today.
 export function nextOpenLabel(): string {
