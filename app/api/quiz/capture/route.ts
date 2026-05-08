@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { getClient } from "@/lib/db";
 import { sendQuizMatchEmail } from "@/lib/quiz-nurture-email";
 import { STORE } from "@/lib/store";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Hack #6 — Strain-finder quiz email capture.
 //
@@ -59,7 +60,7 @@ function checkCaptureRate(ip: string): boolean {
   const now = Date.now();
   const entry = captureRateMap.get(ip);
   if (!entry || entry.resetAt < now) {
-    captureRateMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    captureRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
     return true;
   }
   if (entry.count >= 5) return false;

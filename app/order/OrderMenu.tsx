@@ -8,6 +8,7 @@ import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { CURRENT_TEAM, initialOf } from "@/lib/team";
+import { MINUTE_MS } from "@/lib/time-constants";
 import { fetchClosureStatus, type ClosureStatus } from "@/lib/closure-status";
 import { eligibleRedemptionTiers, applyRedemptionTier, type RedemptionTier } from "@/lib/loyalty-redemption";
 
@@ -427,7 +428,7 @@ export function OrderMenu({
       setPickupTime((prev) => (prev && slots.some((s) => s.value === prev) ? prev : (slots[0]?.value ?? "")));
     }
     refresh();
-    const id = setInterval(refresh, 60_000);
+    const id = setInterval(refresh, MINUTE_MS);
     return () => clearInterval(id);
   }, [cartOpen]);
 

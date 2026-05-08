@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
 import { getOrCreatePortalUser } from "@/lib/portal";
 import crypto from "crypto";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // POST /api/track-install
 //
@@ -44,7 +45,7 @@ function checkInstallRate(ip: string): boolean {
   const now = Date.now();
   const entry = installRateMap.get(ip);
   if (!entry || entry.resetAt < now) {
-    installRateMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    installRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
     return true;
   }
   if (entry.count >= 10) return false;

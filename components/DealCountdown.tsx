@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { computeDealCountdown, type DealCountdownState } from "@/lib/deal-countdown";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Live "ends in" chip used on the /deals card list. Refreshes on a 60s
 // interval so the urgency window stays honest as time ticks past. Hydration-
@@ -30,7 +31,7 @@ export function DealCountdown({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- Hydration-safe ticker: SSR ships `initialLabel`/`initialUrgent`, then we reconcile to client-time on mount before the 60s interval takes over.
     setState(computeDealCountdown(endDate));
-    const id = setInterval(() => setState(computeDealCountdown(endDate)), 60_000);
+    const id = setInterval(() => setState(computeDealCountdown(endDate)), MINUTE_MS);
     return () => clearInterval(id);
   }, [endDate]);
 

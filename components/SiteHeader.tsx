@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { StashHeaderLink } from "./StashHeaderLink";
 import { withAttr } from "@/lib/attribution";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Live "Open · Closes 11 PM" / "Closed · Opens 8 AM" indicator.
 // useEffect-mounted so SSR doesn't lock in a wrong status; refreshes every
@@ -17,7 +18,7 @@ function StatusPill({ dark }: { dark: boolean }) {
   useEffect(() => {
     const update = () => setStatus({ open: isOpenNow(), label: nextOpenLabel() });
     update();
-    const id = setInterval(update, 60_000);
+    const id = setInterval(update, MINUTE_MS);
     return () => clearInterval(id);
   }, []);
   if (!status) return null;

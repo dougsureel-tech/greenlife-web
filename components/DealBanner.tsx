@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ActiveDeal } from "@/lib/db";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Renders a slim top-of-page banner showing the soonest-ending active deal
 // with a live ticking countdown. Hidden if there are no active deals or the
@@ -41,7 +42,7 @@ export function DealBanner({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 60_000);
+    const id = setInterval(() => setNow(Date.now()), MINUTE_MS);
     return () => clearInterval(id);
   }, []);
 

@@ -6,6 +6,7 @@ import { getOrCreatePortalUser, getOrders, notifyReadyOrders } from "@/lib/porta
 import { STORE, STORE_TZ } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
+import { MINUTE_MS } from "@/lib/time-constants";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -84,7 +85,7 @@ export default async function OrderHistoryPage() {
   // eslint-disable-next-line react-hooks/purity
   const nowMs = Date.now();
   const hasJustReady = orders.some(
-    (o) => o.status === "ready" && o.readyAt && nowMs - new Date(o.readyAt).getTime() < 5 * 60_000,
+    (o) => o.status === "ready" && o.readyAt && nowMs - new Date(o.readyAt).getTime() < 5 * MINUTE_MS,
   );
 
   // Fire web push for any order that flipped to "ready" within the last

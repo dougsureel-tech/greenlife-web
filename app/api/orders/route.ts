@@ -4,6 +4,7 @@ import { getOrCreatePortalUser, placeOrder, checkAvailability } from "@/lib/port
 import { validatePickupTime, pickupTimeToISO, STORE, STORE_TZ } from "@/lib/store";
 import { sendSms, isSmsConfigured, normalizePhone } from "@/lib/sms";
 import { sendOrderConfirmationEmail } from "@/lib/order-confirmation-email";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Per-user rate limit on order placement. Clerk auth gates the surface
 // but each call triggers INSERT + SMS confirm + email confirm + audit.
@@ -15,7 +16,7 @@ function checkOrderRate(userId: string): boolean {
   const now = Date.now();
   const entry = orderRateMap.get(userId);
   if (!entry || entry.resetAt < now) {
-    orderRateMap.set(userId, { count: 1, resetAt: now + 60_000 });
+    orderRateMap.set(userId, { count: 1, resetAt: now + MINUTE_MS });
     return true;
   }
   if (entry.count >= 5) return false;

@@ -7,6 +7,7 @@
 // blocking the deals hero from rendering).
 
 import { STORE_TZ } from "./store";
+import { HOUR_MS, DAY_MS } from "./time-constants";
 
 export type DealCountdownState = {
   label: string;
@@ -29,10 +30,10 @@ export function computeDealCountdown(endDate: string | null): DealCountdownState
   const now = Date.now();
   const ms = end - now;
   if (ms <= 0) return { label: "Ended", urgent: true };
-  const days = Math.ceil(ms / 86_400_000);
+  const days = Math.ceil(ms / DAY_MS);
   if (days === 1) {
     // <24h left — fall back to hours for the closing-window urgency
-    const hours = Math.ceil(ms / 3_600_000);
+    const hours = Math.ceil(ms / HOUR_MS);
     if (hours <= 24 && hours > 0) {
       // If end-of-day today (PT), we want "Ends today". Otherwise "Ends tomorrow".
       const todayPt = new Date(

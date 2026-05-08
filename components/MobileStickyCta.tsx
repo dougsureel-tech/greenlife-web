@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Sticky bottom-of-screen CTA bar for mobile only. Slides up after the user
 // has scrolled past the hero so it doesn't compete with the in-hero buttons,
@@ -115,7 +116,7 @@ export function MobileStickyCta() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(computeMode(deal));
-    const id = window.setInterval(() => setMode(computeMode(deal)), 60_000);
+    const id = window.setInterval(() => setMode(computeMode(deal)), MINUTE_MS);
     return () => window.clearInterval(id);
   }, [deal]);
 
