@@ -82,7 +82,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Rewards",
     q: "Can I redeem loyalty points on top of a deal?",
-    a: "No — discounts don't combine. The best applicable discount applies on a given order (Heroes 30%, today's daily deal, online 20%, etc.), so you'd save your points for a regular-price visit when redemption gives you the most. You always earn points on every visit either way.",
+    a: "No — discounts don't combine. The best applicable discount applies on a given order (Heroes 30%, today's daily deal, online 15%, etc.), so you'd save your points for a regular-price visit when redemption gives you the most. You always earn points on every visit either way.",
   },
   {
     tag: "Rewards",
