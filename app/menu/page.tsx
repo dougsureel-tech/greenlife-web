@@ -77,13 +77,21 @@ async function prewarmDutchieMenu(): Promise<void> {
 }
 
 export default async function MenuPage() {
+  // PWA-install detection — cookie set by /api/track-install on first
+  // standalone-mode launch. Same gate as /deals + homepage strip. Without
+  // this, installed visitors saw the same `app_only=false` deal subset
+  // as browser-only visitors — losing the install incentive on the most-
+  // visited customer page. Doug 2026-05-07 closure of the menu-strip
+  // app-only sister gap.
+  const cookieStore = await import("next/headers").then((m) => m.cookies());
+  const isInstalled = cookieStore.get("glw_pwa_installed")?.value === "1";
   // Pull the currently-running active deal nearest its end-date — passed
   // through to MenuFallback so a customer hitting a stuck embed still sees
   // the savings hook. Falls back to no-deal silently if the table is empty
   // or the query errors. Third element prewarms Jane's cache; result
   // unused (helper returns void).
   const [deals, closure, treasureChest] = await Promise.all([
-    getActiveDeals().catch(() => []),
+    getActiveDeals({ includeAppOnly: isInstalled }).catch(() => []),
     fetchClosureStatus(),
     getTreasureChestProducts(60).catch(() => []),
     prewarmDutchieMenu(),
