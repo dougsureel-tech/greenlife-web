@@ -280,7 +280,7 @@ export function SiteFooter() {
           >
             Seattle Cannabis Co.
           </a>{" "}
-          — Rainier Valley, family-run since 2010.
+          — Rainier Valley, locally owned since 2010.
         </p>
       </div>
 
