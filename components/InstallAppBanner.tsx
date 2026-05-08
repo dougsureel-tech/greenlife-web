@@ -96,6 +96,12 @@ export function InstallAppBanner() {
     if (isDismissed()) return;
 
     const p = detectPlatform();
+    // Legitimate setState-in-effect: synchronizing React state with the
+    // browser environment (window-only `detectPlatform()` + `beforeinstallprompt`
+    // event subscription, both unavailable during SSR). React 19's
+    // react-hooks/set-state-in-effect rule defaults strict; this is the
+    // explicit "you DO need an effect" case from the docs.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlatform(p);
     if (p === "other") return;
 
