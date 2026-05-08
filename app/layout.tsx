@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
     template: `%s | ${STORE.name}`,
   },
-  description: `${STORE.name} — ${STORE.address.city}'s cannabis dispensary, founded 2014, same building on Sunnyslope. The Valley's best cannabis staff. Shop flower, concentrates, edibles, vapes, pre-rolls, tinctures and topicals. Open daily 8 AM, later Fri & Sat. Cash only, 21+. ${STORE.address.full}.`,
+  description: `${STORE.name} — ${STORE.address.city}'s cannabis dispensary, founded 2014, same building in Sunnyslope. The Valley's best cannabis staff. Shop flower, concentrates, edibles, vapes, pre-rolls, tinctures and topicals. Open daily 8 AM, later Fri & Sat. Cash only, 21+. ${STORE.address.full}.`,
   keywords: [
     "cannabis dispensary Wenatchee",
     "marijuana dispensary Wenatchee WA",
@@ -150,7 +150,7 @@ const organizationSchema = {
     height: 512,
   },
   image: `${STORE.website}/opengraph-image`,
-  description: `${STORE.address.city}'s cannabis dispensary, founded 2014. Same building on Sunnyslope. Best cannabis staff in the Valley.`,
+  description: `${STORE.address.city}'s cannabis dispensary, founded 2014. Same building in Sunnyslope. Best cannabis staff in the Valley.`,
   foundingDate: "2014",
   foundingLocation: {
     "@type": "Place",
@@ -206,7 +206,7 @@ const localBusinessSchema = {
   name: STORE.name,
   legalName: "Verve Mgmt LLC",
   alternateName: ["Green Life", "Green Life Wenatchee"],
-  description: `Licensed cannabis dispensary in ${STORE.address.city}, WA — founded 2014, same building on Sunnyslope, the Valley's best cannabis staff. Premium flower, pre-rolls, vapes, concentrates, edibles, tinctures and topicals from Washington-state producers. Cash only, 21+ with valid ID.`,
+  description: `Licensed cannabis dispensary in ${STORE.address.city}, WA — founded 2014, same building in Sunnyslope, the Valley's best cannabis staff. Premium flower, pre-rolls, vapes, concentrates, edibles, tinctures and topicals from Washington-state producers. Cash only, 21+ with valid ID.`,
   slogan: STORE.tagline,
   url: STORE.website,
   image: `${STORE.website}/opengraph-image`,
