@@ -18,17 +18,20 @@ import crypto from "crypto";
 // Storage:
 //   - audit_log row per call (action='glw.pwa_installed', entity_type=
 //     'glw_customer_app'). Total downloads = COUNT(*) where action match.
-//   - If signed-in (Clerk session): updates customers.scc_app_installed_at
-//     if portal_users → customers join exists. Otherwise the customer
-//     attribution lands later via the OTP sign-in flow (not handled here).
 //
 // Query params:
 //   - source — install funnel source (e.g. 'springbig_migration', 'menu',
 //     'organic'). Stored on entity_label for funnel reporting.
 //
 // Auth: anonymous OK. Clerk session optional — when present, we also try
-// to set customers.scc_app_installed_at via the portal_user → customers
-// phone/email match.
+// to resolve the portal_user → customers phone/email match for richer
+// audit-log attribution. Pre-fix this also wrote `customers.scc_app_installed_at`
+// on Wen, but the column is Sea-named (introduced via inventoryapp
+// migration 0215 to power the Seattle SpringBig→SCC migration funnel
+// tile at /admin/marketing). Wen has no equivalent admin tile reading
+// that column — the audit_log row alone is the canonical Wen source of
+// truth for install counts. Not writing the Sea-named column on Wen
+// keeps the data semantically clean. Doug 2026-05-07.
 
 export async function POST(req: NextRequest) {
   const sql = getClient();
@@ -89,20 +92,14 @@ export async function POST(req: NextRequest) {
     // Don't fail the response — the client doesn't need to know
   }
 
-  // If we resolved a customer, set scc_app_installed_at (idempotent — only
-  // sets if currently null, so we capture FIRST install moment).
-  if (customerId) {
-    try {
-      await sql`
-        UPDATE customers
-        SET scc_app_installed_at = COALESCE(scc_app_installed_at, NOW())
-        WHERE id = ${customerId}
-      `;
-    } catch (err) {
-      console.error("[track-install] customer update:", err);
-    }
-  }
-
+  // Pre-fix this branch wrote `customers.scc_app_installed_at = NOW()`
+  // on Wen too — semantically wrong since the column is Sea-named
+  // (introduced for the Seattle SpringBig → SCC migration funnel at
+  // inventoryapp /admin/marketing) and Wen has no admin tile reading
+  // it. The audit_log row at action='glw.pwa_installed' above is the
+  // canonical Wen source of truth for install counts. If a Wen-side
+  // customer-table install column is ever needed, add a `glw_app_installed_at`
+  // migration first, then write to that. Doug 2026-05-07 cleanup.
   const res = NextResponse.json({ ok: true, attributed: !!customerId, source });
   // Drop a long-lived cookie so server-rendered pages can detect "this
   // device installed the PWA" without a client roundtrip. Used by /deals
