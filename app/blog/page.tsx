@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -86,6 +86,7 @@ export default function BlogIndex() {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
+                      timeZone: STORE_TZ,
                     })}
                   </span>
                   <span className="text-stone-300">·</span>

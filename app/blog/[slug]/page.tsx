@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts } from "@/lib/posts";
-import { STORE } from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -198,6 +198,7 @@ export default async function BlogPost({ params }: Props) {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
+                timeZone: STORE_TZ,
               })}
             </span>
             <span className="opacity-50">·</span>
