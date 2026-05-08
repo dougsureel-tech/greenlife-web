@@ -2,6 +2,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getOrCreatePortalUser } from "@/lib/portal";
+import { STORE_TZ } from "@/lib/store";
 import { ProfileForm } from "./ProfileForm";
 import type { Metadata } from "next";
 
@@ -65,7 +66,7 @@ export default async function ProfilePage() {
               <div className="flex items-center justify-between gap-3">
                 <span className="text-stone-500">Member since</span>
                 <span className="text-stone-700">
-                  {memberSince.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+                  {memberSince.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: STORE_TZ })}
                 </span>
               </div>
             )}

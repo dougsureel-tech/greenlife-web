@@ -241,6 +241,7 @@ export default async function AccountPage({ searchParams }: Props) {
                         day: "numeric",
                         hour: "numeric",
                         minute: "2-digit",
+                        timeZone: STORE_TZ,
                       })}
                     </span>
                   )}
@@ -308,7 +309,7 @@ export default async function AccountPage({ searchParams }: Props) {
                 className="flex items-center justify-between px-4 py-3 text-sm hover:bg-stone-50 transition-colors"
               >
                 <div className="text-stone-500">
-                  {new Date(order.placedAt).toLocaleDateString()} · {order.itemCount} item
+                  {new Date(order.placedAt).toLocaleDateString("en-US", { timeZone: STORE_TZ })} · {order.itemCount} item
                   {order.itemCount !== 1 ? "s" : ""}
                 </div>
                 <div className="flex items-center gap-2">
