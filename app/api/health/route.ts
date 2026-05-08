@@ -3,6 +3,7 @@ import { getClient } from "@/lib/db";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { STORE } from "@/lib/store";
 import { isEmailConfigured } from "@/lib/email";
+import { isSmsConfigured } from "@/lib/sms";
 
 // Health check for external uptime monitors + the auto-rollback path
 // (PLAN_RELIABILITY.md). Returns 200 + diagnostics when everything is up,
@@ -129,6 +130,14 @@ export async function GET() {
     // is set on this deployment; `false` means email helper falls back to
     // the no-op skip path (logs a single line, never throws).
     emailConfigured: isEmailConfigured(),
+    // Boolean only — never expose Twilio credentials. `true` means all of
+    // TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM_NUMBER are set
+    // on this deployment; `false` means sendSms() short-circuits to the
+    // no-op path. Mirrors emailConfigured + the inventoryapp's own
+    // smsConfigured field. Surfaces INCIDENTS.md OPEN entry from
+    // 2026-05-03 21:25 PT (Twilio gap) directly on the public-site
+    // health endpoint.
+    smsConfigured: isSmsConfigured(),
   };
 
   return NextResponse.json(body, {
