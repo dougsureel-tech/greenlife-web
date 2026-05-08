@@ -1693,7 +1693,7 @@ function FaqSection() {
   const faqs: { q: string; a: string }[] = [
     {
       q: "Where is the best dispensary in Wenatchee?",
-      a: "Green Life Cannabis is on Sunnyslope at 3001 N Sunnyslope Rd, Wenatchee WA — the closest dispensary to Lake Chelan, the orchards, and US-2 west into the Cascades. Open every day from 8 AM, with Friday and Saturday hours running later. We carry 100+ Washington brands, all WSLCB-licensed.",
+      a: "Green Life Cannabis is at 3012 Center Road Ste A in Wenatchee — the Sunnyslope side of town, closest dispensary to Lake Chelan, the orchards, and US-2 west into the Cascades. Open every day from 8 AM, with Friday and Saturday hours running later. We carry 100+ Washington brands, all WSLCB-licensed.",
     },
     {
       q: "What time does Green Life Cannabis open?",
