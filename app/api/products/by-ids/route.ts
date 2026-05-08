@@ -15,6 +15,11 @@ import { getProductsByIds } from "@/lib/db";
 //    the DB at most once a minute regardless of traffic.
 export async function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("ids") ?? "";
+  // Cap raw query-string length BEFORE the .split() / .trim() / .test()
+  // pipeline. Sister mirror on scc + inv /api/admin/sparklines arc.
+  if (raw.length > 4096) {
+    return NextResponse.json({ products: [] }, { status: 400 });
+  }
   const ids = raw
     .split(",")
     .map((s) => s.trim())
