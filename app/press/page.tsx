@@ -114,7 +114,7 @@ export default function PressPage() {
           <div className="prose prose-stone max-w-none text-stone-700 text-base leading-relaxed">
             <p>
               {STORE.name} opened in {FOUNDED_YEAR} in Wenatchee — half-way between the Cascades and the
-              Columbia. Family-run and stocked almost entirely from Washington-state farms and processors.
+              Columbia. Locally owned and stocked almost entirely from Washington-state farms and processors.
               We&apos;re not the biggest dispensary in the valley; we&apos;re the one
               your friend recommends because the budtenders actually know the difference between a glass-rosin
               terp profile and a hash-rosin one.
