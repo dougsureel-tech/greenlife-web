@@ -102,7 +102,7 @@ const WSLCB_LICENSE = "WSLCB License 414755";
 // prefer `RESEND_REPLY_TO` env (Doug set this to buyer@ inbox v3.325 —
 // that one IS monitored), fall through to STORE.email only if env-var
 // isn't set.
-const OPT_OUT_EMAIL = process.env.RESEND_REPLY_TO ?? STORE.email;
+const OPT_OUT_EMAIL = process.env.RESEND_REPLY_TO || STORE.email;
 
 function buildHtml(args: WelcomeEmailArgs): string {
   const { firstName, storeName, storeAddress, mapUrl, hoursText, deepLinkOrder } = args;

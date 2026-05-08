@@ -33,7 +33,7 @@ import "server-only";
 
 const API_KEY = process.env.RESEND_API_KEY;
 const DEFAULT_FROM =
-  process.env.RESEND_FROM ?? "Green Life Cannabis <hi@greenlifecannabis.com>";
+  process.env.RESEND_FROM || "Green Life Cannabis <hi@greenlifecannabis.com>";
 // Reply-To override. When set, customer replies to outbound mail land
 // here instead of the From address. Pattern: From = `info@…` (brand-
 // facing), Reply-To = `buyer@…` (actively monitored mailbox). Without

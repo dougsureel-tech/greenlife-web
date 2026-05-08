@@ -99,7 +99,7 @@ const WSLCB_LICENSE = "WSLCB License 414755";
 // STORE.email only if the env-var isn't set. Same env var used by
 // `lib/email.ts` for the Resend reply-to header so the inbox routing
 // stays consistent across header + in-body opt-out paths.
-const OPT_OUT_EMAIL = process.env.RESEND_REPLY_TO ?? STORE.email;
+const OPT_OUT_EMAIL = process.env.RESEND_REPLY_TO || STORE.email;
 
 function buildHtml(args: OrderConfirmationArgs): string {
   const {
