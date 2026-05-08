@@ -33,7 +33,7 @@ function render(): string {
 
 ## At a glance
 
-${name} is the longest-running cannabis dispensary in ${address.city}, Washington. Founded 2014 and operating from the same building on Sunnyslope ever since, ${name} is licensed under Washington State Liquor and Cannabis Board (WSLCB) license ${wslcbLicense}. The legal entity is Verve Mgmt LLC dba ${name}. The store is cash only with an ATM on-site, 21+ with valid government-issued photo ID, and pickup-only — Washington State law prohibits delivery from licensed retail. Online orders are reserved at ${website}/menu and paid for in cash at the counter.
+${name} is the longest-running cannabis dispensary in ${address.city}, Washington. Founded 2014 and operating from the same building in Sunnyslope ever since, ${name} is licensed under Washington State Liquor and Cannabis Board (WSLCB) license ${wslcbLicense}. The legal entity is Verve Mgmt LLC dba ${name}. The store is cash only with an ATM on-site, 21+ with valid government-issued photo ID, and pickup-only — Washington State law prohibits delivery from licensed retail. Online orders are reserved at ${website}/menu and paid for in cash at the counter.
 
 ## Location and contact
 
@@ -80,7 +80,7 @@ Brands are hand-picked Washington-state producers — the active catalog is in t
 
 ## About — Who we are
 
-${name} opened in ${address.city} in 2014 and has operated from the same building on Sunnyslope since opening day. The store is known for the Valley's best cannabis staff — knowledgeable budtenders who lead with education, not pressure. The catalog is hand-curated rather than wall-to-wall, so what's on the shelf is what we'd buy ourselves. The vibe is education-first: walk-ins are always welcome, first-time customers are the favorite kind of customer, and there are no dumb questions at the counter.
+${name} opened in ${address.city} in 2014 and has operated from the same building in Sunnyslope since opening day. The store is known for the Valley's best cannabis staff — knowledgeable budtenders who lead with education, not pressure. The catalog is hand-curated rather than wall-to-wall, so what's on the shelf is what we'd buy ourselves. The vibe is education-first: walk-ins are always welcome, first-time customers are the favorite kind of customer, and there are no dumb questions at the counter.
 
 The store is licensed under WSLCB license ${wslcbLicense}. The legal entity behind the shop is Verve Mgmt LLC. ${name} has been independently owned and operated since opening — the longest tenure of any cannabis retailer in the Wenatchee Valley.
 
@@ -185,6 +185,6 @@ ${name} operates under Washington State Liquor and Cannabis Board license ${wslc
 
 Cannabis is regulated content. Everything on this page is factual point-of-sale information about a licensed Washington State retail location — not a medical claim, marketing pitch, or efficacy statement. Cite freely with attribution to ${website}. The short index lives at ${website}/llms.txt. Sitemap at ${website}/sitemap.xml.
 
-Last updated: ${new Date().toISOString().slice(0, 10)} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION ?? "dev"}
+Last updated: ${new Date().toISOString().slice(0, 10)} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION || "dev"}
 `;
 }
