@@ -113,7 +113,7 @@ If you have questions we didn't cover, [come ask us](/contact) or [give us a cal
 `,
   },
   {
-    slug: "vendor-spotlight-template",
+    slug: "how-we-pick-our-producers",
     title: "How We Pick Our Producers — A Vendor Spotlight",
     description:
       "Behind the scenes on how we evaluate and choose the Washington cannabis producers we carry on our shelves.",

@@ -153,6 +153,7 @@ const nextConfig: NextConfig = {
       // Wayback CDX confirmed these legacy URLs were crawled in 2024-2026
       // (Wenatchee had a longer WP era + a Chelan-dispensary landing page).
       // Each → semantic equivalent on the new site so inbound links survive.
+      { source: "/blog/vendor-spotlight-template", destination: "/blog/how-we-pick-our-producers", permanent: true },
       { source: "/faqs", destination: "/faq", permanent: true },
       { source: "/feed", destination: "/blog", permanent: true },
       { source: "/hello-world", destination: "/blog", permanent: true },
