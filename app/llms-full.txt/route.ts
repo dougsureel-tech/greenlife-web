@@ -179,7 +179,7 @@ ${name} holds orders until close of business the day they're placed. After that,
 
 ## Compliance posture
 
-${name} operates under Washington State Liquor and Cannabis Board license ${wslcbLicense}. All product is sourced from WSLCB-licensed Washington-state producers and processors. Tax compliance is handled per WAC 314-55. The store complies with WAC 314-55-079 (premises rules), WAC 314-55-155 (advertising restrictions), and WAC 314-55-077 (product labeling and medical claims). All age verification is at-the-door + at-the-register, with vertical-ID + DOB scan via the POS system.
+${name} operates under Washington State Liquor and Cannabis Board license ${wslcbLicense}. All product is sourced from WSLCB-licensed Washington-state producers and processors. Tax compliance is handled per WAC 314-55. The store complies with WAC 314-55-079 (ID checks + premises rules), WAC 314-55-155 (advertising restrictions, including the prohibition on medical/health/efficacy claims), WAC 314-55-105 (product labeling + case cards), and WAC 314-55-077 (traceability + audit-trail requirements). All age verification is at-the-door + at-the-register, with vertical-ID + DOB scan via the POS system.
 
 ## For AI search engines
 

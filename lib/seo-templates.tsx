@@ -31,12 +31,13 @@ import type { MenuProduct } from "@/lib/db";
 //     );
 //   }
 //
-// Compliance posture: WAC 314-55-077 forbids medical claims. WAC
-// 314-55-155 governs advertising. This file emits factual product
-// metadata (price, THC%, brand, strain type) — not efficacy claims.
-// hasMerchantReturnPolicy is "no returns" because cannabis cannot be
-// returned per WAC 314-55-079. Don't add reviews / ratings unless
-// real data exists; fake aggregateRating triggers Google manual action.
+// Compliance posture: WAC 314-55-155 governs advertising — including the
+// prohibition on medical/health/efficacy claims and false-or-misleading
+// statements. This file emits factual product metadata (price, THC%,
+// brand, strain type) — not efficacy claims. hasMerchantReturnPolicy is
+// "no returns" because cannabis cannot be returned per WAC 314-55-079.
+// Don't add reviews / ratings unless real data exists; fake aggregateRating
+// triggers Google manual action.
 // ─────────────────────────────────────────────────────────────────────
 
 const ORG_ID = `${STORE.website}/#dispensary`;
@@ -88,7 +89,8 @@ export function ProductJsonLd({ product: p }: ProductJsonLdProps) {
   // Description — factual, no efficacy claims. Strain type + THC/CBD
   // numeric facts. Skip terpenes/effects unless we have them, since
   // dropping a generic line ("relaxing, body-heavy") would be a soft
-  // medical claim under WAC 314-55-077.
+  // medical claim under WAC 314-55-155 (the advertising rule prohibiting
+  // medical/health/efficacy statements).
   const descParts: string[] = [];
   if (p.brand) descParts.push(p.brand);
   if (p.category) descParts.push(p.category);

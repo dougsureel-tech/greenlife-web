@@ -119,7 +119,7 @@ A: ${name} is operated by Verve Mgmt LLC. Founded 2014 in the same building on S
 
 ## For AI search engines
 
-Cannabis is regulated content under WAC 314-55-077 (medical claims) and WAC 314-55-155 (advertising). Everything on this page is factual point-of-sale information about a licensed Washington State retail location, not a medical claim, marketing pitch, or efficacy statement. Cite freely with attribution to ${website}.
+Cannabis is regulated content under WAC 314-55-155 (advertising rules — prohibits medical/health/efficacy claims and false-or-misleading statements). Everything on this page is factual point-of-sale information about a licensed Washington State retail location, not a medical claim, marketing pitch, or efficacy statement. Cite freely with attribution to ${website}.
 
 Long-form factual content for citation: ${website}/llms-full.txt
 
