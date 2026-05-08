@@ -123,14 +123,14 @@ const nextConfig: NextConfig = {
       { source: "/strain/:slug*", destination: "/find-your-strain", permanent: true },
 
       // Common WordPress / legacy info-page paths → semantic equivalent on new
-      // site. Verified 404'd on new site 2026-05-07.
-      { source: "/contact-us", destination: "/visit", permanent: true },
-      { source: "/contact", destination: "/visit", permanent: true },
+      // site. /contact + /our-story have real pages on the new site (linked from
+      // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
+      // those, only redirect the legacy aliases that point AT them.
+      { source: "/contact-us", destination: "/contact", permanent: true },
       { source: "/location", destination: "/visit", permanent: true },
       { source: "/locations", destination: "/visit", permanent: true },
       { source: "/find-us", destination: "/visit", permanent: true },
       { source: "/hours", destination: "/visit", permanent: true },
-      { source: "/our-story", destination: "/about", permanent: true },
       { source: "/team", destination: "/about", permanent: true },
       { source: "/staff", destination: "/about", permanent: true },
       // /privacy and /terms aren't real pages on the new site (cannabis-
