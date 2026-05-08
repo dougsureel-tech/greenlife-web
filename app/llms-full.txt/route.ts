@@ -157,7 +157,7 @@ Washington State law caps a recreational transaction at 1 ounce of usable cannab
 No. Washington law prohibits consumption in retail stores, parking lots, and most public spaces. Consume only in private residences where the property owner permits it.
 
 **Do you offer deals or loyalty rewards?**
-Yes. Live deals are at ${website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, 100 points = $1 off. Tiers (Visitor → Regular → Local → Family) unlock automatically. The 15% off first online order applies on top of any active deal.
+Yes. Live deals are at ${website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, 100 points = $1 off. Tiers (Visitor → Regular → Local → Family) unlock automatically. Discounts don't combine — best discount applies. Loyalty points still earn on every visit regardless of which discount is in play.
 
 **Do you offer a Heroes / service discount?**
 Yes — 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show valid 21+ ID alongside service or work credential at the register. Full eligibility at ${website}/heroes.
