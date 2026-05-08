@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual } from "node:crypto";
 import webpush from "web-push";
 import { listPushSubscriptions, pruneEndpoints, sendPushToClerkUser } from "@/lib/push-db";
 
@@ -31,9 +32,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Push not configured" }, { status: 500 });
   }
 
+  // Constant-time bearer compare so a timing attack can't extract
+  // SEND_TOKEN byte-by-byte. Same defense pattern as scc verify-code
+  // (v6.105) + inv cloudprnt (v186.845) + lib/rewards-session.ts.
+  // Length-mismatch short-circuits because timingSafeEqual throws on
+  // differing buffer lengths and length isn't a secret.
   const authz = req.headers.get("authorization") ?? "";
   const expected = `Bearer ${SEND_TOKEN}`;
-  if (authz !== expected) {
+  const authzBuf = Buffer.from(authz);
+  const expectedBuf = Buffer.from(expected);
+  if (authzBuf.length !== expectedBuf.length || !timingSafeEqual(authzBuf, expectedBuf)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
