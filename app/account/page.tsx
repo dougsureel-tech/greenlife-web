@@ -191,7 +191,7 @@ export default async function AccountPage({ searchParams }: Props) {
                     };
                     return `On file: ${labels[portalUser.heroesSelfAttestType] ?? portalUser.heroesSelfAttestType}`;
                   })()
-                : "Military, veterans, first responders, healthcare, teachers — 20% off"}
+                : "Military, veterans, first responders, healthcare, teachers — 30% off"}
             </div>
           </div>
         </div>
