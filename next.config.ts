@@ -148,6 +148,36 @@ const nextConfig: NextConfig = {
       // tag page; collapse to /blog so inbound links don't dead-end.
       { source: "/tag/:slug*", destination: "/blog", permanent: true },
       { source: "/category/:slug*", destination: "/blog", permanent: true },
+
+      // ── SEO recovery: WordPress structural URLs (Doug 2026-05-08)
+      // Wayback CDX confirmed these legacy URLs were crawled in 2024-2026
+      // (Wenatchee had a longer WP era + a Chelan-dispensary landing page).
+      // Each → semantic equivalent on the new site so inbound links survive.
+      { source: "/faqs", destination: "/faq", permanent: true },
+      { source: "/feed", destination: "/blog", permanent: true },
+      { source: "/hello-world", destination: "/blog", permanent: true },
+      { source: "/my-account", destination: "/account", permanent: true },
+      { source: "/my-account/:path*", destination: "/account", permanent: true },
+      { source: "/gallery", destination: "/about", permanent: true },
+      { source: "/chelan-dispensary", destination: "/menu", permanent: true },
+
+      // ── Legacy iHJ / WP product URLs (Doug 2026-05-08)
+      // /menu/products/<id>/<slug>/ was the iHJ product detail URL pattern.
+      // Hundreds of these were indexed; collapse all to /menu (the live
+      // Boost embed) — Google follows the redirect and customers land on
+      // the live menu where they can search the same product.
+      { source: "/menu/products/:path*", destination: "/menu", permanent: true },
+
+      // ── Legacy WP sitemaps (Doug 2026-05-08)
+      // Yoast SEO + WP defaults emit multiple sitemap variants. Next.js
+      // emits a single /sitemap.xml; collapse old variants there.
+      { source: "/sitemap_index.xml", destination: "/sitemap.xml", permanent: true },
+      { source: "/sitemap.rss", destination: "/sitemap.xml", permanent: true },
+      { source: "/sitemap", destination: "/sitemap.xml", permanent: true },
+      { source: "/post-sitemap.xml", destination: "/sitemap.xml", permanent: true },
+      { source: "/page-sitemap.xml", destination: "/sitemap.xml", permanent: true },
+      { source: "/category-sitemap.xml", destination: "/sitemap.xml", permanent: true },
+      { source: "/author-sitemap.xml", destination: "/sitemap.xml", permanent: true },
     ];
   },
 
