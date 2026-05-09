@@ -122,6 +122,50 @@ export const NEAR_TOWNS: readonly NearTown[] = [
       "Sunnyslope is the neighborhood the store sits in — the corner of Center Rd, the side of town with Ohme Gardens up the bluff and the Columbia turn into Wenatchee. Most Sunnyslope regulars walk or bike in. Free parking out front; ATM for the cash-only till.",
     notableNeighbors: ["Wenatchee", "East Wenatchee", "Cashmere"],
   },
+  {
+    slug: "wapato-point",
+    name: "Wapato Point",
+    county: "Chelan County",
+    driveMins: 70,
+    highway: "US-97 Alt + WA-150 around Lake Chelan to Manson",
+    pitch: "Wapato Point cabin owners come down to Wenatchee — about 70 min via US-97 around the lake.",
+    whyStop:
+      "Wapato Point is the resort + cabin community on the north side of Lake Chelan. No legal cannabis up there. Most regulars stock for the week before the drive in. The route back down US-97 is one of the prettier ones in the state.",
+    notableNeighbors: ["Manson", "Chelan", "Wenatchee"],
+  },
+  {
+    slug: "pateros",
+    name: "Pateros",
+    county: "Okanogan County",
+    driveMins: 90,
+    highway: "US-97 Alt north along the Columbia",
+    pitch: "Pateros is 90 min north of us — the closest Chelan-County dispensary if you're driving south.",
+    whyStop:
+      "Pateros sits at the Columbia/Methow confluence. Closest legal dispensary going south is the Wenatchee Valley — straight US-97 along the river. Most Pateros + Brewster regulars pair the trip with a Costco or Pybus run.",
+    notableNeighbors: ["Brewster", "Chelan", "Manson"],
+  },
+  {
+    slug: "waterville",
+    name: "Waterville",
+    county: "Douglas County",
+    driveMins: 35,
+    highway: "US-2 east + WA-2 climb up the plateau",
+    pitch: "Waterville to Wenatchee is 35 min down the plateau — closest dispensary off the bench.",
+    whyStop:
+      "Waterville sits up on the Columbia Plateau — quiet, agricultural, the highest county seat in WA. Closest dispensary down off the bench is us. Pair the drive with errands at Costco or Pybus.",
+    notableNeighbors: ["East Wenatchee", "Wenatchee", "Rock Island"],
+  },
+  {
+    slug: "quincy",
+    name: "Quincy",
+    county: "Grant County",
+    driveMins: 45,
+    highway: "WA-28 east across the Columbia, then south",
+    pitch: "Quincy to Wenatchee is 45 min west — closest in-Wenatchee-Valley dispensary.",
+    whyStop:
+      "Quincy + George + Crescent Bar share the cluster east of the Columbia. Quincy has its own retail but Wenatchee Valley brands + selection pulls regulars in for the bigger trip. Worth knowing: Grant + Chelan retail-cannabis tax differs slightly at the till.",
+    notableNeighbors: ["Crescent Bar", "East Wenatchee", "Waterville"],
+  },
 ];
 
 export function getTown(slug: string): NearTown | null {
