@@ -47,6 +47,11 @@ export async function generateMetadata({
       description: desc,
       url: `${STORE.website}/near/${town.slug}`,
       siteName: STORE.name,
+      // Explicit reference to the root opengraph-image.tsx route — without
+      // it, Next 16 fully replaces the parent's auto-injected images and
+      // /near share previews come up imageless on Slack/iMessage/Facebook.
+      // Same pattern as app/deals/page.tsx.
+      images: ["/opengraph-image"],
     },
   };
 }
