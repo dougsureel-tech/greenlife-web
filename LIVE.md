@@ -24,6 +24,7 @@ Verified deploy = (a) HTTP 200, (b) `ok: true`, (c) `sha` matches what was just 
 
 | Date (PT) | Version | SHA | Notes |
 |---|---|---|---|
+| 2026-05-08 | v7.275 | 353854e | 🛡️ vercel.app-defense sister-fix — `lib/quiz-nurture-email.ts` PUBLIC_ORIGIN now rejects *.vercel.app drift, mirrors v7.235 welcome-email pattern. Sister of scc v8.415 (which also covered rewards/sign-out — glw has no rewards route). Pre-fix: if NEXT_PUBLIC_SITE_ORIGIN ever drifts to preview hostname, every quiz-capture nurture email's STOP-to-unsubscribe link would land customers on non-canonical (often short-lived) host = CAN-SPAM compliance risk. Verify-via-curl confirmed v7.275/sha=353854e/ok=true. Pre-commit Explore review CLEAN. tsc clean. |
 | 2026-05-07 | v4.315 | 8b97904 | Kat-feedback batch 1: hours + team + no-stacking sweep. Strips "stacks with loyalty" copy from customer-facing pages. Pinned `feedback_no_stacking_ever` + `feedback_no_giveaways_period.md`. Mirrored to SCC at v4.945. |
 | 2026-05-07 | v4.305 | daf0466 | `lib/loyalty-redemption.ts` field rename `discountFraction` → `discountPct` to match canonical inventoryapp. Mirror of seattle-cannabis-web v4.935 — SSoT-tightening only, same numeric values. |
 | 2026-05-07 | v4.295 | 1e5cab6 | a11y sweep round 3 — 6 data-driven `{m.emoji}` / `{icon}` / `{CAT_ICONS}` wrappers (mood-vibe + category nav + OrderMenu + brands ×2 + about) |
