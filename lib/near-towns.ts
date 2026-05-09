@@ -67,6 +67,61 @@ export const NEAR_TOWNS: readonly NearTown[] = [
       "East Wenatchee is a different county (Douglas) but the same valley — staff and customers are 50/50 from each side of the bridge. We're the closest Chelan-County dispensary to anyone in East Wenatchee, Pangborn, or up the Columbia in Rock Island. Worth knowing: Chelan-County retail-cannabis tax differs from Douglas — both pay the WA 37% excise; local rate at the till is the small variance.",
     notableNeighbors: ["Wenatchee", "Rock Island", "Waterville"],
   },
+  {
+    slug: "entiat",
+    name: "Entiat",
+    county: "Chelan County",
+    driveMins: 25,
+    highway: "US-97 Alt north, 17 miles up the Columbia",
+    pitch: "Entiat to Wenatchee is 25 min straight down US-97 along the river — easiest legal cannabis run from town.",
+    whyStop:
+      "Entiat is small and quiet; the closest dispensary inside Chelan County is us. Entiat residents driving in for groceries, hardware, or the orchard supply usually pair the trip — we're right at the Sunnyslope exit before town traffic. Drive is one of the prettier ones in the state if you take it slow along the Columbia.",
+    notableNeighbors: ["Chelan", "Wenatchee", "Manson"],
+  },
+  {
+    slug: "manson",
+    name: "Manson",
+    county: "Chelan County",
+    driveMins: 65,
+    highway: "US-97 Alt north + WA-150 around the lake",
+    pitch: "Manson sits across Lake Chelan from town — about an hour to us via US-97 + the bridge.",
+    whyStop:
+      "Manson + Chelan share the lake; both come down to Wenatchee for the bigger-store trips. Senior discount runs Sunday, online discount runs all week. Pair with Pybus Public Market or a Costco run on the way back.",
+    notableNeighbors: ["Chelan", "Entiat", "Lake Wenatchee"],
+  },
+  {
+    slug: "plain",
+    name: "Plain",
+    county: "Chelan County",
+    driveMins: 45,
+    highway: "US-2 east + Chumstick Hwy north",
+    pitch: "Plain → Leavenworth → Wenatchee, 45 min total — a Chumstick Hwy shot down US-2.",
+    whyStop:
+      "Plain is small + tucked north of Leavenworth — closest legal cannabis is the Wenatchee Valley. Most Plain regulars pair the run with a Leavenworth detour or a Lake Wenatchee swim stop. We open at 8 AM so an early-morning errand chain works.",
+    notableNeighbors: ["Leavenworth", "Lake Wenatchee", "Cashmere"],
+  },
+  {
+    slug: "lake-wenatchee",
+    name: "Lake Wenatchee",
+    county: "Chelan County",
+    driveMins: 50,
+    highway: "US-2 east + WA-207 north",
+    pitch: "Lake Wenatchee to Sunnyslope is 50 min via US-2 — closest dispensary to the lake + the cabins.",
+    whyStop:
+      "Lake Wenatchee is a cabin-and-ski destination — no dispensary up there, so cabin owners + weekend visitors stock before the drive in. We're right off US-2 on the way home from Stevens Pass. Cash only, but the in-store ATM covers it.",
+    notableNeighbors: ["Plain", "Leavenworth", "Cashmere"],
+  },
+  {
+    slug: "sunnyslope",
+    name: "Sunnyslope",
+    county: "Chelan County",
+    driveMins: 0,
+    highway: "Walk or 5-min drive — we're IN Sunnyslope",
+    pitch: "We are Sunnyslope's dispensary — Center Road right off the US-2/US-97 split.",
+    whyStop:
+      "Sunnyslope is the neighborhood the store sits in — the corner of Center Rd, the side of town with Ohme Gardens up the bluff and the Columbia turn into Wenatchee. Most Sunnyslope regulars walk or bike in. Free parking out front; ATM for the cash-only till.",
+    notableNeighbors: ["Wenatchee", "East Wenatchee", "Cashmere"],
+  },
 ];
 
 export function getTown(slug: string): NearTown | null {
