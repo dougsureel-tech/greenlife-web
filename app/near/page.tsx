@@ -116,9 +116,9 @@ export default function NearIndexPage() {
       </ul>
 
       <section className="rounded-lg border-2 border-emerald-700 bg-emerald-50 p-5">
-        <div className="text-emerald-900 font-semibold mb-2">Don't see your town?</div>
+        <div className="text-emerald-900 font-semibold mb-2">Don&apos;t see your town?</div>
         <p className="text-sm text-emerald-900/80 mb-4">
-          We get visitors from across Eastern Washington. If you're driving in,{" "}
+          We get visitors from across Eastern Washington. If you&apos;re driving in,{" "}
           <Link href="/visit" className="underline hover:no-underline">/visit</Link> has
           the address, parking, and ID requirements; <Link href="/menu" className="underline hover:no-underline">/menu</Link>{" "}
           has the live inventory.
