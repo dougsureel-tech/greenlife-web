@@ -11,7 +11,14 @@ export const STORE = {
   phone: "(509) 663-9980",
   phoneTel: "+15096639980",
   email: "info@greenlifecannabis.com",
-  website: "https://greenlifecannabis.com",
+  // www, not apex — apex 308's to www per proxy.ts CANONICAL_HOST. Pre-
+  // fix `STORE.website` was apex, so every sitemap URL + <link rel="canonical">
+  // + JSON-LD URL referenced apex; Google bot then fetched apex, hit a
+  // 308, and landed on www anyway. Redirect chain = wasted crawl budget
+  // + slightly-muddled canonical signal. Aligning SSoT to the actual
+  // canonical-host makes every emitted URL hit www first-shot. Sister
+  // scc same wave. proxy.ts CANONICAL_HOST is the source-of-truth host.
+  website: "https://www.greenlifecannabis.com",
   geo: { lat: 47.4116, lng: -120.3108 },
   googleMapsUrl: "https://maps.google.com/?q=3012+Center+Road+Ste+A+Wenatchee+WA+98801",
   googleMapsEmbed:
