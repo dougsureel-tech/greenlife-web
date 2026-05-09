@@ -22,7 +22,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Cannabis 101 · Learn the Basics",
-  description: `Indica vs sativa, edibles dosing, how to read THC%, terpenes basics, and what to expect at the dispensary. Plain-English answers from ${STORE.name} budtenders. 21+.`,
+  // ~155 chars — v10.105 length sweep.
+  description: `Indica vs sativa, edibles dosing, THC%, terpenes basics — plain-English cannabis education from ${STORE.name} budtenders. 21+.`,
   alternates: { canonical: "/learn" },
   openGraph: {
     title: "Cannabis 101 · Learn the Basics",

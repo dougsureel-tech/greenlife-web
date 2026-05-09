@@ -9,7 +9,8 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Treasure Chest — clearance & deep-discount deals",
-  description: `Hand-picked clearance lane at ${STORE.name} — the slow-moving, last-of-the-batch, and end-of-run cannabis we'd rather see go home with you than sit on the shelf. Refreshed weekly. Cash only at pickup.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `Hand-picked clearance lane at ${STORE.name} — last-of-batch and end-of-run cannabis at deep discount. Refreshed weekly. Cash only.`,
   alternates: { canonical: "/treasure-chest" },
   openGraph: {
     title: `Treasure Chest | ${STORE.name}`,

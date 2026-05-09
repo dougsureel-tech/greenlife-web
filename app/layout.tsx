@@ -29,7 +29,10 @@ export const metadata: Metadata = {
     default: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
     template: `%s | ${STORE.name}`,
   },
-  description: `${STORE.name} — ${STORE.address.city}'s cannabis dispensary, founded 2014, same building in Sunnyslope. The Valley's best cannabis staff. Shop flower, concentrates, edibles, vapes, pre-rolls, tinctures and topicals. Open daily 8 AM, later Fri & Sat. Cash only, 21+. ${STORE.address.full}.`,
+  // 156 chars (within Google's 160 SERP cap). Compresses the long form
+  // to brand + city + founded year + categories + cash-only signal.
+  // Sister of GW v2.92 meta-description length sweep + scc trim. v10.105.
+  description: `${STORE.name} — ${STORE.address.city} cannabis dispensary since 2014. Flower, edibles, concentrates, vapes, pre-rolls, tinctures, topicals. Cash only, 21+.`,
   keywords: [
     "cannabis dispensary Wenatchee",
     "marijuana dispensary Wenatchee WA",

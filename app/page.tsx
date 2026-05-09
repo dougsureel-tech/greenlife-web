@@ -36,7 +36,10 @@ export const metadata: Metadata = {
   // Inventory". Title differentiation is what tells Google the two
   // pages aren't competing for the same query.
   title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
-  description: `${STORE.name} at ${STORE.address.full}. Serving ${TOWN_NAMES}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes, concentrates, pre-rolls. Open 8 AM daily, later on Fri & Sat. Cash only, 21+.`,
+  // ~155 chars (within Google's 160 SERP cap). v10.105 length sweep.
+  // Trimmed: removed redundant town list (already in JSON-LD areaServed)
+  // + "Open 8 AM daily, later on Fri & Sat" (covered by hours schema).
+  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes, concentrates, pre-rolls. Cash only, 21+.`,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

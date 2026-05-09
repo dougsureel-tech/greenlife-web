@@ -6,7 +6,8 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
   title: "Cannabis Guides & Vendor Spotlights",
-  description: `Long-form guides, education, and vendor spotlights from ${STORE.name} — the Wenatchee Valley's cannabis dispensary. Written by people who actually work the counter.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `Long-form cannabis guides, education, and vendor spotlights from ${STORE.name} — written by people who actually work the counter.`,
   alternates: { canonical: "/blog" },
 };
 

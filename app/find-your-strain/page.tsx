@@ -7,7 +7,8 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
   title: "Find Your Strain — 3-Question Cannabis Quiz",
-  description: `Quick 3-question quiz to match you with the right cannabis at ${STORE.name}. Tell us the moment (energize, chill, sleep, creative, social, relief), the form (flower, edible, vape, concentrate), and the strain type (sativa, indica, hybrid) — we'll filter the live menu down to what fits.`,
+  // ~155 chars — v10.105 length sweep.
+  description: `Quick 3-question quiz to match you with the right cannabis at ${STORE.name}. Pick a moment, a form, and a strain type — we filter the live menu.`,
   alternates: { canonical: "/find-your-strain" },
   openGraph: {
     title: `Find Your Strain | ${STORE.name}`,

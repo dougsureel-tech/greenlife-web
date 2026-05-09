@@ -108,7 +108,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   return {
     title: `${brand.name} — Cannabis at Green Life Wenatchee`,
-    description: `${brand.name} cannabis at ${STORE.name} in ${STORE.address.full}. ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock — flower, pre-rolls, vapes, concentrates, edibles. Order ahead for cash pickup. 21+, ID required.`,
+    // ~155 chars — v10.105 length sweep.
+    description: `${brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
       title: `${brand.name} | ${STORE.name}`,

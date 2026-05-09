@@ -18,7 +18,8 @@ export const revalidate = false;
 
 export const metadata: Metadata = {
   title: "Service Area · Towns We Serve",
-  description: `${STORE.name} serves ${NEAR_TOWNS.length} towns + neighborhoods across Chelan + Douglas + Okanogan + Grant counties — drive times, routes, and pickup-order info for each.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `${STORE.name} serves ${NEAR_TOWNS.length} towns across Chelan, Douglas, Okanogan, Grant counties — drive times + pickup info for each.`,
   alternates: { canonical: "/near" },
   keywords: [
     "Wenatchee Valley dispensary service area",

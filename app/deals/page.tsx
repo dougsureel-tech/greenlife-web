@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   // Root layout's title.template wraps this with " | <STORE.name>", so don't
   // include the brand here — was rendering "... | Green Life Cannabis | Green Life Cannabis".
   title: "Cannabis Deals & Specials",
-  description: `Live cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, and concentrates — all WA-WSLCB-compliant percent-off and dollar-off promotions.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `Live cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, concentrates. WSLCB-compliant.`,
   alternates: { canonical: "/deals" },
   openGraph: {
     title: `Cannabis Deals | ${STORE.name}`,

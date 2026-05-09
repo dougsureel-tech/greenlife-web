@@ -19,7 +19,8 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
   title: "Heroes Discount — Service & Industry Recognition",
-  description: `${STORE.name} supports local heroes — active military, veterans, first responders, healthcare workers, and K-12 teachers. 30% off, every visit, with valid ID. Wenatchee, WA.`,
+  // ~155 chars — v10.105 length sweep.
+  description: `${STORE.name} Heroes program — military, veterans, first responders, healthcare, K-12 teachers. 30% off every visit with valid ID. Wenatchee.`,
   alternates: { canonical: "/heroes" },
   openGraph: {
     title: `Heroes Discount · ${STORE.name}`,

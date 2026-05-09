@@ -10,7 +10,8 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Our Story — Built by Everyone Who's Worked Here",
-  description: `The story of ${STORE.name} — a Wenatchee neighborhood cannabis dispensary built by everyone who's worked here since 2014. WSLCB License #${STORE.wslcbLicense}. Same building in Sunnyslope.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `The story of ${STORE.name} — a Wenatchee cannabis dispensary built by everyone who's worked here since 2014. Same building in Sunnyslope.`,
   alternates: { canonical: "/our-story" },
   keywords: [
     "Green Life Cannabis team",

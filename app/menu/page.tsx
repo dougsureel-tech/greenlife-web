@@ -26,7 +26,8 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Cannabis Menu — Live Inventory",
-  description: `Live cannabis menu at ${STORE.name} in ${STORE.address.city}, WA. Flower, pre-rolls, vapes, concentrates, edibles, tinctures, and topicals from 100+ Washington-state producers. Order ahead for cash pickup. 21+, ID required.`,
+  // ~155 chars — v10.105 length sweep.
+  description: `Live cannabis menu at ${STORE.name} — flower, pre-rolls, vapes, concentrates, edibles, tinctures, topicals. Order ahead for cash pickup. 21+.`,
   alternates: { canonical: "/menu" },
   openGraph: {
     title: `Cannabis Menu | ${STORE.name}`,

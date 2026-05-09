@@ -11,7 +11,8 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About — Wenatchee's Best Cannabis Staff Since 2014",
-  description: `${STORE.name} — Wenatchee's cannabis dispensary, founded 2014, same building since opening. Knowledgeable budtenders, curated Washington-state cannabis, education-first. ${STORE.address.full}.`,
+  // ~150 chars — v10.105 length sweep.
+  description: `${STORE.name} — Wenatchee's cannabis dispensary since 2014, same building. Knowledgeable budtenders, curated Washington-state cannabis, education-first.`,
   alternates: { canonical: "/about" },
   keywords: [
     "Wenatchee cannabis dispensary",
