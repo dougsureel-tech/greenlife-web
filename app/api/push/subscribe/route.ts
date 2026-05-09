@@ -1,8 +1,29 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { upsertPushSubscription } from "@/lib/push-db";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 export const runtime = "nodejs";
+
+// Per-IP rate limit on the anon-or-Clerk-OK POST. `auth()` is optional
+// here — anonymous browsers can subscribe pre-sign-in. Without a limit,
+// a scripted attacker can spam INSERTs of fake endpoint+keys triples,
+// ballooning push_subscriptions table size + index pressure. The
+// upsert dedupe on endpoint blocks identical-payload spam, but rotating
+// random fake endpoints slips past. 10/min/IP matches /api/push/unsubscribe
+// + /api/track-install in this repo. Sister scc same wave.
+const subRateMap = new Map<string, { count: number; resetAt: number }>();
+function checkSubRate(ip: string): boolean {
+  const now = Date.now();
+  const entry = subRateMap.get(ip);
+  if (!entry || entry.resetAt < now) {
+    subRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
+    return true;
+  }
+  if (entry.count >= 10) return false;
+  entry.count++;
+  return true;
+}
 
 type SubscribeBody = {
   endpoint?: unknown;
@@ -10,6 +31,14 @@ type SubscribeBody = {
 };
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!checkSubRate(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a minute." },
+      { status: 429, headers: { "Retry-After": "60" } },
+    );
+  }
+
   const { userId } = await auth();
 
   let body: SubscribeBody;
