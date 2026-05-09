@@ -8,6 +8,7 @@ import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
 // greenlifecannabis.com — the Boost JS module hydrates the menu inline.
@@ -99,8 +100,52 @@ export default async function MenuPage() {
   const featuredDeal = deals[0] ?? null;
   const treasureChestCount = treasureChest.length;
 
+  // CollectionPage + ItemList of menu categories. Boost holds the live
+  // product data inside its iframe-less embed so we can't expose per-
+  // product LD; what we CAN expose is the canonical category set so
+  // Google understands /menu is a structured collection. Earns site-
+  // link / category-carousel eligibility on the SERP. Sister to /near
+  // index ItemList pattern.
+  const collectionLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${STORE.website}/menu#collection`,
+    name: `${STORE.name} cannabis menu`,
+    description: `Live cannabis menu at ${STORE.name} — flower, pre-rolls, vapes, concentrates, edibles, tinctures, topicals, accessories.`,
+    url: `${STORE.website}/menu`,
+    isPartOf: { "@id": `${STORE.website}/#website` },
+    about: { "@id": `${STORE.website}/#dispensary` },
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Cannabis menu categories",
+      numberOfItems: 8,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Flower", url: `${STORE.website}/menu#flower` },
+        { "@type": "ListItem", position: 2, name: "Pre-rolls", url: `${STORE.website}/menu#pre-rolls` },
+        { "@type": "ListItem", position: 3, name: "Vapes", url: `${STORE.website}/menu#vapes` },
+        { "@type": "ListItem", position: 4, name: "Concentrates", url: `${STORE.website}/menu#concentrates` },
+        { "@type": "ListItem", position: 5, name: "Edibles", url: `${STORE.website}/menu#edibles` },
+        { "@type": "ListItem", position: 6, name: "Tinctures", url: `${STORE.website}/menu#tinctures` },
+        { "@type": "ListItem", position: 7, name: "Topicals", url: `${STORE.website}/menu#topicals` },
+        { "@type": "ListItem", position: 8, name: "Accessories", url: `${STORE.website}/menu#accessories` },
+      ],
+    },
+  };
+
+  // BreadcrumbList — earns SERP path rendering (Home › Menu).
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+      { "@type": "ListItem", position: 2, name: "Menu", item: `${STORE.website}/menu` },
+    ],
+  };
+
   return (
     <div className="bg-stone-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
         <VendorAdSlot slot="menu_top" />
       </div>

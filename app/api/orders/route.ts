@@ -187,7 +187,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ orderId });
   } catch (err) {
-    console.error("Order placement failed:", err);
+    // Format-only — order-placement errors echo the full inbound payload:
+    // customer name, phone, email, items[], notes, store routing data.
+    // The richest customer-PII surface in the public site. Sister of
+    // v7.425 push/heroes/profile pattern.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[orders] placement failed: ${reason}`);
     return NextResponse.json({ error: "Couldn't place your order. Try again." }, { status: 500 });
   }
 }

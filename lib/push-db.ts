@@ -122,7 +122,14 @@ export async function sendPushToClerkUser(
         if (status === 404 || status === 410) {
           dead.push(s.endpoint);
         } else {
-          console.error("[push] send error", s.endpoint.slice(0, 60), status, err);
+          // Format-only — webpush errors echo the full subscription
+          // (endpoint URL = device ID + auth keys). Log host + status +
+          // err.name. Sister of app/api/push/send/route.ts pattern.
+          const reason = err instanceof Error ? err.name : "unknown";
+          const host = (() => {
+            try { return new URL(s.endpoint).host; } catch { return "?"; }
+          })();
+          console.error(`[push] send error host=${host} status=${status} reason=${reason}`);
         }
       }
     }),
