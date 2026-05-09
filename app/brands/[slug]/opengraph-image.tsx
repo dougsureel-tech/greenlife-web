@@ -2,6 +2,13 @@ import { ImageResponse } from "next/og";
 import { getBrandBySlug } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
+// Revalidate every 24 hours at CDN edge. Pre-fix every social-crawler
+// hit re-rendered Satori from scratch — `x-vercel-cache: MISS` confirmed.
+// Per-brand OG content rarely changes (brand name + product count from DB);
+// 24h cache hits Vercel function once per brand slug. Sister of inv
+// v342.405 OG cache (cross-repo port).
+export const revalidate = 86400;
+
 // Per-brand OG image — generated on demand at /brands/<slug>/opengraph-image.
 // Fixes the link-unfurl story: when a customer/influencer/press shares a
 // brand link on Instagram/iMessage/Twitter, they get a clean branded card

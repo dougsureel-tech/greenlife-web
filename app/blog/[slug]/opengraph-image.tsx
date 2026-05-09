@@ -2,6 +2,13 @@ import { ImageResponse } from "next/og";
 import { getPost } from "@/lib/posts";
 import { STORE } from "@/lib/store";
 
+// Revalidate every 24 hours at CDN edge. Pre-fix every social-crawler
+// hit re-rendered Satori from scratch (~200-500ms) — `x-vercel-cache:
+// MISS` confirmed. Per-blog-post OG content rarely changes; 24h cache
+// hits Vercel function once per slug, then serves CDN. Sister of inv
+// v342.405 OG cache (cross-repo port).
+export const revalidate = 86400;
+
 // Per-post OG image. Blog posts get shared by the press/influencer
 // audience (someone writes about cannabis education and wants to cite
 // our guide). Generic site-wide OG made every share unfurl the same;

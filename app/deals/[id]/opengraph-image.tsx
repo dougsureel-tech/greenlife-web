@@ -2,6 +2,13 @@ import { ImageResponse } from "next/og";
 import { getDealById } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
+// Revalidate every hour at CDN edge. Pre-fix every social-crawler
+// hit re-rendered Satori from scratch — `x-vercel-cache: MISS` confirmed.
+// Deal content can change (% off, end date) so 1h cache (vs 24h on
+// blog/brand) — daily-deal share blast still benefits without serving
+// stale promo for too long. Sister of inv v342.405 OG cache.
+export const revalidate = 3600;
+
 // Per-deal OG image. Deal links get shared a LOT (SMS forwards, IG stories,
 // Reddit r/WAdispensaries threads). Without this every share unfurled with
 // the same site-wide OG; now the recipient sees the actual deal — "20% off
