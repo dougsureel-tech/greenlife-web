@@ -50,6 +50,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           <input
             id="profile-name"
             type="text"
+            autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
@@ -66,6 +67,8 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           <input
             id="profile-phone"
             type="tel"
+            autoComplete="tel"
+            inputMode="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="(509) 555-0100"

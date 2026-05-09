@@ -158,6 +158,11 @@ function Field({
       </span>
       <input
         type={type}
+        // Auto-derive iOS autofill + keyboard hints based on type so all
+        // Field calls inherit the right behavior (and any future Field
+        // gets it for free). Sister of inv SettingsForm v319.805 wrapper.
+        autoComplete={type === "email" ? "email" : type === "tel" ? "tel" : undefined}
+        inputMode={type === "email" ? "email" : type === "tel" ? "tel" : undefined}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
