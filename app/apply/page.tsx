@@ -110,12 +110,26 @@ export default function ApplyPage() {
 }
 
 function ApplyFormSkeleton() {
+  // Skeleton renders as the SSR HTML before client-side ApplyForm hydrates
+  // (useSearchParams forces the form into a Suspense boundary). Pre-fix the
+  // skeleton was ONLY "Loading application form…" — crawlers + Lighthouse +
+  // screen-readers got an h1-less initial HTML and the h1 inside ApplyForm
+  // only appeared post-hydration. Adding the page h1 + intro to the skeleton
+  // means the SSR HTML carries the document landmark even before JS runs.
   return (
-    <main className="min-h-[80vh] bg-stone-50 py-16">
-      <div className="max-w-md mx-auto px-4 text-center">
-        <p className="text-stone-500 text-sm">Loading application form…</p>
+    <>
+      <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
+          <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Careers</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Apply to work with us</h1>
+        </div>
       </div>
-    </main>
+      <main className="min-h-[60vh] bg-stone-50 py-16">
+        <div className="max-w-md mx-auto px-4 text-center">
+          <p className="text-stone-500 text-sm">Loading application form…</p>
+        </div>
+      </main>
+    </>
   );
 }
 
