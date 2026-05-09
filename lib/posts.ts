@@ -524,10 +524,24 @@ Cannabis is a long-night (or short-day) plant. When exposed to a period of two w
   },
 ];
 
+// Stage-by-publishedAt — sister of scc same-day. Posts dated in the
+// future are excluded from list + slug-lookup until their publishedAt
+// arrives. Pre-fix future-dated posts (PLAN_WEEKLY_GUIDES staggered
+// release) appeared in sitemap with future lastmod (Google flags as
+// spammy) AND were reachable at /blog/[slug] before publish (reader
+// sees "Published 2026-05-12" when reading on 2026-05-08).
+function isPublished(p: Post, asOf: Date = new Date()): boolean {
+  const today = asOf.toISOString().slice(0, 10);
+  return p.publishedAt <= today;
+}
+
 export function getPost(slug: string): Post | undefined {
-  return POSTS.find((p) => p.slug === slug);
+  const post = POSTS.find((p) => p.slug === slug);
+  return post && isPublished(post) ? post : undefined;
 }
 
 export function getPosts(): Post[] {
-  return [...POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  return [...POSTS]
+    .filter((p) => isPublished(p))
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
