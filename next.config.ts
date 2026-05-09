@@ -145,6 +145,19 @@ const nextConfig: NextConfig = {
       { source: "/book", destination: "/order", permanent: true },
       { source: "/book-now", destination: "/order", permanent: true },
 
+      // Common e-commerce-platform legacy URL patterns that 404'd pre-fix.
+      // /cart + /buy are universal Shopify/WooCommerce legacy aliases;
+      // /pickup matches the customer-intent URL that some loyalty/POS
+      // platforms emit; /preroll is the singular sister of the already-
+      // mapped /prerolls. All redirect to /menu (the canonical product
+      // surface, iHeartJane Boost embed). Catches stale Google index +
+      // partner-directory + bookmark URLs from prior platforms. Sister
+      // scc same wave.
+      { source: "/cart", destination: "/menu", permanent: true },
+      { source: "/buy", destination: "/menu", permanent: true },
+      { source: "/pickup", destination: "/menu", permanent: true },
+      { source: "/preroll", destination: "/menu", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
