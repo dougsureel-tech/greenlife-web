@@ -102,8 +102,17 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
     }
     return { ok: true, id };
   } catch (e) {
-    const message = e instanceof Error ? e.message : String(e);
-    console.error("[email] send failed:", message);
-    return { ok: false, error: message };
+    // Format-only — Resend SDK errors echo the recipient address in
+    // .message ("domain not verified for foo@example.com" / "rate
+    // limited 3000/day for foo@example.com"). Vercel logs aren't
+    // sensitive-PII-segregated; logging full error surfaces customer
+    // email PII. Return + log err.name (class only — "validation_error",
+    // "rate_limit_exceeded", etc.). All callers ({welcome,quiz-nurture,
+    // order-confirmation}-email.ts and admin actions) inherit the
+    // tightened result.error string. Sister of inv `lib/email.ts` and
+    // GW PHI-leak hardening pattern.
+    const errName = e instanceof Error ? e.name : "Error";
+    console.error(`[email] send failed: ${errName}`);
+    return { ok: false, error: errName };
   }
 }
