@@ -1034,9 +1034,33 @@ export function OrderMenu({
                               category={product.category}
                               brand={product.brand}
                             />
+                            {deal && (
+                              // %-off overlay top-left — iHeartJane-style
+                              // conversion signal (Doug 2026-05-08: "put the
+                              // % off overlay on top of the product that is
+                              // on sale similar to iheartjane"). Replaces the
+                              // bottom-right "On Sale" chip that sat near
+                              // +Add and caused mistaps (UX_AUDIT_2026_05_03
+                              // P1-4). Shows the actual %-off / $-off so the
+                              // discount magnitude is visible at thumbnail
+                              // scale, not buried in a "20% off flower"
+                              // sentence. Strain chip displaces to bottom-
+                              // right when a deal is present so corners stay
+                              // non-overlapping.
+                              <span
+                                aria-label={`On sale: ${deal.short}`}
+                                className="absolute top-2.5 left-2.5 inline-flex items-center text-xs px-2 py-1 rounded-md font-extrabold bg-red-600 text-white shadow-md uppercase tracking-wide pointer-events-none"
+                              >
+                                {deal.discountType === "percent" && deal.discountValue != null
+                                  ? `${deal.discountValue}% OFF`
+                                  : deal.discountType === "dollars" && deal.discountValue != null
+                                  ? `$${deal.discountValue} OFF`
+                                  : "SALE"}
+                              </span>
+                            )}
                             {strain && (
                               <span
-                                className={`absolute top-2.5 left-2.5 text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}
+                                className={`absolute ${deal ? "bottom-2.5 right-2.5" : "top-2.5 left-2.5"} text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}
                               >
                                 <span
                                   className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${strain.dot}`}
@@ -1047,21 +1071,6 @@ export function OrderMenu({
                             {parsed.weight && (
                               <span className="absolute bottom-2.5 left-2.5 text-[11px] px-2 py-0.5 rounded-full font-bold bg-white/90 text-stone-700 border border-stone-200 shadow-sm">
                                 {parsed.weight}
-                              </span>
-                            )}
-                            {deal && (
-                              // Non-interactive chip — was a Link but customers
-                              // tapping "+ Add" near the bottom-right corner kept
-                              // mistapping into the deal landing instead.
-                              // Per UX_AUDIT_2026_05_03 P1-4. View-deal pathway
-                              // still available via /deals page + the chip reads
-                              // as informational ("on sale" status, not nav).
-                              <span
-                                aria-label={`On sale: ${deal.short}`}
-                                className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-full font-extrabold bg-emerald-600 text-white shadow-md uppercase tracking-wide pointer-events-none"
-                              >
-                                <span aria-hidden>★</span>
-                                {deal.short}
                               </span>
                             )}
                             {product.isNew && (
