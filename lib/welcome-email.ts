@@ -55,10 +55,15 @@ export type WelcomeEmailArgs = {
 // Origin used for the strain-quiz CTA. Resolved from env so the link is
 // absolute (email clients won't relative-resolve a `/find-your-strain`
 // path) and falls back to the canonical apex if `NEXT_PUBLIC_SITE_URL`
-// isn't set in the env. No trailing slash.
-const SITE_ORIGIN = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://greenlifecannabis.com"
-).replace(/\/+$/, "");
+// isn't set in the env. No trailing slash. Defensive: if env var is set
+// to a *.vercel.app URL (preview deploy / accidental staging-in-prod),
+// fall through to canonical so customer welcome-emails never CTA to a
+// non-brand hostname (sister of GW v2.78.90 canonicalBase pattern).
+const SITE_ORIGIN = ((): string => {
+  const env = process.env.NEXT_PUBLIC_SITE_URL;
+  const base = env && !env.includes(".vercel.app") ? env : "https://greenlifecannabis.com";
+  return base.replace(/\/+$/, "");
+})();
 
 // Tiny HTML escape — keep self-contained so the file has no extra deps.
 const safe = (s: string): string =>
