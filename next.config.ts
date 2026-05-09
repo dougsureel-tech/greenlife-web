@@ -181,6 +181,17 @@ const nextConfig: NextConfig = {
       { source: "/pickup", destination: "/menu", permanent: true },
       { source: "/preroll", destination: "/menu", permanent: true },
 
+      // Legacy loyalty/rewards bookmarks → /account (Clerk sign-in lands
+      // there; signed-in customers see their loyalty balance + tier).
+      // Pre-fix /loyalty 404'd; legacy bookmarks from the SpringBig era
+      // (pre-2026 cutover) and any external partner directory or app-store
+      // listing that references "/loyalty" hit a dead URL. Caught by /loop
+      // saturation grind 2026-05-09 customer-flow smoke test. /rewards
+      // also 404 on glw (no rewards portal on Wenatchee — that's scc-only
+      // per project_legal_entities) so route the same place.
+      { source: "/loyalty", destination: "/account", permanent: true },
+      { source: "/rewards", destination: "/account", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
