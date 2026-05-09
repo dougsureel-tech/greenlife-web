@@ -23,7 +23,25 @@ function inventoryappBase(): string {
     typeof process !== "undefined"
       ? process.env.NEXT_PUBLIC_INVENTORYAPP_URL
       : undefined;
-  return env && env.startsWith("https://") ? env.replace(/\/+$/, "") : DEFAULT_INVENTORYAPP_URL;
+  // Allow-list defense (sister of inv v337.005 STAFF_APP_URL incident):
+  // pre-fix only required `startsWith("https://")` — was vulnerable to
+  // the same env-drift class that broke STAFF_APP_URL on inv prod
+  // (NEXT_PUBLIC_*_URL set to `app.greenlifecannabis.com` = 404'd
+  // subdomain). If that env var drifted similarly here, every public-
+  // site closure-status fetch would 404 → graceful-degrade returns
+  // `{ isClosed: false }` → customers could place orders during an
+  // active emergency closure (manager-flagged on brapp/admin) without
+  // the public site ever knowing the store is closed.
+  // Now requires `hostname === "brapp.greenlifecannabis.com"` (the
+  // hardcoded canonical) OR falls back to the same default.
+  if (!env || !env.startsWith("https://")) return DEFAULT_INVENTORYAPP_URL;
+  try {
+    const u = new URL(env);
+    if (u.hostname !== "brapp.greenlifecannabis.com") return DEFAULT_INVENTORYAPP_URL;
+    return env.replace(/\/+$/, "");
+  } catch {
+    return DEFAULT_INVENTORYAPP_URL;
+  }
 }
 
 // `revalidate` (seconds) opts the call site into Next's data cache instead of
