@@ -2,12 +2,12 @@ import { ImageResponse } from "next/og";
 import { getBrandBySlug } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
-// Revalidate every 24 hours at CDN edge. Pre-fix every social-crawler
-// hit re-rendered Satori from scratch — `x-vercel-cache: MISS` confirmed.
-// Per-brand OG content rarely changes (brand name + product count from DB);
-// 24h cache hits Vercel function once per brand slug. Sister of inv
-// v342.405 OG cache (cross-repo port).
-export const revalidate = 86400;
+// Cache OG image at CDN edge for 24h, stale 7d. Pattern matches
+// inv v342.405 /api/og — `revalidate` export alone doesn't apply to
+// ImageResponse; setting headers in options object is what works.
+const OG_CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+};
 
 // Per-brand OG image — generated on demand at /brands/<slug>/opengraph-image.
 // Fixes the link-unfurl story: when a customer/influencer/press shares a
@@ -149,6 +149,6 @@ export default async function BrandOG({ params }: { params: Promise<{ slug: stri
         </div>
       </div>
     ),
-    size,
+    { ...size, headers: OG_CACHE_HEADERS },
   );
 }

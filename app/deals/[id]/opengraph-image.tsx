@@ -2,12 +2,12 @@ import { ImageResponse } from "next/og";
 import { getDealById } from "@/lib/db";
 import { STORE } from "@/lib/store";
 
-// Revalidate every hour at CDN edge. Pre-fix every social-crawler
-// hit re-rendered Satori from scratch — `x-vercel-cache: MISS` confirmed.
-// Deal content can change (% off, end date) so 1h cache (vs 24h on
-// blog/brand) — daily-deal share blast still benefits without serving
-// stale promo for too long. Sister of inv v342.405 OG cache.
-export const revalidate = 3600;
+// Cache OG image at CDN edge for 1h (deals change). Pattern matches
+// inv v342.405 /api/og — `revalidate` export alone doesn't apply to
+// ImageResponse; setting headers in options object is what works.
+const OG_CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+};
 
 // Per-deal OG image. Deal links get shared a LOT (SMS forwards, IG stories,
 // Reddit r/WAdispensaries threads). Without this every share unfurled with
@@ -151,6 +151,6 @@ export default async function DealOG({ params }: { params: Promise<{ id: string 
         </div>
       </div>
     ),
-    size,
+    { ...size, headers: OG_CACHE_HEADERS },
   );
 }

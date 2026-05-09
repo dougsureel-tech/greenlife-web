@@ -2,12 +2,16 @@ import { ImageResponse } from "next/og";
 import { getPost } from "@/lib/posts";
 import { STORE } from "@/lib/store";
 
-// Revalidate every 24 hours at CDN edge. Pre-fix every social-crawler
-// hit re-rendered Satori from scratch (~200-500ms) — `x-vercel-cache:
-// MISS` confirmed. Per-blog-post OG content rarely changes; 24h cache
-// hits Vercel function once per slug, then serves CDN. Sister of inv
-// v342.405 OG cache (cross-repo port).
-export const revalidate = 86400;
+// Cache OG image at the CDN edge for 24 hours, serve stale for 7 days.
+// `revalidate` export alone doesn't apply to ImageResponse — the
+// response Cache-Control stays `max-age=0` and Vercel never caches.
+// Setting headers in the ImageResponse options object below is the
+// pattern that actually works (verified live on inv v342.405 /api/og →
+// `x-vercel-cache: HIT`). Per-blog-post OG content rarely changes;
+// 24h cache hits Vercel function once per slug, then serves CDN.
+const OG_CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+};
 
 // Per-post OG image. Blog posts get shared by the press/influencer
 // audience (someone writes about cannabis education and wants to cite
@@ -154,6 +158,6 @@ export default async function PostOG({ params }: { params: Promise<{ slug: strin
         </div>
       </div>
     ),
-    size,
+    { ...size, headers: OG_CACHE_HEADERS },
   );
 }
