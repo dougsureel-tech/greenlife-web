@@ -1,9 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deletePushSubscription } from "@/lib/push-db";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 export const runtime = "nodejs";
 
+// Per-IP rate limit on the anon POST. Each call runs a DB DELETE against
+// the push_subscriptions table on a 1024-char endpoint string. Without a
+// limit, a scripted attacker who has captured legitimate endpoint URLs
+// (e.g. via leaked browser DevTools) could mass-unsubscribe victims, OR
+// just spam-call to bog down the index probe + bloat Vercel logs. 10/min
+// is generous (real users unsubscribe once or zero times); blocks
+// scripted abuse. Sister to /api/push/subscribe + /api/track-install +
+// /api/quiz/capture defenses (this wave).
+const unsubRateMap = new Map<string, { count: number; resetAt: number }>();
+function checkUnsubRate(ip: string): boolean {
+  const now = Date.now();
+  const entry = unsubRateMap.get(ip);
+  if (!entry || entry.resetAt < now) {
+    unsubRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
+    return true;
+  }
+  if (entry.count >= 10) return false;
+  entry.count++;
+  return true;
+}
+
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!checkUnsubRate(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a minute." },
+      { status: 429, headers: { "Retry-After": "60" } },
+    );
+  }
+
   let body: { endpoint?: unknown };
   try {
     body = (await req.json()) as { endpoint?: unknown };
