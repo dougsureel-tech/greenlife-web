@@ -139,11 +139,15 @@ const nextConfig: NextConfig = {
       // Booking-style legacy URLs — sister of scc's same map. Mirror parity
       // closure: pre-fix `/book` + `/book-now` 404'd on Wen even though they
       // were already 308'd on Sea. Old-site nav-bar / partner-directory
-      // listings on either store can use either URL pattern. /order itself
-      // 307s → /menu via proxy.ts until native cart goes live; this preserves
-      // the future-correct landing point regardless.
-      { source: "/book", destination: "/order", permanent: true },
-      { source: "/book-now", destination: "/order", permanent: true },
+      // listings on either store can use either URL pattern. Destination
+      // flattened from `/order` → `/menu` direct (v8.025): /order itself
+      // 307s → /menu via proxy.ts during the iHJ-Boost era, so chaining
+      // /book → /order → /menu was a 3-hop redirect (extra Google crawl
+      // cycle + customer latency). When the native /order eventually
+      // replaces iHJ, this map gets updated as a wave alongside the
+      // proxy.ts /order rewrite removal.
+      { source: "/book", destination: "/menu", permanent: true },
+      { source: "/book-now", destination: "/menu", permanent: true },
 
       // Common e-commerce-platform legacy URL patterns that 404'd pre-fix.
       // /cart + /buy are universal Shopify/WooCommerce legacy aliases;
