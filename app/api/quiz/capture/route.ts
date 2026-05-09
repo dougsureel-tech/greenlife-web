@@ -194,20 +194,21 @@ export async function POST(req: NextRequest) {
           mapUrl: STORE.googleMapsUrl,
         });
       } catch (err) {
-        // Helper itself never throws, but `after()` is a long-tail
-        // surface — wrap defensively so a future template change can't
-        // crash the runtime worker. Log without the recipient.
-        const msg = err instanceof Error ? err.message : String(err);
-        console.error(`[quiz/capture] D+0 dispatch failed: ${msg}`);
+        // err.name only — Resend errors echo recipient email + sender
+        // domain in err.message ("Invalid email address: ...") so the
+        // "log without the recipient" promise needs a class-only
+        // formatter, not err.message. Sister of inv v314.605 quiz-nurture
+        // + glw orders/profile/push pattern.
+        console.error(`[quiz/capture] D+0 dispatch failed err=${err instanceof Error ? err.name : "unknown"}`);
       }
     });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    // INSERT failure — bubble up a generic 500 (no PII in body) and
-    // log internally with a non-PII trace id so we can correlate.
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error(`[quiz/capture] insert failed: ${msg}`);
+    // err.name only — Drizzle wraps Postgres errors and the message
+    // can echo the conflicting row data (`duplicate key violates ...
+    // (email)=(alice@example.com)`). Class-only is the safe formatter.
+    console.error(`[quiz/capture] insert failed err=${err instanceof Error ? err.name : "unknown"}`);
     return NextResponse.json({ error: "Couldn't save your email. Try again." }, { status: 500 });
   }
 }
