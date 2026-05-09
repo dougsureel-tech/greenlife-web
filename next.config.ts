@@ -242,6 +242,45 @@ const nextConfig: NextConfig = {
       { source: "/opt-out", destination: "/account", permanent: true },
       { source: "/unsubscribe", destination: "/account", permanent: true },
 
+      // Round-3 legacy alias sweep (caught by /loop saturation grind
+      // 2026-05-09 wide-path probe round 3). Sister scc v10.605.
+      // WordPress password-reset URL → Clerk's /sign-in (handles reset flow):
+      { source: "/lost-password", destination: "/sign-in", permanent: true },
+      // Cannabis customer-acquisition landing pages — first-visit deal
+      // lives in the loyalty/menu flow, not on a dedicated landing page:
+      { source: "/first-time", destination: "/menu", permanent: true },
+      { source: "/new-customer", destination: "/menu", permanent: true },
+      { source: "/first-visit", destination: "/menu", permanent: true },
+      // Heroes + senior discount aliases → /deals (heroes-20 + senior-10
+      // deals live there per existing deal IDs):
+      { source: "/military", destination: "/deals", permanent: true },
+      { source: "/veterans", destination: "/deals", permanent: true },
+      { source: "/senior", destination: "/deals", permanent: true },
+      // Universal e-commerce deal-page aliases:
+      { source: "/promo", destination: "/deals", permanent: true },
+      { source: "/promos", destination: "/deals", permanent: true },
+      { source: "/offers", destination: "/deals", permanent: true },
+      { source: "/coupons", destination: "/deals", permanent: true },
+      { source: "/coupon", destination: "/deals", permanent: true },
+      // Strain-finder semantic aliases:
+      { source: "/strain-finder", destination: "/find-your-strain", permanent: true },
+      { source: "/quiz", destination: "/find-your-strain", permanent: true },
+      // Legacy iHJ Boost / Dutchie order-flow aliases — /menu IS the
+      // canonical product surface (Boost embed):
+      { source: "/book-online", destination: "/menu", permanent: true },
+      { source: "/reserve", destination: "/menu", permanent: true },
+      { source: "/pre-order", destination: "/menu", permanent: true },
+      { source: "/preorder", destination: "/menu", permanent: true },
+      { source: "/pickup-order", destination: "/menu", permanent: true },
+      // Visit-page alias (location-map is what some directory listings use):
+      { source: "/location-map", destination: "/visit", permanent: true },
+      // Education aliases:
+      { source: "/education", destination: "/learn", permanent: true },
+      // Privacy-policy aliases (cookie-policy is GDPR/CCPA convention,
+      // privacy-statement is enterprise-style):
+      { source: "/cookie-policy", destination: "/privacy", permanent: true },
+      { source: "/privacy-statement", destination: "/privacy", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
