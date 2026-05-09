@@ -281,6 +281,37 @@ const nextConfig: NextConfig = {
       { source: "/cookie-policy", destination: "/privacy", permanent: true },
       { source: "/privacy-statement", destination: "/privacy", permanent: true },
 
+      // Round-4 legacy alias sweep (caught by /loop saturation grind
+      // 2026-05-09 wide-path probe round 4). Sister scc v10.805.
+      // Generic-cannabis SEO-term aliases — partner directories + Google
+      // search results use these:
+      { source: "/weed", destination: "/", permanent: true },
+      { source: "/marijuana", destination: "/", permanent: true },
+      { source: "/cannabis", destination: "/", permanent: true },
+      { source: "/dispensary", destination: "/", permanent: true },
+      // PWA install flow happens via the customer account surface:
+      { source: "/app", destination: "/account", permanent: true },
+      { source: "/download", destination: "/account", permanent: true },
+      { source: "/install", destination: "/account", permanent: true },
+      // Deal-page aliases (continuation of round 2 + 3):
+      { source: "/happy-hour", destination: "/deals", permanent: true },
+      { source: "/daily-deal", destination: "/deals", permanent: true },
+      { source: "/daily-deals", destination: "/deals", permanent: true },
+      { source: "/early-bird", destination: "/deals", permanent: true },
+      // Loyalty-program aliases (glw uses /account):
+      { source: "/points", destination: "/account", permanent: true },
+      { source: "/rewards-program", destination: "/account", permanent: true },
+      { source: "/member", destination: "/account", permanent: true },
+      { source: "/membership", destination: "/account", permanent: true },
+      // Form-submission post-redirect aliases (sister of /thanks family):
+      { source: "/success", destination: "/", permanent: true },
+      { source: "/confirmed", destination: "/", permanent: true },
+      { source: "/confirmation", destination: "/", permanent: true },
+      // Legacy `.html`-extension URLs from WordPress / static-site predecessors:
+      { source: "/index.html", destination: "/", permanent: true },
+      { source: "/home.html", destination: "/", permanent: true },
+      { source: "/menu.html", destination: "/menu", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
