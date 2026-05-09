@@ -207,6 +207,41 @@ const nextConfig: NextConfig = {
       { source: "/home", destination: "/", permanent: true },
       { source: "/sale", destination: "/deals", permanent: true },
 
+      // Round-2 legacy alias sweep (caught by /loop saturation grind
+      // 2026-05-09 wide-path probe). Each row maps a frequently-bookmarked
+      // alias from prior platforms (WordPress / Dutchie / iHJ public pages
+      // / app-store listings / partner directories) to its canonical
+      // surface on the new site.
+      // Product/menu aliases:
+      { source: "/jobs", destination: "/careers", permanent: true },
+      { source: "/catalog", destination: "/menu", permanent: true },
+      { source: "/checkout", destination: "/menu", permanent: true },
+      { source: "/search", destination: "/menu", permanent: true },
+      // Form-submission redirect targets (sites using Gravity Forms /
+      // Contact Form 7 / Mailchimp landing-pages often default to /thanks):
+      { source: "/thanks", destination: "/", permanent: true },
+      { source: "/thank-you", destination: "/", permanent: true },
+      { source: "/thankyou", destination: "/", permanent: true },
+      // Help / support / news → semantic equivalent:
+      { source: "/help", destination: "/contact", permanent: true },
+      { source: "/support", destination: "/contact", permanent: true },
+      { source: "/news", destination: "/blog", permanent: true },
+      { source: "/story", destination: "/about", permanent: true },
+      // Visit-page aliases (map/directions/hours all live on /visit):
+      { source: "/map", destination: "/visit", permanent: true },
+      { source: "/directions", destination: "/visit", permanent: true },
+      { source: "/hours", destination: "/visit", permanent: true },
+      // Age-gate aliases — gate is a modal on every page, not a separate
+      // page. These were sometimes deep-linked by parent-site checkers:
+      { source: "/age-verify", destination: "/", permanent: true },
+      { source: "/21", destination: "/", permanent: true },
+      { source: "/verify", destination: "/", permanent: true },
+      // Email/SMS preferences live in the Clerk-managed account:
+      { source: "/preferences", destination: "/account", permanent: true },
+      { source: "/optout", destination: "/account", permanent: true },
+      { source: "/opt-out", destination: "/account", permanent: true },
+      { source: "/unsubscribe", destination: "/account", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
