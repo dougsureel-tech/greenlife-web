@@ -68,9 +68,15 @@ const COLORS = {
 // Public site origin — used to build the unsubscribe deep link. Falls
 // back to the apex production URL when the env var isn't set (preview /
 // local dev). Never throws; the link still renders, just hits a
-// guaranteed-existing host.
-const PUBLIC_ORIGIN =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://greenlifecannabis.com";
+// guaranteed-existing host. Defensive: if env var is set to a *.vercel.app
+// URL (drift class), fall through to canonical so unsub links never
+// CTA to a non-brand hostname (sister of welcome-email v7.235 +
+// GW v2.78.90 canonicalBase pattern).
+const PUBLIC_ORIGIN = ((): string => {
+  const env = process.env.NEXT_PUBLIC_SITE_ORIGIN;
+  const base = env && !env.includes(".vercel.app") ? env : "https://greenlifecannabis.com";
+  return base.replace(/\/+$/, "");
+})();
 
 function unsubscribeUrl(token: string): string {
   // Token is hex (`[0-9a-f]{64}`) so URL-safe by construction — no
