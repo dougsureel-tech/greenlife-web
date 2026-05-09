@@ -4,6 +4,22 @@ import { STORE } from "@/lib/store";
 import { getPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 
+// Known-broken vendor CDN URLs surfaced by the 200-or-bust audit on
+// 2026-05-09. These vendors appear in glw Postgres `vendors.logoUrl`
+// pointing to external WordPress uploads that 404 or sit behind a
+// SiteGround captcha challenge (so Google bot can't fetch). Filtering
+// them out of <image:image> entries keeps the sitemap clean. The
+// `/brands/<slug>` page entry itself stays in — there's a real page,
+// just no preferred image. Doug-action: update vendors.logoUrl in glw
+// Postgres to a working source (self-hosted under /public/images/brands/
+// or verified vendor CDN) — then remove the URL from this set.
+const BROKEN_LOGO_URLS = new Set<string>([
+  // Evergreen Herbal — 404 on the420bar.com WP upload (2026-05-09)
+  "https://the420bar.com/wp-content/uploads/2022/04/420-logo-alpha.png",
+  // Agro Couture — 202 captcha challenge on agrocouture.com (SiteGround)
+  "https://agrocouture.com/wp-content/uploads/2024/01/Agro-Couture_Logo-gold.png",
+]);
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [brands, deals] = await Promise.all([
     getActiveBrands().catch(() => []),
@@ -146,8 +162,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
       // Image-extension entry — Google Image search picks the brand
       // logo as the canonical preview for the brand page. Skips brands
-      // without a logo URL on file (typographic-wordmark brands etc.).
-      ...(b.logoUrl ? { images: [b.logoUrl] } : {}),
+      // without a logo URL on file (typographic-wordmark brands etc.)
+      // AND skips known-broken vendor CDN URLs flagged by the
+      // 200-or-bust audit (Doug-action queue: update vendors.logoUrl
+      // in glw Postgres to a working source or NULL when these get
+      // verified). 404'd image:image entries are an SEO ding.
+      ...(b.logoUrl && !BROKEN_LOGO_URLS.has(b.logoUrl) ? { images: [b.logoUrl] } : {}),
     }));
 
   const postPages: MetadataRoute.Sitemap = posts.map((p) => ({
