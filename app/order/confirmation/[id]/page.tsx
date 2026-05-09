@@ -10,7 +10,15 @@ import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Order confirmed" };
+// Privacy-sensitive per-order page — shows order ID, items, customer
+// info. `robots: noindex` prevents Google from indexing these even if
+// the URL leaks (transactional email screenshots, customer support
+// pastes). Companion: `/order/confirmation/` also added to
+// `app/robots.ts` Disallow list (v7.685) for crawl-budget defense.
+export const metadata: Metadata = {
+  title: "Order confirmed",
+  robots: { index: false, follow: false },
+};
 
 const STAGES = [
   { key: "pending", label: "Placed" },

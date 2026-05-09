@@ -32,6 +32,10 @@ export default function robots(): MetadataRoute.Robots {
           "/api/",
           "/dev",
           "/devmenu",
+          "/order/confirmation/", // v7.685 — per-order privacy. Page
+                                  // itself has robots:noindex but
+                                  // Disallow saves the crawl request
+                                  // if Google discovers a URL.
           "/quiz/unsubscribe",
           "/sign-in",
           "/sign-up",
