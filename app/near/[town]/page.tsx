@@ -97,6 +97,20 @@ export default async function NearTownPage({
     },
   };
 
+  // BreadcrumbList — Google renders the path under the SERP result
+  // (Home › Visit › <town>) instead of just the URL string, which
+  // earns 1-2% CTR per Search Console A/Bs. Mirrors the visible
+  // breadcrumb nav rendered below.
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+      { "@type": "ListItem", position: 2, name: "Visit", item: `${STORE.website}/visit` },
+      { "@type": "ListItem", position: 3, name: town.name, item: `${STORE.website}/near/${town.slug}` },
+    ],
+  };
+
   const otherTowns = NEAR_TOWNS.filter((t) => t.slug !== town.slug);
 
   return (
@@ -104,6 +118,10 @@ export default async function NearTownPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
       />
 
       <nav className="text-sm text-zinc-500 mb-4">
