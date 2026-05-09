@@ -154,6 +154,11 @@ export default async function BlogPost({ params }: Props) {
     author: { "@type": "Organization", name: STORE.name, url: STORE.website },
     articleSection: post.category,
     wordCount: post.body.split(/\s+/).length,
+    // Article rich-result eligibility requires an `image` — Google won't
+    // promote the post to article-card SERP styling without it. Points
+    // at the root opengraph-image route (1200x630) which renders a
+    // brand-styled card per post via the page-level dynamic OG. v7.625.
+    image: [`${STORE.website}/opengraph-image`],
   };
 
   const breadcrumbSchema = {
