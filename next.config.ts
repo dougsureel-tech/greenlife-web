@@ -44,9 +44,23 @@ const nextConfig: NextConfig = {
           // to match the still-working WordPress origin's iHJ-compatible
           // header set. nosniff has zero interaction with iHeartJane Boost
           // (no MIME-sniffing involved), is universally safe, and closes a
-          // small XSS-via-mismatched-Content-Type gap. Add other classic
-          // security headers back individually after iHJ regression-testing.
+          // small XSS-via-mismatched-Content-Type gap.
           { key: "X-Content-Type-Options", value: "nosniff" },
+          // X-Frame-Options SAMEORIGIN restored 2026-05-08 per Doug's
+          // "Add other classic security headers back individually after
+          // iHJ regression-testing" directive in the original removal note.
+          // Why safe: iHJ Boost loads iHJ origins INSIDE our /menu iframe
+          // (we iframe THEM), not the reverse. X-Frame-Options on our
+          // origin governs who can iframe US — no plausible interaction
+          // with Boost's nested iframes pointing at api.iheartjane.com.
+          // Verified pre-add: `curl /menu | grep iframe` returns empty
+          // (Boost iframes injected dynamically + point at iHJ, not back
+          // at greenlifecannabis.com). Closes the standing clickjacking
+          // gap on the customer surface (the apply form / account /
+          // order CTAs are real action targets that benefit from
+          // frame-busting). If /menu regresses post-deploy, single-line
+          // revert: drop this header back out.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
     ];
