@@ -136,6 +136,15 @@ const nextConfig: NextConfig = {
       { source: "/strains", destination: "/find-your-strain", permanent: true },
       { source: "/strain/:slug*", destination: "/find-your-strain", permanent: true },
 
+      // Booking-style legacy URLs — sister of scc's same map. Mirror parity
+      // closure: pre-fix `/book` + `/book-now` 404'd on Wen even though they
+      // were already 308'd on Sea. Old-site nav-bar / partner-directory
+      // listings on either store can use either URL pattern. /order itself
+      // 307s → /menu via proxy.ts until native cart goes live; this preserves
+      // the future-correct landing point regardless.
+      { source: "/book", destination: "/order", permanent: true },
+      { source: "/book-now", destination: "/order", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
