@@ -40,7 +40,12 @@ export async function POST(req: NextRequest) {
     await updateHeroesAttest(portalUser.id, cleanType);
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[heroes] update failed:", err);
+    // Format-only — Clerk SDK errors echo the user object (email, fullName,
+    // emailAddresses[]) and the heroes-discount type (military / first-
+    // responder / educator) — customer PII the dispensary shouldn't be
+    // logging in plaintext to non-isolated infrastructure.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[heroes] update failed: ${reason}`);
     return NextResponse.json({ error: "Couldn't save. Try again." }, { status: 500 });
   }
 }

@@ -166,6 +166,39 @@ export const NEAR_TOWNS: readonly NearTown[] = [
       "Quincy + George + Crescent Bar share the cluster east of the Columbia. Quincy has its own retail but Wenatchee Valley brands + selection pulls regulars in for the bigger trip. Worth knowing: Grant + Chelan retail-cannabis tax differs slightly at the till.",
     notableNeighbors: ["Crescent Bar", "East Wenatchee", "Waterville"],
   },
+  {
+    slug: "crescent-bar",
+    name: "Crescent Bar",
+    county: "Grant County",
+    driveMins: 50,
+    highway: "WA-28 east across the Columbia, south to the bar",
+    pitch: "Crescent Bar to Wenatchee is 50 min — the closest Chelan-County dispensary across the river.",
+    whyStop:
+      "Crescent Bar is the resort + condo enclave on the Columbia south of Quincy. Closest legal cannabis is Wenatchee Valley — pair the run with a Pybus or Costco stop. We open 8 AM daily so an early-morning errand chain works.",
+    notableNeighbors: ["Quincy", "East Wenatchee", "Wenatchee"],
+  },
+  {
+    slug: "brewster",
+    name: "Brewster",
+    county: "Okanogan County",
+    driveMins: 75,
+    highway: "US-97 Alt north along the Columbia",
+    pitch: "Brewster to Wenatchee is 75 min straight south on US-97 — same river, same highway.",
+    whyStop:
+      "Brewster sits at the Methow + Columbia confluence north of Pateros. Closest legal dispensary going south is the Wenatchee Valley. Most Brewster + Bridgeport regulars pair the trip with a Costco or Pybus run; the Lake Chelan stretch makes it a scenic detour.",
+    notableNeighbors: ["Pateros", "Bridgeport", "Chelan"],
+  },
+  {
+    slug: "methow-valley",
+    name: "Methow Valley",
+    county: "Okanogan County",
+    driveMins: 120,
+    highway: "WA-153 + US-97 south along the Methow + Columbia",
+    pitch: "Twisp / Winthrop to Wenatchee is ~2 hr — closest legal dispensary going south.",
+    whyStop:
+      "Methow Valley (Twisp, Winthrop, Mazama, Carlton) doesn't have a recreational dispensary inside the valley; the closest legal cannabis going south is the Wenatchee Valley. A summer-weekend or ski-trip stop on the way in or out — pair with Pybus, the river walk, or a Stevens Pass loop.",
+    notableNeighbors: ["Brewster", "Pateros", "Lake Wenatchee"],
+  },
 ];
 
 export function getTown(slug: string): NearTown | null {

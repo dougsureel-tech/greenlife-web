@@ -26,7 +26,11 @@ export async function POST(req: NextRequest) {
     await deletePushSubscription(endpoint);
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[push/unsubscribe] DB error", err);
+    // Format-only — DB errors echo the WHERE clause (endpoint URL =
+    // per-device stable identifier). Sister of subscribe-route.ts err.name
+    // pattern.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[push/unsubscribe] DB error: ${reason}`);
     return NextResponse.json({ error: "Could not unsubscribe" }, { status: 500 });
   }
 }

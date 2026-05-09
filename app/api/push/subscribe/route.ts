@@ -44,7 +44,12 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[push/subscribe] DB error", err);
+    // Format-only — DB errors can echo the inbound payload, which carries
+    // the per-device push subscription endpoint URL (Apple/Google/Mozilla
+    // push-service URL + token = stable device identifier) and the Clerk
+    // user ID. PII-leak class, sister of inv/GW err.name pattern.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[push/subscribe] DB error: ${reason}`);
     return NextResponse.json({ error: "Could not save subscription" }, { status: 500 });
   }
 }

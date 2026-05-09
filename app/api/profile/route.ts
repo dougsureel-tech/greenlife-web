@@ -57,7 +57,11 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Profile update failed:", err);
+    // Format-only — DB errors echo the inbound payload (cleanName, phone,
+    // SMS/email opt-in, heroes-discount type). Customer PII the dispensary
+    // shouldn't be logging in plaintext.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[profile] update failed: ${reason}`);
     return NextResponse.json({ error: "Couldn't save your changes. Try again." }, { status: 500 });
   }
 }
