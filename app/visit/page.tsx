@@ -4,6 +4,7 @@ import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR: only dynamic data is "is the store open NOW" + which day-row to
 // highlight. 5-minute revalidate keeps that fresh enough that customers
@@ -93,10 +94,10 @@ export default async function VisitPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(visitSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(visitSchema) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
 
       {closure.isClosed && (

@@ -1,4 +1,5 @@
 import type { BrandPalette } from "./types";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export type BrandAboutQAItem = { q: string; a: string };
 
@@ -36,7 +37,7 @@ export function BrandAboutQA({
     <section className="bg-white border-t border-slate-200">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }}
       />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
         <p

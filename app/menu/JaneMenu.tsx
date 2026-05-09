@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // Jane Boost — iHeartJane's iframeless menu embed. The whole product catalog,
 // cart, and checkout hydrate inline on greenlifecannabis.com/menu (no iframe,
@@ -188,12 +189,12 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
       <script
         id="jane-app-secrets"
         type="application/json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JANE_APP_SECRETS) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(JANE_APP_SECRETS) }}
       />
       <script
         id="jane-app-settings"
         type="application/json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JANE_APP_SETTINGS) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(JANE_APP_SETTINGS) }}
       />
       {/* 3. Boost module — hydrates the menu inline into the body. Same
              `afterInteractive` strategy as the runtime config above so

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // /heroes — informational landing for the Heroes service discount.
 // Doug's positioning 2026-05-02: "we support local heroes." This page
@@ -115,7 +116,7 @@ const faqSchema = {
 export default function HeroesPage() {
   return (
     <main className="min-h-[80vh] bg-stone-50">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">

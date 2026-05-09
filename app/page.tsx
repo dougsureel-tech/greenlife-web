@@ -12,6 +12,7 @@ import { DropTicker } from "@/components/DropTicker";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
 import { TownCardLink } from "@/components/TownCardLink";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR: home page hits Neon 3x per request (getActiveBrands, getFeaturedProducts,
 // getActiveDeals). Was force-dynamic so every visit ran all three. 60s
@@ -1763,7 +1764,7 @@ function FaqSection() {
             </details>
           ))}
         </div>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
       </div>
     </section>
   );

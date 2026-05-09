@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // Hack #7 — Heroes cohort SEO landing pages.
 //
@@ -324,9 +325,9 @@ export default async function HeroesCohortPage({
 
   return (
     <main className="min-h-[80vh] bg-stone-50">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(offerSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">

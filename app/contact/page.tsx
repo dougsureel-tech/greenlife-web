@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { STORE, STORE_TZ } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -28,7 +29,7 @@ export default function ContactPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(contactSchema) }}
       />
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">

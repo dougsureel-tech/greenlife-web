@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR — FAQs change occasionally; 24h is fine.
 export const revalidate = 86400;
@@ -153,10 +154,10 @@ export default function FaqPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
 
       {/* Page header */}

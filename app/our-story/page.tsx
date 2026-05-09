@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { CURRENT_TEAM, ALUMNI_TEAM, initialOf, type TeamMember } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR — team copy changes maybe quarterly. 24h is plenty.
 export const revalidate = 86400;
@@ -54,10 +55,10 @@ const breadcrumbSchema = {
 export default function OurStoryPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(aboutSchema) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
 
       {/* Hero — gradient bookend matching the rest of the site. */}

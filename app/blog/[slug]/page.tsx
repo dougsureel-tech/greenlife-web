@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts } from "@/lib/posts";
 import { STORE, STORE_TZ } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -168,11 +169,11 @@ export default async function BlogPost({ params }: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
 
       {/* Header */}

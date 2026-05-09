@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-static";
 
@@ -127,7 +128,7 @@ export default function AccessibilityPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }}
       />
 
       <div className="min-h-screen bg-stone-50">

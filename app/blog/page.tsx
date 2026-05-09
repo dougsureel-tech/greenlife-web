@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { getPosts } from "@/lib/posts";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
   title: "Cannabis Guides & Vendor Spotlights",
@@ -39,7 +40,7 @@ export default function BlogIndex() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogSchema) }} />
 
       {/* Header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">

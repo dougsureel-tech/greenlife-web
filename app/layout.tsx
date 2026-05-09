@@ -10,6 +10,7 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { InstallAppBanner } from "@/components/InstallAppBanner";
 import { STORE } from "@/lib/store";
 import "./globals.css";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 
@@ -359,15 +360,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             entity hub.  */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessSchema) }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-stone-50 text-stone-900">

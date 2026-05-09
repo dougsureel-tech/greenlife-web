@@ -8,6 +8,7 @@ import { DealArt } from "@/components/DealArt";
 import { matchDealVendor } from "@/lib/deal-vendor-match";
 import { withAttr } from "@/lib/attribution";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -136,7 +137,7 @@ export default async function DealsPage({ searchParams }: Props) {
       {offerSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(offerSchema) }}
         />
       )}
 
