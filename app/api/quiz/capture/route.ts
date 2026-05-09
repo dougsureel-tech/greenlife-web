@@ -4,6 +4,7 @@ import { getClient } from "@/lib/db";
 import { sendQuizMatchEmail } from "@/lib/quiz-nurture-email";
 import { STORE } from "@/lib/store";
 import { MINUTE_MS } from "@/lib/time-constants";
+import { createRateLimiter } from "@/lib/rate-limit";
 
 // Hack #6 — Strain-finder quiz email capture.
 //
@@ -55,17 +56,9 @@ const MAX_FIELD_LEN = 64;
 // (per-email billing). 7-day dedupe per (email, source) prevents
 // repeat-to-same-inbox, but different emails from one IP can still loop.
 // 5/min/IP is generous; blocks scripted abuse. Sister to scc same wave.
-const captureRateMap = new Map<string, { count: number; resetAt: number }>();
+const captureLimiter = createRateLimiter({ limit: 5, windowMs: MINUTE_MS });
 function checkCaptureRate(ip: string): boolean {
-  const now = Date.now();
-  const entry = captureRateMap.get(ip);
-  if (!entry || entry.resetAt < now) {
-    captureRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
-    return true;
-  }
-  if (entry.count >= 5) return false;
-  entry.count++;
-  return true;
+  return captureLimiter.check(ip);
 }
 
 export async function POST(req: NextRequest) {

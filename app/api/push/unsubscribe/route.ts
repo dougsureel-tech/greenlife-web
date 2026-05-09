@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deletePushSubscription } from "@/lib/push-db";
 import { MINUTE_MS } from "@/lib/time-constants";
+import { createRateLimiter } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -12,17 +13,9 @@ export const runtime = "nodejs";
 // is generous (real users unsubscribe once or zero times); blocks
 // scripted abuse. Sister to /api/push/subscribe + /api/track-install +
 // /api/quiz/capture defenses (this wave).
-const unsubRateMap = new Map<string, { count: number; resetAt: number }>();
+const unsubLimiter = createRateLimiter({ limit: 10, windowMs: MINUTE_MS });
 function checkUnsubRate(ip: string): boolean {
-  const now = Date.now();
-  const entry = unsubRateMap.get(ip);
-  if (!entry || entry.resetAt < now) {
-    unsubRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
-    return true;
-  }
-  if (entry.count >= 10) return false;
-  entry.count++;
-  return true;
+  return unsubLimiter.check(ip);
 }
 
 export async function POST(req: NextRequest) {

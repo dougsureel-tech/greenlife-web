@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { upsertPushSubscription } from "@/lib/push-db";
 import { MINUTE_MS } from "@/lib/time-constants";
+import { createRateLimiter } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -12,17 +13,9 @@ export const runtime = "nodejs";
 // upsert dedupe on endpoint blocks identical-payload spam, but rotating
 // random fake endpoints slips past. 10/min/IP matches /api/push/unsubscribe
 // + /api/track-install in this repo. Sister scc same wave.
-const subRateMap = new Map<string, { count: number; resetAt: number }>();
+const subLimiter = createRateLimiter({ limit: 10, windowMs: MINUTE_MS });
 function checkSubRate(ip: string): boolean {
-  const now = Date.now();
-  const entry = subRateMap.get(ip);
-  if (!entry || entry.resetAt < now) {
-    subRateMap.set(ip, { count: 1, resetAt: now + MINUTE_MS });
-    return true;
-  }
-  if (entry.count >= 10) return false;
-  entry.count++;
-  return true;
+  return subLimiter.check(ip);
 }
 
 type SubscribeBody = {
