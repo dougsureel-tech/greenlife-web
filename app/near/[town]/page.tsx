@@ -12,6 +12,14 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-static";
 export const revalidate = false;
+// dynamicParams=false: unknown :town slugs return proper HTTP 404 instead
+// of rendering a 200-status "Not found" page (soft-404). Pre-fix, requests
+// for /near/wenatchee or /near/seattle (cross-store + home-city slugs not in
+// NEAR_TOWNS) returned HTTP 200 with `<title>Not found | …</title>` — Google
+// penalizes soft-404s + customer in our home city saw "Not found" when they
+// typed a near-page URL. With dynamicParams=false, Next returns its built-in
+// 404 (proper 404 status) for any slug not in generateStaticParams.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return NEAR_TOWNS.map((t) => ({ town: t.slug }));
