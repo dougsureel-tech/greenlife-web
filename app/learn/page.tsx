@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { STORE } from "@/lib/store";
@@ -6,6 +7,17 @@ import { LEARN_TOPICS } from "@/lib/learn-topics";
 import { getCompletedSteps } from "@/lib/learn-db";
 import { LearnProgress } from "./LearnProgress";
 
+// Page IS dynamic (auth + DB read for completed steps), but the static
+// shell — hero with h1, topic list, JSON-LD, footer CTAs — has zero
+// auth-dependent content. Pre-fix the entire page was wrapped in an
+// implicit Suspense by the root `app/loading.tsx` because `await auth()`
+// + Clerk-side cookie work bailed the page to client-side rendering;
+// SSR returned ONLY the spinner. Google saw zero h1, zero content,
+// zero JSON-LD. The fix below extracts auth-dependent rendering into
+// `<UserStateAwareLearn>` wrapped in `<Suspense fallback={<SignedOutLearn />}>`
+// so the shell ships in initial HTML + the user-state pieces stream in
+// after. Sister-pattern recipe per `feedback_grind_past_tapped_scoreboard_2026_05_08`
+// 200-or-bust audit + glw v7.965 /apply Suspense skeleton fix.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
@@ -19,10 +31,42 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function LearnPage() {
+// Auth-dependent slice — reads userId + completedSteps. Wrapped in
+// Suspense in the parent so awaits don't bail the whole page to CSR.
+async function UserStateAwareLearn() {
   const { userId } = await auth();
-  const completedIds = userId ? Array.from(await getCompletedSteps(userId)) : [];
+  const completedIds = userId
+    ? Array.from(await getCompletedSteps(userId).catch(() => new Set<string>()))
+    : [];
+  return (
+    <>
+      <p className={`text-xs ${userId ? "text-emerald-300/80" : "text-zinc-400"}`} data-userstate="resolved">
+        {userId
+          ? "✓ Your progress saves automatically — pick up where you left off any time."
+          : "Sign in to track which topics you've read and graduate Cannabis 101."}
+      </p>
+      <LearnProgress initialCompletedIds={completedIds} signedIn={!!userId} />
+    </>
+  );
+}
 
+// Signed-out fallback — renders the same topic list (without progress
+// checkmarks) so the SSR shell carries the FULL content even before the
+// auth-dependent slice resolves. Google + AI crawlers see all topics +
+// links + the disclaimer language. Hydration replaces with the real
+// progress-aware view.
+function SignedOutLearn() {
+  return (
+    <>
+      <p className="text-xs text-zinc-400">
+        Sign in to track which topics you&apos;ve read and graduate Cannabis 101.
+      </p>
+      <LearnProgress initialCompletedIds={[]} signedIn={false} />
+    </>
+  );
+}
+
+export default function LearnPage() {
   return (
     <div className="space-y-8">
       <nav className="text-xs text-zinc-500" aria-label="Breadcrumb">
@@ -33,7 +77,7 @@ export default async function LearnPage() {
         <span className="text-zinc-400">Learn</span>
       </nav>
 
-      {/* Hero */}
+      {/* Hero — fully static, ships in SSR shell every request. */}
       <section className="relative overflow-hidden rounded-3xl border border-emerald-900/40 bg-gradient-to-br from-emerald-950 via-zinc-950 to-zinc-950 px-6 sm:px-10 py-10 sm:py-14">
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -54,20 +98,15 @@ export default async function LearnPage() {
             Quick reads on the questions our budtenders hear most. New to cannabis? Coming back after a long
             break? Just want to know why we&apos;re cash-only? Start here.
           </p>
-          {userId ? (
-            <p className="mt-3 text-xs text-emerald-300/80">
-              ✓ Your progress saves automatically — pick up where you left off any time.
-            </p>
-          ) : (
-            <p className="mt-3 text-xs text-zinc-400">
-              Sign in to track which topics you&apos;ve read and graduate Cannabis 101.
-            </p>
-          )}
         </div>
       </section>
 
-      {/* Topics + progress UI (signed-in users see checkmarks; everyone sees content) */}
-      <LearnProgress initialCompletedIds={completedIds} signedIn={!!userId} />
+      {/* Auth-dependent block in Suspense — fallback renders the topic
+          list as if signed-out, so the SSR HTML always carries the full
+          content. Real auth state replaces post-hydration. */}
+      <Suspense fallback={<SignedOutLearn />}>
+        <UserStateAwareLearn />
+      </Suspense>
 
       {/* CTA */}
       <section className="text-center py-4">
