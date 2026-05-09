@@ -84,6 +84,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      // Wenatchee-specific alumni self-serve onboarding page (per memory
+      // `project_alumni_self_serve` — Wen-only). Pre-fix this page existed
+      // but wasn't in the sitemap → Google didn't crawl it → SEO loss for
+      // anyone Googling "Green Life Cannabis alumni".
+      url: `${STORE.website}/alumni`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: `${STORE.website}/our-story`,
       lastModified: new Date(),
       changeFrequency: "monthly",
