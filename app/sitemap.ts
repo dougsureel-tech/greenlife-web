@@ -4,6 +4,15 @@ import { STORE } from "@/lib/store";
 import { getPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 
+// Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
+// (brands, deals, posts) but those change rarely (deals daily at most;
+// brands/posts even less). Pre-fix served `cache-control: public,
+// max-age=0, must-revalidate` (Next.js default for metadata routes) →
+// every Google/Bing/AI-bot crawl re-rendered + re-queried Postgres.
+// 30-min cache cuts ~99% of repeat fetches without delaying real
+// changes by more than 30 min. Sister of inv v342.605 cross-repo port.
+export const revalidate = 1800;
+
 // Known-broken vendor CDN URLs surfaced by the 200-or-bust audit on
 // 2026-05-09. These vendors appear in glw Postgres `vendors.logoUrl`
 // pointing to external WordPress uploads that 404 or sit behind a

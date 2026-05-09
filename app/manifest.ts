@@ -1,6 +1,10 @@
 import type { MetadataRoute } from "next";
 import { STORE } from "@/lib/store";
 
+// Revalidate every hour at CDN edge — manifest is fully static (only
+// changes at deploy boundary). Sister of inv v342.605 cross-repo port.
+export const revalidate = 3600;
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: STORE.name,
