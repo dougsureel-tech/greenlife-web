@@ -72,7 +72,13 @@ export default async function NearTownPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `${STORE.website}/near/${town.slug}#business`,
+    // @id references the canonical `#dispensary` from app/layout.tsx so
+    // Google merges the area-served declaration with the home-page
+    // LocalBusiness instead of treating /near/<town> as a separate
+    // store. mainEntityOfPage keeps the per-page binding intact.
+    // v7.625 SEO graph-consolidation fix.
+    "@id": `${STORE.website}/#dispensary`,
+    mainEntityOfPage: { "@id": `${STORE.website}/near/${town.slug}` },
     name: STORE.name,
     description: `Cannabis dispensary serving ${town.name}, ${town.county}.`,
     address: {
