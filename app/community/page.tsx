@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ALUMNI_TEAM, initialOf } from "@/lib/team";
 import { STORE } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // Public-facing home for the Featured Partners vision Doug shared 2026-05-02:
 //   "alumni could also evolve into special consideration — it might be an
@@ -26,9 +27,22 @@ export const metadata: Metadata = {
   },
 };
 
+// BreadcrumbList — earns SERP path rendering (Home › Community).
+// Closes the 13/14 → 14/14 BreadcrumbList coverage on customer-facing
+// pages.
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Community", item: `${STORE.website}/community` },
+  ],
+};
+
 export default function CommunityPage() {
   return (
     <main className="min-h-[80vh] bg-stone-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">
         <div
