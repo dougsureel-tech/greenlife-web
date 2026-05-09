@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     description: `Pickup-ready cannabis menu in ${STORE.address.city}, WA. Cash in store, points on every order.`,
     url: `${STORE.website}/order`,
     type: "website",
+    // Explicit ref to root opengraph-image — Next 16 metadata cascade
+    // fully replaces parent's auto-injected images. Pre-fix /order
+    // share-previews rendered imageless. Sister of v7.565 /near fix.
+    images: ["/opengraph-image"],
   },
 };
 

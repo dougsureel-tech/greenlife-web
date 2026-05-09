@@ -62,6 +62,7 @@ export const metadata: Metadata = {
     description: `Open positions at Wenatchee's best-staffed cannabis dispensary. Apply online.`,
     url: `${STORE.website}/careers`,
     type: "website",
+    images: ["/opengraph-image"],
   },
 };
 

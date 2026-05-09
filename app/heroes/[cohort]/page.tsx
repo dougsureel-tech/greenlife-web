@@ -268,6 +268,7 @@ export async function generateMetadata({
       title: c.metaTitle,
       description: c.metaDescription,
       url: `${STORE.website}/heroes/${c.slug}`,
+      images: ["/opengraph-image"],
     },
   };
 }

@@ -102,7 +102,10 @@ export async function POST(req: NextRequest) {
     }
   } catch (err) {
     // Auth lookup failed — proceed as anonymous, log to audit only
-    console.error("[track-install] auth lookup:", err);
+    // Format-only — Clerk SDK errors echo the user object (email,
+    // emailAddresses[]). Sister of v7.425 / v7.485 PII-leak hardening.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[track-install] auth lookup: ${reason}`);
   }
 
   // Audit-log row — always written, drives the download counter
@@ -122,7 +125,10 @@ export async function POST(req: NextRequest) {
       )
     `;
   } catch (err) {
-    console.error("[track-install] audit insert:", err);
+    // Format-only — DB errors echo the audit-row payload (portalUserId,
+    // customerId, source). Sister of v7.425 / v7.485.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[track-install] audit insert: ${reason}`);
     // Don't fail the response — the client doesn't need to know
   }
 
