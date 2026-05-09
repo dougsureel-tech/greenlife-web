@@ -25,9 +25,16 @@ import { useState, useRef, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-const API_URL = "https://inventoryapp-ivory.vercel.app/api/applications";
+// Canonical staff URL (brapp.greenlifecannabis.com), not the Vercel-internal
+// alias. Per memory `feedback_canonical_url_for_prod_verification.md`: the
+// alias can lag the canonical when Vercel auto-promote doesn't cleanly hand
+// off — applications submitted during that window would post to a stale
+// build. /api/applications CORS allowlist already accepts both
+// www.greenlifecannabis.com origins; switching the target hostname doesn't
+// change the Origin header, so CORS works the same.
+const API_URL = "https://brapp.greenlifecannabis.com/api/applications";
 const POSITIONS_API =
-  "https://inventoryapp-ivory.vercel.app/api/positions/open?store=wenatchee";
+  "https://brapp.greenlifecannabis.com/api/positions/open?store=wenatchee";
 const SOURCE_ORIGIN = "greenlife-web";
 const MAX_RESUME_BYTES = 10 * 1024 * 1024; // 10MB (mirror API)
 

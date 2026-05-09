@@ -7,8 +7,11 @@ import { STORE } from "@/lib/store";
 // up to 5 min is fine for a careers page.
 export const revalidate = 300;
 
+// Canonical staff URL (brapp.*), not the Vercel-internal alias. Per memory
+// `feedback_canonical_url_for_prod_verification.md`: alias can lag canonical
+// when auto-promote misbehaves. Same Vercel deployment, just stable DNS.
 const POSITIONS_API =
-  "https://inventoryapp-ivory.vercel.app/api/positions/open?store=wenatchee";
+  "https://brapp.greenlifecannabis.com/api/positions/open?store=wenatchee";
 
 interface Position {
   id: string;

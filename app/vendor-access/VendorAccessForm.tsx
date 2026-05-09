@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "https://inventoryapp-ivory.vercel.app/api/vendor-access";
+// Canonical staff URL (brapp.*), not the Vercel-internal alias. Same fix
+// pattern as apply/careers ports same-day. Sister of the canonical-URL arc.
+const API_URL = "https://brapp.greenlifecannabis.com/api/vendor-access";
 const STORE_ORIGIN = "wenatchee";
 
 const ERROR_LABEL: Record<string, string> = {
