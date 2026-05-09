@@ -74,7 +74,10 @@ const COLORS = {
 // GW v2.78.90 canonicalBase pattern).
 const PUBLIC_ORIGIN = ((): string => {
   const env = process.env.NEXT_PUBLIC_SITE_ORIGIN;
-  const base = env && !env.includes(".vercel.app") ? env : "https://greenlifecannabis.com";
+  // Canonical-host fallback: www, not apex (sister of v7.525). Apex
+  // 308's to www per proxy.ts. Quiz-nurture STOP-to-unsubscribe link
+  // shouldn't redirect — CAN-SPAM compliance prefers direct-resolve.
+  const base = env && !env.includes(".vercel.app") ? env : "https://www.greenlifecannabis.com";
   return base.replace(/\/+$/, "");
 })();
 

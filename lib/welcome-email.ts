@@ -61,7 +61,12 @@ export type WelcomeEmailArgs = {
 // non-brand hostname (sister of GW v2.78.90 canonicalBase pattern).
 const SITE_ORIGIN = ((): string => {
   const env = process.env.NEXT_PUBLIC_SITE_URL;
-  const base = env && !env.includes(".vercel.app") ? env : "https://greenlifecannabis.com";
+  // Canonical-host fallback: www, not apex — apex 308's to www per
+  // proxy.ts CANONICAL_HOST. Pre-fix every welcome-email CTA pointed at
+  // apex, redirected to www on click. Customer-visible redirect chain
+  // is harmless but signals sloppy hygiene on a credibility-sensitive
+  // surface. Sister of v7.525 STORE.website apex→www SSoT fix.
+  const base = env && !env.includes(".vercel.app") ? env : "https://www.greenlifecannabis.com";
   return base.replace(/\/+$/, "");
 })();
 
