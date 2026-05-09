@@ -192,6 +192,21 @@ const nextConfig: NextConfig = {
       { source: "/loyalty", destination: "/account", permanent: true },
       { source: "/rewards", destination: "/account", permanent: true },
 
+      // Auth-URL alias normalization. Clerk uses `/sign-in` + `/sign-up`
+      // (hyphenated). The unhyphenated forms (`/signin`, `/signup`) +
+      // `/login` are the most common legacy variants from WordPress, app
+      // stores, partner directories. Pre-fix all four 404'd. Caught by
+      // /loop saturation grind 2026-05-09 wide-path probe.
+      { source: "/login", destination: "/sign-in", permanent: true },
+      { source: "/signin", destination: "/sign-in", permanent: true },
+      { source: "/signup", destination: "/sign-up", permanent: true },
+
+      // Generic legacy aliases: /home is the WordPress front-page slug
+      // (no-op on Next App Router where `/` IS the homepage); /sale is a
+      // common e-commerce deals page alias.
+      { source: "/home", destination: "/", permanent: true },
+      { source: "/sale", destination: "/deals", permanent: true },
+
       // Common WordPress / legacy info-page paths → semantic equivalent on new
       // site. /contact + /our-story have real pages on the new site (linked from
       // sitemap.ts + faq + about + structured-data canonical) — DO NOT redirect
