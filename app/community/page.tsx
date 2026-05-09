@@ -110,6 +110,7 @@ export default function CommunityPage() {
                     <img
                       src={m.photoSrc}
                       alt={`${m.name} — ${m.role}`}
+                      loading="lazy"
                       className="w-12 h-12 rounded-xl object-cover"
                     />
                   ) : (

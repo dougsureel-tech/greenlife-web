@@ -14,10 +14,12 @@ export async function VendorAdSlot({
   slot,
   limit = 1,
   className = "",
+  loading = "lazy",
 }: {
   slot: string;
   limit?: number;
   className?: string;
+  loading?: "lazy" | "eager";
 }) {
   const ads = await getActiveVendorAds(slot, limit).catch(() => []);
   if (ads.length === 0) return null;
@@ -58,6 +60,7 @@ export async function VendorAdSlot({
               <img
                 src={ad.imageUrl}
                 alt={ad.headline ?? ad.vendorName ?? "ad"}
+                loading={loading}
                 className="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:min-h-[160px]"
               />
             ) : (
