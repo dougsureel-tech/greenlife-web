@@ -19,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
-      { name: "Order for Pickup", short_name: "Order", url: "/order", description: "Place a pickup order" },
+      { name: "Order for Pickup", short_name: "Order", url: "/menu", description: "Place a pickup order" },
       { name: "Browse Menu", short_name: "Menu", url: "/menu", description: "See what's in stock today" },
       { name: "Account", short_name: "Account", url: "/account" },
     ],
