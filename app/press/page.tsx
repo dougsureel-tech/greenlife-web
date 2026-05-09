@@ -39,9 +39,23 @@ export default function PressPage() {
     about: { "@id": `${STORE.website}/#dispensary` },
   };
 
+  // BreadcrumbList — earns SERP path rendering (Home › Press) instead
+  // of raw URL. Sister of /near + /visit + /faq + /find-your-strain
+  // BreadcrumbList sweeps. Two-level (no parent section) since /press
+  // sits at the same level as /visit + /about.
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+      { "@type": "ListItem", position: 2, name: "Press", item: `${STORE.website}/press` },
+    ],
+  };
+
   return (
     <div className="bg-stone-50 min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
 
       {/* Hero */}
       <section className="bg-green-950 text-white">

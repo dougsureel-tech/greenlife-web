@@ -38,9 +38,21 @@ export default function BlogIndex() {
     })),
   };
 
+  // BreadcrumbList — earns SERP path rendering (Home › Blog) instead
+  // of raw URL. Sister of /press + /near + existing /visit + /faq.
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${STORE.website}/blog` },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
 
       {/* Header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">

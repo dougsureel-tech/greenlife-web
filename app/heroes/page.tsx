@@ -113,10 +113,22 @@ const faqSchema = {
   })),
 };
 
+// BreadcrumbList — earns SERP path rendering (Home › Heroes) instead
+// of raw URL. Sister of /deals + /press + /blog + /near sweep.
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Heroes", item: `${STORE.website}/heroes` },
+  ],
+};
+
 export default function HeroesPage() {
   return (
     <main className="min-h-[80vh] bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">
