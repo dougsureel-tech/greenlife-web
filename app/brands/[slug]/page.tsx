@@ -96,7 +96,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const brand = await getBrandBySlug(slug).catch(() => null);
-  if (!brand) return {};
+  if (!brand) {
+    // Soft-404 mitigation: Next 16 + ISR + page-level `notFound()` (line ~135)
+    // produces an HTTP 200 response with the not-found.tsx body for unknown
+    // slugs. Without this `robots: noindex` hint Google could index the
+    // soft-404 page as a real /brands/<slug> entry. Sister of /deals/[id]
+    // (already noindex on not-found at line 33) + /near/[town] (v7.985 fixed
+    // via dynamicParams=false; brands can't use that since the brand list is
+    // ISR-dynamic). tsc clean.
+    return { robots: { index: false, follow: false } };
+  }
   return {
     title: `${brand.name} — Cannabis at Green Life Wenatchee`,
     description: `${brand.name} cannabis at ${STORE.name} in ${STORE.address.full}. ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock — flower, pre-rolls, vapes, concentrates, edibles. Order ahead for cash pickup. 21+, ID required.`,
