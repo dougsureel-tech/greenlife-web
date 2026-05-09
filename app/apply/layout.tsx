@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+import { STORE } from "@/lib/store";
+
+// /apply has its own layout because `app/apply/page.tsx` is a client
+// component (`"use client"` for the multi-step form state). Client
+// components can't export `metadata`, so without this layout the page
+// inherits the root layout's canonical (`/`) — Google then treats
+// /apply as a duplicate of the homepage and refuses to index it as a
+// separate page. Anyone Googling "Green Life Cannabis apply for job"
+// would not find /apply in search results. /careers (sister page) is
+// a server component and exports its own metadata; this layout makes
+// /apply match the same canonical posture.
+
+export const metadata: Metadata = {
+  title: `Apply to work at ${STORE.name}`,
+  description: `Apply for a position at ${STORE.name} in ${STORE.address.city}, WA. Budtender, lead, inventory and more — open roles + general intake. 21+ required (WAC 314-55-115).`,
+  alternates: { canonical: "/apply" },
+  openGraph: {
+    title: `Apply to work at ${STORE.name}`,
+    description: `Open roles + general intake at ${STORE.name}, ${STORE.address.city} WA. 21+ required.`,
+    url: `${STORE.website}/apply`,
+    siteName: STORE.name,
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Apply to work at ${STORE.name}`,
+    description: `Open roles + general intake at ${STORE.name}, ${STORE.address.city} WA.`,
+    images: ["/opengraph-image"],
+  },
+};
+
+export default function ApplyLayout({ children }: { children: React.ReactNode }) {
+  return children;
+}
