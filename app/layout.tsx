@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import Script from "next/script";
 import { AgeGate } from "@/components/AgeGate";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -13,6 +14,11 @@ import "./globals.css";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+
+// GA4 measurement ID — when Doug enables GA4 in the dashboard, paste the
+// "G-XXXXXXX" measurement ID into NEXT_PUBLIC_GA_ID on Vercel and the
+// gtag.js loader auto-renders site-wide. Empty = no-op (zero bytes shipped).
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(STORE.website),
@@ -65,6 +71,24 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
+  },
+  // Search Console + Bing Webmaster Tools + Yandex verification —
+  // env-gated. When Doug enables verification in any dashboard, paste
+  // the token into the matching env var on Vercel and the meta tag
+  // renders site-wide. Empty env = empty meta = no-op (Next renders
+  // nothing for an undefined value). Cleaner than HTML-file verification
+  // since these tags survive route-level metadata overrides on inner
+  // pages. v… 2026-05-09 SEO arc — sister of GW + SCC + CannAgent.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: {
+      ...(process.env.BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+        : {}),
+      ...(process.env.YANDEX_VERIFICATION
+        ? { "yandex-verification": process.env.YANDEX_VERIFICATION }
+        : {}),
+    },
   },
   appleWebApp: {
     capable: true,
@@ -401,6 +425,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MobileStickyCta />
         <ServiceWorkerRegister />
         <InstallAppBanner />
+        {/* GA4 — auto-loads when Doug pastes a "G-XXXXXXX" measurement
+            ID into NEXT_PUBLIC_GA_ID on Vercel. Empty env = nothing
+            renders; zero bytes shipped. afterInteractive so it doesn't
+            block hydration. Sister pattern to GW root layout. */}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{page_path:window.location.pathname});`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
