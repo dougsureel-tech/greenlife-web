@@ -84,8 +84,10 @@ const VENDORS: readonly VendorEntry[] = [
     displayName: "Fairwinds",
     tokens: ["fairwinds", "fair winds"] as const,
     logoUrl: null,
+    // Fairwinds re-sourced 2026-05-09 — they redesigned site 2024-06.
+    // Sister of brand-page fix (glw v12.105 + scc v12.805).
     heroUrl:
-      "https://fairwindscannabis.com/wp-content/uploads/2021/01/fairwinds-facility.jpg",
+      "https://fairwindscannabis.com/wp-content/uploads/2024/06/FW_FECO_1-1_500-e1738271256901.jpg",
     accentHex: "0e7c8a",
     accent2Hex: "0a4f5a",
   },
@@ -159,9 +161,12 @@ const VENDORS: readonly VendorEntry[] = [
     slug: "mfused",
     displayName: "Mfused",
     tokens: ["mfused", "m-fused", "super fog"] as const,
+    // MFUSED re-sourced 2026-05-09 — Squarespace CDN account migrated.
+    // Sister of brand-page fix (glw v12.105 + scc v12.805).
     logoUrl:
-      "https://images.squarespace-cdn.com/content/v1/615e1a4988dec77d8d5e6a3a/mfused-logo.png",
-    heroUrl: "https://www.mfused.com/s/Mfused-Super-Fog-Hero.jpg",
+      "https://images.squarespace-cdn.com/content/v1/65982e5124b1b60fe9b2d332/024d7af8-d7c9-4063-9864-b4466977e9ee/mfused-web-logo.png",
+    heroUrl:
+      "https://images.squarespace-cdn.com/content/v1/65982e5124b1b60fe9b2d332/c5446a33-288e-4a56-a2d2-5cf2534b64cf/hero-bg.png",
     accentHex: "0a2540",
     accent2Hex: "061830",
   },
