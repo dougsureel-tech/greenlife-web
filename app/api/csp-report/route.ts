@@ -18,11 +18,16 @@ import { NextResponse } from "next/server";
 // the goal is just to capture the firehose so Doug can refine the policy
 // before flipping to enforce mode.
 //
-// Anti-spam: cap log payload at 4KB; some browsers / proxies inject
+// Anti-spam: cap log payload at 16KB; some browsers / proxies inject
 // extension-fired violations that wouldn't help us tighten the real
-// policy. Worst case: the cap silently truncates a legitimate violation;
-// the directive name + blocked-uri are always under 200 chars so the
-// truncation never hides the actionable data.
+// policy. 16KB comfortably fits real-shaped CSP reports (the actionable
+// fields — document-uri + violated-directive + blocked-uri — are always
+// under 200 chars, but `original-policy` can be ~2KB and complete reports
+// occasionally run 6-8KB with long source maps). Oversize payloads are
+// dropped (logged with size class so Doug can see the cap firing) rather
+// than truncated and "repaired" with appended braces — the prior hack
+// produced invalid JSON whenever truncation didn't land at the exact
+// right nesting depth, so EVERY oversize report was silently dropped.
 
 export const runtime = "edge";
 
@@ -44,18 +49,22 @@ type CspReportBody = {
   };
 };
 
+const MAX_REPORT_BYTES = 16 * 1024;
+
 export async function POST(request: Request): Promise<Response> {
+  const text = await request.text();
+  if (text.length > MAX_REPORT_BYTES) {
+    // Don't attempt to repair truncated JSON — the prior implementation
+    // appended `}}` after slicing to 4KB which only produced valid JSON
+    // when truncation happened to land at the exact right nesting depth.
+    // Drop with a size-class log so the firehose-observation window can
+    // see if the cap is firing in practice.
+    console.error(`[csp-violation] oversized payload dropped, size=${text.length}`);
+    return new NextResponse(null, { status: 204 });
+  }
   let body: CspReportBody | null = null;
   try {
-    const text = await request.text();
-    if (text.length > 4096) {
-      // Cap at 4KB. Truncated payload still has the actionable fields
-      // (browsers put document-uri + violated-directive + blocked-uri at
-      // the top of the JSON, well under 4KB).
-      body = JSON.parse(text.slice(0, 4096) + "}}");
-    } else {
-      body = JSON.parse(text);
-    }
+    body = JSON.parse(text);
   } catch {
     // Malformed body — drop silently. Browsers occasionally POST
     // non-CSP-shaped reports (extensions, prefetch errors). Logging the
