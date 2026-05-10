@@ -165,6 +165,24 @@ const nextConfig: NextConfig = {
         source: "/manifest.webmanifest",
         headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
       },
+      // X-Robots-Tag noindex on /api/* responses. Defense-in-depth on top
+      // of robots.txt's `Disallow: /api/`. Reason: robots.txt blocks
+      // crawlers from FETCHING /api URLs, but if an API URL gets shared
+      // externally (Slack/Twitter unfurls, email links, accidental copy-
+      // paste in a tweet), Google may still INDEX the URL without crawling
+      // it — the SERP entry shows the bare URL with "No description
+      // available because of robots.txt." That's the worst-of-both-worlds:
+      // SERP exposure of an internal endpoint name + zero description for
+      // a customer who clicks on it. The X-Robots-Tag header at response
+      // level says "even if you DID get here, don't index this." Not
+      // present on any of the 6 sites in the stack — caught 2026-05-10 by
+      // /loop tick 38 cross-stack header audit. Pure additive: no behavior
+      // change, no customer-facing effect, just a SERP-hygiene defense.
+      // Sister scc + GW + cannagent + sureel + vrg pending.
+      {
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
   // **/menu + /order rule (DO NOT REMOVE):** never add a redirect that
