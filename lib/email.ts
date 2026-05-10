@@ -49,6 +49,19 @@ export type SendEmailArgs = {
   text?: string;
   from?: string;
   replyTo?: string;
+  /**
+   * Per-recipient unsubscribe URL. When set, sendEmail emits two
+   * RFC-8058-compliant Resend headers:
+   *   - `List-Unsubscribe: <${url}>, <mailto:${REPLY_TO}?subject=Unsubscribe>`
+   *   - `List-Unsubscribe-Post: List-Unsubscribe=One-Click`
+   * Per Gmail's Feb 2024 bulk-sender requirements, this surfaces a one-click
+   * Unsubscribe button at the top of the email in Gmail / Apple Mail / Yahoo —
+   * recipient doesn't need to scroll to the body link. Pairs with the body-link
+   * footer rendered by the per-template helper (same URL, two surfaces). Major
+   * deliverability signal: Gmail rewards senders honoring this RFC even at low
+   * volumes. Sister of GW src/lib/email.ts SendEmailOptions.unsubscribeUrl.
+   */
+  unsubscribeUrl?: string;
 };
 
 export type SendEmailResult =
@@ -81,6 +94,22 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
   try {
     const { Resend } = await import("resend");
     const client = new Resend(API_KEY);
+    const replyTo = args.replyTo ?? DEFAULT_REPLY_TO ?? undefined;
+    // Build List-Unsubscribe pair when caller supplies an unsub URL.
+    // Mailto fallback uses replyTo when set (preferred — actively monitored)
+    // or the from-address when not. Extract bare email from "Name <email>"
+    // form. Per RFC 8058 + Gmail bulk-sender Feb 2024.
+    const headers: Record<string, string> | undefined = args.unsubscribeUrl
+      ? (() => {
+          const mailtoSource = replyTo || args.from || DEFAULT_FROM;
+          const angleMatch = mailtoSource.match(/<([^>]+)>/);
+          const bareEmail = angleMatch ? angleMatch[1] : mailtoSource;
+          return {
+            "List-Unsubscribe": `<${args.unsubscribeUrl}>, <mailto:${bareEmail}?subject=Unsubscribe>`,
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+          };
+        })()
+      : undefined;
     const r = await client.emails.send({
       from: args.from ?? DEFAULT_FROM,
       to: args.to,
@@ -89,7 +118,8 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
       text: args.text,
       // Per-call replyTo wins when supplied; otherwise fall through to
       // the env-var default; otherwise undefined (Resend defaults to From).
-      replyTo: args.replyTo ?? DEFAULT_REPLY_TO ?? undefined,
+      replyTo,
+      ...(headers ? { headers } : {}),
     });
     // Resend's response shape varies between SDK versions; try common
     // id paths defensively (matches the inventoryapp helper).
