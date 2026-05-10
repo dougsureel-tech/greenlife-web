@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   // ~150 chars — v10.105 length sweep.
   description: `Long-form cannabis guides, education, and vendor spotlights from ${STORE.name} — written by people who actually work the counter.`,
   alternates: { canonical: "/blog" },
+  // Pre-fix /blog had no openGraph block, so og:url, og:type, og:site_name
+  // all fell back to the LAYOUT defaults (which point at the homepage URL
+  // not /blog). That meant Facebook/LinkedIn/iMessage share previews of
+  // /blog showed the homepage as the canonical URL — confusing dedupe
+  // signal. Caught 2026-05-10 by /loop tick 21 og:url accuracy probe.
+  openGraph: {
+    type: "website",
+    siteName: STORE.name,
+    locale: "en_US",
+    title: "Cannabis Guides & Vendor Spotlights",
+    description: `Long-form cannabis guides + vendor spotlights from ${STORE.name}.`,
+    url: `${STORE.website}/blog`,
+    images: ["/opengraph-image"],
+  },
 };
 
 const CATEGORY_TINT: Record<string, string> = {

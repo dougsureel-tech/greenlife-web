@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: "Cannabis 101 · Learn the Basics",
     description: "Indica vs sativa, dosing, THC %, terpenes — plain-English answers.",
+    // og:url added 2026-05-10 (T21) — pre-fix /learn fell back to
+    // layout's homepage URL. Sister of T19/T20 shallow-overwrite class.
+    url: `${STORE.website}/learn`,
     images: ["/opengraph-image"],
   },
 };

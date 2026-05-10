@@ -40,6 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.description,
       type: "article",
+      // og:url added 2026-05-10 (T21) — pre-fix /blog/[slug] openGraph
+      // had no `url:` field so Next 16 fell back to layout default
+      // (homepage URL). Facebook/LinkedIn share-card "site URL" footer
+      // pointed at homepage instead of the article. Sister of T19
+      // og:type + T20 og:site_name shallow-overwrite class.
+      url: `${STORE.website}/blog/${slug}`,
       publishedTime: post.publishedAt,
       ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}),
       images: ["/opengraph-image"],
