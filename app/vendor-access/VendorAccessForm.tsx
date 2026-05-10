@@ -68,6 +68,7 @@ export function VendorAccessForm() {
         value={companyName}
         onChange={setCompanyName}
         placeholder="e.g. Sungrown"
+        autoComplete="organization"
       />
       <Field
         label="Your name"
@@ -75,6 +76,7 @@ export function VendorAccessForm() {
         value={contactName}
         onChange={setContactName}
         placeholder="First + last"
+        autoComplete="name"
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field
@@ -142,6 +144,7 @@ function Field({
   value,
   onChange,
   placeholder,
+  autoComplete,
 }: {
   label: string;
   required?: boolean;
@@ -149,7 +152,18 @@ function Field({
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
+  /** WHATWG autocomplete token (organization/name/email/tel/etc). When
+   *  unset, falls back to type-based derivation. */
+  autoComplete?: string;
 }) {
+  // Type-based fallback for email/tel; explicit override via prop wins.
+  // Pre-fix text inputs (type=text) got `undefined` — browser autofill
+  // + password managers couldn't suggest stored values. /vendor-access
+  // "Company name" + "Your name" inputs were missing autoComplete.
+  // Caught 2026-05-10 by /loop tick 58 form-autocomplete audit.
+  const resolvedAutoComplete =
+    autoComplete ??
+    (type === "email" ? "email" : type === "tel" ? "tel" : undefined);
   return (
     <label className="block">
       <span className="text-sm font-semibold text-stone-700 mb-1.5 block">
@@ -158,10 +172,7 @@ function Field({
       </span>
       <input
         type={type}
-        // Auto-derive iOS autofill + keyboard hints based on type so all
-        // Field calls inherit the right behavior (and any future Field
-        // gets it for free). Sister of inv SettingsForm v319.805 wrapper.
-        autoComplete={type === "email" ? "email" : type === "tel" ? "tel" : undefined}
+        autoComplete={resolvedAutoComplete}
         inputMode={type === "email" ? "email" : type === "tel" ? "tel" : undefined}
         value={value}
         onChange={(e) => onChange(e.target.value)}
