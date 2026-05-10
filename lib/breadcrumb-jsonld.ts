@@ -15,9 +15,21 @@ import { STORE } from "@/lib/store";
 export type Crumb = { name: string; url: string };
 
 export function breadcrumbJsonLd(crumbs: Crumb[]) {
+  // Stable @id derived from the LAST crumb's URL — this is the page the
+  // breadcrumb is anchored to. Lets sibling JSON-LD nodes (Article,
+  // SpecialAnnouncement, CollectionPage) reference the breadcrumb via
+  // @id without duplicating the path. Pre-T91 every BreadcrumbList on
+  // glw was a dangling node; same entity-graph @id linking pattern as
+  // T85 (LocalBusiness) → T87 (Article) → T88 (WebSite) → T89 (HowTo +
+  // FAQPage) → T90 (sureel) close-out.
+  const last = crumbs[crumbs.length - 1];
+  const lastAbs = last
+    ? (last.url.startsWith("http") ? last.url : `${STORE.website}${last.url.startsWith("/") ? "" : "/"}${last.url}`)
+    : STORE.website;
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${lastAbs}#breadcrumb`,
     itemListElement: crumbs.map((c, i) => ({
       "@type": "ListItem",
       position: i + 1,

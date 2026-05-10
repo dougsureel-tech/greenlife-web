@@ -313,9 +313,17 @@ export default async function BrandPage({ params }: Props) {
     },
     breadcrumb: {
       "@type": "BreadcrumbList",
+      // Stable @id — T91 entity-graph linking. Pre-fix the inline
+      // breadcrumb was a dangling node addressable only via inheritance.
+      "@id": `${brandUrl}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
-        { "@type": "ListItem", position: 2, name: brand.name, item: brandUrl },
+        // Middle "Brands" level — pre-T91 the breadcrumb skipped from
+        // Home directly to the brand page; Google rendered "Home › Avitas"
+        // in the SERP path. Adding "Brands" matches the actual nav
+        // structure (Home › Brands › Avitas) for richer SERP path display.
+        { "@type": "ListItem", position: 2, name: "Brands", item: `${STORE.website}/brands` },
+        { "@type": "ListItem", position: 3, name: brand.name, item: brandUrl },
       ],
     },
   };

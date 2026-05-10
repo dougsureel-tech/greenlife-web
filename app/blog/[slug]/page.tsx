@@ -208,6 +208,8 @@ export default async function BlogPost({ params }: Props) {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // Stable @id — sister of the buildBreadcrumbLd helper @id (T91 same-fix).
+    "@id": `${url}#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
       { "@type": "ListItem", position: 2, name: "Blog", item: `${STORE.website}/blog` },
