@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   description: `Indica vs sativa, edibles dosing, THC%, terpenes basics — plain-English cannabis education from ${STORE.name} budtenders. 21+.`,
   alternates: { canonical: "/learn" },
   openGraph: {
+    siteName: STORE.name,
     type: "website",
     locale: "en_US",
     title: "Cannabis 101 · Learn the Basics",

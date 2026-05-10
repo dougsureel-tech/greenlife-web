@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: `Live cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, concentrates. WSLCB-compliant.`,
   alternates: { canonical: "/deals" },
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `Cannabis Deals | ${STORE.name}`,
     description: `Live deals at ${STORE.name}. ${STORE.address.full}.`,

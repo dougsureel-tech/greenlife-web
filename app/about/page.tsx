@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     "best budtenders Wenatchee",
   ],
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `About ${STORE.name} — Wenatchee's best cannabis staff`,
     description: `Wenatchee cannabis dispensary, founded 2014. Knowledgeable budtenders, curated catalog, education first.`,

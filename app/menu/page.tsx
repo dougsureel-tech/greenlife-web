@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   description: `Live cannabis menu at ${STORE.name} — flower, pre-rolls, vapes, concentrates, edibles, tinctures, topicals. Order ahead for cash pickup. 21+.`,
   alternates: { canonical: "/menu" },
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `Cannabis Menu | ${STORE.name}`,
     description: `Live cannabis menu — prices, THC/CBD, lab data. ${STORE.address.full}.`,

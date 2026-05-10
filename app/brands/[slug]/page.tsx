@@ -177,6 +177,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Canonical points at the resolved (canonical) slug, NOT the alias.
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
+      siteName: STORE.name,
       locale: "en_US",
       title: `${brand.name} | ${STORE.name}`,
       description: `Browse ${brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     "Green Life Cannabis budtenders",
   ],
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `Our Story · ${STORE.name}`,
     description: `Built by everyone who's worked here. ${STORE.address.full}.`,

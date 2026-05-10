@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     `weed shop ${STORE.address.zip}`,
   ],
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `Visit ${STORE.name}`,
     description: `${STORE.address.full} · ${STORE.phone} · Free parking, ATM on-site.`,

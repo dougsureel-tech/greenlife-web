@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: `The folks who built and continue to build ${STORE.name}. Past staff, future partners. We're growing the community over time.`,
   alternates: { canonical: "/community" },
   openGraph: {
+    siteName: STORE.name,
     type: "website",
     locale: "en_US",
     title: `Our Community · ${STORE.name}`,

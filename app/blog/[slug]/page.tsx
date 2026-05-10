@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.description.length > 160 ? post.description.slice(0, 157).trimEnd() + "…" : post.description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
+      siteName: STORE.name,
       locale: "en_US",
       title: post.title,
       description: post.description,

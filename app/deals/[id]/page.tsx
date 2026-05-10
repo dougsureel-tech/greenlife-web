@@ -64,6 +64,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: desc,
     alternates: { canonical: `/deals/${deal.id}` },
     openGraph: {
+      siteName: STORE.name,
       locale: "en_US",
       title: `${deal.short} | ${STORE.name}`,
       description: desc,

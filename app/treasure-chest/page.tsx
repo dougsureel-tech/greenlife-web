@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description: `Hand-picked clearance lane at ${STORE.name} — last-of-batch and end-of-run cannabis at deep discount. Refreshed weekly. Cash only.`,
   alternates: { canonical: "/treasure-chest" },
   openGraph: {
+    siteName: STORE.name,
     locale: "en_US",
     title: `Treasure Chest | ${STORE.name}`,
     description: "Clearance lane — last-of-batch flower, vapes, edibles & concentrates.",
