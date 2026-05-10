@@ -66,18 +66,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    // `title` + `description` intentionally NOT set here — when omitted,
-    // Twitter's crawler falls back to og:title + og:description (per
-    // Twitter Cards spec + Next 16 metadata cascade). Pre-fix the layout
-    // hard-coded twitter.title = `${STORE.name} | ${STORE.address.city}, WA
-    // Cannabis Dispensary` and child pages overrode openGraph.title but NOT
-    // twitter.title — so EVERY brand / blog / about / near / heroes share
-    // card on Twitter/X showed the layout default ("Green Life Cannabis |
-    // Wenatchee, WA Cannabis Dispensary") instead of the page-specific
-    // title (e.g. "BINX BUDS | Green Life Cannabis"). Caught 2026-05-10
-    // by /loop tick 7 cross-stack og:title vs twitter:title comparison
-    // (7/7 sample pages mismatched). Sister scc + same-class fix.
-    images: ["/opengraph-image"],
+    // `title`, `description`, AND `images` all intentionally NOT set
+    // here — when omitted, Twitter's crawler falls back to og:title +
+    // og:description + og:image (per Twitter Cards spec + Next 16
+    // metadata cascade).
+    //
+    // - title: pre-fix layout hard-coded `${STORE.name} | ...` and child
+    //   pages overrode openGraph.title but never twitter.title — every
+    //   brand / blog / about / near / heroes share card on Twitter/X
+    //   showed the layout default. Caught 2026-05-10 by /loop tick 7.
+    //
+    // - images: pre-fix layout hard-coded ["/opengraph-image"] (the
+    //   homepage OG) and child pages override openGraph.images via the
+    //   per-route `opengraph-image.tsx` convention but never twitter.
+    //   So /menu and /brands/[slug] share cards on Twitter/X showed the
+    //   homepage OG image instead of the per-route custom one. Caught
+    //   2026-05-10 by /loop tick 9 cross-stack og:image vs twitter:image
+    //   comparison (2/9 sample pages mismatched). Sister scc same-class.
   },
   robots: {
     index: true,
