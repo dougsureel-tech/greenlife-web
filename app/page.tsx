@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   // ~155 chars (within Google's 160 SERP cap). v10.105 length sweep.
   // Trimmed: removed redundant town list (already in JSON-LD areaServed)
   // + "Open 8 AM daily, later on Fri & Sat" (covered by hours schema).
-  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes, concentrates, pre-rolls. Cash only, 21+.`,
+  description: `${STORE.name} at ${STORE.address.full}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes. Cash only, 21+.`,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
