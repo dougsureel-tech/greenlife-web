@@ -44,6 +44,15 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
+  // Suppress `X-Powered-By: Next.js` response header. Pre-fix glw + scc
+  // were the lone outliers across the 6-site stack — GW + cannagent +
+  // sureel + vrg all already suppress this header. Leaking framework
+  // identity helps attackers target known Next.js CVEs at our specific
+  // version (Vercel emits the framework name but NOT the version, so
+  // the leak is "we use Next" not "we use Next 16.2.4"; still worth
+  // closing as cheap defense-in-depth). Caught 2026-05-10 by /loop tick
+  // 46 cross-stack X-Powered-By audit. Sister scc same-fix.
+  poweredByHeader: false,
   async headers() {
     return [
       {
