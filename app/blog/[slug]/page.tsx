@@ -48,6 +48,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${STORE.website}/blog/${slug}`,
       publishedTime: post.publishedAt,
       ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}),
+      // article:section + article:tag — Facebook/LinkedIn render the
+      // section as a small pill above the share-card title; tags help
+      // taxonomic clustering when posts get re-shared at scale. Pre-fix
+      // /blog/[slug] declared og:type=article + publishedTime but
+      // OMITTED section + tags — share cards rendered without the
+      // category context. Sister GW /learn/[slug] same fix v2.95.50.
+      section: post.category,
+      tags: [post.category],
       images: [DEFAULT_OG_IMAGE],
     },
   };
