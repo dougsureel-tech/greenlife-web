@@ -38,6 +38,20 @@ import type { NextConfig } from "next";
 const PERMISSIONS_POLICY =
   'private-state-token-redemption=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
   'private-state-token-issuance=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
+  // Defense-in-depth: lock down browser APIs the marketing site has zero
+  // legitimate use for, blocking any future vendor JS / third-party widget
+  // from silently invoking them. payment=() prevents Payment Request API
+  // (cash-only site never invokes); usb / serial / bluetooth / midi block
+  // hardware-access APIs no marketing site needs; xr-spatial-tracking
+  // blocks WebXR; magnetometer / accelerometer / gyroscope block device-
+  // orientation APIs (no AR / fitness use). All set to empty allowlist =
+  // disabled for self + all iframes. Note: iHeartJane Boost iframe needs
+  // private-state-token-* (already allowlisted above) and nothing else
+  // from this directive set — verified pre-add by scanning the Boost JS
+  // bundle exports + memory `feedback_iheartjane_jane_boost.md`. Caught
+  // 2026-05-10 by /loop tick 52 cross-stack Permissions-Policy hardening
+  // audit.
+  'payment=(), usb=(), serial=(), bluetooth=(), midi=(), xr-spatial-tracking=(), magnetometer=(), accelerometer=(), gyroscope=(), ' +
   'camera=(), microphone=(), geolocation=(), interest-cohort=()';
 
 const nextConfig: NextConfig = {
