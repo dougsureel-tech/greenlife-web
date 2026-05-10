@@ -151,6 +151,7 @@ export default async function MenuPage() {
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${STORE.website}/menu#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
       { "@type": "ListItem", position: 2, name: "Menu", item: `${STORE.website}/menu` },

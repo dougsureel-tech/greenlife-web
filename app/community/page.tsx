@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 const breadcrumbLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/community#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
     { "@type": "ListItem", position: 2, name: "Community", item: `${STORE.website}/community` },

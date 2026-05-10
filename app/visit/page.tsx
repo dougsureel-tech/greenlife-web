@@ -54,6 +54,7 @@ const visitSchema = {
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/visit#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
     { "@type": "ListItem", position: 2, name: "Visit", item: `${STORE.website}/visit` },
