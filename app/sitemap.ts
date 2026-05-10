@@ -58,6 +58,21 @@ function isBannedLogoUrl(url: string): boolean {
   }
 }
 
+// Static-page lastModified: hardcoded date string, NOT `new Date()`.
+// Pre-fix every static page (/about, /contact, /faq, /heroes, etc.)
+// stamped lastmod with the sitemap-build timestamp — every Googlebot
+// crawl saw "this page changed today" even when the actual content
+// hadn't changed in months. Wasted crawl budget on pages with truly
+// static content. Per Google sitemap docs: "lastmod should reflect
+// when the content of the page last changed in a meaningful way."
+// Bump this constant manually when static page content actually
+// changes (e.g., team-roster edit on /our-story, hours change on
+// /visit, FAQ rewrite). For pages with truly dynamic content (live
+// menu, active deals, new blog posts), keep `new Date()` or pull
+// from the data model's actual updatedAt. Doug-action queue #3
+// closure. Sister scc same-fix.
+const STATIC_LASTMOD = new Date("2026-05-10");
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [brands, deals] = await Promise.all([
     getActiveBrands().catch(() => []),
@@ -84,16 +99,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // the sitemap → Google never indexed it. Daily changeFrequency since
     // products move in/out as inventory turns.
     { url: `${STORE.website}/treasure-chest`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
-    { url: `${STORE.website}/visit`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${STORE.website}/visit`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.85 },
     {
       url: `${STORE.website}/find-your-strain`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${STORE.website}/heroes`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -102,13 +117,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Wenatchee" etc.) before any other site does. Static-rendered.
     ...["veterans", "military", "first-responders", "healthcare", "teachers"].map((slug) => ({
       url: `${STORE.website}/heroes/${slug}`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly" as const,
       priority: 0.75,
     })),
     {
       url: `${STORE.website}/community`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.7,
     },
@@ -127,24 +142,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // remove the layout.tsx noindex first, then re-add to sitemap.
     {
       url: `${STORE.website}/our-story`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    { url: `${STORE.website}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${STORE.website}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${STORE.website}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${STORE.website}/blog`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${STORE.website}/about`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${STORE.website}/contact`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.6 },
     {
       url: `${STORE.website}/press`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.5,
     },
-    { url: `${STORE.website}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${STORE.website}/learn`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${STORE.website}/faq`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${STORE.website}/learn`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.75 },
     {
       url: `${STORE.website}/accessibility`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.5,
     },
@@ -156,7 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${STORE.website}/terms-of-use`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -168,13 +183,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${STORE.website}/vendor-access`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
       url: `${STORE.website}/apply`,
-      lastModified: new Date(),
+      lastModified: STATIC_LASTMOD,
       changeFrequency: "weekly",
       priority: 0.5,
     },
@@ -233,7 +248,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // sits below the canonical / + /menu but above generic info pages.
   const nearTownPages: MetadataRoute.Sitemap = NEAR_TOWNS.map((t) => ({
     url: `${STORE.website}/near/${t.slug}`,
-    lastModified: new Date(),
+    lastModified: STATIC_LASTMOD,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
