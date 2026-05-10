@@ -139,7 +139,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // brand page rendered "BRAND — Cannabis at Green Life Wenatchee | Green
     // Life Cannabis" = 64-81 chars depending on brand length. Sister
     // glw v12.705 deals/blog title.absolute pattern.
-    title: { absolute: `${brand.name} — Green Life Cannabis (Wenatchee)` },
+    //
+    // 2026-05-10 v12.905 sweep: long brand names ("Northwest Cannabis
+    // Solutions" 27 chars, with " — Green Life Cannabis (Wenatchee)" suffix
+    // = 62 chars) STILL over cap. Switch to compact pattern: drop
+    // "(Wenatchee)" parenthetical when brand name is long. Threshold = 23
+    // chars on brand.name (so "Northwest Cannabis Solutions" 27 chars uses
+    // the short pattern).
+    title: { absolute: brand.name.length > 23
+      ? `${brand.name} — Green Life Cannabis`
+      : `${brand.name} — Green Life Cannabis (Wenatchee)` },
     // ~155 chars — v10.105 length sweep.
     description: `${brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
     // Canonical points at the resolved (canonical) slug, NOT the alias.

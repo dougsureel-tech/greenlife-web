@@ -47,7 +47,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       };
     }
   }
-  const desc = deal.description ?? `${deal.short} at ${STORE.name} in ${STORE.address.city}, WA.`;
+  // Auto-trunc deal.description to 157 + "…" when over Google ~160-char
+  // mobile SERP cap. Some deal descriptions in the DB are 200-250 chars
+  // (e.g. /deals/first-visit-30 = 250). The full description renders on
+  // the deal page body — only the SERP meta gets trimmed.
+  const rawDesc = deal.description ?? `${deal.short} at ${STORE.name} in ${STORE.address.city}, WA.`;
+  const desc = rawDesc.length > 160 ? rawDesc.slice(0, 157).trimEnd() + "…" : rawDesc;
   // Fixed 2026-05-10 — pre-fix `${deal.short} — ${deal.name}` rendered as
   // "X — X" because deal.short and deal.name are typically identical
   // strings in the DB ("Birthday Bud — 20% Off (Birthday Week) — Birthday

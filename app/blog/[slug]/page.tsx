@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // article-level snippet on /blog SERPs anyway. Sister GW v2.94.05
     // title trim arc.
     title: { absolute: post.title },
-    description: post.description,
+    // Auto-trunc post.description over Google ~160 mobile SERP cap.
+    description: post.description.length > 160 ? post.description.slice(0, 157).trimEnd() + "…" : post.description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       locale: "en_US",
