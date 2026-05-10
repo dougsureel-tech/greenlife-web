@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts } from "@/lib/posts";
-import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE, STORE_TZ } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -56,7 +56,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       // category context. Sister GW /learn/[slug] same fix v2.95.50.
       section: post.category,
       tags: [post.category],
-      images: [DEFAULT_OG_IMAGE],
+      // Per-post OG image at /blog/{slug}/opengraph-image (file convention
+      // co-located in this directory). Pre-v17 the page set
+      // `images: [DEFAULT_OG_IMAGE]` (homepage OG) which OVERRODE Next's
+      // per-route convention — every blog post share-card on Twitter/
+      // Facebook/LinkedIn rendered the generic homepage card instead of
+      // the per-post custom one (with post title + category eyebrow).
+      // Verified pre-fix via curl: `<meta og:image>` was `/opengraph-image`,
+      // not `/blog/{slug}/opengraph-image`. Now: explicit per-route URL
+      // matches what the convention would auto-inject. Width/height/alt
+      // pulled from the per-route file's `size` export + post title.
+      // Sister scc same-fix. Caught 2026-05-10 by /loop tick 48 cross-
+      // stack OG-image-vs-per-route audit (curl-confirmed dead-code
+      // status of the per-route opengraph-image.tsx files).
+      images: [
+        {
+          url: `/blog/${slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
   };
 }
