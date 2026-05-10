@@ -123,7 +123,13 @@ export const metadata: Metadata = {
   },
   other: {
     rating: "adult",
-    "mobile-web-app-capable": "yes",
+    // `mobile-web-app-capable` REMOVED — `appleWebApp.capable: true` above
+    // already emits the modern `<meta name="mobile-web-app-capable">` (Next 16
+    // upgraded the legacy `apple-mobile-web-app-capable` to the platform-
+    // neutral form). Pre-fix BOTH metadata sources fired so the rendered HTML
+    // contained the meta TWICE on every page — Lighthouse PWA + W3C validator
+    // both flag duplicate-meta. Caught 2026-05-10 by /loop cross-stack
+    // mobile-web-app meta presence sweep. Sister scc same-push.
     // Geo SEO meta — paid display + CRM ad networks (Meta/Google Ads/
     // Klaviyo) anchor location-targeted creative off these. ICBM +
     // geo.position duplicate each other on purpose; different crawlers
