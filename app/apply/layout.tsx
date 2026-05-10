@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // BreadcrumbList JSON-LD — sister of v12.505 /careers fix. Pre-fix
 // /apply had no BreadcrumbList; Google could not show the breadcrumb
@@ -52,7 +53,7 @@ export default function ApplyLayout({ children }: { children: React.ReactNode })
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumb) }}
       />
       {children}
     </>
