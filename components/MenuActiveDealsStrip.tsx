@@ -108,6 +108,7 @@ export function MenuActiveDealsStrip({ deals, treasureChestCount = 0 }: Props) {
             return (
               <Link
                 key={d.id}
+                data-app-only={d.appOnly ? "1" : "0"}
                 href={withAttr(`/deals/${d.id}`, "menu", `deal-strip-${d.id}`)}
                 className={
                   vendor

@@ -4,6 +4,7 @@ import { getActiveDeals, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { JaneMenu } from "./JaneMenu";
 import { MenuFallback } from "./MenuFallback";
+import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
 import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { ClosureBanner } from "@/components/ClosureBanner";
@@ -93,26 +94,26 @@ async function prewarmDutchieMenu(): Promise<void> {
 }
 
 export default async function MenuPage() {
-  // PWA-install detection — cookie set by /api/track-install on first
-  // standalone-mode launch. Same gate as /deals + homepage strip. Without
-  // this, installed visitors saw the same `app_only=false` deal subset
-  // as browser-only visitors — losing the install incentive on the most-
-  // visited customer page. Doug 2026-05-07 closure of the menu-strip
-  // app-only sister gap.
-  const cookieStore = await import("next/headers").then((m) => m.cookies());
-  const isInstalled = cookieStore.get("glw_pwa_installed")?.value === "1";
-  // Pull the currently-running active deal nearest its end-date — passed
-  // through to MenuFallback so a customer hitting a stuck embed still sees
-  // the savings hook. Falls back to no-deal silently if the table is empty
-  // or the query errors. Third element prewarms Jane's cache; result
-  // unused (helper returns void).
+  // CDN-cache fix (sister homepage v20.405): previously called `cookies()`
+  // here, opting /menu out of ISR despite `revalidate=60`. Now fetch all
+  // deals server-side (`includeAppOnly: true`); MenuFallback receives the
+  // full array and picks the first non-PWA-only deal client-side based on
+  // `glw_pwa_installed` cookie. PWA-install carrot preserved. Plus pass
+  // `revalidate: 60` to fetchClosureStatus so the upstream fetch
+  // participates in ISR (vs default `cache: "no-store"`).
   const [deals, closure, treasureChest] = await Promise.all([
-    getActiveDeals({ includeAppOnly: isInstalled }).catch(() => []),
-    fetchClosureStatus(),
+    getActiveDeals({ includeAppOnly: true }).catch(() => []),
+    fetchClosureStatus({ revalidate: 60 }),
     getTreasureChestProducts(60).catch(() => []),
     prewarmDutchieMenu(),
   ]);
-  const featuredDeal = deals[0] ?? null;
+  // featuredDeal is shown in the MenuFallback when iHJ Boost stalls > 6s.
+  // It may be a PWA-only deal — the appOnly flag rides through so the
+  // client-side <AppOnlyDealsFilter /> hides it for non-installed visitors
+  // post-hydrate. Same pattern as MenuActiveDealsStrip's data-app-only attrs.
+  const featuredDeal = deals[0]
+    ? { short: deals[0].short, name: deals[0].name, endDate: deals[0].endDate, appOnly: deals[0].appOnly }
+    : null;
   const treasureChestCount = treasureChest.length;
 
   // CollectionPage + ItemList of menu categories. Boost holds the live
@@ -198,6 +199,7 @@ export default async function MenuPage() {
           this is the pragmatic substitute that keeps the discount surface
           loud directly under the embed. See MENU_TREE_AUDIT.md priority #3. */}
       <MenuActiveDealsStrip deals={deals} treasureChestCount={treasureChestCount} />
+      <AppOnlyDealsFilter />
       <MenuFallback featuredDeal={featuredDeal} />
       {/* Geo-cohort tie-back. Homepage hero already promises "we serve
           the whole valley" with full town cards; here we surface the
