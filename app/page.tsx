@@ -45,7 +45,14 @@ export const metadata: Metadata = {
   // Trimmed: removed redundant town list (already in JSON-LD areaServed)
   // + "Open 8 AM daily, later on Fri & Sat" (covered by hours schema).
   description: `${STORE.name} at ${STORE.address.full}. Wenatchee's cannabis shop since 2014 — flower, edibles, vapes. Cash only, 21+.`,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // RSS auto-discovery — must be repeated at page-level since Next 16
+    // shallow-overwrites layout `alternates` when page declares its own
+    // `alternates.canonical` (T7-T9 same cascade class). Sister of layout
+    // metadata.alternates.types pinning v18.905 RSS feed.
+    types: { "application/rss+xml": `${STORE.website}/feed.xml` },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
