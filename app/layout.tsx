@@ -87,7 +87,21 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    // Modern Google SERP-display directives. Without these, Google uses
+    // conservative defaults: shorter snippets (~160c), smaller image
+    // previews, no video preview. With them, Google can show full-
+    // length snippets, large image previews (better for visual SERP
+    // layout — important for cannabis/dispensary search where customers
+    // scan for brand recognition), and full video previews. Pure
+    // additive SERP-visibility win. Sister scc + GW same-fix. Caught
+    // 2026-05-10 by /loop tick 65 robots-meta detail audit.
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
   // Search Console + Bing Webmaster Tools + Yandex verification —
   // env-gated. When Doug enables verification in any dashboard, paste
