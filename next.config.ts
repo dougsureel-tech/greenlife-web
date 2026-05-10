@@ -23,9 +23,22 @@ import type { NextConfig } from "next";
 // the page load → flags Boost's API requests as bot traffic → CORS
 // rejection. This was the lone HTTP-header delta between WP (works) and
 // our Vercel deploy (CORS-blocks).
+//
+// 2026-05-10 — Appended `camera=(), microphone=(), geolocation=(),
+// interest-cohort=()` to lock down browser APIs we never use (sister of
+// cannagent + GW + sureel + vrg same-set). These directives DO NOT
+// interact with private-state-token-* — orthogonal browser-API surfaces.
+// camera/mic/geo are no-third-party-permission (we never request them on
+// the marketing site) so locking down protects against any future
+// vendor JS that might silently try to access them. interest-cohort
+// opts out of FLoC tracking. Caught 2026-05-10 by /loop cross-stack
+// Permissions-Policy presence sweep — glw + scc were the lone outliers
+// using only the WP-mirror policy without the hardened camera/mic/geo
+// lockdown the other 4 sites carry.
 const PERMISSIONS_POLICY =
   'private-state-token-redemption=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
-  'private-state-token-issuance=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com")';
+  'private-state-token-issuance=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
+  'camera=(), microphone=(), geolocation=(), interest-cohort=()';
 
 const nextConfig: NextConfig = {
   images: {
