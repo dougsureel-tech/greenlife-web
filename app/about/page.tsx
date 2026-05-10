@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, STORE_TZ } from "@/lib/store";
-import { ALUMNI_TEAM, initialOf } from "@/lib/team";
+import { ALUMNI_TEAM, CURRENT_TEAM, initialOf } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -37,15 +37,50 @@ export const metadata: Metadata = {
 // layout.tsx so AI engines + Google connect this page to the same store
 // entity. Big GEO add for queries like 'who owns Green Life Cannabis' or
 // 'is Green Life locally owned'.
+//
+// `image` points at the OG image so SERP knowledge-panel cards have a
+// thumbnail (Google falls back to a generic icon if no image is provided).
 const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   name: `About ${STORE.name}`,
   url: `${STORE.website}/about`,
   description: `Wenatchee cannabis dispensary — founded 2014, same building since opening, the Valley's best cannabis staff, education-first.`,
+  image: `${STORE.website}/opengraph-image`,
   mainEntity: { "@id": `${STORE.website}/#dispensary` },
   inLanguage: "en-US",
   isPartOf: { "@id": `${STORE.website}/#website` },
+};
+
+// Organization schema with `employee` array — emits a Person node for each
+// named team member so AI search engines + Google's knowledge graph can
+// answer "who works at Green Life Cannabis", "who is the GM", "who used to
+// work there". `worksFor` links each Person back to the existing
+// #dispensary IRI, keeping the entity graph connected. Alumni get
+// `alumniOf` instead of `worksFor` so the relationship is honest. No
+// `image` per Person because team.ts has photoSrc=null for everyone right
+// now (initials-avatar UI fallback) — adding an `image` URL that 404s is
+// worse than omitting the field per Google's structured-data docs.
+const teamSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${STORE.website}/#dispensary`,
+  url: STORE.website,
+  name: STORE.name,
+  employee: CURRENT_TEAM.map((m) => ({
+    "@type": "Person",
+    name: m.name,
+    jobTitle: m.role,
+    description: m.oneLine,
+    worksFor: { "@id": `${STORE.website}/#dispensary` },
+  })),
+  alumni: ALUMNI_TEAM.map((m) => ({
+    "@type": "Person",
+    name: m.name,
+    jobTitle: m.role,
+    description: m.oneLine,
+    alumniOf: { "@id": `${STORE.website}/#dispensary` },
+  })),
 };
 
 const breadcrumbSchema = {
@@ -61,6 +96,7 @@ export default function AboutPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(aboutSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(teamSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
