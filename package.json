@@ -13,7 +13,8 @@
     "check:og-completeness": "node scripts/check-og-completeness.mjs",
     "check:duplicate-brand-title": "node scripts/check-duplicate-brand-title.mjs",
     "check:og-image-shape": "node scripts/check-og-image-shape.mjs",
-    "check:per-route-og-image": "node scripts/check-per-route-og-image.mjs"
+    "check:per-route-og-image": "node scripts/check-per-route-og-image.mjs",
+    "check:title-length-html": "node scripts/check-title-length-html.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",
