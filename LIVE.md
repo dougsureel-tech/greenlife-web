@@ -74,7 +74,7 @@ Per memory `reference_iheartjane_jane_boost` and `feedback_diff_what_user_sees_f
 
 ## Cross-references
 
-- OPERATING_PRINCIPLES (`~/Documents/CODE/RANDOM/OPERATING_PRINCIPLES.md`) — the post-deploy verify discipline
+- OPERATING_PRINCIPLES (`~/Documents/CODE/OPERATING_PRINCIPLES.md`) — the post-deploy verify discipline
 - AGENT_BOARD (`~/Documents/CODE/Green Life/AGENT_BOARD.md`) — active in-flight work
 - MENU_LOG (`~/Documents/CODE/MENU_LOG.md`) — required reading for any /menu or iHeartJane work
 - INCIDENTS (`~/Documents/CODE/INCIDENTS.md`) — closed post-mortems (grep first)

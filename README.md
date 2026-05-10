@@ -25,7 +25,7 @@ Open `http://localhost:3000`.
 ## Documentation
 
 - **`AGENTS.md`** — architecture, conventions, cross-session coordination protocol
-- **`/CODE/CLAUDE.md`** + **`/CODE/RANDOM/OPERATING_PRINCIPLES.md`** — Doug's working norms
+- **`/CODE/CLAUDE.md`** + **`/CODE/OPERATING_PRINCIPLES.md`** — Doug's working norms
 - **`/CODE/INCIDENTS.md`** — closed post-mortems (grep first when diagnosing)
 
 ## Deploy

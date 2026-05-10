@@ -12,7 +12,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 This is one of Doug's projects (**Green Life / SCC — 🟡 REG, WSLCB-regulated cannabis**). Multiple Claude sessions work in parallel. Before non-trivial work, read these (in order):
 
-1. `~/Documents/CODE/RANDOM/OPERATING_PRINCIPLES.md` — how Doug runs things across all projects. Auto-imported by `/CODE/CLAUDE.md` (you may already have it loaded).
+1. `~/Documents/CODE/OPERATING_PRINCIPLES.md` — how Doug runs things across all projects. Auto-imported by `/CODE/CLAUDE.md` (you may already have it loaded).
 2. `~/Documents/CODE/AGENTS.md` — cross-project orientation, decision tree, hard rules learned the hard way.
 3. `~/Documents/CODE/Green Life/AGENT_BOARD.md` — who's currently editing what. Append yourself before starting; move to Recent when done.
 4. `~/Documents/CODE/INCIDENTS.md` — closed post-mortems. Grep first when diagnosing — most weird symptoms have already been chased once.
