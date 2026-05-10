@@ -29,6 +29,35 @@ const BROKEN_LOGO_URLS = new Set<string>([
   "https://agrocouture.com/wp-content/uploads/2024/01/Agro-Couture_Logo-gold.png",
 ]);
 
+// Domains we will NEVER emit as <image:image> in the sitemap, even if
+// the vendors.logoUrl DB field points at one. Per memory
+// `feedback_vendor_logo_sources`: vendor logos must come from the
+// brand's own site/CDN, NOT from third-party aggregators (Weedmaps,
+// Leafly, etc.). Using an aggregator's CDN signals to Google that we
+// don't own the brand's identity + risks the URL going dark when the
+// aggregator changes their image-hosting structure (Weedmaps in
+// particular has migrated their image URLs multiple times in the
+// last few years). Caught 2026-05-10 by /loop tick 15 brand-page
+// health audit on glw — `1555-industrial-llc` had a weedmaps.com
+// logoUrl that was getting emitted to sitemap. Doug-action: update
+// `1555 Industrial LLC` vendors.logoUrl in glw Postgres to a self-
+// hosted (`/public/images/brands/1555-industrial.png`) or
+// vendor-CDN source. Other vendors with aggregator logos will be
+// silently filtered until DB-level cleanup happens.
+const BANNED_LOGO_DOMAINS = ["weedmaps.com", "leafly.com", "leafly.ca"];
+
+function isBannedLogoUrl(url: string): boolean {
+  if (BROKEN_LOGO_URLS.has(url)) return true;
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return BANNED_LOGO_DOMAINS.some((banned) => host === banned || host.endsWith(`.${banned}`));
+  } catch {
+    // Malformed URL — drop it from sitemap. Sitemap with garbage URLs
+    // is worse than sitemap missing an image entry.
+    return true;
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [brands, deals] = await Promise.all([
     getActiveBrands().catch(() => []),
@@ -189,7 +218,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // 200-or-bust audit (Doug-action queue: update vendors.logoUrl
       // in glw Postgres to a working source or NULL when these get
       // verified). 404'd image:image entries are an SEO ding.
-      ...(b.logoUrl && !BROKEN_LOGO_URLS.has(b.logoUrl) ? { images: [b.logoUrl] } : {}),
+      ...(b.logoUrl && !isBannedLogoUrl(b.logoUrl) ? { images: [b.logoUrl] } : {}),
     }));
 
   const postPages: MetadataRoute.Sitemap = posts.map((p) => ({
