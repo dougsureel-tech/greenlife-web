@@ -59,7 +59,7 @@ export function HeroesForm({ current }: { current: HeroesAttestType }) {
       setSaved(true);
       setTimeout(() => setSaved(false), 4000);
     } catch (e) {
-      console.error("[heroes] save failed", e);
+      console.error("[heroes] save failed", e instanceof Error ? e.name : String(e));
       setError("Couldn’t save. Check your connection and try again.");
     } finally {
       setSaving(false);

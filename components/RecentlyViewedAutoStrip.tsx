@@ -39,7 +39,7 @@ export function RecentlyViewedAutoStrip({ accent = "green" }: { accent?: "green"
       })
       .catch((e) => {
         if (e.name !== "AbortError") {
-          console.error("[recently-viewed] fetch failed", e);
+          console.error("[recently-viewed] fetch failed", e instanceof Error ? e.name : String(e));
           setProducts([]);
         }
       });

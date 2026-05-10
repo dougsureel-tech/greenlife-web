@@ -100,7 +100,7 @@ export function MobileStickyCta() {
       })
       .catch((e) => {
         if (e.name !== "AbortError") {
-          console.error("[mobile-cta] deal fetch failed", e);
+          console.error("[mobile-cta] deal fetch failed", e instanceof Error ? e.name : String(e));
         }
       });
     return () => ctrl.abort();

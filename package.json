@@ -18,7 +18,8 @@
     "check:description-length-html": "node scripts/check-description-length-html.mjs",
     "check:button-type": "node scripts/check-button-type.mjs",
     "check:html-entities-jsx": "node scripts/check-html-entities-jsx.mjs",
-    "check:server-actions-async": "node scripts/check-server-actions-async.mjs"
+    "check:server-actions-async": "node scripts/check-server-actions-async.mjs",
+    "check:pii-console-leak": "node scripts/check-pii-console-leak.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",

@@ -37,7 +37,8 @@ for gate in \
   scripts/check-button-type.mjs \
   scripts/check-csp-report-only.mjs \
   scripts/check-html-entities-jsx.mjs \
-  scripts/check-server-actions-async.mjs; do
+  scripts/check-server-actions-async.mjs \
+  scripts/check-pii-console-leak.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -46,6 +47,6 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (11/11)"
+echo "  ✓ Build-gates OK (12/12)"
 
 exit 0

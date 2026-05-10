@@ -29,7 +29,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (e) {
-      console.error("[profile] save failed", e);
+      console.error("[profile] save failed", e instanceof Error ? e.name : String(e));
       setError("Couldn't save. Check your connection and try again.");
     } finally {
       setSaving(false);
