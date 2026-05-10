@@ -22,18 +22,24 @@ export const revalidate = 3600;
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // Default crawler — Google, Bing, the long tail. /alumni is a
-      // gated soft-knock route for past staff, no SEO value. /account
+      // Default crawler — Google, Bing, the long tail. /account
       // is user-specific. /api, /dev, /devmenu are internal noise.
       // /stash + /quiz/unsubscribe are per-visitor / post-action surfaces
       // (page-level noindex already handles indexing but adding here
       // saves the crawl request entirely). Keep them out of the crawl
       // budget so the brand-anchor pages get the attention.
+      //
+      // /alumni REMOVED from disallow 2026-05-09 — v9.905 explicitly
+      // added /alumni to the sitemap with reasoning "Google never
+      // crawled it → 'Green Life Cannabis alumni' wouldn't surface the
+      // page in search → SEO loss for alumni discovery." Robots.txt
+      // disallow was contradicting that intent (robots wins over
+      // sitemap, so Google would still skip /alumni). Now /alumni is
+      // crawlable + indexable for the SEO purpose v9.905 enabled.
       {
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/alumni",
           "/account",
           "/api/",
           "/dev",
