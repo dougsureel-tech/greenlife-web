@@ -142,6 +142,10 @@ export default async function NearTownPage({
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // T92 sister of T91 entity-graph @id linking — pre-fix this inline
+    // schema was a dangling node. Now addressable via @id from sibling
+    // LocalBusiness mainEntityOfPage etc.
+    "@id": `${STORE.website}/near/${town.slug}#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
       { "@type": "ListItem", position: 2, name: "Visit", item: `${STORE.website}/visit` },
