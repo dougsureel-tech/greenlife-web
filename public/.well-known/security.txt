@@ -1,0 +1,22 @@
+# Green Life Cannabis — security disclosure policy.
+# Format per RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116).
+
+Contact: mailto:doug@seattlecannabis.co
+Expires: 2027-05-10T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.greenlifecannabis.com/.well-known/security.txt
+
+# We appreciate responsible disclosure. Please email the contact above with:
+#   - A description of the vulnerability
+#   - Steps to reproduce
+#   - Any proof-of-concept code (do NOT exploit on customer data)
+#
+# We respond within 5 business days and patch high-severity issues within
+# 7 days. We don't run a paid bug bounty but credit researchers in the
+# changelog with permission.
+#
+# Out of scope:
+#   - Social engineering of staff
+#   - Physical attacks on store premises
+#   - DDoS / volumetric attacks
+#   - Findings on third-party platforms (iHeartJane menu embed, Vercel, etc.)
