@@ -5,7 +5,7 @@ import { getPosts } from "@/lib/posts";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
-  title: "Cannabis Guides & Vendor Spotlights",
+  title: "Cannabis Guides + Vendor Spotlights",
   // ~150 chars — v10.105 length sweep.
   description: `Long-form cannabis guides, education, and vendor spotlights from ${STORE.name} — written by people who actually work the counter.`,
   alternates: { canonical: "/blog" },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: STORE.name,
     locale: "en_US",
-    title: "Cannabis Guides & Vendor Spotlights",
+    title: "Cannabis Guides + Vendor Spotlights",
     description: `Long-form cannabis guides + vendor spotlights from ${STORE.name}.`,
     url: `${STORE.website}/blog`,
     images: [DEFAULT_OG_IMAGE],

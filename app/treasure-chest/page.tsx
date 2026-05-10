@@ -8,7 +8,15 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Treasure Chest — clearance & deep-discount deals",
+  // Pre-fix title body "Treasure Chest — clearance & deep-discount
+  // deals" = 51 chars + template suffix " | Green Life Cannabis" (22)
+  // + HTML-entity inflation (&amp; adds +4) = 77 chars rendered. Over
+  // Google's ~60-char SERP cap. Switched to title.absolute with a
+  // shorter body: "Treasure Chest — Clearance Deals" (32) + " | Green
+  // Life Cannabis" baked in = 56 chars. Same bug class as memory pin
+  // `feedback_html_escape_inflates_meta_description_length` — measure
+  // HTML-escaped length, not JS string length.
+  title: { absolute: "Treasure Chest — Clearance Deals | Green Life Cannabis" },
   // ~150 chars — v10.105 length sweep.
   description: `Hand-picked clearance lane at ${STORE.name} — last-of-batch and end-of-run cannabis at deep discount. Refreshed weekly. Cash only.`,
   alternates: { canonical: "/treasure-chest" },

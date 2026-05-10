@@ -9,7 +9,10 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Our Story — Built by Everyone Who's Worked Here",
+  // T61: 74c rendered → 56c. Apostrophe in "Who's" inflates to `&#x27;`
+  // (+5 chars). Original body 47c + suffix 22c + entity 5c = 74c
+  // rendered. title.absolute with shorter body avoids the inflation.
+  title: { absolute: "Our Story — Built by Everyone Here | Green Life Cannabis" },
   // ~150 chars — v10.105 length sweep.
   description: `The story of ${STORE.name} — a Wenatchee cannabis dispensary built by everyone who's worked here since 2014. Same building in Sunnyslope.`,
   alternates: { canonical: "/our-story" },
