@@ -133,6 +133,7 @@ const faqSchema = {
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/faq#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
     { "@type": "ListItem", position: 2, name: "FAQ", item: `${STORE.website}/faq` },

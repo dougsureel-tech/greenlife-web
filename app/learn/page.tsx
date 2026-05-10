@@ -173,6 +173,7 @@ export default function LearnPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": `${STORE.website}/learn#breadcrumb`,
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
               { "@type": "ListItem", position: 2, name: "Cannabis 101", item: `${STORE.website}/learn` },

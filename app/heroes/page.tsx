@@ -128,6 +128,7 @@ const faqSchema = {
 const breadcrumbLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/heroes#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
     { "@type": "ListItem", position: 2, name: "Heroes", item: `${STORE.website}/heroes` },
