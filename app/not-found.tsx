@@ -1,6 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow } from "@/lib/store";
 import { fetchClosureStatus } from "@/lib/closure-status";
+
+// 404s should never be indexed — soft-404 / thin-content signal to Google.
+// Without explicit metadata.title here, Next inherits the layout's default
+// title template which produces titles like "Green Life Cannabis Wenatchee
+// — Cannabis Dispensary Wenatchee WA" on a 404 page. Set explicit title +
+// robots: noindex per board item #21 (cross-stack 404 metadata parity).
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: false },
+};
 
 const VIBES = [
   { emoji: "⚡️", label: "Energize", vibe: "energize" },
