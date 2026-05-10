@@ -34,7 +34,13 @@ export async function generateMetadata({
   const town = getTown(slug);
   if (!town) return { title: "Not found" };
 
-  const title = `${town.name} Dispensary — ${STORE.name}`;
+  // title.absolute drops template suffix `· Green Life Cannabis` so
+  // /near/* pages stay under Google ~60-char SERP cap. Pre-fix
+  // `${town.name} Dispensary — ${STORE.name}` + template suffix totaled
+  // 61-73 chars across the NEAR_TOWNS set. The brand is in the body
+  // already; the suffix was duplication. Sister glw v12.705 + v12.805
+  // title.absolute pattern arc.
+  const title = { absolute: `${town.name} Dispensary — ${STORE.name}` } as const;
   // Pre-fix template combined `town.name → STORE: N min via highway. pitch.
   // Open daily 8 AM, cash only, 21+.` which ran 200-229 chars across the
   // whole NEAR_TOWNS set — every page truncating mid-sentence in Google
