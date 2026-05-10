@@ -18,7 +18,12 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 //      not-advertising-style copy on regulated cannabis content).
 
 export const metadata: Metadata = {
-  title: "Heroes Discount — Service & Industry",
+  // title.absolute drops template suffix `| Green Life Cannabis` so /heroes
+  // stays under Google's ~60-char SERP cap. Pre-fix the template-appended
+  // version was 62 chars ("Heroes Discount — Service & Industry | Green Life
+  // Cannabis"). Caught 2026-05-10 by /loop deep title sweep. Sister scc
+  // same-push.
+  title: { absolute: "Heroes Discount — Service & Industry · Green Life" },
   // ~155 chars — v10.105 length sweep.
   description: `${STORE.name} Heroes program — military, veterans, first responders, healthcare, K-12 teachers. 30% off every visit with valid ID. Wenatchee.`,
   alternates: { canonical: "/heroes" },

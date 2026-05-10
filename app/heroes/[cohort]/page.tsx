@@ -51,7 +51,7 @@ const COHORTS: Record<string, Cohort> = {
   veterans: {
     slug: "veterans",
     label: "Veterans",
-    metaTitle: `Veteran Cannabis Discount in Wenatchee, WA — ${STORE.name}`,
+    metaTitle: `Veteran Discount Wenatchee, WA — ${STORE.name}`,
     metaDescription: `${STORE.name} thanks Wenatchee-area veterans with 30% off every visit. DD-214, VA card, or VHIC accepted. Any branch, any era.`,
     heroEyebrow: "For veterans",
     heroH1: "Thank you for your service.",
@@ -89,7 +89,7 @@ const COHORTS: Record<string, Cohort> = {
   military: {
     slug: "military",
     label: "Active Military",
-    metaTitle: `Active Military Cannabis Discount Wenatchee — ${STORE.name}`,
+    metaTitle: `Active Military Discount Wenatchee — ${STORE.name}`,
     metaDescription: `${STORE.name} offers active-duty service members 30% off every visit. CAC, military ID, or current orders accepted. National Guard + Reserves welcome.`,
     heroEyebrow: "For active duty",
     heroH1: "On post or off, we've got you.",
@@ -122,7 +122,7 @@ const COHORTS: Record<string, Cohort> = {
   "first-responders": {
     slug: "first-responders",
     label: "First Responders",
-    metaTitle: `First Responder Cannabis Discount Wenatchee — ${STORE.name}`,
+    metaTitle: `First Responder Discount Wenatchee — ${STORE.name}`,
     metaDescription: `${STORE.name} thanks Wenatchee-area first responders with 30% off every visit. Police, sheriff, fire, EMS, paramedics — show your badge or department ID.`,
     heroEyebrow: "For first responders",
     heroH1: "The shift is hard. We get it.",
@@ -160,7 +160,7 @@ const COHORTS: Record<string, Cohort> = {
   healthcare: {
     slug: "healthcare",
     label: "Healthcare Workers",
-    metaTitle: `Healthcare Worker Cannabis Discount Wenatchee — ${STORE.name}`,
+    metaTitle: `Healthcare Worker Discount Wenatchee — ${STORE.name}`,
     metaDescription: `${STORE.name} offers nurses, doctors, hospital staff, and clinic workers 30% off every visit. Show your hospital, clinic, or department badge.`,
     heroEyebrow: "For healthcare",
     heroH1: "We see what you do.",
@@ -202,7 +202,7 @@ const COHORTS: Record<string, Cohort> = {
   teachers: {
     slug: "teachers",
     label: "K-12 Teachers",
-    metaTitle: `Teacher Cannabis Discount Wenatchee, WA — ${STORE.name}`,
+    metaTitle: `Teacher Discount Wenatchee, WA — ${STORE.name}`,
     metaDescription: `${STORE.name} offers Washington-state K-12 teachers 30% off every visit. Show your district ID or pay stub. Public, private, charter — all welcome.`,
     heroEyebrow: "For teachers",
     heroH1: "Thank you for shaping the next generation.",
