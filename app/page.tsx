@@ -145,7 +145,11 @@ export default async function HomePage() {
     getFeaturedProducts(8).catch(() => []),
     getJustInProducts(12).catch(() => []),
     getActiveDeals({ includeAppOnly: true }).catch(() => []),
-    fetchClosureStatus(),
+    // CDN-cache fix: pass `revalidate` so the upstream closure-status fetch
+    // does NOT use `cache: "no-store"` (the default), which would opt the
+    // whole homepage out of ISR despite the `revalidate=60` export. 60s
+    // matches the page's revalidate window.
+    fetchClosureStatus({ revalidate: 60 }),
     getTreasureChestProducts(60).catch(() => []),
   ]);
   const treasureChestCount = treasureChest.length;
