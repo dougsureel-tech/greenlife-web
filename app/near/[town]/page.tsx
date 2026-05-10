@@ -35,7 +35,18 @@ export async function generateMetadata({
   if (!town) return { title: "Not found" };
 
   const title = `${town.name} Dispensary — ${STORE.name}`;
-  const desc = `${town.name} to ${STORE.name}: ${town.driveMins} min via ${town.highway}. ${town.pitch} Open daily 8 AM, cash only, 21+.`;
+  // Pre-fix template combined `town.name → STORE: N min via highway. pitch.
+  // Open daily 8 AM, cash only, 21+.` which ran 200-229 chars across the
+  // whole NEAR_TOWNS set — every page truncating mid-sentence in Google
+  // SERPs (160-char cap). The leading "X to STORE: N min via highway"
+  // was redundant with `town.pitch` (every pitch already names the
+  // route + drive time). Drop it; just use pitch + a shortened CTA
+  // trailer ("Open daily" — implicit 8 AM / 21+ / cash-only on every page
+  // already, no need to repeat in 14 places). New range: 105-145 chars
+  // across the full NEAR_TOWNS set, well under the SERP cap. Caught
+  // 2026-05-10 by /loop tick 6 cross-stack description-length re-audit.
+  // Sister scc same-push.
+  const desc = `${town.pitch} Open daily, cash only, 21+.`;
 
   return {
     title,

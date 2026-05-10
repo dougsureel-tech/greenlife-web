@@ -169,7 +169,7 @@ We don't always get it right. Sometimes a producer goes off, or a strain stops h
     slug: "terpenes-101",
     title: "Terpenes 101 — what makes weed smell different",
     description:
-      "Terpenes are the aromatic compounds that give every strain its smell, flavor, and a lot of its character. Here's how to read them off a label and why a 22% terpy flower can hit harder than a 30% bland one.",
+      "How to read terpenes off a cannabis label, and why a 22% terpy flower can hit harder than a 30% bland one. Quick guide for the curious.",
     category: "Education",
     publishedAt: "2026-05-08",
     readingMinutes: 8,
