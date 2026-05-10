@@ -183,7 +183,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `Browse ${brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
       url: `${STORE.website}/brands/${slug}`,
       type: "website",
-      ...(brand.logoUrl ? { images: [{ url: brand.logoUrl }] } : {}),
+      // Per-route OG at /brands/{slug}/opengraph-image (file convention) —
+      // renders a custom 1200×630 card with brand name + product count +
+      // brand-themed gradient, better-suited for Twitter/FB/iMessage
+      // share-card aspect than the bare brand logo (typically 80×40 or
+      // similar small icon size that crawlers render letterboxed).
+      // Pre-fix conditional `{ images: [{ url: brand.logoUrl }] }` bypassed
+      // the per-route convention when logoUrl was set, putting a tiny
+      // brand-icon image in the share-card slot. Sister T48 /blog/[slug]
+      // same fix class.
+      images: [
+        {
+          url: `/brands/${slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${brand.name} — at ${STORE.name}`,
+        },
+      ],
     },
   };
 }

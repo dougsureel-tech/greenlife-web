@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE } from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 import { withAttr } from "@/lib/attribution";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
@@ -86,7 +86,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description: desc,
       url: `${STORE.website}/deals/${deal.id}`,
       type: "website",
-      images: [DEFAULT_OG_IMAGE],
+      // Per-route OG at /deals/{id}/opengraph-image (file convention).
+      // Sister T48 same fix class — DEFAULT_OG_IMAGE override made the
+      // per-route file dead-code.
+      images: [
+        {
+          url: `/deals/${deal.id}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: deal.short,
+        },
+      ],
     },
   };
 }

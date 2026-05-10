@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { STORE, todayCloseLabel, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE, todayCloseLabel } from "@/lib/store";
 import { getActiveDeals, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { JaneMenu } from "./JaneMenu";
@@ -36,7 +36,18 @@ export const metadata: Metadata = {
     description: `Live cannabis menu — prices, THC/CBD, lab data. ${STORE.address.full}.`,
     url: `${STORE.website}/menu`,
     type: "website",
-    images: [DEFAULT_OG_IMAGE],
+    // Per-route OG at /menu/opengraph-image (file convention). Pre-fix
+    // DEFAULT_OG_IMAGE override made the per-route file dead code; share-
+    // cards rendered homepage OG instead of menu-specific. Sister T48
+    // /blog/[slug] same fix class.
+    images: [
+      {
+        url: "/menu/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `Cannabis Menu — ${STORE.name}`,
+      },
+    ],
   },
   // Partner-presence signal the WP plugin emits. The WP origin (208.109.64.51)
   // shipped <meta name="jane:version" content="1.4.7"/> on every /menu page;
