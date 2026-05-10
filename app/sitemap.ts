@@ -83,16 +83,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    {
-      // Wenatchee-specific alumni self-serve onboarding page (per memory
-      // `project_alumni_self_serve` — Wen-only). Pre-fix this page existed
-      // but wasn't in the sitemap → Google didn't crawl it → SEO loss for
-      // anyone Googling "Green Life Cannabis alumni".
-      url: `${STORE.website}/alumni`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    // /alumni REMOVED 2026-05-10 (sister of cannagent v4.555 sitemap-vs-
+    // canonical conflict fix): app/alumni/layout.tsx sets
+    // `robots: { index: false, follow: false }` (privacy — exposes legacy
+    // team roster + secret-prompt). Sitemap entry contradicted that
+    // signal — Google would skip indexing per the noindex meta tag and
+    // the sitemap entry was wasted crawl-budget noise. Per Google sitemap
+    // docs: don't list URLs that the page-level robots meta excludes from
+    // the index. v9.905 added this entry for "alumni discovery" intent;
+    // the layout.tsx noindex (added later) overrode that intent. Privacy
+    // wins — alumni who know to look can still navigate to /alumni
+    // directly; Google just won't return it for "Green Life Cannabis
+    // alumni" searches. If alumni-discovery becomes important again,
+    // remove the layout.tsx noindex first, then re-add to sitemap.
     {
       url: `${STORE.website}/our-story`,
       lastModified: new Date(),
