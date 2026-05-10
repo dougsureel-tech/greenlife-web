@@ -17,6 +17,8 @@ const contactSchema = {
   mainEntity: { "@id": `${STORE.website}/#dispensary` },
   breadcrumb: {
     "@type": "BreadcrumbList",
+    // T96 entity-graph @id linking pattern (sister T91-T94 sweep).
+    "@id": `${STORE.website}/contact#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
       { "@type": "ListItem", position: 2, name: "Contact", item: `${STORE.website}/contact` },
