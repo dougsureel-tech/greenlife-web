@@ -24,6 +24,7 @@ import GreenRevolutionBrandPage from "./_brands/green-revolution";
 import TwoKGardensBrandPage from "./_brands/2k-gardens";
 import AvitasBrandPage from "./_brands/avitas";
 import BotanicaSeattleBrandPage from "./_brands/botanica-seattle";
+import RaysLemonadeBrandPage from "./_brands/ray-s-lemonade-wa";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR: brand detail pages are pre-rendered for known slugs (via
@@ -65,6 +66,7 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "2k-gardens": TwoKGardensBrandPage,
   "avitas": AvitasBrandPage,
   "botanica-seattle": BotanicaSeattleBrandPage,
+  "ray-s-lemonade-wa": RaysLemonadeBrandPage,
 };
 
 // Slug aliases — friendly customer-facing URLs that map to the actual
@@ -94,6 +96,11 @@ const SLUG_ALIASES: Record<string, string> = {
   "journeyman": "botanica-seattle",
   "spot": "botanica-seattle",
   "botanica": "botanica-seattle",
+  // Ray's Lemonade — vendor row is "ray-s-lemonade-wa" (WSLCB filing
+  // breaks the apostrophe with a hyphen). Add friendly URL aliases.
+  "rays-lemonade": "ray-s-lemonade-wa",
+  "ray-s-lemonade": "ray-s-lemonade-wa",
+  "rays": "ray-s-lemonade-wa",
 };
 
 type Props = { params: Promise<{ slug: string }> };
