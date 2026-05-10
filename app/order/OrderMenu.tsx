@@ -66,7 +66,14 @@ function loadCart(): LoadedCart {
 function saveCart(items: CartItem[]): void {
   if (typeof window === "undefined") return;
   const payload: CartPayloadV1 = { v: 1, savedAt: Date.now(), items };
-  localStorage.setItem("gl_cart", JSON.stringify(payload));
+  try {
+    localStorage.setItem("gl_cart", JSON.stringify(payload));
+  } catch {
+    // iOS Safari private mode + quota-exceeded both throw on setItem.
+    // Cart stays in component state for the session; we just lose the
+    // savedAt persistence. Better than tanking checkout mid-add.
+    // Sister of inv v363.005/v368.405 + scc v11.205 wrapped siblings.
+  }
 }
 type SortKey = "default" | "price-asc" | "price-desc" | "thc-desc" | "name";
 type PriceTier = "all" | "under15" | "15to30" | "over30";
