@@ -109,7 +109,9 @@ export default async function QuizUnsubscribePage({
 }
 
 export const metadata = {
-  title: "Unsubscribed — Green Life Cannabis",
+  // Drop brand from body — template appends `| Green Life Cannabis` once.
+  // T27 duplicate-brand arc-guard catch.
+  title: "Unsubscribed",
   description: "You've been unsubscribed from strain-finder quiz emails.",
   robots: { index: false, follow: false },
 };

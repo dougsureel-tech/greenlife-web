@@ -6,7 +6,9 @@ import { VendorAccessForm } from "./VendorAccessForm";
 // Compliance: this is a contact form, no PHI/PII beyond business contact.
 
 export const metadata: Metadata = {
-  title: "Vendor portal access — Green Life Cannabis",
+  // Drop brand from body — template appends `| Green Life Cannabis`.
+  // T27 duplicate-brand arc-guard catch.
+  title: "Vendor portal access",
   description:
     "Are you a brand we carry (or want us to carry)? Request access to our vendor portal — upload product photos, brand kits, see what we're displaying.",
   alternates: { canonical: "/vendor-access" },

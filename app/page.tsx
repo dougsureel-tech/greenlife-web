@@ -35,7 +35,12 @@ export const metadata: Metadata = {
   // distinct SERP titles — / is the brand-anchor, /menu is "Live
   // Inventory". Title differentiation is what tells Google the two
   // pages aren't competing for the same query.
-  title: `${STORE.name} — Wenatchee Dispensary Since 2014`,
+  // title.absolute drops template suffix `| Green Life Cannabis` so the
+  // brand appears only once. Pre-fix body baked the brand + template
+  // appended it again ("Green Life Cannabis — Wenatchee Dispensary
+  // Since 2014 | Green Life Cannabis", 73 chars, brand x2). Caught
+  // by /loop tick 27 duplicate-brand arc-guard.
+  title: { absolute: `${STORE.name} — Wenatchee Dispensary Since 2014` },
   // ~155 chars (within Google's 160 SERP cap). v10.105 length sweep.
   // Trimmed: removed redundant town list (already in JSON-LD areaServed)
   // + "Open 8 AM daily, later on Fri & Sat" (covered by hours schema).
