@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPost, getPosts } from "@/lib/posts";
+import { getPost, getPosts, fetchDynamicPosts, fetchDynamicPost } from "@/lib/posts";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -12,15 +12,23 @@ type Props = { params: Promise<{ slug: string }> };
 // "not found"-content that Next.js 16 emits by default when dynamicParams=true).
 // SEO impact: Google distinguishes 200-with-error-content from real 404; soft
 // 404s on /blog/[slug] hurt the blog index's authority.
+// New slugs from the inv CMS appear here after the next deploy (or after
+// Next.js ISR re-runs generateStaticParams on a revalidation cycle).
 export const dynamicParams = false;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
-  return getPosts().map((p) => ({ slug: p.slug }));
+  const [staticPosts, dynamicPosts] = await Promise.all([
+    Promise.resolve(getPosts()),
+    fetchDynamicPosts(),
+  ]);
+  const seen = new Set(staticPosts.map((p) => p.slug));
+  return [...staticPosts, ...dynamicPosts.filter((p) => !seen.has(p.slug))].map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPost(slug) ?? (await fetchDynamicPost(slug));
   if (!post) return {};
   return {
     // title.absolute drops the template's ` | Green Life Cannabis` suffix
@@ -136,6 +144,18 @@ function renderMarkdown(md: string): React.ReactElement[] {
   return blocks;
 }
 
+function safeLinkHref(raw: string): string {
+  const trimmed = raw.trim();
+  if (trimmed.startsWith("/") || trimmed.startsWith("#")) return trimmed;
+  try {
+    const u = new URL(trimmed);
+    if (["https:", "http:", "tel:", "mailto:"].includes(u.protocol)) return trimmed;
+  } catch {
+    // invalid URL — fall through
+  }
+  return "#";
+}
+
 function renderInline(text: string): React.ReactNode {
   // Order matters: parse links first, then bold.
   const parts: React.ReactNode[] = [];
@@ -147,7 +167,7 @@ function renderInline(text: string): React.ReactNode {
     parts.push(
       <Link
         key={`l-${match.index}`}
-        href={match[2]}
+        href={safeLinkHref(match[2])}
         className="text-green-700 underline underline-offset-2 hover:text-green-600"
       >
         {boldify(match[1], `lt-${match.index}`)}
@@ -179,7 +199,7 @@ function boldify(text: string, key: string): React.ReactNode {
 
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPost(slug) ?? (await fetchDynamicPost(slug));
   if (!post) notFound();
 
   const url = `${STORE.website}/blog/${slug}`;

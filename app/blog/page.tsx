@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
-import { getPosts } from "@/lib/posts";
+import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
@@ -32,8 +32,14 @@ const CATEGORY_TINT: Record<string, string> = {
   Local: "bg-rose-100 text-rose-700 border-rose-200",
 };
 
-export default function BlogIndex() {
-  const posts = getPosts();
+export const revalidate = 300;
+
+export default async function BlogIndex() {
+  const [staticPosts, dynamicPosts] = await Promise.all([Promise.resolve(getPosts()), fetchDynamicPosts()]);
+  const seen = new Set(staticPosts.map((p) => p.slug));
+  const posts = [...staticPosts, ...dynamicPosts.filter((p) => !seen.has(p.slug))].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
 
   const blogSchema = {
     "@context": "https://schema.org",

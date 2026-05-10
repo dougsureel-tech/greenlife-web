@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getPost } from "@/lib/posts";
+import { getPost, fetchDynamicPost } from "@/lib/posts";
 import { STORE } from "@/lib/store";
 
 // Cache OG image at the CDN edge for 24 hours, serve stale for 7 days.
@@ -32,7 +32,7 @@ const CATEGORY_TONE: Record<string, { eyebrow: string; emoji: string }> = {
 
 export default async function PostOG({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPost(slug) ?? (await fetchDynamicPost(slug));
 
   const title = post?.title ?? "Cannabis guides";
   const description = post?.description ?? "Education, vendor spotlights, and local guides.";

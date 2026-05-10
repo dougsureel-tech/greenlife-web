@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getActiveBrands, getActiveDeals } from "@/lib/db";
 import { STORE } from "@/lib/store";
-import { getPosts } from "@/lib/posts";
+import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
@@ -74,11 +74,14 @@ function isBannedLogoUrl(url: string): boolean {
 const STATIC_LASTMOD = new Date("2026-05-10");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [brands, deals] = await Promise.all([
+  const [brands, deals, dynamicPosts] = await Promise.all([
     getActiveBrands().catch(() => []),
     getActiveDeals().catch(() => []),
+    fetchDynamicPosts().catch(() => []),
   ]);
-  const posts = getPosts();
+  const staticPosts = getPosts();
+  const seenSlugs = new Set(staticPosts.map((p) => p.slug));
+  const posts = [...staticPosts, ...dynamicPosts.filter((p) => !seenSlugs.has(p.slug))];
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: STORE.website, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
