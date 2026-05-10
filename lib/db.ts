@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { cleanBrandName } from "./clean-brand-name";
 
 export type VendorBrand = {
@@ -775,7 +776,20 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
   }));
 }
 
-export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> {
+// Wrapped with React.cache() so generateMetadata + the page component
+// share the same result within a single request. Pre-fix, /loop tick 10
+// JSON-LD audit found ~17 custom-override brand pages emitting only the
+// 3 root-layout JSON-LD blocks (Organization/WebSite/LocalBusiness) and
+// MISSING the page-level Brand/CollectionPage/Product/FAQPage schemas —
+// because generateMetadata's getBrandBySlug call returned null (causing
+// the soft-404 noindex fallback to apply) while the page component's
+// later getBrandBySlug call returned valid data (rendering the brand UI
+// + scripts). The two render paths got DIFFERENT results within the
+// same request — likely because of NOW()-INTERVAL timing in the
+// `brands_with_recent_sales` gate or a transient DB connection state.
+// React.cache dedupes the call: same args → same Promise → same result
+// → both render paths agree. Sister scc same-fix.
+export const getBrandBySlug = cache(async (slug: string): Promise<VendorBrand | null> => {
   const sql = getClient();
   // Bug fix 2026-05-04 (round 2): adds same brands_with_recent_sales
   // gate as getActiveBrands. Direct /brands/abs-buds visit returns null →
@@ -836,7 +850,7 @@ export async function getBrandBySlug(slug: string): Promise<VendorBrand | null> 
     socialX: (r.social_x as string | null) ?? null,
     socialFacebook: (r.social_facebook as string | null) ?? null,
   };
-}
+});
 
 export async function getBrandProducts(vendorId: string) {
   const sql = getClient();
