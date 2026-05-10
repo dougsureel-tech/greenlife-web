@@ -636,9 +636,17 @@ function ApplyForm() {
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* References section uses `autoComplete="off"` — these
+                          fields are NOT the applicant's own info; browser
+                          autofill suggesting the applicant's name/email
+                          into a "reference" slot would create confusing
+                          UX (and the applicant might submit their own
+                          contact info as their own reference). T59 fix —
+                          sister of T58 vendor-access autoComplete sweep. */}
                       <input
                         type="text"
                         placeholder="Name"
+                        autoComplete="off"
                         required={i === 0}
                         value={r.name}
                         onChange={(e) => updateRef(i, { name: e.target.value })}
@@ -647,6 +655,7 @@ function ApplyForm() {
                       <input
                         type="text"
                         placeholder="Relationship (e.g. Past manager)"
+                        autoComplete="off"
                         value={r.relationship}
                         onChange={(e) => updateRef(i, { relationship: e.target.value })}
                         className={inputClass}
@@ -654,6 +663,7 @@ function ApplyForm() {
                       <input
                         type="tel"
                         placeholder="Phone"
+                        autoComplete="off"
                         required={i === 0}
                         value={r.phone}
                         onChange={(e) => updateRef(i, { phone: e.target.value })}
@@ -662,6 +672,7 @@ function ApplyForm() {
                       <input
                         type="email"
                         placeholder="Email (optional)"
+                        autoComplete="off"
                         value={r.email}
                         onChange={(e) => updateRef(i, { email: e.target.value })}
                         className={inputClass}
