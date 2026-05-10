@@ -11,8 +11,10 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About — Best Cannabis Staff in WA",
-  // ~150 chars — v10.105 length sweep.
-  description: `${STORE.name} — Wenatchee's cannabis dispensary since 2014, same building. Knowledgeable budtenders, curated Washington-state cannabis, education-first.`,
+  // Trimmed 163 → 131 chars 2026-05-10 (cross-stack port from cannagent
+  // /about v4.335 trim — same Google SERP cap class). Dropped "same
+  // building" + "Washington-state" → "WA"; brand still leads.
+  description: `${STORE.name} — Wenatchee's cannabis dispensary since 2014. Knowledgeable budtenders, curated WA cannabis, education-first.`,
   alternates: { canonical: "/about" },
   keywords: [
     "Wenatchee cannabis dispensary",
