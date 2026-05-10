@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
 
 // BreadcrumbList JSON-LD — sister of v12.505 /careers fix. Pre-fix
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     description: `Open roles + general intake at ${STORE.name}, ${STORE.address.city} WA. 21+ required.`,
     url: `${STORE.website}/apply`,
     siteName: STORE.name,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: `Apply to work at ${STORE.name}`,
     description: `Open roles + general intake at ${STORE.name}, ${STORE.address.city} WA.`,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

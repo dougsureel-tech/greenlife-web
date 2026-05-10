@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: `${STORE.name} serves ${NEAR_TOWNS.length} towns + neighborhoods across Chelan + Douglas + Okanogan + Grant counties.`,
     url: `${STORE.website}/near`,
     siteName: STORE.name,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

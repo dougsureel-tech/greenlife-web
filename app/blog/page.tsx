@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, STORE_TZ } from "@/lib/store";
+import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getPosts } from "@/lib/posts";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "Cannabis Guides & Vendor Spotlights",
     description: `Long-form cannabis guides + vendor spotlights from ${STORE.name}.`,
     url: `${STORE.website}/blog`,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

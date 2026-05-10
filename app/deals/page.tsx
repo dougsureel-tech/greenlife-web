@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, STORE_TZ, isOpenNow, nextOpenLabel, minutesUntilClose } from "@/lib/store";
+import { STORE, STORE_TZ, isOpenNow, nextOpenLabel, minutesUntilClose, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getActiveDeals, type ActiveDeal } from "@/lib/db";
 import { DealCountdown } from "@/components/DealCountdown";
 import { computeDealCountdown } from "@/lib/deal-countdown";
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     // Explicit reference to the root opengraph-image.tsx route — without it,
     // page-level openGraph fully replaces the parent's auto-injected images
     // and Facebook/Slack/Messages share previews come up imageless.
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

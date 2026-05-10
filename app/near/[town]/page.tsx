@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { NEAR_TOWNS, getTown } from "@/lib/near-towns";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -78,7 +78,7 @@ export async function generateMetadata({
       // it, Next 16 fully replaces the parent's auto-injected images and
       // /near share previews come up imageless on Slack/iMessage/Facebook.
       // Same pattern as app/deals/page.tsx.
-      images: ["/opengraph-image"],
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

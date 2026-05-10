@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 import { withAttr } from "@/lib/attribution";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description: desc,
       url: `${STORE.website}/deals/${deal.id}`,
       type: "website",
-      images: ["/opengraph-image"],
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

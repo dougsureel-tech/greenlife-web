@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
-import { STORE, getOrderingStatus } from "@/lib/store";
+import { STORE, getOrderingStatus, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getLoyaltyByClerkId } from "@/lib/portal";
 import { OrderMenu } from "./OrderMenu";
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     // Explicit ref to root opengraph-image — Next 16 metadata cascade
     // fully replaces parent's auto-injected images. Pre-fix /order
     // share-previews rendered imageless. Sister of v7.565 /near fix.
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

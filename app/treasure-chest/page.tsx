@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: "Clearance lane — last-of-batch flower, vapes, edibles & concentrates.",
     url: `${STORE.website}/treasure-chest`,
     type: "website",
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

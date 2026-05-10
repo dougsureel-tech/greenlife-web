@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // /heroes — informational landing for the Heroes service discount.
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: `Heroes Discount · ${STORE.name}`,
     description: `30% off for active military, veterans, first responders, healthcare workers, and K-12 teachers. Show valid ID at the register.`,
     url: `${STORE.website}/heroes`,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

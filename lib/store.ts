@@ -66,6 +66,26 @@ export const STORE = {
 // `STORE_TZ` consolidation closed in v167.665.
 export const STORE_TZ = "America/Los_Angeles";
 
+// Default OG image shape — pages should use this constant instead of the
+// string form `images: ["/opengraph-image"]`. The string form ONLY emits
+// `<meta property="og:image">`; share-card crawlers (Facebook, LinkedIn,
+// Slack, Discord, iMessage) that prefer pre-loaded image dimensions
+// then fall back to the homepage default size or render the card with a
+// "loading" placeholder. The object form below emits `og:image:width`,
+// `og:image:height`, `og:image:type`, and `og:image:alt` alongside the
+// URL — full unfurl support across every share surface.
+//
+// 1200×630 matches `app/opengraph-image.tsx` size export. Any per-route
+// `opengraph-image.tsx` override at a deeper path STILL wins over this
+// (Next 16 image-convention beats explicit metadata when both match).
+export const DEFAULT_OG_IMAGE = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${STORE.name} — Cannabis Dispensary in ${STORE.address.city}, WA`,
+  type: "image/png",
+} as const;
+
 const TZ = STORE_TZ;
 
 function toMin(t: string): number {

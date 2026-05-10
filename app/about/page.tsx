@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, STORE_TZ } from "@/lib/store";
+import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { ALUMNI_TEAM, CURRENT_TEAM, initialOf } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: `Wenatchee cannabis dispensary, founded 2014. Knowledgeable budtenders, curated catalog, education first.`,
     url: `${STORE.website}/about`,
     type: "website",
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

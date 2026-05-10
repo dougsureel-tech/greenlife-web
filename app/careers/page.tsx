@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
 
 // BreadcrumbList JSON-LD — sister of cannagent v3.391 100% indexable
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     description: `Open positions at Wenatchee's best-staffed cannabis dispensary. Apply online.`,
     url: `${STORE.website}/careers`,
     type: "website",
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

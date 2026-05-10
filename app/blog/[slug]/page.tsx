@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts } from "@/lib/posts";
-import { STORE, STORE_TZ } from "@/lib/store";
+import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${STORE.website}/blog/${slug}`,
       publishedTime: post.publishedAt,
       ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}),
-      images: ["/opengraph-image"],
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

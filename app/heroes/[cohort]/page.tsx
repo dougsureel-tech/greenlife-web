@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -279,7 +279,7 @@ export async function generateMetadata({
       title: c.metaTitle,
       description: c.metaDescription,
       url: `${STORE.website}/heroes/${c.slug}`,
-      images: ["/opengraph-image"],
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

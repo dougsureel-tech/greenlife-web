@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
-import { STORE } from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { LEARN_TOPICS } from "@/lib/learn-topics";
 import { getCompletedSteps } from "@/lib/learn-db";
 import { LearnProgress } from "./LearnProgress";
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     // og:url added 2026-05-10 (T21) — pre-fix /learn fell back to
     // layout's homepage URL. Sister of T19/T20 shallow-overwrite class.
     url: `${STORE.website}/learn`,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
