@@ -93,6 +93,22 @@ const nextConfig: NextConfig = {
           // /loop saturation grind 2026-05-09 security-header audit.
           // Sister scc same fix.
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Strict-Transport-Security: 2 years + includeSubDomains + preload.
+          // Pre-fix Vercel served only the `max-age=63072000` default (no
+          // includeSubDomains, no preload directive). GW + cannagent + sureel
+          // + vrg all already serve the full directive set; glw + scc were
+          // the only stack outliers. Adding the directive header doesn't
+          // automatically register us on the hstspreload.org preload list —
+          // that's a separate Doug-action submission. The directive in
+          // isolation just CLAIMS the site is preload-ready, which costs
+          // nothing if we don't submit. Caught 2026-05-10 by /loop tick 26
+          // cross-stack HSTS audit. Sister scc same-push.
+          //
+          // Doug-action queue: when ready, submit greenlifecannabis.com
+          // (apex + www) at https://hstspreload.org/ to lock browsers into
+          // HTTPS-only enforcement. **Hard-to-reverse** (≥6mo to delist) —
+          // confirm the apex serves clean HSTS for ≥1 month first.
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
         ],
       },
       // Edge-cache pin for crawler-facing files. Next 16 file conventions
