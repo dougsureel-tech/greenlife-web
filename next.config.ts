@@ -109,6 +109,22 @@ const nextConfig: NextConfig = {
           // HTTPS-only enforcement. **Hard-to-reverse** (≥6mo to delist) —
           // confirm the apex serves clean HSTS for ≥1 month first.
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+          // Cross-Origin-Opener-Policy `same-origin` — isolates this site's
+          // browsing context from cross-origin windows opened via
+          // window.open(). Protects against Spectre/Meltdown side-channel
+          // attacks on shared memory + against cross-origin window.opener
+          // manipulation. Pre-fix glw + scc were the LONE outliers across
+          // the 6-site stack — cannagent + GW + sureel + vrg all served
+          // `cross-origin-opener-policy: same-origin`. (GW v2.95.10
+          // changelog claimed glw + scc had it; verified absent via curl
+          // 2026-05-10 — the GW note was wrong about glw + scc.) Safe vs
+          // iHeartJane Boost: Boost uses iframes (not popups), and COOP
+          // only affects window.open() popup browsing contexts. CORP
+          // intentionally NOT set: marketing OG images need to be
+          // embeddable on Twitter/Facebook/Slack share-card crawlers,
+          // which would break under same-origin CORP. Caught 2026-05-10
+          // by /loop tick 44 cross-stack COOP audit. Sister scc same-fix.
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
         ],
       },
       // Edge-cache pin for crawler-facing files. Next 16 file conventions
