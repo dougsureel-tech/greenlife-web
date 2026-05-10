@@ -57,7 +57,7 @@ const REVIEWS: Review[] = [
     author: "Tony G.",
     city: "Wenatchee",
     rating: 5,
-    text: "Order ahead, walk in, walk out — that's the workflow when you've got 10 minutes. They've got a customer for life. Locally owned, which I'll always support over a chain.",
+    text: "Order ahead, walk in, walk out — that's the workflow when you've got 10 minutes. They've got a customer for life.",
     date: "2026-04-29",
   },
 ];
