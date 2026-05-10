@@ -115,6 +115,8 @@ export default function CommunityPage() {
                       src={m.photoSrc}
                       alt={`${m.name} — ${m.role}`}
                       loading="lazy"
+                      width={48}
+                      height={48}
                       className="w-12 h-12 rounded-xl object-cover"
                     />
                   ) : (

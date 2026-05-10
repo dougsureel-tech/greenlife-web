@@ -218,6 +218,8 @@ function PersonCard({ member, muted = false }: { member: TeamMember; muted?: boo
           src={member.photoSrc}
           alt={member.name}
           loading="lazy"
+          width={56}
+          height={56}
           className={`shrink-0 w-14 h-14 rounded-full object-cover ${muted ? "grayscale-[20%]" : ""}`}
         />
       ) : (
