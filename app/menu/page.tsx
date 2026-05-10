@@ -84,9 +84,13 @@ const IHEARTJANE_EMBED_CONFIG_ID = 234;
 // instead of stacking serially.
 async function prewarmDutchieMenu(): Promise<void> {
   try {
+    // CDN-cache fix (v20.605): was `cache: "no-store"` which opted the
+    // entire /menu page out of ISR per `feedback_isr_killed_by_no_store_fetch`.
+    // Switched to `next: { revalidate: 60 }` — we still warm Jane's CDN
+    // on each ISR revalidate (every 60s), but our own page can prerender.
     await fetch(
       `https://api.iheartjane.com/api/v1/stores/${IHEARTJANE_STORE_ID}/menu_products?per_page=1`,
-      { signal: AbortSignal.timeout(1500), cache: "no-store" },
+      { signal: AbortSignal.timeout(1500), next: { revalidate: 60 } },
     );
   } catch {
     // expected: timeout, Jane down, network blip — page render proceeds
