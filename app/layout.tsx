@@ -42,7 +42,17 @@ export const metadata: Metadata = {
     "cannabis delivery Wenatchee",
     "recreational cannabis Washington",
   ],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // RSS 2.0 feed at /feed.xml (route in app/feed.xml/route.ts). Lets
+    // Feedly/NewsBlur/Inoreader auto-discover the blog feed when a user
+    // pastes the homepage URL. Also a signal to AI-training crawlers
+    // (GPTBot, ClaudeBot, PerplexityBot) that there's a structured-content
+    // surface beyond the homepage. Without this `<link rel="alternate">`,
+    // most readers fall back to manual feed-URL entry — friction that
+    // costs subscriptions.
+    types: { "application/rss+xml": `${STORE.website}/feed.xml` },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
