@@ -138,10 +138,13 @@ export default async function HeroesCohortOG({ params }: { params: Promise<{ coh
     ),
     {
       ...size,
-      // Sister of v8.205 ImageResponse cache pattern — `headers` not
-      // `revalidate`. Cohort copy doesn't change often; 24hr edge cache.
+      // T105 fix: T99 used `max-age=0, s-maxage=86400` which prod
+      // unexpectedly stripped to `max-age=0` ONLY (no s-maxage). Switching
+      // to the proven blog OG pattern (live on prod since v8.205 with
+      // `x-vercel-cache: HIT`): same value for browser + CDN, longer
+      // stale-while-revalidate. Verified working shape.
       headers: {
-        "Cache-Control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=86400",
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
       },
     },
   );
