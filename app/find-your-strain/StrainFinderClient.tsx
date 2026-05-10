@@ -240,7 +240,7 @@ export function StrainFinderClient() {
             {phase === "capture" ? "Your match" : "Your picks"}
           </span>
           {picksSoFar.map((p) => (
-            <button
+            <button type="button"
               key={p.key}
               onClick={() => {
                 // From capture, jumping to a quiz step undoes the
@@ -281,7 +281,7 @@ export function StrainFinderClient() {
             {step.options.map((opt) => {
               const selected = answers[step.key] === opt.value && opt.value !== "";
               return (
-                <button
+                <button type="button"
                   key={opt.label}
                   onClick={() => pick(opt.value)}
                   disabled={submitting}
@@ -308,7 +308,7 @@ export function StrainFinderClient() {
 
           {/* Footer controls — quiz phase */}
           <div className="flex items-center justify-between pt-2">
-            <button
+            <button type="button"
               onClick={back}
               disabled={stepIdx === 0 || submitting}
               className="text-xs text-stone-500 hover:text-stone-700 disabled:opacity-30 disabled:cursor-not-allowed font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"

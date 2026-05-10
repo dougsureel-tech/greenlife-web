@@ -80,7 +80,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             <div className="text-sm font-medium text-stone-800">SMS Notifications</div>
             <div className="text-xs text-stone-400 mt-0.5">Text me when my order is ready</div>
           </div>
-          <button
+          <button type="button"
             onClick={() => setSmsOptIn(!smsOptIn)}
             aria-checked={smsOptIn}
             role="switch"
@@ -97,7 +97,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             <div className="text-xs text-stone-400 mt-0.5">Email receipts + the monthly newsletter</div>
             <div className="text-[11px] text-green-700 mt-1">Either toggle on = 0.5 pt per $1 spent (vs 0.25)</div>
           </div>
-          <button
+          <button type="button"
             onClick={() => setEmailOptIn(!emailOptIn)}
             aria-checked={emailOptIn}
             role="switch"
@@ -146,7 +146,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             <div className="text-sm font-medium text-stone-800">No Substitutions</div>
             <div className="text-xs text-stone-400 mt-0.5">Don&apos;t swap unavailable items — leave them off my order</div>
           </div>
-          <button
+          <button type="button"
             onClick={() => setNoSubstitutePref(!noSubstitutePref)}
             aria-checked={noSubstitutePref}
             role="switch"
@@ -182,7 +182,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
 
       {/* Save button + confirmation */}
       <div className="space-y-2">
-        <button
+        <button type="button"
           onClick={save}
           disabled={saving}
           className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all ${

@@ -135,7 +135,7 @@ export function PushSubscribe({ compact = false }: { compact?: boolean } = {}) {
         </div>
       )}
       <div className="flex items-center gap-3">
-        <button
+        <button type="button"
           onClick={isSubscribed ? unsubscribe : subscribe}
           disabled={working}
           className={`text-sm font-bold px-4 py-2 rounded-xl transition-all disabled:opacity-50 ${

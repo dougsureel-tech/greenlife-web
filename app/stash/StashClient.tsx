@@ -90,7 +90,7 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
           <span className="font-bold text-stone-900">{saved.length}</span>{" "}
           {saved.length === 1 ? "product" : "products"} saved
         </p>
-        <button
+        <button type="button"
           onClick={() => {
             if (confirm("Clear your entire stash?")) stash.clear();
           }}

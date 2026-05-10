@@ -36,7 +36,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
             Try a refresh, or call us at {STORE.phone} — we can take your order over the phone.
           </p>
           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <button
+            <button type="button"
               onClick={reset}
               style={{
                 padding: "0.625rem 1.25rem",
@@ -51,7 +51,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
             >
               Try again
             </button>
-            <button
+            <button type="button"
               onClick={() => {
                 window.location.href = "/";
               }}

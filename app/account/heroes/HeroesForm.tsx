@@ -174,7 +174,7 @@ export function HeroesForm({ current }: { current: HeroesAttestType }) {
 
       {/* Save */}
       <div className="space-y-2">
-        <button
+        <button type="button"
           onClick={save}
           disabled={saving || !dirty}
           className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all ${

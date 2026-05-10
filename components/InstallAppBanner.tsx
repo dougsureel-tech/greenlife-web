@@ -184,7 +184,7 @@ export function InstallAppBanner() {
                 App-only deals · your rewards · drop notifications · faster ordering.
               </p>
             </div>
-            <button
+            <button type="button"
               onClick={install}
               disabled={platform === "android" && !installEvent}
               className="bg-white text-green-800 text-sm font-semibold px-3.5 py-2 rounded-lg shadow-sm hover:bg-green-50 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-wait"
@@ -192,7 +192,7 @@ export function InstallAppBanner() {
             >
               {platform === "android" && !installEvent ? "…" : "Install"}
             </button>
-            <button
+            <button type="button"
               onClick={dismiss}
               className="text-green-200 hover:text-white p-1 -mr-1 rounded-md transition-colors"
               aria-label="Dismiss install banner"
@@ -250,13 +250,13 @@ export function InstallAppBanner() {
               </li>
             </ol>
 
-            <button
+            <button type="button"
               onClick={() => setIosSheetOpen(false)}
               className="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition-colors"
             >
               Got it
             </button>
-            <button
+            <button type="button"
               onClick={dismiss}
               className="w-full text-stone-500 text-sm py-2 mt-2 hover:text-stone-700 transition-colors"
             >

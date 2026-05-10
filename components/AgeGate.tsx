@@ -134,13 +134,13 @@ export function AgeGate() {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <button
+          <button type="button"
             onClick={confirm}
             className="flex-1 py-3.5 px-6 rounded-2xl bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold text-base transition-all shadow-lg shadow-green-900/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-950"
           >
             Yes, I&apos;m 21+
           </button>
-          <button
+          <button type="button"
             onClick={deny}
             className="flex-1 py-3.5 px-6 rounded-2xl border border-green-800 hover:border-green-700 hover:bg-green-900/40 text-green-400 hover:text-green-300 font-semibold text-base transition-all focus:outline-none focus:ring-2 focus:ring-green-800"
           >
