@@ -1240,6 +1240,11 @@ export default async function HomePage() {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "HowTo",
+                // Stable @id — sister of Organization/WebSite/LocalBusiness @id
+                // pattern in the same JSON-LD graph. Lets the HowTo entity be
+                // referenced from sibling nodes (FAQPage, BreadcrumbList) in
+                // the homepage entity graph. Pattern from T87/T88 GW work.
+                "@id": `${STORE.website}/#howto-pickup`,
                 name: `How to order cannabis for pickup at ${STORE.name}`,
                 description:
                   "Three-step pickup flow: build your cart online, we prep it, you pay cash and walk out. Most orders ready in 10–20 minutes.",
@@ -1750,6 +1755,9 @@ function FaqSection() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    // Stable @id — sister of Organization/WebSite/LocalBusiness/HowTo @id
+    // entity-graph linking on the same homepage. Pattern from T87/T88.
+    "@id": `${STORE.website}/#faq`,
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
