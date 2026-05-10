@@ -158,7 +158,7 @@ export function SiteFooter() {
 
         {/* Hours */}
         <div className="speakable-hours space-y-3">
-          <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Hours</h3>
+          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">Hours</h2>
           <ul className="space-y-1.5">
             {STORE.hours.map((h) => (
               <li key={h.day} className="flex justify-between text-xs gap-4">
@@ -176,7 +176,7 @@ export function SiteFooter() {
             secondary-links row below the main grid so Explore stays a
             scan-able marketing column, not a sitemap dump. */}
         <div className="space-y-3">
-          <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Explore</h3>
+          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">Explore</h2>
           <ul className="space-y-2">
             {[
               { href: "/menu", label: "Shop Menu" },
@@ -199,7 +199,7 @@ export function SiteFooter() {
 
         {/* Nearby cities — internal-link / local-SEO juice */}
         <div className="space-y-3">
-          <h3 className="text-white font-semibold text-xs uppercase tracking-widest">We serve</h3>
+          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">We serve</h2>
           <ul className="space-y-2">
             {[
               "Wenatchee",
