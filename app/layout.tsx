@@ -112,6 +112,23 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Green Life",
   },
+  // iOS auto-formats numeric strings as tap-callable / tap-mail / tap-date
+  // by default — body text containing zip codes (98801), WSLCB license
+  // numbers (414755), prices ($25), dates (5/15), addresses, etc gets
+  // auto-styled as tap targets that on click open the dialer / Maps /
+  // Calendar. Customer trying to highlight an address may accidentally
+  // open Maps; tapping a 5-digit number expecting it to be a zip may
+  // dial it as a phone extension. Disable auto-detection sitewide; we
+  // already use explicit `<a href="tel:…">` for the actual phone number
+  // (verified — STORE.phoneTel surfaced in 3+ tel-href hits per page).
+  // Sister scc + GW same-fix v15.X / v13.X / v2.96.50. Caught
+  // 2026-05-10 by /loop tick 42 cross-stack format-detection audit.
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+  },
   // Explicit apple-touch-icon link — Next 16 doesn't auto-emit `<link
   // rel="apple-touch-icon">` for route-handler-based icons (we use
   // `app/apple-icon.png/route.tsx` for dynamic ImageResponse generation,
