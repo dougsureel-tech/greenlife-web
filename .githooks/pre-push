@@ -35,7 +35,9 @@ for gate in \
   scripts/check-title-length-html.mjs \
   scripts/check-description-length-html.mjs \
   scripts/check-button-type.mjs \
-  scripts/check-csp-report-only.mjs; do
+  scripts/check-csp-report-only.mjs \
+  scripts/check-html-entities-jsx.mjs \
+  scripts/check-server-actions-async.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -44,6 +46,6 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (9/9)"
+echo "  ✓ Build-gates OK (11/11)"
 
 exit 0

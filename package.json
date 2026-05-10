@@ -16,7 +16,9 @@
     "check:per-route-og-image": "node scripts/check-per-route-og-image.mjs",
     "check:title-length-html": "node scripts/check-title-length-html.mjs",
     "check:description-length-html": "node scripts/check-description-length-html.mjs",
-    "check:button-type": "node scripts/check-button-type.mjs"
+    "check:button-type": "node scripts/check-button-type.mjs",
+    "check:html-entities-jsx": "node scripts/check-html-entities-jsx.mjs",
+    "check:server-actions-async": "node scripts/check-server-actions-async.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",

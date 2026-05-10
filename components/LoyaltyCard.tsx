@@ -87,7 +87,7 @@ export function LoyaltyCard({ snapshot }: { snapshot: LoyaltySnapshot | null }) 
               {snapshot.dollarValue > 0 && (
                 <>
                   {" "}
-                  &middot;{" "}
+                  ·{" "}
                   <span className="text-emerald-300 font-bold">~${snapshot.dollarValue} off</span> next
                   visit
                 </>

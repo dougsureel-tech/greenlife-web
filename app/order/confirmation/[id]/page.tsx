@@ -216,7 +216,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
             </div>
           )}
           <div className="px-5 py-4 bg-stone-50 flex items-center justify-between">
-            <p className="text-sm text-stone-500">Est. total &middot; cash in store</p>
+            <p className="text-sm text-stone-500">Est. total · cash in store</p>
             <p className="text-xl font-extrabold text-stone-900 tabular-nums">${order.subtotal.toFixed(2)}</p>
           </div>
         </div>
