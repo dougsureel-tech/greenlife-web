@@ -35,6 +35,62 @@ import type { NextConfig } from "next";
 // Permissions-Policy presence sweep — glw + scc were the lone outliers
 // using only the WP-mirror policy without the hardened camera/mic/geo
 // lockdown the other 4 sites carry.
+// CSP Report-Only — closes Doug-action #2 from the round-3 close pin.
+// Report-Only means the browser LOGS violations to DevTools console but
+// does NOT block requests — this gives us a 1-2 week observation window
+// to see what legitimate traffic would be affected before we flip to
+// enforce mode (Content-Security-Policy header with same value).
+//
+// Why permissive starting policy: glw embeds iHeartJane Boost which loads
+// scripts + fetches data from multiple iHJ subdomains (api.iheartjane.com,
+// search.iheartjane.com, boost-assets.iheartjane.com, www.iheartjane.com).
+// Boost also injects inline <script>/<style> hydration code → 'unsafe-
+// inline' on script-src + style-src is required for Boost to render.
+// Vendor brand logos come from many CDNs (squarespace-cdn, weedmaps,
+// brand-owned WP uploads) → img-src https: catches all. Vercel Analytics
+// + GA4 + Web Vitals reporting need https://*.vercel-scripts.com +
+// https://*.vercel-insights.com + GA endpoints → script-src + connect-src
+// allow those. Cloudflare/recaptcha trust-token endpoints (already in
+// Permissions-Policy private-state-token-* allowlist) need to be in
+// connect-src too.
+//
+// frame-src ONLY allows iHeartJane subdomains (no other iframes used on
+// glw). object-src 'none' blocks Flash/PDF embed (no use case). base-uri
+// 'self' prevents <base> tag injection. form-action 'self' prevents form
+// hijacking. frame-ancestors 'self' allows our own embed (matches
+// X-Frame-Options: SAMEORIGIN already set above).
+//
+// No report-uri yet — browsers log to DevTools console. Future tick:
+// add /api/csp-report endpoint to capture violations into Postgres for
+// centralized analysis. For now: Doug observes via Chrome DevTools
+// Network/Console tab on key pages (/, /menu, /deals, /brands/<slug>,
+// /heroes/*) before flipping to enforce.
+//
+// SAFETY: Report-Only header CANNOT break the page. Worst case the
+// console gets noisy. iHJ Boost rendering, payment flows (none on glw
+// — cash-only), forms — all unaffected by Report-Only.
+const CSP_REPORT_ONLY =
+  "default-src 'self'; " +
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' " +
+    "https://*.vercel-scripts.com https://*.iheartjane.com " +
+    "https://www.googletagmanager.com https://www.google-analytics.com " +
+    "https://challenges.cloudflare.com https://www.google.com https://www.gstatic.com https://recaptcha.net https://hcaptcha.com; " +
+  "style-src 'self' 'unsafe-inline' https://*.iheartjane.com; " +
+  "img-src 'self' data: blob: https:; " +
+  "font-src 'self' data: https:; " +
+  "connect-src 'self' https://*.vercel-insights.com https://*.vercel-scripts.com " +
+    "https://*.iheartjane.com https://api.iheartjane.com https://search.iheartjane.com " +
+    "https://www.google-analytics.com https://*.google-analytics.com " +
+    "https://challenges.cloudflare.com https://www.google.com https://www.gstatic.com " +
+    "https://recaptcha.net https://hcaptcha.com; " +
+  "frame-src 'self' https://*.iheartjane.com https://www.google.com https://challenges.cloudflare.com https://hcaptcha.com; " +
+  "media-src 'self' blob:; " +
+  "worker-src 'self' blob:; " +
+  "object-src 'none'; " +
+  "base-uri 'self'; " +
+  "form-action 'self'; " +
+  "frame-ancestors 'self'";
+
 const PERMISSIONS_POLICY =
   'private-state-token-redemption=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
   'private-state-token-issuance=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
@@ -148,6 +204,15 @@ const nextConfig: NextConfig = {
           // which would break under same-origin CORP. Caught 2026-05-10
           // by /loop tick 44 cross-stack COOP audit. Sister scc same-fix.
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          // T108 — CSP Report-Only kicks off Doug-action #2 from round-3
+          // close. See `CSP_REPORT_ONLY` const at top of file for full
+          // rationale + safety context. Report-Only CANNOT block requests;
+          // browsers log violations to DevTools Console only. Observation
+          // window: ~1-2 weeks. Flip to enforce mode by changing the key
+          // from `Content-Security-Policy-Report-Only` to
+          // `Content-Security-Policy` (and only then will violations actually
+          // block). Sister scc same-add.
+          { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
         ],
       },
       // Edge-cache pin for crawler-facing files. Next 16 file conventions
