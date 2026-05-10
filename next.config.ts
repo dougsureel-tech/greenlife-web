@@ -163,7 +163,20 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
       },
       {
-        source: "/apple-icon",
+        // Path is `/apple-icon.png` (with `.png` suffix), not `/apple-icon`.
+        // Next 16 file convention `app/apple-icon.png/route.tsx` registers
+        // the route at the literal path matching the directory name —
+        // including the `.png` suffix. Layout's `<link rel="apple-touch-
+        // icon" href="/apple-icon.png">` matches; the prior cache rule
+        // (`source: "/apple-icon"`) MISSED the actual path, so every iOS
+        // Safari Add-to-Home-Screen fetch + every iOS prefetch of the
+        // 180×180 PNG hit the Vercel function uncached. Verified pre-fix
+        // via curl: `/apple-icon` → 404 with cached header (ironic),
+        // `/apple-icon.png` → 200 with `cache-control: max-age=0,
+        // must-revalidate` (Vercel default). Now: 24hr edge cache on the
+        // actual path. Sister scc same-fix. Caught 2026-05-10 by /loop
+        // tick 47 cross-stack /apple-icon.png cache audit.
+        source: "/apple-icon.png",
         headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
       },
       {
