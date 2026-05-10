@@ -8,7 +8,7 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "FAQ — Hours, ID, Payment, Heroes, Loyalty",
+  title: "FAQ — Hours, ID, Payment, Loyalty",
   // ~150 chars — v10.105 length sweep.
   description: `Common questions about ${STORE.name} — hours, ID, payment, parking, first-time visitors, Heroes 30% discount, loyalty rewards.`,
   alternates: { canonical: "/faq" },

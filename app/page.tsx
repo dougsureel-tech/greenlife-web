@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   // distinct SERP titles — / is the brand-anchor, /menu is "Live
   // Inventory". Title differentiation is what tells Google the two
   // pages aren't competing for the same query.
-  title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
+  title: `${STORE.name} — Wenatchee Dispensary Since 2014`,
   // ~155 chars (within Google's 160 SERP cap). v10.105 length sweep.
   // Trimmed: removed redundant town list (already in JSON-LD areaServed)
   // + "Open 8 AM daily, later on Fri & Sat" (covered by hours schema).
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: "website",
     url: STORE.website,
     siteName: STORE.name,
-    title: `${STORE.name} | Cannabis Dispensary in ${STORE.address.city}, WA — Founded 2014`,
+    title: `${STORE.name} — Wenatchee Dispensary Since 2014`,
     description: `Wenatchee's cannabis shop since 2014. Best staff in the Valley. ${STORE.address.full}.`,
     images: [
       {

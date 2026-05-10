@@ -13,7 +13,7 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Visit — Hours, Directions, What to Bring",
+  title: "Visit — Hours, Parking, ID",
   // ~150 chars — v10.105 length sweep.
   description: `Visit ${STORE.name} at ${STORE.address.full}. Hours, parking, ID requirements, directions. ATM on-site, free parking, ADA accessible.`,
   alternates: { canonical: "/visit" },

@@ -54,7 +54,7 @@ async function fetchOpenPositions(): Promise<Position[]> {
 }
 
 export const metadata: Metadata = {
-  title: "Careers — Work with Wenatchee's best cannabis staff",
+  title: "Careers — Wenatchee's Best Cannabis Team",
   description: `Open positions at ${STORE.name} in Wenatchee. Budtender, lead, and inventory roles. Apply online — we review every application.`,
   alternates: { canonical: "/careers" },
   openGraph: {

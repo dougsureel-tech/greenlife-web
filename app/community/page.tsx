@@ -17,7 +17,7 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 // when partner-tracking ships.
 
 export const metadata: Metadata = {
-  title: "Our Community — Featured People & Partners",
+  title: "Our Community — People & Partners",
   description: `The folks who built and continue to build ${STORE.name}. Past staff, future partners. We're growing the community over time.`,
   alternates: { canonical: "/community" },
   openGraph: {

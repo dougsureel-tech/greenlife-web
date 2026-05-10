@@ -6,7 +6,7 @@ import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const metadata: Metadata = {
-  title: "Find Your Strain — 3-Question Cannabis Quiz",
+  title: "Find Your Strain — 3-Question Quiz",
   // ~155 chars — v10.105 length sweep.
   description: `Quick 3-question quiz to match you with the right cannabis at ${STORE.name}. Pick a moment, a form, and a strain type — we filter the live menu.`,
   alternates: { canonical: "/find-your-strain" },
