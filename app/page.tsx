@@ -12,6 +12,7 @@ import { DropTicker } from "@/components/DropTicker";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
 import { TownCardLink } from "@/components/TownCardLink";
+import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR: home page hits Neon 3x per request (getActiveBrands, getFeaturedProducts,
@@ -133,16 +134,17 @@ const STATS = [
 ];
 
 export default async function HomePage() {
-  // PWA-install detection — same cookie that /deals reads. Drives whether
-  // the homepage Today's-deals strip surfaces app_only deals to this
-  // customer. Symmetry with the /deals filter (v4.495).
-  const cookieStore = await import("next/headers").then((m) => m.cookies());
-  const isInstalled = cookieStore.get("glw_pwa_installed")?.value === "1";
+  // CDN-cache fix: previously called `cookies()` to read `glw_pwa_installed`
+  // and pass `includeAppOnly` through. That opted the whole page out of
+  // CDN caching despite `revalidate=60` (TTFB ~210ms vs cannagent's 59ms).
+  // Now we always fetch the full deal set (app-only included) and hide
+  // PWA-gated cards client-side via <AppOnlyDealsFilter />. ~50ms pre-
+  // hydrate flicker is the accepted tradeoff for the cache win.
   const [brands, featured, justIn, deals, closure, treasureChest] = await Promise.all([
     getActiveBrands().catch(() => []),
     getFeaturedProducts(8).catch(() => []),
     getJustInProducts(12).catch(() => []),
-    getActiveDeals({ includeAppOnly: isInstalled }).catch(() => []),
+    getActiveDeals({ includeAppOnly: true }).catch(() => []),
     fetchClosureStatus(),
     getTreasureChestProducts(60).catch(() => []),
   ]);
@@ -719,6 +721,7 @@ export default async function HomePage() {
             stays /deals (full list); this is just the top-3-by-end-date
             teaser sorted via getActiveDeals (NULLS LAST so a deal ending
             today floats to the front). */}
+      <AppOnlyDealsFilter />
       {deals.length > 0 && (
         <section className="bg-gradient-to-b from-amber-50/70 via-white to-white border-b border-stone-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
@@ -757,7 +760,9 @@ export default async function HomePage() {
                 const ends = d.endDate
                   ? (() => {
                       const date = new Date(`${d.endDate}T12:00:00`);
-                      // force-dynamic page: server-rendered per request, Date.now() OK.
+                      // ISR-cached page (revalidate=60): Date.now() is frozen at
+                      // last cache-fill, so "Ends today" labels can drift up to
+                      // 60s. Acceptable — daily granularity for renewal urgency.
                       const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
                       if (days <= 0) return { label: "Ends today", urgent: true };
                       if (days === 1) return { label: "Ends tomorrow", urgent: true };
@@ -773,6 +778,7 @@ export default async function HomePage() {
                   <Link
                     key={d.id}
                     href="/deals"
+                    data-app-only={d.appOnly ? "1" : "0"}
                     className="group flex flex-col rounded-2xl border border-amber-200 bg-white p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-amber-300 transition-all"
                   >
                     <span className="inline-flex items-center self-start gap-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wide px-2.5 py-1">
