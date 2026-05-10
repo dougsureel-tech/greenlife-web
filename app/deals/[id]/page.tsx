@@ -48,8 +48,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     }
   }
   const desc = deal.description ?? `${deal.short} at ${STORE.name} in ${STORE.address.city}, WA.`;
+  // Fixed 2026-05-10 — pre-fix `${deal.short} — ${deal.name}` rendered as
+  // "X — X" because deal.short and deal.name are typically identical
+  // strings in the DB ("Birthday Bud — 20% Off (Birthday Week) — Birthday
+  // Bud — 20% Off (Birthday Week) | Green Life Cannabis" = 101 chars).
+  // title.absolute bypasses the template suffix; brand kept once.
+  // Caught by /loop cross-stack dynamic-title sweep.
   return {
-    title: `${deal.short} — ${deal.name}`,
+    title: { absolute: `${deal.short} | ${STORE.name}` },
     description: desc,
     alternates: { canonical: `/deals/${deal.id}` },
     openGraph: {

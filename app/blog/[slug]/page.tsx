@@ -23,7 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost(slug);
   if (!post) return {};
   return {
-    title: post.title,
+    // title.absolute drops the template's ` | Green Life Cannabis` suffix
+    // so the article title alone fills the SERP slot. Pre-fix titles like
+    // "The Complete Guide to Cannabis in Wenatchee Valley" rendered at
+    // 72 chars after suffix — Google truncated mid-word. Brand attribution
+    // moves to BreadcrumbList JSON-LD which Google shows above the
+    // article-level snippet on /blog SERPs anyway. Sister GW v2.94.05
+    // title trim arc.
+    title: { absolute: post.title },
     description: post.description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
