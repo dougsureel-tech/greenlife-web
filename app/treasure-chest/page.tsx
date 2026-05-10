@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -89,11 +90,29 @@ function ProductCard({ p }: { p: MenuProduct }) {
   );
 }
 
+// BreadcrumbList — earns SERP path rendering (Home › Deals › Treasure
+// Chest). Pre-T95 /treasure-chest emitted no JSON-LD at all; the page
+// is a clearance-subset of /deals so it nests under that.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/treasure-chest#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Deals", item: `${STORE.website}/deals` },
+    { "@type": "ListItem", position: 3, name: "Treasure Chest", item: `${STORE.website}/treasure-chest` },
+  ],
+};
+
 export default async function TreasureChestPage() {
   const products = await getTreasureChestProducts(60).catch(() => []);
 
   return (
     <div className="min-h-screen bg-amber-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
         <VendorAdSlot slot="treasure_chest_top" />
       </div>
