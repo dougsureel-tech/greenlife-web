@@ -89,7 +89,18 @@ const CSP_REPORT_ONLY =
   "object-src 'none'; " +
   "base-uri 'self'; " +
   "form-action 'self'; " +
-  "frame-ancestors 'self'";
+  "frame-ancestors 'self'; " +
+  // T109 — report-uri directs browsers to POST violation reports to
+  // /api/csp-report (NEW edge route). Without this, violations only
+  // logged to per-user DevTools Console which Doug can't aggregate.
+  // With it, Vercel Runtime Logs capture every violation across all
+  // visitors — one place to grep for `[csp-violation]` during the
+  // observation window. report-uri is deprecated by report-to (newer
+  // Reporting API) but report-uri has wider browser support; Chrome +
+  // Edge use both, Safari + Firefox only honor report-uri. Sticking
+  // with report-uri until the observation window closes; future tick
+  // can add Reporting-Endpoints + report-to for richer Chromium reports.
+  "report-uri /api/csp-report";
 
 const PERMISSIONS_POLICY =
   'private-state-token-redemption=(self "https://www.google.com" "https://www.gstatic.com" "https://recaptcha.net" "https://challenges.cloudflare.com" "https://hcaptcha.com"), ' +
