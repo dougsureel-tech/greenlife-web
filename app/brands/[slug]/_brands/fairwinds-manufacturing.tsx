@@ -46,10 +46,16 @@ const PALETTE: BrandPalette = {
   accentMuted: "#e3cda8", // hover state
 };
 
+// Logo + hero re-sourced 2026-05-09 — Fairwinds redesigned their site in
+// 2024-06 and the prior /wp-content/uploads/2020-12/ + 2021-01/ paths
+// 404'd. New URLs verified live (200) and on the brand's own CDN per
+// `feedback_vendor_logo_sources`. Hero swapped from "facility" (no
+// equivalent on the new site) to FECO 1:1 ratio product shot — ties
+// directly to their tincture/RSO product story. Sister of scc same-push.
 const FAIRWINDS_LOGO =
-  "https://fairwindscannabis.com/wp-content/uploads/2020/12/fairwinds-logo.png";
+  "https://fairwindscannabis.com/wp-content/uploads/2024/06/fairwinds-medical-cannabis-logo.png";
 const FAIRWINDS_HERO =
-  "https://fairwindscannabis.com/wp-content/uploads/2021/01/fairwinds-facility.jpg";
+  "https://fairwindscannabis.com/wp-content/uploads/2024/06/FW_FECO_1-1_500-e1738271256901.jpg";
 
 const SUB_BRANDS: Array<{ name: string; tag: string; line: string }> = [
   {

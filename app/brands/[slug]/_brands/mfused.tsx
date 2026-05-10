@@ -52,9 +52,18 @@ const PALETTE: BrandPalette = {
 
 // Brand assets. If any 404 in production, the surrounding gradient + wordmark
 // degrades gracefully — page still renders cleanly.
+//
+// Logo + hero re-sourced 2026-05-09 — MFUSED migrated their Squarespace
+// CDN account at some point in 2025 and the prior /615e1a4988dec77d8d5e6a3a/
+// asset id + the /s/ permalink path both 404'd. New URLs verified live
+// (200) and on the brand's current Squarespace CDN per
+// `feedback_vendor_logo_sources`. Hero swapped from Super Fog product
+// glamour shot (no longer hosted) to the brand's current website hero
+// background — same brand-mood signal. Sister of scc same-push.
 const MFUSED_LOGO =
-  "https://images.squarespace-cdn.com/content/v1/615e1a4988dec77d8d5e6a3a/mfused-logo.png";
-const MFUSED_HERO = "https://www.mfused.com/s/Mfused-Super-Fog-Hero.jpg";
+  "https://images.squarespace-cdn.com/content/v1/65982e5124b1b60fe9b2d332/024d7af8-d7c9-4063-9864-b4466977e9ee/mfused-web-logo.png";
+const MFUSED_HERO =
+  "https://images.squarespace-cdn.com/content/v1/65982e5124b1b60fe9b2d332/c5446a33-288e-4a56-a2d2-5cf2534b64cf/hero-bg.png";
 
 const SUB_BRANDS: Array<{ name: string; tag: string; line: string }> = [
   {
