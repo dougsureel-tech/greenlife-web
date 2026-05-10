@@ -52,7 +52,23 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   // (e.g. /deals/first-visit-30 = 250). The full description renders on
   // the deal page body — only the SERP meta gets trimmed.
   const rawDesc = deal.description ?? `${deal.short} at ${STORE.name} in ${STORE.address.city}, WA.`;
-  const desc = rawDesc.length > 160 ? rawDesc.slice(0, 157).trimEnd() + "…" : rawDesc;
+  // Entity-aware trim — Google measures the HTML-escaped length, not the JS
+  // string length. Apostrophes (`'` → `&#x27;`, +5 chars) and ampersands
+  // (`&` → `&amp;`, +4 chars) inflate the rendered <meta description> beyond
+  // the JS-string trim. Pre-fix /deals/heroes-20 was 162 chars rendered (160
+  // JS-trimmed but `&` inflated to 162 HTML). Sister of GW v2.94.95 same
+  // bug class — memory pin: feedback_html_escape_inflates_meta_description_length.
+  const escLen = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/'/g, "&#x27;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;").length;
+  let desc = rawDesc;
+  if (escLen(desc) > 160) {
+    let trim = 157;
+    for (let i = 0; i < 5; i++) {
+      const candidate = rawDesc.slice(0, trim).trimEnd() + "…";
+      if (escLen(candidate) <= 160) { desc = candidate; break; }
+      trim -= 5;
+    }
+  }
   // Fixed 2026-05-10 — pre-fix `${deal.short} — ${deal.name}` rendered as
   // "X — X" because deal.short and deal.name are typically identical
   // strings in the DB ("Birthday Bud — 20% Off (Birthday Week) — Birthday

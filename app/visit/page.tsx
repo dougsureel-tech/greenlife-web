@@ -14,8 +14,11 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Visit — Hours, Parking, ID",
-  // ~150 chars — v10.105 length sweep.
-  description: `Visit ${STORE.name} at ${STORE.address.full}. Hours, parking, ID requirements, directions. ATM on-site, free parking, ADA accessible.`,
+  // Trim 161 → 145 chars: drop "directions" (covered by /near pages),
+  // drop "free parking" (already in "Parking" section). Pre-fix overshot
+  // Google 160-char SERP cap by 1. Caught 2026-05-10 by /loop deep desc
+  // sweep on random sitemap samples.
+  description: `Visit ${STORE.name} at ${STORE.address.full}. Hours, parking, ID requirements. ATM on-site, ADA accessible.`,
   alternates: { canonical: "/visit" },
   keywords: [
     `cannabis dispensary near me Wenatchee`,

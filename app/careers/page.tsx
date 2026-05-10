@@ -68,7 +68,14 @@ export const metadata: Metadata = {
   // pushed body+suffix over Google's ~60-char SERP cap. `title.absolute`
   // bypasses the suffix; included brand explicitly so we lose nothing.
   // Dropped "Best" qualifier (kept in /careers H1 + body copy).
-  title: { absolute: "Careers — Wenatchee's Cannabis Team | Green Life Cannabis" },
+  // Use typographic apostrophe `’` (U+2019) instead of ASCII `'` (U+0027).
+  // ASCII apostrophe gets HTML-escaped to `&#x27;` (+5 chars) inflating the
+  // 56-char JS-string title to 62 chars rendered HTML — over Google's
+  // ~60-char SERP cap. Typographic apostrophe renders as the Unicode char
+  // directly with no entity escape. Per memory `feedback_changelog_html_entities_convention`
+  // + `feedback_html_escape_inflates_meta_description_length`. Caught
+  // 2026-05-10 by /loop deep title sweep on random sitemap samples.
+  title: { absolute: "Careers — Wenatchee’s Cannabis Team | Green Life Cannabis" },
   description: `Open positions at ${STORE.name} in Wenatchee. Budtender, lead, and inventory roles. Apply online — we review every application.`,
   alternates: { canonical: "/careers" },
   openGraph: {
