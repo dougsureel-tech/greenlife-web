@@ -111,22 +111,33 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  // Alias-resolution sister of the page render. Pre-fix, generateMetadata
+  // called getBrandBySlug with the RAW slug while the page component
+  // resolved aliases first — so for every SLUG_ALIASES entry
+  // (`/brands/plaid-jacket`, `/brands/phat-panda`, `/brands/sungrown`,
+  // `/brands/leafwerx`, `/brands/dewey-botanicals`, `/brands/slab-mechanix`,
+  // `/brands/avitas-cannabis`, `/brands/avitas-grown`,
+  // `/brands/mr-moxeys`, `/brands/journeyman`, `/brands/spot`,
+  // `/brands/botanica`, `/brands/rays-lemonade`, `/brands/rays`, etc.)
+  // the page would render correctly but the metadata fell back to the
+  // layout default title + noindex hint. Google indexed alias URLs as
+  // duplicates of the homepage title — exact duplicate-content signal
+  // we don't want. Caught 2026-05-10 by /loop tick 4 sister scc fix.
+  const slug = SLUG_ALIASES[rawSlug] ?? rawSlug;
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) {
     // Soft-404 mitigation: Next 16 + ISR + page-level `notFound()` (line ~135)
     // produces an HTTP 200 response with the not-found.tsx body for unknown
     // slugs. Without this `robots: noindex` hint Google could index the
-    // soft-404 page as a real /brands/<slug> entry. Sister of /deals/[id]
-    // (already noindex on not-found at line 33) + /near/[town] (v7.985 fixed
-    // via dynamicParams=false; brands can't use that since the brand list is
-    // ISR-dynamic). tsc clean.
+    // soft-404 page as a real /brands/<slug> entry.
     return { robots: { index: false, follow: false } };
   }
   return {
     title: `${brand.name} — Cannabis at Green Life Wenatchee`,
     // ~155 chars — v10.105 length sweep.
     description: `${brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
+    // Canonical points at the resolved (canonical) slug, NOT the alias.
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
       locale: "en_US",
