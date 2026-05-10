@@ -82,6 +82,60 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         ],
       },
+      // Edge-cache pin for crawler-facing files. Next 16 file conventions
+      // (sitemap.ts, robots.ts, manifest.ts, icon.tsx, apple-icon.tsx,
+      // opengraph-image.tsx) and static `public/*.txt` files all serve
+      // `cache-control: public, max-age=0, must-revalidate` regardless of
+      // the in-file `export const revalidate` declaration. Every Googlebot
+      // / Bingbot / GPTBot / ClaudeBot crawl + every favicon fetch was
+      // hitting Vercel function instead of CDN edge. Cross-stack port
+      // from cannagent v4.685 + v4.705 + v4.725 (see memory
+      // `project_cross_stack_cache_port_pending_2026_05_10`). None of
+      // these paths interact with /menu or iHeartJane Boost — safe.
+      {
+        source: "/sitemap.xml",
+        headers: [{ key: "Cache-Control", value: "public, max-age=1800, s-maxage=1800" }],
+      },
+      {
+        source: "/robots.txt",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+      },
+      {
+        source: "/llms.txt",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+      },
+      {
+        source: "/icon",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
+      },
+      {
+        source: "/apple-icon",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
+      },
+      {
+        source: "/icon-192.png",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
+      },
+      {
+        source: "/icon-512.png",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
+      },
+      {
+        source: "/favicon.ico",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
+      },
+      {
+        source: "/opengraph-image",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+      },
+      {
+        source: "/:path*/opengraph-image",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+      },
+      {
+        source: "/manifest.webmanifest",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+      },
     ];
   },
   // **/menu + /order rule (DO NOT REMOVE):** never add a redirect that
