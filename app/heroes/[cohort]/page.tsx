@@ -279,7 +279,20 @@ export async function generateMetadata({
       title: c.metaTitle,
       description: c.metaDescription,
       url: `${STORE.website}/heroes/${c.slug}`,
-      images: [DEFAULT_OG_IMAGE],
+      // Per-route OG (T99 v19.705) — the `images: [DEFAULT_OG_IMAGE]`
+      // explicit array was dead-coding the per-cohort opengraph-image.tsx
+      // file convention (T48-T50 same class). Now: explicit URL pointing
+      // at the per-route file so each cohort gets its own share-card
+      // (Veterans tagline / Teachers tagline / etc) instead of the
+      // generic homepage card.
+      images: [
+        {
+          url: `/heroes/${c.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${c.label} · 30% off · ${STORE.name}`,
+        },
+      ],
     },
   };
 }
