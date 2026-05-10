@@ -22,7 +22,9 @@ import MinglewoodBrandPage from "./_brands/minglewood-brands";
 import SeattleBubbleWorksBrandPage from "./_brands/seattle-bubble-works";
 import GreenRevolutionBrandPage from "./_brands/green-revolution";
 import TwoKGardensBrandPage from "./_brands/2k-gardens";
-import AvitasBrandPage from "./_brands/avitas";
+// AvitasBrandPage import dropped 2026-05-10 — glw doesn't carry the
+// brand (see BRAND_OVERRIDES comment for full context). Component file
+// `_brands/avitas.tsx` kept on disk in case the brand returns.
 import BotanicaSeattleBrandPage from "./_brands/botanica-seattle";
 import RaysLemonadeBrandPage from "./_brands/ray-s-lemonade-wa";
 import { safeJsonLd } from "@/lib/json-ld-safe";
@@ -57,14 +59,31 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   "2727": Brand2727Page,
   "edgemont-group-dba-sungrown": SungrownBrandPage,
   "redbird-cannabis": RedbirdBrandPage,
-  "dewey-cannabis-co": DeweyCannabisCoBrandPage,
+  // Dewey vendor row in glw DB is "Dewey Cannabis Co." — the trailing
+  // period slugifies to a trailing dash via the
+  // `LOWER(REGEXP_REPLACE(name, '[^a-zA-Z0-9]+', '-', 'g'))` rule.
+  // BRAND_OVERRIDES key MUST match the actual DB slug; pre-fix it was
+  // "dewey-cannabis-co" (no trailing dash) and so the override never
+  // ran — `/brands/dewey-cannabis-co-` (the URL Google indexed from
+  // sitemap) fell through to the generic template instead of the rich
+  // boutique component. Fixed 2026-05-10 in /loop tick 13.
+  "dewey-cannabis-co-": DeweyCannabisCoBrandPage,
   "fifty-fold": FiftyFoldBrandPage,
   "agro-couture": AgroCoutureBrandPage,
   "minglewood-brands": MinglewoodBrandPage,
   "seattle-bubble-works": SeattleBubbleWorksBrandPage,
   "green-revolution": GreenRevolutionBrandPage,
   "2k-gardens": TwoKGardensBrandPage,
-  "avitas": AvitasBrandPage,
+  // `avitas` removed 2026-05-10 — glw doesn't actually carry Avitas
+  // (no row in the vendors table whose name slugifies to any avitas
+  // variant). Pre-fix the override + alias map referenced "avitas" as
+  // a canonical slug, but every getBrandBySlug call returned null;
+  // `/brands/avitas` (and the `-cannabis` / `-grown` aliases) all
+  // soft-404'd. AvitasBrandPage component file kept on disk in case
+  // glw starts carrying Avitas — re-add the BRAND_OVERRIDES entry +
+  // SLUG_ALIASES once the vendor row exists in DB. Caught by /loop
+  // tick 13 dead-config audit. (scc carries Avitas + the override
+  // works correctly there.)
   "botanica-seattle": BotanicaSeattleBrandPage,
   "ray-s-lemonade-wa": RaysLemonadeBrandPage,
 };
@@ -80,14 +99,18 @@ const SLUG_ALIASES: Record<string, string> = {
   "phat-panda": "grow-op-farms",
   "sungrown": "edgemont-group-dba-sungrown",
   "leafwerx": "edgemont-group-dba-sungrown",
-  "dewey-botanicals": "dewey-cannabis-co",
-  "dewey-botanicals-llc": "dewey-cannabis-co",
+  // Dewey vendor row's actual DB slug ends in a trailing dash (DB name
+  // = "Dewey Cannabis Co." — period slugifies to dash). Map the cleaner
+  // customer-facing URLs to that canonical slug.
+  "dewey-cannabis-co": "dewey-cannabis-co-",
+  "dewey-botanicals": "dewey-cannabis-co-",
+  "dewey-botanicals-llc": "dewey-cannabis-co-",
   "slab-mechanix": "agro-couture",
-  // Avitas vendor row may be named "Avitas", "Avitas Cannabis", or "Avitas
-  // Grown" depending on how WSLCB filed it — point all variants at the
-  // canonical slug used by avitas.tsx.
-  "avitas-cannabis": "avitas",
-  "avitas-grown": "avitas",
+  // Avitas SLUG_ALIASES removed 2026-05-10 — glw doesn't carry Avitas
+  // (no DB row), so aliasing -cannabis / -grown to "avitas" landed on
+  // a non-existent slug and soft-404'd. Re-add when glw starts
+  // carrying Avitas + a vendor row exists. (scc keeps these aliases
+  // because scc DOES carry Avitas.)
   // Botanica Seattle has multiple sub-brands a customer might search for
   // by name even though all the products live under the parent vendor row.
   "mr-moxeys": "botanica-seattle",
