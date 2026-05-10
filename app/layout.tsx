@@ -112,6 +112,14 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Green Life",
   },
+  // applicationName — emits `<meta name="application-name">`. Used by
+  // Microsoft Edge + Windows Start menu when pinning the site as a
+  // tile / app shortcut, and by some browser plugins as the canonical
+  // app identifier. Pre-fix all 3 sites in the stack were missing this
+  // (curl audit). Pure additive — no existing functionality affected.
+  // Sister scc + GW same-fix. Caught 2026-05-10 by /loop tick 56
+  // cross-stack application-name audit.
+  applicationName: "Green Life Cannabis",
   // iOS auto-formats numeric strings as tap-callable / tap-mail / tap-date
   // by default — body text containing zip codes (98801), WSLCB license
   // numbers (414755), prices ($25), dates (5/15), addresses, etc gets
