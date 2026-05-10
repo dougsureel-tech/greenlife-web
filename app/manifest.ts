@@ -7,6 +7,14 @@ export const revalidate = 3600;
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    // Stable `id` — Chrome uses for "already installed" detection across
+    // www→apex redirects + identifies the app uniquely across PWA-host
+    // changes. Without it, Chrome treats www + apex as 2 separate apps
+    // and customers who installed before a future canonical URL change
+    // would see "install again" prompts. Sister of GW manifest.ts which
+    // already has `id: "/"`. Caught T119 cross-stack manifest probe —
+    // glw + scc + sureel were the lone outliers without id.
+    id: "/",
     name: STORE.name,
     short_name: "Green Life",
     description: `${STORE.tagline}. ${STORE.address.full}.`,
