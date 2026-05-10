@@ -20,6 +20,13 @@ export default function manifest(): MetadataRoute.Manifest {
     description: `${STORE.tagline}. ${STORE.address.full}.`,
     start_url: "/",
     scope: "/",
+    // `lang` + `dir` per W3C web-app-manifest spec — accessibility signal for
+    // screen readers + Lighthouse PWA audit. T164 audit caught the gap on the
+    // 4 non-vrg sites (vrg already had these). en-US + ltr match the rest of
+    // the metadata locale. Closes board item #25 (lang/dir piece; screenshots
+    // still open pending Doug-captured asset work).
+    lang: "en-US",
+    dir: "ltr",
     display: "standalone",
     orientation: "portrait",
     background_color: "#022c22",
