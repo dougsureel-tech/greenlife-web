@@ -54,7 +54,11 @@ async function fetchOpenPositions(): Promise<Position[]> {
 }
 
 export const metadata: Metadata = {
-  title: "Careers — Wenatchee's Best Cannabis Team",
+  // Trimmed 67 → 59 chars 2026-05-10 — title-template `· {brand}` suffix
+  // pushed body+suffix over Google's ~60-char SERP cap. `title.absolute`
+  // bypasses the suffix; included brand explicitly so we lose nothing.
+  // Dropped "Best" qualifier (kept in /careers H1 + body copy).
+  title: { absolute: "Careers — Wenatchee's Cannabis Team | Green Life Cannabis" },
   description: `Open positions at ${STORE.name} in Wenatchee. Budtender, lead, and inventory roles. Apply online — we review every application.`,
   alternates: { canonical: "/careers" },
   openGraph: {
