@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     "Leavenworth area cannabis",
   ],
   openGraph: {
+    type: "website",
     locale: "en_US",
     title: `Service Area · ${STORE.name}`,
     description: `${STORE.name} serves ${NEAR_TOWNS.length} towns + neighborhoods across Chelan + Douglas + Okanogan + Grant counties.`,

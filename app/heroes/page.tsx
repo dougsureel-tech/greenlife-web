@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   description: `${STORE.name} Heroes program — military, veterans, first responders, healthcare, K-12 teachers. 30% off every visit with valid ID. Wenatchee.`,
   alternates: { canonical: "/heroes" },
   openGraph: {
+    type: "website",
     locale: "en_US",
     title: `Heroes Discount · ${STORE.name}`,
     description: `30% off for active military, veterans, first responders, healthcare workers, and K-12 teachers. Show valid ID at the register.`,

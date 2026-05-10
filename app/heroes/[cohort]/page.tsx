@@ -270,6 +270,7 @@ export async function generateMetadata({
     keywords: c.searchKeywords,
     alternates: { canonical: `/heroes/${c.slug}` },
     openGraph: {
+      type: "website",
       locale: "en_US",
       title: c.metaTitle,
       description: c.metaDescription,
