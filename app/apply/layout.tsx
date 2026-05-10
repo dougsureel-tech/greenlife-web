@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
 import { STORE } from "@/lib/store";
+import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
+
+// BreadcrumbList JSON-LD — sister of v12.505 /careers fix. Pre-fix
+// /apply had no BreadcrumbList; Google could not show the breadcrumb
+// chip in SERP results. Caught by /loop cross-stack BreadcrumbList
+// coverage audit 2026-05-10.
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", url: STORE.website },
+  { name: "Apply", url: `${STORE.website}/apply` },
+]);
 
 // /apply has its own layout because `app/apply/page.tsx` is a client
 // component (`"use client"` for the multi-step form state). Client
@@ -32,5 +42,13 @@ export const metadata: Metadata = {
 };
 
 export default function ApplyLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      {children}
+    </>
+  );
 }
