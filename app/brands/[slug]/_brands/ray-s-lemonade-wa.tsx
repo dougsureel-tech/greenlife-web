@@ -332,6 +332,8 @@ export default function RaysLemonadeBrandPage({
               src={RAYS_HERO}
               alt="Ray's Lemonade brand marketing photography — vape line"
               loading="lazy"
+              width={1500}
+              height={2100}
               className="w-full h-auto object-cover"
             />
           </div>
