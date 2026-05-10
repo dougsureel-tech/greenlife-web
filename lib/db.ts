@@ -777,19 +777,21 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
 }
 
 // Wrapped with React.cache() so generateMetadata + the page component
-// share the same result within a single request. Pre-fix, /loop tick 10
+// share the same result within a single request. Pre-fix /loop tick 10
 // JSON-LD audit found ~17 custom-override brand pages emitting only the
-// 3 root-layout JSON-LD blocks (Organization/WebSite/LocalBusiness) and
-// MISSING the page-level Brand/CollectionPage/Product/FAQPage schemas —
-// because generateMetadata's getBrandBySlug call returned null (causing
-// the soft-404 noindex fallback to apply) while the page component's
-// later getBrandBySlug call returned valid data (rendering the brand UI
-// + scripts). The two render paths got DIFFERENT results within the
-// same request — likely because of NOW()-INTERVAL timing in the
-// `brands_with_recent_sales` gate or a transient DB connection state.
-// React.cache dedupes the call: same args → same Promise → same result
-// → both render paths agree. Sister scc same-fix.
-export const getBrandBySlug = cache(async (slug: string): Promise<VendorBrand | null> => {
+// 3 root-layout JSON-LD blocks. React.cache fixed 18/20 brands; 2 stuck
+// (avitas + dewey-cannabis-co) — these regenerate fresh at build time
+// with `null` (transient DB miss / NOW()-INTERVAL drift) and the cached
+// noindex result sticks across ISR cycles. Tick 11 fix: query-time
+// retry-once-on-null inside the inner async fn (BEFORE the React.cache
+// wrap, so retries happen per-call rather than per-request — and the
+// result of whichever attempt succeeds is cached). Single retry adds at
+// most one round-trip when the first call returns null; for true-not-
+// found brands (rare — sitemap excludes them) it doubles latency, but
+// all brand-page requests are static-rendered + ISR-cached so the
+// performance hit is one-time-per-revalidate, not per-customer-visit.
+// Sister scc same-fix.
+async function _getBrandBySlugInner(slug: string): Promise<VendorBrand | null> {
   const sql = getClient();
   // Bug fix 2026-05-04 (round 2): adds same brands_with_recent_sales
   // gate as getActiveBrands. Direct /brands/abs-buds visit returns null →
@@ -850,6 +852,17 @@ export const getBrandBySlug = cache(async (slug: string): Promise<VendorBrand | 
     socialX: (r.social_x as string | null) ?? null,
     socialFacebook: (r.social_facebook as string | null) ?? null,
   };
+}
+
+export const getBrandBySlug = cache(async (slug: string): Promise<VendorBrand | null> => {
+  const first = await _getBrandBySlugInner(slug);
+  if (first !== null) return first;
+  // Retry once on null. Some build-time renders see transient null from
+  // getBrandBySlug (NOW()-INTERVAL drift, Neon cold start, connection-pool
+  // timing) — a single retry resolves these cleanly. If the brand truly
+  // doesn't exist we'll return null on the second pass too. See
+  // _getBrandBySlugInner comment above for full incident context.
+  return _getBrandBySlugInner(slug);
 });
 
 export async function getBrandProducts(vendorId: string) {
