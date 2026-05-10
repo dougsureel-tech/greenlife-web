@@ -160,6 +160,17 @@ export const metadata: Metadata = {
 
 export const viewport = {
   themeColor: "#022c22",
+  // colorScheme: "light" — emits `<meta name="color-scheme" content="light">`.
+  // Pre-fix the meta was absent, so browsers' auto-dark-mode logic could
+  // re-tint form inputs, scrollbars, and default UA UI to dark on systems
+  // where the user prefers dark mode. This site is light-themed by design
+  // (cream/stone-50 backgrounds, dark text); auto-dark-tinting clashes
+  // with Tailwind explicit color classes (e.g. an input bg-white style
+  // gets coerced toward dark gray by Chrome's auto-dark engine, breaking
+  // contrast). Declaring the supported scheme explicitly opts out of the
+  // auto-adjust. Sister scc + GW same-fix. Caught 2026-05-10 by /loop
+  // tick 43 cross-stack color-scheme audit.
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
