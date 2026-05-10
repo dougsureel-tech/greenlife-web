@@ -132,6 +132,15 @@ function buildHtml(args: WelcomeEmailArgs): string {
 <title>Welcome to ${safeStoreName}</title>
 </head>
 <body style="margin:0;padding:0;background:${COLORS.bgPage};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:${COLORS.textBody};">
+<!-- Preheader: shown in inbox preview line BEFORE the email is opened.
+     Hidden via display:none + max-height:0 + mso-hide:all (Outlook).
+     Pre-fix all transactional emails fell back to first visible body
+     text in the preview (e.g. "${safeStoreName} · Wenatchee since
+     2014") which is brand boilerplate, not a hook. T74 customer-UX
+     improvement — preheader becomes the inbox-line headline. -->
+<div style="display:none;font-size:0;line-height:0;max-height:0;overflow:hidden;mso-hide:all;">
+  Welcome to ${safeStoreName} — your account is set up. Tap to start shopping.
+</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bgPage};padding:32px 16px;">
   <tr><td align="center">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${COLORS.bgCard};border:1px solid ${COLORS.border};border-radius:14px;overflow:hidden;">

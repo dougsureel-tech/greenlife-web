@@ -108,6 +108,10 @@ function renderBaseHtml(args: {
 <title>${safeHeadline} — ${safeStoreName}</title>
 </head>
 <body style="margin:0;padding:0;background:${COLORS.bgPage};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:${COLORS.textBody};">
+<!-- Preheader: inbox-preview line (T74). -->
+<div style="display:none;font-size:0;line-height:0;max-height:0;overflow:hidden;mso-hide:all;">
+  Your strain match is ready — ${safeHeadline.toLowerCase()} from ${safeStoreName}.
+</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bgPage};padding:32px 16px;">
   <tr><td align="center">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${COLORS.bgCard};border:1px solid ${COLORS.border};border-radius:14px;overflow:hidden;">
