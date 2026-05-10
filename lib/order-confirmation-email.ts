@@ -150,9 +150,9 @@ function buildHtml(args: OrderConfirmationArgs): string {
 <title>Order received — ${safeStoreName}</title>
 </head>
 <body style="margin:0;padding:0;background:${COLORS.bgPage};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:${COLORS.textBody};">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bgPage};padding:32px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bgPage};padding:32px 16px;">
   <tr><td align="center">
-    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${COLORS.bgCard};border:1px solid ${COLORS.border};border-radius:14px;overflow:hidden;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${COLORS.bgCard};border:1px solid ${COLORS.border};border-radius:14px;overflow:hidden;">
       <tr><td style="background:${COLORS.headerBg};padding:24px 28px;">
         <p style="margin:0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:${COLORS.headerText};font-weight:700;">
           ${safeStoreName}
@@ -181,7 +181,7 @@ function buildHtml(args: OrderConfirmationArgs): string {
           Order #${safeOrderId}
         </p>
 
-        <table width="100%" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;">
           ${itemRows}
           <tr>
             <td style="padding:14px 0 4px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${COLORS.textMuted};">
