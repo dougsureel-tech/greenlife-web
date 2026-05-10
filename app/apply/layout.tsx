@@ -22,7 +22,12 @@ const breadcrumb = breadcrumbJsonLd([
 // /apply match the same canonical posture.
 
 export const metadata: Metadata = {
-  title: `Apply to work at ${STORE.name}`,
+  // Drop ${STORE.name} from body — layout.tsx title.template appends
+  // ` | Green Life Cannabis` so saying "Apply to work at Green Life
+  // Cannabis" produces "Apply to work at Green Life Cannabis | Green
+  // Life Cannabis" (brand twice). Caught 2026-05-10 by /loop tick 25
+  // duplicate-brand sweep. Sister GW v2.94.60 + scc same-push.
+  title: "Apply for a Job",
   description: `Apply for a position at ${STORE.name} in ${STORE.address.city}, WA. Budtender, lead, inventory and more — open roles + general intake. 21+ required (WAC 314-55-115).`,
   alternates: { canonical: "/apply" },
   openGraph: {
