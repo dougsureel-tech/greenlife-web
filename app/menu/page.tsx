@@ -148,6 +148,22 @@ export default async function MenuPage() {
 
   return (
     <div className="bg-stone-50">
+      {/* Preconnect to iHeartJane Boost origins. /menu's LCP is the first
+          rendered product card from inside the Boost embed — the embed
+          loads JS from boost-assets.iheartjane.com (script bundle), then
+          hits api.iheartjane.com (REST + WebSocket cable) and
+          search.iheartjane.com (Algolia index) on first interaction.
+          Pre-fix the customer paid full DNS+TLS+TCP RTT for each origin
+          on first visit. Preconnect primes the connection pool. Pure
+          additive — no behavior change, no compatibility risk. Caught
+          2026-05-10 by /loop tick 40 cross-stack preconnect audit
+          (glw + scc only preconnect to images.squarespace-cdn.com +
+          static.wixstatic.com — the brand-logo CDNs — but NOT to iHJ).
+          React 19 hoists these to <head> automatically. Sister scc
+          v13.X same-fix. */}
+      <link rel="preconnect" href="https://boost-assets.iheartjane.com" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://api.iheartjane.com" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://search.iheartjane.com" crossOrigin="anonymous" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
