@@ -1,0 +1,49 @@
+#!/bin/bash
+# glw pre-push gates — wires all 9 arc-guards from `scripts/check-*.mjs`
+# to fire on every `git push`. Pre-T118 the gates existed as scripts but
+# were only run manually — pushes could land violations of og-completeness
+# / title-length / button-type / csp-report-only / etc rules without
+# blocking.
+#
+# Bypass: `git push --no-verify` (use only when you've explicitly verified
+# the gate is misfiring; see GW pre-push T117 for false-positive precedent
+# where check-og-completeness needed an EXEMPT-set update).
+#
+# Sister of GW v2.97.S0 17/17 pre-push chain. Activate via:
+#   bash scripts/setup-hooks.sh
+# (which runs `git config core.hooksPath .githooks`)
+
+# ── 1. TypeScript check (catch type errors before Vercel deploy) ─────────
+echo "  Running TypeScript check..."
+if ! ./node_modules/.bin/tsc --noEmit 2>&1; then
+  echo ""
+  echo "  ✗ Push blocked: TypeScript errors found above. Fix them before pushing."
+  echo "    Or bypass: git push --no-verify"
+  echo ""
+  exit 1
+fi
+echo "  ✓ TypeScript OK"
+
+# ── 2. Build-gates umbrella (9 arc-guards) ────────────────────────────────
+echo "  Running build-gates..."
+for gate in \
+  scripts/check-site-url-defense.mjs \
+  scripts/check-og-completeness.mjs \
+  scripts/check-duplicate-brand-title.mjs \
+  scripts/check-og-image-shape.mjs \
+  scripts/check-per-route-og-image.mjs \
+  scripts/check-title-length-html.mjs \
+  scripts/check-description-length-html.mjs \
+  scripts/check-button-type.mjs \
+  scripts/check-csp-report-only.mjs; do
+  if ! node "$gate" 2>&1; then
+    echo ""
+    echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
+    echo "    Or bypass: git push --no-verify"
+    echo ""
+    exit 1
+  fi
+done
+echo "  ✓ Build-gates OK (9/9)"
+
+exit 0
