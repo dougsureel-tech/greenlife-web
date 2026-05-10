@@ -180,7 +180,10 @@ export function SiteFooter() {
           <ul className="space-y-2">
             {[
               { href: "/menu", label: "Shop Menu" },
-              { href: "/order", label: "Order for Pickup" },
+              // /order proxies to /menu (proxy.ts 307); same destination,
+              // preserve "Order for Pickup" affordance label since iHJ
+              // Boost provides the cart flow inline at /menu.
+              { href: "/menu", label: "Order for Pickup" },
               { href: "/heroes", label: "Heroes Discount" },
               { href: "/find-your-strain", label: "Find your strain" },
               { href: "/visit", label: "Visit Us" },

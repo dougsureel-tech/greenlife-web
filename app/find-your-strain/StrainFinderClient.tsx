@@ -115,7 +115,12 @@ export function StrainFinderClient() {
     if (final.vibe) params.set("vibe", final.vibe);
     if (final.form) params.set("category", final.form);
     if (final.strain) params.set("strain", final.strain);
-    return params.toString() ? `/order?${params}` : "/order";
+    // /order proxies to /menu (proxy.ts 307) AND drops query params on
+    // the redirect — point directly at /menu so the redirect hop is
+    // skipped. Query params still get dropped by the iHJ Boost embed
+    // (it doesn't honor `?vibe=` etc — known limitation, separate fix
+    // would require Boost-side filter passthrough).
+    return params.toString() ? `/menu?${params}` : "/menu";
   }
 
   function redirectToOrder(final: Record<StepKey, string>) {

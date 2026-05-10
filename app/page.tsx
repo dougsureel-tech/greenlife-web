@@ -1247,14 +1247,19 @@ export default async function HomePage() {
                     position: 1,
                     name: "Browse & Order",
                     text: "Shop the menu at greenlifecannabis.com/menu and place a pickup order — pay nothing until you arrive.",
-                    url: `${STORE.website}/order`,
+                    // /order proxies to /menu (proxy.ts 307) — pointing
+                    // here at /order would add a redirect hop on every
+                    // SERP HowTo-carousel click. Fix per memory pin
+                    // `feedback_glw_scc_customer_cta_menu_only` + sister
+                    // T36 SearchAction urlTemplate retarget.
+                    url: `${STORE.website}/menu`,
                   },
                   {
                     "@type": "HowToStep",
                     position: 2,
                     name: "We Prepare It",
                     text: "Our team gets your order ready. You'll get a status update when it's packed and waiting at the counter.",
-                    url: `${STORE.website}/order`,
+                    url: `${STORE.website}/menu`,
                   },
                   {
                     "@type": "HowToStep",
@@ -1719,7 +1724,7 @@ function FaqSection() {
     },
     {
       q: "Can I order cannabis online for pickup at Green Life?",
-      a: "Yes. Build your cart on /order, pay in-store when you arrive (cash only). Most orders are ready in 10–20 minutes. You'll get a text when it's packed and waiting at the counter.",
+      a: "Yes. Build your cart on /menu, pay in-store when you arrive (cash only). Most orders are ready in 10–20 minutes. You'll get a text when it's packed and waiting at the counter.",
     },
     {
       q: "What's the difference between sativa, indica, and hybrid?",
