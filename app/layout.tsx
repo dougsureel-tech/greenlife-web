@@ -246,25 +246,18 @@ const websiteSchema = {
   description: `${STORE.name} — ${STORE.address.city}'s cannabis dispensary since 2014.`,
   publisher: { "@id": ORG_ID },
   inLanguage: "en-US",
-  // Sitelinks Searchbox endpoint — Google may render an inline search box
-  // under our SERP listing using this template. /order is the real search
-  // surface (OrderMenu.tsx reads `?q=` from the URL and seeds the menu
-  // search input with it). Pre-fix v15.305 the template pointed at /menu,
-  // which is the iHeartJane Boost embed — Boost's JS renders the menu
-  // inline but does NOT consume `?q=` searchParams, so Google would have
-  // sent users to /menu?q=indica and they'd see an unfiltered embed (false
-  // promise). /order is structurally identical from the customer's POV
-  // (cart-able product menu) but has a real query-string-aware search.
-  // Caught 2026-05-10 by /loop tick 33 SearchAction-target-actually-works
-  // audit. Sister scc same-fix v13.2905.
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${STORE.website}/order?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
-  },
+  // No `potentialAction: SearchAction` — see v15.705 revert note below.
+  //
+  // T33 (v15.305) shipped a SearchAction pointing at `/order?q=...` because
+  // OrderMenu.tsx reads `?q=` searchParams. T36 (v15.705) reverted that:
+  // `/order` 307-redirects to `/menu` per `proxy.ts` (verified via curl
+  // post-T33 — same behavior memorialized in v7.785's pre-fix history). And
+  // /menu (iHJ Boost embed) doesn't consume `?q=` either. Neither URL is a
+  // working query-aware target, so we drop the SearchAction entirely (same
+  // reasoning as GW v2.95.60 had no working endpoint). Re-add when /menu
+  // wires up `?q=` passthrough to Boost. Doug operating-principle: customer
+  // CTAs on glw + scc point to `/menu` only — never `/order` direct (extra
+  // redirect hop wastes crawl-citation + violates SoT).
 };
 
 const localBusinessSchema = {
