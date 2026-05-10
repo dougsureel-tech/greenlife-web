@@ -15,7 +15,8 @@
     "check:og-image-shape": "node scripts/check-og-image-shape.mjs",
     "check:per-route-og-image": "node scripts/check-per-route-og-image.mjs",
     "check:title-length-html": "node scripts/check-title-length-html.mjs",
-    "check:description-length-html": "node scripts/check-description-length-html.mjs"
+    "check:description-length-html": "node scripts/check-description-length-html.mjs",
+    "check:button-type": "node scripts/check-button-type.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",
