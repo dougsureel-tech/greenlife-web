@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   description: `Apply for a position at ${STORE.name} in ${STORE.address.city}, WA. Budtender, lead, inventory and more — open roles + general intake. 21+ required (WAC 314-55-115).`,
   alternates: { canonical: "/apply" },
   openGraph: {
+    type: "website",
     locale: "en_US",
     title: `Apply to work at ${STORE.name}`,
     description: `Open roles + general intake at ${STORE.name}, ${STORE.address.city} WA. 21+ required.`,

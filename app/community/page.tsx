@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     title: `Our Community · ${STORE.name}`,
     description: `Past staff, future partners. The community we're building, on purpose.`,
     url: `${STORE.website}/community`,
+    images: ["/opengraph-image"],
   },
 };
 

@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     description: `Live cannabis menu — prices, THC/CBD, lab data. ${STORE.address.full}.`,
     url: `${STORE.website}/menu`,
     type: "website",
+    images: ["/opengraph-image"],
   },
   // Partner-presence signal the WP plugin emits. The WP origin (208.109.64.51)
   // shipped <meta name="jane:version" content="1.4.7"/> on every /menu page;

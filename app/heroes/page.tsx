@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     title: `Heroes Discount · ${STORE.name}`,
     description: `30% off for active military, veterans, first responders, healthcare workers, and K-12 teachers. Show valid ID at the register.`,
     url: `${STORE.website}/heroes`,
+    images: ["/opengraph-image"],
   },
 };
 
