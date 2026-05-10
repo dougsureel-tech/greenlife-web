@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE} from "@/lib/store";
 import { CURRENT_TEAM, ALUMNI_TEAM, initialOf, type TeamMember } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: `Built by everyone who's worked here. ${STORE.address.full}.`,
     url: `${STORE.website}/our-story`,
     type: "website",
-    images: [DEFAULT_OG_IMAGE],
+    images: [{ url: "/our-story/opengraph-image", width: 1200, height: 630, alt: `${STORE.name}` }],
   },
 };
 

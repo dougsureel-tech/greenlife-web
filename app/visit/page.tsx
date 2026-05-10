@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, STORE_TZ, isOpenNow, nextOpenLabel, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE, STORE_TZ, isOpenNow, nextOpenLabel} from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: `${STORE.address.full} · ${STORE.phone} · Free parking, ATM on-site.`,
     url: `${STORE.website}/visit`,
     type: "website",
-    images: [DEFAULT_OG_IMAGE],
+    images: [{ url: "/visit/opengraph-image", width: 1200, height: 630, alt: `${STORE.name}` }],
   },
 };
 

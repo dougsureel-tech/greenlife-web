@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ALUMNI_TEAM, initialOf } from "@/lib/team";
-import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // Public-facing home for the Featured Partners vision Doug shared 2026-05-02:
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: `Our Community · ${STORE.name}`,
     description: `Past staff, future partners. The community we're building, on purpose.`,
     url: `${STORE.website}/community`,
-    images: [DEFAULT_OG_IMAGE],
+    images: [{ url: "/community/opengraph-image", width: 1200, height: 630, alt: `${STORE.name}` }],
   },
 };
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE} from "@/lib/store";
 import { StrainFinderClient } from "./StrainFinderClient";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: "Quick 3-question quiz to match you with the right cannabis. Live menu in Wenatchee, WA.",
     url: `${STORE.website}/find-your-strain`,
     type: "website",
-    images: [DEFAULT_OG_IMAGE],
+    images: [{ url: "/find-your-strain/opengraph-image", width: 1200, height: 630, alt: `${STORE.name}` }],
   },
 };
 

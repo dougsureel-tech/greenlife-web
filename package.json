@@ -12,7 +12,8 @@
     "check:site-url-defense": "node scripts/check-site-url-defense.mjs",
     "check:og-completeness": "node scripts/check-og-completeness.mjs",
     "check:duplicate-brand-title": "node scripts/check-duplicate-brand-title.mjs",
-    "check:og-image-shape": "node scripts/check-og-image-shape.mjs"
+    "check:og-image-shape": "node scripts/check-og-image-shape.mjs",
+    "check:per-route-og-image": "node scripts/check-per-route-og-image.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",
