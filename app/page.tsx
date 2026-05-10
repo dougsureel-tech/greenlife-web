@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    locale: "en_US",
     url: STORE.website,
     siteName: STORE.name,
     title: `${STORE.name} — Wenatchee Dispensary Since 2014`,

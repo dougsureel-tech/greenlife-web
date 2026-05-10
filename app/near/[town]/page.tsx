@@ -51,6 +51,7 @@ export async function generateMetadata({
       `dispensary near ${town.name}`,
     ],
     openGraph: {
+      locale: "en_US",
       title,
       description: desc,
       url: `${STORE.website}/near/${town.slug}`,

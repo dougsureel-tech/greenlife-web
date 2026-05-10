@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     "Heroes discount cannabis",
   ],
   openGraph: {
+    locale: "en_US",
     title: `FAQ · ${STORE.name}`,
     description: `Hours, ID, payment, Heroes 30% off, loyalty — answers to the questions we get most.`,
     url: `${STORE.website}/faq`,

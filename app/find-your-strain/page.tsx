@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: `Quick 3-question quiz to match you with the right cannabis at ${STORE.name}. Pick a moment, a form, and a strain type — we filter the live menu.`,
   alternates: { canonical: "/find-your-strain" },
   openGraph: {
+    locale: "en_US",
     title: `Find Your Strain | ${STORE.name}`,
     description: "Quick 3-question quiz to match you with the right cannabis. Live menu in Wenatchee, WA.",
     url: `${STORE.website}/find-your-strain`,

@@ -58,6 +58,7 @@ export const metadata: Metadata = {
   description: `Open positions at ${STORE.name} in Wenatchee. Budtender, lead, and inventory roles. Apply online — we review every application.`,
   alternates: { canonical: "/careers" },
   openGraph: {
+    locale: "en_US",
     title: `Careers at ${STORE.name}`,
     description: `Open positions at Wenatchee's best-staffed cannabis dispensary. Apply online.`,
     url: `${STORE.website}/careers`,

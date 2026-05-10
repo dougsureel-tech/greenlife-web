@@ -112,6 +112,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
+      locale: "en_US",
       title: `${brand.name} | ${STORE.name}`,
       description: `Browse ${brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
       url: `${STORE.website}/brands/${slug}`,

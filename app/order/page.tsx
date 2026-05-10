@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: `Order cannabis online for pickup at ${STORE.name}. Browse flower, edibles, vapes, concentrates and more. Pay cash in store.`,
   alternates: { canonical: "/order" },
   openGraph: {
+    locale: "en_US",
     title: `Order for Pickup | ${STORE.name}`,
     description: `Pickup-ready cannabis menu in ${STORE.address.city}, WA. Cash in store, points on every order.`,
     url: `${STORE.website}/order`,
