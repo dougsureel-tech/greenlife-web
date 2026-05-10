@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
+
+// BreadcrumbList JSON-LD — sister of cannagent v3.391 100% indexable
+// coverage. Pre-fix /careers had no BreadcrumbList; Google can't show
+// the breadcrumb chip in SERP results. Caught by /loop cross-stack
+// BreadcrumbList coverage audit 2026-05-10.
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", url: STORE.website },
+  { name: "Careers", url: `${STORE.website}/careers` },
+]);
 
 // ISR — open-positions list refreshes every 5 minutes. Inventoryapp side is
 // the source of truth (managers post / close roles there); a stale cache for
@@ -76,6 +86,10 @@ export default async function CareersPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
       {/* Hero — matches the green-950 dot-grid bookend used across the site. */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div
