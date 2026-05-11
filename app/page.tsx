@@ -305,10 +305,10 @@ export default async function HomePage() {
                   </svg>
                 </Link>
                 <Link
-                  href={withAttr("/menu", "home", "hero-order")}
+                  href={withAttr("/deals", "home", "hero-deals")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
                 >
-                  Order for Pickup
+                  See Today&rsquo;s Deals
                 </Link>
               </div>
 
