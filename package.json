@@ -31,6 +31,7 @@
     "check:fs-read-bundled": "node scripts/check-fs-read-bundled.mjs",
     "check:inline-form-action-tuple-discard": "node scripts/check-inline-form-action-tuple-discard.mjs",
     "check:cross-store-url-leak": "node scripts/check-cross-store-url-leak.mjs",
+    "check:no-unsafe-redirect": "node scripts/check-no-unsafe-redirect.mjs",
     "typecheck": "tsc --noEmit",
     "test:all": "node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts"
   },
