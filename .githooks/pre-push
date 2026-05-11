@@ -91,7 +91,8 @@ for gate in \
   scripts/check-please-hedge.mjs \
   scripts/check-template-warmth.mjs \
   scripts/check-apologize-pattern.mjs \
-  scripts/check-no-unsafe-redirect.mjs; do
+  scripts/check-no-unsafe-redirect.mjs \
+  scripts/check-metadata-exclusive.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
