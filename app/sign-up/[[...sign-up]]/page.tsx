@@ -40,11 +40,24 @@ const clerkAppearance = {
   },
 };
 
+// Same-origin guard for the post-sign-up `?redirect_url=<path>` target.
+// Sister of the sign-in fix + inv v396.645 + glw v23.705. Pre-fix any
+// attacker-controlled URL flowed into Clerk's `fallbackRedirectUrl`,
+// triggering an off-origin redirect after successful sign-up.
+function safeRedirectPath(raw: string | null | undefined): string {
+  if (!raw) return "/account";
+  if (!raw.startsWith("/")) return "/account";
+  if (raw.startsWith("//")) return "/account";
+  if (raw.startsWith("/\\")) return "/account";
+  if (raw.includes("://")) return "/account";
+  return raw.slice(0, 512);
+}
+
 type Props = { searchParams: Promise<{ redirect_url?: string; redirectUrl?: string }> };
 
 export default async function SignUpPage({ searchParams }: Props) {
   const params = await searchParams;
-  const fallback = params.redirect_url || params.redirectUrl || "/account";
+  const fallback = safeRedirectPath(params.redirect_url || params.redirectUrl);
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-10 sm:py-16 bg-gradient-to-b from-stone-50 to-stone-100">
