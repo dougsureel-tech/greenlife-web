@@ -125,7 +125,7 @@ export default async function TreasureChestPage() {
             Last-of-batch finds, marked down
           </h1>
           <p className="text-base sm:text-lg text-stone-700 max-w-2xl leading-relaxed">
-            Slow-moving SKUs, end-of-run flower, vapes that didn&rsquo;t catch on, edibles approaching their best-by — all priced
+            Slow-moving items, end-of-run flower, vapes that didn&rsquo;t catch on, edibles approaching their best-by — all priced
             to move. Refreshed weekly. We&rsquo;d rather you find something good than have it sit on the shelf.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 text-xs text-stone-600">
@@ -142,8 +142,8 @@ export default async function TreasureChestPage() {
             <p className="text-5xl mb-4">🪙</p>
             <h2 className="text-xl font-bold text-stone-900 mb-2">The chest is empty right now</h2>
             <p className="text-stone-600 text-sm mb-6">
-              Our team curates this lane manually — when there&rsquo;s nothing to clear, you&rsquo;ll see this. The full menu is still
-              fully stocked.
+              Our team curates this lane manually — when there&rsquo;s nothing to clear, you&rsquo;ll see this. The full menu
+              still has everything else.
             </p>
             <Link
               href="/menu"
@@ -163,9 +163,9 @@ export default async function TreasureChestPage() {
 
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-xs text-stone-500 leading-relaxed">
         <p>
-          <strong className="text-stone-700">How the Treasure Chest works:</strong> our buyers tag SKUs that need to move — sometimes
+          <strong className="text-stone-700">How the Treasure Chest works:</strong> our buyers tag items that need to move — sometimes
           they&rsquo;re great products that just didn&rsquo;t catch on at our store, sometimes they&rsquo;re from a vendor we&rsquo;re winding down,
-          sometimes they&rsquo;re approaching their best-by date but still test perfectly fine. Either way, the price reflects it. Tap
+          sometimes they&rsquo;re approaching their best-by date but still totally good. Either way, the price reflects it. Tap
           a card to add it to the menu view; pickup is at our store.
         </p>
       </section>

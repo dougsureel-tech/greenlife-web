@@ -49,7 +49,7 @@ export default function ContactPage() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Reach Out</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Contact Us</h1>
-          <p className="text-green-300/70 mt-2 text-sm sm:text-base">We&apos;d love to hear from you</p>
+          <p className="text-green-300/70 mt-2 text-sm sm:text-base">Call, email, or stop in — whichever&apos;s easiest.</p>
         </div>
       </div>
 
@@ -218,7 +218,7 @@ export default function ContactPage() {
             />
           </div>
           <p className="text-xs text-stone-400 text-center">
-            Cash only · ATM available on-site · Valid ID required
+            21+ · Cash only · ATM available on-site · Valid ID required
           </p>
         </div>
       </div>
