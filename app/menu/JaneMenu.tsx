@@ -161,8 +161,11 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
              id="app" exists, it throws "react-modal: No elements were found
              for selector #app" and the menu silently fails to hydrate.
              WordPress's theme had this baked in; we don't, so we emit it
-             ourselves. Empty <div> matches the WP plugin's emit shape. */}
-      <div id="app" className="app" />
+             ourselves. `min-h-[60vh]` reserves viewport space pre-hydrate so
+             MenuActiveDealsStrip + MenuFallback + MenuLocalStrip below don't
+             shift down when Boost paints — viewport-aware CLS defense per
+             vercel:performance-optimizer P2 finding. */}
+      <div id="app" className="app min-h-[60vh]" />
       {/* 1. Runtime config — must be parsed before the Boost module loads.
              Routed through next/script so React 19's "Encountered a script
              tag while rendering React component" warning doesn't fire on
