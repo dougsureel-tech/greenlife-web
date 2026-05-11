@@ -127,11 +127,16 @@ export default function OurStoryOG() {
             greenlifecannabis.com/our-story
           </span>
           <span style={{ fontSize: 18, color: "#86efac", fontWeight: 600 }}>
-            Doug · Kat · Charity · Wes · Shailey · Jess
+            Center Road · Wenatchee
           </span>
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      headers: {
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
   );
 }

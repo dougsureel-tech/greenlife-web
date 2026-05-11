@@ -37,7 +37,7 @@ export function MenuLocalStrip() {
               id="menu-local-heading"
               className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight"
             >
-              Pickup is fastest from anywhere in NCW.
+              Pickup is fastest from anywhere in the Valley.
             </h2>
             <p className="text-sm text-stone-600 max-w-2xl leading-relaxed">
               Order ahead on the menu, swing by {STORE.address.full}, hand the

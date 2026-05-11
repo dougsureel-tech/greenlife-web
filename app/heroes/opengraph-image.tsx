@@ -129,6 +129,14 @@ export default function HeroesOG() {
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      // Cache-Control parity with /heroes/[cohort] OG (v8.205 cohort fix).
+      // Without explicit s-maxage, Vercel defaults to short TTL and social
+      // shares of /heroes serve stale previews. Mirrors the cohort-OG pattern.
+      headers: {
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
   );
 }

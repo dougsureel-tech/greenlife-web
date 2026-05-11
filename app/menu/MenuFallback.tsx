@@ -144,10 +144,10 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
             </svg>
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-base sm:text-lg">Our live menu is taking a moment to load.</h2>
+            <h2 className="font-bold text-base sm:text-lg">Menu&apos;s slow today — here&apos;s how to order while it loads.</h2>
             <p className="text-sm mt-1 text-amber-900/90">
-              You can browse and order on iHeartJane while we get the embedded menu back, or give us a call —
-              we have everything ready and can take your order over the phone.
+              Order on iHeartJane while it loads, or call us — we&apos;ve got everything ready and can take your order
+              over the phone.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
               <a
