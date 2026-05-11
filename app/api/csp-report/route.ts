@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { createRateLimiter } from "@/lib/rate-limit";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // CSP violation report receiver. Browsers POST violation reports here
 // when the page hits a directive in the `Content-Security-Policy-Report-
@@ -51,7 +53,21 @@ type CspReportBody = {
 
 const MAX_REPORT_BYTES = 16 * 1024;
 
+// Per-IP rate-limit. 60/min/IP is well above legitimate browser CSP-violation
+// volume but tight enough to throttle log-spam DoS via hostile CSP-headered
+// iframes. Sister of inv v397.525 + scc v22.605.
+const limiter = createRateLimiter({ limit: 60, windowMs: MINUTE_MS });
+
 export async function POST(request: Request): Promise<Response> {
+  // Rate-limit BEFORE the body read — body parsing on attacker traffic is
+  // the exact cost we're protecting against.
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!limiter.check(ip)) {
+    return new NextResponse(null, {
+      status: 429,
+      headers: { "Retry-After": "60" },
+    });
+  }
   const text = await request.text();
   if (text.length > MAX_REPORT_BYTES) {
     // Don't attempt to repair truncated JSON — the prior implementation
