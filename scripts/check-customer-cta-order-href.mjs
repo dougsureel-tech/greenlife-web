@@ -104,8 +104,9 @@ const PATTERNS = [
   /href\s*=\s*\{\s*`\/order(\?[^`]*)?`\s*\}/g,
   // ${...}/order or ${...}/order?... (full-URL template)
   /\$\{[^}]+\}\/order(\?[^"`'\s]*)?["`']/g,
-  // bare "/order" or "/order?..." as a string literal (catches stash, deep-links)
-  // EXCLUDE matches inside HIDE_ON-style arrays (line containing HIDE_ON or hide)
+  // redirect("/order") / router.push("/order") / router.replace("/order")
+  // Server actions + client-side imperative navigation patterns.
+  /\b(redirect|push|replace)\s*\(\s*["']\/order(\?[^"']*)?["']/g,
 ];
 
 // Lines containing these markers are skipped (defensive arrays, not links).

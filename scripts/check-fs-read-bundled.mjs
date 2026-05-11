@@ -65,12 +65,24 @@ function* walk(dir) {
   }
 }
 
+// Blank-out line + block comments so teaching examples in docstrings
+// don't false-positive (e.g. a comment showing `fs.readFileSync(process.cwd()
+// + "/x")` would otherwise trip the guard). Replaces each comment char with
+// a space (newlines preserved) so byte offsets + line numbers stay aligned
+// with the original text — lineOf() uses the original text below.
+function blankComments(text) {
+  return text
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "))
+    .replace(/(^|[^:])\/\/[^\n]*/g, (m, prefix) => prefix + m.slice(prefix.length).replace(/./g, " "));
+}
+
 function findCalls(text) {
+  const masked = blankComments(text);
   const hits = [];
   for (const re of [FS_READ_RE, BARE_READ_RE]) {
     re.lastIndex = 0;
     let m;
-    while ((m = re.exec(text))) {
+    while ((m = re.exec(masked))) {
       const fnName = m[1];
       const argText = m[2];
       if (DYNAMIC_INDICATORS.some((d) => d.test(argText))) {
