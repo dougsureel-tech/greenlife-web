@@ -22,9 +22,10 @@
 // to handle re-engagement organically.
 
 import { useEffect, useState } from "react";
+import { DAY_MS } from "@/lib/time-constants";
 
 const DISMISSED_KEY = "gl-install-banner-dismissed-at";
-const COOLDOWN_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+const COOLDOWN_MS = 30 * DAY_MS;
 
 type Platform = "android" | "ios" | "other";
 
