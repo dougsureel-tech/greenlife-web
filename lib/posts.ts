@@ -1,4 +1,4 @@
-import { STORE } from "./store";
+import { STORE } from "./store.ts";
 
 export type Post = {
   slug: string;

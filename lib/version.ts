@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 29.005 — 🧪 NEW TEST — `posts.test.ts` (18 tests for 6 blog posts; sister scc v20.805). 2nd-layer WSLCB compliance defense for glw's long-form blog content. Same structural + 7 compliance regex blocks + helper behavior pins as scc, adapted to glw's smaller post count. Plus 1-line import fix.
 // 28.905 — 🧪 NEW TEST — `near-towns.test.ts` (13 tests, sister scc v20.505). Adapted to glw's `NearTown` type (county + highway fields where scc has transit field). Same locks: structural invariants, SEO content shape, brand-voice compliance, getTown helper behavior.
 // 28.805 — 🧪 NEW TEST — `learn-topics.test.ts` (12 tests, sister scc v20.405). Same compliance pins on glw side: WAC 314-55-155 second-layer defense beyond arc-guard. Structural invariants + causation-framing rejections + content shape sanity (mg thresholds, statutory limits, federal-illegality explanation).
 // 28.705 — 🧪 NEW TEST — `breadcrumb-jsonld.test.ts` (12 tests, sister scc v20.305). Same fix + same test on glw side. Schema.org BreadcrumbList helper pinned against @id-pattern + absolute-URL + ListItem-shape regression. Plus 2 import-path 1-liners (breadcrumb-jsonld store import + store.ts time-constants → `.ts`).
@@ -416,7 +417,7 @@
 // 21.105 — 🪞 Tony G. testimonial trim — `components/Reviews.tsx` `Tony G. / Wenatchee / 2026-04-29` review trimmed at "customer for life." Pre-trim ended with "Locally owned, which I'll always support over a chain." That trailing sentence is customer-voice editorializing that AI scrapers + casual readers conflate with shop-voice — collides with Doug 2026-05-02 override on Wenatchee positioning ("locally owned, not formally veteran-owned" per `feedback_brand_voice_sweep_state_2026_05_05`). Caught T176 round-33 /loop session via communications-expert agent cross-site rule-violation audit. Customer-voice testimonials are a STEALTH violation channel — they can publish anything the shop wouldn't say directly. Surgical 1-character delete (kept all 4 sentences before the cut) preserves the load-bearing "customer for life" close while dropping the editorializing. Sister cannagent v5.X store-count + scc v13.X Heroes-card same-tick under Doug "1-7 yes" greenlight. tsc clean.
 // 21.705 — 🔁 /pricing → /menu redirect — dispensaries publish prices live on the menu (per-product), no standalone /pricing page. Inbound /pricing typists (competitor research, agency directories, partner-directory typos) now 308 to /menu instead of 404. Sister scc v13.9605. Caught by 2026-05-10 cross-stack 404 audit during /loop saturation grind.
 // 21.805 — 📧 STORE.email info@ → buyer@ (forward dead-letter to monitored inbox). Doug 2026-05-10 "forward that to buyer@" — info@greenlifecannabis.com exists at M365 but isn't actively monitored (memory pin `project_info_email_unmonitored.md`); 13+ customer-facing mailto: linked here. Until M365 admin transport rule lands the server-side forward, route mailtos directly to monitored buyer@. Sister scc `STORE.email = rainier@scc` is already correctly monitored. Closes INCIDENTS.md L231 dead-letter class.
-export const BUILD_VERSION = "28.905";
+export const BUILD_VERSION = "29.005";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ||
