@@ -13,11 +13,11 @@ export const LEARN_TOPICS: LearnTopic[] = [
     icon: "☀️🌙🍃",
     title: "Indica vs sativa vs hybrid",
     body:
-      "Quick rule of thumb: indica = body relaxation, sativa = head energy, hybrid = both. " +
-      "It's a simplification — modern strains are mostly hybrids, and the effect depends more on the " +
-      "specific terpene profile than the indica/sativa label. But for shopping, the labels still help: " +
-      "if you want couch + sleep, lean indica. If you want focus + uplift, lean sativa. If you want " +
-      "in-between, lean hybrid.",
+      "Quick rule of thumb: indica = body-heavy, sativa = head-forward, hybrid = both. " +
+      "It's a simplification — modern strains are mostly hybrids, and how a strain lands depends more " +
+      "on the specific terpene profile than the indica/sativa label. But for shopping, the labels still " +
+      "help: if people want couch + sleep, they lean indica. If they want focus + uplift, they lean " +
+      "sativa. In-between, hybrid.",
   },
   {
     id: "edibles-dosing",
@@ -38,8 +38,8 @@ export const LEARN_TOPICS: LearnTopic[] = [
       "THC% on flower is the percent of the flower's weight that's THC. 18% is mid; 22%+ is high; 28%+ " +
       "is very high. Higher isn't always better — terpene content and curing matter just as much for " +
       "the experience. On edibles, look at total mg per package AND per piece — a 100 mg gummy bag " +
-      "with 10 pieces is 10 mg per gummy. CBD is the calmer, non-intoxicating cannabinoid; CBD-heavy " +
-      "products take the edge off without the high.",
+      "with 10 pieces is 10 mg per gummy. CBD is the non-intoxicating cannabinoid; CBD-heavy products " +
+      "don't get you high — people reach for them when they want the cannabinoid without the head change.",
   },
   {
     id: "terpenes-101",
@@ -47,9 +47,10 @@ export const LEARN_TOPICS: LearnTopic[] = [
     title: "Terpenes 101",
     body:
       "Terpenes are the aromatic compounds in cannabis (and in basically every plant). They're why one " +
-      "strain smells citrusy and another smells like pine. Terpenes also shape the effect: myrcene " +
-      "tends toward sedating and body-heavy, limonene toward uplift and mood, pinene toward focus, " +
-      "linalool toward calm. If a strain smells right to you, it's a decent first signal that it'll " +
+      "strain smells citrusy and another smells like pine. Terpenes also shape how a strain lands: " +
+      "myrcene shows up in strains people pick for a body-heavy session, limonene in ones they reach " +
+      "for when they want a mood lift, pinene in daytime-leaning strains, linalool in ones folks pick " +
+      "to wind down. If a strain smells right to you, it's a decent first signal that it'll " +
       "feel right too. Ask a budtender — we'll match by smell.",
   },
   {
@@ -60,7 +61,7 @@ export const LEARN_TOPICS: LearnTopic[] = [
       "Bring a valid 21+ ID. We'll check at the door and again at the counter — required by Washington " +
       "law, no exceptions, no offense taken. Inside is just like a normal retail store, except a " +
       "budtender is at the counter to walk you through the menu. Feel free to ask anything: dosing, " +
-      "effects, what's new, what's good for sleep, what's a fair price. Cash only (ATM on site). " +
+      "what's new, what we've been smoking lately, what's a fair price. Cash only (ATM on site). " +
       "In and out in 10 minutes if you know what you want; longer if you want to chat.",
   },
   {
