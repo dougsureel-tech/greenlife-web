@@ -102,6 +102,10 @@ const PATTERNS = [
   /href\s*=\s*["']\/order(\?[^"']*)?["']/g,
   // href={`/order`} or href={`/order?${...}`}
   /href\s*=\s*\{\s*`\/order(\?[^`]*)?`\s*\}/g,
+  // href={withAttr(`/order...`)} — function-wrapped template literal.
+  // Caught find-your-strain shortcut leak v24.405 own-code-audit miss.
+  // Match `(` + optional whitespace + `\`/order` anywhere in JSX expression.
+  /href\s*=\s*\{[^}]*?`\/order(\?[^`]*)?`/g,
   // ${...}/order or ${...}/order?... (full-URL template)
   /\$\{[^}]+\}\/order(\?[^"`'\s]*)?["`']/g,
   // redirect("/order") / router.push("/order") / router.replace("/order")

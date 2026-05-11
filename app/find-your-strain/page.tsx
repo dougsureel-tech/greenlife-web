@@ -121,7 +121,7 @@ export default function FindYourStrainPage() {
             return (
               <Link
                 key={m.label}
-                href={withAttr(`/order?${params.toString()}`, "quiz", `shortcut-${m.vibe}`)}
+                href={withAttr(`/menu?${params.toString()}`, "quiz", `shortcut-${m.vibe}`)}
                 className="group rounded-xl border border-stone-200 bg-white px-3 py-3 text-center hover:border-green-300 hover:shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
               >
                 <div className="text-xl mb-0.5" aria-hidden>{m.emoji}</div>
