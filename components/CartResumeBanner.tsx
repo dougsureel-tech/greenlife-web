@@ -1,3 +1,4 @@
+// aria-current:ignore-file — uses pathname for hide-logic / conditional-href, NOT active-state visual treatment.
 "use client";
 
 import Link from "next/link";

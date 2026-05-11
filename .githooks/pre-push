@@ -94,7 +94,8 @@ for gate in \
   scripts/check-no-unsafe-redirect.mjs \
   scripts/check-metadata-exclusive.mjs \
   scripts/check-env-example-unique.mjs \
-  scripts/check-imageresponse-cache-pattern.mjs; do
+  scripts/check-imageresponse-cache-pattern.mjs \
+  scripts/check-aria-current.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
