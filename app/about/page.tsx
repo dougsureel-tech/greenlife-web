@@ -38,8 +38,10 @@ export const metadata: Metadata = {
 
 // AboutPage JSON-LD — links 'mainEntity' to the LocalBusiness @id from
 // layout.tsx so AI engines + Google connect this page to the same store
-// entity. Big GEO add for queries like 'who owns Green Life Cannabis' or
-// 'is Green Life locally owned'.
+// entity. Big GEO add for queries like 'how long has Green Life Cannabis
+// been around' or 'who runs Green Life Cannabis Wenatchee' — tenure +
+// crew framing per Doug 2026-05-02 directive (ownership change coming;
+// 'locally owned' framing intentionally avoided across the site).
 //
 // `image` points at the OG image so SERP knowledge-panel cards have a
 // thumbnail (Google falls back to a generic icon if no image is provided).
