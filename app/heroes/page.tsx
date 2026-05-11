@@ -191,7 +191,7 @@ export default function HeroesPage() {
               Six categories. Real ID required.
             </h2>
             <p className="text-stone-600 text-sm mt-2 max-w-xl leading-relaxed">
-              We verify credentials at the counter — same standard whether it&rsquo;s your first
+              We verify credentials at the counter — same standard whether it’s your first
               visit or your fiftieth. Bring your service or work ID alongside your 21+ ID.
             </p>
           </div>
@@ -245,7 +245,7 @@ export default function HeroesPage() {
               {
                 step: "Step 2",
                 title: "Tell the budtender",
-                detail: "Mention you&rsquo;re here for the Heroes discount when you walk up.",
+                detail: "Mention you’re here for the Heroes discount when you walk up.",
               },
               {
                 step: "Step 3",
@@ -261,10 +261,7 @@ export default function HeroesPage() {
                   {step}
                 </span>
                 <h3 className="font-bold text-stone-900 mt-2">{title}</h3>
-                <p
-                  className="text-stone-600 text-sm mt-1.5 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: detail }}
-                />
+                <p className="text-stone-600 text-sm mt-1.5 leading-relaxed">{detail}</p>
               </li>
             ))}
           </ol>
@@ -292,10 +289,7 @@ export default function HeroesPage() {
                     +
                   </span>
                 </summary>
-                <p
-                  className="text-stone-600 text-sm leading-relaxed mt-3"
-                  dangerouslySetInnerHTML={{ __html: a }}
-                />
+                <p className="text-stone-600 text-sm leading-relaxed mt-3">{a}</p>
               </details>
             ))}
           </dl>
@@ -311,7 +305,7 @@ export default function HeroesPage() {
           </h2>
           <p className="text-emerald-100/80 text-sm max-w-md mx-auto leading-relaxed">
             {STORE.address.street}, {STORE.address.city}. Free parking, ATM on-site, real budtenders
-            who&rsquo;ll thank you for what you do.
+            who’ll thank you for what you do.
           </p>
           <div className="flex justify-center gap-3 flex-wrap pt-2">
             <Link
