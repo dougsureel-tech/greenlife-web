@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
+import { DAY_MS } from "@/lib/time-constants";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
@@ -767,7 +768,7 @@ export default async function HomePage() {
                       // ISR-cached page (revalidate=60): Date.now() is frozen at
                       // last cache-fill, so "Ends today" labels can drift up to
                       // 60s. Acceptable — daily granularity for renewal urgency.
-                      const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
+                      const days = Math.ceil((date.getTime() - Date.now()) / DAY_MS);
                       if (days <= 0) return { label: "Ends today", urgent: true };
                       if (days === 1) return { label: "Ends tomorrow", urgent: true };
                       if (days <= 7)

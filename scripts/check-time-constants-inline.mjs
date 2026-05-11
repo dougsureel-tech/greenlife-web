@@ -38,6 +38,8 @@ const EXEMPT_FILES = new Set([
 const EXEMPT_PREFIXES = ["app/order/"];
 
 const PATTERNS = [
+  // Multiplication forms — most-specific first so 24*60*60*1000 doesn't
+  // match HOUR_MS or MINUTE_MS via overlap.
   {
     name: "DAY_MS",
     regex: /\b24\s*\*\s*60\s*\*\s*60\s*\*\s*1000\b/g,
@@ -51,6 +53,24 @@ const PATTERNS = [
   {
     name: "MINUTE_MS",
     regex: /\b60\s*\*\s*1000\b/g,
+    hint: "use `MINUTE_MS` from @/lib/time-constants",
+  },
+  // Decimal-literal forms (with or without numeric separator). v23.605 +
+  // v23.905 own-code audit found `86400000` used in 4 sites + `60_000`
+  // redefined in lib/rate-limit.ts despite SoT existing.
+  {
+    name: "DAY_MS",
+    regex: /\b86_?400_?000\b/g,
+    hint: "use `DAY_MS` from @/lib/time-constants",
+  },
+  {
+    name: "HOUR_MS",
+    regex: /\b3_?600_?000\b/g,
+    hint: "use `HOUR_MS` from @/lib/time-constants",
+  },
+  {
+    name: "MINUTE_MS",
+    regex: /\b60_?000\b/g,
     hint: "use `MINUTE_MS` from @/lib/time-constants",
   },
 ];

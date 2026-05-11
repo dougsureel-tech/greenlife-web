@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isOpenNow, nextOpenLabel, STORE, STORE_TZ, minutesUntilClose, getOrderingStatus } from "@/lib/store";
 import { getActiveDeals } from "@/lib/db";
+import { DAY_MS } from "@/lib/time-constants";
 
 // Within this window before close, swap the static hours line for a live
 // "Closes in X min" countdown. When the visitor arrives late this is the
@@ -29,7 +30,7 @@ export async function AnnouncementBar() {
     for (const d of deals) {
       if (!d.endDate) continue;
       const endMs = new Date(`${d.endDate}T23:59:59`).getTime();
-      const days = Math.ceil((endMs - todayMs) / 86400000);
+      const days = Math.ceil((endMs - todayMs) / DAY_MS);
       if (days <= 1) return { deal: d, endsToday: days <= 0 };
     }
     return null;

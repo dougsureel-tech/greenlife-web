@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { STORE, todayCloseLabel } from "@/lib/store";
+import { DAY_MS } from "@/lib/time-constants";
 
 // Passed in from the parent /menu page (ISR 60s). Keeps the deal hook
 // visible to the stuck-embed customer so they don't bounce off-site
@@ -90,7 +91,7 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
     ? (() => {
         const date = new Date(`${featuredDeal.endDate}T23:59:59`);
         // eslint-disable-next-line react-hooks/purity -- Only renders after `show` flips true (post-watchdog); `featuredDeal` is stable per parent render so the impurity stays bounded.
-        const days = Math.ceil((date.getTime() - Date.now()) / 86400000);
+        const days = Math.ceil((date.getTime() - Date.now()) / DAY_MS);
         if (days <= 0) return "ends today — show this at the counter";
         if (days === 1) return "ends tomorrow";
         if (days <= 7)

@@ -1,3 +1,5 @@
+import { MINUTE_MS } from "./time-constants";
+
 export const STORE = {
   name: "Green Life Cannabis",
   tagline: "Wenatchee's best cannabis staff",
@@ -323,5 +325,5 @@ function getTzOffsetMin(date: Date, tz: string): number {
     Number(parts.minute),
     Number(parts.second),
   );
-  return Math.round((asUTC - date.getTime()) / 60000);
+  return Math.round((asUTC - date.getTime()) / MINUTE_MS);
 }

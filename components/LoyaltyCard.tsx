@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { LoyaltySnapshot } from "@/lib/portal";
 import { getTierProgress } from "@/lib/loyalty-tiers";
+import { DAY_MS } from "@/lib/time-constants";
 
 // Loyalty surface for the public site. Two states:
 //
@@ -19,7 +20,7 @@ const POINTS_PER_DOLLAR = 100;
 
 function formatRelative(iso: string): string {
   const d = new Date(iso);
-  const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+  const days = Math.floor((Date.now() - d.getTime()) / DAY_MS);
   if (days < 1) return "today";
   if (days === 1) return "yesterday";
   if (days < 14) return `${days} days ago`;

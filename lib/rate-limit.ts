@@ -13,7 +13,7 @@
 // (v345.805 + v346.205 there). Two repos, identical helper, both prune
 // opportunistically.
 
-const MINUTE_MS = 60_000;
+import { MINUTE_MS } from "./time-constants";
 
 type Entry = { count: number; resetAt: number };
 
