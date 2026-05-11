@@ -95,8 +95,19 @@ const PATTERNS = [
     rule: "predictable-effect causation",
   },
   {
+    rx: /\btends?\s+toward\s+(?:more\s+)?(?:sedating|sedative|uplifting|energizing|calming|relaxing)/gi,
+    rule: "predictable-effect causation (with 'more' qualifier)",
+  },
+  {
     rx: /\boften\s+(?:sedating|uplifting|calming|relaxing)\b/gi,
     rule: "predictable-effect attribution",
+  },
+  // "associated with relaxing/energizing/uplifting effects" — common in
+  // AI-feed style "indica is associated with X effects" sentences. Caught
+  // v19.905 in llms-full.txt that earlier regex missed.
+  {
+    rx: /\bassociated\s+with\s+(?:relaxing|energizing|uplifting|sedating|calming)/gi,
+    rule: "predictable-effect attribution (associative)",
   },
   // Pharmacological / therapeutic verbs
   { rx: /\btakes?\s+the\s+edge\s+off\b/gi, rule: "symptom-management hedge" },
