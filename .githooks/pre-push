@@ -82,7 +82,8 @@ for gate in \
   scripts/check-usesyncexternalstore-cache.mjs \
   scripts/check-conflict-markers.mjs \
   scripts/check-time-constants-inline.mjs \
-  scripts/check-fs-read-bundled.mjs; do
+  scripts/check-fs-read-bundled.mjs \
+  scripts/check-inline-form-action-tuple-discard.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -91,7 +92,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (21/21)"
+echo "  ✓ Build-gates OK (22/22)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."

@@ -29,6 +29,7 @@
     "check:conflict-markers": "node scripts/check-conflict-markers.mjs",
     "check:time-constants-inline": "node scripts/check-time-constants-inline.mjs",
     "check:fs-read-bundled": "node scripts/check-fs-read-bundled.mjs",
+    "check:inline-form-action-tuple-discard": "node scripts/check-inline-form-action-tuple-discard.mjs",
     "typecheck": "tsc --noEmit",
     "test:all": "node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts"
   },
