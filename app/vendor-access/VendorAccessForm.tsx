@@ -13,7 +13,7 @@ const ERROR_LABEL: Record<string, string> = {
   invalid_json: "Something went wrong submitting the form — try again, or email us directly.",
   missing_company_name: "Company name is required.",
   missing_contact_name: "Contact name is required.",
-  invalid_email: "Please enter a valid email address.",
+  invalid_email: "Enter a valid email address.",
   insert_failed: "Couldn't save your request — try again, or email us directly.",
 };
 

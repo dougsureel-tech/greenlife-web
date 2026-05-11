@@ -138,7 +138,7 @@ export function StrainFinderClient() {
     if (!finalAnswers) return;
     const trimmed = email.trim();
     if (!trimmed || !trimmed.includes("@")) {
-      setCaptureError("Please enter a valid email.");
+      setCaptureError("Enter a valid email.");
       setCaptureState("error");
       return;
     }
