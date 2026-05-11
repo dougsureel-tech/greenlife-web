@@ -438,8 +438,8 @@ export default async function HeroesCohortPage({
             <li className="flex gap-3">
               <span className="font-extrabold text-green-700 shrink-0">3.</span>
               <span>
-                We&rsquo;ll get you signed up for our loyalty program at the same time so the discount applies
-                automatically and you start earning points on every future visit. <strong>One signup, lifetime benefit.</strong>
+                We tag your account at the counter so the discount applies automatically on every future
+                visit — no signup, no re-verify. <strong>The credential alone keeps you in, forever.</strong>
               </span>
             </li>
             <li className="flex gap-3">
