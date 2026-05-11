@@ -150,8 +150,7 @@ export default function CommunityPage() {
             <p className="text-stone-700 leading-relaxed">
               We&apos;re building a small program for cannabis creators in eastern WA — small
               followings, real audiences, no spam. They get a tracked link to share, a code their
-              followers can use, and we get word-of-mouth that doesn&apos;t violate state advertising
-              law.
+              followers can use, and our customers hear about us from people they actually trust.
             </p>
             <p className="text-stone-500 text-sm leading-relaxed mt-3">
               If that sounds like you, email{" "}
