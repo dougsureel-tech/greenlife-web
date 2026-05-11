@@ -25,6 +25,7 @@
     "check:no-store-isr-poison": "node scripts/check-no-store-isr-poison.mjs",
     "check:customer-cta-order-href": "node scripts/check-customer-cta-order-href.mjs",
     "check:fabricated-review-schema": "node scripts/check-fabricated-review-schema.mjs",
+    "check:usesyncexternalstore-cache": "node scripts/check-usesyncexternalstore-cache.mjs",
     "typecheck": "tsc --noEmit",
     "test:all": "node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts"
   },
