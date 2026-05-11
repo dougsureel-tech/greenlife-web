@@ -61,6 +61,9 @@ export async function VendorAdSlot({
                 src={ad.imageUrl}
                 alt={ad.headline ?? ad.vendorName ?? "ad"}
                 loading={loading}
+                fetchPriority={loading === "eager" ? "high" : "auto"}
+                width="280"
+                height="210"
                 className="w-full h-full object-cover aspect-[4/3] sm:aspect-auto sm:min-h-[160px]"
               />
             ) : (
