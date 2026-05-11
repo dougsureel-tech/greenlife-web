@@ -66,7 +66,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Education",
     q: "What's the difference between indica, sativa, and hybrid?",
-    a: "Indica strains are traditionally associated with relaxing, body-heavy effects. Sativas tend toward more energizing, uplifting effects. Hybrids fall somewhere in between. That said, terpene profiles and individual chemistry matter more than these categories — our staff can explain further.",
+    a: "Quick rule of thumb: indica leans body + relaxed, sativa leans head + energized, hybrid is a blend of both. Terpene profile matters more than the label, so come ask — we'll point you at what actually fits the day.",
   },
   {
     tag: "Legal",
