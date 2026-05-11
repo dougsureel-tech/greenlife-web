@@ -22,6 +22,7 @@
     "check:pii-console-leak": "node scripts/check-pii-console-leak.mjs",
     "check:breadcrumb-ld-id": "node scripts/check-breadcrumb-ld-id.mjs",
     "check:redirect-shadow": "node scripts/check-redirect-shadow.mjs",
+    "check:no-store-isr-poison": "node scripts/check-no-store-isr-poison.mjs",
     "typecheck": "tsc --noEmit",
     "test:all": "node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts"
   },

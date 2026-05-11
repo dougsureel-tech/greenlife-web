@@ -75,7 +75,8 @@ for gate in \
   scripts/check-server-actions-async.mjs \
   scripts/check-pii-console-leak.mjs \
   scripts/check-breadcrumb-ld-id.mjs \
-  scripts/check-redirect-shadow.mjs; do
+  scripts/check-redirect-shadow.mjs \
+  scripts/check-no-store-isr-poison.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -84,7 +85,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (14/14)"
+echo "  ✓ Build-gates OK (15/15)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
