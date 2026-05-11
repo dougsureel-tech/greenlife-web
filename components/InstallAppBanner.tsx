@@ -69,8 +69,24 @@ export function InstallAppBanner() {
   const [platform, setPlatform] = useState<Platform>("other");
   const [iosSheetOpen, setIosSheetOpen] = useState(false);
   const [installEvent, setInstallEvent] = useState<BeforeInstallPromptEvent | null>(null);
+  // Idle-gate: defer ALL setup (platform detect, localStorage reads,
+  // beforeinstallprompt subscription, standalone-launch tracking POST) until
+  // the browser is idle. Banner is non-critical UI — should never compete
+  // with first-paint or LCP work. Per vercel:performance-optimizer P3 finding.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const win = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (win.requestIdleCallback) {
+      win.requestIdleCallback(() => setReady(true));
+    } else {
+      const id = setTimeout(() => setReady(true), 1500);
+      return () => clearTimeout(id);
+    }
+  }, []);
 
   useEffect(() => {
+    if (!ready) return;
     if (typeof window === "undefined") return;
 
     // Standalone-mode visit = the app is launched from the home-screen icon.
@@ -122,7 +138,7 @@ export function InstallAppBanner() {
         window.removeEventListener("appinstalled", installed);
       };
     }
-  }, []);
+  }, [ready]);
 
   function dismiss() {
     setVisible(false);
