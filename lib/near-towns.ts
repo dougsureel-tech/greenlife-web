@@ -53,7 +53,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "US-2 east, 12 miles",
     pitch: "Cashmere is 18 min east on US-2 — Apple Annie + Aplets & Cotlets, then us on the way home.",
     whyStop:
-      "Cashmere is small enough that most regulars at Green Life come from down-valley. The drive is short, the highway is direct, and we're right off the Sunnyslope exit before town traffic picks up. Senior discount lands on Sundays.",
+      "Cashmere is small enough that most regulars at Green Life come from down-valley. The drive is short, the highway is direct, and we're right off the Sunnyslope exit before town traffic picks up. Wisdom discount lands on Sundays.",
     notableNeighbors: ["Leavenworth", "Wenatchee"],
   },
   {
@@ -86,7 +86,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "US-97 Alt north + WA-150 around the lake",
     pitch: "Manson sits across Lake Chelan from town — about an hour to us via US-97 + the bridge.",
     whyStop:
-      "Manson + Chelan share the lake; both come down to Wenatchee for the bigger-store trips. Senior discount runs Sunday, online discount runs all week. Pair with Pybus Public Market or a Costco run on the way back.",
+      "Manson + Chelan share the lake; both come down to Wenatchee for the bigger-store trips. Wisdom discount runs Sunday, online discount runs all week. Pair with Pybus Public Market or a Costco run on the way back.",
     notableNeighbors: ["Chelan", "Entiat", "Lake Wenatchee"],
   },
   {
