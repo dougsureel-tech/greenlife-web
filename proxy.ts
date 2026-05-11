@@ -25,8 +25,21 @@ const isProtectedRoute = createRouteMatcher(["/account(.*)"]);
 //      cross-origin. We 308 those to www so stale/shared deploy URLs land.
 //
 // Override at deploy time with NEXT_PUBLIC_CANONICAL_HOST only if the
-// canonical hostname ever changes.
-const CANONICAL_HOST = process.env.NEXT_PUBLIC_CANONICAL_HOST || "www.greenlifecannabis.com";
+// canonical hostname ever changes. Env validated against an allow-list
+// (sister of inv v337.005 + v29.805 email-defense sweep) — if env drifts
+// to a typo'd value, EVERY non-canonical request would 308-redirect to
+// that broken host = site-wide outage. Allow-list rejects any value not
+// in the known-good Set. To add a new canonical, add it to
+// ALLOWED_CANONICAL_HOSTS in code FIRST, then flip the env.
+const ALLOWED_CANONICAL_HOSTS = new Set([
+  "www.greenlifecannabis.com",
+]);
+
+const CANONICAL_HOST = (() => {
+  const env = process.env.NEXT_PUBLIC_CANONICAL_HOST;
+  if (env && ALLOWED_CANONICAL_HOSTS.has(env)) return env;
+  return "www.greenlifecannabis.com";
+})();
 
 // Belt-and-suspenders: even if NEXT_PUBLIC_CANONICAL_HOST is ever
 // misconfigured at deploy time (e.g. a stale value from when the deployment
