@@ -1,6 +1,7 @@
 import "server-only";
 import { getClient } from "./db";
 import { sendPushToClerkUser } from "./push-db";
+import { round2 } from "./money-math.ts";
 
 // "Order is ready" web push — fired server-side from /account/orders +
 // /order/confirmation page renders. The OrderStatusRefresh component on
@@ -615,7 +616,7 @@ export async function placeOrder(
           `;
 
           if (deductRows.length > 0) {
-            loyaltyDiscountDollars = Math.round(subtotal * fraction * 100) / 100;
+            loyaltyDiscountDollars = round2(subtotal * fraction);
             resolvedTierPointCost = loyaltyTierPointCost;
           }
         }

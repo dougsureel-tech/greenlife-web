@@ -2,6 +2,8 @@
 // No server-only import: these functions run in both Server Components and Client Components.
 // Keep in sync with inventoryapp when tier constants change.
 
+import { round2 } from "./money-math.ts";
+
 export type RedemptionTier = {
   pointCost: number;
   discountPct: number;
@@ -46,6 +48,6 @@ export function applyRedemptionTier(
   if (tier.maxOrderSubtotal != null && orderSubtotal >= tier.maxOrderSubtotal) return null;
   if (tier.minOrderSubtotal != null && orderSubtotal < tier.minOrderSubtotal) return null;
   const rawDiscount = orderSubtotal * tier.discountPct;
-  const discountDollars = Math.round(rawDiscount * 100) / 100;
+  const discountDollars = round2(rawDiscount);
   return { discountDollars, netSubtotal: Math.max(0, orderSubtotal - discountDollars) };
 }

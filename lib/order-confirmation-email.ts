@@ -30,6 +30,7 @@ import "server-only";
 
 import { sendEmail, isEmailConfigured } from "./email";
 import { STORE } from "./store";
+import { round2 } from "./money-math.ts";
 
 export type OrderConfirmationItem = {
   productName: string;
@@ -64,7 +65,7 @@ const safe = (s: string): string =>
   }[c]!));
 
 const fmtUsd = (n: number): string =>
-  `$${(Math.round(n * 100) / 100).toFixed(2)}`;
+  `$${round2(n).toFixed(2)}`;
 
 // Wenatchee palette — matches SiteHeader (green-700/800) + the inventoryapp
 // email template (#14532d → #166534 → #15803d header gradient).

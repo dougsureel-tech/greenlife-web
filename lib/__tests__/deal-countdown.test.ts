@@ -66,8 +66,11 @@ describe("computeDealCountdown — mid-range band (2-7 days)", () => {
     assert.equal(got.urgent, false);
   });
 
-  test("6 days + 12h out renders as 'Ends in N days', not urgent", () => {
-    const got = computeDealCountdown(isoDate(6 * DAY_MS + 12 * HOUR_MS));
+  test("5 days + 6h out renders as 'Ends in N days', not urgent", () => {
+    // Was 6 days + 12h — too close to the 7-day band boundary. Function
+    // anchors to end-of-day PT, so 6.5-day offset can push into far-
+    // future band depending on time-of-day. 5 days + 6h leaves headroom.
+    const got = computeDealCountdown(isoDate(5 * DAY_MS + 6 * HOUR_MS));
     assert.match(got.label, /^Ends in [2-7] days$/);
     assert.equal(got.urgent, false);
   });

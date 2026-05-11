@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 30.505 — 💰 NEW lib `money-math.ts` + 11-test suite (sister scc v22.505). Same SSoT lift on glw side — 3 inline duplicates of `Math.round(n * 100) / 100` consolidated to `round2(n)`. Plus same flaky-test fix in deal-countdown (5-day-+-6h with safer headroom). 362/362 + tsc clean.
 // 30.405 — 🛡️ NEW arc-guard `check-no-unsafe-redirect.mjs` (sister scc v22.405). Same preventive open-redirect class lock on glw side. Wired into pre-push (30/30 gates) + `npm run check:no-unsafe-redirect`. Baseline = 0 offenders. tsc + 351/351 + 30/30 arc-guards clean.
 // 30.305 — 🛡️ NEW test file `cart-resume-banner-hooks.test.ts` (4 tests, sister scc v22.305) — pins v30.005 Rules-of-Hooks refactor. Same 4 pins as scc: no eslint-disables + structural hook-order + flag-still-false. 351/351 full suite green.
 // 30.205 — 🛡️ NEW test file `proxy-defense.test.ts` (5 tests, sister scc v22.205) — pins v29.905 proxy.ts CANONICAL_HOST allow-list defense. Same gap closure: check-site-url-defense.mjs arc-guard doesn't cover proxy.ts at root. 5 pins enforce ALLOWED_CANONICAL_HOSTS + IIFE validation + hardcoded fallback + negative-assertion + ALWAYS_CANONICAL_HOSTS preserved. 347/347 full suite green.
@@ -431,7 +432,7 @@
 // 21.105 — 🪞 Tony G. testimonial trim — `components/Reviews.tsx` `Tony G. / Wenatchee / 2026-04-29` review trimmed at "customer for life." Pre-trim ended with "Locally owned, which I'll always support over a chain." That trailing sentence is customer-voice editorializing that AI scrapers + casual readers conflate with shop-voice — collides with Doug 2026-05-02 override on Wenatchee positioning ("locally owned, not formally veteran-owned" per `feedback_brand_voice_sweep_state_2026_05_05`). Caught T176 round-33 /loop session via communications-expert agent cross-site rule-violation audit. Customer-voice testimonials are a STEALTH violation channel — they can publish anything the shop wouldn't say directly. Surgical 1-character delete (kept all 4 sentences before the cut) preserves the load-bearing "customer for life" close while dropping the editorializing. Sister cannagent v5.X store-count + scc v13.X Heroes-card same-tick under Doug "1-7 yes" greenlight. tsc clean.
 // 21.705 — 🔁 /pricing → /menu redirect — dispensaries publish prices live on the menu (per-product), no standalone /pricing page. Inbound /pricing typists (competitor research, agency directories, partner-directory typos) now 308 to /menu instead of 404. Sister scc v13.9605. Caught by 2026-05-10 cross-stack 404 audit during /loop saturation grind.
 // 21.805 — 📧 STORE.email info@ → buyer@ (forward dead-letter to monitored inbox). Doug 2026-05-10 "forward that to buyer@" — info@greenlifecannabis.com exists at M365 but isn't actively monitored (memory pin `project_info_email_unmonitored.md`); 13+ customer-facing mailto: linked here. Until M365 admin transport rule lands the server-side forward, route mailtos directly to monitored buyer@. Sister scc `STORE.email = rainier@scc` is already correctly monitored. Closes INCIDENTS.md L231 dead-letter class.
-export const BUILD_VERSION = "30.405";
+export const BUILD_VERSION = "30.505";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ||
