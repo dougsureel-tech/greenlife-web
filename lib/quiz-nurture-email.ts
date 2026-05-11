@@ -177,9 +177,9 @@ function vibeLine(vibe: string | null | undefined): string {
 function strainPhrase(strainType: string | null | undefined): string {
   if (!strainType) return "all three (sativa / indica / hybrid)";
   const m: Record<string, string> = {
-    sativa: "sativa (uplifting, daytime)",
-    indica: "indica (relaxing, nighttime)",
-    hybrid: "hybrid (best of both)",
+    sativa: "sativa (head-forward, daytime-leaning)",
+    indica: "indica (body-heavy, evening-leaning)",
+    hybrid: "hybrid (in-between)",
   };
   return m[strainType] ?? strainType;
 }
