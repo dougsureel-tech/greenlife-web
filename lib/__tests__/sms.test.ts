@@ -12,8 +12,14 @@
 
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
 import { normalizeToE164, normalizePhone } from "../sms.ts";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SMS_SRC = readFileSync(join(__dirname, "..", "sms.ts"), "utf-8");
 
 describe("normalizeToE164 — input shapes the codebase sees", () => {
   test("raw 10-digit US → +1 prefix", () => {
@@ -95,5 +101,42 @@ describe("normalizePhone alias — back-compat for legacy call sites", () => {
 
   test("normalizePhone produces same output as normalizeToE164", () => {
     assert.equal(normalizePhone("5095550100"), normalizeToE164("5095550100"));
+  });
+});
+
+describe("sendSms — PII strip in catch block (sister scc + lib/email.ts hygiene)", () => {
+  test("catch block strips E.164 patterns from error", () => {
+    assert.match(
+      SMS_SRC,
+      /\.replace\(\/\\\+\\d\{10,15\}\/g,\s*["']<phone>["']\)/,
+      "lib/sms.ts catch block must strip +\\d{10,15} from error message",
+    );
+  });
+
+  test("catch block also strips bare 10-15 digit runs", () => {
+    assert.match(
+      SMS_SRC,
+      /\.replace\(\/\\b\\d\{10,15\}\\b\/g,\s*["']<phone>["']\)/,
+      "lib/sms.ts catch block must also strip \\b\\d{10,15}\\b (non-E.164 raw digits)",
+    );
+  });
+
+  test("catch block truncates to bounded length (defense in depth)", () => {
+    assert.match(
+      SMS_SRC,
+      /\.slice\(0,\s*1[0-9]{2}\)/,
+      "lib/sms.ts catch block must bound length via .slice(0, 100-199)",
+    );
+  });
+
+  test("catch block does NOT return raw e.message directly", () => {
+    assert.ok(
+      !/error:\s*e\.message\s*\}/.test(SMS_SRC),
+      "lib/sms.ts must NOT return raw e.message — PII leak (Twilio echoes phone)",
+    );
+    assert.ok(
+      !/error:\s*e\s+instanceof\s+Error\s*\?\s*e\.message\s*:\s*String\(e\)\s*\}/.test(SMS_SRC),
+      "lib/sms.ts must NOT return raw e.message ternary — pre-fix pattern",
+    );
   });
 });

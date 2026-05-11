@@ -59,6 +59,17 @@ export async function sendSms(
     const msg = await client.messages.create({ body, from: FROM_NUMBER!, to: normalizedTo });
     return { success: true, sid: msg.sid };
   } catch (e) {
-    return { success: false, error: e instanceof Error ? e.message : String(e) };
+    // PII strip — Twilio errors echo recipient phone in `.message`
+    // ("The 'To' number +15095550100 is unsubscribed"). Caller-side
+    // truncate-to-40 was an attempted defense but the phone sits at
+    // position ~16 so the truncate still leaked it. Strip E.164 and
+    // 10+ consecutive-digit patterns at source so callers can log
+    // freely. Same hygiene as `lib/email.ts` (sister of inv v305.205).
+    const raw = e instanceof Error ? e.message : String(e);
+    const stripped = raw
+      .replace(/\+\d{10,15}/g, "<phone>")
+      .replace(/\b\d{10,15}\b/g, "<phone>")
+      .slice(0, 160);
+    return { success: false, error: stripped };
   }
 }
