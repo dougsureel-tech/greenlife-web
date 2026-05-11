@@ -109,6 +109,13 @@ const PATTERNS = [
     rx: /\bassociated\s+with\s+(?:relaxing|energizing|uplifting|sedating|calming)/gi,
     rule: "predictable-effect attribution (associative)",
   },
+  // "X = traditionally relaxing/energizing/uplifting" copula attribution,
+  // common in AI-feed Q&A shorthand. Caught v20.005 on glw llms.txt that
+  // sister scc had already been fixed at v17.905 but glw drift persisted.
+  {
+    rx: /=\s+traditionally\s+(?:relaxing|energizing|uplifting|sedating|calming)/gi,
+    rule: "predictable-effect attribution (copula)",
+  },
   // Pharmacological / therapeutic verbs
   { rx: /\btakes?\s+the\s+edge\s+off\b/gi, rule: "symptom-management hedge" },
   { rx: /\bcalmer\s+cannabinoid\b/gi, rule: "pharmacological comparative" },
