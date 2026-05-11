@@ -212,7 +212,7 @@ export function StrainFinderClient() {
               ? "Match ready"
               : `Step ${stepIdx + 1} of ${STEPS.length}`}
           </span>
-          <span className="capitalize">{phase === "capture" ? "deal" : step.key}</span>
+          <span className="capitalize">{phase === "capture" ? "match" : step.key}</span>
         </div>
         <div
           className="h-1.5 rounded-full bg-stone-200 overflow-hidden"
@@ -348,11 +348,11 @@ export function StrainFinderClient() {
               id="capture-headline"
               className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900"
             >
-              Get your match emailed + a first-visit deal
+              Get your match — and a first-visit perk
             </h2>
             <p className="text-sm text-stone-600">
-              We&rsquo;ll send your match + a first-visit deal. Reply STOP to
-              unsubscribe.
+              We&rsquo;ll email your recap and drop a first-visit discount in there
+              too. Unsubscribe anytime.
             </p>
           </div>
 

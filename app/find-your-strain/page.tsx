@@ -144,8 +144,8 @@ export default function FindYourStrainPage() {
             <div className="text-2xl mb-2" aria-hidden>🌿</div>
             <div className="text-sm font-bold text-stone-900 mb-1">Live menu</div>
             <p className="text-xs text-stone-600 leading-relaxed">
-              We filter what&apos;s actually on the shelf right now in {STORE.address.city}. No vapor-ware,
-              no &ldquo;coming soon.&rdquo;
+              We filter what&apos;s actually on the shelf right now in {STORE.address.city}. If it&apos;s in
+              the quiz, it&apos;s in the building.
             </p>
           </div>
           <div className="rounded-2xl border border-stone-200 bg-white p-4">
