@@ -97,7 +97,8 @@ for gate in \
   scripts/check-imageresponse-cache-pattern.mjs \
   scripts/check-aria-current.mjs \
   scripts/check-client-imports-no-server-only.mjs \
-  scripts/check-use-server-exports.mjs; do
+  scripts/check-use-server-exports.mjs \
+  scripts/check-resend-via-helper.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
