@@ -155,9 +155,9 @@ function buildHtml(args: WelcomeEmailArgs): string {
 
       <tr><td style="padding:28px 28px 8px;">
         <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:${COLORS.textBody};">
-          We're glad you signed up. You're in with Wenatchee's favorite shop —
-          first-name basis, real recommendations, no upsell games. Your account
-          is set up and you can place a pickup order any time.
+          We're glad you signed up. Twelve years on Center Road — first-name
+          basis, real recommendations, no upsell games. Your account is set up
+          and you can place a pickup order any time.
         </p>
 
         <a href="${safeDeepLink}" style="display:inline-block;background:${COLORS.buttonBg};color:${COLORS.buttonText};font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;letter-spacing:0.02em;">
@@ -184,11 +184,12 @@ function buildHtml(args: WelcomeEmailArgs): string {
             Loyalty — every visit counts
           </p>
           <p style="margin:0 0 6px;font-size:14px;color:${COLORS.textBody};line-height:1.6;">
-            Earn <strong>1 point per $1</strong> spent in store. Redeem
-            <strong>100 points = $1 off</strong> your next visit. Tier progress
-            runs <strong>Visitor → Regular → Local → Family</strong>, and we
-            surprise you with perks at each step. Ask the budtender to start
-            your card on your first visit — takes 30 seconds.
+            Every visit earns points (more if you're opted in to SMS or email).
+            Points redeem on a sliding ladder — <strong>50pt for 5% off</strong>,
+            <strong>100pt for 10%</strong>, on up to <strong>30% off at 300-400pt</strong>.
+            Tier progress runs <strong>Visitor → Regular → Local → Family</strong>,
+            and we surprise you with perks at each step. Ask the budtender to
+            start your card on your first visit — takes 30 seconds.
           </p>
         </div>
 
@@ -256,7 +257,7 @@ function buildText(args: WelcomeEmailArgs): string {
     "",
     `Welcome in, ${greeting}.`,
     "",
-    "We're glad you signed up. You're in with Wenatchee's favorite shop —",
+    "We're glad you signed up. Twelve years on Center Road —",
     "first-name basis, real recommendations, no upsell games. Your account",
     "is set up and you can place a pickup order any time.",
     "",
@@ -268,8 +269,9 @@ function buildText(args: WelcomeEmailArgs): string {
     `  - Hours: ${hoursText}`,
     "",
     "Loyalty — every visit counts:",
-    "  - Earn 1 point per $1 spent in store.",
-    "  - Redeem 100 points = $1 off your next visit.",
+    "  - Every visit earns points (more if you're opted in to SMS or email).",
+    "  - Points redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%,",
+    "    on up to 30% off at 300-400pt.",
     "  - Tiers: Visitor → Regular → Local → Family, with perks at each step.",
     "  - Ask the budtender to start your card on your first visit — 30 seconds.",
     "",
