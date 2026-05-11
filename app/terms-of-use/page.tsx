@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-static";
 
@@ -12,9 +13,36 @@ export const metadata: Metadata = {
 
 const EFFECTIVE_DATE = "May 2, 2026";
 
+const termsSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${STORE.website}/terms-of-use#page`,
+  name: `Terms of Use · ${STORE.name}`,
+  url: `${STORE.website}/terms-of-use`,
+  description: `Terms of use for the ${STORE.name} website. Cannabis is for adults 21 and over. WA residents only.`,
+  mainEntity: { "@id": `${STORE.website}/#dispensary` },
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${STORE.website}/#website` },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/terms-of-use#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    { "@type": "ListItem", position: 2, name: "Terms of Use", item: `${STORE.website}/terms-of-use` },
+  ],
+};
+
 export default function TermsOfUsePage() {
   return (
     <div className="min-h-screen bg-stone-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(termsSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
+      />
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div
           aria-hidden

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 export const dynamic = "force-static";
 
@@ -8,6 +9,33 @@ export const metadata: Metadata = {
   title: "Consumer Health Data Privacy Policy",
   description: `How ${STORE.name} collects, uses, and protects consumer health data under Washington's My Health My Data Act (RCW 19.373 / HB 1155).`,
   alternates: { canonical: "/health-data-policy" },
+};
+
+const policySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${STORE.website}/health-data-policy#page`,
+  name: `Consumer Health Data Privacy Policy · ${STORE.name}`,
+  url: `${STORE.website}/health-data-policy`,
+  description: `How ${STORE.name} collects, uses, and protects consumer health data under Washington's My Health My Data Act (RCW 19.373 / HB 1155).`,
+  mainEntity: { "@id": `${STORE.website}/#dispensary` },
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${STORE.website}/#website` },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${STORE.website}/health-data-policy#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: STORE.website },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Health Data Privacy Policy",
+      item: `${STORE.website}/health-data-policy`,
+    },
+  ],
 };
 
 const EFFECTIVE_DATE = "May 2, 2026";
@@ -110,6 +138,11 @@ const HOW_TO_REQUEST = [
 export default function HealthDataPolicyPage() {
   return (
     <div className="min-h-screen bg-stone-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(policySchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
+      />
       {/* Hero — calm, informational, non-festive. Same tone as /accessibility. */}
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div
