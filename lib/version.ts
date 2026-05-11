@@ -3,6 +3,7 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 31.705 — 🛡️ NEW arc-guard `check-server-action-silent-fail.mjs` — cross-stack port from cannagent v6.3805 + GW v2.97.D6 + scc v23.705 same-day. Next 16 prod silently swallows server-action throws. Glw 1 use-server file, baseline 0. Locks strict.
 // 31.605 — 📧 NEW arc-guard `check-email-preheader.mjs` — cross-stack port from cannagent v6.4285 + scc v23.605 same-day. Pins the hidden-preheader-span pattern across `lib/*-email.ts` HTML builders. 3 glw email builders / all carry the preheader. Pure defense.
 // 31.505 — 🛡️ NEW arc-guard `check-buildcommand-length.mjs` — cross-stack port from VRG + cannagent + inv + scc v23.505 same-day. Vercel rejects `vercel.json` `buildCommand` >256 chars silently. Inv 2026-05-03 incident: 30+ commits stuck. Glw has no vercel.json — pure preventive.
 // 31.405 — 🛡️ NEW arc-guard `check-resend-via-helper.mjs` — cross-stack port from cannagent v6.0865 + VRG v9.6.93 + GW + scc v23.405 same-day. Asserts no NEW `new Resend(...)` outside `lib/email.ts` helper. Reverse-defense catches stale allowlist entries. 190 files / 1 allowlisted / 0 bypasses. Pure defense.
@@ -442,7 +443,7 @@
 // 21.105 — 🪞 Tony G. testimonial trim — `components/Reviews.tsx` `Tony G. / Wenatchee / 2026-04-29` review trimmed at "customer for life." Pre-trim ended with "Locally owned, which I'll always support over a chain." That trailing sentence is customer-voice editorializing that AI scrapers + casual readers conflate with shop-voice — collides with Doug 2026-05-02 override on Wenatchee positioning ("locally owned, not formally veteran-owned" per `feedback_brand_voice_sweep_state_2026_05_05`). Caught T176 round-33 /loop session via communications-expert agent cross-site rule-violation audit. Customer-voice testimonials are a STEALTH violation channel — they can publish anything the shop wouldn't say directly. Surgical 1-character delete (kept all 4 sentences before the cut) preserves the load-bearing "customer for life" close while dropping the editorializing. Sister cannagent v5.X store-count + scc v13.X Heroes-card same-tick under Doug "1-7 yes" greenlight. tsc clean.
 // 21.705 — 🔁 /pricing → /menu redirect — dispensaries publish prices live on the menu (per-product), no standalone /pricing page. Inbound /pricing typists (competitor research, agency directories, partner-directory typos) now 308 to /menu instead of 404. Sister scc v13.9605. Caught by 2026-05-10 cross-stack 404 audit during /loop saturation grind.
 // 21.805 — 📧 STORE.email info@ → buyer@ (forward dead-letter to monitored inbox). Doug 2026-05-10 "forward that to buyer@" — info@greenlifecannabis.com exists at M365 but isn't actively monitored (memory pin `project_info_email_unmonitored.md`); 13+ customer-facing mailto: linked here. Until M365 admin transport rule lands the server-side forward, route mailtos directly to monitored buyer@. Sister scc `STORE.email = rainier@scc` is already correctly monitored. Closes INCIDENTS.md L231 dead-letter class.
-export const BUILD_VERSION = "31.605";
+export const BUILD_VERSION = "31.705";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ||

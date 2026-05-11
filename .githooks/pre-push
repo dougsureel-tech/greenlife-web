@@ -100,7 +100,8 @@ for gate in \
   scripts/check-use-server-exports.mjs \
   scripts/check-resend-via-helper.mjs \
   scripts/check-buildcommand-length.mjs \
-  scripts/check-email-preheader.mjs; do
+  scripts/check-email-preheader.mjs \
+  scripts/check-server-action-silent-fail.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
