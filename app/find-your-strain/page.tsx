@@ -57,9 +57,11 @@ const breadcrumbSchema = {
 };
 
 // Mood shortcuts under the quiz — for visitors who already know what they
-// want and don't need to walk three steps. Each one deep-links to /order
+// want and don't need to walk three steps. Each one deep-links to /menu
 // with the same `vibe` + (optional) `strain` params the quiz emits, plus
 // attribution so we can compare quiz-completion vs shortcut-skip routes.
+// (Boost embed on /menu ignores the params today; they survive the
+// redirect-free hop in case Boost adds support later — see v24.505.)
 const MOOD_SHORTCUTS: { label: string; emoji: string; vibe: string; strain?: string; sub: string }[] = [
   { label: "Wind down", emoji: "🌙", vibe: "chill", strain: "indica", sub: "End-of-day indica" },
   { label: "Get going", emoji: "☀️", vibe: "energize", strain: "sativa", sub: "Daytime sativa" },
