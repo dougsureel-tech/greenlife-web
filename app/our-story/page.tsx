@@ -100,10 +100,11 @@ export default function OurStoryPage() {
         {/* Story — three short paragraphs, conversational, no marketing voice. */}
         <section className="space-y-5 text-stone-700 leading-relaxed">
           <p>
-            Green Life opened in Wenatchee because we wanted a real cannabis shop here — one staffed
-            by people who actually know the products and treat every customer like a regular. Not a
-            chain, not a tourist stop, not a dispensary that thinks &quot;cannabis&quot; is a brand
-            unto itself. Just a good shop in a town we love.
+            Founded 2014. Same building on Center Road ever since. We opened in Wenatchee because
+            we wanted a real cannabis shop here — one staffed by people who actually know the
+            products and treat every customer like a regular. Not a chain, not a tourist stop, not
+            a dispensary that thinks &quot;cannabis&quot; is a brand unto itself. Just a good shop
+            in a town we love.
           </p>
           <p>
             We&apos;re open every day of the year, including holidays. We&apos;re cash-only because
