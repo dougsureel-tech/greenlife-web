@@ -108,7 +108,7 @@ Show a valid 21+ ID alongside the service or work credential at the register. Th
 
 ## Loyalty rewards
 
-Every purchase earns loyalty points. 100 points = $1 off, redeemable at the counter at any time. The tier system is relationship-based, not metals-based:
+Every purchase earns loyalty points (more for customers opted in to SMS or email). Points redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%, on up to 30% off at 300-400pt — redeemable at the counter when not stacking with another promo. The tier system is relationship-based, not metals-based:
 
 - **Visitor** — your first visits.
 - **Regular** — repeat customer.
@@ -157,7 +157,7 @@ Washington State law caps a recreational transaction at 1 ounce of usable cannab
 No. Washington law prohibits consumption in retail stores, parking lots, and most public spaces. Consume only in private residences where the property owner permits it.
 
 **Do you offer deals or loyalty rewards?**
-Yes. Live deals are at ${website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, 100 points = $1 off. Tiers (Visitor → Regular → Local → Family) unlock automatically. Discounts don't combine — best discount applies. Loyalty points still earn on every visit regardless of which discount is in play.
+Yes. Today's deals are at ${website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor-day pricing, and weekly recurring specials. Loyalty is built in: every visit earns points (more for customers opted in to SMS or email), and points redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%, on up to 30% off at 300-400pt. Tiers (Visitor → Regular → Local → Family) unlock automatically. Discounts don't combine — best discount applies. Loyalty points still earn on every visit regardless of which discount is in play.
 
 **Do you offer a Heroes / service discount?**
 Yes — 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show valid 21+ ID alongside service or work credential at the register. Full eligibility at ${website}/heroes.
