@@ -1,4 +1,4 @@
-import { MINUTE_MS } from "./time-constants";
+import { MINUTE_MS } from "./time-constants.ts";
 
 export const STORE = {
   name: "Green Life Cannabis",

@@ -1,4 +1,4 @@
-import { STORE } from "@/lib/store";
+import { STORE } from "./store.ts";
 
 // BreadcrumbList JSON-LD helper. Gives Google + AI engines an explicit
 // site graph for citation context — when an AI cites a deep page, the
