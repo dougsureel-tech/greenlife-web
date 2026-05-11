@@ -516,8 +516,8 @@ export default async function HomePage() {
                       alt={brand.name}
                       width={80}
                       height={40}
+                      sizes="(max-width: 640px) 80px, 160px"
                       className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
-                      unoptimized
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-emerald-100 border border-green-200/60 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
