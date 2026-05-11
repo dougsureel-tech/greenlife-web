@@ -10,7 +10,12 @@ export const STORE = {
   },
   phone: "(509) 663-9980",
   phoneTel: "+15096639980",
-  email: "info@greenlifecannabis.com",
+  // Doug 2026-05-10: forward info@ to buyer@. info@ exists at M365 but isn't
+  // actively monitored (memory pin `project_info_email_unmonitored.md`); 13+
+  // customer-facing pages mailto: linked here. Until M365 transport rule
+  // forwards info@ → buyer@ server-side, use buyer@ directly in the SSoT so
+  // mailtos hit a monitored inbox. Sister scc `STORE.email = rainier@scc`.
+  email: "buyer@greenlifecannabis.com",
   // www, not apex — apex 308's to www per proxy.ts CANONICAL_HOST. Pre-
   // fix `STORE.website` was apex, so every sitemap URL + <link rel="canonical">
   // + JSON-LD URL referenced apex; Google bot then fetched apex, hit a
