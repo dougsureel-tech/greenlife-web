@@ -6,8 +6,8 @@
 // of this code was the cause of the /deals Suspense error digest 2617570418
 // blocking the deals hero from rendering).
 
-import { STORE_TZ } from "./store";
-import { HOUR_MS, DAY_MS } from "./time-constants";
+import { STORE_TZ } from "./store.ts";
+import { HOUR_MS, DAY_MS } from "./time-constants.ts";
 
 export type DealCountdownState = {
   label: string;
