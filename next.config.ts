@@ -383,6 +383,11 @@ const nextConfig: NextConfig = {
       { source: "/accessories", destination: "/menu", permanent: true },
       { source: "/strains", destination: "/find-your-strain", permanent: true },
       { source: "/strain/:slug*", destination: "/find-your-strain", permanent: true },
+      // /pricing — dispensaries publish prices ON the menu (per-product live).
+      // No standalone pricing page. Inbound /pricing typists (e.g. competitor
+      // research, agency directories, partner-directory typos) land on /menu
+      // where the actual prices live. Caught by 2026-05-10 cross-stack 404 audit.
+      { source: "/pricing", destination: "/menu", permanent: true },
 
       // Booking-style legacy URLs — sister of scc's same map. Mirror parity
       // closure: pre-fix `/book` + `/book-now` 404'd on Wen even though they
