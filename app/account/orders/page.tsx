@@ -175,7 +175,7 @@ export default async function OrderHistoryPage() {
           </div>
           <div>
             <p className="font-semibold text-stone-700">No orders yet</p>
-            <p className="text-sm text-stone-400 mt-1">Your pickup order history will appear here</p>
+            <p className="text-sm text-stone-400 mt-1">Your pickup history will appear here.</p>
           </div>
           <Link
             href="/menu"
@@ -317,7 +317,7 @@ export default async function OrderHistoryPage() {
                   {order.substitutions.length > 0 && (
                     <div className="pt-3 border-t border-stone-100 space-y-1.5">
                       <p className="text-xs font-medium text-blue-700">
-                        <span aria-hidden="true">🔄 </span>Substitution{order.substitutions.length === 1 ? "" : "s"} made by staff
+                        <span aria-hidden="true">🔄 </span>We swapped {order.substitutions.length === 1 ? "one" : "a couple"} for you · same category, fresh stock
                       </p>
                       <ul className="space-y-1">
                         {order.substitutions.map((s, i) => (

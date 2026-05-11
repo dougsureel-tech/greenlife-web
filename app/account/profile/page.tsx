@@ -32,7 +32,7 @@ export default async function ProfilePage() {
         {/* Breadcrumb-style back nav */}
         <nav className="flex items-center gap-2 text-xs text-stone-500" aria-label="Breadcrumb">
           <Link href="/account" className="hover:text-green-700 transition-colors">
-            My Account
+            Account
           </Link>
           <span aria-hidden>/</span>
           <span className="text-stone-700 font-semibold">Profile</span>
@@ -42,7 +42,7 @@ export default async function ProfilePage() {
         <div>
           <h1 className="text-2xl font-extrabold text-stone-900">Your profile</h1>
           <p className="text-sm text-stone-500 mt-1">
-            Update your name, phone, and SMS preferences. Email is managed by your sign-in provider.
+            Update your name, phone, and SMS preferences. Your email comes from however you signed in — change it there.
           </p>
         </div>
 

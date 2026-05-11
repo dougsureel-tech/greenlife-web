@@ -162,7 +162,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             <div className="text-sm font-medium text-stone-800">Heroes Discount</div>
             <div className="text-xs text-stone-400 mt-0.5">
               Military, veterans, first responders, healthcare &amp; K-12 teachers.
-              Bring your credential to verify at the counter — this just lets us know to expect it.
+              Bring your service ID and we&apos;ll apply it at the counter — this just tells us to expect it.
             </div>
           </div>
           <select
@@ -170,7 +170,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
             onChange={(e) => setHeroesSelfAttestType(e.target.value || null)}
             className="w-full bg-stone-50 border border-stone-200 rounded-lg text-sm text-stone-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
-            <option value="">None captured</option>
+            <option value="">— Not one of these —</option>
             <option value="active_military">Active Military</option>
             <option value="veteran">Veteran</option>
             <option value="first_responder">First Responder</option>
