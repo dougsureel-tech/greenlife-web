@@ -74,11 +74,18 @@ const COLORS = {
 // GW v2.78.90 canonicalBase pattern).
 const PUBLIC_ORIGIN = ((): string => {
   const env = process.env.NEXT_PUBLIC_SITE_ORIGIN;
-  // Canonical-host fallback: www, not apex (sister of v7.525). Apex
-  // 308's to www per proxy.ts. Quiz-nurture STOP-to-unsubscribe link
-  // shouldn't redirect — CAN-SPAM compliance prefers direct-resolve.
-  const base = env && !env.includes(".vercel.app") ? env : "https://www.greenlifecannabis.com";
-  return base.replace(/\/+$/, "");
+  const FALLBACK = "https://www.greenlifecannabis.com";
+  // Allow-list defense (sister of inv v337.005 + welcome-email sweep).
+  // Hostname must MATCH canonical OR fall back. Quiz-nurture STOP-to-
+  // unsubscribe link especially needs CAN-SPAM-compliant direct-resolve
+  // — a typo'd preview URL means broken unsub = compliance risk.
+  if (!env || env.includes(".vercel.app")) return FALLBACK;
+  try {
+    if (new URL(env).hostname !== "www.greenlifecannabis.com") return FALLBACK;
+  } catch {
+    return FALLBACK;
+  }
+  return env.replace(/\/+$/, "");
 })();
 
 function unsubscribeUrl(token: string): string {
