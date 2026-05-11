@@ -13,6 +13,41 @@
 #   bash scripts/setup-hooks.sh
 # (which runs `git config core.hooksPath .githooks`)
 
+# ── 0. Changelog guard (TS code change must bump lib/version.ts) ─────────
+# Doug's standing rule: every push that lands code bumps BUILD_VERSION +
+# adds a changelog comment line. Pre-fix the rule was honored manually
+# but unenforced — a future agent's TS-only push could land without a
+# version bump and Doug couldn't tell "is this deploy live yet?" from
+# the footer pill.
+#
+# Bypass: `git push --no-verify` for true doc-only / refactor-only pushes
+# (or include `[doc-skip]` in the commit subject — sister of inv pattern).
+#
+# Sister of GW v2.X changelog-guard ($1 gate).
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    CHANGED=$(git diff-tree --no-commit-id -r --name-only "$local_sha" 2>/dev/null)
+  else
+    CHANGED=$(git diff --name-only "$remote_sha" "$local_sha" 2>/dev/null)
+  fi
+
+  TS_CHANGED=$(echo "$CHANGED" | grep -E '\.(ts|tsx)$' | grep -v 'lib/version\.ts')
+  VERSION_CHANGED=$(echo "$CHANGED" | grep 'lib/version\.ts')
+
+  # Bypass: any commit subject contains [doc-skip]
+  DOC_SKIP=$(git log --format=%s "${remote_sha}..${local_sha}" 2>/dev/null | grep -c '\[doc-skip\]')
+
+  if [ -n "$TS_CHANGED" ] && [ -z "$VERSION_CHANGED" ] && [ "$DOC_SKIP" -eq 0 ]; then
+    echo ""
+    echo "  ✗ Push blocked: .ts/.tsx changed but lib/version.ts (BUILD_VERSION + changelog) was not updated."
+    echo "    Add a new entry at the top of lib/version.ts + bump BUILD_VERSION, or:"
+    echo "    - add [doc-skip] to a commit subject if this is genuinely refactor-only"
+    echo "    - bypass: git push --no-verify"
+    echo ""
+    exit 1
+  fi
+done
+
 # ── 1. TypeScript check (catch type errors before Vercel deploy) ─────────
 echo "  Running TypeScript check..."
 if ! ./node_modules/.bin/tsc --noEmit 2>&1; then
