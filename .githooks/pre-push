@@ -79,7 +79,8 @@ for gate in \
   scripts/check-no-store-isr-poison.mjs \
   scripts/check-customer-cta-order-href.mjs \
   scripts/check-fabricated-review-schema.mjs \
-  scripts/check-usesyncexternalstore-cache.mjs; do
+  scripts/check-usesyncexternalstore-cache.mjs \
+  scripts/check-conflict-markers.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -88,7 +89,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (18/18)"
+echo "  ✓ Build-gates OK (19/19)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
