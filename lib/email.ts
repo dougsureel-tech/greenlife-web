@@ -121,6 +121,21 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
       replyTo,
       ...(headers ? { headers } : {}),
     });
+    // Resend v4 returns a discriminated union: { data, error: null } on
+    // success or { data: null, error: ErrorResponse } on failure — does
+    // NOT throw. Pre-fix the success-path code skipped the error branch
+    // entirely and fell through to "no message id", silently swallowing
+    // the diagnostic info on every Resend rejection (unverified domain,
+    // rate-limit, invalid recipient, etc.). Sister of inv v305.205 fix
+    // (project_resend_silent_failure_2026_05_08.md). Use `error.name`
+    // (typed code key) NOT `error.message` (may echo recipient address →
+    // PII into Vercel logs).
+    const errResp = (r as { error?: { name?: string; message?: string } | null }).error;
+    if (errResp) {
+      const errName = errResp.name ?? "ResendError";
+      console.error(`[email] send rejected: ${errName}`);
+      return { ok: false, error: errName };
+    }
     // Resend's response shape varies between SDK versions; try common
     // id paths defensively (matches the inventoryapp helper).
     const id =
