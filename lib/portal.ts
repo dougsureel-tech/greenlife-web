@@ -252,7 +252,14 @@ export async function getOrder(
 // store yet (no matching customers row), so the UI can show a "join the
 // loyalty program — earn 1 pt per $1 in store" prompt instead of "0 pts".
 //
-// 100 points = $1 redeemable (matches the inventoryapp marketing helper text).
+// 100 points = $1 redeemable — IMPLEMENTATION-LEVEL math used to compute
+// `dollarValue` for the LoyaltyCard display. Doug 2026-05-07 brand-voice
+// doc canonicalizes a SLIDING LADDER for marketing copy (50pt→5%, 100pt→10%,
+// ..., 30% off at 300-400pt). This is intentional divergence: marketing
+// copy uses the ladder, deployed dollarValue math uses linear $1/100pt
+// pending Doug-decision on POS-register parity. `scripts/check-loyalty-math-
+// drift.mjs` exempts this file + components/LoyaltyCard.tsx as the known
+// divergence; all other customer-facing copy must use the ladder.
 const POINTS_PER_DOLLAR = 100;
 
 export type LoyaltySnapshot = {
