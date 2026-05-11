@@ -274,8 +274,8 @@ function SignupCard({
           Send to Doug →
         </button>
         <p className="text-stone-400 text-[11px] leading-relaxed">
-          This opens your email client with a pre-filled note. Hit send and Doug picks it up from
-          there. We&apos;ll wire real persistence soon — for now this is the cleanest path.
+          This opens your email client with a pre-filled note. Hit send and it lands in Doug&apos;s
+          inbox — he reads every alum signup himself.
         </p>
       </form>
     </div>
