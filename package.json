@@ -19,7 +19,8 @@
     "check:button-type": "node scripts/check-button-type.mjs",
     "check:html-entities-jsx": "node scripts/check-html-entities-jsx.mjs",
     "check:server-actions-async": "node scripts/check-server-actions-async.mjs",
-    "check:pii-console-leak": "node scripts/check-pii-console-leak.mjs"
+    "check:pii-console-leak": "node scripts/check-pii-console-leak.mjs",
+    "test:all": "node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.9",
