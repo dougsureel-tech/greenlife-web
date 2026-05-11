@@ -61,12 +61,12 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "First Visit",
     q: "I've never bought cannabis before — is that okay?",
-    a: "Absolutely. Our budtenders love helping first-time customers. We'll walk you through product types, dosing, how to consume safely, and what to expect. Just ask — there are no dumb questions.",
+    a: "Yes — and we like first-timers. Our budtenders will walk you through product types, dosing, start-low guidance, and what to expect. Ask anything — there are no dumb questions.",
   },
   {
     tag: "Education",
     q: "What's the difference between indica, sativa, and hybrid?",
-    a: "Quick rule of thumb: indica leans body + relaxed, sativa leans head + energized, hybrid is a blend of both. Terpene profile matters more than the label, so come ask — we'll point you at what actually fits the day.",
+    a: "Quick rule of thumb: indica leans body-heavy, sativa leans head-forward, hybrid is a blend of both. It's a simplification — terpene profile shapes how a strain lands more than the indica/sativa label. Come ask and we'll point you at what fits the day.",
   },
   {
     tag: "Legal",
@@ -76,12 +76,12 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Legal",
     q: "Can I consume cannabis in your store or parking lot?",
-    a: "No. Washington law prohibits consumption in retail stores, parking lots, and most public spaces. Please consume only in private residences where the property owner permits it.",
+    a: "No. Washington law prohibits consumption in retail stores, parking lots, and most public spaces. Consume only on private property where the owner permits it.",
   },
   {
     tag: "Rewards",
     q: "Do you offer deals or loyalty rewards?",
-    a: `Yes. Live deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and 100 points = $1 off, redeemable at the counter when you're not also using a deal (best discount applies — discounts don't combine). Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — first-time online orders qualify for 20% off.`,
+    a: `Yes. Today's deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor-day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and points redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%, on up to 30% off at 300-400pt (redeemable when you're not also using a promo; best discount applies — discounts don't combine). Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — first-time online orders qualify for 20% off.`,
   },
   {
     tag: "Rewards",
@@ -101,7 +101,7 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Medical",
     q: "Do you carry medical cannabis?",
-    a: "We are a recreational cannabis retailer. Washington State patients with a valid medical authorization card may be eligible for tax exemptions. Ask our staff for details.",
+    a: "We're a recreational cannabis retailer. Washington patients with a valid medical authorization card qualify for medical-marijuana sales-tax exemption on DOH-compliant products at the till. Bring the card when you visit and we'll set you up — ask any budtender if you have questions.",
   },
   {
     tag: "Education",
