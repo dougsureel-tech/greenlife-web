@@ -69,8 +69,8 @@ Every Washington cannabis product is required to show:
 
 - **THC %** — the headline cannabinoid. 18–24% is typical for flower; 70–90% for concentrates and vape cartridges.
 - **CBD %** — usually low in flower (under 1%) but featured in tinctures, topicals, and 1:1 products.
-- **Strain type** — Indica (often described as relaxing or body-heavy), Sativa (often energizing), Hybrid (in between). The Indica/Sativa labels are looser than people think — terpene profile and individual chemistry matter more.
-- **Terpenes** — aromatic compounds that shape the flavor and effect. Limonene reads as citrus and is often described as uplifting; myrcene as earthy and sedating; pinene as pine-forward and clear-headed.
+- **Strain type** — Indica (often described as body-heavy), Sativa (often described as head-forward), Hybrid (in between). The Indica/Sativa labels are looser than people think — terpene profile shapes how a strain lands more than the indica/sativa label.
+- **Terpenes** — aromatic compounds that shape the flavor and how a strain reads. Limonene reads as citrus (common in strains people pick for daytime use); myrcene as earthy (common in body-heavy picks); pinene as pine-forward and clear-headed.
 - **Producer / processor name** — the licensed Washington company that grew or made the product.
 - **Lab test info** — every batch is tested for cannabinoids, pesticides, and microbiologicals. The certificate of analysis is on file with the WSLCB.
 
@@ -186,27 +186,27 @@ The interesting part: terpenes don't just smell. They shape how a strain *feels*
 You don't need to memorize the periodic table of terpenes. There are dozens, but five of them do most of the heavy lifting on the shelf:
 
 ### Myrcene — earthy, mango, herbal
-The most common terpene in commercial cannabis. Carries a sedating reputation — the "couch-lock" feeling people associate with classic indicas. Found in mangoes, hops, lemongrass.
+The most common terpene in commercial cannabis. Carries a heavy-body reputation in cannabis folklore — the "couch-lock" association with classic indicas comes from here. Found in mangoes, hops, lemongrass.
 
-If a strain is described as "relaxing" or "heavy body" — myrcene is usually the headline.
+If a strain is described as "heavy body" on the menu — myrcene is usually the headline.
 
 ### Limonene — citrus, sweet
-Bright lemon-orange smell. Often described as uplifting, mood-elevating. Found in citrus peels (it's literally the same compound).
+Bright lemon-orange smell. The terpene that often shows up in strains people pick for daytime or social sessions. Found in citrus peels (it's literally the same compound).
 
-If a strain smells like fruit punch or lemon zest, limonene is doing the talking. Common in strains people use during the day or socially.
+If a strain smells like fruit punch or lemon zest, limonene is doing the talking.
 
 ### Pinene — pine, sharp, fresh
-What you smell when you crack a pine cone. There's some research suggesting pinene supports focus and clear-headedness, though anyone telling you it's a "concentration aid" is overselling — call it a hopeful association, not a prescription.
+What you smell when you crack a pine cone. Often present in strains marketed for clear-headed sessions, though anyone telling you it's a "concentration aid" is overselling — call it a hopeful association, not a prescription.
 
 Common in old-school strains and Northwest-grown flower (no surprise — same biome).
 
 ### Caryophyllene — peppery, spicy, woody
-Smells like cracked black pepper. The unusual one in the bunch — it interacts with cannabinoid receptors directly, which is more typical of cannabinoids themselves. Often associated with calming or grounding effects.
+Smells like cracked black pepper. The unusual one in the bunch — it interacts with cannabinoid receptors directly, which is more typical of cannabinoids themselves. Often shows up in strains people pick for evening or grounding sessions.
 
 Found in black pepper, cloves, hops, rosemary.
 
 ### Linalool — floral, lavender
-Lavender's signature compound. Less common in cannabis than the others, but distinct when present. Often associated with relaxation and evening use.
+Lavender's signature compound. Less common in cannabis than the others, but distinct when present. Often shows up in strains people pick for evening use.
 
 If you've ever picked up a flower that smelled almost soapy-floral, that's linalool.
 
@@ -308,7 +308,7 @@ If you took too much, you're not in medical danger — there are no documented f
 What helps:
 - **Stay somewhere safe and quiet.** No driving. Don't try to handle stressful tasks.
 - **Hydrate.** Water, juice, anything non-caffeinated.
-- **CBD if you have any handy.** Some people report it takes the edge off — the evidence is mixed, but it's harmless to try.
+- **CBD if you have any handy.** Some people reach for it in this situation — the evidence on whether it helps is mixed, but it's non-intoxicating and harmless to try.
 - **Black peppercorns.** Old folk remedy with surprising support — chew a few peppercorns. The caryophyllene appears to interact in a way that calms the THC effect for some people.
 - **Sleep through it.** If you can lie down, do.
 - **Time.** This is the main one. The peak is 2 to 4 hours after ingestion; you'll feel the worst of it ease around hour 4.
@@ -386,9 +386,9 @@ What stuck around is the *experience association*. Old-school growers noticed in
 
 Three things are doing the heavy lifting:
 
-**1. THC and CBD content.** THC is the primary psychoactive cannabinoid; CBD takes some of the edge off. A 30% THC flower with no CBD will hit harder than a 18% THC flower with 4% CBD even if the labels are flipped. CBD-dominant strains feel almost completely different from THC-dominant ones regardless of indica/sativa labeling.
+**1. THC and CBD content.** THC is the primary psychoactive cannabinoid; CBD is the non-intoxicating one. A 30% THC flower with no CBD will land differently than a 18% THC flower with 4% CBD even if the labels are flipped. CBD-dominant strains land almost completely different from THC-dominant ones regardless of indica/sativa labeling.
 
-**2. Terpene profile.** The aromatic compounds (myrcene, limonene, pinene, caryophyllene, linalool — see [Terpenes 101](/blog/terpenes-101)) shape how the strain feels far more reliably than the indica/sativa label. A myrcene-dominant strain tends to feel sedating regardless of whether it's labeled indica or sativa. A limonene-dominant strain tends to feel uplifting either way.
+**2. Terpene profile.** The aromatic compounds (myrcene, limonene, pinene, caryophyllene, linalool — see [Terpenes 101](/blog/terpenes-101)) shape how a strain reads far more reliably than the indica/sativa label. A myrcene-dominant strain tends to show up in body-heavy menu picks regardless of whether it's labeled indica or sativa. A limonene-dominant one tends to show up in daytime-leaning picks either way.
 
 **3. Your body chemistry, set, setting.** What you ate, your mood, your sleep last night, what you're doing while you use it. These matter more than people admit. Two friends sharing the same joint will report different experiences.
 
@@ -396,7 +396,7 @@ Three things are doing the heavy lifting:
 
 If terpenes do the actual work, why do indica/sativa labels still hold up at all?
 
-Because the breeding tradition baked in correlations. **Most** indica-labeled strains are bred for myrcene-heavy profiles. **Most** sativa-labeled strains are bred for terpenes that lean uplifting (limonene, pinene). Not always, but often enough that the label is a useful first filter.
+Because the breeding tradition baked in correlations. **Most** indica-labeled strains are bred for myrcene-heavy profiles. **Most** sativa-labeled strains are bred for terpenes more common in daytime-leaning picks (limonene, pinene). Not always, but often enough that the label is a useful first filter.
 
 What you should NOT do is treat the label as a guarantee. The label is "what category did the breeder pitch this as." The terpene profile is "what's actually in the jar."
 
@@ -405,21 +405,21 @@ What you should NOT do is treat the label as a guarantee. The label is "what cat
 When you're standing at the case looking at a flower, here's the order of operations:
 
 1. **THC %.** Is it where you want it? Higher isn't better — somewhere in the 18-26% range is plenty for most people. Above 28% you're trading flavor for intensity.
-2. **Terpenes.** Do they list a top terpene or terpene chart? Match that to what you're trying to feel:
-   - Want relaxing → myrcene, linalool, caryophyllene
-   - Want uplifting → limonene, pinene
-3. **Indica/sativa label.** Treat it as confirmation, not the headline. If terpenes say "relaxing" and the label says "indica" — likely matches the marketing claim. If they conflict, trust the terpenes.
+2. **Terpenes.** Do they list a top terpene or terpene chart? Match that to the kind of session you're picking for:
+   - Body-heavy / evening → myrcene, linalool, caryophyllene
+   - Daytime / social → limonene, pinene
+3. **Indica/sativa label.** Treat it as confirmation, not the headline. If terpenes line up with body-heavy and the label says "indica" — likely matches the marketing pitch. If they conflict, trust the terpenes.
 4. **Brand reputation.** Does this brand have a reputation for matching their labels to actual experience? Some are more careful than others. Your budtender can tell you.
 
 ## A few real-world examples
 
-**"Wedding Cake" (typically labeled indica, hybrid in WA):** Often heavy myrcene + caryophyllene. Lives up to the relaxing rep most of the time. Marketing aligns with chemistry.
+**"Wedding Cake" (typically labeled indica, hybrid in WA):** Often heavy myrcene + caryophyllene. Lives up to the body-heavy rep most of the time. Marketing aligns with chemistry.
 
-**"Blue Dream" (typically labeled sativa-leaning hybrid):** Often myrcene-dominant despite the sativa lean. Many people find it more relaxing than the label suggests. The label undersells the body component.
+**"Blue Dream" (typically labeled sativa-leaning hybrid):** Often myrcene-dominant despite the sativa lean. Many people find more body component than the sativa label suggests.
 
-**"Sour Diesel" (typically labeled sativa):** Often limonene + caryophyllene profile. Tends to deliver on the energizing rep. Matches the label well.
+**"Sour Diesel" (typically labeled sativa):** Often limonene + caryophyllene profile. Tends to read as a daytime pick. Matches the label well.
 
-**"Northern Lights" (typically labeled indica):** Often myrcene + caryophyllene. Classic sedating profile. Matches the label.
+**"Northern Lights" (typically labeled indica):** Often myrcene + caryophyllene. Classic body-heavy profile. Matches the label.
 
 The takeaway: the label is right *most* of the time but you'll find counter-examples in any dispensary. Reading the terpene profile catches those.
 
