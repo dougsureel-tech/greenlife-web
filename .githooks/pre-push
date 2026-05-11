@@ -98,7 +98,8 @@ for gate in \
   scripts/check-aria-current.mjs \
   scripts/check-client-imports-no-server-only.mjs \
   scripts/check-use-server-exports.mjs \
-  scripts/check-resend-via-helper.mjs; do
+  scripts/check-resend-via-helper.mjs \
+  scripts/check-buildcommand-length.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
