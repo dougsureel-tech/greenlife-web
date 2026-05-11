@@ -16,7 +16,10 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 // snapshot caches by raw string so identical reads return the SAME array
 // reference, which is the contract useSyncExternalStore requires).
 
-const HIDE_ON = ["/order", "/sign-in", "/sign-up"];
+// /menu included because /order 307-redirects to /menu (proxy.ts) — the
+// banner would otherwise render on /menu and link back to /order which
+// just bounces the customer.
+const HIDE_ON = ["/menu", "/order", "/sign-in", "/sign-up"];
 const CART_KEY = "gl_cart";
 
 type CartItem = { quantity: number; unitPrice: number | null };
@@ -100,7 +103,7 @@ export function CartResumeBanner() {
 
   return (
     <Link
-      href="/order"
+      href="/menu"
       className="block bg-gradient-to-r from-green-800 to-green-700 hover:from-green-700 hover:to-green-600 text-white text-sm font-semibold transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">

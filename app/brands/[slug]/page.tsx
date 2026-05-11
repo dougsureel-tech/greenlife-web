@@ -290,7 +290,7 @@ export default async function BrandPage({ params }: Props) {
         availability: "https://schema.org/InStock",
         availableAtOrFrom: { "@id": `${STORE.website}/#dispensary` },
         seller: { "@id": `${STORE.website}/#dispensary` },
-        url: `${STORE.website}/order`,
+        url: `${STORE.website}/menu`,
       },
     }));
 

@@ -170,9 +170,14 @@ export async function POST(req: NextRequest) {
     if (vibe) params.set("vibe", vibe);
     if (category) params.set("category", category);
     if (strainType) params.set("strain", strainType);
+    // /menu, not /order — proxy.ts 307-redirects /order → /menu and drops
+    // the query string, so emails linking to /order?vibe=… eat a redirect
+    // AND lose the deep-link state. Boost embed on /menu ignores the
+    // params today (no deep-link surface), but at least they survive the
+    // redirect-free hop in case Boost adds support later.
     const deepLinkOrder = params.toString()
-      ? `${STORE.website}/order?${params}`
-      : `${STORE.website}/order`;
+      ? `${STORE.website}/menu?${params}`
+      : `${STORE.website}/menu`;
 
     after(async () => {
       try {

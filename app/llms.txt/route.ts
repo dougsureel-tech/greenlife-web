@@ -56,8 +56,7 @@ function render(): string {
 ## Pages
 
 - [Home](${website}/): Brand homepage and category overview.
-- [Live Menu](${website}/menu): Real-time inventory — flower, pre-rolls, vapes, concentrates, edibles, tinctures, topicals.
-- [Order for Pickup](${website}/order): Reserve cart, pick a 15-minute pickup window, pay cash at the counter.
+- [Live Menu](${website}/menu): Real-time inventory + reserve-cart-for-pickup — flower, pre-rolls, vapes, concentrates, edibles, tinctures, topicals. Choose a 15-minute pickup window, pay cash at the counter.
 - [Deals](${website}/deals): Active discounts and weekly recurring specials.
 - [Visit](${website}/visit): Hours, address, parking, neighborhood, ADA accessibility.
 - [About](${website}/about): Founding story, what makes the staff the Valley's best.
