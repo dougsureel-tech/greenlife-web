@@ -75,6 +75,64 @@ export function isEmailConfigured(): boolean {
   return !!API_KEY;
 }
 
+/**
+ * Cross-stack readiness probe — paired with `getEmailFromHost()` on
+ * `/api/health`. Sister of cannagent v6.4585 + inv v401.305 + scc v23.905.
+ *
+ * Returns `true` when RESEND_FROM is set to the bare apex
+ * `greenlifecannabis.com` — which routes apex MX → Microsoft 365 inbound
+ * (per dig MX greenlifecannabis.com → greenlifecannabis-com.mail.protection.outlook.com).
+ * That's a DKIM/SPF/DMARC misalignment risk: Resend signs from its
+ * relay infrastructure, but the apex's authoritative MX path points
+ * at M365 — receiving Gmail/Apple Mail/Outlook clients may spam-
+ * folder or bounce. See memory pin
+ * `feedback_resend_apex_vs_send_subdomain_trap` (Jensine welcome-
+ * email incident 2026-05-11 — burned 3hr on inv before diag endpoint
+ * surfaced root cause).
+ *
+ * Returns:
+ *   - `null` when RESEND_API_KEY isn't set (nothing to validate)
+ *   - `false` when from-host is `send.greenlifecannabis.com` or another
+ *     verified subdomain (correct shape)
+ *   - `true` when from-host equals bare apex `greenlifecannabis.com`
+ *     (at-risk — flip env to send.subdomain)
+ *
+ * **Doug-action follow-up if at-risk:**
+ *   `vercel env rm RESEND_FROM production --yes && \
+ *    echo "Green Life Cannabis <hi@send.greenlifecannabis.com>" | \
+ *    vercel env add RESEND_FROM production`
+ *  Then redeploy. Note: requires verifying `send.greenlifecannabis.com`
+ *  at the Resend dashboard first (DNS-side TXT + DKIM records).
+ */
+export function isEmailFromAtRisk(): boolean | null {
+  if (!API_KEY) return null;
+  const configured = process.env.RESEND_FROM?.trim();
+  if (!configured) {
+    // Code default is `hi@greenlifecannabis.com` (apex) — AT-RISK by default
+    // until env var is set OR code-default flipped (see cannagent v6.4565
+    // for the code-default-flip pattern). Surface this honestly.
+    return true;
+  }
+  const angleMatch = configured.match(/<([^>]+@([^>]+))>/);
+  const bareMatch = configured.match(/([^\s]+@([^\s]+))/);
+  const host = (angleMatch?.[2] || bareMatch?.[2] || "").trim().toLowerCase();
+  if (!host) return null;
+  return host === "greenlifecannabis.com";
+}
+
+/**
+ * Returns the parsed from-host (domain portion only — PII-safe, no
+ * local-part). Paired with `isEmailFromAtRisk()` on `/api/health`.
+ */
+export function getEmailFromHost(): string | null {
+  if (!API_KEY) return null;
+  const configured = process.env.RESEND_FROM?.trim();
+  if (!configured) return "greenlifecannabis.com"; // code-default apex
+  const angleMatch = configured.match(/<([^>]+@([^>]+))>/);
+  const bareMatch = configured.match(/([^\s]+@([^\s]+))/);
+  return (angleMatch?.[2] || bareMatch?.[2] || "").trim().toLowerCase() || null;
+}
+
 /** Send an email via Resend. Returns `{ ok: true, id }` on success,
  *  `{ ok: false, error, skipped: true }` when RESEND_API_KEY is unset
  *  (graceful no-op for local dev / preview envs without the key), and

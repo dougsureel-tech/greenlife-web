@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { STORE } from "@/lib/store";
-import { isEmailConfigured } from "@/lib/email";
+import { isEmailConfigured, isEmailFromAtRisk, getEmailFromHost } from "@/lib/email";
 import { isSmsConfigured } from "@/lib/sms";
 
 // Health check for external uptime monitors + the auto-rollback path
@@ -130,6 +130,19 @@ export async function GET() {
     // is set on this deployment; `false` means email helper falls back to
     // the no-op skip path (logs a single line, never throws).
     emailConfigured: isEmailConfigured(),
+    // Cross-stack readiness probe (sister of cannagent v6.4585 + inv v401.305
+    // + scc v23.905). `true` when RESEND_FROM is set to bare apex
+    // `greenlifecannabis.com` — at-risk because `dig MX greenlifecannabis.com`
+    // returns `greenlifecannabis-com.mail.protection.outlook.com` (Microsoft 365
+    // inbound), creating DKIM/SPF/DMARC misalignment with Resend's outbound
+    // signing. Receiving Gmail/Apple Mail/Outlook may spam-folder or bounce.
+    // Memory pin: `feedback_resend_apex_vs_send_subdomain_trap` (Jensine
+    // welcome-email incident 2026-05-11 — 3hr inv burn).
+    // Doug-action when `true`: verify `send.greenlifecannabis.com` at Resend
+    // dashboard, then `vercel env rm RESEND_FROM production --yes && echo "Green Life Cannabis <hi@send.greenlifecannabis.com>" | vercel env add RESEND_FROM production`.
+    emailFromAtRisk: isEmailFromAtRisk(),
+    // PII-safe — domain portion only, no local-part.
+    emailFromHost: getEmailFromHost(),
     // Boolean only — never expose Twilio credentials. `true` means all of
     // TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM_NUMBER are set
     // on this deployment; `false` means sendSms() short-circuits to the
