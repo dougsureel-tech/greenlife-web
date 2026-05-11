@@ -73,7 +73,7 @@ const SHARED_WITH = [
 ];
 
 const NEVER_SOLD = [
-  "We do not sell your consumer health data to anyone, ever.",
+  "We do not sell your consumer health data.",
   "We do not share your data with data brokers, advertisers, or analytics resellers.",
   "We do not use your data to train machine-learning models for sale.",
   "We do not transfer your data outside the United States.",
@@ -90,7 +90,7 @@ const YOUR_RIGHTS = [
   },
   {
     title: "Right to withdraw consent",
-    body: "You can withdraw consent at any time for anything that depends on consent — for example, marketing texts or saved budtender preferences. We honor withdrawals as fast as we can; in practice, within five business days.",
+    body: "You can withdraw consent at any time for anything that depends on consent — for example, marketing texts or saved budtender preferences. We honor withdrawals within five business days.",
   },
   {
     title: "Right to appeal",
@@ -101,7 +101,7 @@ const YOUR_RIGHTS = [
 ];
 
 const HOW_TO_REQUEST = [
-  `Email ${STORE.email} with the subject line "Health Data Request"`,
+  `Email ${STORE.email} with the subject line "Health Data Request" (the subject line just helps us route faster — requests without it are still honored)`,
   "Tell us your name, date of birth, and the email or phone on your account so we can verify you",
   'Tell us what you want — "send me my data," "delete my data," "stop using my data for X"',
   "We will respond within 45 days (extendable to 90 days for complex requests, with notice)",

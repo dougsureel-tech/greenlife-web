@@ -143,9 +143,8 @@ export default function TermsOfUsePage() {
           </h2>
           <p className="text-stone-700 leading-relaxed">
             Product photos, descriptions, prices, and inventory levels on this site are
-            best-effort and may not match the in-store reality at the moment you arrive. We try to
-            keep the site fresh and we apologize for any frustration when stock or price differs.
-            The price at the register controls the transaction. Brand logos and trademarks belong
+            best-effort and may not match the in-store reality at the moment you arrive. The price
+            and stock at the register control the transaction. Brand logos and trademarks belong
             to their respective owners and appear here for product identification only.
           </p>
         </section>
