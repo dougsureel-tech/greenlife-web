@@ -30,9 +30,9 @@ Open `http://localhost:3000`.
 
 ## Pre-push enforcement
 
-Every `git push` runs `.githooks/pre-push` (29 gates total). The 6
+Every `git push` runs `.githooks/pre-push` (30 gates total). The 7
 doctrinal arc-guards enforce recurring brand-voice + WSLCB-compliance
-classes:
++ defense-pattern classes:
 
 | Guard | Doctrine |
 |---|---|
@@ -42,6 +42,7 @@ classes:
 | `check-please-hedge` | Brand-voice "What we never do" — drop "Please verb" from customer error/validation strings |
 | `check-template-warmth` | Direct shop-voice — no "give us a call/ring", "drop us a line", "reach out to us" |
 | `check-apologize-pattern` | Never apologize for things that aren't our fault (apology = concession of fault) |
+| `check-no-unsafe-redirect` | v30.405 (sister inv v397.485) — preventive: `searchParams.get("returnTo")` → `router.push(target)` open-redirect class lock |
 
 Each guard is a `scripts/check-*.mjs` Node script that scans `app/` +
 `components/` + `lib/` and exits non-zero on a violation. Setup hook:
