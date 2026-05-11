@@ -174,7 +174,7 @@ export default function HeroesPage() {
               <span className="text-base">★</span> 30% off · every visit
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold">
-              Earn loyalty points every visit
+              No signup · no expiration
             </span>
           </div>
         </div>
