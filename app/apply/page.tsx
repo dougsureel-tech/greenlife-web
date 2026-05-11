@@ -351,7 +351,7 @@ function ApplyForm() {
           window.location.href = "/apply/thanks";
           return;
         }
-        setSubmitError("We received your application but the server response looked off. Please email us if you don't hear back in 1–2 weeks.");
+        setSubmitError("Application's in, but our system sent back a weird response. If you don't hear back in 1–2 weeks, email us and we'll dig in.");
         return;
       }
 
@@ -412,7 +412,7 @@ function ApplyForm() {
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Careers</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Apply to work with us</h1>
           <p className="text-green-300/80 mt-2 text-sm sm:text-base">
-            Wenatchee or Seattle — we&apos;re always interested in great people.
+            Wenatchee or Seattle — tell us about yourself.
           </p>
         </div>
       </div>

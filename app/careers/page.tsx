@@ -153,13 +153,13 @@ export default async function CareersPage() {
                 role but still want to drop a resume. */}
             <div className="mt-10 rounded-2xl border border-stone-200 bg-stone-50 p-6 text-center">
               <p className="text-sm text-stone-700">
-                Don&apos;t see a perfect fit? We keep good resumes on file.
+                Don&apos;t see a perfect fit? We still want to hear from you.
               </p>
               <Link
                 href="/apply"
                 className="inline-flex items-center justify-center mt-3 px-5 py-2.5 rounded-xl bg-white border border-stone-300 text-stone-800 text-sm font-bold hover:border-green-400 hover:text-green-800 transition-colors"
               >
-                Apply anyway →
+                Send us your resume →
               </Link>
             </div>
           </div>
@@ -254,11 +254,10 @@ function EmptyState() {
         </svg>
       </div>
       <h2 className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight">
-        We&apos;re not actively hiring right now
+        No open roles today.
       </h2>
       <p className="text-stone-600 text-sm sm:text-base leading-relaxed mt-3 max-w-md mx-auto">
-        But we keep good resumes on file. If you&apos;d be a great fit when something opens
-        up, we&apos;d love to meet you — apply anytime.
+        We keep good resumes on hand for when something opens up. Drop yours in — we read every one.
       </p>
       <Link
         href="/apply"
