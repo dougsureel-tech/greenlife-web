@@ -10,7 +10,7 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "About — Best Cannabis Staff in WA",
+  title: "About — Best Staff in the Valley",
   // Trimmed 163 → 131 chars 2026-05-10 (cross-stack port from cannagent
   // /about v4.335 trim — same Google SERP cap class). Dropped "same
   // building" + "Washington-state" → "WA"; brand still leads.
@@ -123,7 +123,7 @@ export default function AboutPage() {
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Our Story</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">About Green Life Cannabis</h1>
           <p className="text-green-300/70 mt-2 text-sm sm:text-base">
-            12+ yrs · Wenatchee&apos;s most-known team
+            The Valley&apos;s best cannabis crew · 12+ yrs on Center Road
           </p>
         </div>
       </div>
