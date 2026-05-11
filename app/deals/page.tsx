@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   // include the brand here — was rendering "... | Green Life Cannabis | Green Life Cannabis".
   title: "Cannabis Deals & Specials",
   // ~150 chars — v10.105 length sweep.
-  description: `Live cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, concentrates. WSLCB-compliant.`,
+  description: `Today's cannabis deals at ${STORE.name} in ${STORE.address.city}, WA. Daily specials on flower, edibles, vapes, concentrates. Within WAC 314-55-155 — percent-off / dollar-off only.`,
   alternates: { canonical: "/deals" },
   openGraph: {
     siteName: STORE.name,
@@ -212,8 +212,8 @@ export default async function DealsPage({ searchParams }: Props) {
                   <span className="text-green-300">{STORE.name}</span>
                 </h1>
                 <p className="text-green-100/70 text-base sm:text-lg leading-relaxed max-w-xl mt-5">
-                  Best deal applies · cash only · 21+ ID required. Updated continuously from the
-                  live menu — WSLCB-compliant percent-off and dollar-off only, never below cost.
+                  Best deal applies · cash only · 21+ ID required. Pulled from the live menu —
+                  within WAC 314-55-155, percent-off and dollar-off only, never below cost.
                 </p>
               </div>
 
@@ -437,8 +437,8 @@ export default async function DealsPage({ searchParams }: Props) {
                   No deals today — but you still earn points.
                 </h2>
                 <p className="text-stone-600 mt-3 max-w-md mx-auto leading-relaxed">
-                  100 points = $1 off at the counter on a regular-price visit. Browse
-                  the live menu — we&apos;ll have what you&apos;re after.
+                  Points stack up every visit and redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%,
+                  on up to 30% off at 300-400pt. Browse the live menu — we&apos;ll have what you&apos;re after.
                 </p>
                 <Link
                   href="/menu"
