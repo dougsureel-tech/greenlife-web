@@ -257,7 +257,7 @@ function buildHtml(args: OrderConfirmationArgs): string {
         <p style="margin:22px 0 0;font-size:13px;color:${COLORS.textMuted};line-height:1.6;">
           <strong>Running late or can't make it?</strong> We hold your order
           for 2 hours past the pickup window, then it goes back on the
-          floor. Give us a ring at
+          floor. Call us at
           <a href="tel:${PHONE_TEL}" style="color:${COLORS.accentText};text-decoration:underline;">${PHONE_DISPLAY}</a>
           if you need a longer hold — usually no problem.
         </p>

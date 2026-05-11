@@ -289,7 +289,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
         {!cancelled && (
           <div className="rounded-2xl bg-stone-100 px-5 py-3.5 text-xs text-stone-600 flex items-center justify-between gap-3 flex-wrap">
             <span>
-              Running late or need to change something? Just give us a call — we&rsquo;ll hold it.
+              Running late or need to change something? Call us — we&rsquo;ll hold it.
             </span>
             <a
               href={`tel:${STORE.phoneTel}`}

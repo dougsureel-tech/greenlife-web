@@ -109,7 +109,7 @@ If you're driving in from out of town: we're about 25 minutes from Leavenworth, 
 
 Cannabis affects everyone differently. Don't drive impaired. Don't combine it with alcohol if you're new — the interaction surprises people. Lock products away from children and pets — gummies in particular look like candy, and dogs respond very poorly to THC.
 
-If you have questions we didn't cover, [come ask us](/contact) or [give us a call](tel:${STORE.phoneTel}). Our budtenders are happy to talk you through anything — first-timer or longtime enthusiast.
+If you have questions we didn't cover, [come ask us](/contact) or [call us](tel:${STORE.phoneTel}). Our budtenders are happy to talk you through anything — first-timer or longtime enthusiast.
 `,
   },
   {

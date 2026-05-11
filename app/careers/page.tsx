@@ -125,7 +125,7 @@ export default async function CareersPage() {
           <p className="text-green-300/80 mt-3 text-sm sm:text-base leading-relaxed max-w-2xl">
             Twelve years on Center Road. Budtenders who actually know the catalog,
             leads who run a calm floor, an inventory team that takes care. If you
-            love working with people and sweat the small stuff, drop us a line.
+            love working with people and sweat the small stuff, send us your resume.
           </p>
         </div>
       </div>
