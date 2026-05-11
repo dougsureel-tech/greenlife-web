@@ -18,7 +18,10 @@ export type ClosureStatus = {
 // serve the same Next.js app; the canonical is just the customer-stable one.
 const DEFAULT_INVENTORYAPP_URL = "https://brapp.greenlifecannabis.com";
 
-function inventoryappBase(): string {
+// Exported so tests in lib/__tests__/closure-status.test.ts can pin the
+// env-allow-list defense. Not for consumer use — call sites should use
+// `fetchClosureStatus()` which composes this internally.
+export function inventoryappBase(): string {
   const env =
     typeof process !== "undefined"
       ? process.env.NEXT_PUBLIC_INVENTORYAPP_URL
