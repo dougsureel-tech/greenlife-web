@@ -283,7 +283,7 @@ export function SiteFooter() {
           >
             Seattle Cannabis Co.
           </a>{" "}
-          — Rainier Valley since 2018, locally owned.
+          — Rainier Valley since 2018, same crew since 2010.
         </p>
       </div>
 

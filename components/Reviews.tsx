@@ -36,7 +36,7 @@ const REVIEWS: Review[] = [
     author: "Jess T.",
     city: "East Wenatchee",
     rating: 5,
-    text: "First-time customer last year, now I'm in here every other week. They helped me figure out what works for my anxiety without making me feel weird about it. Genuinely friendly, never crowded, easy parking.",
+    text: "First-time customer last year, now I'm in here every other week. They walked me through it without making me feel weird about being new — asked what I wanted out of the evening and pointed me at exactly the right shelf. Genuinely friendly, never crowded, easy parking.",
     date: "2026-04-02",
   },
   {
