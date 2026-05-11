@@ -49,4 +49,15 @@ for gate in \
 done
 echo "  ✓ Build-gates OK (12/12)"
 
+# ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
+echo "  Running lib tests..."
+if ! node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.ts 2>&1; then
+  echo ""
+  echo "  ✗ Push blocked: lib tests failed above. Fix before pushing."
+  echo "    Or bypass: git push --no-verify"
+  echo ""
+  exit 1
+fi
+echo "  ✓ Lib tests OK"
+
 exit 0
