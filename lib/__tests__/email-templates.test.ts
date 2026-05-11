@@ -248,6 +248,60 @@ describe("lib/email.ts — Resend silent-failure defense (sister of inv v305.205
   });
 });
 
+describe("email templates — env allow-list defense (sister inv v337.005 STAFF_APP_URL)", () => {
+  // v29.805 shipped the allow-list defense on welcome-email + quiz-nurture-email.
+  // Pre-fix used deny-list-only `!env.includes(".vercel.app")` — typo'd
+  // subdomains on right TLD (e.g. `app.greenlifecannabis.com`) passed through.
+  // Pin the new allow-list pattern so future agents can't regress.
+
+  const WELCOME_SRC = readFileSync(join(LIB, "welcome-email.ts"), "utf-8");
+  const QUIZ_SRC = readFileSync(join(LIB, "quiz-nurture-email.ts"), "utf-8");
+
+  test("welcome-email.ts uses hostname allow-list (not deny-list-only)", () => {
+    assert.match(
+      WELCOME_SRC,
+      /new URL\(env\)\.hostname\s*!==\s*"www\./,
+      "welcome-email.ts must use `new URL(env).hostname !== \"www.<canonical>\"` allow-list",
+    );
+  });
+
+  test("welcome-email.ts has FALLBACK const + try/catch pattern", () => {
+    assert.match(
+      WELCOME_SRC,
+      /const FALLBACK\s*=\s*["']https:\/\/www\./,
+      "welcome-email.ts must declare FALLBACK const for the allow-list defense",
+    );
+    assert.match(
+      WELCOME_SRC,
+      /try\s*\{[\s\S]{0,200}new URL\(env\)[\s\S]{0,200}\}\s*catch\s*\{[\s\S]{0,100}return FALLBACK/,
+      "welcome-email.ts must wrap URL parse in try/catch returning FALLBACK on malformed URL",
+    );
+  });
+
+  test("quiz-nurture-email.ts uses same allow-list defense", () => {
+    assert.match(
+      QUIZ_SRC,
+      /new URL\(env\)\.hostname\s*!==\s*"www\./,
+      "quiz-nurture-email.ts must use hostname allow-list defense",
+    );
+    assert.match(
+      QUIZ_SRC,
+      /const FALLBACK\s*=\s*["']https:\/\/www\./,
+      "quiz-nurture-email.ts must declare FALLBACK const",
+    );
+  });
+
+  test("no template uses the OLD deny-list-only ternary form", () => {
+    const oldPattern = /env\s*&&\s*!env\.includes\(["']\.vercel\.app["']\)\s*\?\s*env\s*:\s*["']https:/;
+    for (const [name, src] of [["welcome-email.ts", WELCOME_SRC], ["quiz-nurture-email.ts", QUIZ_SRC]] as const) {
+      assert.ok(
+        !oldPattern.test(src),
+        `${name} regressed to deny-list-only ternary — use hostname allow-list (see feedback_env_defense_allow_list_not_deny_list.md)`,
+      );
+    }
+  });
+});
+
 describe("email templates — server-only hygiene", () => {
   test("every template imports 'server-only' (Next.js bundle-side guard)", () => {
     for (const name of TEMPLATE_NAMES) {
