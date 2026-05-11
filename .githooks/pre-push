@@ -38,7 +38,9 @@ for gate in \
   scripts/check-csp-report-only.mjs \
   scripts/check-html-entities-jsx.mjs \
   scripts/check-server-actions-async.mjs \
-  scripts/check-pii-console-leak.mjs; do
+  scripts/check-pii-console-leak.mjs \
+  scripts/check-breadcrumb-ld-id.mjs \
+  scripts/check-redirect-shadow.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -47,7 +49,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (12/12)"
+echo "  ✓ Build-gates OK (14/14)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
