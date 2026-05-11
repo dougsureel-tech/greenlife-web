@@ -28,7 +28,7 @@ Pages below are ordered by where in the funnel they live, not alphabetically.
 - Homepage hero info card live status → "open now" pill drives walk-in conversions all day, not just at decision time
 - Featured products row → rotates daily; sub it for sell-through targets when cases are full
 - Brand strip ordering → top brands earn placement; rotate in the brand we want to push
-- Trust block ("budtenders / locally owned / 16 yrs") → conversion lift on first-time visitors who aren't sure about cannabis retail
+- Trust block ("best staff + tenure / same building since 2014 / WSLCB-licensed / Sunnyslope") → conversion lift on first-time visitors who aren't sure about cannabis retail. **Note:** "locally owned" and "veteran-owned" framings are BOTH forbidden per Doug 2026-05-02 directive (ownership change coming) — `scripts/check-brand-voice-locally-owned.mjs` arc-guard enforces. Glw leads with **best staff + tenure** per `project_wenatchee_positioning_best_staff` memory.
 
 ### `/blog`, `/learn`, `/find-your-strain`
 
@@ -71,7 +71,7 @@ Pages below are ordered by where in the funnel they live, not alphabetically.
 
 **What we want them to do.** Trust → click "Order for Pickup" / "Browse the menu".
 
-**Big-picture tie-in.** Local independent positioning is a margin moat — chains can't claim it. Every page that reinforces "locally owned, founded 2014, same building since" compounds the brand premium and lets us hold prices vs. high-volume rivals.
+**Big-picture tie-in.** Tenure + staff-knowledge positioning is a margin moat — chains can't claim it. Every page that reinforces "same building since 2014, staff who've been here for years, knows-every-regular-by-name" compounds the brand premium and lets us hold prices vs. high-volume rivals. **Note:** the "locally owned" framing used in earlier drafts of this doc is forbidden per Doug 2026-05-02 directive (ownership change coming) + `check-brand-voice-locally-owned.mjs` arc-guard. Lead with **best staff + tenure** instead.
 
 **Small-adjustments-compound watch list.**
 - Founder bio + photo → first-time visitors who see a face convert better than visitors who see only a logo
