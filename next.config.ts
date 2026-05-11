@@ -1,18 +1,23 @@
 import type { NextConfig } from "next";
 
-// SECURITY HEADERS — TEMPORARILY REMOVED (2026-05-01 22:55 PT).
+// SECURITY HEADERS — RESTORED post-MENU_LOG investigation.
 //
-// MENU_LOG hypotheses #4–#6 (Referrer-Policy swap, jane:version meta tag,
-// Clerk middleware scoping) didn't unblock Boost on the new Vercel deploy,
-// despite identical bootstrap config to the still-working WP origin. The
-// remaining cross-origin-affecting diff between WP responses and ours is
-// these added security headers: WP sends NONE of them; we send four. The
-// strongest suspect is `Permissions-Policy: payment=()` — Boost feature-
-// detects the Payment Request API on init, and a blocking policy could
-// abort hydration silently. Removing the whole block puts us byte-for-byte
-// on WP's profile so we can confirm or rule out the policy class as a
-// confound. Add back individually with confirmed-safe values once /menu
-// is rendering products.
+// HISTORICAL CONTEXT (kept for archaeology):
+// 2026-05-01 22:55 PT — headers were briefly removed while investigating
+// the iHeartJane Boost CORS deadlock (MENU_LOG hypotheses #4-#6). The
+// suspect was Permissions-Policy `payment=()` interacting with Boost's
+// Payment Request API feature-detection. Removing them put us byte-for-
+// byte on WP's profile to confirm/rule-out the policy class as a confound.
+//
+// 2026-05-08 — Doug greenlit restoring X-Frame-Options SAMEORIGIN. Other
+// security headers came back in the same wave. The /menu CORS deadlock
+// turned out to be partner-side (iHeartJane CORS allowlist not updated
+// for the new Vercel origins) — see MENU_LOG.md for the full chain.
+//
+// Current state: Permissions-Policy + X-Content-Type-Options + X-Frame-
+// Options SAMEORIGIN + HSTS preload + CSP-Report-Only (observation mode)
+// all live. See headers() emit block below for the actual config. CSP
+// will flip from Report-Only to enforce after 1-2 week observation window.
 
 // Permissions-Policy verbatim from the still-working WordPress origin's
 // /menu response (curl --resolve www.{domain}:443:208.109.64.51). Grants
