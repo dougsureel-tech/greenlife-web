@@ -58,9 +58,12 @@ export const TEAM: TeamMember[] = [
 export const CURRENT_TEAM = TEAM.filter((m) => m.era === "current");
 export const ALUMNI_TEAM = TEAM.filter((m) => m.era === "alumni");
 
-// Avatar initial fallback for missing photos.
+// Avatar initial fallback for missing photos. `"".split(/\s+/)` returns
+// `[""]` (length 1), not `[]` — without the filter, empty + whitespace-only
+// inputs returned "" (blank avatar) instead of the intended "?". Filtering
+// for truthy parts collapses both edge cases to the empty array.
 export function initialOf(name: string): string {
-  const parts = name.trim().split(/\s+/);
+  const parts = name.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) return "?";
   if (parts.length === 1) return parts[0]!.charAt(0).toUpperCase();
   return (parts[0]!.charAt(0) + parts[parts.length - 1]!.charAt(0)).toUpperCase();
