@@ -309,7 +309,7 @@ What helps:
 - **Stay somewhere safe and quiet.** No driving. Don't try to handle stressful tasks.
 - **Hydrate.** Water, juice, anything non-caffeinated.
 - **CBD if you have any handy.** Some people reach for it in this situation — the evidence on whether it helps is mixed, but it's non-intoxicating and harmless to try.
-- **Black peppercorns.** Old folk remedy with surprising support — chew a few peppercorns. The caryophyllene appears to interact in a way that calms the THC effect for some people.
+- **Black peppercorns.** Old folk remedy that has some informal support — chew a few peppercorns. Some people find the caryophyllene shifts how the THC feels.
 - **Sleep through it.** If you can lie down, do.
 - **Time.** This is the main one. The peak is 2 to 4 hours after ingestion; you'll feel the worst of it ease around hour 4.
 

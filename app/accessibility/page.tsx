@@ -47,13 +47,13 @@ const PHYSICAL_AMENITIES = [
   },
   {
     title: "Restrooms",
-    body: "No public restroom on premises (compliance constraint, common across WA dispensaries). Closest accessible public restroom is at Pybus Public Market, ~10 minutes away.",
+    body: "No public restroom on premises — WSLCB-licensed shops can't offer one. Closest accessible public restroom is Pybus Public Market, ~10 minutes away.",
   },
   {
     title: "Communication accommodations",
-    body: "Staff are happy to write product info on a notepad, repeat slowly, or step outside with you for a quieter conversation. We do not currently have an ASL interpreter on staff — call ahead at " +
+    body: "Staff are happy to write product info on a notepad, repeat slowly, or step outside with you for a quieter conversation. No ASL interpreter on staff — call ahead at " +
       STORE.phone +
-      " and we will arrange a video-relay session for your visit.",
+      " and we'll arrange a video-relay session for your visit.",
   },
 ];
 
@@ -168,7 +168,7 @@ export default function AccessibilityPage() {
               Accessibility &amp; Health Information
             </h1>
             <p className="mt-4 max-w-2xl text-green-100/80 leading-relaxed">
-              How we accommodate customers in our shop, how we work to keep this site usable for
+              How we accommodate customers in our shop, how we keep this site usable for
               everyone, and what Washington-state law and the Department of Health want you to
               know before using cannabis.
             </p>
@@ -225,7 +225,7 @@ export default function AccessibilityPage() {
               >
                 {STORE.phone}
               </a>
-              . We will work with you on what fits the visit.
+              . Tell us what you need and we&apos;ll set it up before you come in.
             </p>
           </section>
 
@@ -236,7 +236,7 @@ export default function AccessibilityPage() {
                 On this website
               </h2>
               <p className="mt-1.5 text-stone-600 text-sm sm:text-base">
-                We aim for{" "}
+                We build to{" "}
                 <a
                   href="https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&amp;levels=a%2Caa"
                   target="_blank"
@@ -245,7 +245,7 @@ export default function AccessibilityPage() {
                 >
                   WCAG 2.1 Level AA
                 </a>{" "}
-                conformance across every page.
+                across every page.
               </p>
             </header>
             <ul className="space-y-2.5">
