@@ -120,13 +120,12 @@ export default async function CareersPage() {
             Careers
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Work with us at Green Life Cannabis
+            Wenatchee&apos;s longest-running dispensary — and we&apos;re hiring
           </h1>
           <p className="text-green-300/80 mt-3 text-sm sm:text-base leading-relaxed max-w-2xl">
-            We&apos;re building Wenatchee&apos;s most knowledgeable cannabis crew — budtenders
-            who actually know the catalog, leads who run a calm floor, and an inventory team
-            that takes care. If you love working with people, sweat the small details, and
-            want a place that takes the work seriously, we&apos;d love to hear from you.
+            Twelve years on Center Road. Budtenders who actually know the catalog,
+            leads who run a calm floor, an inventory team that takes care. If you
+            love working with people and sweat the small stuff, drop us a line.
           </p>
         </div>
       </div>
