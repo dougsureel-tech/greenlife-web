@@ -42,6 +42,13 @@ export function cleanBrandName(raw: string | null | undefined): string {
   let s = raw.trim();
   if (!s) return "";
 
+  // Pre-strip any trailing-comma / whitespace artifact BEFORE running the
+  // suffix loop — without this, "Foo, LLC," exits the loop with LLC intact
+  // because the regex needs `$` to anchor to the actual end-of-string
+  // (the trailing comma blocks it). One-line normalization, mirrors the
+  // same cleanup that already runs post-loop on line 65.
+  s = s.replace(/[,\s]+$/, "").trim();
+
   // Apply entity-suffix patterns repeatedly — if a vendor wrote "Foo Inc, LLC"
   // (rare but happens) we want both stripped. Cap iterations as a safety
   // net so a malformed pattern never spins.
