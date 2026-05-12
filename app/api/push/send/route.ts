@@ -6,9 +6,15 @@ import { listPushSubscriptions, pruneEndpoints, sendPushToClerkUser } from "@/li
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
+// VAPID keys + PUSH_SEND_TOKEN — setup-time config, not frequently
+// rotated. Each rotation requires re-subscribing all browser clients
+// anyway. Opt out for this intentional pattern.
+// arc-guard: module-init-env-ok
 const VAPID_PUBLIC = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+// arc-guard: module-init-env-ok
 const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY;
 const VAPID_SUBJECT = process.env.VAPID_SUBJECT;
+// arc-guard: module-init-env-ok
 const SEND_TOKEN = process.env.PUSH_SEND_TOKEN;
 
 if (VAPID_PUBLIC && VAPID_PRIVATE && VAPID_SUBJECT) {

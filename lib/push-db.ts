@@ -6,8 +6,11 @@ const SITE = "greenlife";
 
 // Lazy webpush configuration. Triplet is required for an actual send; missing
 // any of the three → sendPushToClerkUser becomes a no-op (returns 0 sent) so
-// dev / preview without VAPID keys doesn't crash.
+// dev / preview without VAPID keys doesn't crash. Setup-time config —
+// each rotation requires re-subscribing all browser clients anyway.
+// arc-guard: module-init-env-ok
 const VAPID_PUBLIC = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+// arc-guard: module-init-env-ok
 const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY;
 const VAPID_SUBJECT = process.env.VAPID_SUBJECT;
 let vapidConfigured = false;
