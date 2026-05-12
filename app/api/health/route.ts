@@ -130,6 +130,11 @@ export async function GET() {
     // is set on this deployment; `false` means email helper falls back to
     // the no-op skip path (logs a single line, never throws).
     emailConfigured: isEmailConfigured(),
+    // Cross-stack alias of `emailConfigured` — sister stacks (cannagent + GW +
+    // sureel + VRG) use `emailReady` for this same concept. Doug post-deploy
+    // curl pattern is one mental model across all 6 sites. Additive —
+    // `emailConfigured` retained for backwards compat with existing consumers.
+    emailReady: isEmailConfigured(),
     // Cross-stack readiness probe (sister of cannagent v6.4585 + inv v401.305
     // + scc v23.905). `true` when RESEND_FROM is set to bare apex
     // `greenlifecannabis.com` — at-risk because `dig MX greenlifecannabis.com`
@@ -151,6 +156,8 @@ export async function GET() {
     // 2026-05-03 21:25 PT (Twilio gap) directly on the public-site
     // health endpoint.
     smsConfigured: isSmsConfigured(),
+    // Cross-stack alias — sister of `emailReady` above. GW uses `smsReady`.
+    smsReady: isSmsConfigured(),
   };
 
   return NextResponse.json(body, {
