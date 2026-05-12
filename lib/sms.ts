@@ -5,12 +5,20 @@
 // round-trip unchanged so the legacy `normalizePhone` shape kept as an
 // alias still works for any caller that imports it.
 
-const ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-const AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-const FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
+// Function-resolved env reads instead of module-init constants.
+// Sister of inv v401.545 + v401.505 + scc v24.005 (stale-Fluid-Compute-
+// instance env-var trap): Vercel Fluid Compute keeps warm serverless
+// instances ~15min, but `const X = process.env.Y` at module load captures
+// the value ONCE per instance — admin env rotations don't reach instances
+// loaded with the previous value until they cycle. Function-resolution
+// reads `process.env` on every call (zero perf cost — process.env is a
+// Proxy getter). Memory pin: `feedback_env_var_precedence_cross_tenant_trap`.
+function getAccountSid(): string | undefined { return process.env.TWILIO_ACCOUNT_SID; }
+function getAuthToken(): string | undefined { return process.env.TWILIO_AUTH_TOKEN; }
+function getFromNumber(): string | undefined { return process.env.TWILIO_FROM_NUMBER; }
 
 export function isSmsConfigured() {
-  return !!(ACCOUNT_SID && AUTH_TOKEN && FROM_NUMBER);
+  return !!(getAccountSid() && getAuthToken() && getFromNumber());
 }
 
 /**
@@ -54,9 +62,9 @@ export async function sendSms(
   // pre-normalize; E.164 inputs round-trip unchanged.
   const normalizedTo = normalizeToE164(to);
   const { default: twilio } = await import("twilio");
-  const client = twilio(ACCOUNT_SID, AUTH_TOKEN);
+  const client = twilio(getAccountSid(), getAuthToken());
   try {
-    const msg = await client.messages.create({ body, from: FROM_NUMBER!, to: normalizedTo });
+    const msg = await client.messages.create({ body, from: getFromNumber()!, to: normalizedTo });
     return { success: true, sid: msg.sid };
   } catch (e) {
     // PII strip — Twilio errors echo recipient phone in `.message`
