@@ -74,7 +74,17 @@ function walk(dir, out = []) {
   return out;
 }
 
-const MODULE_INIT_ENV_RE = /^(?:export\s+)?const\s+\w+\s*=\s*(?:[^;]*\|\|\s*)?process\.env\.([A-Z_]+)/gm;
+// 2026-05-11 multi-line + TS-type-annotation fix (sister-port from cannagent
+// v6.4845 self-audit). Pre-fix regex missed:
+//   export const FOO: SomeType =
+//     process.env.BAR || "default";
+// because \w+\s*= didn't tolerate the : type annotation, and
+// (?:[^;]*\|\|\s*)? assumed || on the same line. Real risk: any
+// TypeScript-typed module-init env capture silently bypassed the gate.
+// Fix: (1) tolerate optional TS type annotations, (2) replace
+// [^;]*\|\|\s* with [^;]*? so process.env.X can span lines,
+// (3) semicolon-bounded so no false-positives across statements.
+const MODULE_INIT_ENV_RE = /^(?:export\s+)?const\s+\w+(?:\s*:\s*[^=]+)?\s*=\s*[^;]*?process\.env\.([A-Z_]+)/gm;
 const IGNORE_MARKER = /\/\/\s*arc-guard:\s*module-init-env-ok/;
 
 const offenders = [];
