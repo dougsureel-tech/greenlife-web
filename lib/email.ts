@@ -31,16 +31,23 @@ import "server-only";
 // single info line WITHOUT the recipient address. The error string is
 // safe to include in logs.
 
-const API_KEY = process.env.RESEND_API_KEY;
-const DEFAULT_FROM =
-  process.env.RESEND_FROM || "Green Life Cannabis <hi@greenlifecannabis.com>";
+// Function-resolved env reads instead of module-init constants.
+// Sister of inv v401.505 + cannagent v6.4565 + scc v24.105 same-day
+// (stale-Fluid-Compute-instance env-var trap). Memory pin:
+// `feedback_env_var_precedence_cross_tenant_trap`. Caused the inv
+// 2026-05-11 Jensine welcome-email failure cascade — staff-bulk-reissue
+// sent from stale FROM for ~30min after env-flip until instances cycled.
+function getApiKey(): string | undefined { return process.env.RESEND_API_KEY; }
+function getDefaultFrom(): string {
+  return process.env.RESEND_FROM || "Green Life Cannabis <hi@greenlifecannabis.com>";
+}
 // Reply-To override. When set, customer replies to outbound mail land
 // here instead of the From address. Pattern: From = `info@…` (brand-
 // facing), Reply-To = `buyer@…` (actively monitored mailbox). Without
 // the override, replies default to From — which means replies bounce
 // silently when the From address isn't actively monitored. See
 // memory `project_info_email_unmonitored.md` for the load-bearing case.
-const DEFAULT_REPLY_TO = process.env.RESEND_REPLY_TO ?? null;
+function getDefaultReplyTo(): string | null { return process.env.RESEND_REPLY_TO ?? null; }
 
 export type SendEmailArgs = {
   to: string;
@@ -72,7 +79,7 @@ export type SendEmailResult =
  *  email ("we'll email you a copy") so we don't lie to customers when
  *  the env var is absent in a given environment. */
 export function isEmailConfigured(): boolean {
-  return !!API_KEY;
+  return !!getApiKey();
 }
 
 /**
@@ -105,7 +112,7 @@ export function isEmailConfigured(): boolean {
  *  at the Resend dashboard first (DNS-side TXT + DKIM records).
  */
 export function isEmailFromAtRisk(): boolean | null {
-  if (!API_KEY) return null;
+  if (!getApiKey()) return null;
   const configured = process.env.RESEND_FROM?.trim();
   if (!configured) {
     // Code default is `hi@greenlifecannabis.com` (apex) — AT-RISK by default
@@ -125,7 +132,7 @@ export function isEmailFromAtRisk(): boolean | null {
  * local-part). Paired with `isEmailFromAtRisk()` on `/api/health`.
  */
 export function getEmailFromHost(): string | null {
-  if (!API_KEY) return null;
+  if (!getApiKey()) return null;
   const configured = process.env.RESEND_FROM?.trim();
   if (!configured) return "greenlifecannabis.com"; // code-default apex
   const angleMatch = configured.match(/<([^>]+@([^>]+))>/);
@@ -138,7 +145,8 @@ export function getEmailFromHost(): string | null {
  *  (graceful no-op for local dev / preview envs without the key), and
  *  `{ ok: false, error }` on a real send failure. Never throws. */
 export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
-  if (!API_KEY) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
     // Single info line, NO recipient address — keeps PII out of logs in
     // the no-op path which is the most common path in dev / preview.
     console.info("[email] RESEND_API_KEY not configured — skipping send");
@@ -151,15 +159,15 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
 
   try {
     const { Resend } = await import("resend");
-    const client = new Resend(API_KEY);
-    const replyTo = args.replyTo ?? DEFAULT_REPLY_TO ?? undefined;
+    const client = new Resend(apiKey);
+    const replyTo = args.replyTo ?? getDefaultReplyTo() ?? undefined;
     // Build List-Unsubscribe pair when caller supplies an unsub URL.
     // Mailto fallback uses replyTo when set (preferred — actively monitored)
     // or the from-address when not. Extract bare email from "Name <email>"
     // form. Per RFC 8058 + Gmail bulk-sender Feb 2024.
     const headers: Record<string, string> | undefined = args.unsubscribeUrl
       ? (() => {
-          const mailtoSource = replyTo || args.from || DEFAULT_FROM;
+          const mailtoSource = replyTo || args.from || getDefaultFrom();
           const angleMatch = mailtoSource.match(/<([^>]+)>/);
           const bareEmail = angleMatch ? angleMatch[1] : mailtoSource;
           return {
@@ -169,7 +177,7 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
         })()
       : undefined;
     const r = await client.emails.send({
-      from: args.from ?? DEFAULT_FROM,
+      from: args.from ?? getDefaultFrom(),
       to: args.to,
       subject: args.subject,
       html: args.html,
