@@ -5,6 +5,7 @@ import { sendQuizMatchEmail } from "@/lib/quiz-nurture-email";
 import { STORE } from "@/lib/store";
 import { MINUTE_MS } from "@/lib/time-constants";
 import { createRateLimiter } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/client-ip";
 
 // Hack #6 — Strain-finder quiz email capture.
 //
@@ -71,7 +72,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, skipped: "feature_disabled" });
   }
 
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(req.headers);
   if (!checkCaptureRate(ip)) {
     return NextResponse.json(
       { error: "Too many requests. Try again in a minute." },

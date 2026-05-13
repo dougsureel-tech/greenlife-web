@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { deletePushSubscription } from "@/lib/push-db";
 import { MINUTE_MS } from "@/lib/time-constants";
 import { createRateLimiter } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/client-ip";
 
 export const runtime = "nodejs";
 
@@ -19,7 +20,7 @@ function checkUnsubRate(ip: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(req.headers);
   if (!checkUnsubRate(ip)) {
     return NextResponse.json(
       { error: "Too many requests. Try again in a minute." },

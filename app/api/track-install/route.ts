@@ -5,6 +5,7 @@ import { getOrCreatePortalUser } from "@/lib/portal";
 import crypto from "crypto";
 import { MINUTE_MS } from "@/lib/time-constants";
 import { createRateLimiter } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/client-ip";
 
 // POST /api/track-install
 //
@@ -48,7 +49,7 @@ function checkInstallRate(ip: string): boolean {
 
 export async function POST(req: NextRequest) {
   const sql = getClient();
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(req.headers);
   if (!checkInstallRate(ip)) {
     return NextResponse.json(
       { error: "Too many requests" },

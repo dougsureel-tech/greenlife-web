@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createRateLimiter } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/client-ip";
 import { MINUTE_MS } from "@/lib/time-constants";
 
 // CSP violation report receiver. Browsers POST violation reports here
@@ -61,7 +62,7 @@ const limiter = createRateLimiter({ limit: 60, windowMs: MINUTE_MS });
 export async function POST(request: Request): Promise<Response> {
   // Rate-limit BEFORE the body read — body parsing on attacker traffic is
   // the exact cost we're protecting against.
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(request.headers);
   if (!limiter.check(ip)) {
     return new NextResponse(null, {
       status: 429,
