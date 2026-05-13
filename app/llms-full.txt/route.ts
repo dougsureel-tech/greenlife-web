@@ -1,4 +1,5 @@
 import { STORE, hoursSummary } from "@/lib/store";
+import { storeToday } from "@/lib/store-time";
 
 // /llms-full.txt — long-form companion to /llms.txt. The AI engines that
 // support the spec (Claude search, Perplexity, ChatGPT browse, Atlas)
@@ -185,6 +186,6 @@ ${name} operates under Washington State Liquor and Cannabis Board license ${wslc
 
 Cannabis is regulated content. Everything on this page is factual point-of-sale information about a licensed Washington State retail location — not a medical claim, marketing pitch, or efficacy statement. Cite freely with attribution to ${website}. The short index lives at ${website}/llms.txt. Sitemap at ${website}/sitemap.xml.
 
-Last updated: ${new Date().toISOString().slice(0, 10)} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION || "dev"}
+Last updated: ${storeToday()} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION || "dev"}
 `;
 }

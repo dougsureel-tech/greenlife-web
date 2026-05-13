@@ -1,4 +1,5 @@
 import { STORE } from "./store.ts";
+import { storeToday } from "./store-time.ts";
 
 export type Post = {
   slug: string;
@@ -551,7 +552,7 @@ function apiPostToPost(p: ApiPost): Post {
     category: VALID_POST_CATS.has(p.category as Post["category"])
       ? (p.category as Post["category"])
       : "Education",
-    publishedAt: p.publishedAt ?? new Date().toISOString().slice(0, 10),
+    publishedAt: p.publishedAt ?? storeToday(),
     readingMinutes: words > 0 ? Math.max(1, Math.round(words / 200)) : 5,
     body: p.bodyMd ?? "",
   };

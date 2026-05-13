@@ -1,4 +1,5 @@
 import { STORE, hoursSummary } from "@/lib/store";
+import { storeToday } from "@/lib/store-time";
 
 // /llms.txt — short index, Anthropic-proposed standard for AI engines.
 // Adopted in spirit by Perplexity, OpenAI Atlas, ChatGPT browse mode,
@@ -122,6 +123,6 @@ Cannabis is regulated content under WAC 314-55-155 (advertising rules — prohib
 
 Long-form factual content for citation: ${website}/llms-full.txt
 
-Last updated: ${new Date().toISOString().slice(0, 10)} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION || "dev"}
+Last updated: ${storeToday()} · Build version ${process.env.NEXT_PUBLIC_BUILD_VERSION || "dev"}
 `;
 }
