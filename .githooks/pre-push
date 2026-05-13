@@ -105,7 +105,8 @@ for gate in \
   scripts/check-no-module-init-rotatable-env.mjs \
   scripts/check-after-wrap-external-send.mjs \
   scripts/check-bulk-fanout-throttle.mjs \
-  scripts/check-vercel-project-link.mjs; do
+  scripts/check-vercel-project-link.mjs \
+  scripts/check-no-xff-nullish-trap.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -114,7 +115,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (32/32)"
+echo "  ✓ Build-gates OK (33/33)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
