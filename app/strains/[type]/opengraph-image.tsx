@@ -17,17 +17,9 @@ import { STRAIN_TYPES, getStrainType } from "@/lib/strain-types";
 // "relaxing", "energizing", "helps you sleep"). Pulls subhead directly
 // from the SSoT — same lane as the on-page body copy.
 
+export const alt = `${STORE.name} — Strain category`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateImageMetadata() {
-  return STRAIN_TYPES.map((t) => ({
-    id: t.slug,
-    alt: `${t.name} strains at ${STORE.name} · ${t.subhead}`,
-    size,
-    contentType,
-  }));
-}
 
 export default async function OG({ params }: { params: Promise<{ type: string }> }) {
   const { type: slug } = await params;

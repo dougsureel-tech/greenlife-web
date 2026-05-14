@@ -8,10 +8,13 @@ import { NEAR_TOWNS, getTown } from "@/lib/near-towns";
 // headline (town name + ", WA"), the drive-time + route subtitle, and
 // the bottom-right URL slug.
 //
-// Static-bake friendly: `generateImageMetadata` enumerates one entry
-// per NEAR_TOWNS slug so Next pre-renders every card at build time;
-// no runtime DB calls. /near/[town] sets `dynamicParams=false` so any
-// unknown slug 404s before it can hit this generator.
+// Static-bake friendly: parent route's `generateStaticParams` + the
+// route-level `dynamicParams=false` constrain inputs to the NEAR_TOWNS
+// slug set, so Next pre-renders every card at build time. No runtime
+// DB calls. The per-route file's exported `alt` is a constant — the
+// per-town alt is set in page.tsx via the explicit `images: [{ url,
+// width, height, alt }]` shape (so `check-og-completeness.mjs` is
+// satisfied AND `check-per-route-og-image.mjs` stays clean).
 //
 // Visual language: matches the /near hero band redesign (glw v33.805 —
 // green-950 hero with eyebrow + h1 + drive-time tile) so the share
@@ -20,17 +23,9 @@ import { NEAR_TOWNS, getTown } from "@/lib/near-towns";
 // WAC 314-55-155: card text is descriptive only — drive-time + route +
 // town name. No effect/medical/promotional claims.
 
+export const alt = `${STORE.name} — Dispensary near you`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateImageMetadata() {
-  return NEAR_TOWNS.map((t) => ({
-    id: t.slug,
-    alt: `${t.name}, WA → ${STORE.name} · ${t.driveMins} min via ${t.highway}`,
-    size,
-    contentType,
-  }));
-}
 
 export default async function OG({ params }: { params: Promise<{ town: string }> }) {
   const { town: slug } = await params;

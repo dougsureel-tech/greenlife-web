@@ -14,17 +14,9 @@ import { LEARN_HUB_TOPICS, getLearnHubTopic } from "@/lib/learn-hub";
 // eyebrow come straight from the SSoT — same copy that survived the
 // long-form body's compliance lane (no effect/medical/promissory claims).
 
+export const alt = `${STORE.name} — Cannabis 101 long-form guide`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateImageMetadata() {
-  return LEARN_HUB_TOPICS.map((t) => ({
-    id: t.slug,
-    alt: `${t.title} — ${STORE.name}`,
-    size,
-    contentType,
-  }));
-}
 
 export default async function OG({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

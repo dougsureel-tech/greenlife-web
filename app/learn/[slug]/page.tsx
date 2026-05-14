@@ -51,9 +51,18 @@ export async function generateMetadata({
       description: topic.description,
       url: `${STORE.website}/learn/${topic.slug}`,
       siteName: STORE.name,
-      // `images` intentionally omitted — co-located `opengraph-image.tsx`
-      // (glw v35.505) is the per-route card and Next 16's convention
-      // auto-injects it. See `scripts/check-per-route-og-image.mjs`.
+      // Explicit per-route OG URL (glw v35.505). Co-located
+      // `opengraph-image.tsx` is the per-topic card; this entry points
+      // at the per-route file. See `check-per-route-og-image.mjs` fix
+      // shape B + `check-og-completeness.mjs` images-required rule.
+      images: [
+        {
+          url: `/learn/${topic.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${topic.title} — ${STORE.name}`,
+        },
+      ],
     },
   };
 }
