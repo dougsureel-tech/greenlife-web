@@ -190,6 +190,21 @@ export default async function NearTownPage({
         </div>
       </section>
 
+      {town.cityCopy && (
+        // Long-form local-context section — present only on high-traffic
+        // towns (template seeded in v33.205 on Chelan). Renders ABOVE the
+        // standard whyStop so Google sees the heavier body copy first.
+        // Each paragraph is split on a blank line in the data file.
+        <section className="prose prose-zinc max-w-none mb-10">
+          <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-900 mb-4">
+            Cannabis dispensary near {town.name}, WA
+          </h2>
+          {town.cityCopy.split("\n\n").map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </section>
+      )}
+
       <section className="prose prose-zinc max-w-none mb-10">
         <p>{town.whyStop}</p>
         <p>
