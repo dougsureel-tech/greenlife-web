@@ -40,14 +40,14 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     county: "Chelan County",
     driveMins: 55,
     highway: "US-97 Alt north along the Columbia",
-    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — we're the closest legal cannabis to the lake.",
+    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — about 55 minutes door-to-door.",
     whyStop:
       "Chelan locals + summer-house owners drive past Green Life on the way out of town. Stocking up before a long weekend at the lake is the most common reason — pre-rolls for the docks, edibles for the houseboat, flower for the cabin. Cash-only and 21+, but the ATM in-store covers either.",
     notableNeighbors: ["Manson", "Entiat", "Leavenworth"],
     // Long-form template (v33.205) — Doug-approved tone check before
     // scaling to the rest of the high-traffic NEAR_TOWNS set.
     cityCopy: [
-      "Chelan to Wenatchee runs about 55 minutes straight down US-97 Alt along the Columbia — one of the prettier hours of highway in the state, and the only stretch between Chelan Falls and Entiat where there's nowhere to pull over for cannabis. Our shop sits right where US-97 meets the Sunnyslope exit, so you're off the highway, parked, and back on the road in about ten minutes.",
+      "Chelan to Wenatchee runs about 55 minutes straight down US-97 Alt along the Columbia — one of the prettier hours of highway in the state. Our shop sits right where US-97 meets the Sunnyslope exit, so you're off the highway, parked, and back on the road in about ten minutes.",
       "Who shows up from Chelan: locals year-round, and lake-house owners + visitors all summer. The pattern's the same every June through September — Friday-afternoon arrivals stopping in on the way up to Manson or Wapato Point, Sunday-evening crews swinging through after a weekend at Slidewaters or Tsillan Cellars. Winter slows down but doesn't stop. Ski season pulls a different crowd through — Mission Ridge regulars who'd rather come down through Wenatchee than fight the Stevens Pass traffic out of Leavenworth.",
       "The Leavenworth-pass-through angle matters here. Plenty of Chelan-bound traffic comes east over Stevens, drops down US-2 through Leavenworth, then takes US-97 north to the lake. We're 35 minutes from Leavenworth on US-2 and 55 minutes from Chelan on US-97 — the natural stop in the middle of that route either direction. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
       "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Chelan and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
@@ -59,7 +59,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     county: "Chelan County",
     driveMins: 35,
     highway: "US-2 east through Tumwater Canyon",
-    pitch: "Leavenworth → Wenatchee is 35 min on US-2 — we're the closest legal cannabis to the Bavarian village.",
+    pitch: "Leavenworth → Wenatchee is 35 min on US-2 — village limits don't allow recreational cannabis, so most folks come down the canyon to us.",
     whyStop:
       "Leavenworth doesn't have a recreational dispensary inside city limits, so locals + tourists driving in from Stevens Pass swing through Wenatchee. Stop on the way home from a Front Street wander, or pair with Pybus Public Market and a stretch along the Columbia.",
     notableNeighbors: ["Cashmere", "Plain", "Lake Wenatchee"],
@@ -68,7 +68,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     // up + seasonal → cross-traffic + compliance → tenure + CTA).
     cityCopy: [
       "Leavenworth to Wenatchee runs about 35 minutes east on US-2 through Tumwater Canyon — one of the most-driven stretches of highway in the state during Oktoberfest and Christmas-Lights season, plus the natural exit out of the village for anyone heading anywhere east. Our shop is right off the Sunnyslope exit, so you're off US-2, parked, and back on the road inside ten minutes.",
-      "Who shows up from Leavenworth: locals year-round (Leavenworth city ordinance keeps recreational cannabis out of village limits — Wenatchee is the legal closest), plus the visitor flow that shifts shape every season. Front Street wanderers in summer. Oktoberfest crews in September and early October. Christmas-Lights crowds Thanksgiving through New Year's. Stevens Pass skiers all winter, dropping out of the pass and looping through us before heading back east or south.",
+      "Who shows up from Leavenworth: locals year-round (Leavenworth city ordinance keeps recreational cannabis out of village limits, so the run down the canyon is the routine), plus the visitor flow that shifts shape every season. Front Street wanderers in summer. Oktoberfest crews in September and early October. Christmas-Lights crowds Thanksgiving through New Year's. Stevens Pass skiers all winter, dropping out of the pass and looping through us before heading back east or south.",
       "The Stevens Pass angle matters here. Plenty of west-side traffic comes east over the pass, drops down US-2 through Leavenworth, and picks up groceries-plus-cannabis in Wenatchee before continuing on to Chelan or back toward the Tri-Cities. We're the natural stop in the middle of that route. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
       "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Leavenworth and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
     ].join("\n\n"),
@@ -92,7 +92,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "Across the Columbia via the bridge",
     pitch: "East Wenatchee to Sunnyslope is 10 min over the bridge — same valley, different county.",
     whyStop:
-      "East Wenatchee is a different county (Douglas) but the same valley — staff and customers are 50/50 from each side of the bridge. We're the closest Chelan-County dispensary to anyone in East Wenatchee, Pangborn, or up the Columbia in Rock Island. Worth knowing: Chelan-County retail-cannabis tax differs from Douglas — both pay the WA 37% excise; local rate at the till is the small variance.",
+      "East Wenatchee is a different county (Douglas) but the same valley — staff and customers are 50/50 from each side of the bridge. About ten minutes door-to-door from most of East Wenatchee over the George Sellar Bridge, with an easy Sunnyslope exit on our side.",
     notableNeighbors: ["Wenatchee", "Rock Island", "Waterville"],
     // Long-form (v33.X) — 3rd of the 19-page city-SEO arc. Highest local-
     // pull town in the set (10 min drive, biggest 50/50 customer share).
@@ -101,7 +101,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     cityCopy: [
       "East Wenatchee to our shop is about 10 minutes — over the George Sellar Bridge, take the first Sunnyslope exit on the Chelan-County side, and you're at the door. Same valley, different county; staff and customers are roughly 50/50 from each side of the river. East Wenatchee residents make up our biggest single in-town customer base.",
       "Who shows up from East Wenatchee: locals year-round, in steady weekday-evening + weekend-afternoon waves. Pangborn-airport folks heading home from a flight, Eastmont parents after school pickup, Costco-and-us combos in the same trip. Summer brings the Apple Capital Loop Trail crowd — bikers and joggers who finish the loop on the Wenatchee side and swing in before crossing back over.",
-      "The county-line angle is the one wrinkle worth knowing. East Wenatchee sits in Douglas County; we sit in Chelan. Both stores in town pay the WA 37% cannabis excise (state, not local), but the small local sales-tax variance is real — the till handles it automatically. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "Why the bridge crowd ends up here: most of the things East Wenatchee folks already cross over for — Pybus Public Market, Costco, Confluence Park, the Apple Capital Loop on the Wenatchee-side leg, downtown errands — sit on our side of the river. Adding a stop with us at the Sunnyslope exit usually means no extra route, just one more pull-off on the way back to the bridge. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
       "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online from East Wenatchee and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
     ].join("\n\n"),
   },
