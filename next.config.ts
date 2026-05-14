@@ -291,12 +291,28 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
       },
       {
+        // Bumped 1hr → 24hr (2026-05-14). next.config.ts `headers()` is the
+        // ACTUAL lever for OG-image edge caching — Next 16 strips `s-maxage`
+        // from the in-route metadata-image `Cache-Control` AND the
+        // next.config rule shadows whatever the in-route emits. So both must
+        // be 24hr to land 24hr. Layered with `Vercel-CDN-Cache-Control` as
+        // defense-in-depth in case Next ever strips s-maxage from
+        // next.config too. Content rebuilds on deploy (cache flushes
+        // naturally). Sister scc.
         source: "/opengraph-image",
-        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+          { key: "Vercel-CDN-Cache-Control", value: "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800" },
+        ],
       },
       {
+        // Same pattern for per-route opengraph-image (Next 16 file
+        // convention `app/<route>/opengraph-image.tsx`). Sister scc.
         source: "/:path*/opengraph-image",
-        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+          { key: "Vercel-CDN-Cache-Control", value: "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800" },
+        ],
       },
       {
         source: "/manifest.webmanifest",
