@@ -4,6 +4,7 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { LEARN_TOPICS } from "@/lib/learn-topics";
+import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { getCompletedSteps } from "@/lib/learn-db";
 import { LearnProgress } from "./LearnProgress";
@@ -115,6 +116,41 @@ export default function LearnPage() {
       <Suspense fallback={<SignedOutLearn />}>
         <UserStateAwareLearn />
       </Suspense>
+
+      {/* /learn/<slug> hub — long-form topic landing pages for high-intent
+          searches. Sits below the Cannabis 101 microlearning list above
+          (those carry progress checkmarks); these are deeper SEO landing
+          pages without the auth-tied progress UI. */}
+      <section className="space-y-4">
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-400 mb-1">
+            Go deeper
+          </p>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+            Long-form guides
+          </h2>
+          <p className="mt-1 text-sm text-zinc-400 max-w-2xl">
+            Plain-English explainers on the Washington-specific questions our budtenders hear most.
+          </p>
+        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {LEARN_HUB_TOPICS.map((t) => (
+            <li key={t.slug}>
+              <Link
+                href={`/learn/${t.slug}`}
+                className="group block rounded-xl border border-zinc-800 hover:border-emerald-700 bg-zinc-900/40 hover:bg-zinc-900 px-4 py-3 transition-colors"
+              >
+                <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-500/80 mb-1">
+                  {t.eyebrow}
+                </div>
+                <div className="text-sm sm:text-base font-semibold text-zinc-100 group-hover:text-white leading-snug">
+                  {t.title}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* CTA */}
       <section className="text-center py-4">

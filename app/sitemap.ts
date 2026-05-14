@@ -3,6 +3,7 @@ import { getActiveBrands, getActiveDeals } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
+import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { STRAIN_TYPES } from "@/lib/strain-types";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
@@ -281,5 +282,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  return [...staticPages, ...dealPages, ...brandPages, ...postPages, ...nearIndexPage, ...nearTownPages];
+  // /learn/<slug> hub topic landing pages. Long-form educational SEO
+  // surface (~400-600 words each), data-driven from `lib/learn-hub.ts`.
+  // priority 0.7 — high-intent informational lane (cannabis tax, dosing,
+  // first-visit) but sits below the canonical / + /menu + /near.
+  const learnHubPages: MetadataRoute.Sitemap = LEARN_HUB_TOPICS.map((t) => ({
+    url: `${STORE.website}/learn/${t.slug}`,
+    lastModified: STATIC_LASTMOD,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...dealPages, ...brandPages, ...postPages, ...nearIndexPage, ...nearTownPages, ...learnHubPages];
 }
