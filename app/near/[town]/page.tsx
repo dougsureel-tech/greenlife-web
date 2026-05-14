@@ -153,13 +153,72 @@ export default async function NearTownPage({
     ],
   };
 
-  const otherTowns = NEAR_TOWNS.filter((t) => t.slug !== town.slug);
   // Page is force-static + revalidate=false, so "today's hours" baked at
   // build time would drift by day-of-week on every subsequent day. Use a
   // static summary instead — STORE.hours SSoT, summarized at render time.
   // 5/7 days are 8 AM-9 PM; Fri+Sat extend to 10 PM. Customers needing
   // live status click "Hours + directions" → /visit which is ISR'd.
+  // Declared above the FAQ JSON-LD so the hours answer can reference it.
   const hoursSummaryStatic = "8 AM – 9 PM · later Fri & Sat";
+
+  // FAQPage — per-town Q&A block so Google + LLMs (ChatGPT, Perplexity,
+  // Claude.ai, Gemini) have explicit structured Q&A to cite. Five
+  // questions per page; 2 are town-specific (drive-time / route) and
+  // pull from `town.driveMins` + `town.highway`; the other 3 are
+  // structural facts (address / cash-only / hours / 21+) and pull from
+  // STORE constants. Hardcoded answers but routed through safeJsonLd()
+  // per existing convention. Voice: operator-grit, no exclamation
+  // marks, U+2019 apostrophes, WAC 314-55-155 lane (no effect/medical
+  // /promo claims).
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${STORE.website}/near/${town.slug}#faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `How long is the drive from ${town.name} to ${STORE.name}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `About ${town.driveMins} minutes from ${town.name}, ${town.highway}.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `What${"’"}s the address?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${STORE.address.full}. Free parking out front, right off the Sunnyslope exit.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do you take cards?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Cash only at the counter. There${"’"}s an ATM in the lobby.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What are your hours?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${hoursSummaryStatic}. Open every day of the year.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to be 21?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. ID checked at the door per WAC. 21 and up only.",
+        },
+      },
+    ],
+  };
+
+  const otherTowns = NEAR_TOWNS.filter((t) => t.slug !== town.slug);
 
   return (
     <main className="bg-stone-50 text-stone-900">
@@ -170,6 +229,10 @@ export default async function NearTownPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
       />
 
       {/* ── HERO ────────────────────────────────────────────────────────
