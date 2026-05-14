@@ -121,7 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${STORE.website}/strains/${t.slug}`,
       lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly" as const,
-      priority: 0.75,
+      priority: 0.7,
     })),
     {
       url: `${STORE.website}/heroes`,
@@ -136,7 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${STORE.website}/heroes/${slug}`,
       lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly" as const,
-      priority: 0.75,
+      priority: 0.7,
     })),
     {
       url: `${STORE.website}/community`,
@@ -165,26 +165,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     { url: `${STORE.website}/blog`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
     { url: `${STORE.website}/about`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${STORE.website}/contact`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.6 },
+    // v35.705 — priority demoted 0.6 → 0.5 to match the spec'd "static
+    // support page" tier (/faq, /accessibility, /contact, /careers, /press).
+    { url: `${STORE.website}/contact`, lastModified: STATIC_LASTMOD, changeFrequency: "yearly", priority: 0.5 },
     {
       url: `${STORE.website}/press`,
       lastModified: STATIC_LASTMOD,
-      changeFrequency: "monthly",
+      changeFrequency: "yearly",
       priority: 0.5,
     },
-    { url: `${STORE.website}/faq`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${STORE.website}/learn`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.75 },
+    // v35.705 — /faq demoted 0.7 → 0.5 (support-page tier). /learn is the
+    // educational HUB → bumped 0.75 → 0.8 to peer with other hub pages.
+    { url: `${STORE.website}/faq`, lastModified: STATIC_LASTMOD, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${STORE.website}/learn`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
     {
       url: `${STORE.website}/accessibility`,
       lastModified: STATIC_LASTMOD,
-      changeFrequency: "monthly",
+      changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${STORE.website}/careers`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.6,
+      priority: 0.5,
     },
     {
       url: `${STORE.website}/terms-of-use`,
@@ -261,24 +265,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // /near/<town> service-area landing pages. Static, town-data driven
-  // from `lib/near-towns.ts`. priority 0.8 — geo-search lift target;
-  // sits below the canonical / + /menu but above generic info pages.
+  // from `lib/near-towns.ts`. Detail-page tier per v35.705 sitemap tier
+  // alignment (priority 0.7, parent hub /near at 0.8).
   const nearTownPages: MetadataRoute.Sitemap = NEAR_TOWNS.map((t) => ({
     url: `${STORE.website}/near/${t.slug}`,
     lastModified: STATIC_LASTMOD,
     changeFrequency: "monthly" as const,
-    priority: 0.8,
+    priority: 0.7,
   }));
 
   // /near index page — hub for all /near/<town> pages, ItemList
-  // JSON-LD eligible. priority 0.85 — slightly above per-town
-  // pages since it's the parent hub.
+  // JSON-LD eligible. v35.705 — priority 0.8 (hub tier).
   const nearIndexPage: MetadataRoute.Sitemap = [
     {
       url: `${STORE.website}/near`,
       lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
     },
   ];
 
