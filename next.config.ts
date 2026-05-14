@@ -406,7 +406,12 @@ const nextConfig: NextConfig = {
       { source: "/topicals", destination: "/menu", permanent: true },
       { source: "/tinctures", destination: "/menu", permanent: true },
       { source: "/accessories", destination: "/menu", permanent: true },
-      { source: "/strains", destination: "/find-your-strain", permanent: true },
+      // /strains REMOVED from this redirect map — v35.205 ships the real
+      // /strains directory hub + /strains/[type] per-category landing pages
+      // (sister of scc v26.505). Leaving the 308 in would shadow the new
+      // pages. Keep /strain/:slug* (singular) as a catch for any legacy
+      // bookmark of an individual strain — those route into the 3-question
+      // quiz since we don't host per-strain pages yet.
       { source: "/strain/:slug*", destination: "/find-your-strain", permanent: true },
       // /pricing — dispensaries publish prices ON the menu (per-product live).
       // No standalone pricing page. Inbound /pricing typists (e.g. competitor

@@ -3,6 +3,7 @@ import { getActiveBrands, getActiveDeals } from "@/lib/db";
 import { STORE } from "@/lib/store";
 import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
+import { STRAIN_TYPES } from "@/lib/strain-types";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
 // (brands, deals, posts) but those change rarely (deals daily at most;
@@ -109,6 +110,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    // /strains directory + 4 per-type landing pages — SEO long-tail
+    // intent capture ("indica strains Wenatchee", "sativa Wenatchee
+    // Valley", etc.). priority 0.8 — peer with /find-your-strain.
+    // changeFrequency "monthly" because the descriptive copy doesn't
+    // turn over (live inventory lives at /menu). Sister scc v26.505.
+    { url: `${STORE.website}/strains`, lastModified: STATIC_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    ...STRAIN_TYPES.map((t) => ({
+      url: `${STORE.website}/strains/${t.slug}`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
     {
       url: `${STORE.website}/heroes`,
       lastModified: STATIC_LASTMOD,

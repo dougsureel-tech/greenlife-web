@@ -37,6 +37,7 @@ export const SOURCE_KINDS = [
   "email", // email deep-link — slug = template id
   "menu", // surfaces wrapped around the /menu Boost embed — slug = "local-strip-visit" etc.
   "order", // surfaces on the native /order page itself — slug = "sign-in-nudge" | "bottom-visit" | "bottom-call" | "bottom-quiz" etc. (kept distinct from "menu" so we can split iHeartJane-Boost-driven from native-/order-driven attribution)
+  "strains", // /strains directory + /strains/[type] landing pages — slug = "browse-all" | "footer-menu" | strain-type-slug (indica|sativa|hybrid|cbd). Kept distinct from "quiz" so we can split SEO-driven /strains traffic from 3-question-quiz traffic in attribution analytics.
 ] as const;
 
 export type SourceKind = (typeof SOURCE_KINDS)[number];
