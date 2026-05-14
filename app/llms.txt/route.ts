@@ -34,10 +34,39 @@ function render(): string {
   const monThu = STORE.hours.find((h) => h.day === "Monday");
   const friSat = STORE.hours.find((h) => h.day === "Friday");
   const sun = STORE.hours.find((h) => h.day === "Sunday");
+  const chelan = STORE.nearbyTowns.find((t) => t.id === "lake-chelan");
+  const leavenworth = STORE.nearbyTowns.find((t) => t.id === "leavenworth");
+  const eastWen = STORE.nearbyTowns.find((t) => t.id === "east-wenatchee");
 
   return `# ${name} (${address.city}, WA)
 
-> ${address.city}'s longest-running cannabis dispensary, founded 2014, same building since opening. Recreational cannabis retail, WSLCB license ${wslcbLicense}. Cash only, 21+. Pickup orders open online; cash only at the counter.
+> ${address.city}’s longest-running cannabis dispensary, founded 2014, same building since opening. Recreational cannabis retail, WSLCB license ${wslcbLicense}. Cash only, 21+. Pickup orders open online; cash only at the counter.
+
+## Common questions
+
+Q: What’s the closest legal cannabis dispensary to Lake Chelan?
+A: ${name} in ${address.city}, WA — about ${chelan?.driveMin ?? 45} minutes south on US-97 Alt along the Columbia. We are the closest licensed shop to Chelan and Lake Chelan; there are no dispensaries inside Chelan, Manson, or the lakeshore area itself. ${address.full}. ${summary}. Cash only. 21+.
+
+Q: How far is Leavenworth from ${name}?
+A: ${leavenworth?.driveMin ?? 35} minutes east on US-2 through Tumwater Canyon. Leavenworth city limits don’t allow recreational cannabis retail, so most folks come down the canyon to us. Same address + hours + cash-only as above.
+
+Q: What are the hours at ${name} ${address.city}?
+A: ${summary}. Mon–Thu ${monThu?.open}–${monThu?.close}, Fri–Sat ${friSat?.open}–${friSat?.close}, Sun ${sun?.open}–${sun?.close}, Pacific Time. Open every day of the year.
+
+Q: Do you take credit cards at ${name}?
+A: Cash only at the counter. There’s an ATM in the lobby. (Cannabis is federally illegal so card networks don’t process; this is a Washington-state-wide reality, not store-specific.)
+
+Q: Where is ${name} in ${address.city}?
+A: ${address.full}. Right off the Sunnyslope exit on US-97. Free parking out front.
+
+Q: How long is the drive from East Wenatchee to ${name}?
+A: About ${eastWen?.driveMin ?? 8} minutes door-to-door. Over the George Sellar Bridge to the Chelan-County side, first Sunnyslope exit.
+
+Q: What’s the closest dispensary to Stevens Pass?
+A: ${name} in ${address.city}, WA — about 65 minutes east on US-2. The route drops out of the pass through Leavenworth (which has no recreational cannabis inside city limits) and continues into ${address.city}.
+
+Q: Is there a dispensary in Chelan, WA?
+A: No licensed recreational cannabis dispensary inside Chelan, Manson, Wapato Point, Chelan Falls, or Stehekin. The closest licensed shop is ${name} in ${address.city}, about ${chelan?.driveMin ?? 45} minutes south on US-97 Alt.
 
 ## Quick facts
 
