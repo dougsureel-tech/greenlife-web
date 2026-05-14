@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ALUMNI_TEAM, initialOf } from "@/lib/team";
 import { STORE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // Public-facing home for the Featured Partners vision Doug shared 2026-05-02:
 //   "alumni could also evolve into special consideration — it might be an
@@ -48,6 +49,7 @@ export default function CommunityPage() {
   return (
     <main className="min-h-[80vh] bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <Breadcrumb items={[{ label: "Community" }]} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">
         <div

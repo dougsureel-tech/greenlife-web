@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // Hack #7 — Heroes cohort SEO landing pages.
 //
@@ -353,6 +354,8 @@ export default async function HeroesCohortPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(offerSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
+
+      <Breadcrumb items={[{ label: "Heroes", href: "/heroes" }, { label: c.label }]} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">

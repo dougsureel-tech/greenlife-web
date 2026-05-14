@@ -4,6 +4,7 @@ import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -113,6 +114,7 @@ export default async function TreasureChestPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+      <Breadcrumb items={[{ label: "Deals", href: "/deals" }, { label: "Treasure Chest" }]} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
         <VendorAdSlot slot="treasure_chest_top" />
       </div>

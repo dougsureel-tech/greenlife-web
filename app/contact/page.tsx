@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -33,6 +34,7 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(contactSchema) }}
       />
+      <Breadcrumb items={[{ label: "Contact" }]} />
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div

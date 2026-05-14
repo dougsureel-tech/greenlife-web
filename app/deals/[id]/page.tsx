@@ -6,6 +6,7 @@ import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db"
 import { withAttr } from "@/lib/attribution";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -185,6 +186,8 @@ export default async function DealDetailPage({ params }: Params) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+
+      <Breadcrumb items={[{ label: "Deals", href: "/deals" }, { label: deal.name }]} />
 
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-green-800 to-teal-900 text-white">
         <div

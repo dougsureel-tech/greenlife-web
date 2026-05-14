@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const dynamic = "force-static";
 
@@ -143,6 +144,7 @@ export default function HealthDataPolicyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+      <Breadcrumb items={[{ label: "Health Data Policy" }]} />
       {/* Hero — calm, informational, non-festive. Same tone as /accessibility. */}
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div

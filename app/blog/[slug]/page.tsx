@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPost, getPosts, fetchDynamicPosts, fetchDynamicPost } from "@/lib/posts";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -247,6 +248,8 @@ export default async function BlogPost({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+
+      <Breadcrumb items={[{ label: "Blog", href: "/blog" }, { label: post.title }]} />
 
       {/* Header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">

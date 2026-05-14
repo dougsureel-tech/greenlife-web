@@ -4,6 +4,7 @@ import { STORE} from "@/lib/store";
 import { CURRENT_TEAM, ALUMNI_TEAM, initialOf, type TeamMember } from "@/lib/team";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // ISR — team copy changes maybe quarterly. 24h is plenty.
 export const revalidate = 86400;
@@ -67,6 +68,8 @@ export default function OurStoryPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+
+      <Breadcrumb items={[{ label: "Our Story" }]} />
 
       {/* Hero — gradient bookend matching the rest of the site. */}
       <div className="relative overflow-hidden bg-gradient-to-br from-green-950 via-emerald-950 to-green-950 text-white py-12 sm:py-16">

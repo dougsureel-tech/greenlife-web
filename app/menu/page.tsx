@@ -9,6 +9,7 @@ import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
@@ -183,6 +184,7 @@ export default async function MenuPage() {
       <link rel="preconnect" href="https://search.iheartjane.com" crossOrigin="anonymous" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <Breadcrumb items={[{ label: "Menu" }]} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
         <VendorAdSlot slot="menu_top" />
       </div>

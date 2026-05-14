@@ -4,6 +4,7 @@ import { STORE} from "@/lib/store";
 import { StrainFinderClient } from "./StrainFinderClient";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "Find Your Strain — 3-Question Quiz",
@@ -77,6 +78,8 @@ export default function FindYourStrainPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+
+      <Breadcrumb items={[{ label: "Find Your Strain" }]} />
 
       {/* Hero — softened decorative gradient behind the headline so the page
           stops looking like flat default white. The accent splash sits

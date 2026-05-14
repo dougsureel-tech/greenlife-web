@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // /heroes — informational landing for the Heroes service discount.
 // Doug's positioning 2026-05-02: "we support local heroes." This page
@@ -140,6 +141,8 @@ export default function HeroesPage() {
     <main className="min-h-[80vh] bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+
+      <Breadcrumb items={[{ label: "Heroes" }]} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-green-950 text-white">

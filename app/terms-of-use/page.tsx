@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const dynamic = "force-static";
 
@@ -43,6 +44,7 @@ export default function TermsOfUsePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+      <Breadcrumb items={[{ label: "Terms of Use" }]} />
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div
           aria-hidden

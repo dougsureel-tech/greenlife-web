@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // ISR — FAQs change occasionally; 24h is fine.
 export const revalidate = 86400;
@@ -163,6 +164,8 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+
+      <Breadcrumb items={[{ label: "FAQ" }]} />
 
       {/* Page header */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">

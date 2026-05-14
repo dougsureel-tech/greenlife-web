@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { VendorAccessForm } from "./VendorAccessForm";
 import { STORE } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // Public-facing vendor self-serve onboarding request. Admin queue at
 // inventoryapp /admin/vendor-access-requests reviews + provisions logins.
@@ -37,6 +38,7 @@ export default function VendorAccessPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
+      <Breadcrumb items={[{ label: "Vendor Access" }]} />
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div
           className="absolute inset-0 opacity-[0.07]"

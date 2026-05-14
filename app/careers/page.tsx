@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { breadcrumbJsonLd } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // BreadcrumbList JSON-LD — sister of cannagent v3.391 100% indexable
 // coverage. Pre-fix /careers had no BreadcrumbList; Google can't show
@@ -99,6 +100,7 @@ export default async function CareersPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumb) }}
       />
+      <Breadcrumb items={[{ label: "Careers" }]} />
       {/* Hero — matches the green-950 dot-grid bookend used across the site. */}
       <div className="relative overflow-hidden bg-green-950 text-white py-10 sm:py-14">
         <div

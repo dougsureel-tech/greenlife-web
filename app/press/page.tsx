@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 // Press kit page — exists so journalists, podcasters, local bloggers, and
 // micro-influencers can grab logo + facts + a quote-able story without
@@ -57,6 +58,8 @@ export default function PressPage() {
     <div className="bg-stone-50 min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+
+      <Breadcrumb items={[{ label: "Press" }]} />
 
       {/* Hero */}
       <section className="bg-green-950 text-white">
