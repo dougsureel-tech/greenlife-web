@@ -38,18 +38,18 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     slug: "chelan",
     name: "Chelan",
     county: "Chelan County",
-    driveMins: 55,
+    driveMins: 45,
     highway: "US-97 Alt north along the Columbia",
-    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — we're the closest legal cannabis to the lake.",
+    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — about 45 minutes door-to-door.",
     whyStop:
       "Chelan locals + summer-house owners drive past Green Life on the way out of town. Stocking up before a long weekend at the lake is the most common reason — pre-rolls for the docks, edibles for the houseboat, flower for the cabin. Cash-only and 21+, but the ATM in-store covers either.",
     notableNeighbors: ["Manson", "Entiat", "Leavenworth"],
     // Long-form template (v33.205) — Doug-approved tone check before
     // scaling to the rest of the high-traffic NEAR_TOWNS set.
     cityCopy: [
-      "Chelan to Wenatchee runs about 55 minutes straight down US-97 Alt along the Columbia — one of the prettier hours of highway in the state. Our shop sits right where US-97 meets the Sunnyslope exit, so you're off the highway, parked, and back on the road in about ten minutes.",
+      "Chelan to Wenatchee runs about 45 minutes straight down US-97 Alt along the Columbia — one of the prettier drives in the state. Our shop sits right where US-97 meets the Sunnyslope exit, so you're off the highway, parked, and back on the road in about ten minutes.",
       "Who shows up from Chelan: locals year-round, and lake-house owners + visitors all summer. The pattern's the same every June through September — Friday-afternoon arrivals stopping in on the way up to Manson or Wapato Point, Sunday-evening crews swinging through after a weekend at Slidewaters or Tsillan Cellars. Winter slows down but doesn't stop. Ski season pulls a different crowd through — Mission Ridge regulars who'd rather come down through Wenatchee than fight the Stevens Pass traffic out of Leavenworth.",
-      "The Leavenworth-pass-through angle matters here. Plenty of Chelan-bound traffic comes east over Stevens, drops down US-2 through Leavenworth, then takes US-97 north to the lake. We're 35 minutes from Leavenworth on US-2 and 55 minutes from Chelan on US-97 — the natural stop in the middle of that route either direction. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "The Leavenworth-pass-through angle matters here. Plenty of Chelan-bound traffic comes east over Stevens, drops down US-2 through Leavenworth, then takes US-97 north to the lake. We're 35 minutes from Leavenworth on US-2 and 45 minutes from Chelan on US-97 — a natural stop in the middle of that route either direction. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
       "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Chelan and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
     ].join("\n\n"),
   },
