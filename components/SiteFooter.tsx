@@ -1,7 +1,20 @@
 import Link from "next/link";
 import { STORE } from "@/lib/store";
+import { NEAR_TOWNS } from "@/lib/near-towns";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { withAttr } from "@/lib/attribution";
+
+// "We serve" footer towns — the 8 closest-drive /near pages (sorted by
+// driveMins, capped at 8) so the column carries real /near/<slug>
+// internal-link equity to every Wenatchee-region service-area landing
+// page. Pre-v34.805 these were plain prose strings — zero inbound links
+// to the 19 /near pages site-wide, per the 2026-05-14 SEO audit. Pulling
+// from the NEAR_TOWNS SSoT guarantees every footer link routes to a real
+// page (instead of risking a dead link if STORE.nearbyTowns has a slug
+// the /near route doesn't statically generate).
+const FOOTER_NEAR_TOWNS = [...NEAR_TOWNS]
+  .sort((a, b) => a.driveMins - b.driveMins)
+  .slice(0, 8);
 
 export function SiteFooter() {
   return (
@@ -200,23 +213,24 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        {/* Nearby cities — internal-link / local-SEO juice */}
+        {/* Nearby towns — internal-link / local-SEO equity to the 19
+            /near/<slug> service-area landing pages. Pre-v34.805 these
+            were prose strings with zero outbound href → 19 well-built
+            /near pages were effectively orphaned from the site. Each
+            link routes to a real page (towns pulled from NEAR_TOWNS
+            SSoT, sorted by drive time). */}
         <div className="space-y-3">
-          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">We serve</h2>
+          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">Towns we serve</h2>
           <ul className="space-y-2">
-            {[
-              "Wenatchee",
-              "East Wenatchee",
-              "Sunnyslope",
-              "Cashmere",
-              "Leavenworth",
-              "Chelan",
-              "Entiat",
-              "Quincy",
-            ].map((city) => (
-              <li key={city} className="text-xs text-green-300/80">
-                <span className="text-green-400/40 mr-1">·</span>
-                {city}, WA
+            {FOOTER_NEAR_TOWNS.map((town) => (
+              <li key={town.slug}>
+                <Link
+                  href={`/near/${town.slug}`}
+                  className="text-xs text-green-300/80 hover:text-white transition-colors inline-flex items-baseline"
+                >
+                  <span className="text-green-400/40 mr-1">·</span>
+                  {town.name}, WA
+                </Link>
               </li>
             ))}
           </ul>

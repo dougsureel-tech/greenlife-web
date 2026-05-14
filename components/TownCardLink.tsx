@@ -26,9 +26,17 @@ type Props = {
   driveLabel: string;
   blurb: string;
   directionsHref: string;
+  // Optional /near/<slug> URL for the per-town landing page. When set,
+  // the card title links into the long-form /near page so this card
+  // becomes an internal-link entry point for that town's service-area
+  // landing page (SEO Fix 1 — close the /near orphan-pages gap). When
+  // null, the title renders as plain text and only the "Get directions"
+  // CTA stays clickable (used for the home city — we ARE Wenatchee, so
+  // there's no /near/wenatchee page).
+  nearHref?: string | null;
 };
 
-export function TownCardLink({ townId, townName, driveLabel, blurb, directionsHref }: Props) {
+export function TownCardLink({ townId, townName, driveLabel, blurb, directionsHref, nearHref }: Props) {
   function record() {
     try {
       window.localStorage.setItem(STORAGE_KEY, townId);
@@ -48,7 +56,18 @@ export function TownCardLink({ townId, townName, driveLabel, blurb, directionsHr
       className="group flex flex-col h-full rounded-2xl border border-stone-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-green-300 hover:-translate-y-0.5 transition-all"
     >
       <div className="flex items-baseline justify-between gap-2 mb-1.5">
-        <h3 className="font-bold text-stone-900 text-base tracking-tight">{townName}</h3>
+        {nearHref ? (
+          <h3 className="font-bold text-base tracking-tight">
+            <Link
+              href={nearHref}
+              className="text-stone-900 hover:text-green-700 underline-offset-4 hover:underline transition-colors"
+            >
+              {townName}
+            </Link>
+          </h3>
+        ) : (
+          <h3 className="font-bold text-stone-900 text-base tracking-tight">{townName}</h3>
+        )}
         <span className="text-xs font-bold text-green-700 whitespace-nowrap">{driveLabel}</span>
       </div>
       <p className="text-sm text-stone-600 leading-snug flex-1">{blurb}</p>

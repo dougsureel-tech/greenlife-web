@@ -259,6 +259,33 @@ const sameAsLinks = [
   STORE.googleMapsUrl,
 ].filter(Boolean);
 
+// AggregateRating opt-in — only emit when Doug has pasted real GBP review
+// data into NEXT_PUBLIC_AGGREGATE_RATING (e.g. "4.8") +
+// NEXT_PUBLIC_AGGREGATE_RATING_COUNT (e.g. "847"). Until the GBP-pull
+// integration ships (Phase 13e on the roadmap; Google approval pending
+// Case 0-8857000041037), AggregateRating stays gated behind these env
+// vars so we never fabricate review data and never trip the cross-stack
+// `check-fabricated-review-schema` guard. When both env vars are present
+// they're treated as the real-reviews source-of-truth: Doug copy/pastes
+// the current ratingValue + reviewCount from GBP, the LocalBusiness
+// schema lifts into gold-star SERP territory, and a manual quarterly
+// refresh keeps it honest until the API wire-in lands.
+// @review-schema-real-reviews-source — opt-out marker for
+// `scripts/check-fabricated-review-schema.mjs`. The env-var gate is the
+// real defense (no env-var = no schema emitted); the marker keeps the
+// arc-guard quiet about the literal `"AggregateRating"` string below.
+const aggregateRatingValue = process.env.NEXT_PUBLIC_AGGREGATE_RATING;
+const aggregateRatingCount = process.env.NEXT_PUBLIC_AGGREGATE_RATING_COUNT;
+const aggregateRating =
+  aggregateRatingValue && aggregateRatingCount
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: aggregateRatingValue,
+        reviewCount: aggregateRatingCount,
+        bestRating: "5",
+      }
+    : undefined;
+
 // Organization — anchors brand identity. mainEntityOfPage points at the
 // homepage so a "Green Life" brand search lifts / not /menu. Ties together
 // LocalBusiness + WebSite via the shared @id graph above.
@@ -451,6 +478,11 @@ const localBusinessSchema = {
     "@type": "SpeakableSpecification",
     cssSelector: [".speakable-address", ".speakable-hours", ".speakable-phone"],
   },
+  // AggregateRating — emitted only when NEXT_PUBLIC_AGGREGATE_RATING +
+  // NEXT_PUBLIC_AGGREGATE_RATING_COUNT are both set. See declaration
+  // upstairs for the rationale (env-gate keeps the schema honest while
+  // the GBP-pull integration is approval-pending).
+  ...(aggregateRating ? { aggregateRating } : {}),
   sameAs: sameAsLinks,
 };
 

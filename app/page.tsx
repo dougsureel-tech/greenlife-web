@@ -15,6 +15,26 @@ import { ReviewsSection } from "@/components/Reviews";
 import { TownCardLink } from "@/components/TownCardLink";
 import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { NEAR_TOWNS } from "@/lib/near-towns";
+
+// Slug-by-name map for /near pages — lets the homepage's
+// STORE.nearbyTowns pill cluster + town-card grid wrap matching town
+// names in /near/<slug> internal links without forcing the SSoT to know
+// about NEAR_TOWNS slugs. Names that don't map (e.g. "Wenatchee" — we
+// ARE Wenatchee, no /near/wenatchee page) fall back to non-linked spans
+// on the pill cluster + the existing "Get directions" card-only CTA on
+// the grid. Resolves SEO-audit Fix 1: convert the 0 inbound /near links
+// on the homepage into real link-equity transfers.
+const NEAR_SLUG_BY_NAME: Record<string, string> = Object.fromEntries(
+  NEAR_TOWNS.flatMap((t) => {
+    const variants = [t.name, t.name.toLowerCase()];
+    // Hand-fix the one cross-doc name drift: STORE.nearbyTowns labels
+    // the slug-`chelan` page as "Lake Chelan" (the colloquial name on
+    // the hero card). Map both so the link resolves either way.
+    if (t.slug === "chelan") variants.push("Lake Chelan", "lake chelan");
+    return variants.map((v) => [v, t.slug] as const);
+  }),
+);
 
 // ISR: home page hits Neon 3x per request (getActiveBrands, getFeaturedProducts,
 // getActiveDeals). Was force-dynamic so every visit ran all three. 60s
@@ -432,14 +452,30 @@ export default async function HomePage() {
                     Serves the Wenatchee Valley
                   </div>
                   <div className="flex flex-wrap gap-1.5">
-                    {STORE.nearbyTowns.map((t) => (
-                      <span
-                        key={t.id}
-                        className="text-[11px] px-2.5 py-1 rounded-full bg-white/8 border border-white/15 text-white/85 font-semibold"
-                      >
-                        {t.name}
-                      </span>
-                    ))}
+                    {STORE.nearbyTowns.map((t) => {
+                      const slug = NEAR_SLUG_BY_NAME[t.name];
+                      // Pills whose town has a /near landing page get
+                      // wrapped in a <Link> — that's the internal-link
+                      // equity transfer SEO Fix 1 asked for. Pills with
+                      // no /near page (Wenatchee itself) stay as plain
+                      // <span> so we don't ship dead links.
+                      return slug ? (
+                        <Link
+                          key={t.id}
+                          href={`/near/${slug}`}
+                          className="text-[11px] px-2.5 py-1 rounded-full bg-white/8 border border-white/15 text-white/85 hover:bg-white/15 hover:border-white/30 hover:text-white font-semibold transition-colors"
+                        >
+                          {t.name}
+                        </Link>
+                      ) : (
+                        <span
+                          key={t.id}
+                          className="text-[11px] px-2.5 py-1 rounded-full bg-white/8 border border-white/15 text-white/85 font-semibold"
+                        >
+                          {t.name}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -505,19 +541,29 @@ export default async function HomePage() {
               </h2>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-3">
-              {featuredBrands.map((brand) => (
+              {featuredBrands.map((brand, i) => (
                 <Link
                   key={brand.id}
                   href={`/brands/${brand.slug}`}
                   className="group flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl border border-stone-100 bg-stone-50 hover:border-green-300 hover:bg-white hover:shadow-md hover:shadow-green-500/10 hover:-translate-y-0.5 transition-all duration-200 aspect-square"
                 >
                   {brand.logoUrl ? (
+                    // First brand logo is the first above-the-fold raster
+                    // image on the homepage (the hero is text + CSS — no
+                    // <Image>). Marking the first card `priority` so
+                    // Next/Image emits `fetchpriority="high"` + `loading="eager"`
+                    // shaves the LCP image-load off the critical path on
+                    // mobile (~200-600 ms on cold connections per the
+                    // 2026-05-14 SEO audit). Audit specifically flagged
+                    // 22 lazy images + 0 fetchpriority on glw homepage —
+                    // this is the closest-to-fold IMAGE to lift.
                     <Image
                       src={brand.logoUrl}
                       alt={brand.name}
                       width={80}
                       height={40}
                       sizes="(max-width: 640px) 80px, 160px"
+                      priority={i === 0}
                       className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                     />
                   ) : (
@@ -691,6 +737,7 @@ export default async function HomePage() {
                 `${t.name}, WA`,
               )}&destination=${encodeURIComponent(STORE.address.full)}`;
               const driveLabel = t.driveMin === 0 ? "In town" : `${t.driveMin} min drive`;
+              const nearSlug = NEAR_SLUG_BY_NAME[t.name] ?? null;
               return (
                 <li key={t.id}>
                   {/* PIXEL_SEAM — `data-town` on every card + localStorage
@@ -702,6 +749,7 @@ export default async function HomePage() {
                     driveLabel={driveLabel}
                     blurb={t.blurb}
                     directionsHref={directionsHref}
+                    nearHref={nearSlug ? `/near/${nearSlug}` : null}
                   />
                 </li>
               );

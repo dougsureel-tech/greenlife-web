@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel} from "@/lib/store";
+import { NEAR_TOWNS } from "@/lib/near-towns";
 import { withAttr } from "@/lib/attribution";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+
+// "Driving over from another town?" card grid below the directions
+// section — closes SEO Fix 1 by giving the highest-intent page (/visit)
+// the same /near/<slug> internal-link cluster the footer now carries.
+// 12 closest-drive towns is the cap so the grid scans cleanly on mobile
+// (2-col) + tablet (3-col) + desktop (4-col). NEAR_TOWNS is the SSoT
+// for slug+name+driveMins; never hardcode.
+const VISIT_NEAR_TOWNS = [...NEAR_TOWNS]
+  .sort((a, b) => a.driveMins - b.driveMins)
+  .slice(0, 12);
 
 // ISR: only dynamic data is "is the store open NOW" + which day-row to
 // highlight. 5-minute revalidate keeps that fresh enough that customers
@@ -397,6 +408,53 @@ export default async function VisitPage() {
               </span>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Driving over from another town? — internal-link cluster to the
+          19 /near/<slug> service-area landing pages. Pre-v34.805 the
+          /visit page emitted zero inbound links to /near — the highest-
+          intent surface in the audit was orphaning the highest-converting
+          landing-page set. Each card lifts the town name into a real
+          /near/<slug> link plus a drive-time tag + highway hint. Cap at
+          12 closest-drive towns. */}
+      <section className="bg-white border-b border-stone-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+          <div className="text-center mb-8">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">
+              Coming from out of town?
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+              Driving over from another town?
+            </h2>
+            <p className="text-stone-600 mt-3 text-sm max-w-2xl mx-auto leading-relaxed">
+              Drive time + the route we&apos;d take, per town. Tap through for the long version —
+              landmarks, where to park, who&apos;s usually in the shop on a given day.
+            </p>
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {VISIT_NEAR_TOWNS.map((town) => (
+              <li key={town.slug}>
+                <Link
+                  href={`/near/${town.slug}`}
+                  className="group flex flex-col h-full rounded-2xl border border-stone-200 bg-white p-4 sm:p-5 shadow-sm hover:shadow-md hover:border-green-300 hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <h3 className="font-bold text-stone-900 text-sm sm:text-base tracking-tight group-hover:text-green-700 transition-colors">
+                      {town.name}
+                    </h3>
+                    <span className="text-[11px] font-bold text-green-700 whitespace-nowrap">
+                      {town.driveMins} min
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-500 leading-snug">{town.highway}</p>
+                  <span className="text-[11px] font-bold text-green-700 mt-3 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Drive time + directions <span aria-hidden>→</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
