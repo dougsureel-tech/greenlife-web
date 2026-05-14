@@ -120,6 +120,24 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/menu", req.url), 307);
   }
 
+  // Typed-URL 308s for paths customers + referrers guess. Pre-fix
+  // `/online` + `/store` 404'd. Inbound links from marketing email
+  // typos, social-share path mangling, and misremembered search
+  // results land on a real page now. Sister of /brands + /order
+  // redirects above + sister-ship to GW v2.97.M7. Per the standing
+  // customer-CTAs-point-to-menu rule (memory pin
+  // `feedback_customer_ctas_point_to_menu_only`), "shop"/"buy" intent
+  // ALL routes to /menu — only `/store` ambiguates to /visit
+  // (physical-store intent, not online-order intent). 308 because
+  // these paths are gone for good (no native /store or /online surface
+  // is planned). Mirrors seattle-cannabis-web proxy.ts.
+  if (url.pathname === "/online") {
+    return NextResponse.redirect(new URL("/menu", req.url), 308);
+  }
+  if (url.pathname === "/store") {
+    return NextResponse.redirect(new URL("/visit", req.url), 308);
+  }
+
   // Site-wide canonical-host enforcement. Anything that isn't the canonical
   // host or a local-dev host gets 308-redirected to CANONICAL_HOST. This
   // covers:
