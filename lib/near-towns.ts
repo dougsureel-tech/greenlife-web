@@ -81,8 +81,18 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "US-2 east, 12 miles",
     pitch: "Cashmere is 18 min east on US-2 — Apple Annie + Aplets & Cotlets, then us on the way home.",
     whyStop:
-      "Cashmere is small enough that most regulars at Green Life come from down-valley. The drive is short, the highway is direct, and we're right off the Sunnyslope exit before town traffic picks up. Wisdom discount lands on Sundays.",
+      "Cashmere is small enough that most regulars at Green Life come from down-valley. The drive is short, the highway is direct, and we’re right off the Sunnyslope exit before town traffic picks up. Wisdom discount lands on Sundays.",
     notableNeighbors: ["Leavenworth", "Wenatchee"],
+    // Long-form (v34.005) — 4th of the 19-page city-SEO arc. Cashmere has
+    // retail of its own per v33.505 audit, so the framing is drive-by-the-
+    // door + Apple Annie pairing, not a "closest" claim. Same Chelan
+    // template structure.
+    cityCopy: [
+      "Cashmere to Wenatchee is about 18 minutes east on US-2 — short hop, direct highway, twelve miles down-valley. Our shop sits right off the Sunnyslope exit, so by the time you’d hit Cashmere-town traffic on the way back, you’re already parked at our door. Free lot out front, no merging back into US-2 traffic to leave.",
+      "Who shows up from Cashmere: regulars on the way home from work, weekend errand-chainers pairing the trip with Costco or Pybus, and the Apple Annie + Aplets & Cotlets crowd that already drives down-valley for the orchard-supply runs and tourist-stop pickups. Steady year-round; no big seasonal swing. Friday evenings + Sunday afternoons are the busiest windows.",
+      "We see plenty of Cashmere folks running the US-2 corridor for the bigger-store trips — Pybus Public Market, Costco, the Confluence-Park stretch, downtown errands. Adding a stop with us at Sunnyslope usually means one more pull-off on the way back to town, not a detour. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Cashmere and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "east-wenatchee",
@@ -113,8 +123,16 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "US-97 Alt north, 17 miles up the Columbia",
     pitch: "Entiat to Wenatchee is 25 min straight down US-97 along the river — easiest legal cannabis run from town.",
     whyStop:
-      "Entiat is small and quiet; the closest dispensary inside Chelan County is us. Entiat residents driving in for groceries, hardware, or the orchard supply usually pair the trip — we're right at the Sunnyslope exit before town traffic. Drive is one of the prettier ones in the state if you take it slow along the Columbia.",
+      "Entiat is small and quiet; Entiat residents driving in for groceries, hardware, or the orchard supply usually pair the trip — we’re right at the Sunnyslope exit before town traffic. Drive is one of the prettier ones in the state if you take it slow along the Columbia.",
     notableNeighbors: ["Chelan", "Wenatchee", "Manson"],
+    // Long-form (v34.005) — 5th of the 19-page city-SEO arc. Quiet ag town
+    // up the Columbia; pair-the-trip framing is the real driver.
+    cityCopy: [
+      "Entiat to Wenatchee is about 25 minutes straight down US-97 Alt along the Columbia — seventeen miles, river on your left the whole way. Our shop sits right at the Sunnyslope exit before town traffic picks up, so you’re off the highway, parked, and back on the road inside ten minutes. Free lot out front.",
+      "Who shows up from Entiat: ag-side regulars on the way to or from down-valley errands, summer-weekend boaters out to the Columbia and the orchards, and the steady year-round flow of folks running the US-97 corridor for groceries, hardware, or feed. The drive shape is the same in both seasons — Entiat doesn’t have a tourist pulse the way Chelan does, but the river-side highway pulls regulars through Sunnyslope on every up-and-back.",
+      "Most Entiat folks pair the trip — Costco, Pybus Public Market, the Wenatchee Valley Mall, orchard-supply runs. Adding a stop with us at the Sunnyslope exit usually means no detour at all; we’re the first thing you hit coming down US-97 into the valley. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Entiat and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "manson",
@@ -126,6 +144,16 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     whyStop:
       "Manson + Chelan share the lake; both come down to Wenatchee for the bigger-store trips. Wisdom discount runs Sunday, online discount runs all week. Pair with Pybus Public Market or a Costco run on the way back.",
     notableNeighbors: ["Chelan", "Entiat", "Lake Wenatchee"],
+    // Long-form (v34.005) — 6th of the 19-page city-SEO arc. Lake-side
+    // cabin community across from Chelan; pairs naturally with the Chelan
+    // page. Per v33.905 Doug correction, NO "closest" claim — 3+ shops sit
+    // between the lake and Sunnyslope on US-97.
+    cityCopy: [
+      "Manson to Wenatchee runs about 65 minutes — WA-150 around the north shore of Lake Chelan, then US-97 Alt south along the Columbia. Long drive but a pretty one; lake on one side, river on the other. Our shop sits right where US-97 meets the Sunnyslope exit, so you’re off the highway, parked, and back on the road in about ten minutes.",
+      "Who shows up from Manson: lake-house owners stocking before a weekend at Wapato Point or Mill Bay, year-round residents pairing the run with a Pybus or Costco trip, and the summer crowd that loops down for the bigger-store inventory. Friday afternoons up, Sunday evenings back — that’s the rhythm June through September. Quieter in winter but Mission Ridge season pulls a steady Manson cohort through.",
+      "Manson and Chelan share the lake and they share the drive. Most of the trip-pairings folks come down for — Pybus Public Market, Costco, the Wenatchee Valley Mall, hardware runs — sit on the south end of the valley, so we’re a natural stop on the way through. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Manson and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "plain",
@@ -135,8 +163,16 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     highway: "US-2 east + Chumstick Hwy north",
     pitch: "Plain → Leavenworth → Wenatchee, 45 min total — a Chumstick Hwy shot down US-2.",
     whyStop:
-      "Plain is small + tucked north of Leavenworth — closest legal cannabis is the Wenatchee Valley. Most Plain regulars pair the run with a Leavenworth detour or a Lake Wenatchee swim stop. We open at 8 AM so an early-morning errand chain works.",
+      "Plain is small + tucked north of Leavenworth. Most Plain regulars pair the run with a Leavenworth detour or a Lake Wenatchee swim stop. We open at 8 AM so an early-morning errand chain works.",
     notableNeighbors: ["Leavenworth", "Lake Wenatchee", "Cashmere"],
+    // Long-form (v34.005) — 7th of the 19-page city-SEO arc. Small town
+    // north of Leavenworth via Chumstick Hwy; route-pairing framing.
+    cityCopy: [
+      "Plain to Wenatchee is about 45 minutes — Chumstick Highway south to Leavenworth, then US-2 east through Tumwater Canyon. Two-stage drive but a pretty one; orchards and pine through Chumstick, river-canyon through Tumwater. Our shop sits right off the Sunnyslope exit, so once you’re past Leavenworth you’re fifteen minutes from being parked at our door.",
+      "Who shows up from Plain: cabin owners, year-round residents pairing the run with errands down-valley, and the summer crowd looping through Lake Wenatchee + Leavenworth on the way in or out. Plain’s small enough that we see most regulars once a month for a stock-up rather than weekly — the long drive shapes the trip into a real haul rather than a swing-by.",
+      "The Plain → Leavenworth → Wenatchee chain is the same route the Stevens Pass cabin crowd runs, so a lot of Plain trips end up paired with a Front Street wander, a Lake Wenatchee swim stop in summer, or a Pybus + Costco loop down-valley. We’re a natural stop in the middle. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Plain and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "lake-wenatchee",
@@ -144,10 +180,18 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     county: "Chelan County",
     driveMins: 50,
     highway: "US-2 east + WA-207 north",
-    pitch: "Lake Wenatchee to Sunnyslope is 50 min via US-2 — closest dispensary to the lake + the cabins.",
+    pitch: "Lake Wenatchee to Sunnyslope is 50 min via US-2 — straight shot from the cabins down the canyon.",
     whyStop:
-      "Lake Wenatchee is a cabin-and-ski destination — no dispensary up there, so cabin owners + weekend visitors stock before the drive in. We're right off US-2 on the way home from Stevens Pass. Cash only, but the in-store ATM covers it.",
+      "Lake Wenatchee is a cabin-and-ski destination — cabin owners + weekend visitors stock before the drive in. We’re right off US-2 on the way home from Stevens Pass. Cash only, but the in-store ATM covers it.",
     notableNeighbors: ["Plain", "Leavenworth", "Cashmere"],
+    // Long-form (v34.005) — 8th of the 19-page city-SEO arc. Recreation
+    // lake; cabin-and-ski cohort. WA-207 south + US-2 east into Sunnyslope.
+    cityCopy: [
+      "Lake Wenatchee to our shop is about 50 minutes — WA-207 south to the US-2 junction, then east through Tumwater Canyon and down into Sunnyslope. Straight shot down the canyon once you’re on US-2. Our shop sits right at the Sunnyslope exit, so you’re off the highway, parked, and back on the road in about ten minutes.",
+      "Who shows up from Lake Wenatchee: cabin owners stocking for a weekend or a week, summer visitors arriving on Friday afternoon, ski-season crews coming off Stevens Pass who route through Leavenworth and down the canyon. The pattern shifts seasonally but the drive doesn’t — same canyon, same exit, year-round. Most trips end up paired with a Leavenworth Front Street walk on the way through.",
+      "Most of the lake-house and cabin restocks pair us with the bigger-store stops down-valley — Pybus Public Market, Costco, the Wenatchee Valley Mall, hardware runs. We’re a natural stop on the way back up, last thing before you climb back into the canyon. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave the lake and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "sunnyslope",
@@ -225,6 +269,64 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     whyStop:
       "Brewster sits at the Methow + Columbia confluence north of Pateros. Closest legal dispensary going south is the Wenatchee Valley. Most Brewster + Bridgeport regulars pair the trip with a Costco or Pybus run; the Lake Chelan stretch makes it a scenic detour.",
     notableNeighbors: ["Pateros", "Bridgeport", "Chelan"],
+  },
+  {
+    slug: "rock-island",
+    name: "Rock Island",
+    county: "Douglas County",
+    driveMins: 18,
+    highway: "Across the Columbia via the bridge + south",
+    pitch: "Rock Island to Sunnyslope is 18 min — over the bridge and back up through Wenatchee.",
+    whyStop:
+      "Rock Island is small + Douglas-County-side, just south of East Wenatchee along the river. Most regulars pair the run with the routine East Wenatchee trips — Costco, Pybus, hardware. Same valley, different county.",
+    notableNeighbors: ["East Wenatchee", "Waterville", "Wenatchee"],
+    // Long-form (v34.005) — 9th of the 19-page city-SEO arc. Small Douglas-
+    // County town south of East Wenatchee along the river. Trip-pairing
+    // framing; no superlatives.
+    cityCopy: [
+      "Rock Island to our shop is about 18 minutes — north along the Columbia, over the George Sellar Bridge, then the first Sunnyslope exit on the Chelan-County side. Short hop along the river either direction. Free lot out front, no merging back into US-2 traffic to leave.",
+      "Who shows up from Rock Island: year-round regulars pairing the run with the East Wenatchee errands they already do — Costco, Pybus Public Market, the Wenatchee Valley Mall, hardware on Sunset. Summer pulls the Apple Capital Loop Trail crowd through; we see a steady stream of bikers and joggers who finish the loop on the Wenatchee side and swing in before crossing back.",
+      "Rock Island, Malaga, East Wenatchee — same valley, different county. The trip-pairing logic is the same one East Wenatchee folks run: most of what you already cross over for sits on our side of the river, so adding a stop with us at Sunnyslope is one more pull-off, not a detour. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online from Rock Island and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
+  },
+  {
+    slug: "orondo",
+    name: "Orondo",
+    county: "Douglas County",
+    driveMins: 30,
+    highway: "US-97 north up the east side of the Columbia",
+    pitch: "Orondo to Sunnyslope is 30 min — US-97 down the east bank, across the bridge, into the shop.",
+    whyStop:
+      "Orondo is orchard country up the east bank of the Columbia. Most Orondo regulars pair the run with Pybus or Costco. Bavarian Lavender + the orchard-supply runs are the usual pairing.",
+    notableNeighbors: ["East Wenatchee", "Waterville", "Entiat"],
+    // Long-form (v34.005) — 10th of the 19-page city-SEO arc. Orchard +
+    // Bavarian Lavender pairing. Douglas County east side of the Columbia.
+    cityCopy: [
+      "Orondo to our shop is about 30 minutes — US-97 south along the east bank of the Columbia, over the George Sellar Bridge into East Wenatchee, then the first Sunnyslope exit on the Chelan-County side. Pretty drive, orchards on your left the whole way down. Our shop sits right off the exit, so you’re parked and back on the road in about ten minutes.",
+      "Who shows up from Orondo: orchard-side regulars on the way to or from down-valley errands, the Bavarian Lavender + farm-stand crowd pairing trips through summer, and the steady year-round flow of folks running US-97 for groceries, hardware, or feed. Orondo doesn’t have a big tourist pulse, but the east-bank highway is the natural route into Wenatchee for everything north of East Wenatchee.",
+      "Most Orondo trips pair us with the bigger-store stops on the Chelan-County side — Pybus Public Market, Costco, the Wenatchee Valley Mall. Adding a stop with us at the Sunnyslope exit is one more pull-off on the way back to the bridge. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Orondo and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
+  },
+  {
+    slug: "stevens-pass",
+    name: "Stevens Pass",
+    county: "Chelan County",
+    driveMins: 65,
+    highway: "US-2 east down the canyon",
+    pitch: "Stevens Pass to Sunnyslope is 65 min on US-2 — down through Leavenworth and into the valley.",
+    whyStop:
+      "Stevens Pass pulls a steady ski-season crowd coming down off the pass through Leavenworth and into Wenatchee. We’re right off US-2 at the Sunnyslope exit. Cash only, ATM in-store. Summer hiking traffic does the same loop.",
+    notableNeighbors: ["Leavenworth", "Lake Wenatchee", "Plain"],
+    // Long-form (v34.005) — 11th of the 19-page city-SEO arc. Seasonal
+    // ski-area pull-through; pass-area Chelan-County designation.
+    cityCopy: [
+      "Stevens Pass to our shop is about 65 minutes east on US-2 — down through Tumwater Canyon, past Leavenworth, and into Sunnyslope. The drive opens up once you’re past the pass; canyon, then orchards, then the valley. Our shop sits right at the Sunnyslope exit, so you’re off the highway, parked, and back on the road in about ten minutes.",
+      "Who shows up from Stevens Pass: ski-season skiers and snowboarders all winter long, dropping out of the pass and looping through Wenatchee on the way back east or south. Summer flips the cohort — hikers and PCT through-hikers, the Lake Wenatchee + Leavenworth weekend crowd, climbers headed to Icicle Creek. Pattern is the same either season: come down the canyon, swing through us on the way through.",
+      "The Stevens Pass crowd is the one that makes US-2 the seasonal artery — west-side traffic coming over the pass, Leavenworth as the first stop, then us in the middle of the route before continuing on to Chelan or back south. We’re a natural pull-off. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We’ve been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you head down the pass and we’ll have it pulled and ready at the counter; the live menu has whatever’s on the shelf today. If you’d rather walk in and ask, walk in and ask — that’s what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "methow-valley",
