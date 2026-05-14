@@ -246,12 +246,16 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=1800, s-maxage=1800" }],
       },
       {
+        // Bumped 1hr → 24hr (2026-05-14) — content rebuilds on deploy
+        // anyway, so cache flushes naturally on every push. No staleness
+        // risk; 24× fewer crawler-driven cold edge rebuilds. Sister scc.
         source: "/robots.txt",
-        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
       },
       {
+        // Same rationale as /robots.txt — rebuilds on deploy. Sister scc.
         source: "/llms.txt",
-        headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" }],
       },
       {
         source: "/icon",

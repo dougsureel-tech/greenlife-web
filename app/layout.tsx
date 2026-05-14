@@ -13,7 +13,17 @@ import { STORE } from "@/lib/store";
 import "./globals.css";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+// Pinning `display: "swap"` + `adjustFontFallback: true` explicitly so any
+// future Next minor-version default-change can't silently introduce CLS
+// (font-swap renders system fallback immediately, no FOIT; fallback metrics
+// adjustment minimizes layout shift on swap). Both are current Next defaults
+// — explicit pin is defense-in-depth against framework drift. Sister scc.
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: true,
+});
 
 // GA4 measurement ID — when Doug enables GA4 in the dashboard, paste the
 // "G-XXXXXXX" measurement ID into NEXT_PUBLIC_GA_ID on Vercel and the
