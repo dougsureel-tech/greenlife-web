@@ -142,8 +142,7 @@ export default async function TreasureChestPage() {
             <p className="text-5xl mb-4">🪙</p>
             <h2 className="text-xl font-bold text-stone-900 mb-2">The chest is empty right now</h2>
             <p className="text-stone-600 text-sm mb-6">
-              Our team curates this lane manually — when there&rsquo;s nothing to clear, you&rsquo;ll see this. The full menu
-              still has everything else.
+              We hand-pick what lands in here — when there&rsquo;s nothing to clear, you&rsquo;ll see this. The full menu has everything else.
             </p>
             <Link
               href="/menu"

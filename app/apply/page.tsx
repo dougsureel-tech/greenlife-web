@@ -351,28 +351,24 @@ function ApplyForm() {
           window.location.href = "/apply/thanks";
           return;
         }
-        setSubmitError("Application's in, but our system sent back a weird response. If you don't hear back in 1–2 weeks, email us and we'll dig in.");
+        setSubmitError("Your application went through — but we didn't get a confirmation back. If you don't hear from us within 1–2 weeks, email us and we'll find it.");
         return;
       }
 
       // Non-2xx — surface server message when present, otherwise generic.
       const errorJson = (await res.json().catch(() => null)) as { error?: string } | null;
       if (res.status === 429) {
-        setSubmitError("Too many submissions from this network. Please wait an hour and try again, or email us.");
+        setSubmitError("Too many submissions from your network — try again in an hour, or email us directly.");
       } else if (res.status === 413) {
         setSubmitError("Your resume is too large. The limit is 10MB.");
       } else if (errorJson?.error && typeof errorJson.error === "string") {
         setSubmitError(errorJson.error);
       } else {
-        setSubmitError(`Couldn't submit your application (server returned ${res.status}). Try again or email us directly.`);
+        setSubmitError("Couldn't send your application right now — try again, or email us directly.");
       }
     } catch (err) {
       // Network drop, CORS misconfig, DNS — all surface here.
-      setSubmitError(
-        err instanceof Error && err.message
-          ? `Network issue: ${err.message}. Try again.`
-          : "Network issue — check your connection and try again."
-      );
+      setSubmitError("Couldn't reach us — check your connection and try again.");
     } finally {
       setSubmitting(false);
     }

@@ -9,8 +9,8 @@ const API_URL = "https://brapp.greenlifecannabis.com/api/vendor-access";
 const STORE_ORIGIN = "wenatchee";
 
 const ERROR_LABEL: Record<string, string> = {
-  rate_limited: "We've gotten a few requests from your network already today — try again in an hour or email us directly.",
-  invalid_json: "Something went wrong submitting the form — try again, or email us directly.",
+  rate_limited: "We've had a few requests from your network already today — try again in an hour, or email us directly.",
+  invalid_json: "Couldn't submit your request — try again, or email us directly.",
   missing_company_name: "Company name is required.",
   missing_contact_name: "Contact name is required.",
   invalid_email: "Enter a valid email address.",
@@ -49,13 +49,13 @@ export function VendorAccessForm() {
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) {
-        setError(ERROR_LABEL[data.error ?? ""] ?? "Something went wrong — try again, or email us.");
+        setError(ERROR_LABEL[data.error ?? ""] ?? "Couldn't submit your request — try again, or email us.");
         setSubmitting(false);
         return;
       }
       router.push("/vendor-access/thanks");
     } catch {
-      setError("Network error — try again, or email us directly.");
+      setError("Couldn't reach us — check your connection and try again.");
       setSubmitting(false);
     }
   }
