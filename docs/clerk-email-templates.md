@@ -68,7 +68,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>
@@ -134,7 +134,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>
@@ -201,7 +201,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>
@@ -267,7 +267,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>
@@ -340,7 +340,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>
@@ -409,7 +409,7 @@ Six branded HTML templates for the Clerk dashboard. Each is a complete copy-past
             <tr>
               <td style="padding:18px 28px 22px;border-top:1px solid #e7e5e4;background:#f5f5f4;">
                 <p style="margin:0;font-size:11px;color:#78716c;line-height:1.6;">
-                  Green Life Cannabis · 3012 Center Road Ste A, Wenatchee, WA 98801<br />
+                  Green Life Cannabis · 3012 GS Center Road Ste A, Wenatchee, WA 98801<br />
                   Founded 2014 · The Valley's best cannabis staff · WSLCB License 414755 · 21+ with valid ID
                 </p>
               </td>

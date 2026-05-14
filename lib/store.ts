@@ -4,11 +4,11 @@ export const STORE = {
   name: "Green Life Cannabis",
   tagline: "Wenatchee's best cannabis staff",
   address: {
-    street: "3012 Center Road Ste A",
+    street: "3012 GS Center Road Ste A",
     city: "Wenatchee",
     state: "WA",
     zip: "98801",
-    full: "3012 Center Road Ste A, Wenatchee, WA 98801",
+    full: "3012 GS Center Road Ste A, Wenatchee, WA 98801",
   },
   phone: "(509) 663-9980",
   phoneTel: "+15096639980",
@@ -27,7 +27,7 @@ export const STORE = {
   // scc same wave. proxy.ts CANONICAL_HOST is the source-of-truth host.
   website: "https://www.greenlifecannabis.com",
   geo: { lat: 47.4116, lng: -120.3108 },
-  googleMapsUrl: "https://maps.google.com/?q=3012+Center+Road+Ste+A+Wenatchee+WA+98801",
+  googleMapsUrl: "https://maps.google.com/?q=3012+GS+Center+Road+Ste+A+Wenatchee+WA+98801",
   googleMapsEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.0!2d-120.3108!3d47.4116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDI0JzQyLjAiTiAxMjDCsDE4JzM4LjkiVw!5e0!3m2!1sen!2sus!4v1",
   hours: [
@@ -50,7 +50,7 @@ export const STORE = {
   // hero pill cluster, the "We serve" town card grid, the LocalBusiness
   // JSON-LD `areaServed` graph, and the metadata description so geo-targeted
   // ads + organic SEO have a consistent footprint. Drive minutes are
-  // wall-clock from the shop (3012 Center Rd) — conservative, not best-case.
+  // wall-clock from the shop (3012 GS Center Rd) — conservative, not best-case.
   // `mapsOrigin` is the URL-encoded origin for `maps/dir/?origin=...` so the
   // town card "Get directions" deep-link hands off to the user's mapping app.
   nearbyTowns: [
