@@ -133,6 +133,16 @@ export default async function NearTownPage({
         addressCountry: "US",
       },
     },
+    // SpeakableSpecification — explicit anchor for voice assistants
+    // (Google Assistant / Siri / Alexa) so a "near me" voice query
+    // surfaces a compact readback of the load-bearing facts (H1 +
+    // anything tagged `data-speakable`: cityCopy lede + address chip).
+    // Generic CSS selectors so future copy doesn't need to know about
+    // this contract. Sister GW v2.97.M1 SpeakableSpecification port.
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "[data-speakable]"],
+    },
   };
 
   // BreadcrumbList — Google renders the path under the SERP result
@@ -351,7 +361,7 @@ export default async function NearTownPage({
             </h2>
             <div className="prose prose-stone prose-base sm:prose-lg max-w-none prose-p:text-stone-700 prose-p:leading-relaxed prose-p:mb-5 prose-strong:text-stone-900">
               {town.cityCopy.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i} {...(i === 0 ? { "data-speakable": "" } : {})}>{para}</p>
               ))}
             </div>
           </div>
@@ -377,7 +387,7 @@ export default async function NearTownPage({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-3xl">
           <div className="rounded-xl bg-white border border-stone-200 px-3 sm:px-4 py-3">
             <div className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-1">Address</div>
-            <div className="text-xs sm:text-sm font-semibold text-stone-900 leading-snug">
+            <div className="text-xs sm:text-sm font-semibold text-stone-900 leading-snug" data-speakable>
               {STORE.address.street}
             </div>
             <div className="text-xs text-stone-500 mt-0.5">Sunnyslope, Wenatchee</div>
