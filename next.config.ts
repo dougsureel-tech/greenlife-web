@@ -129,6 +129,17 @@ const PERMISSIONS_POLICY =
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
+    // Modern-format serving: AVIF first (best compression, ~20% smaller than
+    // WebP), WebP fallback for older browsers (Safari < 16), original format
+    // as final fallback for animated/unsupported sources. Smaller bytes →
+    // faster LCP across menu / brand-logo / hero surfaces. Per PERF_AUDIT
+    // _NEAR_PAGES_2026_05_14.md — sister scc v26.705 same-push.
+    formats: ["image/avif", "image/webp"],
+    // 30-day edge cache for optimized images. Default is 4 hours which
+    // wastefully re-optimizes static menu / brand-logo images on every
+    // cold edge. Next/Image fingerprints URLs so cache-bust on change is
+    // automatic — safe to extend TTL aggressively.
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
   // Suppress `X-Powered-By: Next.js` response header. Pre-fix glw + scc
   // were the lone outliers across the 6-site stack — GW + cannagent +
