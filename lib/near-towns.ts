@@ -63,6 +63,15 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     whyStop:
       "Leavenworth doesn't have a recreational dispensary inside city limits, so locals + tourists driving in from Stevens Pass swing through Wenatchee. Stop on the way home from a Front Street wander, or pair with Pybus Public Market and a stretch along the Columbia.",
     notableNeighbors: ["Cashmere", "Plain", "Lake Wenatchee"],
+    // Long-form (v33.305) — second of the 19-page city-SEO arc. Mirrors
+    // the Chelan template's voice + structure (drive/parking → who shows
+    // up + seasonal → cross-traffic + compliance → tenure + CTA).
+    cityCopy: [
+      "Leavenworth to Wenatchee runs about 35 minutes east on US-2 through Tumwater Canyon — one of the most-driven stretches of highway in the state during Oktoberfest and Christmas-Lights season, plus the natural exit out of the village for anyone heading anywhere east. Our shop is right off the Sunnyslope exit, so you're off US-2, parked, and back on the road inside ten minutes.",
+      "Who shows up from Leavenworth: locals year-round (Leavenworth city ordinance keeps recreational cannabis out of village limits — Wenatchee is the legal closest), plus the visitor flow that shifts shape every season. Front Street wanderers in summer. Oktoberfest crews in September and early October. Christmas-Lights crowds Thanksgiving through New Year's. Stevens Pass skiers all winter, dropping out of the pass and looping through us before heading back east or south.",
+      "The Stevens Pass angle matters here. Plenty of west-side traffic comes east over the pass, drops down US-2 through Leavenworth, and picks up groceries-plus-cannabis in Wenatchee before continuing on to Chelan or back toward the Tri-Cities. We're the natural stop in the middle of that route. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online before you leave Leavenworth and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "cashmere",
