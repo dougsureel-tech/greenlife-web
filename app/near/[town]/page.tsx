@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
+import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
 import { NEAR_TOWNS, getTown } from "@/lib/near-towns";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -154,9 +154,15 @@ export default async function NearTownPage({
   };
 
   const otherTowns = NEAR_TOWNS.filter((t) => t.slug !== town.slug);
+  // Page is force-static + revalidate=false, so "today's hours" baked at
+  // build time would drift by day-of-week on every subsequent day. Use a
+  // static summary instead — STORE.hours SSoT, summarized at render time.
+  // 5/7 days are 8 AM-9 PM; Fri+Sat extend to 10 PM. Customers needing
+  // live status click "Hours + directions" → /visit which is ISR'd.
+  const hoursSummaryStatic = "8 AM – 9 PM · later Fri & Sat";
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 md:py-16 text-zinc-900">
+    <main className="bg-stone-50 text-stone-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
@@ -166,88 +172,246 @@ export default async function NearTownPage({
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
       />
 
-      <nav className="text-sm text-zinc-500 mb-4">
-        <Link href="/" className="hover:underline">Home</Link>
-        <span aria-hidden="true"> · </span>
-        <Link href="/visit" className="hover:underline">Visit</Link>
-        <span aria-hidden="true"> · </span>
-        <span className="text-zinc-700">{town.name}</span>
-      </nav>
+      {/* ── HERO ────────────────────────────────────────────────────────
+          Green-950 hero band matching /visit + / sister pages. Eyebrow +
+          big h1 + pitch + two CTAs sit above the fold on mobile (360px)
+          and desktop. CTA prominence was a Doug-feedback driver: pre-
+          redesign the only /menu CTA was a mid-page emerald box that
+          required a scroll on phones to see.
+      */}
+      <section className="relative bg-green-950 text-white overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(74,222,128,0.18),transparent_55%)]"
+        />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-10 sm:pb-14">
+          <nav className="text-xs text-green-300/70 mb-6 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span aria-hidden="true" className="text-green-700">·</span>
+            <Link href="/visit" className="hover:text-white transition-colors">Visit</Link>
+            <span aria-hidden="true" className="text-green-700">·</span>
+            <span className="text-green-200">{town.name}</span>
+          </nav>
 
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-3">
-        {town.name} dispensary — {STORE.name}
-      </h1>
-      <p className="text-lg text-zinc-700 mb-6">{town.pitch}</p>
+          <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-green-400 mb-3">
+            Near you · {town.county}
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-4 max-w-3xl">
+            {town.name} dispensary
+            <span className="block text-green-300/90 font-semibold text-xl sm:text-2xl md:text-3xl mt-2">
+              {STORE.name} · {town.driveMins} min from {town.name}
+            </span>
+          </h1>
+          <p className="text-base sm:text-lg text-green-100/90 leading-relaxed max-w-2xl mb-7">
+            {town.pitch}
+          </p>
 
-      <section className="grid grid-cols-2 gap-3 mb-8 text-sm">
-        <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3">
-          <div className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Drive time</div>
-          <div className="font-semibold">{town.driveMins} min</div>
-        </div>
-        <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3">
-          <div className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Route</div>
-          <div className="font-semibold">{town.highway}</div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/menu"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl bg-green-400 hover:bg-green-300 text-green-950 font-bold text-sm transition-all shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300 focus-visible:ring-offset-2 focus-visible:ring-offset-green-950"
+            >
+              Browse menu
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link
+              href="/visit"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+            >
+              Hours + directions
+            </Link>
+            <a
+              href={`tel:${STORE.phoneTel}`}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-white/85 hover:text-white text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+            >
+              <span aria-hidden="true">📞</span>
+              {STORE.phone}
+            </a>
+          </div>
         </div>
       </section>
 
+      {/* ── STAT TILES ──────────────────────────────────────────────────
+          Three tiles below the hero — drive time / route / today's
+          hours. Bigger numbers, white cards on stone bg (visible weight),
+          grid-cols-2 stacks "Today's hours" tile below on phones so the
+          eye lands on Drive time + Route first (the load-bearing facts
+          for a customer scanning a near-town landing page).
+      */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 -mt-6 sm:-mt-8 mb-10 sm:mb-14 relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="rounded-2xl bg-white border border-stone-200 shadow-sm px-4 sm:px-5 py-4">
+            <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-green-700 mb-1.5">
+              Drive time
+            </div>
+            <div className="text-2xl sm:text-3xl font-bold text-stone-900 tabular-nums leading-none">
+              {town.driveMins}
+              <span className="text-base sm:text-lg font-semibold text-stone-500 ml-1">min</span>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white border border-stone-200 shadow-sm px-4 sm:px-5 py-4">
+            <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-green-700 mb-1.5">
+              Route
+            </div>
+            <div className="text-sm sm:text-base font-semibold text-stone-900 leading-snug">
+              {town.highway}
+            </div>
+          </div>
+          <div className="col-span-2 sm:col-span-1 rounded-2xl bg-white border border-stone-200 shadow-sm px-4 sm:px-5 py-4">
+            <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-green-700 mb-1.5">
+              Open daily
+            </div>
+            <div className="text-sm sm:text-base font-semibold text-stone-900 tabular-nums leading-snug">
+              {hoursSummaryStatic}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LONG-FORM LOCAL CONTEXT ─────────────────────────────────────
+          Long-form section ABOVE the standard whyStop so Google sees the
+          heavier body copy first. Prose width capped at max-w-2xl
+          (~65ch) for comfortable reading on desktop — the previous
+          max-w-3xl was a wall of text. Each paragraph break gets
+          natural rhythm via prose-zinc + mb-5. Section h2 carries the
+          SEO phrase ("Cannabis dispensary near {town}, WA") + an
+          eyebrow above for visual hierarchy.
+      */}
       {town.cityCopy && (
-        // Long-form local-context section — present only on high-traffic
-        // towns (template seeded in v33.205 on Chelan). Renders ABOVE the
-        // standard whyStop so Google sees the heavier body copy first.
-        // Each paragraph is split on a blank line in the data file.
-        <section className="prose prose-zinc max-w-none mb-10">
-          <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-zinc-900 mb-4">
-            Cannabis dispensary near {town.name}, WA
-          </h2>
-          {town.cityCopy.split("\n\n").map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-2">
+              About the drive
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 mb-6 leading-tight">
+              Cannabis dispensary near {town.name}, WA
+            </h2>
+            <div className="prose prose-stone prose-base sm:prose-lg max-w-none prose-p:text-stone-700 prose-p:leading-relaxed prose-p:mb-5 prose-strong:text-stone-900">
+              {town.cityCopy.split("\n\n").map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          </div>
         </section>
       )}
 
-      <section className="prose prose-zinc max-w-none mb-10">
-        <p>{town.whyStop}</p>
-        <p>
-          We&apos;re at <strong>{STORE.address.full}</strong>, on the Sunnyslope side of Wenatchee. ATM in-store, free parking,
-          ADA accessible. Cash only at the counter, but you can browse the live menu and place a pickup order before
-          you head over.
-        </p>
-      </section>
-
-      <section className="rounded-lg border-2 border-emerald-700 bg-emerald-50 p-5 mb-10">
-        <div className="text-emerald-900 font-semibold mb-2">Driving in from {town.name}?</div>
-        <p className="text-sm text-emerald-900/80 mb-4">
-          Place a pickup order on the way — we&apos;ll have it pulled and ready when you arrive. Cash only at pickup.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/menu"
-            className="inline-block rounded-md bg-emerald-700 hover:bg-emerald-600 px-5 py-2 text-white font-semibold text-sm transition-colors"
-          >
-            Browse menu →
-          </Link>
-          <Link
-            href="/visit"
-            className="inline-block rounded-md border border-emerald-700 hover:bg-emerald-100 px-5 py-2 text-emerald-700 font-semibold text-sm transition-colors"
-          >
-            Hours + directions
-          </Link>
+      {/* ── WHY STOP + STORE FACTS ──────────────────────────────────────
+          Compact 2-section block: short whyStop paragraph + 4 fact
+          chips (address / cash only / 21+ / ADA + parking) replacing
+          the previous wall-of-text "We're at … on the Sunnyslope side
+          …" prose. Chips render as a tight grid on desktop and stack
+          on mobile.
+      */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
+        <div className="max-w-2xl mb-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-2">
+            Why stop in
+          </p>
+          <p className="text-base sm:text-lg text-stone-700 leading-relaxed">
+            {town.whyStop}
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-3xl">
+          <div className="rounded-xl bg-white border border-stone-200 px-3 sm:px-4 py-3">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-1">Address</div>
+            <div className="text-xs sm:text-sm font-semibold text-stone-900 leading-snug">
+              {STORE.address.street}
+            </div>
+            <div className="text-xs text-stone-500 mt-0.5">Sunnyslope, Wenatchee</div>
+          </div>
+          <div className="rounded-xl bg-white border border-stone-200 px-3 sm:px-4 py-3">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-1">Payment</div>
+            <div className="text-xs sm:text-sm font-semibold text-stone-900">Cash only</div>
+            <div className="text-xs text-stone-500 mt-0.5">ATM in-store</div>
+          </div>
+          <div className="rounded-xl bg-white border border-stone-200 px-3 sm:px-4 py-3">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-1">ID</div>
+            <div className="text-xs sm:text-sm font-semibold text-stone-900">21+, gov ID</div>
+            <div className="text-xs text-stone-500 mt-0.5">Out-of-state OK</div>
+          </div>
+          <div className="rounded-xl bg-white border border-stone-200 px-3 sm:px-4 py-3">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-1">Parking</div>
+            <div className="text-xs sm:text-sm font-semibold text-stone-900">Free, out front</div>
+            <div className="text-xs text-stone-500 mt-0.5">ADA accessible</div>
+          </div>
         </div>
       </section>
 
+      {/* ── CTA BAND ────────────────────────────────────────────────────
+          Full-width green-950 CTA band matching the /visit + / "Ready
+          to order?" pattern. Sticky-feeling, hard-to-miss prompt that
+          gives the page a clear conversion endpoint. The previous
+          emerald box was the only CTA and was visually equivalent to a
+          callout — this band reads as the page's primary action.
+      */}
+      <section className="bg-green-950 text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div className="max-w-md">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-400 mb-2">
+                Driving over from {town.name}?
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 leading-tight">
+                Order on the way, pick up when you arrive.
+              </h2>
+              <p className="text-green-200/80 text-sm sm:text-base leading-relaxed">
+                Browse the live menu, place a pickup order, and we&apos;ll have it pulled and bagged. Cash only at the counter.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <Link
+                href="/menu"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-green-400 hover:bg-green-300 text-green-950 font-bold text-sm transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300 focus-visible:ring-offset-2 focus-visible:ring-offset-green-950"
+              >
+                Browse menu
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                href="/visit"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+              >
+                Hours + directions
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OTHER TOWNS ─────────────────────────────────────────────────
+          Compact card grid (2-col mobile, 3-col tablet+) replacing the
+          plain 2-column bullet list. Each card has the town + drive
+          time + county subtitle and a subtle hover state. This is
+          the internal-link cluster Google uses to crawl the rest of
+          the /near network.
+      */}
       {otherTowns.length > 0 && (
-        <section className="border-t border-zinc-200 pt-8">
-          <h2 className="text-sm uppercase tracking-wider text-zinc-500 font-semibold mb-3">
-            Other towns we serve
-          </h2>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="mb-6 sm:mb-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-2">
+              Other towns we serve
+            </p>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
+              From everywhere in the valley
+            </h2>
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
             {otherTowns.map((t) => (
               <li key={t.slug}>
                 <Link
                   href={`/near/${t.slug}`}
-                  className="text-emerald-700 hover:underline"
+                  className="group block rounded-xl bg-white border border-stone-200 hover:border-green-400 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
                 >
-                  {t.name} ({t.driveMins} min)
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-800 transition-colors truncate">
+                      {t.name}
+                    </span>
+                    <span className="text-xs font-semibold text-green-700 tabular-nums shrink-0">
+                      {t.driveMins} min
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-stone-500 mt-0.5 truncate">
+                    {t.county}
+                  </div>
                 </Link>
               </li>
             ))}
