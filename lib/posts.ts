@@ -8,6 +8,11 @@ export type Post = {
   category: "Guide" | "Vendor Spotlight" | "Education" | "Local";
   publishedAt: string; // ISO date
   updatedAt?: string;
+  // Optional per-post author override. When unset, the Article JSON-LD on
+  // /blog/[slug] defaults to the store-owner Person at /about#owner. Once
+  // posts grow per-author metadata (multi-budtender contributions, guest
+  // pieces), populate this and the JSON-LD picks it up automatically.
+  author?: { name: string; url?: string };
   readingMinutes: number;
   // The body is intentionally a single MDX-ish string of markdown-with-headings.
   // We render it server-side via a small parser (see app/blog/[slug]/page.tsx).
@@ -541,6 +546,9 @@ type ApiPost = {
   category?: string | null;
   bodyMd?: string | null;
   publishedAt?: string | null;
+  updatedAt?: string | null;
+  authorName?: string | null;
+  authorUrl?: string | null;
 };
 
 function apiPostToPost(p: ApiPost): Post {
@@ -553,6 +561,10 @@ function apiPostToPost(p: ApiPost): Post {
       ? (p.category as Post["category"])
       : "Education",
     publishedAt: p.publishedAt ?? storeToday(),
+    ...(p.updatedAt ? { updatedAt: p.updatedAt } : {}),
+    ...(p.authorName
+      ? { author: { name: p.authorName, ...(p.authorUrl ? { url: p.authorUrl } : {}) } }
+      : {}),
     readingMinutes: words > 0 ? Math.max(1, Math.round(words / 200)) : 5,
     body: p.bodyMd ?? "",
   };

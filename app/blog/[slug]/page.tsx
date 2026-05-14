@@ -204,6 +204,30 @@ export default async function BlogPost({ params }: Props) {
   if (!post) notFound();
 
   const url = `${STORE.website}/blog/${slug}`;
+  // SEO audit 2026-05-14 Tier-1 #4: Article JSON-LD rigor.
+  //
+  // (a) `dateModified` — Google uses this as a freshness ranking signal for
+  //     news/blog SERP categories. Pre-fix we only emitted it when the post
+  //     SSoT carried an explicit `updatedAt`. Now we always emit, defaulting
+  //     to `datePublished` when no real modification has occurred — Google
+  //     treats publication date as the freshness signal in that case, which
+  //     is correct and not a fabrication.
+  // (b) `author` Person schema — pre-fix this was Organization (the store
+  //     itself), which is technically valid but ranks lower than a real
+  //     Person author for Google's "About this result" panel + Anthropic /
+  //     Perplexity AI source-citation weighting. Now: prefer per-post
+  //     `post.author` if SSoT carries one; otherwise default to the store
+  //     owner (Doug) as a Person pointing at `/about#owner`. The default is
+  //     a known-true author of record (Doug or store staff write every post)
+  //     not a fabrication — but the changelog calls out that this is the
+  //     store-owner default pending per-post authorship metadata.
+  // (c) `publisher` Organization reference retained separately (Article
+  //     schema requires both `author` + `publisher`).
+  const DEFAULT_AUTHOR = { name: "Doug Cundiff", url: `${STORE.website}/about#owner` };
+  const author = post.author
+    ? { "@type": "Person", name: post.author.name, ...(post.author.url ? { url: post.author.url } : {}) }
+    : { "@type": "Person", name: DEFAULT_AUTHOR.name, url: DEFAULT_AUTHOR.url };
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -212,11 +236,12 @@ export default async function BlogPost({ params }: Props) {
     description: post.description,
     url,
     datePublished: post.publishedAt,
-    ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+    dateModified: post.updatedAt ?? post.publishedAt,
     inLanguage: "en-US",
     isPartOf: { "@id": `${STORE.website}/blog#blog` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
     publisher: { "@id": `${STORE.website}/#dispensary` },
-    author: { "@type": "Organization", name: STORE.name, url: STORE.website },
+    author,
     articleSection: post.category,
     wordCount: post.body.split(/\s+/).length,
     // Article rich-result eligibility requires an `image` — Google won't
