@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
-import { LEARN_HUB_TOPICS, getLearnHubTopic } from "@/lib/learn-hub";
+import { LEARN_HUB_TOPICS, getLearnHubTopic, getRelatedLearnHubTopics } from "@/lib/learn-hub";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -144,6 +144,29 @@ export default async function LearnTopicPage({
   // <ul>. Minimal parser — copy is owned by us, syntax is predictable.
   const sections = renderBody(topic.body);
 
+  // Hand-picked related topics from the SSoT — 3 cards. Anchors PageRank
+  // flow between related-intent topics rather than blasting generically
+  // across all 7 peers in the "Other topics" grid (which stays below as
+  // the full crawl-discovery surface).
+  const relatedTopics = getRelatedLearnHubTopics(topic);
+
+  // Cross-link from learn-hub topics into sibling SEO surfaces — pulls
+  // a high-intent reader from the educational lane into the action lane
+  // (quiz / strain types). Hand-picked per spec; renders as a small
+  // chip BELOW the related-guides cluster on topics that have one.
+  const crossLink = (() => {
+    if (topic.slug === "first-time-visitor") {
+      return { href: "/find-your-strain", label: "Take the 3-question strain quiz", external: false };
+    }
+    if (topic.slug === "indica-sativa-hybrid") {
+      return { href: "/strains", label: "Browse the 4 strain categories", external: false };
+    }
+    if (topic.slug === "medical-vs-recreational-wa") {
+      return { href: "https://www.greenwellness.org", label: "Medical authorization evaluations — Green Wellness", external: true };
+    }
+    return null;
+  })();
+
   const otherTopics = LEARN_HUB_TOPICS.filter((t) => t.slug !== topic.slug);
 
   return (
@@ -236,6 +259,65 @@ export default async function LearnTopicPage({
           ))}
         </dl>
       </section>
+
+      {/* ── RELATED GUIDES ────────────────────────────────────────────
+          Hand-picked related-topic cluster (3 cards) between FAQ and
+          CTA. Anchors PageRank flow between related-intent topics + cuts
+          dwell-time bounce by surfacing a logical next read. Mobile-
+          first 1-col → 3-col tablet+ grid. Optional cross-link chip
+          below for the 2 topics paired with sibling surfaces (quiz /
+          strain hub). Render under the existing FAQ JSON-LD; no
+          structural JSON-LD blocks change.
+      */}
+      {relatedTopics.length > 0 && (
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-10 sm:pb-14">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-400 mb-2">
+            Hand-picked
+          </p>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-5">
+            Related guides
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {relatedTopics.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={`/learn/${r.slug}`}
+                  className="group block h-full rounded-xl border border-zinc-800 hover:border-emerald-700 bg-zinc-900/40 hover:bg-zinc-900 px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                >
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-500/80 mb-1">
+                    {r.eyebrow}
+                  </div>
+                  <div className="text-sm font-semibold text-zinc-100 group-hover:text-white leading-snug">
+                    {r.title}
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {crossLink && (
+            <div className="mt-5">
+              {crossLink.external ? (
+                <a
+                  href={crossLink.href}
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 rounded-full border border-emerald-700/60 hover:border-emerald-500 px-4 py-2 text-xs sm:text-sm font-semibold text-emerald-300 hover:text-emerald-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                >
+                  <span aria-hidden="true">›</span>
+                  {crossLink.label}
+                </a>
+              ) : (
+                <Link
+                  href={crossLink.href}
+                  className="inline-flex items-center gap-2 rounded-full border border-emerald-700/60 hover:border-emerald-500 px-4 py-2 text-xs sm:text-sm font-semibold text-emerald-300 hover:text-emerald-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                >
+                  <span aria-hidden="true">›</span>
+                  {crossLink.label}
+                </Link>
+              )}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ── CTA BAND ──────────────────────────────────────────────────── */}
       <section className="border-y border-emerald-900/40 bg-gradient-to-br from-emerald-950 to-zinc-950">

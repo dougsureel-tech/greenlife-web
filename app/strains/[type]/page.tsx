@@ -350,12 +350,21 @@ export default async function StrainTypePage({
         </div>
       </section>
 
-      {/* ── OTHER STRAIN TYPES ──────────────────────────────────────── */}
+      {/* ── OTHER STRAIN TYPES ──────────────────────────────────────────
+          Sister-type cross-link cluster. Pre-v35.905 this rendered as
+          a thin 2/3-col grid with name + arrow only. Now: 2-col mobile
+          / 3-col tablet+ card grid where each card pulls the per-type
+          `eyebrow` one-liner from `lib/strain-types.ts` SSoT — gives
+          the related-cluster real scan-readable content rather than a
+          bare list, anchoring dwell-time when a reader is comparing
+          shelves. Voice: operator-direct, no marketing-speak. Sister
+          scc v27.305.
+      */}
       {otherTypes.length > 0 && (
         <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="mb-6 sm:mb-8">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
-              Other strain categories
+              Other strain types
             </p>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
               All four shelves
@@ -366,15 +375,18 @@ export default async function StrainTypePage({
               <li key={x.slug}>
                 <Link
                   href={`/strains/${x.slug}`}
-                  className="group block rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                  className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
                 >
                   <div className="flex items-baseline justify-between gap-2">
                     <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-900 transition-colors truncate">
                       {x.name}
                     </span>
-                    <span className="text-xs font-semibold text-green-800 tabular-nums shrink-0">
+                    <span aria-hidden="true" className="text-xs font-semibold text-green-800 shrink-0">
                       →
                     </span>
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-stone-500 mt-1 leading-snug">
+                    {x.eyebrow}
                   </div>
                 </Link>
               </li>

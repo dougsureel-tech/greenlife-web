@@ -239,6 +239,24 @@ export default async function NearTownPage({
 
   const otherTowns = NEAR_TOWNS.filter((t) => t.slug !== town.slug);
 
+  // "Also nearby" mini-cluster — resolves the town's hand-picked
+  // `notableNeighbors` names against NEAR_TOWNS to produce a 2-3-card
+  // related cluster that renders ABOVE the full town grid. Anchors
+  // PageRank between geo-neighbors (the most-likely next-page for a
+  // visitor who arrived via a town-search) without disturbing the full
+  // crawl-discovery grid below. Notable-neighbor names use display
+  // case ("Lake Wenatchee"); slug match is loose (lowercase + hyphen-
+  // for-space) so the SSoT doesn't need a second name→slug map.
+  const slugify = (s: string): string =>
+    s.toLowerCase().replace(/\s+/g, "-");
+  const notableNearby = town.notableNeighbors
+    .map((name) => {
+      const target = slugify(name);
+      return NEAR_TOWNS.find((t) => t.slug === target);
+    })
+    .filter((t): t is NonNullable<typeof t> => t !== undefined)
+    .slice(0, 3);
+
   return (
     <main className="bg-stone-50 text-stone-900">
       <script
@@ -459,45 +477,80 @@ export default async function NearTownPage({
         </div>
       </section>
 
-      {/* ── OTHER TOWNS ─────────────────────────────────────────────────
-          Compact card grid (2-col mobile, 3-col tablet+) replacing the
-          plain 2-column bullet list. Each card has the town + drive
-          time + county subtitle and a subtle hover state. This is
-          the internal-link cluster Google uses to crawl the rest of
-          the /near network.
+      {/* ── ALSO NEARBY + OTHER TOWNS ───────────────────────────────────
+          Two sister clusters sharing one section wrapper so the spacing
+          stays coherent. Top cluster: hand-picked 2-3 neighbor towns
+          from `town.notableNeighbors` (SSoT in lib/near-towns.ts)
+          rendered with chevron + driveTime chip — anchors PageRank
+          between geo-neighbors (the most-likely next-page for a visitor
+          who arrived via a town-specific search). Bottom grid: full
+          crawl-discovery surface for the rest of the NEAR_TOWNS network.
+          Operator-direct headers, no marketing-speak. Sister scc v27.305.
       */}
-      {otherTowns.length > 0 && (
+      {(notableNearby.length > 0 || otherTowns.length > 0) && (
         <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-          <div className="mb-6 sm:mb-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-2">
-              Other towns we serve
-            </p>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
-              From everywhere in the valley
-            </h2>
-          </div>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-            {otherTowns.map((t) => (
-              <li key={t.slug}>
-                <Link
-                  href={`/near/${t.slug}`}
-                  className="group block rounded-xl bg-white border border-stone-200 hover:border-green-400 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
-                >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-800 transition-colors truncate">
-                      {t.name}
-                    </span>
-                    <span className="text-xs font-semibold text-green-700 tabular-nums shrink-0">
-                      {t.driveMins} min
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-stone-500 mt-0.5 truncate">
-                    {t.county}
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {notableNearby.length > 0 && (
+            <div className="mb-8 sm:mb-10">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-3">
+                Also nearby
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                {notableNearby.map((t) => (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/near/${t.slug}`}
+                      className="group flex items-center justify-between gap-3 rounded-xl bg-white border border-green-200 hover:border-green-500 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
+                        <span aria-hidden="true" className="text-green-700 shrink-0">›</span>
+                        <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-800 transition-colors truncate">
+                          {t.name}
+                        </span>
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-green-50 group-hover:bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800 tabular-nums shrink-0 transition-colors">
+                        {t.driveMins} min
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {otherTowns.length > 0 && (
+            <div>
+              <div className="mb-6 sm:mb-8">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-700 mb-2">
+                  Other towns we serve
+                </p>
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
+                  From everywhere in the valley
+                </h2>
+              </div>
+              <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                {otherTowns.map((t) => (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/near/${t.slug}`}
+                      className="group block rounded-xl bg-white border border-stone-200 hover:border-green-400 hover:shadow-sm transition-all px-3 sm:px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                    >
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-800 transition-colors truncate">
+                          {t.name}
+                        </span>
+                        <span className="text-xs font-semibold text-green-700 tabular-nums shrink-0">
+                          {t.driveMins} min
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-stone-500 mt-0.5 truncate">
+                        {t.county}
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       )}
     </main>

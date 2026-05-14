@@ -25,6 +25,13 @@ export type LearnHubTopic = {
   body: string;
   /** 3-5 FAQ Q&A pairs rendered as FAQPage JSON-LD + visible accordion. */
   faqs: Array<{ q: string; a: string }>;
+  /** Hand-picked related topic slugs — renders as the "Related guides"
+   *  cluster on each `/learn/<slug>` page (3 cards). Anchors PageRank
+   *  flow between related-intent topics rather than letting the
+   *  "other topics" grid blast generically across all 7 peers.
+   *  Values must match a slug in this same array (compile-time
+   *  enforcement via the resolver in the renderer). */
+  relatedTopics: string[];
 };
 
 export const LEARN_HUB_TOPICS: LearnHubTopic[] = [
@@ -84,6 +91,7 @@ The excise doesn’t pay for federal banking access (which is why dispensaries a
         a: "Yes. Washington requires the excise line, the sales-tax line, and the subtotal to print separately on every cannabis receipt. Ask at the counter if you want a budtender to walk through it.",
       },
     ],
+    relatedTopics: ["cash-only-dispensaries", "medical-vs-recreational-wa", "first-time-visitor"],
   },
   {
     slug: "indica-sativa-hybrid",
@@ -142,6 +150,7 @@ The indica/sativa label travels along with flower into edibles and concentrates,
         a: "Less than it does for flower. Edibles get processed through the liver and the experience is mediated by dose, format, and metabolism — the strain label carries some signal but format and dose dominate.",
       },
     ],
+    relatedTopics: ["lab-panel-coa", "first-time-visitor", "edibles-dosing-101"],
   },
   {
     slug: "lab-panel-coa",
@@ -207,6 +216,7 @@ For edibles, the cannabinoid panel reports both per-package and per-piece millig
         a: "Batches that fail the action limits in WAC 314-55-101 cannot legally reach a retail shelf. By the time a product is in the store, it has passed every applicable panel.",
       },
     ],
+    relatedTopics: ["indica-sativa-hybrid", "edibles-dosing-101", "first-time-visitor"],
   },
   {
     slug: "first-time-visitor",
@@ -273,6 +283,7 @@ Open the bag and consume responsibly. No public consumption in Washington — st
         a: "Washington WAC prohibits returns of opened cannabis products. Unopened products can sometimes be exchanged within a short window — ask the store about its specific return policy. We work hard to match the right product up front so a return isn’t needed.",
       },
     ],
+    relatedTopics: ["cash-only-dispensaries", "cannabis-tax-washington", "indica-sativa-hybrid"],
   },
   {
     slug: "cannabis-driving-wa",
@@ -338,6 +349,7 @@ Washington dispensaries seal every purchase in the opaque exit bag that the stat
         a: "No. Washington prohibits open cannabis containers in a vehicle and prohibits cannabis consumption in any public place, which includes the cabin of a vehicle on a public road. Penalties apply to both driver and passenger.",
       },
     ],
+    relatedTopics: ["medical-vs-recreational-wa", "first-time-visitor", "cash-only-dispensaries"],
   },
   {
     slug: "medical-vs-recreational-wa",
@@ -408,6 +420,7 @@ The DOH publishes a list of medically endorsed retailers. Look for the medical e
         a: "It depends on volume. The sales-tax exemption (typically 8-10% combined state and local) compounds with regular purchasing — a heavy regular consumer saves meaningfully across a year. An occasional buyer often doesn’t save enough to justify the paperwork.",
       },
     ],
+    relatedTopics: ["cannabis-driving-wa", "cannabis-tax-washington", "first-time-visitor"],
   },
   {
     slug: "cash-only-dispensaries",
@@ -468,6 +481,7 @@ If you’re visiting from out of state, the same federal rules apply nationally 
         a: "Possibly. The SAFER Banking Act and federal cannabis rescheduling are both potential paths. Neither has landed as of 2026. Until one does, cash is the norm.",
       },
     ],
+    relatedTopics: ["cannabis-tax-washington", "first-time-visitor", "medical-vs-recreational-wa"],
   },
   {
     slug: "edibles-dosing-101",
@@ -554,6 +568,7 @@ The other rule worth pinning: have a non-cannabis snack and water on hand before
         a: "Edibles get processed through the liver and converted to 11-hydroxy-THC, a metabolite that for many people delivers a noticeably stronger subjective effect than the inhaled delta-9 THC from smoking. The path is slower, the peak is longer, and the dose-to-experience ratio shifts.",
       },
     ],
+    relatedTopics: ["lab-panel-coa", "indica-sativa-hybrid", "first-time-visitor"],
   },
 ];
 
@@ -562,4 +577,15 @@ const BY_SLUG = new Map(LEARN_HUB_TOPICS.map((t) => [t.slug, t]));
 
 export function getLearnHubTopic(slug: string): LearnHubTopic | undefined {
   return BY_SLUG.get(slug);
+}
+
+/** Resolve a topic's hand-picked `relatedTopics` slugs into full
+ *  LearnHubTopic rows for rendering. Silently filters unknown slugs so
+ *  a typo in the SSoT doesn't crash the page; cap at 3 cards (the
+ *  designed-for visual layout). */
+export function getRelatedLearnHubTopics(topic: LearnHubTopic): LearnHubTopic[] {
+  return topic.relatedTopics
+    .map((s) => BY_SLUG.get(s))
+    .filter((t): t is LearnHubTopic => t !== undefined)
+    .slice(0, 3);
 }
