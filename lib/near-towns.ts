@@ -94,6 +94,16 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     whyStop:
       "East Wenatchee is a different county (Douglas) but the same valley — staff and customers are 50/50 from each side of the bridge. We're the closest Chelan-County dispensary to anyone in East Wenatchee, Pangborn, or up the Columbia in Rock Island. Worth knowing: Chelan-County retail-cannabis tax differs from Douglas — both pay the WA 37% excise; local rate at the till is the small variance.",
     notableNeighbors: ["Wenatchee", "Rock Island", "Waterville"],
+    // Long-form (v33.X) — 3rd of the 19-page city-SEO arc. Highest local-
+    // pull town in the set (10 min drive, biggest 50/50 customer share).
+    // Same Chelan-template structure: drive/parking → who shows up +
+    // seasonal → cross-traffic + compliance → tenure + CTA.
+    cityCopy: [
+      "East Wenatchee to our shop is about 10 minutes — over the George Sellar Bridge, take the first Sunnyslope exit on the Chelan-County side, and you're at the door. Same valley, different county; staff and customers are roughly 50/50 from each side of the river. East Wenatchee residents make up our biggest single in-town customer base.",
+      "Who shows up from East Wenatchee: locals year-round, in steady weekday-evening + weekend-afternoon waves. Pangborn-airport folks heading home from a flight, Eastmont parents after school pickup, Costco-and-us combos in the same trip. Summer brings the Apple Capital Loop Trail crowd — bikers and joggers who finish the loop on the Wenatchee side and swing in before crossing back over.",
+      "The county-line angle is the one wrinkle worth knowing. East Wenatchee sits in Douglas County; we sit in Chelan. Both stores in town pay the WA 37% cannabis excise (state, not local), but the small local sales-tax variance is real — the till handles it automatically. Cash only at the counter, ATM in the lobby, ID checked at the door per WAC. 21 and up.",
+      "We've been on Center Road since 2014 — same building, same valley, the best cannabis staff in the Wenatchee Valley. Order online from East Wenatchee and we'll have it pulled and ready at the counter; the live menu has whatever's on the shelf today. If you'd rather walk in and ask, walk in and ask — that's what the staff is here for.",
+    ].join("\n\n"),
   },
   {
     slug: "entiat",
