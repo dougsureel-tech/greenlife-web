@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
+import { STORE } from "@/lib/store";
 import { STRAIN_TYPES, getStrainType } from "@/lib/strain-types";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
@@ -46,7 +46,9 @@ export async function generateMetadata({
       description: t.metaDescription,
       url: `${STORE.website}/strains/${t.slug}`,
       siteName: STORE.name,
-      images: [DEFAULT_OG_IMAGE],
+      // `images` intentionally omitted — co-located `opengraph-image.tsx`
+      // (glw v35.505) is the per-route card and Next 16's convention
+      // auto-injects it. See `scripts/check-per-route-og-image.mjs`.
     },
   };
 }

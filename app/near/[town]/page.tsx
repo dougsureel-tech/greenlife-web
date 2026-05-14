@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
+import { STORE } from "@/lib/store";
 import { NEAR_TOWNS, getTown } from "@/lib/near-towns";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
@@ -74,11 +74,13 @@ export async function generateMetadata({
       description: desc,
       url: `${STORE.website}/near/${town.slug}`,
       siteName: STORE.name,
-      // Explicit reference to the root opengraph-image.tsx route — without
-      // it, Next 16 fully replaces the parent's auto-injected images and
-      // /near share previews come up imageless on Slack/iMessage/Facebook.
-      // Same pattern as app/deals/page.tsx.
-      images: [DEFAULT_OG_IMAGE],
+      // `images` intentionally omitted — co-located `opengraph-image.tsx`
+      // is the per-route card (glw v35.505) and Next 16's convention
+      // auto-injects it into og:image + twitter:image at build time.
+      // Setting `images: [DEFAULT_OG_IMAGE]` here would override the
+      // convention and make the per-route file dead code — that's the
+      // exact bug `scripts/check-per-route-og-image.mjs` was built to
+      // prevent (T48-T50 history).
     },
   };
 }

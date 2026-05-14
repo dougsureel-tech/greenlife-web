@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
+import { STORE } from "@/lib/store";
 import { LEARN_HUB_TOPICS, getLearnHubTopic } from "@/lib/learn-hub";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -51,7 +51,9 @@ export async function generateMetadata({
       description: topic.description,
       url: `${STORE.website}/learn/${topic.slug}`,
       siteName: STORE.name,
-      images: [DEFAULT_OG_IMAGE],
+      // `images` intentionally omitted — co-located `opengraph-image.tsx`
+      // (glw v35.505) is the per-route card and Next 16's convention
+      // auto-injects it. See `scripts/check-per-route-og-image.mjs`.
     },
   };
 }
