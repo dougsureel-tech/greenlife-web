@@ -8,7 +8,7 @@ import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { CURRENT_TEAM, initialOf } from "@/lib/team";
-import { MINUTE_MS } from "@/lib/time-constants";
+import { MINUTE_MS, DAY_MS } from "@/lib/time-constants";
 import { fetchClosureStatus, type ClosureStatus } from "@/lib/closure-status";
 import { eligibleRedemptionTiers, applyRedemptionTier, type RedemptionTier } from "@/lib/loyalty-redemption";
 
@@ -1460,7 +1460,7 @@ export function OrderMenu({
                     const nowMs = Date.now();
                     const ageMs = nowMs - cartSavedAt;
                     if (ageMs <= STALE_CART_THRESHOLD_MS) return null;
-                    const days = Math.floor(ageMs / (24 * 60 * 60 * 1000));
+                    const days = Math.floor(ageMs / DAY_MS);
                     return (
                     <div className="px-4 py-3 bg-amber-50 border-b border-amber-200 flex items-center justify-between gap-3">
                       <p className="text-xs text-amber-900 leading-snug">
