@@ -610,7 +610,7 @@ export async function fetchDynamicPost(slug: string): Promise<Post | undefined> 
 // spammy) AND were reachable at /blog/[slug] before publish (reader
 // sees "Published 2026-05-12" when reading on 2026-05-08).
 function isPublished(p: Post, asOf: Date = new Date()): boolean {
-  const today = asOf.toISOString().slice(0, 10);
+  const today = storeToday(asOf);
   return p.publishedAt <= today;
 }
 
