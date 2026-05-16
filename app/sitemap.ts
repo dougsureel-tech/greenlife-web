@@ -6,6 +6,7 @@ import { NEAR_TOWNS } from "@/lib/near-towns";
 import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { STRAIN_TYPES } from "@/lib/strain-types";
 import { getStrainsInCurrentWave } from "@/lib/strains";
+import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
 // (brands, deals, posts) but those change rarely (deals daily at most;
@@ -16,50 +17,12 @@ import { getStrainsInCurrentWave } from "@/lib/strains";
 // changes by more than 30 min. Sister of inv v342.605 cross-repo port.
 export const revalidate = 1800;
 
-// Known-broken vendor CDN URLs surfaced by the 200-or-bust audit on
-// 2026-05-09. These vendors appear in glw Postgres `vendors.logoUrl`
-// pointing to external WordPress uploads that 404 or sit behind a
-// SiteGround captcha challenge (so Google bot can't fetch). Filtering
-// them out of <image:image> entries keeps the sitemap clean. The
-// `/brands/<slug>` page entry itself stays in — there's a real page,
-// just no preferred image. Doug-action: update vendors.logoUrl in glw
-// Postgres to a working source (self-hosted under /public/images/brands/
-// or verified vendor CDN) — then remove the URL from this set.
-const BROKEN_LOGO_URLS = new Set<string>([
-  // Evergreen Herbal — 404 on the420bar.com WP upload (2026-05-09)
-  "https://the420bar.com/wp-content/uploads/2022/04/420-logo-alpha.png",
-  // Agro Couture — 202 captcha challenge on agrocouture.com (SiteGround)
-  "https://agrocouture.com/wp-content/uploads/2024/01/Agro-Couture_Logo-gold.png",
-]);
-
-// Domains we will NEVER emit as <image:image> in the sitemap, even if
-// the vendors.logoUrl DB field points at one. Per memory
-// `feedback_vendor_logo_sources`: vendor logos must come from the
-// brand's own site/CDN, NOT from third-party aggregators (Weedmaps,
-// Leafly, etc.). Using an aggregator's CDN signals to Google that we
-// don't own the brand's identity + risks the URL going dark when the
-// aggregator changes their image-hosting structure (Weedmaps in
-// particular has migrated their image URLs multiple times in the
-// last few years). Caught 2026-05-10 by /loop tick 15 brand-page
-// health audit on glw — `1555-industrial-llc` had a weedmaps.com
-// logoUrl that was getting emitted to sitemap. Doug-action: update
-// `1555 Industrial LLC` vendors.logoUrl in glw Postgres to a self-
-// hosted (`/public/images/brands/1555-industrial.png`) or
-// vendor-CDN source. Other vendors with aggregator logos will be
-// silently filtered until DB-level cleanup happens.
-const BANNED_LOGO_DOMAINS = ["weedmaps.com", "leafly.com", "leafly.ca"];
-
-function isBannedLogoUrl(url: string): boolean {
-  if (BROKEN_LOGO_URLS.has(url)) return true;
-  try {
-    const host = new URL(url).hostname.toLowerCase();
-    return BANNED_LOGO_DOMAINS.some((banned) => host === banned || host.endsWith(`.${banned}`));
-  } catch {
-    // Malformed URL — drop it from sitemap. Sitemap with garbage URLs
-    // is worse than sitemap missing an image entry.
-    return true;
-  }
-}
+// Vendor-logo source-of-truth guard lives in `lib/banned-logo-url.ts` —
+// shared with `app/brands/[slug]/page.tsx` since v36.605. Drops aggregator
+// hosts (weedmaps/leafly) + known-404 URLs (the420bar.com, agrocouture.com)
+// before they hit any customer-facing surface. Doug-action: when a vendor
+// row's logoUrl gets cleaned up in Postgres, remove the corresponding URL
+// from `BROKEN_LOGO_URLS` in `lib/banned-logo-url.ts`.
 
 // Static-page lastModified: hardcoded date string, NOT `new Date()`.
 // Pre-fix every static page (/about, /contact, /faq, /heroes, etc.)
