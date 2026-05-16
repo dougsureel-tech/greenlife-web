@@ -496,9 +496,7 @@ export default async function BrandPage({ params }: Props) {
         <div className="rounded-2xl bg-gradient-to-r from-green-800 to-emerald-800 text-white px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p className="font-bold text-base">Want to order {brand.name}?</p>
-            <p className="text-green-200/80 text-sm">
-              Place a pickup order and it&apos;ll be ready when you arrive.
-            </p>
+            <p className="text-green-200/80 text-sm">Place a pickup order — save 20% online.</p>
           </div>
           <Link
             href={withAttr(`/menu?brand=${slug}`, "brand", slug)}

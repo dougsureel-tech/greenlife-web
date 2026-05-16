@@ -384,7 +384,7 @@ export default async function StrainSlugPage({
         <div className="max-w-3xl mx-auto px-4 py-12 text-center">
           <h2 className="text-2xl md:text-3xl font-serif mb-3">See if we have {s.name} in stock</h2>
           <p className="text-emerald-200 mb-6 max-w-xl mx-auto">
-            Browse the live menu for {STORE.name}. Inventory updates throughout the day.
+            Live inventory at {STORE.name} — save 20% on every online order.
           </p>
           <Link
             href={withAttr(`/menu?q=${encodeURIComponent(s.name)}`, STRAIN_ATTR_KEY, s.slug)}
