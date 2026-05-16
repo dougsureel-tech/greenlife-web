@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useStash } from "@/lib/stash";
 import { StashButton } from "@/components/StashButton";
+import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_BADGE: Record<string, string> = {
@@ -126,8 +127,19 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                         loading="lazy"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-stone-100 to-stone-200">
-                        {icon}
+                      <div
+                        role="img"
+                        aria-label={p.name}
+                        className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                      >
+                        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
+                          {getProductPlaceholderIcon(p.category)}
+                        </span>
+                        {p.brand && (
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
+                            {p.brand}
+                          </span>
+                        )}
                       </div>
                     )}
                     <StashButton productId={p.id} />

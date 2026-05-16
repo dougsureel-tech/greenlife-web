@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRecentlyViewed } from "@/lib/recently-viewed";
+import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_DOT: Record<string, string> = {
@@ -69,8 +70,12 @@ export function RecentlyViewedStrip({
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-stone-100 to-stone-200">
-                    🌱
+                  <div
+                    role="img"
+                    aria-label={p.name}
+                    className={`w-full h-full flex items-center justify-center text-3xl ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                  >
+                    <span aria-hidden="true">{getProductPlaceholderIcon(p.category)}</span>
                   </div>
                 )}
                 {p.strainType && STRAIN_DOT[p.strainType] && (
