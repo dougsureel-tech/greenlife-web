@@ -60,6 +60,7 @@ const EXTENSIONS = new Set([".ts", ".tsx"]);
 // Allowlist by path prefix (relative to ROOT).
 const EXEMPT_PREFIXES = [
   "app/brands/[slug]/_brands/", // 3rd-party brand pages legitimately describe their own ownership
+  "lib/brand-copy.ts", // file-based brand-bio SSoT — describes 3rd-party brands, same rationale as _brands/ above (v36.305 ship)
   "scripts/",
   "lib/version.ts", // changelog entries describe the rule retrospectively
 ];
