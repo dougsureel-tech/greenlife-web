@@ -26,6 +26,8 @@ import {
   isStrainInWave,
   type Strain,
 } from "@/lib/strains";
+import { STRAIN_TYPES } from "@/lib/strain-types";
+import { isStrainTypeSlug, strainTypeMetadata, StrainTypePage } from "../_type-handler";
 
 // strain-slug attribution channel for /menu deep-links from per-strain pages
 const STRAIN_ATTR_KEY = "strains" as const;
@@ -38,8 +40,15 @@ export const dynamic = "force-static";
 export const revalidate = false;
 export const dynamicParams = false;
 
+// Combined static params: strain-type slugs (indica/sativa/hybrid/cbd) + per-strain
+// slugs. Next.js 16 rejects sibling dynamic routes — `/strains/[type]` + `/strains/[slug]`
+// at the same level can't be distinguished — so this one route dispatches both via
+// the _type-handler helper module.
 export function generateStaticParams() {
-  return STRAIN_SLUGS.map((slug) => ({ slug }));
+  return [
+    ...STRAIN_TYPES.map((t) => ({ slug: t.slug })),
+    ...STRAIN_SLUGS.map((slug) => ({ slug })),
+  ];
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -60,6 +69,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  // Dispatch: type slugs (indica/sativa/hybrid/cbd) route to the type-handler.
+  if (isStrainTypeSlug(slug)) {
+    const meta = strainTypeMetadata(slug);
+    return meta ?? { title: "Not found" };
+  }
   const s = getStrain(slug);
   if (!s) return { title: "Not found" };
 
@@ -116,6 +130,10 @@ export default async function StrainSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  // Dispatch: type slugs (indica/sativa/hybrid/cbd) render the per-category page.
+  if (isStrainTypeSlug(slug)) {
+    return <StrainTypePage slug={slug} />;
+  }
   const s = getStrain(slug);
   if (!s) notFound();
 
