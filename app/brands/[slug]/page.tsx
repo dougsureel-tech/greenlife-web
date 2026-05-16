@@ -7,6 +7,7 @@ import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
 import { getBrandCopy } from "@/lib/brand-copy";
 import { withAttr } from "@/lib/attribution";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
@@ -382,6 +383,8 @@ export default async function BrandPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: safeJsonLd(productSchemas) }}
         />
       )}
+
+      <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: brand.name }]} />
 
       {/* Header */}
       <div className="bg-green-950 text-white py-10 sm:py-14">
