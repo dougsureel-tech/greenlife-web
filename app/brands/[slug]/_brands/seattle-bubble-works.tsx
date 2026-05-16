@@ -33,7 +33,7 @@ const ABOUT_QA = [
   },
   {
     q: "Who runs Seattle Bubble Works?",
-    a: "Joby Sewell founded the company after working at a flower-and-vape processor whose volume-first approach didn't fit his medical-grade quality bar. Justin Boujelle is the head bubble hash maker; Bill Asher runs operations; Jem handles financial operations. Small bench, hash specialists.",
+    a: "Joby Sewell founded the company after working at a flower-and-vape processor whose volume-first approach didn't fit his small-batch quality standards. Justin Boujelle is the head bubble hash maker; Bill Asher runs operations; Jem handles financial operations. Small bench, hash specialists.",
   },
   {
     q: "What do they actually ship?",
