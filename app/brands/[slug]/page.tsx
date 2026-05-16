@@ -128,9 +128,18 @@ const SLUG_ALIASES: Record<string, string> = {
 
 type Props = { params: Promise<{ slug: string }> };
 
+// dynamicParams=false: unknown brand slugs return proper HTTP 404 at the
+// edge instead of falling through to a soft-404 origin render. SLUG_ALIASES
+// keys are emitted alongside canonical brand slugs so the friendly URLs
+// (`/brands/plaid-jacket` etc.) continue to resolve. Sister scc + GW Z48
+// cross-stack port (matrix-route fast-404 doctrine).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const brands = await getActiveBrands().catch(() => []);
-  return brands.map((b) => ({ slug: b.slug }));
+  const canonical = brands.map((b) => ({ slug: b.slug }));
+  const aliases = Object.keys(SLUG_ALIASES).map((slug) => ({ slug }));
+  return [...canonical, ...aliases];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -5,6 +5,7 @@ import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { STRAIN_TYPES } from "@/lib/strain-types";
+import { getStrainsInCurrentWave } from "@/lib/strains";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
 // (brands, deals, posts) but those change rarely (deals daily at most;
@@ -122,6 +123,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_LASTMOD,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    // Per-strain pages — gated by SEO_STRAIN_WAVE env var (Doug 2026-05-15
+    // cadence-gate doctrine, 6 net-new URLs/day/stack). All 50 pages
+    // physically exist in the build; only those within the current wave
+    // index appear in the sitemap (the rest carry noindex meta).
+    ...getStrainsInCurrentWave().map((slug) => ({
+      url: `${STORE.website}/strains/${slug}`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
     {
       url: `${STORE.website}/heroes`,
