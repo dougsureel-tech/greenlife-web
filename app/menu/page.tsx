@@ -18,6 +18,35 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 //
 // Config + script tags live in JaneMenu.tsx; values were recovered from
 // the WordPress site archive on web.archive.org (2026-01-12 snapshot).
+//
+// ═══════════════════════════════════════════════════════════════════════
+// 🚨 LOAD-BEARING DOUG-DIRECTIVE 2026-05-16 ~02:50 PT
+//
+// "we need to keep that [iHJ /menu] live until our devmenu is 100 ·
+//  we would like to get it switched over asap"
+//
+// /menu MUST continue rendering <JaneMenu> (iHJ Boost) as the default
+// surface until Doug greenlights the single-flip cutover to the dev tree
+// menu (the `/order` route's OrderMenu.tsx visual register × MenuSearch.tsx
+// polish, per Phase 1 of MENU_MODEL_A_ARCHITECTURE_2026_05_16.md).
+//
+// Future agents: do NOT remove JaneMenu rendering or flip the default to
+// MenuFallback / a revived MenuSearch without explicit Doug-greenlight.
+// The Phase 1 build is allowed to:
+//   - polish OrderMenu / MenuSearch on the /order or /menu-preview route
+//   - wire URL-param contracts (?q ?brand ?strain ?vibe etc.) into the
+//     dev menu surface
+//   - delete unused JaneMenu code ONLY AFTER cutover greenlight
+//
+// What it is NOT allowed to do:
+//   - change /menu/page.tsx default render from <JaneMenu> to anything else
+//   - 308-redirect /menu to a new path
+//   - hide the JaneMenu behind a feature flag default-off
+//
+// The cutover flip is intentionally a SINGLE atomic Doug-greenlit edit:
+// replace <JaneMenu products={products} … /> with the dev tree menu,
+// delete the iHJ-Boost rendering, ship as a single commit, monitor.
+// ═══════════════════════════════════════════════════════════════════════
 // See also INCIDENTS.md (2026-05-01 entry) for the regression history.
 //
 // Was force-static (embed config is static), now ISR 60s so MenuFallback

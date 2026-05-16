@@ -14,7 +14,13 @@ const VIBES: { value: string; emoji: string; label: string; match: string[] }[] 
   { value: "sleep", emoji: "💤", label: "Sleep", match: ["sleep", "sedat", "drowsy", "bed"] },
   { value: "creative", emoji: "🎨", label: "Creative", match: ["creativ", "focus"] },
   { value: "social", emoji: "🥂", label: "Social", match: ["social", "happy", "talk", "giggl"] },
-  { value: "relief", emoji: "🌱", label: "Relief", match: ["pain", "relief", "anti", "anxiety"] },
+  // WAC 314-55-155 sweep — match tokens MUST stay non-medical even though this
+  // file is currently wired to nothing. When the Menu Model A revival ships
+  // (per MENU_MODEL_A_ARCHITECTURE_2026_05_16.md Phase 1), this chip becomes
+  // live and the previous tokens ["pain","relief","anti","anxiety"] would
+  // have shipped the highest-risk WAC compliance leak in the candidate code.
+  // "Calm" + sensory tokens — paired with the v36.205 visible-chip rename.
+  { value: "calm", emoji: "🌿", label: "Calm", match: ["relax", "mellow", "calm", "ease"] },
 ];
 
 export function MenuSearch({ categories }: { categories: { slug: string; name: string; count: number }[] }) {
