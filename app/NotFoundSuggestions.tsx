@@ -1,4 +1,10 @@
 "use client";
+// aria-current:ignore-file
+//   usePathname is read here for SUGGESTION generation (offer the customer
+//   an alternative path after a 404), not for "is this the current page"
+//   active-state styling. The Link's href is BY DEFINITION not the current
+//   pathname — current pathname 404'd, suggestion is what we think they
+//   meant. aria-current="page" would be wrong on this Link.
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
