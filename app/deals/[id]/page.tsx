@@ -5,6 +5,7 @@ import { STORE } from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 import { withAttr } from "@/lib/attribution";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { effectivePriceFor } from "@/lib/online-pricing";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -312,7 +313,16 @@ export default async function DealDetailPage({ params }: Params) {
                     </div>
                     <div className="flex items-center justify-between pt-0.5">
                       <span className="text-[12px] font-bold tabular-nums text-emerald-700">
-                        {p.unitPrice != null ? `$${p.unitPrice.toFixed(2)}` : "—"}
+                        {(() => {
+                          const pricing = effectivePriceFor(p, deal);
+                          if (pricing.displayPrice == null) return "—";
+                          return (
+                            <>
+                              <span className="text-stone-400 line-through decoration-red-500 mr-1 font-medium">${pricing.originalPrice?.toFixed(2)}</span>
+                              ${pricing.displayPrice.toFixed(2)}
+                            </>
+                          );
+                        })()}
                       </span>
                       {p.thcPct != null && (
                         <span className="text-[10px] text-stone-500 tabular-nums">

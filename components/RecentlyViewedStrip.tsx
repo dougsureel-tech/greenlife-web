@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRecentlyViewed } from "@/lib/recently-viewed";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { effectivePriceFor } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_DOT: Record<string, string> = {
@@ -96,7 +97,16 @@ export function RecentlyViewedStrip({
                 </div>
                 <div className="flex items-center justify-between pt-0.5">
                   <span className={`text-[11px] font-bold tabular-nums ${text}`}>
-                    {p.unitPrice != null && p.unitPrice > 0 ? `$${p.unitPrice.toFixed(2)}` : "—"}
+                    {(() => {
+                      const pricing = effectivePriceFor(p, null);
+                      if (pricing.displayPrice == null) return "—";
+                      return (
+                        <>
+                          <span className="text-stone-400 line-through decoration-red-500 mr-1 font-medium">${pricing.originalPrice?.toFixed(2)}</span>
+                          ${pricing.displayPrice.toFixed(2)}
+                        </>
+                      );
+                    })()}
                   </span>
                   {p.thcPct != null && (
                     <span className="text-[9px] text-stone-500 tabular-nums">THC {p.thcPct.toFixed(0)}%</span>

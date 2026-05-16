@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useStash } from "@/lib/stash";
 import { StashButton } from "@/components/StashButton";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
 const STRAIN_BADGE: Record<string, string> = {
@@ -173,13 +174,20 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                       )}
                     </div>
                     <div className="flex items-center justify-between pt-1">
-                      <span className="font-extrabold text-green-800 tabular-nums">
-                        {p.unitPrice != null && p.unitPrice > 0 ? (
-                          `$${p.unitPrice.toFixed(2)}`
-                        ) : (
-                          <span className="text-stone-400 text-sm font-medium">In store</span>
-                        )}
-                      </span>
+                      {(() => {
+                        if (p.unitPrice == null || p.unitPrice <= 0) {
+                          return <span className="text-stone-400 text-sm font-medium">In store</span>;
+                        }
+                        const pricing = effectivePriceFor(p, null);
+                        if (pricing.displayPrice == null) return null;
+                        return (
+                          <div className="flex flex-col leading-tight">
+                            <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                            <span className="font-extrabold text-green-800 tabular-nums">${pricing.displayPrice.toFixed(2)}</span>
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">{ONLINE_DISCOUNT_PCT}% off online</span>
+                          </div>
+                        );
+                      })()}
                       <Link
                         href="/menu"
                         className="text-[11px] font-bold text-green-700 hover:text-green-600 transition-colors"
