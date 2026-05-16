@@ -6,6 +6,7 @@ import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
 import { getBrandCopy } from "@/lib/brand-copy";
 import { withAttr } from "@/lib/attribution";
+import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
@@ -239,6 +240,11 @@ export default async function BrandPage({ params }: Props) {
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) notFound();
 
+  // Defense-in-depth: drop aggregator/broken logoUrls before they hit
+  // render, JSON-LD, or product-image fallback. Sitemap already filters
+  // via the same module (v13.905). Sister scc same fix.
+  const logoUrl = brand.logoUrl && !isBannedLogoUrl(brand.logoUrl) ? brand.logoUrl : null;
+
   const products = await getBrandProducts(brand.id).catch(() => []);
   const categories = [...new Set(products.map((p) => p.category ?? "Other"))].sort((a, b) => {
     const order = [
@@ -263,7 +269,7 @@ export default async function BrandPage({ params }: Props) {
     name: brand.name,
     description: `${brand.name} — Washington-state cannabis brand carried at ${STORE.name} in ${STORE.address.city}, WA. ${brand.activeSkus} active product${brand.activeSkus !== 1 ? "s" : ""} on the menu.`,
     ...(brand.website ? { url: brand.website, sameAs: [brand.website] } : {}),
-    ...(brand.logoUrl ? { logo: brand.logoUrl, image: brand.logoUrl } : {}),
+    ...(logoUrl ? { logo: logoUrl, image: logoUrl } : {}),
   };
 
   // Product schemas — gives AI engines structured, citable answers for
@@ -280,7 +286,7 @@ export default async function BrandPage({ params }: Props) {
       name: p.name,
       brand: { "@id": `${brandUrl}#brand` },
       ...(p.category ? { category: p.category } : {}),
-      image: p.image_url || brand.logoUrl || `${STORE.website}/brands/${slug}/opengraph-image`,
+      image: p.image_url || logoUrl || `${STORE.website}/brands/${slug}/opengraph-image`,
       ...(p.effects ? { description: p.effects } : {}),
       ...(p.thc_pct != null
         ? {
@@ -380,9 +386,9 @@ export default async function BrandPage({ params }: Props) {
       {/* Header */}
       <div className="bg-green-950 text-white py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
-          {brand.logoUrl ? (
+          {logoUrl ? (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white flex items-center justify-center shadow-xl relative overflow-hidden">
-              <Image src={brand.logoUrl} alt={brand.name} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
+              <Image src={logoUrl} alt={brand.name} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
             </div>
           ) : (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-4xl">
