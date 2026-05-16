@@ -8,18 +8,19 @@ import { useEffect, useRef, useState } from "react";
 // section state so we can hide a section header when all its cards
 // are filtered out.
 
+// WAC 314-55-155 / 077(7) sweep — vibe-chip labels + match tokens stay in
+// sensory / lifestyle language, NOT medical-adjective language. Previous
+// labels ("Sleep", "Energize") + tokens ("sedat", "drowsy", "energ") all
+// implied medical effects. Now "Wind down" + "Active" — sensory shorthand,
+// no efficacy claim. Per MENU_MODEL_A_ARCHITECTURE_2026_05_16.md Ticket N12.
+// File is currently dead code (wired to nothing) but becomes live when
+// Phase 1 N5 lifts this filter rail into the OrderMenu / MenuClient.
 const VIBES: { value: string; emoji: string; label: string; match: string[] }[] = [
   { value: "chill", emoji: "😌", label: "Chill", match: ["relax", "calm", "chill", "mellow"] },
-  { value: "energize", emoji: "⚡", label: "Energize", match: ["energ", "uplift", "focus", "creative"] },
-  { value: "sleep", emoji: "💤", label: "Sleep", match: ["sleep", "sedat", "drowsy", "bed"] },
-  { value: "creative", emoji: "🎨", label: "Creative", match: ["creativ", "focus"] },
+  { value: "active", emoji: "⚡", label: "Active", match: ["bright", "lively", "spark", "lift"] },
+  { value: "wind-down", emoji: "💤", label: "Wind down", match: ["mellow", "easy", "quiet", "low-key"] },
+  { value: "creative", emoji: "🎨", label: "Creative", match: ["spark", "fresh", "explore"] },
   { value: "social", emoji: "🥂", label: "Social", match: ["social", "happy", "talk", "giggl"] },
-  // WAC 314-55-155 sweep — match tokens MUST stay non-medical even though this
-  // file is currently wired to nothing. When the Menu Model A revival ships
-  // (per MENU_MODEL_A_ARCHITECTURE_2026_05_16.md Phase 1), this chip becomes
-  // live and the previous tokens ["pain","relief","anti","anxiety"] would
-  // have shipped the highest-risk WAC compliance leak in the candidate code.
-  // "Calm" + sensory tokens — paired with the v36.205 visible-chip rename.
   { value: "calm", emoji: "🌿", label: "Calm", match: ["relax", "mellow", "calm", "ease"] },
 ];
 
