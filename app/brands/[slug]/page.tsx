@@ -5,6 +5,7 @@ import Image from "next/image";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
 import { getBrandCopy } from "@/lib/brand-copy";
+import { withAttr } from "@/lib/attribution";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
 import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
@@ -499,7 +500,7 @@ export default async function BrandPage({ params }: Props) {
             </p>
           </div>
           <Link
-            href="/menu"
+            href={withAttr(`/menu?brand=${slug}`, "brand", slug)}
             className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all shadow-md hover:-translate-y-0.5"
           >
             Order for Pickup →
@@ -511,7 +512,10 @@ export default async function BrandPage({ params }: Props) {
           <div className="text-center py-16 space-y-3">
             <div className="text-4xl" aria-hidden="true">🌿</div>
             <p className="text-stone-500 font-medium">No products currently in stock</p>
-            <Link href="/menu" className="text-sm text-green-700 font-semibold hover:underline">
+            <Link
+              href={withAttr(`/menu?brand=${slug}`, "brand", slug)}
+              className="text-sm text-green-700 font-semibold hover:underline"
+            >
               Browse full menu →
             </Link>
           </div>
@@ -585,7 +589,7 @@ export default async function BrandPage({ params }: Props) {
                               <span className="text-stone-300">—</span>
                             )}
                             <Link
-                              href="/menu"
+                              href={withAttr(`/menu?brand=${slug}`, "brand", slug)}
                               className="text-xs font-bold text-green-700 hover:text-green-600 transition-colors"
                             >
                               Order →
