@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
@@ -586,11 +587,18 @@ export function OrderMenu({
     return applyRedemptionTier(tier, cartTotal);
   }, [selectedTierPointCost, eligibleTiers, cartTotal]);
 
-  function addToCart(product: MenuProduct) {
+  function addToCart(product: MenuProduct, applicableDeal: ActiveDeal | null) {
+    // Path A pricing per Doug 2026-05-16: the discounted price IS the
+    // cart charge, not display-only. Store the post-discount unitPrice
+    // so cartTotal + line-item math + order submission all flow from
+    // a single number. Locks the price at cart-add time (standard
+    // e-com behavior — if a daily deal expires between add + checkout,
+    // the customer still gets the locked-in price).
+    const { displayPrice } = effectivePriceFor(product, applicableDeal);
     setCart((prev) => {
       const existing = prev.find((i) => i.id === product.id);
       if (existing) return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, unitPrice: displayPrice ?? product.unitPrice, quantity: 1 }];
     });
   }
 
@@ -1164,10 +1172,26 @@ export function OrderMenu({
                               </p>
                             )}
 
-                            {/* Price + Add */}
+                            {/* Price + Add — Doug 2026-05-16: every online product
+                                shows a strikethrough original + discounted price.
+                                20% floor for online, daily deals push it bigger
+                                (only the larger discount applies, no stacking).
+                                See `lib/online-pricing.ts`. */}
                             <div className="flex items-center justify-between pt-1 border-t border-stone-50">
-                              <div className="font-extrabold text-stone-900 text-base">
-                                {product.unitPrice != null ? `$${product.unitPrice.toFixed(2)}` : "—"}
+                              <div className="flex flex-col">
+                                {(() => {
+                                  const pricing = effectivePriceFor(product, deal);
+                                  if (pricing.displayPrice == null) return <span className="font-extrabold text-stone-900 text-base">—</span>;
+                                  return (
+                                    <>
+                                      <span className="text-stone-400 line-through text-xs decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                                      <span className="font-extrabold text-stone-900 text-base leading-tight">${pricing.displayPrice.toFixed(2)}</span>
+                                      <span className="text-[10px] font-bold uppercase tracking-wider text-green-700 leading-none">
+                                        {pricing.dealName ? `${Math.round(pricing.discountPct)}% off · ${pricing.dealName}` : `${ONLINE_DISCOUNT_PCT}% off online`}
+                                      </span>
+                                    </>
+                                  );
+                                })()}
                               </div>
                               {cartItem ? (
                                 <div className="flex items-center gap-2">
@@ -1194,7 +1218,7 @@ export function OrderMenu({
                                 </div>
                               ) : (
                                 <button type="button"
-                                  onClick={() => addToCart(product)}
+                                  onClick={() => addToCart(product, deal)}
                                   disabled={product.unitPrice == null}
                                   aria-label={`Add ${parsed.name} to cart`}
                                   // min-h-[44px] floor (Apple HIG) — visually
