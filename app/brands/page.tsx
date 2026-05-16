@@ -1,3 +1,8 @@
+// canonical:ignore-file — this page 308-redirects to /menu and never returns
+// content, so a canonical signal on it would be meaningless. The redirect
+// itself IS the canonical declaration. Marker tells check-canonical-or-noindex
+// pre-push gate to skip this file.
+
 // Per Doug + Kat 2026-05-04: the public-facing brands index was deleted
 // because (a) it exposed our full vendor relationship list and (b) it made
 // daily-deal vendor concentration glanceable to anyone. The dialed-in

@@ -106,7 +106,8 @@ for gate in \
   scripts/check-after-wrap-external-send.mjs \
   scripts/check-bulk-fanout-throttle.mjs \
   scripts/check-vercel-project-link.mjs \
-  scripts/check-no-xff-nullish-trap.mjs; do
+  scripts/check-no-xff-nullish-trap.mjs \
+  scripts/check-canonical-or-noindex.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
