@@ -236,6 +236,7 @@ export function CategoryJsonLd({ category, products, url }: CategoryJsonLdProps)
           "@type": "Product",
           "@id": productUrl(p),
           name: p.name,
+          image: productImage(p),
           ...(p.brand ? { brand: { "@type": "Brand", name: p.brand } } : {}),
           ...(p.unitPrice != null
             ? {

@@ -244,11 +244,13 @@ export default async function BlogPost({ params }: Props) {
     author,
     articleSection: post.category,
     wordCount: post.body.split(/\s+/).length,
-    // Article rich-result eligibility requires an `image` — Google won't
-    // promote the post to article-card SERP styling without it. Points
-    // at the root opengraph-image route (1200x630) which renders a
-    // brand-styled card per post via the page-level dynamic OG. v7.625.
-    image: [`${STORE.website}/opengraph-image`],
+    // Article rich-result eligibility requires `image`. Points at the
+    // per-route opengraph-image (1200x630) so each post gets its own
+    // SERP card art, not a shared homepage image (GSC "Missing field
+    // 'image'" was previously flagging because the conditional shape
+    // here could resolve to undefined for some posts; per-route URL
+    // always resolves via the file-convention OG handler).
+    image: [`${STORE.website}/blog/${slug}/opengraph-image`],
   };
 
   const breadcrumbSchema = {

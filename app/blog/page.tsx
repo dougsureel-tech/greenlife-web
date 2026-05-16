@@ -57,6 +57,7 @@ export default async function BlogIndex() {
       url: `${STORE.website}/blog/${p.slug}`,
       datePublished: p.publishedAt,
       ...(p.updatedAt ? { dateModified: p.updatedAt } : {}),
+      image: [`${STORE.website}/blog/${p.slug}/opengraph-image`],
     })),
   };
 

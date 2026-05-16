@@ -137,6 +137,7 @@ export default async function LearnTopicPage({
     isPartOf: { "@id": `${STORE.website}/learn` },
     publisher: { "@id": `${STORE.website}/#dispensary` },
     about: { "@id": `${STORE.website}/#dispensary` },
+    image: [`${STORE.website}/learn/${topic.slug}/opengraph-image`],
   };
 
   // Body renderer — markdown-like: `## ` lines become <h2>, blank-line
