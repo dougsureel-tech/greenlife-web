@@ -236,37 +236,80 @@ function parseProductName(p: MenuProduct): { name: string; weight: string | null
   return { name: kept.join(" — ") || p.name, weight };
 }
 
+// Placeholder gradient maps — used when product.imageUrl is null or the
+// <Image> fails to load. Strain-type-tinted for Flower/Pre-Rolls (where
+// strain matters), category-tinted otherwise. Picked so a 30%-photo-gap
+// menu still reads as an intentional design rather than broken-image
+// fallback. Reuse the STRAIN_COLORS palette family for cross-card
+// coherence with strain-chip + filter-pill rendering.
+const PLACEHOLDER_STRAIN_GRADIENTS: Record<string, string> = {
+  Sativa: "bg-gradient-to-br from-red-100 via-orange-50 to-amber-100",
+  Indica: "bg-gradient-to-br from-purple-100 via-indigo-50 to-blue-100",
+  Hybrid: "bg-gradient-to-br from-emerald-100 via-green-50 to-lime-100",
+  CBD: "bg-gradient-to-br from-sky-100 via-blue-50 to-cyan-100",
+};
+const PLACEHOLDER_CATEGORY_GRADIENTS: Record<string, string> = {
+  Edibles: "bg-gradient-to-br from-amber-100 via-orange-50 to-yellow-100",
+  Edible: "bg-gradient-to-br from-amber-100 via-orange-50 to-yellow-100",
+  Vapes: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Cartridge: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Cartridges: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Disposable: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Disposables: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Pod: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Pods: "bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100",
+  Concentrates: "bg-gradient-to-br from-stone-100 via-amber-50 to-orange-100",
+  Concentrate: "bg-gradient-to-br from-stone-100 via-amber-50 to-orange-100",
+  Beverages: "bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100",
+  Beverage: "bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-100",
+  Tinctures: "bg-gradient-to-br from-teal-100 via-cyan-50 to-sky-100",
+  Tincture: "bg-gradient-to-br from-teal-100 via-cyan-50 to-sky-100",
+  Topicals: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
+  Topical: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
+  Capsules: "bg-gradient-to-br from-slate-100 via-gray-50 to-zinc-100",
+  Capsule: "bg-gradient-to-br from-slate-100 via-gray-50 to-zinc-100",
+  Accessories: "bg-gradient-to-br from-stone-100 via-neutral-50 to-gray-100",
+  Accessory: "bg-gradient-to-br from-stone-100 via-neutral-50 to-gray-100",
+};
+const PLACEHOLDER_DEFAULT_GRADIENT = "bg-gradient-to-br from-stone-100 via-stone-50 to-stone-200";
+
 function ProductImage({
   src,
   alt,
   category,
   brand,
+  strainType,
 }: {
   src: string | null;
   alt: string;
   category: string | null;
   brand?: string | null;
+  strainType?: string | null;
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
   const icon = CAT_ICONS[category ?? ""] ?? "🌱";
 
   if (!src || errored) {
-    // No image (or load failed): show a graceful placeholder. When the brand is
-    // known, render brand-name text under the category icon — gives the customer
-    // a meaningful card while Doug uploads the real photo (Doug 2026-05-07
-    // image-coverage push). Falls back to icon-only when brand is null.
+    // Pick gradient: strain-type wins for Flower/Pre-Rolls (where the customer
+    // expects strain-coded shelf signal), category-tinted otherwise. Default
+    // stone-neutral if neither signal lands. Brand renders as a white-pill
+    // chip with stronger contrast than the v36.345-era dim-stone treatment.
+    const isFlowerLike = category === "Flower" || (category?.startsWith("Pre-Roll") ?? false);
+    const gradient = (isFlowerLike && strainType && PLACEHOLDER_STRAIN_GRADIENTS[strainType])
+      || PLACEHOLDER_CATEGORY_GRADIENTS[category ?? ""]
+      || PLACEHOLDER_DEFAULT_GRADIENT;
     return (
       <div
         role="img"
         aria-label={alt}
-        className="w-full h-full bg-gradient-to-br from-stone-100 to-stone-200 flex flex-col items-center justify-center gap-1 text-stone-500"
+        className={`w-full h-full ${gradient} flex flex-col items-center justify-center gap-2`}
       >
-        <span className="text-4xl leading-none" aria-hidden="true">
+        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
           {icon}
         </span>
         {brand ? (
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-stone-500/80 px-2 text-center line-clamp-1">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
             {brand}
           </span>
         ) : null}
@@ -1054,6 +1097,7 @@ export function OrderMenu({
                               alt={product.name}
                               category={product.category}
                               brand={product.brand}
+                              strainType={product.strainType}
                             />
                             {deal && (
                               // %-off overlay top-left — iHeartJane-style
