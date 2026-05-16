@@ -23,7 +23,7 @@ const ABOUT_QA = [
   },
   {
     q: "Who founded Fairwinds?",
-    a: "James and Wendy Hull. Both left federal-government careers — James was an engineer building ships for federal contractors, Wendy was a senior executive at the Department of Transportation — and started Fairwinds in 2014 to focus on highly-engineered, nutraceutical-style cannabis wellness products.",
+    a: "James and Wendy Hull. Both left federal-government careers — James was an engineer building ships for federal contractors, Wendy was a senior executive at the Department of Transportation — and started Fairwinds in 2014 to focus on highly-engineered cannabis formulations — capsules, tinctures, topicals, inhalers.",
   },
   {
     q: "What product lines does Fairwinds run?",
@@ -31,7 +31,7 @@ const ABOUT_QA = [
   },
   {
     q: "What makes Fairwinds different from other Washington producers?",
-    a: "They don't sell flower. Everything they grow gets extracted in-house and goes into a finished product — capsule, tincture, topical, or vape. The cultivation facility is fully automated, runs zero pesticides with HEPA-filtered grow rooms, and the formulations lean on eastern-medicine herbal blends alongside the cannabis extract. By 2019 their FLOW Cream was the third-highest-revenue product in the state.",
+    a: "They don't sell flower. Everything they grow gets extracted in-house and goes into a finished product — capsule, tincture, topical, or vape. The cultivation facility is fully automated, runs zero pesticides with HEPA-filtered grow rooms, and the formulations pair cannabis extract with botanical herbal blends. By 2019 their FLOW Cream was the third-highest-revenue product in the state.",
   },
 ];
 
@@ -86,7 +86,7 @@ const SUB_BRANDS: Array<{ name: string; tag: string; line: string }> = [
   {
     name: "Inhaler",
     tag: "Inhalers",
-    line: "Metered-dose cannabis inhalers — clinical-style delivery, fast onset, no combustion.",
+    line: "Metered-dose cannabis inhalers — measured per puff, no combustion.",
   },
   {
     name: "Suppositories",
@@ -96,7 +96,7 @@ const SUB_BRANDS: Array<{ name: string; tag: string; line: string }> = [
   {
     name: "Tincture",
     tag: "Tinctures",
-    line: "Catch-all for the rest of the Fairwinds tincture wall — Deep Sleep, Defense, Digestify, Mental Balance, Sriracha.",
+    line: "Catch-all for the rest of the Fairwinds tincture wall — formats like Deep Sleep, Defense, Digestify, Mental Balance, Sriracha.",
   },
 ];
 
@@ -161,7 +161,7 @@ export default function FairwindsBrandPage({
         logoAlt="Fairwinds Manufacturing logo"
         title="Fairwinds"
         tagline="Manufacturing"
-        subtitle="Vancouver, WA — since 2014. Tinctures, capsules, topicals, inhalers, and suppositories. Engineered cannabis wellness, not flower."
+        subtitle="Vancouver, WA — since 2014. Tinctures, capsules, topicals, inhalers, and suppositories. Engineered cannabis formulations, not flower."
         pills={[
           { kind: "muted", label: "Vancouver, WA", dot: true },
           { kind: "muted", label: "Producer / Processor" },
@@ -191,15 +191,15 @@ export default function FairwindsBrandPage({
       <BrandStory
         palette={PALETTE}
         eyebrow="Our Story"
-        headline="Engineered in Vancouver. Wellness-forward across the catalog."
+        headline="Engineered in Vancouver. Format-first across the catalog."
       >
         <p>
           James and Wendy Hull started Fairwinds in 2014. Both left federal-government
           careers to do it — James had been an engineer for a contractor that built ships
           from superyachts to Israeli naval vessels, and Wendy had worked as a top-level
           executive at the Department of Transportation. The shift made sense to them
-          because they wanted to bring an engineered, nutraceutical approach to cannabis
-          wellness — not just &quot;put it in a jar.&quot;
+          because they wanted to bring an engineered approach to cannabis
+          formulations — not just &quot;put it in a jar.&quot;
         </p>
         <p>
           The Vancouver facility is fully automated and was designed by James himself, so
@@ -211,10 +211,10 @@ export default function FairwindsBrandPage({
         </p>
         <p>
           We carry Fairwinds at {STORE.name} because the formulations are precise and the
-          ratios are honest. When a customer asks for a 1:1 THC:CBD or a sleep-formulated
-          capsule, we can hand them a Fairwinds and know the dose on the package is the
-          dose in the product. Their FLOW Cream is also one of the best-selling topicals in
-          the state — there&apos;s a reason regulars stock up on it.
+          ratios are honest. When a customer asks for a 1:1 THC:CBD ratio or a Deeper Sleep
+          CBN capsule, we can hand them a Fairwinds and know the dose on the package is the
+          dose in the product. Their FLOW Cream has been among the top-selling topicals in
+          WA since 2019 (Headset / Marijuana Venture coverage). Regulars stock up on it.
         </p>
       </BrandStory>
 
@@ -229,7 +229,7 @@ export default function FairwindsBrandPage({
                 The Catalog
               </p>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 leading-tight">
-                Eight lines you&apos;ll see in our wellness case
+                Eight lines you&apos;ll see in our tinctures-and-topicals case
               </h2>
             </div>
             <p className="text-sm text-stone-500 max-w-md">
