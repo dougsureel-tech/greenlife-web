@@ -335,7 +335,21 @@ export function OrderMenu({
     // ?strain=sativa link selects the "Sativa" pill.
     return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
   });
-  const [brandFilter, setBrandFilter] = useState<string | null>(null);
+  const [brandFilter, setBrandFilter] = useState<string | null>(() => {
+    // `/brands/[slug]` CTAs (shipped v36.305) deep-link with `?brand=<slug>`
+    // e.g. `honu-inc`. Resolve slug → exact brand name by matching slugified
+    // `product.brand` names so the existing exact-match filter check picks
+    // up. Falls back to raw slug if no product matches — filter then yields
+    // empty state, surfaces "no products for this brand right now" honestly
+    // instead of silently stealth-no-op'ing the URL param.
+    const b = searchParams?.get("brand");
+    if (!b) return null;
+    const slugify = (s: string) =>
+      s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const target = slugify(b);
+    const match = products.find((p) => p.brand && slugify(p.brand) === target);
+    return match?.brand ?? b;
+  });
   const [priceTier, setPriceTier] = useState<PriceTier>("all");
   const [thcTier, setThcTier] = useState<ThcTier>("all");
   const [sortBy, setSortBy] = useState<SortKey>("default");
