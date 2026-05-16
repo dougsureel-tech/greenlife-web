@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 
 type Product = {
   id: string;
@@ -357,8 +358,23 @@ export function PaginatedProductsGrid({
                         />
                       </div>
                     ) : (
-                      <div className="h-32 bg-gradient-to-br from-stone-50 to-stone-100 flex items-center justify-center text-4xl">
-                        {CAT_ICONS[cat] ?? "🌱"}
+                      // Strain-tinted (Flower/Pre-Roll) or category-tinted gradient
+                      // placeholder + brand chip. h-44 to match the image case so
+                      // grid rows stay aligned (pre-v36.405 was h-32 which jagged
+                      // the row when a row mixed photo and no-photo cards).
+                      <div
+                        role="img"
+                        aria-label={p.name}
+                        className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
+                      >
+                        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
+                          {getProductPlaceholderIcon(p.category)}
+                        </span>
+                        {p.brand && (
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
+                            {p.brand}
+                          </span>
+                        )}
                       </div>
                     )}
                     <div className="p-4 space-y-3">
@@ -486,16 +502,19 @@ function FeaturedCard({
               loading="lazy"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-6xl bg-gradient-to-br from-stone-50 to-stone-100">
-              {p.category === "Edibles"
-                ? "🍬"
-                : p.category === "Vapes"
-                  ? "💨"
-                  : p.category === "Concentrates"
-                    ? "🧴"
-                    : p.category === "Pre-Rolls"
-                      ? "🫙"
-                      : "🌿"}
+            <div
+              role="img"
+              aria-label={p.name}
+              className={`absolute inset-0 flex flex-col items-center justify-center gap-3 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
+            >
+              <span className="text-6xl leading-none drop-shadow-sm" aria-hidden="true">
+                {getProductPlaceholderIcon(p.category)}
+              </span>
+              {p.brand && (
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-700 px-4 py-1.5 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm">
+                  {p.brand}
+                </span>
+              )}
             </div>
           )}
           <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-stone-900 shadow-sm">
