@@ -4334,11 +4334,11 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Banana", "Sweet funk", "Light diesel"],
     bestFor: ["End of day", "Couch + movie", "Snack time"],
-    avoidIf: ["You need to function", "You&#x2019;re sensitive to creeper strains"],
+    avoidIf: ["You need to function", "You’re sensitive to creeper strains"],
     faqs: [
       {
         q: "Why do customers call Banana OG a creeper?",
-        a: "Effects build slowly — the first ten minutes feel mild, then it lands heavier than expected. Pace yourself, especially if you&#x2019;re newer to OG-family strains.",
+        a: "Effects build slowly — the first ten minutes feel mild, then it lands heavier than expected. Pace yourself, especially if you’re newer to OG-family strains.",
       },
       {
         q: "Does Banana OG taste like banana?",
@@ -4379,7 +4379,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Dark cherry", "Sweet grape", "Earth"],
     bestFor: ["Wind-down evenings", "After-dinner couch", "Light insomnia nights"],
-    avoidIf: ["You want energetic", "Sweet-cherry aromas aren&#x2019;t your thing"],
+    avoidIf: ["You want energetic", "Sweet-cherry aromas aren’t your thing"],
     faqs: [
       {
         q: "How does Black Cherry Punch compare to Purple Punch?",
@@ -4420,11 +4420,11 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Sweet berry", "Hash", "Earth"],
     bestFor: ["End of day", "Late-night use", "Pre-sleep wind-down"],
-    avoidIf: ["You need to be sharp", "Hashy aromas aren&#x2019;t your thing"],
+    avoidIf: ["You need to be sharp", "Hashy aromas aren’t your thing"],
     faqs: [
       {
         q: "Is Blackberry Kush a strong indica?",
-        a: "Yes — pure indica leaning, body-heavy, classic Afghani heaviness with a berry-sweet top. Not a starter strain if you&#x2019;re very low-tolerance.",
+        a: "Yes — pure indica leaning, body-heavy, classic Afghani heaviness with a berry-sweet top. Not a starter strain if you’re very low-tolerance.",
       },
     ],
     verification: {
@@ -4488,7 +4488,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "GMO × Mendo Breath — savory funk, heavy late-night indica.",
     intro:
       "Garlic Breath is a ThugPug Genetics cross of GMO × Mendo Breath — heavy indica with a savory-garlic-funk " +
-      "aroma that&#x2019;s closer to roasted onion than to candy. Body-heavy, slow-build, gets sedative as the session " +
+      "aroma that’s closer to roasted onion than to candy. Body-heavy, slow-build, gets sedative as the session " +
       "goes on. Customers who already like GMO or Garlic Cookies reach for this.",
     lineage: "GMO × Mendo Breath",
     parents: ["gmo-cookies", "mendo-breath"],
@@ -4506,7 +4506,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Garlic Breath related to Garlic Cookies?",
-        a: "Same family. Garlic Cookies (aka GMO) is one of Garlic Breath&#x2019;s parents. Garlic Breath leans heavier and runs more savory than GMO alone.",
+        a: "Same family. Garlic Cookies (aka GMO) is one of Garlic Breath’s parents. Garlic Breath leans heavier and runs more savory than GMO alone.",
       },
     ],
     verification: {
@@ -4584,7 +4584,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Sweet mint", "Grape", "Pastry"],
     bestFor: ["After-dinner couch time", "Wind-down evenings", "Low-stress nights"],
-    avoidIf: ["You need to function", "Minty-sweet aromas aren&#x2019;t your thing"],
+    avoidIf: ["You need to function", "Minty-sweet aromas aren’t your thing"],
     faqs: [
       {
         q: "Is Lava Cake similar to Wedding Cake?",
@@ -4629,7 +4629,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Why is the lineage half-hidden?",
-        a: "Cookies Fam kept the second parent proprietary. What&#x2019;s on shelves is the Sunset Sherbet × (unknown) framing — same as a few other Cookies releases.",
+        a: "Cookies Fam kept the second parent proprietary. What’s on shelves is the Sunset Sherbet × (unknown) framing — same as a few other Cookies releases.",
       },
     ],
     lineageAlternates: ["Sunset Sherbet × proprietary (Cookies Fam, most-cited)", "Sunset Sherbet × Cherry Pie (community theory)"],
@@ -4670,8 +4670,8 @@ export const STRAINS: Record<string, Strain> = {
     avoidIf: ["You want energetic", "Low-tolerance — runs high"],
     faqs: [
       {
-        q: "What does the &#x2018;Breath&#x2019; in Mendo Breath refer to?",
-        a: "It&#x2019;s a naming convention — Breath strains tend to share the sweet-funky aromatic signature from the Mendo Montage side. Garlic Breath and Peanut Butter Breath are both crosses with Mendo Breath as a parent.",
+        q: "What does the ‘Breath’ in Mendo Breath refer to?",
+        a: "It’s a naming convention — Breath strains tend to share the sweet-funky aromatic signature from the Mendo Montage side. Garlic Breath and Peanut Butter Breath are both crosses with Mendo Breath as a parent.",
       },
     ],
     verification: {
@@ -4695,7 +4695,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Papaya is a Nirvana Seeds indica-dominant hybrid — Citral #13 × Ice #2 cross with a tropical " +
       "mango-papaya aroma and a mellow body landing. Lighter than most indicas, more sweet-fruit than earthy. " +
-      "Customers who don&#x2019;t like piney-skunky indicas often land here.",
+      "Customers who don’t like piney-skunky indicas often land here.",
     lineage: "Citral #13 × Ice #2",
     parents: [null, null],
     thcRange: "15–22%",
@@ -4708,11 +4708,11 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Mango", "Papaya", "Tropical sweet"],
     bestFor: ["Late afternoon", "Casual evening", "Snack time"],
-    avoidIf: ["You don&#x2019;t like sweet-tropical aromas", "You want a heavy knockout indica"],
+    avoidIf: ["You don’t like sweet-tropical aromas", "You want a heavy knockout indica"],
     faqs: [
       {
         q: "Is Papaya a strong indica?",
-        a: "It&#x2019;s on the milder side of indica — body-relaxing but not couch-pinning. Good entry point for customers who normally avoid heavier indicas.",
+        a: "It’s on the milder side of indica — body-relaxing but not couch-pinning. Good entry point for customers who normally avoid heavier indicas.",
       },
     ],
     verification: {
@@ -4749,7 +4749,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Peanut", "Nutty", "Earth"],
     bestFor: ["End of day", "Couch + movie", "Snack-and-sleep nights"],
-    avoidIf: ["Savory-nutty aromas aren&#x2019;t your thing", "You need to function"],
+    avoidIf: ["Savory-nutty aromas aren’t your thing", "You need to function"],
     faqs: [
       {
         q: "Does Peanut Butter Breath actually taste like peanut butter?",
@@ -4790,7 +4790,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Mint", "Earthy wood", "Sweet pine"],
     bestFor: ["Wind-down evenings with low intoxication", "CBD-curious indica fans"],
-    avoidIf: ["You want THC-forward effects", "You&#x2019;re looking for a pure CBD product (this still has measurable THC)"],
+    avoidIf: ["You want THC-forward effects", "You’re looking for a pure CBD product (this still has measurable THC)"],
     faqs: [
       {
         q: "Is Stephen Hawking Kush really a CBD strain?",
@@ -4798,7 +4798,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "Is the name a medical claim?",
-        a: "No — it&#x2019;s a breeder-chosen name in their Great Minds series (Albert Walker is another). Not a therapeutic claim.",
+        a: "No — it’s a breeder-chosen name in their Great Minds series (Albert Walker is another). Not a therapeutic claim.",
       },
     ],
     verification: {
@@ -4821,7 +4821,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Sweet melon indica — relaxed body, slow-build.",
     intro:
       "Watermelon is a long-time indica with a sweet melon-and-grape aroma — the genetic lineage is " +
-      "undocumented but it&#x2019;s circulated through Royal Queen Seeds and others. Body-relaxing, slow-build, " +
+      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-relaxing, slow-build, " +
       "more sweet-fruit than skunky. Customers reach for it as a mellow evening pick.",
     lineage: "Unknown × Unknown",
     parents: [null, null],
@@ -4835,11 +4835,11 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Watermelon", "Sweet melon", "Grape hint"],
     bestFor: ["Late afternoon", "Casual evening", "Snack time"],
-    avoidIf: ["You want a clear-headed sativa", "You don&#x2019;t like sweet-fruit aromas"],
+    avoidIf: ["You want a clear-headed sativa", "You don’t like sweet-fruit aromas"],
     faqs: [
       {
-        q: "What&#x2019;s in Watermelon&#x2019;s lineage?",
-        a: "Honest answer: the original cross isn&#x2019;t documented. Royal Queen Seeds and others circulate seed lines, but the original Watermelon parents are lost. Modern WA shelf product is whichever cut the grower has.",
+        q: "What’s in Watermelon’s lineage?",
+        a: "Honest answer: the original cross isn’t documented. Royal Queen Seeds and others circulate seed lines, but the original Watermelon parents are lost. Modern WA shelf product is whichever cut the grower has.",
       },
     ],
     verification: {
@@ -4849,7 +4849,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/watermelon",
       ],
       notes:
-        "Leafly confirms indica strain, lineage undocumented (both parents unknown). Royal Queen Seeds produces seed lines but isn&#x2019;t the original breeder. Top terpenes Myrcene/Limonene/Caryophyllene per Leafly. THC ~17% (within 15–20%). Lineage-uncertain note included in FAQ.",
+        "Leafly confirms indica strain, lineage undocumented (both parents unknown). Royal Queen Seeds produces seed lines but isn’t the original breeder. Top terpenes Myrcene/Limonene/Caryophyllene per Leafly. THC ~17% (within 15–20%). Lineage-uncertain note included in FAQ.",
       verifiedAt: "2026-05-16",
     },
   },
@@ -4876,7 +4876,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Watermelon candy", "Sweet melon", "Tropical"],
     bestFor: ["End of day", "Couch + show", "Sweet-candy hybrid lovers"],
-    avoidIf: ["Low-tolerance — runs high", "You don&#x2019;t like candy aromas"],
+    avoidIf: ["Low-tolerance — runs high", "You don’t like candy aromas"],
     faqs: [
       {
         q: "Is Watermelon Zkittlez heavier than Zkittlez?",
@@ -4962,7 +4962,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Pine", "Pepper", "Sweet herbal"],
     bestFor: ["Daytime use", "Creative work", "Casual social"],
-    avoidIf: ["You want a knockout indica", "You&#x2019;re sensitive to terpinolene-led strains"],
+    avoidIf: ["You want a knockout indica", "You’re sensitive to terpinolene-led strains"],
     faqs: [
       {
         q: "Is Black Jack related to Black Domina or Jack Herer more?",
@@ -5006,8 +5006,8 @@ export const STRAINS: Record<string, Strain> = {
     avoidIf: ["You want a heavy indica", "Sweet-candy aromas turn you off"],
     faqs: [
       {
-        q: "Why is Bubble Gum&#x2019;s lineage half-mystery?",
-        a: "The original Indiana growers didn&#x2019;t document the parents — the cut traveled to Amsterdam in the early &#x2019;90s, won several Cannabis Cups, and has been propagated globally. What&#x2019;s on shelves descends from the Indiana cut.",
+        q: "Why is Bubble Gum’s lineage half-mystery?",
+        a: "The original Indiana growers didn’t document the parents — the cut traveled to Amsterdam in the early ’90s, won several Cannabis Cups, and has been propagated globally. What’s on shelves descends from the Indiana cut.",
       },
     ],
     verification: {
@@ -5044,7 +5044,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Cherry", "Sweet cookies", "Earth"],
     bestFor: ["Late afternoon", "Creative work", "Casual social"],
-    avoidIf: ["You want a knockout indica", "Cherry-sweet aromas aren&#x2019;t your thing"],
+    avoidIf: ["You want a knockout indica", "Cherry-sweet aromas aren’t your thing"],
     faqs: [
       {
         q: "Is Cherry Cookies related to Black Cherry Pie?",
@@ -5085,7 +5085,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Sweet pine", "Eucalyptus", "Earthy"],
     bestFor: ["Daytime use", "Creative work", "Hike or walk"],
-    avoidIf: ["You&#x2019;re sensitive to terpinolene-led strains", "You want a heavy indica"],
+    avoidIf: ["You’re sensitive to terpinolene-led strains", "You want a heavy indica"],
     faqs: [
       {
         q: "Is Dutch Treat a strong sativa?",
@@ -5108,11 +5108,11 @@ export const STRAINS: Record<string, Strain> = {
     slug: "mac-and-cheese",
     name: "Mac and Cheese",
     type: "sativa",
-    aliases: ["Mac and Cheese", "Mac &amp; Cheese", "M&amp;C"],
+    aliases: ["Mac and Cheese", "Mac & Cheese", "M&C"],
     tagline: "The Mac × Alien Cheese — head-up hybrid with savory funk.",
     intro:
       "Mac and Cheese is a hybrid cross of The Mac (Wave 1 mac entry) × Alien Cheese — sativa-leaning, with a " +
-      "savory funky-cheese aroma over the Mac&#x2019;s creamy backbone. Head-up focused effect, more energizing than " +
+      "savory funky-cheese aroma over the Mac’s creamy backbone. Head-up focused effect, more energizing than " +
       "calming. Customers who like funky aromatic profiles reach for this.",
     lineage: "The Mac × Alien Cheese",
     parents: ["mac", null],
@@ -5130,7 +5130,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Mac and Cheese related to MAC 1?",
-        a: "Yes — one parent is The Mac (Miracle Alien Cookies, the &#x2018;mac&#x2019; in our index). Mac and Cheese adds Alien Cheese on top, giving it the savory-funky aromatic.",
+        a: "Yes — one parent is The Mac (Miracle Alien Cookies, the ‘mac’ in our index). Mac and Cheese adds Alien Cheese on top, giving it the savory-funky aromatic.",
       },
     ],
     verification: {
@@ -5167,7 +5167,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Diesel", "Chem", "Citrus pine"],
     bestFor: ["Daytime use", "Creative work", "High-tolerance sativa fans"],
-    avoidIf: ["Low-tolerance — runs high", "You don&#x2019;t like fuel aromas"],
+    avoidIf: ["Low-tolerance — runs high", "You don’t like fuel aromas"],
     faqs: [
       {
         q: "Is Stardawg the same as Chemdawg?",
@@ -5232,12 +5232,12 @@ export const STRAINS: Record<string, Strain> = {
     name: "Tangerine Dream",
     type: "sativa",
     aliases: ["Tangerine Dream", "TD"],
-    tagline: "Barney&#x2019;s Farm sativa — tangerine-citrus, head-up effect.",
+    tagline: "Barney’s Farm sativa — tangerine-citrus, head-up effect.",
     intro:
-      "Tangerine Dream is a Barney&#x2019;s Farm cross of G13 × Afghani × Neville&#x2019;s A5 Haze — sativa-leaning with " +
+      "Tangerine Dream is a Barney’s Farm cross of G13 × Afghani × Neville’s A5 Haze — sativa-leaning with " +
       "a bright tangerine-citrus aroma and a head-up uplifting effect. 2010 Cannabis Cup winner, long-time " +
       "shelf staple. Customers who like clementine and tangie reach for this for the same citrus aromatic.",
-    lineage: "G13 × Afghani × Neville&#x2019;s A5 Haze",
+    lineage: "G13 × Afghani × Neville’s A5 Haze",
     parents: [null, "afghani", null],
     thcRange: "17–25%",
     cbdRange: "<1%",
@@ -5249,7 +5249,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Tangerine", "Sweet citrus", "Light earth"],
     bestFor: ["Daytime use", "Creative work", "Casual social", "Hike or walk"],
-    avoidIf: ["You want a heavy indica", "You&#x2019;re sensitive to high-THC sativas"],
+    avoidIf: ["You want a heavy indica", "You’re sensitive to high-THC sativas"],
     faqs: [
       {
         q: "Does Tangerine Dream actually smell like tangerines?",
@@ -5263,7 +5263,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://www.barneysfarm.com/tangerine-dream",
       ],
       notes:
-        "Leafly + Barney&#x2019;s Farm (breeder) confirm G13 × Afghani × Neville&#x2019;s A5 Haze, sativa-leaning hybrid. Afghani in our index. G13 + Neville&#x2019;s A5 Haze not in our index — kept null. Top terpenes Myrcene/Caryophyllene/Limonene match. THC ~20% (within 17–25%). 2010 Cannabis Cup winner.",
+        "Leafly + Barney’s Farm (breeder) confirm G13 × Afghani × Neville’s A5 Haze, sativa-leaning hybrid. Afghani in our index. G13 + Neville’s A5 Haze not in our index — kept null. Top terpenes Myrcene/Caryophyllene/Limonene match. THC ~20% (within 17–25%). 2010 Cannabis Cup winner.",
       verifiedAt: "2026-05-16",
     },
   },
@@ -5339,7 +5339,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Why did Animal Face win the 2022 Emerald Cup?",
-        a: "Combination of high THC, dense trichome coverage, and a flavor profile that&#x2019;s simultaneously sweet and gassy. The Animal Mints side gives it the cookies-family aromatic; Face Off OG gives it the body weight.",
+        a: "Combination of high THC, dense trichome coverage, and a flavor profile that’s simultaneously sweet and gassy. The Animal Mints side gives it the cookies-family aromatic; Face Off OG gives it the body weight.",
       },
     ],
     verification: {
@@ -5544,7 +5544,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Why is it named after Gary Payton?",
-        a: "Cookies&#x2019; Berner has a long-standing connection to Bay Area / Seattle sports culture. Gary Payton (the SuperSonics Hall of Fame guard) signed off on the name; it&#x2019;s an officially licensed collaboration.",
+        a: "Cookies’ Berner has a long-standing connection to Bay Area / Seattle sports culture. Gary Payton (the SuperSonics Hall of Fame guard) signed off on the name; it’s an officially licensed collaboration.",
       },
     ],
     verification: {
@@ -5584,8 +5584,8 @@ export const STRAINS: Record<string, Strain> = {
     avoidIf: ["Low-tolerance — runs high", "You want a clean head-up sativa"],
     faqs: [
       {
-        q: "What&#x2019;s the difference between Gelato 33 and Gelato 41?",
-        a: "Both are Cookies Fam Gelato phenos from the same Sunset Sherbet × Thin Mint GSC cross. Gelato 33 (the &#x2018;gelato&#x2019; in our index) leans more balanced; Gelato 41 runs heavier on the body. Same family, different pheno selection.",
+        q: "What’s the difference between Gelato 33 and Gelato 41?",
+        a: "Both are Cookies Fam Gelato phenos from the same Sunset Sherbet × Thin Mint GSC cross. Gelato 33 (the ‘gelato’ in our index) leans more balanced; Gelato 41 runs heavier on the body. Same family, different pheno selection.",
       },
     ],
     verification: {
@@ -5851,9 +5851,9 @@ export const STRAINS: Record<string, Strain> = {
     name: "Oreoz",
     type: "hybrid",
     aliases: ["Oreoz", "Oreo Cookies", "Oreos"],
-    tagline: "Cookies and Cream × Secret Weapon — campfire-s&#x2019;mores hybrid.",
+    tagline: "Cookies and Cream × Secret Weapon — campfire-s’mores hybrid.",
     intro:
-      "Oreoz is a Cookies and Cream × Secret Weapon cross — balanced hybrid with a sweet chocolate-diesel-s&#x2019;mores " +
+      "Oreoz is a Cookies and Cream × Secret Weapon cross — balanced hybrid with a sweet chocolate-diesel-s’mores " +
       "aroma. Calming effect, long-lasting, suited for evening use. Customers reach for it for the unusual " +
       "chocolatey flavor and the steady relaxed landing.",
     lineage: "Cookies and Cream × Secret Weapon",
@@ -5872,7 +5872,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Does Oreoz really smell like Oreos?",
-        a: "The chocolate is real — customers consistently describe campfire s&#x2019;mores. The diesel from Secret Weapon underneath keeps it from being too candy.",
+        a: "The chocolate is real — customers consistently describe campfire s’mores. The diesel from Secret Weapon underneath keeps it from being too candy.",
       },
     ],
     verification: {
@@ -5991,7 +5991,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Orange candy", "Butter", "Berry"],
     bestFor: ["Late afternoon", "Casual social", "Sweet-candy hybrid lovers"],
-    avoidIf: ["Sweet aromas aren&#x2019;t your thing", "Low-tolerance — runs high"],
+    avoidIf: ["Sweet aromas aren’t your thing", "Low-tolerance — runs high"],
     faqs: [
       {
         q: "Is Runtz Muffin sweeter than Runtz?",
@@ -6019,7 +6019,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Sherbinski Mints is a Sherbinski (Cookies Fam) selection in the Gelato lineup — Sunset Sherbet × Thin " +
       "Mint Cookies pheno with the loudest mint note in the family. Balanced hybrid, mellow body, mint-and-cream " +
-      "aromatic that&#x2019;s the loudest part of the strain. Indica-leaning landing.",
+      "aromatic that’s the loudest part of the strain. Indica-leaning landing.",
     lineage: "Sunset Sherbet × Thin Mint GSC",
     parents: ["sunset-sherbet", "thin-mint-gsc"],
     thcRange: "20–26%",
@@ -6059,7 +6059,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Sour Diesel × OG Kush — diesel-fuel hybrid, balanced.",
     intro:
       "Sour OG is a Sour Diesel × OG Kush cross — balanced hybrid that starts head-up energetic and lands " +
-      "relaxed-body. Sharp sour-lemon-pine-fuel aroma. The kind of strain customers reach for when they can&#x2019;t " +
+      "relaxed-body. Sharp sour-lemon-pine-fuel aroma. The kind of strain customers reach for when they can’t " +
       "decide between Sour Diesel and OG Kush — splits the difference.",
     lineage: "Sour Diesel × OG Kush",
     parents: ["sour-diesel", "og-kush"],
@@ -6097,9 +6097,9 @@ export const STRAINS: Record<string, Strain> = {
     name: "The Soap",
     type: "hybrid",
     aliases: ["The Soap", "Soap"],
-    tagline: "Seed Junky / Berner&#x2019;s Cookies — Animal Mints × Kush Mints.",
+    tagline: "Seed Junky / Berner’s Cookies — Animal Mints × Kush Mints.",
     intro:
-      "The Soap is a Seed Junky Genetics and Berner&#x2019;s Cookies collaboration — Animal Mints × Kush Mints cross. " +
+      "The Soap is a Seed Junky Genetics and Berner’s Cookies collaboration — Animal Mints × Kush Mints cross. " +
       "Balanced hybrid with a sharp clean minty-pine aroma that lives up to the name. Head-up energizing effect, " +
       "more focused than relaxing. Runs high-THC.",
     lineage: "Animal Mints × Kush Mints",
@@ -6128,7 +6128,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/the-soap",
       ],
       notes:
-        "Leafly confirms Animal Mints × Kush Mints, balanced hybrid, Seed Junky Genetics × Berner&#x2019;s Cookies collaboration. Both parents in our index (Wave 2). Top terpenes Caryophyllene/Limonene/Linalool match. THC ~22% (within 19–25%).",
+        "Leafly confirms Animal Mints × Kush Mints, balanced hybrid, Seed Junky Genetics × Berner’s Cookies collaboration. Both parents in our index (Wave 2). Top terpenes Caryophyllene/Limonene/Linalool match. THC ~22% (within 19–25%).",
       verifiedAt: "2026-05-16",
     },
   },
@@ -6282,7 +6282,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Zoap related to RS11?",
-        a: "Yes — both come out of Deo Farms&#x2019; Pink Guava project. Zoap is Rainbow Sherbet × Pink Guava; RS11 is the same Pink Guava paired with Sunset Sherbet. Sister strains.",
+        a: "Yes — both come out of Deo Farms’ Pink Guava project. Zoap is Rainbow Sherbet × Pink Guava; RS11 is the same Pink Guava paired with Sunset Sherbet. Sister strains.",
       },
     ],
     verification: {
@@ -6364,7 +6364,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Why is Blue Zkittlez lower-THC than other Zkittlez crosses?",
-        a: "The Blue Diamond parent runs lower-THC than most Zkittlez parents. Blue Zkittlez tends to test in the 12–18% range — gentler effect, good for customers who don&#x2019;t want a heavy hit.",
+        a: "The Blue Diamond parent runs lower-THC than most Zkittlez parents. Blue Zkittlez tends to test in the 12–18% range — gentler effect, good for customers who don’t want a heavy hit.",
       },
     ],
     verification: {
