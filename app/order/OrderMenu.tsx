@@ -1144,8 +1144,16 @@ export function OrderMenu({
                                 clash with NEW/cartItem on the right. Always
                                 shown on DOH SKUs (informational); the
                                 medical-no-tax price below appears only when
-                                the signed-in customer is DOH-verified. */}
-                            {product.isDohCompliant && (
+                                the signed-in customer is DOH-verified.
+                                Fallback gate: WSLCB attaches "DOH " as a
+                                category prefix on medical-endorsed SKUs (see
+                                normalizer below at line ~482). Until the
+                                `is_doh_compliant` boolean is backfilled on
+                                every DOH SKU from the WSLCB GS1 mirror, the
+                                category-prefix check renders the badge from
+                                authoritative data already in the products
+                                table. */}
+                            {(product.isDohCompliant || /^DOH\s+/i.test(product.category ?? "")) && (
                               <span
                                 className="absolute top-2.5 left-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-purple-700 text-white shadow-md uppercase tracking-wide"
                                 title="DOH-compliant — extra-tested SKU. Medical patients pay no tax."
