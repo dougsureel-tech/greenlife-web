@@ -56,7 +56,7 @@ const finderSchema = {
     targetName: "Cannabis selection guide",
   },
   hasPart: [
-    { "@type": "Question", name: "What's the moment? (Energize, Chill, Sleep, Creative, Social, Relief)" },
+    { "@type": "Question", name: "What's the moment? (Chill, Energize, Sleepy, Creative, Social)" },
     {
       "@type": "Question",
       name: "What form do you prefer? (Flower, Pre-roll, Edible, Vape, Concentrate, Tincture)",
@@ -90,7 +90,7 @@ const faqSchema = {
       name: "How does the strain finder quiz work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Three questions. First we ask the moment you have in mind (energize, chill, sleep, creative, social, relief). Then the format you prefer (flower, pre-roll, edible, vape, concentrate, tincture). Then the strain type if you have a preference (sativa, indica, hybrid, or no preference). We filter the live menu down to what fits and what’s actually on the shelf right now.",
+        text: "Three questions. First we ask the moment you have in mind (chill, energize, sleepy, creative, social). Then the format you prefer (flower, pre-roll, edible, vape, concentrate, tincture). Then the strain type if you have a preference (sativa, indica, hybrid, or no preference). We filter the live menu down to what fits and what’s actually on the shelf right now.",
       },
     },
     {

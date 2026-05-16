@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { getBrandBySlug, getBrandProducts, getActiveBrands } from "@/lib/db";
+import { getBrandCopy } from "@/lib/brand-copy";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
 import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
@@ -423,15 +424,25 @@ export default async function BrandPage({ params }: Props) {
           const ig = safe(brand.socialInstagram);
           const x = safe(brand.socialX);
           const fb = safe(brand.socialFacebook);
-          if (!brand.brandBio && !ig && !x && !fb) return null;
+          // v36.245: fallback chain — DB vendor-portal bio wins (vendor-authored
+          // via /vmi/profile); file-based BRAND_COPY is the curated fallback for
+          // brands that haven't adopted the portal yet. Per BRANDS_PAGES_COMPLETION_AUDIT_2026_05_15.md.
+          const fileCopy = getBrandCopy(slug);
+          const displayBio = brand.brandBio || fileCopy?.bio || null;
+          if (!displayBio && !ig && !x && !fb) return null;
           return (
             <section className="rounded-2xl border border-stone-100 bg-white p-6 sm:p-8 space-y-5">
-              {brand.brandBio && (
+              {displayBio && (
                 <div className="space-y-3">
                   <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-green-700">
                     About {brand.name}
                   </p>
-                  {brand.brandBio.split(/\n{2,}/).map((para, i) => (
+                  {fileCopy?.tagline && !brand.brandBio && (
+                    <p className="text-stone-900 font-semibold leading-snug text-base">
+                      {fileCopy.tagline}
+                    </p>
+                  )}
+                  {displayBio.split(/\n{2,}/).map((para, i) => (
                     <p key={i} className="text-stone-700 leading-relaxed">
                       {para}
                     </p>
