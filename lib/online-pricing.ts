@@ -18,6 +18,27 @@ import type { ActiveDeal, MenuProduct } from "@/lib/db";
 
 export const ONLINE_DISCOUNT_PCT = 20;
 
+// Find the active deal that applies to a given product. Storewide deals
+// (appliesTo='all' or null) match every product; category-scoped deals
+// match products whose `category` stems-match. Lifted here from
+// OrderMenu.tsx so homepage / brand-page / strain-page surfaces can all
+// honor deal-tinted pricing without duplicating the heuristic. OrderMenu
+// keeps its inline copy until parallel session settles — once both can
+// import from here, the inline copy retires.
+export function findDealForProduct(
+  p: Pick<MenuProduct, "category">,
+  deals: ActiveDeal[],
+): ActiveDeal | null {
+  if (!deals || deals.length === 0) return null;
+  const cat = (p.category ?? "").toLowerCase();
+  for (const d of deals) {
+    if (!d.appliesTo || d.appliesTo === "all") return d;
+    const stem = d.appliesTo.toLowerCase().replace(/s$/, "");
+    if (cat.includes(stem)) return d;
+  }
+  return null;
+}
+
 export type EffectivePrice = {
   /** What the customer pays — post-discount, rounded to nearest cent. `null` when product has no listed price. */
   displayPrice: number | null;

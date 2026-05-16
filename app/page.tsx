@@ -3,6 +3,7 @@ import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
 import { DAY_MS } from "@/lib/time-constants";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
@@ -1443,13 +1444,22 @@ export default async function HomePage() {
                       {p.name}
                     </div>
                     <div className="flex items-center justify-between pt-1">
-                      <span className="font-bold text-green-800">
-                        {p.unitPrice != null && p.unitPrice > 0 ? (
-                          `$${p.unitPrice.toFixed(2)}`
-                        ) : (
-                          <span className="text-stone-600 font-medium">In store</span>
-                        )}
-                      </span>
+                      {(() => {
+                        if (p.unitPrice == null || p.unitPrice <= 0) {
+                          return <span className="text-stone-600 font-medium text-sm">In store</span>;
+                        }
+                        const pricing = effectivePriceFor(p, findDealForProduct(p, deals));
+                        if (pricing.displayPrice == null) return null;
+                        return (
+                          <div className="flex flex-col leading-tight">
+                            <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                            <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
+                              {pricing.dealName ? `${Math.round(pricing.discountPct)}% off` : `${ONLINE_DISCOUNT_PCT}% off online`}
+                            </span>
+                          </div>
+                        );
+                      })()}
                       {p.thcPct != null && (
                         <span className="text-xs text-stone-600">THC {p.thcPct.toFixed(1)}%</span>
                       )}
@@ -1547,13 +1557,22 @@ export default async function HomePage() {
                       {p.name}
                     </div>
                     <div className="flex items-center justify-between pt-1">
-                      <span className="font-bold text-green-800">
-                        {p.unitPrice != null && p.unitPrice > 0 ? (
-                          `$${p.unitPrice.toFixed(2)}`
-                        ) : (
-                          <span className="text-stone-600 font-medium">In store</span>
-                        )}
-                      </span>
+                      {(() => {
+                        if (p.unitPrice == null || p.unitPrice <= 0) {
+                          return <span className="text-stone-600 font-medium text-sm">In store</span>;
+                        }
+                        const pricing = effectivePriceFor(p, findDealForProduct(p, deals));
+                        if (pricing.displayPrice == null) return null;
+                        return (
+                          <div className="flex flex-col leading-tight">
+                            <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                            <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
+                              {pricing.dealName ? `${Math.round(pricing.discountPct)}% off` : `${ONLINE_DISCOUNT_PCT}% off online`}
+                            </span>
+                          </div>
+                        );
+                      })()}
                       {p.thcPct != null && (
                         <span className="text-xs text-stone-600">THC {p.thcPct.toFixed(1)}%</span>
                       )}
