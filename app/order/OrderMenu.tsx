@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
+import { medicalNoTaxPrice } from "@/lib/medical-pricing";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
@@ -318,11 +319,16 @@ export function OrderMenu({
   signedIn = false,
   activeDeals = [],
   initialLoyalty = null,
+  dohVerified = false,
 }: {
   products: MenuProduct[];
   signedIn?: boolean;
   activeDeals?: ActiveDeal[];
   initialLoyalty?: LoyaltyInfo;
+  /** True when the signed-in customer has been DOH-card-verified by
+   *  staff in-store (`customers.doh_verified_at` is non-null). Drives
+   *  medical-no-tax price display on `isDohCompliant` products. */
+  dohVerified?: boolean;
 }) {
   const router = useRouter();
   const initialCart = useMemo(() => loadCart(), []);
@@ -1134,6 +1140,19 @@ export function OrderMenu({
                                 {cartItem.quantity}
                               </span>
                             )}
+                            {/* DOH-compliant badge — left side so it doesn't
+                                clash with NEW/cartItem on the right. Always
+                                shown on DOH SKUs (informational); the
+                                medical-no-tax price below appears only when
+                                the signed-in customer is DOH-verified. */}
+                            {product.isDohCompliant && (
+                              <span
+                                className="absolute top-2.5 left-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-purple-700 text-white shadow-md uppercase tracking-wide"
+                                title="DOH-compliant — extra-tested SKU. Medical patients pay no tax."
+                              >
+                                <span aria-hidden="true">🟣 </span>DOH
+                              </span>
+                            )}
                           </div>
 
                           {/* Info */}
@@ -1182,6 +1201,27 @@ export function OrderMenu({
                                 {(() => {
                                   const pricing = effectivePriceFor(product, deal);
                                   if (pricing.displayPrice == null) return <span className="font-extrabold text-stone-900 text-base">—</span>;
+                                  // DOH-verified medical patient on a DOH-compliant
+                                  // SKU: state sales tax + 37% excise both exempt
+                                  // (RCW 82.08.9998 + RCW 69.50.535(6)(a)). Strip
+                                  // both off the post-online-discount price so the
+                                  // online floor + the tax exemption stack.
+                                  const showMedicalPrice =
+                                    dohVerified && product.isDohCompliant;
+                                  const medicalPrice = showMedicalPrice
+                                    ? medicalNoTaxPrice(pricing.displayPrice)
+                                    : null;
+                                  if (showMedicalPrice && medicalPrice != null) {
+                                    return (
+                                      <>
+                                        <span className="text-stone-400 line-through text-xs decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                                        <span className="font-extrabold text-purple-900 text-base leading-tight">${medicalPrice.toFixed(2)}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 leading-none">
+                                          <span aria-hidden="true">🟣 </span>Medical · no tax
+                                        </span>
+                                      </>
+                                    );
+                                  }
                                   return (
                                     <>
                                       <span className="text-stone-400 line-through text-xs decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>

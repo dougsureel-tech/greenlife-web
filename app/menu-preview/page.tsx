@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { STORE, getOrderingStatus, todayCloseLabel, DEFAULT_OG_IMAGE } from "@/lib/store";
 import { fetchClosureStatus } from "@/lib/closure-status";
-import { getLoyaltyByClerkId } from "@/lib/portal";
+import { getLoyaltyByClerkId, getMedicalStatusByClerkId } from "@/lib/portal";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { OrderMenu } from "../order/OrderMenu";
 
@@ -85,6 +85,11 @@ export default async function MenuPreviewPage() {
         .then((s) => (s ? { points: s.points, tieredFlagOn: s.tieredFlagOn } : null))
         .catch(() => null)
     : null;
+  const dohVerified = userId
+    ? await getMedicalStatusByClerkId(userId)
+        .then((m) => Boolean(m?.dohVerifiedAt))
+        .catch(() => false)
+    : false;
 
   return (
     <>
@@ -150,7 +155,7 @@ export default async function MenuPreviewPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
         <ClosureBanner closure={closure} />
       </div>
-      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} />
     </>
   );
 }

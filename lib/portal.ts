@@ -362,6 +362,46 @@ export async function getLoyaltyByClerkId(clerkUserId: string): Promise<LoyaltyS
   };
 }
 
+/** Signed-in customer's medical-verification + DOH-card-verification state.
+ *  Drives the medical-no-tax price display on /menu (and /menu-preview)
+ *  for DOH-compliant SKUs. Returns null when the Clerk user isn't linked
+ *  to a customer row OR when neither flag is set — both → rec pricing. */
+export type MedicalStatus = {
+  /** True when in-store staff confirmed a medical authorization
+   *  (recommending-physician path — exempts state sales tax only). */
+  isMedical: boolean;
+  /** ISO timestamp when staff confirmed a WA DOH recognition card —
+   *  null if never. The DOH-card path exempts BOTH state sales tax AND
+   *  the 37% excise on DOH-compliant SKUs. Sister of `is_medical` not
+   *  alternative: a patient typically has medical-verified first, DOH
+   *  layered on top. */
+  dohVerifiedAt: string | null;
+};
+
+export async function getMedicalStatusByClerkId(
+  clerkUserId: string,
+): Promise<MedicalStatus | null> {
+  const sql = getClient();
+  const rows = await sql`
+    SELECT
+      COALESCE(c.is_medical, FALSE) AS is_medical,
+      c.doh_verified_at AS doh_verified_at
+    FROM portal_users pu
+    JOIN customers c ON LOWER(c.email) = LOWER(pu.email)
+    WHERE pu.clerk_user_id = ${clerkUserId}
+      AND pu.email IS NOT NULL
+      AND c.email IS NOT NULL
+    ORDER BY c.last_visit_at DESC NULLS LAST
+    LIMIT 1
+  `;
+  if (rows.length === 0) return null;
+  const r = rows[0] as { is_medical: boolean; doh_verified_at: Date | null };
+  return {
+    isMedical: Boolean(r.is_medical),
+    dohVerifiedAt: r.doh_verified_at ? r.doh_verified_at.toISOString() : null,
+  };
+}
+
 // Fire web push for any orders that just flipped to "ready" within the
 // last READY_WINDOW_SECONDS for this portal user. Idempotency is handled by
 // the browser's notification `tag` collapsing duplicate fires; the time-

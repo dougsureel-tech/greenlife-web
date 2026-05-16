@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { STORE, getOrderingStatus, DEFAULT_OG_IMAGE} from "@/lib/store";
-import { getLoyaltyByClerkId } from "@/lib/portal";
+import { getLoyaltyByClerkId, getMedicalStatusByClerkId } from "@/lib/portal";
 import { OrderMenu } from "./OrderMenu";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +46,11 @@ export default async function OrderPage() {
         .then((s) => (s ? { points: s.points, tieredFlagOn: s.tieredFlagOn } : null))
         .catch(() => null)
     : null;
+  const dohVerified = userId
+    ? await getMedicalStatusByClerkId(userId)
+        .then((m) => Boolean(m?.dohVerifiedAt))
+        .catch(() => false)
+    : false;
 
   return (
     <>
@@ -107,7 +112,7 @@ export default async function OrderPage() {
           </div>
         </div>
       </div>
-      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} />
     </>
   );
 }
