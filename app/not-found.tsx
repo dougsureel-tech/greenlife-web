@@ -17,7 +17,7 @@ const VIBES = [
   { emoji: "⚡️", label: "Energize", vibe: "energize" },
   { emoji: "🌊", label: "Chill", vibe: "chill" },
   { emoji: "💤", label: "Sleep", vibe: "sleep" },
-  { emoji: "🩹", label: "Relief", vibe: "relief" },
+  { emoji: "🌿", label: "Calm", vibe: "calm" },
 ];
 
 const POPULAR = [

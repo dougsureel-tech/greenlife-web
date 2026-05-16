@@ -915,11 +915,11 @@ export default async function HomePage() {
                 accent: "text-teal-700",
               },
               {
-                emoji: "🩹",
-                label: "Relief",
-                vibe: "relief",
-                gradient: "from-rose-50 to-red-100",
-                accent: "text-rose-700",
+                emoji: "🌿",
+                label: "Calm",
+                vibe: "calm",
+                gradient: "from-emerald-50 to-green-100",
+                accent: "text-emerald-700",
               },
             ].map((m) => (
               <Link
