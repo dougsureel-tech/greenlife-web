@@ -2,9 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
 import { STRAIN_TYPES } from "@/lib/strain-types";
+import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+// Map strain.type slug → label + accent so the hub strain-card grid
+// can chip the type without re-importing STRAIN_TYPES table mid-render.
+const TYPE_LABELS: Record<string, { label: string; chip: string }> = {
+  indica: { label: "Indica", chip: "bg-indigo-50 text-indigo-800" },
+  sativa: { label: "Sativa", chip: "bg-orange-50 text-orange-800" },
+  hybrid: { label: "Hybrid", chip: "bg-emerald-50 text-emerald-800" },
+  cbd: { label: "CBD", chip: "bg-amber-50 text-amber-800" },
+};
 
 // /strains — strain-category hub page. Captures long-tail intent like
 // "indica strains Wenatchee", "sativa Wenatchee Valley", "cbd strains
@@ -47,6 +57,23 @@ export const metadata: Metadata = {
 };
 
 export default function StrainsIndexPage() {
+  // Wave-gated per-strain card list. Empty when SEO_STRAIN_WAVE=0
+  // (build is live but dormant). Sorted by type then name so indica
+  // anchors visually first per the cannabis-counter convention. Cap
+  // at 24 cards so the hub stays scan-readable — overflow lives on
+  // the per-type pages (`/strains/<type>`).
+  const inWaveStrains = getStrainsInCurrentWave()
+    .map((slug) => STRAINS[slug])
+    .filter(Boolean)
+    .sort((a, b) => {
+      const typeOrder = ["indica", "hybrid", "sativa", "cbd"];
+      const ai = typeOrder.indexOf(a.type);
+      const bi = typeOrder.indexOf(b.type);
+      if (ai !== bi) return ai - bi;
+      return a.name.localeCompare(b.name);
+    })
+    .slice(0, 24);
+
   // CollectionPage + ItemList — Google reads the four type pages as
   // children of this hub, mirroring how /near uses ItemList on its
   // index. Sister surface; same JSON-LD shape.
@@ -180,6 +207,64 @@ export default function StrainsIndexPage() {
           ))}
         </ul>
       </section>
+
+      {/* ── PER-STRAIN CARD GRID ────────────────────────────────────────
+          Wave-gated card list of the actual library entries. Hidden
+          when wave=0 (build is dormant). Each card links to the
+          per-strain page (`/strains/<slug>`) — lineage family-tree,
+          terpene profile, FAQ. Cap 24 cards; overflow lives at the
+          per-type pages above. Type chip provides scan-color so
+          indica/sativa/hybrid clusters are visually distinguishable
+          at a glance. Internal links only — no new URLs.
+      */}
+      {inWaveStrains.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-stone-200">
+          <div className="mb-6 sm:mb-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
+              The library
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+              Strains we’ve got pages for
+            </h2>
+            <p className="mt-3 text-stone-600 max-w-2xl text-sm sm:text-base leading-relaxed">
+              Lineage, parents, family-tree, what customers tend to reach for it for — written by people who’ve worked the counter, not a marketing team. Live shelf availability stays on{" "}
+              <Link href="/menu" className="text-green-800 underline underline-offset-2 hover:text-green-700">
+                the menu
+              </Link>
+              .
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {inWaveStrains.map((s) => {
+              const typeBadge = TYPE_LABELS[s.type] ?? { label: s.type, chip: "bg-stone-100 text-stone-700" };
+              return (
+                <li key={s.slug}>
+                  <Link
+                    href={`/strains/${s.slug}`}
+                    className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                  >
+                    <div className="flex items-baseline justify-between gap-2 mb-1.5">
+                      <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-900 transition-colors truncate">
+                        {s.name}
+                      </span>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 ${typeBadge.chip}`}
+                      >
+                        {typeBadge.label}
+                      </span>
+                    </div>
+                    {s.lineage && (
+                      <div className="text-[11px] sm:text-xs text-stone-500 leading-snug truncate">
+                        {s.lineage}
+                      </div>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* Compliance + tenure footer band — matches /visit pattern. */}
       <section className="bg-green-950 text-white">

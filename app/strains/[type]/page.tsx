@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
 import { STRAIN_TYPES, getStrainType } from "@/lib/strain-types";
+import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -114,6 +115,19 @@ export default async function StrainTypePage({
   };
 
   const otherTypes = STRAIN_TYPES.filter((x) => x.slug !== t.slug);
+
+  // Wave-gated per-strain cluster — only strains currently in the
+  // SEO_STRAIN_WAVE window appear here. Filters by matching `s.type`
+  // against the route's category slug. cbd type renders zero cards
+  // until CBD-dominant strains land in a future wave (per Doug-decision
+  // #4 in PLAN_STRAIN_LIBRARY_250_2026_05_15.md). Empty state simply
+  // renders nothing — section hides itself. Cadence-gate compliant
+  // (no new URLs, just internal links into per-strain pages that
+  // already exist + are wave-gated independently).
+  const inWaveSlugs = new Set(getStrainsInCurrentWave());
+  const strainsForType = Object.values(STRAINS)
+    .filter((s) => s.type === t.slug && inWaveSlugs.has(s.slug))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   // /menu?strain=<type> — same query-param contract the strain-finder
   // quiz emits at find-your-strain/StrainFinderClient.tsx. Boost embed
@@ -264,6 +278,58 @@ export default async function StrainTypePage({
           </div>
         </div>
       </section>
+
+      {/* ── STRAINS IN THIS FAMILY ────────────────────────────────────
+          Wave-gated per-strain card grid. Only strains in the current
+          SEO_STRAIN_WAVE window appear here. Each card links to the
+          per-strain page (`/strains/<slug>`) which carries the lineage
+          family-tree SVG + FAQs. Internal cross-link (no new URL),
+          cadence-gate compliant. Empty when wave=0 or no matching
+          strains shipped — section hides itself entirely.
+      */}
+      {strainsForType.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
+          <div className="mb-6 sm:mb-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
+              Strains we carry
+            </p>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
+              {t.name} strains in the library
+            </h2>
+            <p className="text-sm text-stone-600 mt-2 max-w-2xl leading-relaxed">
+              Each page below covers lineage, terpene profile, what customers tend to reach for it for, and the family tree of parents + descendants. Live shelf availability lives on{" "}
+              <Link href="/menu" className="text-green-800 underline underline-offset-2 hover:text-green-700">
+                the menu
+              </Link>
+              .
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {strainsForType.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={`/strains/${s.slug}`}
+                  className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                >
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-900 transition-colors truncate">
+                      {s.name}
+                    </span>
+                    <span aria-hidden="true" className="text-xs font-semibold text-green-800 shrink-0">
+                      →
+                    </span>
+                  </div>
+                  {s.lineage && (
+                    <div className="text-[11px] sm:text-xs text-stone-500 leading-snug truncate">
+                      {s.lineage}
+                    </div>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* ── STORE FACTS CHIPS ─────────────────────────────────────────
           Mirrors /near "Why stop in" fact strip — address, payment,
