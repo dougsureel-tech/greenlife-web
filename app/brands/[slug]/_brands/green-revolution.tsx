@@ -27,7 +27,7 @@ const ABOUT_QA = [
   },
   {
     q: "What are all the Green Revolution product lines?",
-    a: "WildSide drinks (12oz/17oz bottles, Fizz cans, and 2oz Max shots) for beverages. Dopio is the cannabis coffee shot line. Doozies is the gummy family — standard, Plus (with functional ingredients like Lion's Mane and Ashwagandha), Mini (smaller serving), Elevate (1:1 hybrid), and CBD-dominant. Tinctures cover Anytime, Nighttime, Beauty Sleep, Dream Drops, Happiest Self, Journey, Paradise, and Bella & Max Plus (pet, salmon-oil base). Solace and Muscle Melt are the topicals.",
+    a: "WildSide drinks (12oz/17oz bottles, Fizz cans, and 2oz Max shots) for beverages. Dopio is the cannabis coffee shot line. Doozies is the gummy family — standard, Plus (with functional ingredients like Lion's Mane and Ashwagandha), Mini (smaller serving), Elevate (1:1 hybrid), and CBD-dominant. Tinctures cover Anytime, Nighttime, Beauty Sleep, Dream Drops, Happiest Self, Journey, and Paradise — plus the Bella & Max Plus pet line (salmon-oil base). Solace and Muscle Melt are the topicals.",
   },
   {
     q: "Are Green Revolution products made with organic cannabis?",
@@ -102,7 +102,7 @@ const SUB_BRANDS: Array<{ name: string; tag: string; line: string; matchToken: s
   {
     name: "Solace + Muscle Melt",
     tag: "Topicals",
-    line: "Solace Relief Cream (100:1 CBD:THC and 5:1 CBD:CBN) and Muscle Melt Gel — non-intoxicating topicals for daily use.",
+    line: "Solace Relief Cream (100:1 CBD:THC and 5:1 CBD:CBN) and Muscle Melt Gel — non-intoxicating topicals at the high-CBD end of the case.",
     matchToken: "Solace",
   },
 ];
@@ -126,7 +126,7 @@ const APPROACH_CARDS = [
   {
     emoji: "🧴",
     title: "Topicals + Pet",
-    body: "Solace Relief Cream and Muscle Melt Gel for daily skin-on use. Bella & Max Plus is the salmon-oil pet tincture — a customer favorite for older dogs.",
+    body: "Solace Relief Cream and Muscle Melt Gel — high-CBD topicals in the daily-use lineup. Bella & Max Plus is the salmon-oil pet tincture — a regular ask for older-dog households.",
   },
 ];
 

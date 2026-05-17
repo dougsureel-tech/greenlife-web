@@ -26,7 +26,7 @@ const ABOUT_QA = [
   },
   {
     q: "What kind of edibles are we talking about?",
-    a: "All three are precise-dose ingestibles. Mr. Moxey's mints are 5mg per mint and come in functional blends like 'Energize' or 'Calm'; Journeyman bars are typically 10mg-per-square chocolate; Spot gummies hit the 10mg-per-piece mainstream-edibles slot. Predictable doses are the whole point — Botanica leans into the 'know exactly what you took' end of the edibles market rather than the 'one bite was too much' end.",
+    a: "All three are precise-dose ingestibles. Mr. Moxey's mints are 5mg per mint and come in named blends like Energize or Calm; Journeyman bars are typically 10mg-per-square chocolate; Spot gummies hit the 10mg-per-piece mainstream-edibles slot. Predictable doses are the whole point — Botanica leans into the 'know exactly what you took' end of the edibles market rather than the 'one bite was too much' end.",
   },
   {
     q: "Why do we carry them?",
@@ -80,7 +80,7 @@ const SUB_BRANDS: Array<{
   {
     name: "Mr. Moxey's",
     tag: "Mints + Lozenges",
-    line: "5mg-per-mint precise dosing in functional blends — Energize (sativa-forward + ginseng), Relief (CBD + ginger), Calm (indica-leaning + lavender). The microdosing tin is the easy carry-everywhere format. Fast onset for a mint.",
+    line: "5mg-per-mint precise dosing in their three functional-blend formats — Energize (sativa-forward + ginseng), Relief (CBD + ginger), Calm (indica-leaning + lavender). The microdosing tin is the easy carry-everywhere format. Fast onset for a mint.",
     matchToken: "Moxey",
     logoUrl: MOXEY_LOGO,
     logoBg: "#3a2a4a", // aubergine — Moxey's logo is light/white-on-dark
@@ -205,7 +205,7 @@ export default function BotanicaSeattleBrandPage({
         </p>
         <p>
           The shared thread across all three labels is <strong>precise dosing</strong>. Mr. Moxey&apos;s
-          mints land at 5mg per piece in functional blends (Energize, Relief, Calm). Journeyman
+          mints land at 5mg per piece in three named blends (Energize, Relief, Calm). Journeyman
           chocolate bars run 10mg per square so you can break off exactly the amount you want.
           Spot gummies hit the standard 10mg-per-piece edibles dose slot. The whole house leans
           into the &quot;know exactly what you took&quot; end of the edibles market rather than
