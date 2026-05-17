@@ -101,10 +101,19 @@ export function StrainTypePage({ slug }: { slug: string }) {
 
   const otherTypes = STRAIN_TYPES.filter((x) => x.slug !== t.slug);
 
+  // Show ALL strains of this type — NOT wave-gated. Per-strain pages
+  // are robots:noindex outside the SEO_STRAIN_WAVE-current set, so
+  // these links primarily build the internal link graph (Google crawls
+  // noindex pages + follows their links, accumulating PageRank that
+  // activates the moment a strain enters the wave). Doesn't violate
+  // the cadence-gate doctrine (which is about controlled indexing,
+  // not link-graph density).
   const inWaveSlugs = new Set(getStrainsInCurrentWave());
   const strainsForType = Object.values(STRAINS)
-    .filter((s) => s.type === t.slug && inWaveSlugs.has(s.slug))
+    .filter((s) => s.type === t.slug)
     .sort((a, b) => a.name.localeCompare(b.name));
+  // Available for future "featured" sub-section if needed:
+  void inWaveSlugs;
 
   const menuHref = withAttr(`/menu?strain=${t.slug}`, "strains", t.slug);
 
