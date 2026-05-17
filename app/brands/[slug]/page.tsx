@@ -244,7 +244,18 @@ export default async function BrandPage({ params }: Props) {
   // Defense-in-depth: drop aggregator/broken logoUrls before they hit
   // render, JSON-LD, or product-image fallback. Sitemap already filters
   // via the same module (v13.905). Sister scc same fix.
-  const logoUrl = brand.logoUrl && !isBannedLogoUrl(brand.logoUrl) ? brand.logoUrl : null;
+  //
+  // 2026-05-17 vendor-logo backfill lane: DB column is sparse (~26%
+  // coverage per BRANDS_PAGES_COMPLETION_AUDIT_2026_05_15.md). File-based
+  // fallback in BRAND_COPY.logoUrl points to self-hosted PNGs at
+  // /public/brand-logos/<slug>.png (cross-stack mirror). Fallback chain:
+  //   1. DB vendors.logo_url (vendor-portal-authored)
+  //   2. BRAND_COPY[slug].logoUrl (file-based, this code path)
+  //   3. 🌿 emoji placeholder
+  // File paths are trusted (under version control) so banned-logo filter
+  // applies to the DB tier only.
+  const dbLogoUrl = brand.logoUrl && !isBannedLogoUrl(brand.logoUrl) ? brand.logoUrl : null;
+  const logoUrl = dbLogoUrl ?? getBrandCopy(slug)?.logoUrl ?? null;
 
   const products = await getBrandProducts(brand.id).catch(() => []);
   const categories = [...new Set(products.map((p) => p.category ?? "Other"))].sort((a, b) => {
