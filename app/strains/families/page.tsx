@@ -136,19 +136,14 @@ export default function StrainFamiliesHubPage() {
         </div>
       </section>
 
-      {/* The 10 family tiles. */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
-            Pick a line
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">
-            The 10 strain families on the shelf
-          </h2>
-          <p className="mt-3 text-stone-600 max-w-2xl text-sm sm:text-base leading-relaxed">
-            Each tile spotlights the founder strain that anchors the family. The mini-tree shows immediate parents and descendants — click through for the full descendant list, lineage diagram, and shelf context.
-          </p>
-        </div>
+      {/* The 10 family tiles. Tightened: pruned the eyebrow + descriptor
+          paragraph — the hero paragraph already established the model;
+          re-stating it three lines above the tiles delays scroll-to-
+          value. The h2 alone carries enough context. */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-12 sm:pb-14">
+        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-5">
+          The 10 strain families on the shelf
+        </h2>
         <FamilyAlbumGrid />
       </section>
 

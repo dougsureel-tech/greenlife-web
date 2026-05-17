@@ -179,11 +179,13 @@ export default async function FamilyHubPage({
 
   // Common-question FAQ — derives from family data; safe descriptive
   // copy only, no efficacy claims.
+  //
+  // Polish pass: dropped the "What is X cannabis?" FAQ that returned
+  // fam.description verbatim — the same paragraph already renders in
+  // the description block above the FAQ, so the disclosure-and-expand
+  // re-served identical text. Kept founder + count, which add value
+  // because they answer questions the prose doesn't directly address.
   const faqs: { q: string; a: string }[] = [
-    {
-      q: `What is ${fam.name.replace(/^The /, "").replace(/ Line$/, "")} cannabis?`,
-      a: fam.description,
-    },
     ...(anchor
       ? [
           {
@@ -218,39 +220,38 @@ export default async function FamilyHubPage({
         <Breadcrumb items={breadcrumbItems} />
       </div>
 
-      {/* Hero */}
-      <section className="max-w-5xl mx-auto px-4 pt-6 pb-10">
-        <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-3">
+      {/* Hero — tightened: dropped Founder chip (duplicates the founder
+          section directly below), shrunk vertical air, demoted preview-
+          banner from bordered box to muted inline eyebrow. */}
+      <section className="max-w-5xl mx-auto px-4 pt-4 pb-6">
+        <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-2">
           Strain Family Album · {STORE.address.city}, WA
-        </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 mb-3">
-          {fam.name}
-        </h1>
-        <p className="text-lg md:text-xl text-stone-700 max-w-2xl mb-4">{fam.tagline}</p>
-        <div className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
-            {members.length} strain{members.length === 1 ? "" : "s"} in the line
-          </span>
-          {anchor && (
-            <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
-              Founder: {anchor.name}
+          {(!inWave || !inSitemap) && (
+            <span className="ml-2 normal-case tracking-normal text-amber-700 font-medium">
+              · preview (not yet indexed)
             </span>
           )}
         </div>
-        {(!inWave || !inSitemap) && (
-          <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs text-amber-900 max-w-xl">
-            Preview · this family page is not yet in the public search index.
-          </div>
-        )}
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 mb-2">
+          {fam.name}
+        </h1>
+        <p className="text-lg md:text-xl text-stone-700 max-w-2xl mb-3">{fam.tagline}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
+            {members.length} strain{members.length === 1 ? "" : "s"} in the line
+          </span>
+        </div>
       </section>
 
-      {/* Founder spotlight + mini-tree */}
+      {/* Founder spotlight + mini-tree — tightened: muted eyebrow (was
+          accent-color, competed with CTA link colors below), pruned the
+          redundant "The line starts with X" h2 since the founder card
+          name says the same thing one line lower. */}
       {anchor && (
-        <section className="max-w-5xl mx-auto px-4 pb-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-2">Founder</p>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-4">
-            The line starts with {anchor.name}
-          </h2>
+        <section className="max-w-5xl mx-auto px-4 pb-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-stone-500 mb-3">
+            Founder strain
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div>
               <Link
@@ -296,57 +297,25 @@ export default async function FamilyHubPage({
       )}
 
       {/* Description */}
-      <section className="max-w-3xl mx-auto px-4 pb-10">
+      <section className="max-w-3xl mx-auto px-4 pb-8">
         <p className="text-base md:text-lg leading-relaxed text-stone-700" data-speakable>
           {fam.description}
         </p>
       </section>
 
-      {/* The line — full tile grid of every strain in the family. */}
+      {/* The line — full tile grid of every strain in the family.
+          Tightened: header is now a single h2 (eyebrow + h2 collapsed
+          since the eyebrow said "The line" and the h2 said "The Kush
+          Line" — double "Line"). For dense families (>12) the grid
+          hides the tail behind a server-rendered <details> disclosure
+          (zero JS). Tile name uses line-clamp-2 so long names don't
+          lose info to truncate. */}
       {members.length > 0 && (
         <section className="max-w-5xl mx-auto px-4 pb-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-2">The line</p>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-4">
-            Strains in {fam.name}
+            All {members.length} strain{members.length === 1 ? "" : "s"} on the shelf
           </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {members.map((m) => {
-              const isAnchor = anchor && m.slug === anchor.slug;
-              return (
-                <li key={m.slug}>
-                  <Link
-                    href={`/strains/${m.slug}`}
-                    className={`group block h-full rounded-xl bg-white border ${
-                      isAnchor ? "border-emerald-400 ring-1 ring-emerald-200" : "border-stone-200"
-                    } hover:border-emerald-500 hover:shadow-sm transition-all px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500`}
-                  >
-                    <div className="flex items-baseline justify-between gap-2 mb-1.5">
-                      <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-emerald-900 transition-colors truncate">
-                        {m.name}
-                        {isAnchor && (
-                          <span className="ml-1.5 text-[9px] font-bold uppercase tracking-wider text-emerald-700">
-                            · founder
-                          </span>
-                        )}
-                      </span>
-                      <span
-                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 border ${
-                          TYPE_BADGE_CLASS[m.type] ?? "bg-stone-100 text-stone-700 border-stone-300"
-                        }`}
-                      >
-                        {TYPE_LABELS[m.type] ?? m.type}
-                      </span>
-                    </div>
-                    {m.lineage && (
-                      <div className="text-[11px] sm:text-xs text-stone-500 leading-snug truncate">
-                        {m.lineage}
-                      </div>
-                    )}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <FamilyStrainGrid members={members} anchorSlug={anchor?.slug ?? null} />
         </section>
       )}
 
@@ -419,5 +388,83 @@ export default async function FamilyHubPage({
         </p>
       </section>
     </main>
+  );
+}
+
+/** Tile grid for strains in a family. For dense families (>12) the tail
+ *  hides behind a server-rendered <details> disclosure so the page
+ *  doesn't open with a 100+ tile wall on Kush. Zero JS — `<details>`
+ *  carries the open/close behavior natively. */
+function FamilyStrainGrid({
+  members,
+  anchorSlug,
+}: {
+  members: readonly Strain[];
+  anchorSlug: string | null;
+}) {
+  const VISIBLE_CAP = 12;
+  const isDense = members.length > VISIBLE_CAP;
+  const head = isDense ? members.slice(0, VISIBLE_CAP) : members;
+  const tail = isDense ? members.slice(VISIBLE_CAP) : [];
+
+  return (
+    <>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        {head.map((m) => (
+          <FamilyStrainTile key={m.slug} m={m} isAnchor={anchorSlug === m.slug} />
+        ))}
+      </ul>
+      {isDense && (
+        <details className="mt-4 group">
+          <summary className="cursor-pointer inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:border-emerald-400 hover:text-emerald-900 transition-colors list-none [&::-webkit-details-marker]:hidden">
+            <span>Show all {members.length} strains</span>
+            <span aria-hidden="true" className="text-stone-400 group-open:rotate-180 transition-transform">
+              ▾
+            </span>
+          </summary>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-4">
+            {tail.map((m) => (
+              <FamilyStrainTile key={m.slug} m={m} isAnchor={anchorSlug === m.slug} />
+            ))}
+          </ul>
+        </details>
+      )}
+    </>
+  );
+}
+
+function FamilyStrainTile({ m, isAnchor }: { m: Strain; isAnchor: boolean }) {
+  return (
+    <li>
+      <Link
+        href={`/strains/${m.slug}`}
+        className={`group block h-full rounded-xl bg-white border ${
+          isAnchor ? "border-emerald-400 ring-1 ring-emerald-200" : "border-stone-200"
+        } hover:border-emerald-500 hover:shadow-sm transition-all px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500`}
+      >
+        <div className="flex items-start justify-between gap-2 mb-1.5">
+          <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-emerald-900 transition-colors leading-snug line-clamp-2 min-w-0">
+            {m.name}
+            {isAnchor && (
+              <span className="ml-1.5 text-[9px] font-bold uppercase tracking-wider text-emerald-700">
+                · founder
+              </span>
+            )}
+          </span>
+          <span
+            className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 border ${
+              TYPE_BADGE_CLASS[m.type] ?? "bg-stone-100 text-stone-700 border-stone-300"
+            }`}
+          >
+            {TYPE_LABELS[m.type] ?? m.type}
+          </span>
+        </div>
+        {m.lineage && (
+          <div className="text-[11px] sm:text-xs text-stone-500 leading-snug truncate">
+            {m.lineage}
+          </div>
+        )}
+      </Link>
+    </li>
   );
 }
