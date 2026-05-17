@@ -27,19 +27,19 @@ interface FamilyAlbumGridProps {
  *  color system. Landrace bucket has no single type → stone-neutral. */
 const ACCENTS: Record<string, { eyebrow: string; chip: string; hover: string }> = {
   indica: {
-    eyebrow: "text-indigo-700",
-    chip: "bg-indigo-50 text-indigo-800 border-indigo-200",
-    hover: "hover:border-indigo-400",
+    eyebrow: "text-purple-700",
+    chip: "bg-purple-50 text-purple-800 border-purple-200",
+    hover: "hover:border-purple-400",
   },
   sativa: {
-    eyebrow: "text-orange-700",
-    chip: "bg-orange-50 text-orange-800 border-orange-200",
-    hover: "hover:border-orange-400",
+    eyebrow: "text-red-700",
+    chip: "bg-red-50 text-red-800 border-red-200",
+    hover: "hover:border-red-400",
   },
   hybrid: {
-    eyebrow: "text-emerald-700",
-    chip: "bg-emerald-50 text-emerald-800 border-emerald-200",
-    hover: "hover:border-emerald-400",
+    eyebrow: "text-green-700",
+    chip: "bg-green-50 text-green-800 border-green-200",
+    hover: "hover:border-green-400",
   },
   landrace: {
     eyebrow: "text-stone-600",

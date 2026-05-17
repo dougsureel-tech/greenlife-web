@@ -63,9 +63,9 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 const TYPE_BADGE_CLASS: Record<string, string> = {
-  indica: "bg-indigo-100 text-indigo-800 border-indigo-200",
-  sativa: "bg-orange-100 text-orange-800 border-orange-200",
-  hybrid: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  indica: "bg-purple-100 text-purple-800 border-purple-200",
+  sativa: "bg-red-100 text-red-800 border-red-200",
+  hybrid: "bg-green-100 text-green-800 border-green-200",
 };
 
 export async function generateMetadata({

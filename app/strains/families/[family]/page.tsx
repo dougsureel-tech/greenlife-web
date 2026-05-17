@@ -46,9 +46,9 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 const TYPE_BADGE_CLASS: Record<string, string> = {
-  indica: "bg-indigo-50 text-indigo-800 border-indigo-200",
-  sativa: "bg-orange-50 text-orange-800 border-orange-200",
-  hybrid: "bg-emerald-50 text-emerald-800 border-emerald-200",
+  indica: "bg-purple-50 text-purple-800 border-purple-200",
+  sativa: "bg-red-50 text-red-800 border-red-200",
+  hybrid: "bg-green-50 text-green-800 border-green-200",
 };
 
 function isFamilyInWave(): boolean {

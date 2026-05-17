@@ -12,9 +12,9 @@ import { FamilyAlbumGrid } from "@/components/FamilyAlbumGrid";
 // Map strain.type slug → label + accent so the hub strain-card grid
 // can chip the type without re-importing STRAIN_TYPES table mid-render.
 const TYPE_LABELS: Record<string, { label: string; chip: string }> = {
-  indica: { label: "Indica", chip: "bg-indigo-50 text-indigo-800" },
-  sativa: { label: "Sativa", chip: "bg-orange-50 text-orange-800" },
-  hybrid: { label: "Hybrid", chip: "bg-emerald-50 text-emerald-800" },
+  indica: { label: "Indica", chip: "bg-purple-50 text-purple-800" },
+  sativa: { label: "Sativa", chip: "bg-red-50 text-red-800" },
+  hybrid: { label: "Hybrid", chip: "bg-green-50 text-green-800" },
   cbd: { label: "CBD", chip: "bg-amber-50 text-amber-800" },
 };
 

@@ -47,9 +47,9 @@ const TYPE_COLORS: Record<
   NonNullable<MiniNode["type"]>,
   { fill: string; stroke: string; text: string }
 > = {
-  indica: { fill: "#3730a3", stroke: "#4338ca", text: "#fff" },
-  sativa: { fill: "#c2410c", stroke: "#ea580c", text: "#fff" },
-  hybrid: { fill: "#047857", stroke: "#059669", text: "#fff" },
+  indica: { fill: "#7e22ce", stroke: "#9333ea", text: "#fff" },
+  sativa: { fill: "#b91c1c", stroke: "#dc2626", text: "#fff" },
+  hybrid: { fill: "#15803d", stroke: "#16a34a", text: "#fff" },
 };
 const UNKNOWN_COLOR = { fill: "#57534e", stroke: "#78716c", text: "#fff" };
 

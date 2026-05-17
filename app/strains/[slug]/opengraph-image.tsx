@@ -46,36 +46,36 @@ type TypeTheme = {
 
 const TYPE_THEME: Record<string, TypeTheme> = {
   indica: {
-    bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%)",
+    bg: "linear-gradient(135deg, #3b0764 0%, #581c87 55%, #7e22ce 100%)",
     accent:
-      "radial-gradient(circle at 80% 20%, rgba(165,180,252,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(192,132,252,0.16), transparent 50%)",
-    mark: "linear-gradient(135deg, #4f46e5, #6366f1)",
-    fg: "#a5b4fc",
-    soft: "#c7d2fe",
+      "radial-gradient(circle at 80% 20%, rgba(216,180,254,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(233,213,255,0.16), transparent 50%)",
+    mark: "linear-gradient(135deg, #9333ea, #a855f7)",
+    fg: "#d8b4fe",
+    soft: "#e9d5ff",
     chip: "#fcd34d",
-    sep: "#818cf8",
+    sep: "#c084fc",
     label: "Indica",
   },
   sativa: {
-    bg: "linear-gradient(135deg, #431407 0%, #7c2d12 55%, #c2410c 100%)",
+    bg: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 55%, #b91c1c 100%)",
     accent:
-      "radial-gradient(circle at 80% 20%, rgba(253,186,116,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(252,211,77,0.18), transparent 50%)",
-    mark: "linear-gradient(135deg, #ea580c, #f97316)",
-    fg: "#fdba74",
-    soft: "#fed7aa",
+      "radial-gradient(circle at 80% 20%, rgba(252,165,165,0.32), transparent 55%), radial-gradient(circle at 12% 92%, rgba(254,202,202,0.18), transparent 50%)",
+    mark: "linear-gradient(135deg, #dc2626, #ef4444)",
+    fg: "#fca5a5",
+    soft: "#fecaca",
     chip: "#fef08a",
-    sep: "#fb923c",
+    sep: "#f87171",
     label: "Sativa",
   },
   hybrid: {
-    bg: "linear-gradient(135deg, #022c22 0%, #064e3b 55%, #065f46 100%)",
+    bg: "linear-gradient(135deg, #052e16 0%, #14532d 55%, #166534 100%)",
     accent:
-      "radial-gradient(circle at 80% 20%, rgba(74,222,128,0.30), transparent 55%), radial-gradient(circle at 12% 92%, rgba(251,191,36,0.16), transparent 50%)",
-    mark: "linear-gradient(135deg, #15803d, #047857)",
+      "radial-gradient(circle at 80% 20%, rgba(134,239,172,0.30), transparent 55%), radial-gradient(circle at 12% 92%, rgba(251,191,36,0.16), transparent 50%)",
+    mark: "linear-gradient(135deg, #15803d, #16a34a)",
     fg: "#86efac",
     soft: "#bbf7d0",
     chip: "#fcd34d",
-    sep: "#10b981",
+    sep: "#22c55e",
     label: "Hybrid",
   },
   cbd: {

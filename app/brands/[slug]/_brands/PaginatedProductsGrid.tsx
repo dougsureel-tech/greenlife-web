@@ -22,7 +22,7 @@ type Product = {
 const STRAIN_COLORS: Record<string, { badge: string }> = {
   sativa: { badge: "bg-red-100 text-red-800 border-red-200" },
   indica: { badge: "bg-purple-100 text-purple-800 border-purple-200" },
-  hybrid: { badge: "bg-emerald-100 text-emerald-800 border-emerald-200" },
+  hybrid: { badge: "bg-green-100 text-green-800 border-green-200" },
 };
 
 const CAT_ICONS: Record<string, string> = {
