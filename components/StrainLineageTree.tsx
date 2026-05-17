@@ -255,8 +255,18 @@ function Node({
   );
 
   if (node.slug) {
+    // Click affordance — SVG-wrapped <a> doesn't get pointer cursor by
+    // default. The `cursor: pointer` + hover brightness lift make it
+    // obvious that nodes navigate to that strain's page, where ITS
+    // lineage tree renders + you can keep walking the genealogy.
+    // Doug 2026-05-17: "make it so you can click on this then the
+    // whole tree comes up and you can follow it around."
     return (
-      <a href={`/strains/${node.slug}`} aria-label={`Open ${node.name} strain page`}>
+      <a
+        href={`/strains/${node.slug}`}
+        aria-label={`Open ${node.name} strain page`}
+        className="cursor-pointer hover:brightness-110 transition-[filter] focus:outline-none focus-visible:[outline:2px_solid_#16a34a] focus-visible:[outline-offset:2px]"
+      >
         {content}
       </a>
     );
