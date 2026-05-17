@@ -219,7 +219,7 @@ export default async function StrainSlugPage({
         <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-3">
           {typeLabel} · {STORE.address.city}, WA
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif tracking-tight text-stone-900 mb-3">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 mb-3">
           {s.name}
         </h1>
         <p className="text-lg md:text-xl text-stone-700 max-w-2xl mb-4">{s.tagline}</p>
@@ -382,7 +382,7 @@ export default async function StrainSlugPage({
       {/* CTA band */}
       <section className="bg-emerald-950 text-emerald-50">
         <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-serif mb-3">See if we have {s.name} in stock</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">See if we have {s.name} in stock</h2>
           <p className="text-emerald-200 mb-6 max-w-xl mx-auto">
             Live inventory at {STORE.name} — save 20% on every online order.
           </p>

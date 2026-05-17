@@ -145,7 +145,7 @@ export function StrainTypePage({ slug }: { slug: string }) {
           <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-green-300 mb-3">
             {t.eyebrow} · Wenatchee Valley
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-4 max-w-3xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.05] mb-4 max-w-3xl">
             {t.name} strains
             <span className="block text-green-300/90 font-semibold text-xl sm:text-2xl md:text-3xl mt-2">
               {t.subhead}
@@ -198,7 +198,7 @@ export function StrainTypePage({ slug }: { slug: string }) {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
         <div className="max-w-2xl">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">About the category</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 mb-6 leading-tight">{t.h2}</h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-6 leading-tight">{t.h2}</h2>
           <div className="prose prose-stone prose-base sm:prose-lg max-w-none prose-p:text-stone-700 prose-p:leading-relaxed prose-p:mb-5 prose-strong:text-stone-900">
             {t.bodyCopy.split("\n\n").map((para, i) => (
               <p key={i} {...(i === 0 ? { "data-speakable": "" } : {})}>
@@ -212,7 +212,7 @@ export function StrainTypePage({ slug }: { slug: string }) {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
         <div className="max-w-2xl">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">On the shelf</p>
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 mb-4 leading-tight">
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-stone-900 mb-4 leading-tight">
             What to look for in the {t.name.toLowerCase()} section
           </h2>
           <div className="prose prose-stone prose-base max-w-none prose-p:text-stone-700 prose-p:leading-relaxed prose-p:mb-4">
@@ -227,7 +227,7 @@ export function StrainTypePage({ slug }: { slug: string }) {
         <section className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
           <div className="mb-6 sm:mb-8">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">Strains we carry</p>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
+            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-stone-900">
               {t.name} strains in the library
             </h2>
             <p className="text-sm text-stone-600 mt-2 max-w-2xl leading-relaxed">
