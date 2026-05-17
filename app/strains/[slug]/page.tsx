@@ -259,7 +259,8 @@ export default async function StrainSlugPage({
       {/* Lineage tree */}
       {graph && (graph.parents.length > 0 || graph.descendants.length > 0) && (
         <section className="max-w-5xl mx-auto px-4 pb-8">
-          <h2 className="text-lg font-semibold text-stone-900 mb-1">Family tree</h2>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-2">Genetics</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-2">Family tree</h2>
           <p className="text-sm text-stone-600 mb-4">
             {s.name}&apos;s parents, descendants, and sister strains in the catalog.
             {s.lineageAlternates && s.lineageAlternates.length > 0 && (
@@ -282,7 +283,8 @@ export default async function StrainSlugPage({
       {/* Terpene table */}
       {s.terpenes.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 pb-10">
-          <h2 className="text-xl font-semibold text-stone-900 mb-4">Terpene profile</h2>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-2">Aromatic chemistry</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-4">Terpene profile</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {s.terpenes.map((t) => (
               <div key={t.name} className="rounded-lg border border-stone-200 bg-white p-3">
@@ -297,7 +299,7 @@ export default async function StrainSlugPage({
       {/* Effects + Flavor */}
       <section className="max-w-3xl mx-auto px-4 pb-10 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h2 className="text-base font-semibold text-stone-900 mb-3">Customers often describe</h2>
+          <h2 className="text-lg font-bold tracking-tight text-stone-900 mb-3">Customers often describe</h2>
           <div className="flex flex-wrap gap-1.5">
             {s.effects.map((e) => (
               <span key={e} className="rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 text-xs font-medium">
@@ -307,7 +309,7 @@ export default async function StrainSlugPage({
           </div>
         </div>
         <div>
-          <h2 className="text-base font-semibold text-stone-900 mb-3">Aroma + flavor</h2>
+          <h2 className="text-lg font-bold tracking-tight text-stone-900 mb-3">Aroma + flavor</h2>
           <div className="flex flex-wrap gap-1.5">
             {s.flavor.map((f) => (
               <span key={f} className="rounded-full bg-stone-100 text-stone-800 border border-stone-300 px-2.5 py-1 text-xs font-medium">
