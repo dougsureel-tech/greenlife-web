@@ -865,6 +865,44 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ─── Strain library callout ───────────────────────────────────────────
+          Surfaces the 250-strain library (lib/strains.ts) that was previously
+          invisible from the homepage. /strains page itself stays robots:noindex
+          outside the SEO_STRAIN_WAVE-current set; this homepage link drives
+          customer-side discoverability + builds internal-link signal Google
+          activates when the wave bumps. Two CTAs: primary library browse,
+          secondary 3-question quiz. WAC 314-55-155 STRICT — no effect claims. */}
+      <section className="bg-stone-50 border-b border-stone-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-700">Get to know the strains</p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                250 strains, family trees, and what to look for on the shelf
+              </h2>
+              <p className="text-stone-600 mt-2 text-sm sm:text-base leading-relaxed max-w-2xl">
+                Our library covers the strains you&apos;ll see rotating through the menu — Blue Dream, OG Kush, Wedding Cake, Gelato, the ones our regulars ask for and the heritage cuts behind them — with descriptive notes on lineage, terpenes, aroma, and how customers commonly reach for each one. The working knowledge our staff carries to the counter, written down.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 sm:gap-3 md:items-end">
+              <Link
+                href="/strains"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-800 text-white font-bold text-sm transition-all shadow-sm whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+              >
+                Browse the strain library
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                href="/find-your-strain"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl border border-green-700 text-green-800 hover:bg-green-50 font-semibold text-sm transition-all whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+              >
+                Take the 3-question quiz
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
