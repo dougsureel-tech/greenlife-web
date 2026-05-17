@@ -9,6 +9,8 @@ import Image from "next/image";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
+import { getBrandCopy } from "@/lib/brand-copy";
+import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { DropTicker } from "@/components/DropTicker";
@@ -185,7 +187,21 @@ export default async function HomePage() {
   // that's logo-less, but the homepage carousel is a curated brand showcase:
   // no logo → no slot. `featuredBrands.length > 0` gate below hides the whole
   // section when the filter returns empty.
+  // Logo source preference (Doug 2026-05-17 — Fix A from backfill audit):
+  // Prefer self-hosted `/brand-logos/<slug>.png` (curated, known-good,
+  // high-contrast white-bg PNG) over DB external URLs (often point at
+  // brand-own-site CDNs that 404 or return faded/transparent logos —
+  // e.g. EVERGREEN HERBAL's DB row pointed at the420bar.com, an
+  // unrelated cannabis-news blog). Matches the fallback chain on
+  // /brands/[slug] (`dbLogoUrl ?? getBrandCopy(slug)?.logoUrl`). Pre-
+  // fix, this carousel only read DB and surfaced the bad URLs while
+  // ignoring our 28 known-good self-hosted PNGs.
   const featuredBrands = brands
+    .map((b) => {
+      const fileFallback = getBrandCopy(b.slug)?.logoUrl ?? null;
+      const dbLogoOk = b.logoUrl && !isBannedLogoUrl(b.logoUrl) ? b.logoUrl : null;
+      return { ...b, logoUrl: fileFallback ?? dbLogoOk };
+    })
     .filter((b) => b.logoUrl != null && b.logoUrl.trim().length > 0)
     .slice(0, 10);
   // `open` flips false whenever an emergency closure is active so all 3
