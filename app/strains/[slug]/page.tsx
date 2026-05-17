@@ -210,12 +210,14 @@ export default async function StrainSlugPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
 
       {/* Breadcrumb */}
-      <div className="max-w-5xl mx-auto px-4 pt-6">
+      <div className="max-w-3xl mx-auto px-4 pt-6">
         <Breadcrumb items={breadcrumbItems} />
       </div>
 
-      {/* Hero */}
-      <section className="max-w-5xl mx-auto px-4 pt-6 pb-10">
+      {/* Hero — width-jitter fix 2026-05-17: standardize prose rail at
+          max-w-3xl. The only legitimate width-break on this page is the
+          lineage tree (max-w-5xl) which needs the room for its SVG. */}
+      <section className="max-w-3xl mx-auto px-4 pt-6 pb-10">
         <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-3">
           {typeLabel} · {STORE.address.city}, WA
         </div>
@@ -357,9 +359,10 @@ export default async function StrainSlugPage({
         </section>
       )}
 
-      {/* Related strains */}
+      {/* Related strains — width-jitter fix: align with prose rail at
+          max-w-3xl. Card grid stays grid-cols-2 md:grid-cols-3. */}
       {related.length > 0 && (
-        <section className="max-w-5xl mx-auto px-4 pb-12">
+        <section className="max-w-3xl mx-auto px-4 pb-12">
           <h2 className="text-xl font-semibold text-stone-900 mb-4">Other {typeLabel.toLowerCase()} strains worth a look</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {related.map((r) => (

@@ -211,6 +211,50 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
         crossOrigin="anonymous"
         src={BOOST_SCRIPT_URL}
       />
+      {/* 4. Alt-text scrubber — polish-audit move #6 (2026-05-17).
+             Boost ships product images with internal SKU codes in the alt
+             attribute, e.g. alt="(1 in Returns) Banana OG Cart - 1g -
+             Concentrate - (H)" — screen-reader hostile + SEO-poor. This
+             observer strips the leading "(N in Returns) " prefix +
+             trailing " - (H)/(S)/(I)" type marker + leading "1g - "
+             weight/format prefix, then writes the clean string back.
+             Throttled to once per 500ms; idempotent on already-scrubbed alts. */}
+      <Script
+        id="jane-alt-text-scrub"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `(function(){
+  var lastRun = 0;
+  function scrub(){
+    var now = Date.now();
+    if (now - lastRun < 500) return;
+    lastRun = now;
+    var imgs = document.querySelectorAll('img[alt*="in Returns"], img[alt*=" - "]');
+    for (var i = 0; i < imgs.length; i++) {
+      var el = imgs[i];
+      var orig = el.getAttribute('alt') || '';
+      if (!orig) continue;
+      var cleaned = orig
+        .replace(/^\\s*\\(\\d+\\s+in\\s+Returns\\)\\s*/i, '')
+        .replace(/\\s*-\\s*\\([A-Z]{1,3}\\)\\s*$/i, '')
+        .replace(/^\\d+(?:\\.\\d+)?\\s*(?:g|mg|oz)\\s*-\\s*/i, '')
+        .trim();
+      if (cleaned && cleaned !== orig) el.setAttribute('alt', cleaned);
+    }
+  }
+  var obs = new MutationObserver(scrub);
+  if (document.body) {
+    obs.observe(document.body, { childList: true, subtree: true });
+    scrub();
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){
+      obs.observe(document.body, { childList: true, subtree: true });
+      scrub();
+    });
+  }
+})();`,
+        }}
+      />
     </>
   );
 }
