@@ -79,7 +79,7 @@ const SUB_BRANDS: Array<{ name: string; tag: string; line: string; matchToken: s
   {
     name: "Nug Run Shatter",
     tag: "Concentrates",
-    line: "Shatter run from whole nugs (not trim). Cleaner profile, fuller flavor — the classic dab format from the Slab Mechanix bench.",
+    line: "Shatter run from whole nugs (not trim). Brighter terpene profile, fuller flavor — the classic dab format from the Slab Mechanix bench.",
     matchToken: "Shatter",
   },
   {

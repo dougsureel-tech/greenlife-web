@@ -99,7 +99,7 @@ const ARLINGTON_CARDS = [
   {
     emoji: "🐞",
     title: "Pesticide-Free",
-    body: "Pest control runs on beneficial fungi, predatory insects, and natural oils instead of synthetic sprays. Slower than chemical IPM, cleaner finished product.",
+    body: "Pest control runs on beneficial fungi, predatory insects, and natural oils instead of synthetic sprays. Slower than chemical IPM — fewer residues on the finished flower.",
   },
   {
     emoji: "🛣️",

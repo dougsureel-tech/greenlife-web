@@ -18,7 +18,7 @@ import type { BrandPalette } from "./_shell/types";
 const ABOUT_QA = [
   {
     q: "What is Ooowee?",
-    a: "A Washington-state cannabis brand built around the expression itself — \"ooowee\" — rather than around a leaf or a logo trick. Their own bio puts it bluntly: incredibly strong marijuana, lifestyle brand. The visual identity (designed by Karen Hsin) leans on a speech-bubble cloud instead of the standard cannabis leaf, so the logo reads as the sound someone makes when something hits.",
+    a: "A Washington-state cannabis brand built around the expression itself — \"ooowee\" — rather than around a leaf or a logo trick. Their own bio puts it bluntly: high-potency cannabis, lifestyle brand. The visual identity (designed by Karen Hsin) leans on a speech-bubble cloud instead of the standard cannabis leaf, so the logo reads as the sound someone makes when something hits.",
   },
   {
     q: "Who actually makes it?",
@@ -30,7 +30,7 @@ const ABOUT_QA = [
   },
   {
     q: "Is the brand new or has it been around a while?",
-    a: "Long enough to be a top-tier name in the WA pre-roll and concentrate categories — Ooowee held the #1 WA pre-roll spot from late 2025 through early 2026. Their consumer site (oowee.co) was still showing a launch placeholder at the time of writing, so the brand voice lives mostly on the packaging and on Instagram (@oohweeoohwee).",
+    a: "Long enough to make the WA pre-roll leaderboard — Ooowee held the #1 pre-roll spot from late 2025 through early 2026 (Headset data). Their consumer site (oowee.co) was still showing a launch placeholder at the time of writing, so the brand voice lives mostly on the packaging and on Instagram (@oohweeoohwee).",
   },
 ];
 

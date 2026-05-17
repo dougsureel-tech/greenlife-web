@@ -104,7 +104,7 @@ const SUB_BRANDS: Array<{ name: string; tag: string; line: string }> = [
   {
     name: "Vibes",
     tag: "Approachable",
-    line: "The lower-strength tier — easier on the lungs, milder onset. Good entry point if you're new to high-THC vapes.",
+    line: "The lower-strength tier — gentler draw, milder onset. Good entry point if you're new to high-THC vapes.",
   },
 ];
 
