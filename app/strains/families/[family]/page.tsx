@@ -243,55 +243,81 @@ export default async function FamilyHubPage({
         </div>
       </section>
 
-      {/* Founder spotlight + mini-tree — tightened: muted eyebrow (was
-          accent-color, competed with CTA link colors below), pruned the
-          redundant "The line starts with X" h2 since the founder card
-          name says the same thing one line lower. */}
+      {/* Founder spotlight + lineage (v37.265 redesign per Doug 2026-05-17
+          "split it down the middle, make the graph clickable, a little
+          bigger, nice UI update"). Single rounded card wraps both columns
+          as one double-page-spread; vertical hairline divider at md+ reads
+          as the spine. Diagram nodes are now clickable `<a href>` links
+          straight to each strain's canonical page (interactive prop on
+          FamilyMiniTree). Hero size variant lifts the diagram from
+          480×220 → 560×280. Design brief at
+          /CODE/Green Life/STRAIN_FAMILY_SPOTLIGHT_REDESIGN_2026_05_17.md. */}
       {anchor && (
-        <section className="max-w-5xl mx-auto px-4 pb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-stone-500 mb-3">
-            Founder strain
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-            <div>
+        <section className="max-w-5xl mx-auto px-4 pb-10">
+          <div className="rounded-2xl border border-stone-200 bg-gradient-to-br from-white to-stone-50/60 shadow-sm overflow-hidden">
+            {/* Eyebrow row spans full width */}
+            <div className="flex items-baseline justify-between gap-3 px-6 sm:px-8 md:px-10 pt-6 md:pt-8 pb-4 border-b border-stone-100">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-stone-500">
+                Founder strain
+                <span className="mx-1.5 text-stone-300">·</span>
+                <span className="text-stone-700">{fam.name}</span>
+              </p>
+              {(parents.length > 0 || descendants.length > 0) && (
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500 tabular-nums">
+                  ({parents.length + 1 + Math.min(descendants.length, 5)}) lineage tree
+                </span>
+              )}
+            </div>
+
+            {/* Two-column body — vertical hairline divider at md+ */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-0 items-stretch p-6 sm:p-8 md:p-10">
+              {/* LEFT — founder card */}
               <Link
                 href={`/strains/${anchor.slug}`}
-                className="block rounded-xl border border-stone-200 bg-white hover:border-emerald-400 hover:shadow-sm transition-all p-4 group"
+                className="group flex flex-col justify-between rounded-xl bg-white border border-stone-200 hover:border-emerald-400 hover:shadow-md transition-all p-5 sm:p-6 md:mr-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
               >
-                <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <span className="text-lg font-bold text-stone-900 group-hover:text-emerald-900">
-                    {anchor.name}
-                  </span>
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 border ${
-                      TYPE_BADGE_CLASS[anchor.type] ?? "bg-stone-100 text-stone-700 border-stone-300"
-                    }`}
-                  >
-                    {TYPE_LABELS[anchor.type] ?? anchor.type}
-                  </span>
+                <div>
+                  <div className="flex items-baseline justify-between gap-2 mb-3">
+                    <span className="text-xl sm:text-2xl font-bold text-stone-900 group-hover:text-emerald-900 leading-tight">
+                      {anchor.name}
+                    </span>
+                    <span
+                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 border ${
+                        TYPE_BADGE_CLASS[anchor.type] ?? "bg-stone-100 text-stone-700 border-stone-300"
+                      }`}
+                    >
+                      {TYPE_LABELS[anchor.type] ?? anchor.type}
+                    </span>
+                  </div>
+                  <p className="text-sm sm:text-base text-stone-700 leading-relaxed">{anchor.tagline}</p>
+                  {anchor.lineage && (
+                    <p className="text-[11px] text-stone-500 mt-3 font-mono">{anchor.lineage}</p>
+                  )}
                 </div>
-                <p className="text-sm text-stone-700 leading-relaxed mb-2">{anchor.tagline}</p>
-                {anchor.lineage && (
-                  <p className="text-[11px] text-stone-500 mt-2 font-mono">{anchor.lineage}</p>
-                )}
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 group-hover:text-emerald-900 mt-3">
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 group-hover:text-emerald-900 mt-4">
                   Open {anchor.name} page <span aria-hidden="true">→</span>
                 </span>
               </Link>
-            </div>
-            {(parents.length > 0 || descendants.length > 0) && (
-              <div className="rounded-xl bg-white border border-stone-200 p-3 sm:p-4">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.1em] text-stone-500 mb-2 text-center">
-                  Lineage at a glance
+
+              {/* RIGHT — lineage diagram (clickable, hero size) */}
+              {(parents.length > 0 || descendants.length > 0) ? (
+                <div className="flex flex-col justify-center md:pl-8 md:border-l md:border-stone-200 pt-2 md:pt-0">
+                  <FamilyMiniTree
+                    center={{ name: anchor.name, type: anchor.type, slug: anchor.slug }}
+                    parents={parents}
+                    descendants={descendants}
+                    size="hero"
+                    interactive
+                    accent="emerald"
+                  />
+                  <p className="mt-3 text-[10px] uppercase tracking-wider text-stone-400 text-center">
+                    Tap any strain to open its page
+                  </p>
                 </div>
-                <FamilyMiniTree
-                  center={{ name: anchor.name, type: anchor.type, slug: anchor.slug }}
-                  parents={parents}
-                  descendants={descendants}
-                  size="spotlight"
-                />
-              </div>
-            )}
+              ) : (
+                <div className="md:pl-8 md:border-l md:border-stone-200" aria-hidden="true" />
+              )}
+            </div>
           </div>
         </section>
       )}
