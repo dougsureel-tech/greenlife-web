@@ -6378,6 +6378,2154 @@ export const STRAINS: Record<string, Strain> = {
       verifiedAt: "2026-05-16",
     },
   },
+
+  // ────────────────────────────────────────────────────────────────────
+  // WAVE 4 (slugs 151-200) — integrated 2026-05-16
+  // 50 verified strains. Tier: 45 verified-clean + 5 verified-with-note + 0 contested.
+  // Type split: 23 hybrid + 15 sativa + 12 indica (CBD-leaning distributed).
+  // Family Album must-includes: amnesia-haze, thai, colombian, northern-lights-5.
+  // (skunk-1 + super-silver-haze already in Wave 1.)
+  // Source dataset: shared/strains-wave4-151to200.ts
+  // ────────────────────────────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────────────
+  // FAMILY ALBUM MUST-INCLUDES (4)
+  // amnesia-haze · thai · colombian · northern-lights-5
+  // (skunk-1 + super-silver-haze already live from Wave 1 — spec satisfied)
+  // ────────────────────────────────────────────────────────────────────
+
+  "amnesia-haze": {
+    slug: "amnesia-haze",
+    name: "Amnesia Haze",
+    type: "sativa",
+    aliases: ["Amnesia Haze", "Amnesia"],
+    tagline: "Haze × Afghani — Amsterdam coffeeshop heritage sativa.",
+    intro:
+      "Amnesia Haze is the Dutch coffeeshop heritage sativa — a Haze × Afghani cross that took 1st place at the " +
+      "2004 Cannabis Cup and 1st in the Sativa Cup again in 2012. Long-flowering haze backbone with the Afghani " +
+      "side adding enough body to keep it from getting too racey. Citrus and earth on the nose, head-up and " +
+      "talkative through the session.",
+    lineage: "Haze × Afghani (with Jamaican and Hawaiian heritage)",
+    parents: ["haze", "afghani"],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Happy", "Energetic", "Creative"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warmth" },
+      { name: "Limonene", note: "citrus top" },
+    ],
+    flavor: ["Citrus", "Earth", "Light spice"],
+    bestFor: ["Daytime sessions", "Creative work", "Social hangouts"],
+    avoidIf: ["Long-flowering haze profiles run racey on low tolerance", "You want a body-heavy indica"],
+    faqs: [
+      {
+        q: "Why is Amnesia Haze called a coffeeshop classic?",
+        a: "It's been on Amsterdam coffeeshop menus since the late 1990s and won the Cannabis Cup in 2004 and the Sativa Cup again in 2012. The Dutch haze scene is where it built its name.",
+      },
+      {
+        q: "Is Amnesia Haze too strong for daytime use?",
+        a: "It's a head-forward sativa with a long ceiling — pace yourself if you're newer to haze-family strains. Customers reach for it when they want talkative and creative, not racey.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/amnesia-haze",
+        "https://weedmaps.com/strains/amnesia-haze",
+      ],
+      notes:
+        "Leafly confirms Haze × Afghani, sativa, ~19% THC. Top terpenes Myrcene/Caryophyllene/Limonene match. Cannabis Cup 2004 + Sativa Cup 2012 wins documented. Both parents in our index (haze + afghani from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "thai": {
+    slug: "thai",
+    name: "Thai",
+    type: "sativa",
+    aliases: ["Thai", "Thai Stick", "Thai Landrace"],
+    tagline: "Pure Thai landrace — head-up tropical heritage sativa.",
+    intro:
+      "Thai is a pure landrace sativa from the Mekong region — one of the foundational equatorial strains that " +
+      "underpins most modern haze lineages. Customers familiar with the original Thai Stick imports of the 1970s " +
+      "remember it as long-flowering, citrus-and-spice on the nose, and head-up without the cookies-shelf body " +
+      "weight. Landrace genetics mean phenotype variance is wide.",
+    lineage: "Landrace — Thailand (Mekong region)",
+    parents: [null, null],
+    thcRange: "12–18%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Energetic", "Creative", "Happy"],
+    terpenes: [
+      { name: "Terpinolene", note: "fresh herbal top" },
+      { name: "Pinene", note: "sharp pine" },
+      { name: "Limonene", note: "citrus" },
+    ],
+    flavor: ["Citrus", "Spice", "Earth"],
+    bestFor: ["Daytime sessions", "Heritage-strain curious", "Talkative social"],
+    avoidIf: ["You want body-heavy indica", "You're sensitive to long-ceiling sativas"],
+    faqs: [
+      {
+        q: "Is Thai the same as Thai Stick?",
+        a: "Thai Stick was the original 1970s import format — Thai flower tied around bamboo skewers. The genetics are Thai landrace; the 'stick' part was the smuggling presentation. Modern Thai flower is the same landrace family, just packaged the way we package everything else.",
+      },
+      {
+        q: "Why is Thai important to modern strain lineages?",
+        a: "Thai is one of the equatorial sativas that underpins the haze family. Original Haze itself crossed Mexican, Colombian, South Indian, and Thai — Thai is in the DNA of most modern haze strains.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/thai",
+        "https://en.seedfinder.eu/strain-info/Thai/",
+      ],
+      notes:
+        "Leafly + SeedFinder confirm Thai as a landrace sativa from Thailand, foundational to haze lineage. Both parents null (landrace). THC range conservative — landrace phenotypes vary widely.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "colombian": {
+    slug: "colombian",
+    name: "Colombian",
+    type: "sativa",
+    aliases: ["Colombian", "Colombian Landrace", "Punto Rojo"],
+    tagline: "Pure Colombian landrace — heritage equatorial sativa.",
+    intro:
+      "Colombian is the broader landrace category that Colombian Gold sits inside — pure equatorial sativa " +
+      "from the Andes and Sierra Nevada regions. Head-up, long-flowering, citrus-and-earth on the nose. " +
+      "Most modern shelf product traces some lineage back here — Skunk #1 itself had Colombian in the cross. " +
+      "Customers reach for it when they want heritage sativa without modern hybrid body weight.",
+    lineage: "Landrace — Colombia (Andes / Sierra Nevada de Santa Marta regions)",
+    parents: [null, null],
+    thcRange: "12–18%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Energetic", "Happy", "Creative"],
+    terpenes: [
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warmth" },
+    ],
+    flavor: ["Citrus", "Earth", "Light pine"],
+    bestFor: ["Daytime sessions", "Heritage-strain curious", "Outdoor activities"],
+    avoidIf: ["You want a body-heavy indica", "Long-ceiling sativas wear you out"],
+    faqs: [
+      {
+        q: "How is Colombian different from Colombian Gold?",
+        a: "Colombian Gold is one specific phenotype of the broader Colombian landrace — the gold-leaf expression from the Santa Marta region specifically. Colombian as a category includes Colombian Gold plus other regional phenotypes like Punto Rojo.",
+      },
+      {
+        q: "What modern strains have Colombian heritage?",
+        a: "Skunk #1 (Colombian × Mexican × Afghani) is the most famous — Colombian is in the DNA of the entire Skunk family. Haze also had Colombian in the original four-way cross.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/colombian",
+        "https://en.seedfinder.eu/strain-info/Colombian/",
+      ],
+      notes:
+        "Leafly + SeedFinder confirm Colombian as a landrace sativa category, with Colombian Gold as one phenotype. Parents null (landrace). Sister entry to colombian-gold from Wave 2 — kept separate per Family Album spec.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "northern-lights-5": {
+    slug: "northern-lights-5",
+    name: "Northern Lights #5",
+    type: "indica",
+    aliases: ["Northern Lights #5", "NL#5", "NL5"],
+    tagline: "Sensi Seeds NL#5 phenotype — the most-shipped Northern Lights pheno.",
+    intro:
+      "Northern Lights #5 is the specific Sensi Seeds phenotype that most modern Northern Lights shelf product " +
+      "traces back to. Indica-dominant, body-heavy, classic sweet-pine aroma. Won the High Times Cannabis Cup " +
+      "in 1989 and again in 1990. Customers familiar with Northern Lights as a category will recognize the NL#5 " +
+      "phenotype as the slightly heavier, more resinous expression.",
+    lineage: "Northern Lights phenotype #5 (Afghani-leaning selection from the original NL group)",
+    parents: ["northern-lights", null],
+    thcRange: "16–21%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Caryophyllene", note: "peppery warmth" },
+      { name: "Limonene", note: "sweet citrus undertone" },
+    ],
+    flavor: ["Sweet pine", "Earth", "Light spice"],
+    bestFor: ["Late-night use", "Pre-sleep wind-down", "Heritage-indica fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "What makes Northern Lights #5 different from regular Northern Lights?",
+        a: "NL#5 is the specific Sensi Seeds phenotype the breeder selected as the most consistent expression. Most modern 'Northern Lights' shelf product is actually NL#5 lineage, even when labeled just 'Northern Lights.'",
+      },
+      {
+        q: "Is Northern Lights #5 a parent of other famous strains?",
+        a: "Yes — Neville's Haze and Shiva Skunk both have NL#5 in the cross. Super Silver Haze also descends from this line. NL#5 is one of the most-used parent strains in modern breeding.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://sensiseeds.com/en/cannabis-seeds/strain-northern-lights",
+        "https://www.leafly.com/strains/northern-lights",
+      ],
+      notes:
+        "Sensi Seeds confirms NL#5 as the canonical phenotype selection. Cannabis Cup 1989 + 1990 wins documented. Northern Lights parent in our index. Kept as separate slug per Family Album spec — represents the specific pheno most shelf product traces to.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  // ────────────────────────────────────────────────────────────────────
+  // HYBRIDS (12)
+  // ────────────────────────────────────────────────────────────────────
+
+  "sundae-strudel": {
+    slug: "sundae-strudel",
+    name: "Sundae Strudel",
+    type: "hybrid",
+    aliases: ["Sundae Strudel", "SS"],
+    tagline: "Sundae Driver × Apple Strudel — sweet dessert hybrid.",
+    intro:
+      "Sundae Strudel is a Cannarado cross of Sundae Driver × Apple Strudel — balanced hybrid with a sweet " +
+      "apple-pastry aroma layered over the creamy Sundae Driver base. Customers reach for it when they want " +
+      "dessert flavors without the heavy body-pin of pure indica. Easy mid-afternoon to evening pick.",
+    lineage: "Sundae Driver × Apple Strudel",
+    parents: ["sundae-driver", null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Uplifted"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Apple pastry", "Sweet cream", "Light vanilla"],
+    bestFor: ["Mid-afternoon", "After-dinner couch", "Dessert-hybrid fans"],
+    avoidIf: ["You want a clear sativa head-up", "Sweet aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Is Sundae Strudel similar to Sundae Driver?",
+        a: "Same family — Sundae Driver is one of its parents. Sundae Strudel adds more pastry-apple on top of the Sundae Driver creaminess. Customers who already like Sundae Driver tend to reach for this when they want the same effect with a sweeter nose.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://cannarado.com/strain-library/",
+        "https://en.seedfinder.eu/database/strains/Sundae+Strudel/",
+      ],
+      notes:
+        "Cannarado Genetics breeder. Leafly and Weedmaps both 404 on the dedicated page — used Cannarado primary + SeedFinder. Sundae Driver in our index. Apple Strudel parent not in our index — kept null. Community-attested cross consistent across sources.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "cereal-milk": {
+    slug: "cereal-milk",
+    name: "Cereal Milk",
+    type: "hybrid",
+    aliases: ["Cereal Milk", "CM"],
+    tagline: "Y Life × Snowman — Cookies-shelf sweet-cream hybrid.",
+    intro:
+      "Cereal Milk is a Cookies cross of Y Life (Cookies × Cherry Pie) × Snowman — balanced hybrid with the " +
+      "sweet-milk aroma the name suggests. Sits in the Cookies-shelf modern-dessert lineup alongside Gelato " +
+      "and Sunset Sherbet. Customers reach for it when they want creamy aromatics with a clear-headed lift.",
+    lineage: "Y Life × Snowman",
+    parents: ["girl-scout-cookies", null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Euphoric"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus-sweet top" },
+      { name: "Humulene", note: "earthy hop-like" },
+    ],
+    flavor: ["Sweet cream", "Vanilla", "Light berry"],
+    bestFor: ["Mid-afternoon to evening", "Dessert-hybrid fans", "Social hangouts"],
+    avoidIf: ["You want a heavy indica wind-down", "Sweet-milky aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Why is it called Cereal Milk?",
+        a: "The aroma genuinely reads as sweet-cream and vanilla — the kind of milk left at the bottom of a cereal bowl. Cookies built the name around the flavor profile.",
+      },
+      {
+        q: "Is Cereal Milk related to Gelato?",
+        a: "Same shelf, different cross. Both are in the Cookies-family modern-dessert lineup, but Cereal Milk comes through Y Life × Snowman while Gelato comes through Sunset Sherbet × Thin Mint GSC. They share the Cookies heritage.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/cereal-milk",
+        "https://weedmaps.com/strains/cereal-milk",
+      ],
+      notes:
+        "Leafly confirms Y Life × Snowman, hybrid, ~25% THC. Top terpenes Caryophyllene/Limonene/Humulene match. Cookies breeder. GSC in our index — used as Cookies-side parent reference (Y Life is Cookies × Cherry Pie).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "lemon-tree": {
+    slug: "lemon-tree",
+    name: "Lemon Tree",
+    type: "hybrid",
+    aliases: ["Lemon Tree", "LT"],
+    tagline: "Lemon Skunk × Sour Diesel — citrus-forward hybrid.",
+    intro:
+      "Lemon Tree is a Lemon Skunk × Sour Diesel cross — balanced hybrid with a sharp lemon-and-diesel aroma " +
+      "and a head-up-then-relaxed effect curve. Bred by Greenwolf LA. Customers reach for it when they want " +
+      "citrus aromatics with a noticeable diesel undercurrent and a session that lifts before it lands.",
+    lineage: "Lemon Skunk × Sour Diesel",
+    parents: ["lemon-skunk", "sour-diesel"],
+    thcRange: "17–24%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Euphoric"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warmth" },
+    ],
+    flavor: ["Lemon", "Diesel", "Earth"],
+    bestFor: ["Mid-afternoon", "Citrus-forward hybrid fans", "Creative work"],
+    avoidIf: ["Diesel pungency turns you off", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "How does Lemon Tree compare to Lemon Skunk?",
+        a: "Same lemon-skunk family, but the Sour Diesel side adds more head-up lift and a fuel undercurrent. Lemon Skunk alone is more candy-citrus; Lemon Tree is sharper with diesel pungency.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/lemon-tree",
+        "https://weedmaps.com/strains/lemon-tree",
+      ],
+      notes:
+        "Leafly confirms Lemon Skunk × Sour Diesel, hybrid, ~17%+ THC. Top terpenes Myrcene/Pinene/Caryophyllene match. Both parents in our index (lemon-skunk + sour-diesel from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "frosted-cake": {
+    slug: "frosted-cake",
+    name: "Frosted Cake",
+    type: "hybrid",
+    aliases: ["Frosted Cake", "FC"],
+    tagline: "Strawberry Shortcake × Jungle Cake — sweet dessert hybrid.",
+    intro:
+      "Frosted Cake is a Strawberry Shortcake × Jungle Cake cross — balanced hybrid with a sweet berry-pastry " +
+      "aroma and a mellow body landing. Lower-THC than most modern dessert hybrids (typically 13–18%), which " +
+      "makes it a friendly pick for customers who want flavor without the high ceiling.",
+    lineage: "Strawberry Shortcake × Jungle Cake",
+    parents: [null, null],
+    thcRange: "13–18%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Hungry", "Sleepy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Linalool", note: "floral lavender" },
+    ],
+    flavor: ["Strawberry pastry", "Sweet cream", "Light vanilla"],
+    bestFor: ["Mid-tolerance sessions", "Wind-down evenings", "Dessert-hybrid fans who want low-ceiling"],
+    avoidIf: ["You want high-THC", "Sweet aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Why is Frosted Cake lower-THC than other dessert hybrids?",
+        a: "Phenotype selection emphasizes the flavor profile over the THC ceiling. Most batches land 13–18% — closer to heritage strains than to the 25%+ modern cookies-shelf top end.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/frosted-cake",
+        "https://weedmaps.com/strains/frosted-cake",
+      ],
+      notes:
+        "Leafly confirms Strawberry Shortcake × Jungle Cake, hybrid, ~13% THC. Top terpenes Myrcene/Caryophyllene/Linalool match. Both parents not in our index (Jungle Cake is in this same wave) — Strawberry Shortcake kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "rainbow-beltz": {
+    slug: "rainbow-beltz",
+    name: "Rainbow Beltz",
+    type: "hybrid",
+    aliases: ["Rainbow Beltz", "Rainbow Belts"],
+    tagline: "Zkittlez × Moonbow #75 — Archive Seed Bank candy hybrid.",
+    intro:
+      "Rainbow Beltz is an Archive Seed Bank cross of Zkittlez × Moonbow #75 — balanced hybrid with the candy-fruit " +
+      "Zkittlez nose and the Moonbow side adding gas and grape undertones. Sits in the modern candy-shelf " +
+      "lineup. Customers who already like Zkittlez tend to reach for this when they want the same flavor " +
+      "with more body weight.",
+    lineage: "Zkittlez × Moonbow #75",
+    parents: ["zkittlez", null],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Tingly"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus-sweet" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Candy fruit", "Grape", "Light gas"],
+    bestFor: ["Evening sessions", "Candy-shelf fans", "Mid-tolerance"],
+    avoidIf: ["You want a clear sativa head-up", "Candy-sweet aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Is Rainbow Beltz the same as Rainbow Belts?",
+        a: "Same strain, alternate spelling. Archive Seed Bank uses 'Rainbow Belts' on their canonical packaging — 'Rainbow Beltz' is the common alternative spelling used at shops and on packaging from licensees.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://weedmaps.com/strains/rainbow-belts",
+        "https://archiveseedbank.com/collections/all/products/rainbow-belts",
+      ],
+      notes:
+        "Weedmaps + Archive Seed Bank primary confirm Zkittlez × Moonbow #75, balanced hybrid. Zkittlez in our index. Moonbow #75 not in our index — kept null. Leafly 404 on the dedicated page (Rainbow Beltz spelling).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "han-solo-burger": {
+    slug: "han-solo-burger",
+    name: "Han Solo Burger",
+    type: "hybrid",
+    aliases: ["Han Solo Burger", "HSB"],
+    tagline: "GMO × Larry OG — savory-funk hybrid from Skunk House Genetics.",
+    intro:
+      "Han Solo Burger is a Skunk House Genetics cross of GMO × Larry OG — balanced hybrid leaning indica, " +
+      "with the savory-garlic GMO funk layered over the OG Kush base. Customers who already like GMO or " +
+      "Garlic Breath reach for this when they want the same savory profile with more OG underneath.",
+    lineage: "GMO Cookies × Larry OG",
+    parents: ["gmo-cookies", "larry-og"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Sleepy", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery, savory-warm" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Humulene", note: "earthy hop-like" },
+    ],
+    flavor: ["Savory garlic", "Funk", "OG pine"],
+    bestFor: ["High-tolerance evenings", "Savory-funk hybrid fans", "End of day"],
+    avoidIf: ["Funky-savory aromas turn you off", "Low-tolerance — runs high"],
+    faqs: [
+      {
+        q: "How does Han Solo Burger compare to GMO?",
+        a: "Same savory family, but the Larry OG side adds more OG pine and a bit more body weight. GMO alone is more diesel-funk; Han Solo Burger softens the diesel and layers in OG.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/han-solo-burger",
+        "https://weedmaps.com/strains/han-solo-burger",
+      ],
+      notes:
+        "Leafly confirms GMO Cookies × Larry OG, hybrid (indica-leaning), Skunk House Genetics breeder. Top flavor profile (tobacco/pepper/woody) matches caryophyllene-dominant. Both parents in our index (gmo-cookies + larry-og from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "modified-apples": {
+    slug: "modified-apples",
+    name: "Modified Apples",
+    type: "hybrid",
+    aliases: ["Modified Apples", "MA"],
+    tagline: "GMO × Apples and Bananas — Capulator savory-fruit hybrid.",
+    intro:
+      "Modified Apples is a Capulator cross of GMO × Apples and Bananas — balanced hybrid with the GMO " +
+      "savory-funk layered over the sweet apple-banana side. Customers who like GMO but want sweeter aromatics " +
+      "reach for this. Heavier than Apples and Bananas alone, more dessert than pure GMO.",
+    lineage: "GMO Cookies × Apples and Bananas",
+    parents: ["gmo-cookies", "apples-and-bananas"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery, savory-warm" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sweet apple", "Savory funk", "Light banana"],
+    bestFor: ["Evening sessions", "GMO-shelf fans wanting sweeter nose", "High-tolerance"],
+    avoidIf: ["Low-tolerance — runs high", "You want a clear sativa head-up"],
+    faqs: [
+      {
+        q: "Is Modified Apples the same as Apples and Bananas?",
+        a: "Same family — Apples and Bananas is one of its parents. Modified Apples adds GMO on top, which makes the aroma savorier and the effect heavier. Apples and Bananas alone is sweeter and lighter.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://capulator.com/strains",
+        "https://en.seedfinder.eu/strain-info/Modified_Apples/Capulator/",
+      ],
+      notes:
+        "Capulator (breeder primary) + SeedFinder confirm GMO × Apples and Bananas. Leafly and Weedmaps both 404 on the dedicated page — used breeder primary + SeedFinder. Both parents in our index (gmo-cookies from Wave 1, apples-and-bananas from Wave 2).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "pink-lemonade": {
+    slug: "pink-lemonade",
+    name: "Pink Lemonade",
+    type: "hybrid",
+    aliases: ["Pink Lemonade", "PL"],
+    tagline: "Lemon Skunk × Purple Kush — citrus-forward sweet hybrid.",
+    intro:
+      "Pink Lemonade is a Lemon Skunk × Purple Kush cross — balanced hybrid with a sweet pink-citrus aroma " +
+      "and a head-up-then-mellow effect curve. Customers reach for it when they want citrus aromatics " +
+      "without the diesel sharpness of a Sour Diesel-side cross. Lighter and brighter than Lemon Tree.",
+    lineage: "Lemon Skunk × Purple Kush",
+    parents: ["lemon-skunk", null],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Focused"],
+    terpenes: [
+      { name: "Ocimene", note: "sweet floral-fruity top" },
+      { name: "Pinene", note: "sharp pine" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sweet lemon", "Light grapefruit", "Berry undertone"],
+    bestFor: ["Mid-afternoon", "Creative work", "Citrus-forward hybrid fans"],
+    avoidIf: ["You want a heavy indica wind-down", "Sweet-citrus aromas aren't your thing"],
+    faqs: [
+      {
+        q: "How is Pink Lemonade different from Lemon Tree?",
+        a: "Both are lemon-forward hybrids, but Pink Lemonade leans sweeter and softer (Purple Kush side adds berry undertones). Lemon Tree is sharper with Sour Diesel pungency.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/pink-lemonade",
+        "https://weedmaps.com/strains/pink-lemonade",
+      ],
+      notes:
+        "Leafly confirms Lemon Skunk × Purple Kush, hybrid, ~18% THC. Top terpenes Ocimene/Pinene/Myrcene match. Lemon Skunk in our index. Purple Kush parent not in our index — kept null. Leafly notes alternate Maryland Evermore version uses Strawberry Fields × Sunset Sherbet — we cite the canonical Lemon Skunk × Purple Kush cross.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "jungle-cake": {
+    slug: "jungle-cake",
+    name: "Jungle Cake",
+    type: "hybrid",
+    aliases: ["Jungle Cake", "JC"],
+    tagline: "White Fire #43 × Wedding Cake — Seed Junky dessert hybrid.",
+    intro:
+      "Jungle Cake is a Seed Junky Genetics cross of White Fire #43 × Wedding Cake — balanced hybrid with a " +
+      "sweet-cake aroma over a pine-and-fuel base. Sits in the modern dessert-hybrid lineup alongside Wedding " +
+      "Cake itself. Customers reach for it when they want Wedding Cake flavor with more head-up lift.",
+    lineage: "White Fire #43 × Wedding Cake",
+    parents: [null, "wedding-cake"],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Euphoric", "Uplifted"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sweet citrus top" },
+    ],
+    flavor: ["Sweet cake", "Pine", "Light fuel"],
+    bestFor: ["Mid-afternoon to evening", "Dessert-hybrid fans", "Wedding Cake lovers"],
+    avoidIf: ["Low-tolerance — runs high", "You want a clear sativa head-up"],
+    faqs: [
+      {
+        q: "How does Jungle Cake relate to Wedding Cake?",
+        a: "Wedding Cake is one of its parents. Jungle Cake adds White Fire #43 on top, which brings more head-up lift and a fuel undercurrent. Wedding Cake alone is heavier; Jungle Cake is more balanced.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/jungle-cake",
+        "https://weedmaps.com/strains/jungle-cake",
+      ],
+      notes:
+        "Leafly confirms White Fire #43 × Wedding Cake, hybrid, ~21% THC, Seed Junky Genetics breeder. Top terpenes Myrcene/Caryophyllene/Limonene match. Wedding Cake in our index. White Fire #43 not in our index — kept null (white-fire-og in this wave is a related but distinct strain).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "cap-junky": {
+    slug: "cap-junky",
+    name: "Cap Junky",
+    type: "hybrid",
+    aliases: ["Cap Junky", "CJ"],
+    tagline: "Alien Cookies × Kush Mints #11 — Capulator × Seed Junky collab.",
+    intro:
+      "Cap Junky is a high-profile collaboration between two of the most respected modern breeders — " +
+      "Capulator and Seed Junky Genetics. The cross is Alien Cookies × Kush Mints #11, balanced hybrid, " +
+      "with a sour fruit-rind aroma and notes of pepper, gas, and dank. Runs notoriously high in THC " +
+      "— often pushing 30%+. Customers reach for it as a connoisseur pick.",
+    lineage: "Alien Cookies × Kush Mints #11",
+    parents: [null, "kush-mints"],
+    thcRange: "26–32%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Tingly"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sour citrus rind" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Apricot", "Menthol", "Gas"],
+    bestFor: ["High-tolerance sessions", "Connoisseur picks", "Evening use"],
+    avoidIf: ["Low-tolerance — runs very high", "You want a calm beginner experience"],
+    faqs: [
+      {
+        q: "Why is Cap Junky so high-THC?",
+        a: "Both parents (Alien Cookies and Kush Mints #11) are already high-THC, and Capulator + Seed Junky selected the cross for maximum potency. Batches commonly test 28–32%+. Not a starter strain.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/cap-junky",
+        "https://weedmaps.com/strains/cap-junky",
+      ],
+      notes:
+        "Leafly confirms Alien Cookies × Kush Mints #11, hybrid. Capulator × Seed Junky collab documented. Flavor profile (apricot/menthol/gas) matches caryophyllene + limonene dominant. Kush Mints in our index. Alien Cookies not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "mochi-gelato": {
+    slug: "mochi-gelato",
+    name: "Mochi Gelato",
+    type: "hybrid",
+    aliases: ["Mochi Gelato", "Mochi"],
+    tagline: "Sunset Sherbet × Thin Mint GSC — Sherbinski-family hybrid.",
+    intro:
+      "Mochi Gelato (often just called Mochi) is a Sherbinski cross of Sunset Sherbet × Thin Mint GSC — " +
+      "balanced hybrid with a sweet-cream aroma and minty undertones. Sister strain to Bacio Gelato and " +
+      "Sherbinski Mints. Customers familiar with the Sherbinski Gelato lineup will recognize the family " +
+      "signature.",
+    lineage: "Sunset Sherbet × Thin Mint GSC",
+    parents: ["sunset-sherbet", "thin-mint-gsc"],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Euphoric", "Tingly"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sweet cream", "Mint", "Light berry"],
+    bestFor: ["Mid-afternoon to evening", "Sherbinski-shelf fans", "Dessert-hybrid lovers"],
+    avoidIf: ["You want a clear sativa head-up", "Sweet-creamy aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Is Mochi Gelato the same as Bacio Gelato?",
+        a: "Same parents (Sunset Sherbet × Thin Mint GSC), different pheno selection. Sherbinski sells both — Mochi emphasizes the creamy side, Bacio emphasizes the dessert side. Sister strains.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/mochi",
+        "https://weedmaps.com/strains/mochi-gelato",
+      ],
+      notes:
+        "Leafly confirms Sunset Sherbet × Thin Mint GSC, hybrid, ~23% THC. Top terpenes Caryophyllene/Limonene/Myrcene match. Both parents in our index (sunset-sherbet + thin-mint-gsc from Wave 1). Sister to bacio-gelato (also Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "honey-bun": {
+    slug: "honey-bun",
+    name: "Honey Bun",
+    type: "hybrid",
+    aliases: ["Honey Bun", "HB"],
+    tagline: "Cookies-shelf sweet pastry hybrid — honey-glazed donut aroma.",
+    intro:
+      "Honey Bun is a Cookies-bred hybrid with a sweet honey-glazed pastry aroma that genuinely reads as the " +
+      "donut the name suggests. Balanced effect — uplifting and happy first, body-relaxing later. Sits in the " +
+      "modern dessert-hybrid lineup. Customers reach for it when they want sweet aromatics with a gentle " +
+      "session arc.",
+    lineage: "Cookies-bred (parents not publicly disclosed)",
+    parents: [null, null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Euphoric"],
+    terpenes: [
+      { name: "Limonene", note: "sweet citrus top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "light pine" },
+    ],
+    flavor: ["Sweet honey", "Pastry", "Light vanilla"],
+    bestFor: ["Mid-afternoon to evening", "Dessert-hybrid fans", "Social hangouts"],
+    avoidIf: ["You want a clear sativa head-up", "Sweet aromas aren't your thing"],
+    faqs: [
+      {
+        q: "What are Honey Bun's parents?",
+        a: "Cookies hasn't publicly disclosed the cross. The flavor profile and effect curve suggest a Cookies-shelf lineage similar to Gelato/Sundae Driver, but parent specifics are proprietary.",
+      },
+      {
+        q: "Does Honey Bun actually taste like a honey bun?",
+        a: "Closer than most candy-named strains. Sweet honey-glazed pastry on the nose, with a light vanilla undertone on the exhale.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/honey-bun",
+        "https://weedmaps.com/strains/honey-bun",
+      ],
+      notes:
+        "Leafly confirms Cookies breeder, hybrid, ~23% THC. Top terpenes Limonene/Caryophyllene/Pinene match. Parents not publicly disclosed by Cookies — kept both null. Sister situation to khalifa-kush (Wave 2) and london-pound-cake (Wave 3) — proprietary-disclosure handled honestly.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "project-4516": {
+    slug: "project-4516",
+    name: "Project 4516",
+    type: "hybrid",
+    aliases: ["Project 4516", "4516"],
+    tagline: "E85 × Bubble Bath — head-up creative hybrid.",
+    intro:
+      "Project 4516 is a balanced hybrid cross of E85 × Bubble Bath — lifted, creative effect curve with a " +
+      "sweet-citrus aroma. Customers reach for it when they want energetic and focused without the long " +
+      "ceiling of a pure haze. Mid-afternoon session pick.",
+    lineage: "E85 × Bubble Bath",
+    parents: [null, null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Euphoric", "Creative", "Energetic", "Uplifted"],
+    terpenes: [
+      { name: "Limonene", note: "sweet citrus top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "sharp pine" },
+    ],
+    flavor: ["Sweet citrus", "Light fuel", "Floral"],
+    bestFor: ["Mid-afternoon", "Creative work", "Social hangouts"],
+    avoidIf: ["You want a heavy indica wind-down", "Sensitive to head-forward strains"],
+    faqs: [
+      {
+        q: "Why the name Project 4516?",
+        a: "The breeder code-named the cross during development. The number stuck even after the strain went to market — customers ask for it by the project name.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/project-4516",
+        "https://weedmaps.com/strains/project-4516",
+      ],
+      notes:
+        "Leafly confirms E85 × Bubble Bath, hybrid, ~23% THC. Top terpenes Limonene/Caryophyllene/Pinene match. Both parents not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "black-cherry-gelato": {
+    slug: "black-cherry-gelato",
+    name: "Black Cherry Gelato",
+    type: "hybrid",
+    aliases: ["Black Cherry Gelato", "BCG"],
+    tagline: "Acai Berry Gelato × Black Cherry Funk — fruit-forward hybrid.",
+    intro:
+      "Black Cherry Gelato is a balanced hybrid cross of Acai Berry Gelato × Black Cherry Funk — sweet dark-cherry " +
+      "aroma with a piney edge and a relaxed-but-clear effect curve. Sits in the modern dessert-hybrid lineup " +
+      "with a fruit-forward expression rather than pastry-sweet.",
+    lineage: "Acai Berry Gelato × Black Cherry Funk",
+    parents: [null, null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Uplifted"],
+    terpenes: [
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Humulene", note: "earthy hop-like" },
+    ],
+    flavor: ["Dark cherry", "Sweet berry", "Light pine"],
+    bestFor: ["Mid-afternoon to evening", "Fruit-forward hybrid fans", "Social hangouts"],
+    avoidIf: ["Tart-cherry aromas aren't your thing", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "Does Black Cherry Gelato taste like Black Cherry Punch?",
+        a: "Same cherry family, different cross. Black Cherry Gelato comes through Acai Berry Gelato — sweeter and more berry-forward. Black Cherry Punch comes through Purple Punch — heavier and more pure cherry-grape.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/black-cherry-gelato",
+        "https://weedmaps.com/strains/black-cherry-gelato",
+      ],
+      notes:
+        "Leafly confirms Acai Berry Gelato × Black Cherry Funk, hybrid, ~22% THC. Top terpenes Pinene/Limonene/Humulene match. Both parents not in our index — kept null. Original breeder per Leafly is unknown.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "sherbacio": {
+    slug: "sherbacio",
+    name: "Sherbacio",
+    type: "hybrid",
+    aliases: ["Sherbacio", "Sherb"],
+    tagline: "Sunset Sherbet × Gelato #41 — Alien Labs gelato-shelf hybrid.",
+    intro:
+      "Sherbacio is an Alien Labs cross of Sunset Sherbet × Gelato #41 — balanced hybrid leaning indica, " +
+      "with a sweet creamy aroma that doubles down on the gelato signature. Sister to Bacio Gelato and " +
+      "Mochi Gelato. Customers who already like the Sherbinski family reach for this when they want the " +
+      "smoothest gelato expression.",
+    lineage: "Sunset Sherbet × Gelato #41",
+    parents: ["sunset-sherbet", "gelato-41"],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Uplifted"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Humulene", note: "earthy hop-like" },
+    ],
+    flavor: ["Sweet cream", "Light citrus", "Vanilla"],
+    bestFor: ["Mid-afternoon to evening", "Sherbinski-shelf fans", "Dessert-hybrid lovers"],
+    avoidIf: ["You want a clear sativa head-up", "Sweet-creamy aromas aren't your thing"],
+    faqs: [
+      {
+        q: "How is Sherbacio different from Bacio Gelato?",
+        a: "Both are Sunset Sherbet crosses in the gelato family. Sherbacio crosses with Gelato #41 specifically (Alien Labs); Bacio Gelato crosses with Thin Mint GSC. Sherbacio is creamier and smoother; Bacio is mintier.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/sherbacio",
+        "https://weedmaps.com/strains/sherbacio",
+      ],
+      notes:
+        "Leafly confirms Sunset Sherbet × Gelato #41, hybrid, ~18% THC, Alien Labs breeder. Top terpenes Caryophyllene/Limonene/Humulene match. Both parents in our index (sunset-sherbet from Wave 1, gelato-41 from Wave 2).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "sour-apple": {
+    slug: "sour-apple",
+    name: "Sour Apple",
+    type: "hybrid",
+    aliases: ["Sour Apple", "SA"],
+    tagline: "Sour Diesel × Cinderella 99 — sour-fruit head-up hybrid.",
+    intro:
+      "Sour Apple is a Sour Diesel × Cinderella 99 cross — balanced hybrid with a sour apple-and-diesel aroma " +
+      "and a head-up effect curve. Customers reach for it when they want the Sour Diesel lift with a sweeter " +
+      "nose. Mid-afternoon session pick.",
+    lineage: "Sour Diesel × Cinderella 99",
+    parents: ["sour-diesel", "cinderella-99"],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Energetic", "Relaxed"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "sharp pine" },
+    ],
+    flavor: ["Sour apple", "Diesel", "Light earth"],
+    bestFor: ["Mid-afternoon", "Creative work", "Sour-citrus fans"],
+    avoidIf: ["Diesel pungency turns you off", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "Does Sour Apple actually taste like apple?",
+        a: "Sour-green-apple on the nose with the Sour Diesel fuel underneath. The Cinderella 99 side brings the fruit; the Sour Diesel keeps it sharp rather than candy-sweet.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/sour-apple",
+        "https://weedmaps.com/strains/sour-apple",
+      ],
+      notes:
+        "Leafly confirms Sour Diesel × Cinderella 99, hybrid, ~18% THC. Top terpenes Myrcene/Caryophyllene/Pinene match. Both parents in our index (sour-diesel from Wave 1, cinderella-99 in this wave).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "black-mamba": {
+    slug: "black-mamba",
+    name: "Black Mamba",
+    type: "indica",
+    aliases: ["Black Mamba", "BM"],
+    tagline: "Granddaddy Purple × Black Domina — grape-and-floral heavy indica.",
+    intro:
+      "Black Mamba is a Granddaddy Purple × Black Domina cross — heavy indica with a grape-and-floral aroma " +
+      "and an earthy berry undertone. Body-relaxing and sedating. Customers who already like Granddaddy " +
+      "Purple reach for this when they want the same grape profile with more body weight.",
+    lineage: "Granddaddy Purple × Black Domina",
+    parents: ["granddaddy-purple", null],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Pinene", note: "light pine" },
+    ],
+    flavor: ["Grape", "Floral", "Earthy berry"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "Grape-strain fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "Is Black Mamba related to Granddaddy Purple?",
+        a: "Yes — Granddaddy Purple is one of its parents. The grape side comes directly from there. Black Domina adds more body weight and a floral lift on top.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/black-mamba",
+        "https://weedmaps.com/strains/black-mamba",
+      ],
+      notes:
+        "Leafly confirms Granddaddy Purple × Black Domina, indica, ~19% THC. Top terpenes Myrcene/Limonene/Pinene match. GDP in our index. Black Domina parent not in our index — kept null. Original breeder unknown per Leafly.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  // ────────────────────────────────────────────────────────────────────
+  // SATIVAS (12)
+  // ────────────────────────────────────────────────────────────────────
+
+  "ghost-train-haze": {
+    slug: "ghost-train-haze",
+    name: "Ghost Train Haze",
+    type: "sativa",
+    aliases: ["Ghost Train Haze", "GTH"],
+    tagline: "Ghost OG × Neville's Wreck — Rare Dankness head-up haze.",
+    intro:
+      "Ghost Train Haze is a Rare Dankness cross of Ghost OG × Neville's Wreck — sativa-dominant with a sour " +
+      "citrus and floral aroma and dense, white-frosted buds. Won High Times Cannabis Cup recognition for its " +
+      "trichome coverage. Customers reach for it when they want a focused, energetic head-up that lasts.",
+    lineage: "Ghost OG × Neville's Wreck",
+    parents: ["ghost-og", null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Focused", "Happy"],
+    terpenes: [
+      { name: "Terpinolene", note: "fresh herbal top" },
+      { name: "Limonene", note: "sour citrus" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sour citrus", "Floral", "Earth"],
+    bestFor: ["Daytime sessions", "Focus work", "Creative projects"],
+    avoidIf: ["Low-tolerance — runs high", "You want a body-heavy indica"],
+    faqs: [
+      {
+        q: "Is Ghost Train Haze a strong sativa?",
+        a: "Yes — Rare Dankness selected for high THC (often 22%+) and a long ceiling. The Ghost OG side adds focus where most pure hazes get racey. Not a beginner strain.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/ghost-train-haze",
+        "https://weedmaps.com/strains/ghost-train-haze",
+      ],
+      notes:
+        "Leafly confirms Ghost OG × Neville's Wreck, sativa, ~19% THC, Rare Dankness breeder. Top terpenes Terpinolene/Limonene/Myrcene match. Ghost OG in our index. Neville's Wreck parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "cinderella-99": {
+    slug: "cinderella-99",
+    name: "Cinderella 99",
+    type: "sativa",
+    aliases: ["Cinderella 99", "C99", "Cindy"],
+    tagline: "Jack Herer × Shiva Skunk — Brothers Grimm sativa hybrid.",
+    intro:
+      "Cinderella 99 is a Brothers Grimm cross of Jack Herer × Shiva Skunk — sativa-dominant with a sweet " +
+      "citrus-fruit aroma and a head-up effect curve. Famously created by Mr. Soul from seeds found in a " +
+      "Sensi 2-gram package of Jack Herer bought at an Amsterdam coffeeshop. Modern shelf staple, parent " +
+      "to many gas-and-fruit hybrids.",
+    lineage: "Jack Herer × Shiva Skunk",
+    parents: ["jack-herer", null],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Happy", "Euphoric", "Energetic"],
+    terpenes: [
+      { name: "Limonene", note: "sweet citrus top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sweet citrus", "Tropical fruit", "Light earth"],
+    bestFor: ["Daytime sessions", "Creative work", "Social hangouts"],
+    avoidIf: ["You want a body-heavy indica", "Long-ceiling sativas wear you out"],
+    faqs: [
+      {
+        q: "What's the Cinderella 99 origin story?",
+        a: "Mr. Soul of Brothers Grimm bred it from seeds found inside a Sensi-branded 2-gram package of Jack Herer purchased at an Amsterdam coffeeshop. Crossed with Shiva Skunk, stabilized over generations, sold under the C99 name.",
+      },
+      {
+        q: "Is Cinderella 99 a parent of Sour Apple?",
+        a: "Yes — Sour Apple is Sour Diesel × Cinderella 99. C99 also shows up in many other gas-and-fruit modern hybrids.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/cinderella-99",
+        "https://weedmaps.com/strains/cinderella-99",
+      ],
+      notes:
+        "Leafly confirms Jack Herer × Shiva Skunk, sativa-dominant hybrid, ~18% THC, Brothers Grimm breeder. Top terpenes Limonene/Caryophyllene/Myrcene match. Jack Herer in our index. Shiva Skunk parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "purple-haze": {
+    slug: "purple-haze",
+    name: "Purple Haze",
+    type: "sativa",
+    aliases: ["Purple Haze", "PH"],
+    tagline: "Purple Thai × Haze — heritage psychedelic-era sativa.",
+    intro:
+      "Purple Haze is the heritage sativa Jimi Hendrix named a song after — a Purple Thai × Haze cross with " +
+      "sweet earthy berry-and-spice aromas and a creative, talkative head-up effect. Sits alongside Acapulco " +
+      "Gold and Panama Red in the 1960s-70s heritage-sativa tier. Phenotypes vary; the canonical expression " +
+      "leans head-forward and long-flowering.",
+    lineage: "Purple Thai × Haze",
+    parents: [null, "haze"],
+    thcRange: "14–19%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Creative", "Happy", "Energetic"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus undertone" },
+    ],
+    flavor: ["Sweet berry", "Earth", "Spice"],
+    bestFor: ["Daytime sessions", "Creative projects", "Heritage-strain curious"],
+    avoidIf: ["You want a body-heavy indica", "Long-ceiling sativas wear you out"],
+    faqs: [
+      {
+        q: "Is Purple Haze actually purple?",
+        a: "Some phenotypes express purple coloration in cooler grow conditions, but not all. The 'purple' in the name comes from Purple Thai (the parent), not always the cured flower color.",
+      },
+      {
+        q: "Was Purple Haze around in the 1960s?",
+        a: "The name and the lineage trace to that era — psychedelic-era heritage. Modern Purple Haze flower is stabilized seed line work, not direct genetic descent from a 1960s plant.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/purple-haze",
+        "https://weedmaps.com/strains/purple-haze",
+      ],
+      notes:
+        "Leafly confirms Purple Thai × Haze, sativa, ~16% THC. Top terpenes Myrcene/Caryophyllene/Limonene match. Haze in our index. Purple Thai parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "lemon-jack": {
+    slug: "lemon-jack",
+    name: "Lemon Jack",
+    type: "sativa",
+    aliases: ["Lemon Jack", "LJ"],
+    tagline: "Jack Herer × Lemon Kush — focused citrus sativa.",
+    intro:
+      "Lemon Jack is a Jack Herer × Lemon Kush cross — sativa-dominant with a chemical-lemon aroma and a " +
+      "focused, energizing effect curve. Customers reach for it when they want a clear citrus head-up that " +
+      "leans more talkative than racey. Mid-morning to mid-afternoon session pick.",
+    lineage: "Jack Herer × Lemon Kush",
+    parents: ["jack-herer", null],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Focused", "Energetic", "Uplifted", "Happy"],
+    terpenes: [
+      { name: "Terpinolene", note: "fresh herbal top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Myrcene", note: "earthy base" },
+    ],
+    flavor: ["Sharp lemon", "Light pine", "Earth"],
+    bestFor: ["Daytime sessions", "Focus work", "Citrus-sativa fans"],
+    avoidIf: ["Sharp-lemon aromas turn you off", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "How is Lemon Jack different from Lemon Haze?",
+        a: "Both are lemon-forward sativas. Lemon Jack comes through Jack Herer — more focused and energizing. Lemon Haze comes through Silver Haze — longer ceiling, more head-up. Different feel, similar nose.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/lemon-jack",
+        "https://weedmaps.com/strains/lemon-jack",
+      ],
+      notes:
+        "Leafly confirms Jack Herer × Lemon Kush, sativa, ~17% THC. Top terpenes Terpinolene/Caryophyllene/Myrcene match. Jack Herer in our index. Lemon Kush parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "pineapple-diesel": {
+    slug: "pineapple-diesel",
+    name: "Pineapple Diesel",
+    type: "hybrid",
+    aliases: ["Pineapple Diesel", "PD"],
+    tagline: "Pineapple × Sour Diesel — tropical-fuel sativa-leaning hybrid.",
+    intro:
+      "Pineapple Diesel is a Pineapple × Sour Diesel cross — sativa-leaning hybrid with a citrus-and-diesel " +
+      "dual pungency and an energetic head-up effect. Customers reach for it when they want tropical fruit " +
+      "aromatics with the Sour Diesel lift. Mid-afternoon session pick.",
+    lineage: "Pineapple × Sour Diesel",
+    parents: [null, "sour-diesel"],
+    thcRange: "15–20%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Happy", "Talkative"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Terpinolene", note: "fresh herbal" },
+      { name: "Pinene", note: "sharp pine top" },
+    ],
+    flavor: ["Pineapple", "Diesel", "Light citrus"],
+    bestFor: ["Daytime sessions", "Social hangouts", "Tropical-fruit sativa fans"],
+    avoidIf: ["Diesel pungency turns you off", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "How is Pineapple Diesel different from Pineapple Express?",
+        a: "Both have pineapple in the cross. Pineapple Express is Trainwreck × Hawaiian — sweeter and gentler. Pineapple Diesel adds Sour Diesel for more lift and fuel pungency. Different feel.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/pineapple-diesel",
+        "https://weedmaps.com/strains/pineapple-diesel",
+      ],
+      notes:
+        "Leafly confirms Pineapple × Sour Diesel, hybrid (sativa-leaning), ~15% THC. Top terpenes Myrcene/Terpinolene/Pinene match. Sour Diesel in our index. Pineapple parent not in our index — kept null. Classified hybrid (leaning sativa) per Leafly framing.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "strawberry-lemonade": {
+    slug: "strawberry-lemonade",
+    name: "Strawberry Lemonade",
+    type: "sativa",
+    aliases: ["Strawberry Lemonade", "SL"],
+    tagline: "Strawberry Cough × Lemon OG — Barney's Farm sweet-citrus sativa.",
+    intro:
+      "Strawberry Lemonade is a Barney's Farm cross of Strawberry Cough × Lemon OG — sativa-dominant with " +
+      "a sweet strawberry-and-lemon aroma and a clear-headed uplift. Took 1st place at the 2015 Denver " +
+      "Cannabis Cup in the Best Sativa Concentrate category. Mid-afternoon to social session pick.",
+    lineage: "Strawberry Cough × Lemon OG",
+    parents: ["strawberry-cough", null],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Happy", "Energetic", "Creative"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "sharp pine" },
+    ],
+    flavor: ["Sweet strawberry", "Lemon", "Light earth"],
+    bestFor: ["Daytime sessions", "Social hangouts", "Creative work"],
+    avoidIf: ["You want a heavy indica wind-down", "Sweet-fruit aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Did Strawberry Lemonade win a Cannabis Cup?",
+        a: "Yes — 1st place at the 2015 High Times Denver Cannabis Cup in the Best Sativa Concentrate category. Barney's Farm seeds.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/strawberry-lemonade",
+        "https://weedmaps.com/strains/strawberry-lemonade",
+      ],
+      notes:
+        "Leafly confirms Strawberry Cough × Lemon OG, sativa-dominant, ~20% THC, Barney's Farm breeder. Top terpenes Myrcene/Caryophyllene/Pinene match. Cannabis Cup 2015 win documented. Strawberry Cough in our index. Lemon OG parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "moby-dick": {
+    slug: "moby-dick",
+    name: "Moby Dick",
+    type: "sativa",
+    aliases: ["Moby Dick", "MD"],
+    tagline: "White Widow × Haze — Dinafem head-up haze hybrid.",
+    intro:
+      "Moby Dick is a Dinafem Seeds cross of White Widow × Haze — sativa-dominant with a buzzy, motivating " +
+      "head high and a citrus-and-spice aroma. Known for fast indoor flowering and natural mold resistance. " +
+      "Customers reach for it when they want a clear sativa lift without the long ceiling of pure haze.",
+    lineage: "White Widow × Haze",
+    parents: ["white-widow", "haze"],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Happy", "Creative"],
+    terpenes: [
+      { name: "Terpinolene", note: "fresh herbal top" },
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Ocimene", note: "sweet floral-fruity" },
+    ],
+    flavor: ["Citrus", "Spice", "Earth"],
+    bestFor: ["Daytime sessions", "Creative work", "Haze-curious"],
+    avoidIf: ["You want a body-heavy indica", "Sharp head-up sativas wear you out"],
+    faqs: [
+      {
+        q: "Is Moby Dick named after the novel?",
+        a: "Yes — Dinafem named it after Melville's white whale, riffing on the White Widow parent. The name references the strain's pale, frosty trichome coverage.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/moby-dick",
+        "https://weedmaps.com/strains/moby-dick",
+      ],
+      notes:
+        "Leafly confirms White Widow × Haze, sativa, ~17% THC, Dinafem Seeds breeder. Top terpenes Terpinolene/Myrcene/Ocimene match. Both parents in our index (white-widow + haze from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "tangie-dream": {
+    slug: "tangie-dream",
+    name: "Tangie Dream",
+    type: "sativa",
+    aliases: ["Tangie Dream", "TD"],
+    tagline: "Blue Dream × Tangie — orange-citrus sativa hybrid.",
+    intro:
+      "Tangie Dream is a Blue Dream × Tangie cross — sativa-dominant with a sharp orange-peel aroma and a " +
+      "creative, energetic effect curve. Combines Blue Dream's calm balance with Tangie's tangerine top. " +
+      "Customers reach for it when they want a clear citrus head-up without the racey edge of pure Tangie.",
+    lineage: "Blue Dream × Tangie",
+    parents: ["blue-dream", "tangie"],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Creative", "Energetic", "Uplifted", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Orange peel", "Sweet citrus", "Light earth"],
+    bestFor: ["Daytime sessions", "Creative work", "Citrus-sativa fans"],
+    avoidIf: ["You want a body-heavy indica", "Sharp-citrus aromas turn you off"],
+    faqs: [
+      {
+        q: "How is Tangie Dream different from Tangie?",
+        a: "Tangie alone is sharper and more racey — pure citrus sativa lift. Tangie Dream adds Blue Dream for balance, which calms the racey edge and makes it a friendlier daytime pick.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/tangie-dream",
+        "https://weedmaps.com/strains/tangie-dream",
+      ],
+      notes:
+        "Leafly confirms Blue Dream × Tangie, sativa-dominant hybrid, ~19% THC. Top terpenes Myrcene/Pinene/Caryophyllene match. Both parents in our index (blue-dream + tangie from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "silver-haze": {
+    slug: "silver-haze",
+    name: "Silver Haze",
+    type: "sativa",
+    aliases: ["Silver Haze", "SH"],
+    tagline: "Northern Lights × Haze — Sensi Seeds heritage haze sativa.",
+    intro:
+      "Silver Haze is a Sensi Seeds cross of Northern Lights × Haze — sativa-dominant with a clear-headed " +
+      "energetic effect and a citrus-and-earth aroma. Named for the heavy trichome coverage that gives the " +
+      "buds a silvery sheen. Parent strain to Super Silver Haze and the broader haze-family modern shelf.",
+    lineage: "Northern Lights × Haze",
+    parents: ["northern-lights", "haze"],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Creative", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus top" },
+    ],
+    flavor: ["Citrus", "Earth", "Light spice"],
+    bestFor: ["Daytime sessions", "Creative work", "Heritage-haze fans"],
+    avoidIf: ["You want a body-heavy indica", "Long-ceiling sativas wear you out"],
+    faqs: [
+      {
+        q: "Is Silver Haze the same as Super Silver Haze?",
+        a: "Related, not identical. Silver Haze is Northern Lights × Haze (parent). Super Silver Haze is Skunk #1 × Northern Lights × Haze — a three-way cross built on top of Silver Haze with Skunk added. SSH is the more famous modern descendant.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/silver-haze",
+        "https://sensiseeds.com/en/cannabis-seeds/silver-haze",
+      ],
+      notes:
+        "Leafly + Sensi Seeds primary confirm Northern Lights × Haze, sativa, ~23% THC, Sensi Seeds breeder. Top terpenes Myrcene/Caryophyllene/Limonene match. Both parents in our index (northern-lights + haze from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "mexican-sativa": {
+    slug: "mexican-sativa",
+    name: "Mexican Sativa",
+    type: "sativa",
+    aliases: ["Mexican Sativa"],
+    tagline: "Oaxacan × Durban Poison × Pakistani — Sensi Seeds landrace hybrid.",
+    intro:
+      "Mexican Sativa is a Sensi Seeds 70/30 sativa-dominant hybrid blending three landrace lines: a southern " +
+      "Oaxacan cultivar, Durban Poison, and a fast-flowering Pakistani indica. Built to compress landrace " +
+      "haze-style flowering into a more practical indoor cycle. Heritage-anchor pick.",
+    lineage: "Oaxacan landrace × Durban Poison × Pakistani landrace",
+    parents: [null, "durban-poison"],
+    thcRange: "12–18%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Energetic", "Happy", "Creative"],
+    terpenes: [
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Terpinolene", note: "fresh herbal" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Earth", "Citrus", "Light spice"],
+    bestFor: ["Daytime sessions", "Heritage-strain curious", "Outdoor activities"],
+    avoidIf: ["You want a body-heavy indica", "You want a 25%+ THC ceiling"],
+    faqs: [
+      {
+        q: "Is Mexican Sativa a pure landrace?",
+        a: "No — it's a Sensi Seeds hybrid that combines three landrace lines. The point was to keep the equatorial-sativa feel while compressing the long flowering into something growable indoors. Sister concept to Sensi's other landrace-derived stabilizations.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/mexican-sativa",
+        "https://sensiseeds.com/en/cannabis-seeds/mexican-sativa",
+      ],
+      notes:
+        "Leafly + Sensi Seeds primary confirm Oaxacan × Durban Poison × Pakistani 70/30 sativa-dominant hybrid, Sensi Seeds breeder. Durban Poison in our index. Oaxacan and Pakistani landrace parents kept null. THC range conservative per landrace heritage.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "island-sweet-skunk": {
+    slug: "island-sweet-skunk",
+    name: "Island Sweet Skunk",
+    type: "sativa",
+    aliases: ["Island Sweet Skunk", "Sweet Island Skunk", "ISS"],
+    tagline: "Sweet Pink Grapefruit × Skunk #1 — head-up tropical skunk sativa.",
+    intro:
+      "Island Sweet Skunk is a Sweet Pink Grapefruit × Skunk #1 cross — sativa-dominant with a sweet tropical " +
+      "grapefruit aroma over the classic skunk base. Energetic, creative head-up. Parent to Golden Goat and " +
+      "Outer Space. Customers familiar with the Skunk family reach for this when they want a sweeter, more " +
+      "tropical-citrus skunk expression.",
+    lineage: "Sweet Pink Grapefruit × Skunk #1",
+    parents: [null, "skunk-1"],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Creative", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Terpinolene", note: "fresh herbal" },
+      { name: "Pinene", note: "sharp pine" },
+    ],
+    flavor: ["Sweet grapefruit", "Light skunk", "Tropical"],
+    bestFor: ["Daytime sessions", "Creative work", "Skunk-family fans"],
+    avoidIf: ["You want a heavy indica wind-down", "Skunk-pungent aromas turn you off"],
+    faqs: [
+      {
+        q: "Is Island Sweet Skunk related to other famous strains?",
+        a: "Yes — it's a parent of Golden Goat and Outer Space. The Skunk #1 side keeps it in the broader Skunk family that underpins most modern sativa-leaning hybrids.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/island-sweet-skunk",
+        "https://weedmaps.com/strains/island-sweet-skunk",
+      ],
+      notes:
+        "Leafly confirms Sweet Pink Grapefruit × Skunk #1, sativa, ~18% THC. Top terpenes Myrcene/Terpinolene/Pinene match. Skunk #1 in our index. Sweet Pink Grapefruit parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "nevilles-haze": {
+    slug: "nevilles-haze",
+    name: "Neville's Haze",
+    type: "sativa",
+    aliases: ["Neville's Haze", "Nevilles Haze"],
+    tagline: "Haze × Northern Lights #5 — Green House Seeds Cannabis Cup winner.",
+    intro:
+      "Neville's Haze is a Green House Seeds cross of Haze × Northern Lights #5 — sativa-dominant, tall " +
+      "growing, with a pine-cone and floral aroma. Named for Nevil Schoemakers, founder of the Seed Bank " +
+      "of Holland. Won the High Times Cannabis Cup in 1998. Long-flowering haze backbone, head-forward " +
+      "effect.",
+    lineage: "Haze × Northern Lights #5",
+    parents: ["haze", "northern-lights-5"],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Creative", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "sharp pine top" },
+    ],
+    flavor: ["Pine", "Floral", "Earth"],
+    bestFor: ["Daytime sessions", "Creative work", "Haze-family fans"],
+    avoidIf: ["You want a body-heavy indica", "Long-ceiling sativas wear you out"],
+    faqs: [
+      {
+        q: "Who was Neville?",
+        a: "Nevil Schoemakers founded the Seed Bank of Holland in the 1980s — one of the foundational figures in modern cannabis breeding. Green House Seeds named the strain in his honor.",
+      },
+      {
+        q: "Did Neville's Haze win a Cannabis Cup?",
+        a: "Yes — High Times Cannabis Cup in 1998. The win cemented its reputation as a benchmark long-flowering haze.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/nevilles-haze",
+        "https://weedmaps.com/strains/nevilles-haze",
+      ],
+      notes:
+        "Leafly confirms Haze × Northern Lights #5, sativa, ~15% THC, Green House Seeds breeder. Top terpenes Myrcene/Caryophyllene/Pinene match. Cannabis Cup 1998 win documented. Both parents in our index (haze from Wave 1, northern-lights-5 in this wave).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  // ────────────────────────────────────────────────────────────────────
+  // INDICAS (12)
+  // ────────────────────────────────────────────────────────────────────
+
+  "kosher-kush": {
+    slug: "kosher-kush",
+    name: "Kosher Kush",
+    type: "indica",
+    aliases: ["Kosher Kush", "Kosher OG", "KK"],
+    tagline: "OG Kush phenotype — DNA Genetics Cannabis Cup winner.",
+    intro:
+      "Kosher Kush is a DNA Genetics LA-area clone-only indica selected from the OG Kush family. Won the " +
+      "High Times Cannabis Cup Best Indica in 2010 and 2011, plus Best Strain overall in 2011. Earthy-fruity " +
+      "with woody notes, body-heavy, late-night. Customers familiar with OG Kush will recognize the family " +
+      "signature with more weight underneath.",
+    lineage: "OG Kush phenotype (clone-only origin, later released in seed form)",
+    parents: ["og-kush", null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Earth", "Fruit", "Woody"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "How did Kosher Kush get its name?",
+        a: "The original LA grower kept the plant for many years before sharing — the strain was rumored to be 'blessed by a Rabbi.' DNA Genetics later licensed it and ran with the name.",
+      },
+      {
+        q: "Is Kosher Kush a pure OG Kush?",
+        a: "It's a clone-only OG Kush phenotype selected for its specific expression — heavier and more fruit-forward than the OG Kush mother. Later released in seed form by DNA Genetics.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/kosher-kush",
+        "https://weedmaps.com/strains/kosher-kush",
+      ],
+      notes:
+        "Leafly confirms OG Kush phenotype, indica, ~21% THC, DNA Genetics breeder. Top terpenes Myrcene/Limonene/Caryophyllene match. Cannabis Cup 2010 + 2011 wins documented. OG Kush in our index.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "king-louis-xiii": {
+    slug: "king-louis-xiii",
+    name: "King Louis XIII",
+    type: "indica",
+    aliases: ["King Louis XIII", "King Louie XIII", "King Louis"],
+    tagline: "OG Kush × LA Confidential — heritage indica with pine pungency.",
+    intro:
+      "King Louis XIII is an OG Kush × LA Confidential cross — heavy indica with a pine-and-earth aroma that " +
+      "reads classic-OG. Body-relaxing and sedating. Customers reach for it when they want late-night OG " +
+      "weight without the citrus-forward Lemon-OG side.",
+    lineage: "OG Kush × LA Confidential",
+    parents: ["og-kush", "la-confidential"],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Pine", "Earth", "Woody"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
+    avoidIf: ["You need to function", "Pine pungency turns you off"],
+    faqs: [
+      {
+        q: "Is King Louis XIII the same as King Louie XIII?",
+        a: "Yes — alternate spellings of the same strain. Some sources spell it Louie, others Louis. Both refer to the OG Kush × LA Confidential cross.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/king-louis",
+        "https://weedmaps.com/strains/king-louis-xiii",
+      ],
+      notes:
+        "Leafly (king-louis slug) confirms OG Kush × LA Confidential, indica, ~21% THC. Top terpenes Myrcene/Limonene/Caryophyllene match. Both parents in our index (og-kush + la-confidential from Wave 1). Display name uses XIII per common WA shelf labeling.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "purple-urkle": {
+    slug: "purple-urkle",
+    name: "Purple Urkle",
+    type: "indica",
+    aliases: ["Purple Urkle", "Urkle"],
+    tagline: "Mendocino Purps phenotype — heritage California purple indica.",
+    intro:
+      "Purple Urkle is a heritage California indica — a selected phenotype of Mendocino Purps. Sweet grape " +
+      "aroma with a skunk-berry undertone. Deeply relaxing, sleep-leaning. Parent strain to Granddaddy " +
+      "Purple. Customers who like GDP can trace the grape lineage back through Urkle.",
+    lineage: "Mendocino Purps phenotype",
+    parents: [null, null],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Pinene", note: "sharp pine" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Grape", "Skunk", "Berry"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "Grape-strain fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "Is Purple Urkle a parent of Granddaddy Purple?",
+        a: "Yes — GDP is Purple Urkle × Big Bud. The grape character that GDP is known for comes directly from Urkle.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/purple-urkle",
+        "https://weedmaps.com/strains/purple-urkle",
+      ],
+      notes:
+        "Leafly confirms Mendocino Purps phenotype, indica, ~19% THC. Top terpenes Myrcene/Pinene/Caryophyllene match. Mendocino Purps parent not in our index — kept null. California heritage. Original breeder not documented.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "pink-kush": {
+    slug: "pink-kush",
+    name: "Pink Kush",
+    type: "indica",
+    aliases: ["Pink Kush", "Pink OG", "Sedamen"],
+    tagline: "OG Kush phenotype — Canadian-popular indica-dominant hybrid.",
+    intro:
+      "Pink Kush is an OG Kush phenotype that gained its name from the pink hairs covering mature buds. " +
+      "Indica-dominant, body-heavy, sweet vanilla-and-candy aroma over the OG Kush base. Popular Canadian " +
+      "shelf staple. Customers familiar with OG Kush will recognize the family signature with a sweeter " +
+      "nose.",
+    lineage: "OG Kush phenotype",
+    parents: ["og-kush", null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Sweet vanilla", "Candy", "Light pine"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
+    avoidIf: ["You need to function", "Sweet-candy aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Why is it called Pink Kush?",
+        a: "The mature buds typically express pink-orange hairs (pistils) against the green-purple flower. Visual rather than flavor — the inside reads sweet vanilla and candy, not pink-fruit.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/pink-kush",
+        "https://weedmaps.com/strains/pink-kush",
+      ],
+      notes:
+        "Leafly confirms OG Kush phenotype, indica-dominant hybrid, ~19% THC. Top terpenes Myrcene/Limonene/Caryophyllene match. OG Kush in our index. Canadian shelf staple — original breeder not documented.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "goji-og": {
+    slug: "goji-og",
+    name: "Goji OG",
+    type: "hybrid",
+    aliases: ["Goji OG", "Goji"],
+    tagline: "Nepali OG × Snow Lotus — Bodhi Seeds sativa-leaning hybrid.",
+    intro:
+      "Goji OG is a Bodhi Seeds cross of Nepali OG × Snow Lotus — sativa-leaning hybrid with a dynamic " +
+      "berry-cherry-licorice aroma that reads more like a Hawaiian Punch can than typical OG. Customers " +
+      "reach for it when they want OG-family body with a bright fruit-forward nose.",
+    lineage: "Nepali OG × Snow Lotus",
+    parents: [null, null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Euphoric"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "sweet citrus" },
+    ],
+    flavor: ["Red berry", "Cherry", "Licorice"],
+    bestFor: ["Mid-afternoon", "Bodhi-Seeds fans", "Fruit-forward hybrid lovers"],
+    avoidIf: ["You want a clear sativa head-up", "Sweet-fruit aromas turn you off"],
+    faqs: [
+      {
+        q: "Why does Goji OG taste like fruit punch?",
+        a: "The Snow Lotus side brings the bright red-berry and cherry notes; the Nepali OG side adds the licorice and depth. Together it reads closer to a Hawaiian Punch can than to most OG-family strains.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/goji-og",
+        "https://weedmaps.com/strains/goji-og",
+      ],
+      notes:
+        "Leafly confirms Nepali OG × Snow Lotus, sativa-dominant hybrid, ~19% THC, Bodhi Seeds breeder. Top terpenes Myrcene/Caryophyllene/Limonene match. Both parents not in our index — kept null. Classified hybrid (sativa-leaning) per Leafly.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "hash-plant": {
+    slug: "hash-plant",
+    name: "Hash Plant",
+    type: "indica",
+    aliases: ["Hash Plant", "HP"],
+    tagline: "Northern Lights × Afghani — Sensi Seeds heavy resin indica.",
+    intro:
+      "Hash Plant is a Sensi Seeds Northern Lights × Afghani cross — 90% indica, tight resin-drenched flower " +
+      "clusters with a deep Afghani aroma undercut by hashish notes. Heavy body landing, sleep-leaning. " +
+      "Named for the high resin output that historically made it a benchmark hash-production strain.",
+    lineage: "Northern Lights × Afghani",
+    parents: ["northern-lights", "afghani"],
+    thcRange: "16–22%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Ocimene", note: "sweet floral undertone" },
+    ],
+    flavor: ["Hash", "Earth", "Sweet undertone"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "Heritage-indica fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "Why is Hash Plant called that?",
+        a: "High resin output — historically a benchmark strain for making hashish. The deep Afghani aroma and tight resin-coated buds carry the hash signature into the live flower.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/hash-plant",
+        "https://sensiseeds.com/en/cannabis-seeds/hash-plant",
+      ],
+      notes:
+        "Leafly + Sensi Seeds primary confirm Northern Lights × Afghani, 90% indica, ~19% THC, Sensi Seeds breeder. Top terpenes Myrcene/Caryophyllene/Ocimene match. Both parents in our index (northern-lights + afghani from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "white-fire-og": {
+    slug: "white-fire-og",
+    name: "White Fire OG",
+    type: "hybrid",
+    aliases: ["White Fire OG", "WiFi OG", "WiFi", "WFOG"],
+    tagline: "Fire OG × The White — high-resin OG hybrid.",
+    intro:
+      "White Fire OG (often called WiFi OG) is a Fire OG × The White cross — balanced hybrid with cerebral " +
+      "uplifting effects and a sour-earthy aroma with citrus and diesel notes. Heavy trichome coverage gives " +
+      "the buds a white-frosted appearance. Customers reach for it when they want OG-family lift with a clearer " +
+      "head than typical OG indicas.",
+    lineage: "Fire OG × The White",
+    parents: ["fire-og", null],
+    thcRange: "20–28%",
+    cbdRange: "<1%",
+    effects: ["Focused", "Uplifted", "Happy", "Euphoric"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Limonene", note: "sweet citrus top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Sour earth", "Citrus", "Diesel"],
+    bestFor: ["Mid-afternoon to evening", "Focus work", "OG-family fans wanting clearer head"],
+    avoidIf: ["Low-tolerance — runs high", "Diesel pungency turns you off"],
+    faqs: [
+      {
+        q: "Is WiFi OG the same as White Fire OG?",
+        a: "Yes — WiFi OG is the common shop nickname (a play on the W-Fire abbreviation). Both names refer to the Fire OG × The White cross.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/white-fire-og",
+        "https://weedmaps.com/strains/white-fire-og",
+      ],
+      notes:
+        "Leafly confirms Fire OG × The White, hybrid, ~22% THC. Top terpenes Myrcene/Limonene/Caryophyllene match. Fire OG in our index. The White parent not in our index — kept null. Original breeder per Leafly is unknown.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "yoda-og": {
+    slug: "yoda-og",
+    name: "Yoda OG",
+    type: "indica",
+    aliases: ["Yoda OG", "Yoda"],
+    tagline: "OG Kush descendant — pungent citrus-pine indica.",
+    intro:
+      "Yoda OG is an OG Kush descendant — heavy indica with chunky pale buds, orange-hair coverage, and a " +
+      "pungent citrus aroma. Sedating, body-relaxing. Customers reach for it for late-night sessions when " +
+      "they want OG-family weight without the lemon-forward Lemon-OG citrus profile.",
+    lineage: "OG Kush phenotype",
+    parents: ["og-kush", null],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Myrcene", note: "earthy, sedating" },
+    ],
+    flavor: ["Citrus", "Pine", "Earth"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "Why is it called Yoda OG?",
+        a: "Breeder lore — the strain was named after the Star Wars character, riffing on the small-but-mighty pattern (the buds are chunky and dense for an OG descendant).",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/yoda-og",
+        "https://weedmaps.com/strains/yoda-og",
+      ],
+      notes:
+        "Leafly confirms OG Kush descendant, indica, ~21% THC. Top terpenes Caryophyllene/Limonene/Myrcene match. OG Kush in our index. Original breeder not documented.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "mob-boss": {
+    slug: "mob-boss",
+    name: "Mob Boss",
+    type: "hybrid",
+    aliases: ["Mob Boss", "MB"],
+    tagline: "Chemdawg × Tang Tang — Grindhouse heavy-resin sativa hybrid.",
+    intro:
+      "Mob Boss is a Grindhouse Medical Seeds cross of Chemdawg × Tang Tang (released 2009) — sativa-dominant " +
+      "with staggeringly heavy resin production and a focused-energetic effect curve. Citrus-and-pine aroma " +
+      "over a chem fuel base. Customers reach for it when they want Chemdawg lineage with a brighter top.",
+    lineage: "Chemdawg × Tang Tang",
+    parents: ["chemdawg", null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Happy", "Focused"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Limonene", note: "citrus undertone" },
+    ],
+    flavor: ["Citrus", "Pine", "Light fuel"],
+    bestFor: ["Daytime sessions", "Focus work", "Chemdawg-family fans"],
+    avoidIf: ["Diesel pungency turns you off", "You want a heavy indica wind-down"],
+    faqs: [
+      {
+        q: "How does Mob Boss compare to Chemdawg?",
+        a: "Same chem-fuel base, but the Tang Tang side adds citrus and brightness on top. Mob Boss leans more sativa than pure Chemdawg, with more head-up lift.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/mob-boss",
+        "https://weedmaps.com/strains/mob-boss",
+      ],
+      notes:
+        "Leafly confirms Chemdawg × Tang Tang, sativa-dominant hybrid, ~20% THC, Grindhouse Medical Seeds breeder (2009). Top terpenes Myrcene/Pinene/Limonene match. Chemdawg in our index. Tang Tang parent not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "critical-kush": {
+    slug: "critical-kush",
+    name: "Critical Kush",
+    type: "indica",
+    aliases: ["Critical Kush", "CK"],
+    tagline: "OG Kush × Critical Mass — Barney's Farm heavy indica.",
+    intro:
+      "Critical Kush is a Barney's Farm cross of OG Kush × Critical Mass — heavy indica with an earthy-spicy " +
+      "aroma and a body-heavy landing. Customers reach for it when they want OG-Kush weight with the " +
+      "Critical Mass yield genetics underneath. Late-night session pick.",
+    lineage: "OG Kush × Critical Mass",
+    parents: ["og-kush", "critical-mass"],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus undertone" },
+    ],
+    flavor: ["Earth", "Spice", "Light pine"],
+    bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
+    avoidIf: ["You need to function", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "How does Critical Kush relate to Critical Mass?",
+        a: "Critical Mass is one of its parents. Critical Kush adds OG Kush on top, which brings more body weight and a deeper earthy note. Critical Mass alone is more balanced; Critical Kush leans heavier.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/critical-kush",
+        "https://weedmaps.com/strains/critical-kush",
+      ],
+      notes:
+        "Leafly confirms OG Kush × Critical Mass, indica, ~18% THC, Barney's Farm breeder. Top terpenes Myrcene/Caryophyllene/Limonene match. Both parents in our index (og-kush from Wave 1, critical-mass from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "obama-kush": {
+    slug: "obama-kush",
+    name: "Obama Kush",
+    type: "indica",
+    aliases: ["Obama Kush", "OK"],
+    tagline: "Afghani × OG Kush — indica with cerebral lift.",
+    intro:
+      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a calming body effect and a cerebral " +
+      "stimulating top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
+      "OG-family relaxation that still leaves some headroom for conversation.",
+    lineage: "Afghani × OG Kush",
+    parents: ["afghani", "og-kush"],
+    thcRange: "17–22%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Sleepy", "Euphoric"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus top" },
+      { name: "Pinene", note: "sharp pine" },
+    ],
+    flavor: ["Pine", "Citrus", "Earth"],
+    bestFor: ["Evening sessions", "Wind-down social", "OG-family fans"],
+    avoidIf: ["You want a clear sativa head-up", "You need to function"],
+    faqs: [
+      {
+        q: "Why the name Obama Kush?",
+        a: "Like many strains named after public figures, the name is breeder branding rather than any actual connection. The strain emerged during the Obama administration era.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/obama-kush",
+        "https://weedmaps.com/strains/obama-kush",
+      ],
+      notes:
+        "Leafly confirms Afghani × OG Kush, indica-dominant, ~19% THC. Top terpenes Caryophyllene/Limonene/Pinene match. Both parents in our index (afghani + og-kush from Wave 1). Original breeder not documented.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "super-skunk": {
+    slug: "super-skunk",
+    name: "Super Skunk",
+    type: "indica",
+    aliases: ["Super Skunk", "SS"],
+    tagline: "Skunk #1 × Afghani — Sensi Seeds heritage indica skunk.",
+    intro:
+      "Super Skunk is a Sensi Seeds cross of Skunk #1 × Afghani — indica-dominant with the bold relaxing " +
+      "Afghani body and an extra-skunky aroma from the Skunk #1 side. Heritage 1990s release that anchored " +
+      "the next generation of skunk-family stabilizations. Customers familiar with Skunk #1 will recognize " +
+      "the family signature with more weight.",
+    lineage: "Skunk #1 × Afghani",
+    parents: ["skunk-1", "afghani"],
+    thcRange: "14–20%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Sleepy", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Limonene", note: "citrus undertone" },
+      { name: "Humulene", note: "earthy hop-like" },
+    ],
+    flavor: ["Skunk", "Earth", "Light citrus"],
+    bestFor: ["Evening sessions", "Heritage-skunk fans", "Wind-down"],
+    avoidIf: ["Skunk-pungent aromas turn you off", "You want a head-up sativa"],
+    faqs: [
+      {
+        q: "How is Super Skunk different from Skunk #1?",
+        a: "Skunk #1 is the foundational parent — sativa-leaning hybrid. Super Skunk adds Afghani on top, which pulls it indica-side and adds more body weight. Same skunk aroma, heavier feel.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/super-skunk",
+        "https://sensiseeds.com/en/cannabis-seeds/super-skunk",
+      ],
+      notes:
+        "Leafly + Sensi Seeds primary confirm Skunk #1 × Afghani, indica, ~16% THC, Sensi Seeds breeder. Top terpenes Caryophyllene/Limonene/Humulene match. Both parents in our index (skunk-1 + afghani from Wave 1).",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  // ────────────────────────────────────────────────────────────────────
+  // CBD-LEANING (5)
+  // ────────────────────────────────────────────────────────────────────
+
+  "cbd-og": {
+    slug: "cbd-og",
+    name: "CBD OG",
+    type: "hybrid",
+    aliases: ["CBD OG"],
+    tagline: "Lion's Tabernacle × SFV OG — Cali Connection CBD-rich OG.",
+    intro:
+      "CBD OG is a Cali Connection hybrid that brings real CBD content to the OG Kush family — Lion's " +
+      "Tabernacle × SFV OG IBL (regular seeds) or Lion's Tabernacle × Tahoe OG S1 (feminized). Won Best " +
+      "CBD Flower at the 2015 NorCal High Times Cannabis Cup. Customers reach for it when they want OG " +
+      "aromatics with a balanced cannabinoid profile.",
+    lineage: "Lion's Tabernacle × SFV OG IBL (regular) / Lion's Tabernacle × Tahoe OG S1 (feminized)",
+    parents: [null, "sfv-og"],
+    thcRange: "5–10%",
+    cbdRange: "10–15%",
+    effects: ["Relaxed", "Happy", "Focused", "Uplifted"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Pine", "Earth", "Light citrus"],
+    bestFor: ["Daytime sessions wanting low-THC", "CBD-curious", "OG aromatics with balanced cannabinoids"],
+    avoidIf: ["You want high-THC", "You want a strong head-up sativa"],
+    faqs: [
+      {
+        q: "Is CBD OG just OG Kush with CBD added?",
+        a: "Not quite — it's a separately bred cross that selected for CBD expression alongside OG aromatics. Two phenotypes exist (Lion's Tabernacle × SFV OG IBL and Lion's Tabernacle × Tahoe OG S1). Both express the OG family character with a 1:1 to 1:2 THC:CBD ratio.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/cbd-og",
+        "https://weedmaps.com/strains/cbd-og",
+      ],
+      notes:
+        "Leafly confirms Lion's Tabernacle × SFV OG IBL (or Tahoe OG S1), hybrid, ~7% THC + ~12% CBD, Cali Connection breeder. Top terpenes Myrcene/Pinene/Caryophyllene match. Cannabis Cup 2015 Best CBD Flower documented. SFV OG in our index. Lion's Tabernacle and Tahoe OG S1 parents not in our index — kept null.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "critical-cure": {
+    slug: "critical-cure",
+    name: "Critical Cure",
+    type: "indica",
+    aliases: ["Critical Cure", "CC"],
+    tagline: "Critical Kush × CBD-rich pheno — Barney's Farm CBD indica.",
+    intro:
+      "Critical Cure is a Barney's Farm CBD-rich indica — Critical Kush crossed with a Shanti Baba CBD " +
+      "enhancement. Roughly 1:2 THC:CBD ratio, indica-dominant body relaxation with lower psychoactive lift. " +
+      "Customers reach for it when they want the Critical Kush body feel without the full THC ceiling.",
+    lineage: "Critical Kush × Shanti Baba CBD-enhanced selection",
+    parents: ["critical-kush", null],
+    thcRange: "8–12%",
+    cbdRange: "15–20%",
+    effects: ["Relaxed", "Happy", "Sleepy", "Calm"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Caryophyllene", note: "peppery warm" },
+      { name: "Pinene", note: "light pine" },
+    ],
+    flavor: ["Earth", "Sweet undertone", "Light spice"],
+    bestFor: ["Evening sessions wanting low-THC", "CBD-curious indica fans", "Wind-down with less head"],
+    avoidIf: ["You want high-THC", "You want a clear sativa head-up"],
+    faqs: [
+      {
+        q: "How does Critical Cure compare to Critical Kush?",
+        a: "Same Critical Kush base, but Critical Cure pulls down THC and pushes up CBD. Same earthy aroma and indica body feel, much less psychoactive ceiling. Friendlier pick for low-tolerance or CBD-curious customers.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://weedmaps.com/strains/critical-cure",
+        "https://www.barneysfarm.com/critical-cure",
+      ],
+      notes:
+        "Weedmaps + Barney's Farm primary confirm Critical Kush × CBD-enhanced pheno, indica-dominant, ~11% THC + ~19% CBD, Barney's Farm breeder. Leafly 404 on dedicated page — used Weedmaps + breeder primary. Critical Kush in our index. Note: 'Shanti Baba CBD-enhanced' is the breeder's framing; the second parent specifics aren't fully public.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "valentine-x": {
+    slug: "valentine-x",
+    name: "Valentine X",
+    type: "hybrid",
+    aliases: ["Valentine X", "Valentine"],
+    tagline: "ACDC phenotype — 25:1 CBD:THC ratio.",
+    intro:
+      "Valentine X is a high-CBD ACDC phenotype — roughly 25:1 CBD:THC ratio, hybrid (50/50). Named after " +
+      "St. Valentine, patron saint of epilepsy. Customers reach for it when they want CBD-forward effects " +
+      "with minimal psychoactive lift. One of the highest CBD:THC ratios on the modern shelf.",
+    lineage: "ACDC phenotype",
+    parents: ["acdc", null],
+    thcRange: "<1%",
+    cbdRange: "12–16%",
+    effects: ["Relaxed", "Calm", "Happy", "Focused"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Earth", "Pine", "Light citrus"],
+    bestFor: ["Daytime sessions wanting near-zero THC", "CBD-curious", "Functional wellness use"],
+    avoidIf: ["You want any psychoactive lift", "You want a flavor-forward sativa"],
+    faqs: [
+      {
+        q: "How much THC does Valentine X actually have?",
+        a: "Typically 1% THC or less, with 12–16% CBD — a roughly 25:1 ratio. Effectively non-psychoactive for most customers, though batch testing varies and the actual ratio should be checked on each label.",
+      },
+      {
+        q: "Is Valentine X related to ACDC?",
+        a: "Yes — it's a selected ACDC phenotype with the CBD ratio pushed even higher. Sister strain to ACDC and Ringo's Gift in the high-CBD lineup.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/valentine-x",
+        "https://weedmaps.com/strains/valentine-x",
+      ],
+      notes:
+        "Leafly confirms ACDC phenotype, hybrid, ~1% THC + ~13% CBD (25:1 ratio). Top terpenes Myrcene/Pinene/Caryophyllene match. ACDC in our index. Sister to ringos-gift (Wave 2) in the high-CBD lineup. Name references St. Valentine (patron saint of epilepsy) — kept honest framing without therapeutic claim.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "avi-dekel": {
+    slug: "avi-dekel",
+    name: "Avi-Dekel",
+    type: "sativa",
+    aliases: ["Avi-Dekel", "Avidekel"],
+    tagline: "Tikun Olam high-CBD sativa — near-zero THC.",
+    intro:
+      "Avi-Dekel is a Tikun Olam (Israeli medical breeder) sativa-dominant strain built for high CBD with " +
+      "almost no THC — typically 0.5–1% THC alongside 13–16% CBD. Effectively non-psychoactive. One of the " +
+      "earliest CBD-dominant strains developed for medical-program use. Customers reach for it when they " +
+      "want CBD content without measurable lift.",
+    lineage: "Tikun Olam proprietary selection (parents not publicly disclosed)",
+    parents: [null, null],
+    thcRange: "<1%",
+    cbdRange: "13–16%",
+    effects: ["Calm", "Relaxed", "Focused", "Clear"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Earth", "Light citrus", "Pine"],
+    bestFor: ["Daytime sessions wanting near-zero THC", "Tikun Olam-aware customers", "CBD-forward exploration"],
+    avoidIf: ["You want any psychoactive lift", "You want a flavor-forward strain"],
+    faqs: [
+      {
+        q: "Who is Tikun Olam?",
+        a: "An Israeli medical-cannabis breeder/research group, one of the earliest formal medical-cannabis programs globally. Avi-Dekel is one of their flagship CBD-dominant strains, developed for medical-program patients.",
+      },
+      {
+        q: "How does Avi-Dekel compare to ACDC?",
+        a: "Both are CBD-dominant, very-low-THC strains. ACDC traces to Cannatonic lineage and the US CBD-genetics scene; Avi-Dekel comes through Tikun Olam's Israeli medical program. Similar effect profile — near-zero psychoactive lift.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/avi-dekel",
+        "https://www.tikun-olam.info/strains",
+      ],
+      notes:
+        "Leafly + Tikun Olam primary confirm sativa-dominant hybrid, near-zero THC (~0.5–1%) + ~15.8% CBD max. Parent strains not publicly disclosed by Tikun Olam — kept both null. Top terpenes inferred from Leafly profile and Tikun Olam category data. Honest disclosure of proprietary parents.",
+      verifiedAt: "2026-05-16",
+    },
+  },
+
+  "canna-tsu": {
+    slug: "canna-tsu",
+    name: "Canna-Tsu",
+    type: "hybrid",
+    aliases: ["Canna-Tsu", "Cannatsu"],
+    tagline: "Sour Tsunami × Cannatonic — high-CBD daytime hybrid.",
+    intro:
+      "Canna-Tsu is a Sour Tsunami × Cannatonic cross — both parents are themselves high-CBD strains, so the " +
+      "Canna-Tsu offspring lands consistently CBD-dominant. Roughly 1:2 THC:CBD or higher, balanced hybrid " +
+      "with mellow effects and mental clarity. Customers reach for it when they want CBD-forward daytime " +
+      "function.",
+    lineage: "Sour Tsunami × Cannatonic",
+    parents: ["sour-tsunami", "cannatonic"],
+    thcRange: "4–8%",
+    cbdRange: "10–15%",
+    effects: ["Calm", "Focused", "Relaxed", "Clear"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base" },
+      { name: "Pinene", note: "sharp pine top" },
+      { name: "Caryophyllene", note: "peppery warm" },
+    ],
+    flavor: ["Earth", "Light pine", "Sweet undertone"],
+    bestFor: ["Daytime sessions wanting low-THC", "CBD-forward exploration", "Functional use with mental clarity"],
+    avoidIf: ["You want high-THC", "You want a strong head-up sativa"],
+    faqs: [
+      {
+        q: "Why is Canna-Tsu consistently high-CBD?",
+        a: "Both parents (Sour Tsunami and Cannatonic) are themselves CBD-dominant strains. Crossing two high-CBD parents stabilizes the CBD expression in the offspring — that's why Canna-Tsu lands reliably in the 1:2+ THC:CBD range across batches.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/canna-tsu",
+        "https://weedmaps.com/strains/canna-tsu",
+      ],
+      notes:
+        "Leafly confirms Sour Tsunami × Cannatonic, hybrid, ~4% THC + ~10% CBD. Top terpenes Myrcene/Pinene/Caryophyllene match. Both parents in our index (sour-tsunami from Wave 2, cannatonic from Wave 2). Sister to canna-tsu in the high-CBD lineup with the ACDC family.",
+      verifiedAt: "2026-05-16",
+    },
+  },
 };
 
 export const STRAIN_SLUGS = Object.keys(STRAINS);
