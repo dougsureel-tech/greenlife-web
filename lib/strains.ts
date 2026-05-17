@@ -98,6 +98,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What does Blue Dream taste like?",
         a: "Sweet blueberries up front, pine on the back end, vanilla undertone. Smell is recognizable across the room — fresh, fruity, not skunky.",
       },
+      {
+        q: "How strong is Blue Dream?",
+        a: "Blue Dream tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Blue Dream best for?",
+        a: "Blue Dream reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Blue Dream?",
+        a: "The dominant terpenes in Blue Dream are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
+      {
+        q: "What strains are similar to Blue Dream?",
+        a: "Customers who like Blue Dream often reach for Berry White, Jack Herer, or Strawberry Cough — shared lineage or a similar profile. Our budtenders can walk through the differences if you want a side-by-side.",
+      },
     ],
     verification: {
       status: "verified",
@@ -142,6 +158,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Wedding Cake a nighttime strain?",
         a: "Yes, especially the higher-THC phenotypes. Indica-leaning, body-relaxing, and the limonene keeps it from feeling too heavy.",
+      },
+      {
+        q: "Is Wedding Cake indica, sativa, or hybrid?",
+        a: "Wedding Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Triangle Kush × Animal Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Wedding Cake taste like?",
+        a: "Wedding Cake hits vanilla up front, sweet pastry through the middle, and pepper on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Wedding Cake?",
+        a: "Wedding Cake tests in the 22–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Wedding Cake best for?",
+        a: "Wedding Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -189,6 +221,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Gelato also called Larry Bird?",
         a: "The breeder named one of the original cuts after Larry Bird — jersey number 33. Same strain.",
       },
+      {
+        q: "Is Gelato indica, sativa, or hybrid?",
+        a: "Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Gelato taste like?",
+        a: "Gelato hits sweet cream up front, berry through the middle, and lavender on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Gelato?",
+        a: "Gelato tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Gelato best for?",
+        a: "Gelato reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -229,6 +277,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is OG Kush sativa or indica?",
         a: "Hybrid leaning indica. The body-heavy buzz is what most people remember; the head-up is briefer.",
+      },
+      {
+        q: "What does OG Kush taste like?",
+        a: "OG Kush hits diesel up front, lemon zest through the middle, and earthy pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is OG Kush?",
+        a: "OG Kush tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is OG Kush best for?",
+        a: "OG Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in OG Kush?",
+        a: "The dominant terpenes in OG Kush are Limonene (citrus zest, bright and mood-lifting on the nose), Myrcene (earthy, mango-like, with a mild body-heavy quality), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     lineageAlternates: [
@@ -275,6 +339,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Jack Herer a true sativa?",
         a: "Yes — about as close to a 'pure sativa' experience as you'll find on a Washington shelf, despite some indica genetics in the lineage.",
       },
+      {
+        q: "Is Jack Herer indica, sativa, or hybrid?",
+        a: "Jack Herer is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Haze × (Northern Lights #5 × Shiva Skunk).",
+      },
+      {
+        q: "What does Jack Herer taste like?",
+        a: "Jack Herer hits pine up front, herbal through the middle, and citrus zest on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Jack Herer?",
+        a: "Jack Herer tests in the 15–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Jack Herer best for?",
+        a: "Jack Herer reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -314,6 +394,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Northern Lights a nighttime strain?",
         a: "Yes — one of the most-recommended sleep indicas in cannabis. The myrcene-heavy profile is the classic 'put me to bed' chemotype.",
+      },
+      {
+        q: "Is Northern Lights indica, sativa, or hybrid?",
+        a: "Northern Lights is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Thai (debated).",
+      },
+      {
+        q: "What does Northern Lights taste like?",
+        a: "Northern Lights hits earthy up front, sweet spice through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Northern Lights?",
+        a: "Northern Lights tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Northern Lights best for?",
+        a: "Northern Lights reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -357,6 +453,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why does Sour Diesel smell so strong?",
         a: "Fuel-forward terpenes (driven by caryophyllene + the Chemdawg lineage). It's part of the experience — but worth knowing if you're being discreet.",
+      },
+      {
+        q: "Is Sour Diesel indica, sativa, or hybrid?",
+        a: "Sour Diesel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Chemdawg × Super Skunk (debated).",
+      },
+      {
+        q: "What does Sour Diesel taste like?",
+        a: "Sour Diesel hits diesel/fuel up front, citrus zest through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sour Diesel?",
+        a: "Sour Diesel tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sour Diesel best for?",
+        a: "Sour Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     lineageAlternates: [
@@ -403,6 +515,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Granddaddy Purple a heavy strain?",
         a: "Yes — one of the heaviest indicas in regular rotation. The 'on-the-couch' kind of heavy. Plan accordingly.",
       },
+      {
+        q: "Is Granddaddy Purple indica, sativa, or hybrid?",
+        a: "Granddaddy Purple is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Purple Urkle × Big Bud.",
+      },
+      {
+        q: "What does Granddaddy Purple taste like?",
+        a: "Granddaddy Purple hits grape up front, berry through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Granddaddy Purple?",
+        a: "Granddaddy Purple tests in the 17–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Granddaddy Purple best for?",
+        a: "Granddaddy Purple reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -444,6 +572,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Are GSC and Girl Scout Cookies the same strain?",
         a: "Yes. The brand had to drop 'Girl Scout' due to trademark issues; same genetics under both names.",
       },
+      {
+        q: "Is Girl Scout Cookies indica, sativa, or hybrid?",
+        a: "Girl Scout Cookies is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × Durban Poison. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Girl Scout Cookies taste like?",
+        a: "Girl Scout Cookies hits sweet mint up front, earthy through the middle, and spicy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Girl Scout Cookies?",
+        a: "Girl Scout Cookies tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Girl Scout Cookies best for?",
+        a: "Girl Scout Cookies reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -484,6 +628,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Pineapple Express like the movie?",
         a: "Cinematically embellished. The real strain is gentler than the movie suggests — pleasant, bright, daytime-suitable.",
+      },
+      {
+        q: "Is Pineapple Express indica, sativa, or hybrid?",
+        a: "Pineapple Express is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Trainwreck × Hawaiian. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Pineapple Express taste like?",
+        a: "Pineapple Express hits pineapple up front, cedar through the middle, and tropical fruit on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pineapple Express?",
+        a: "Pineapple Express tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Pineapple Express best for?",
+        a: "Pineapple Express reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -534,6 +694,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Zkittlez sativa or indica?",
         a: "Indica-leaning hybrid. Calmer than the bright candy flavor implies — body-relaxing without going full couch-lock for most users.",
       },
+      {
+        q: "What does Zkittlez taste like?",
+        a: "Zkittlez hits tropical fruit candy up front, grape through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Zkittlez?",
+        a: "Zkittlez tests in the 15–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Zkittlez best for?",
+        a: "Zkittlez reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in Zkittlez?",
+        a: "The dominant terpenes in Zkittlez are Caryophyllene (peppery and warm, spicy on the back end), Humulene (earthy and hop-like, similar to fresh hops), and Linalool (floral lavender, soft and calming on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -578,6 +754,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Runtz good for beginners?",
         a: "Tolerable but runs high in THC. Start with a small dose — Runtz is potent even by modern hybrid standards.",
+      },
+      {
+        q: "Is Runtz indica, sativa, or hybrid?",
+        a: "Runtz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Zkittlez × Gelato. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Runtz taste like?",
+        a: "Runtz hits sweet candy up front, tropical fruit through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Runtz?",
+        a: "Runtz tests in the 19–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Runtz best for?",
+        a: "Runtz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -627,6 +819,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Trainwreck a strong sativa?",
         a: "Yes — one of the more head-forward sativas on Washington shelves. Start small if you're new to high-energy strains.",
       },
+      {
+        q: "Is Trainwreck indica, sativa, or hybrid?",
+        a: "Trainwreck is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican × Thai × Afghani (debated).",
+      },
+      {
+        q: "What does Trainwreck taste like?",
+        a: "Trainwreck hits pine up front, spicy through the middle, and lemon on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Trainwreck?",
+        a: "Trainwreck tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Trainwreck best for?",
+        a: "Trainwreck reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -673,6 +881,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is MAC sativa or indica?",
         a: "Balanced hybrid — leans slightly sativa in head effect but with enough body weight to be evening-friendly.",
       },
+      {
+        q: "What does MAC taste like?",
+        a: "MAC hits diesel up front, citrus through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is MAC?",
+        a: "MAC tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is MAC best for?",
+        a: "MAC reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in MAC?",
+        a: "The dominant terpenes in MAC are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -713,6 +937,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Bruce Banner so high in THC?",
         a: "It's a genetic outlier — many phenos test at 25%+ THC. That's also why it has a reputation for hitting fast and hard.",
+      },
+      {
+        q: "Is Bruce Banner indica, sativa, or hybrid?",
+        a: "Bruce Banner is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × Strawberry Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Bruce Banner taste like?",
+        a: "Bruce Banner hits sweet berry up front, diesel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Bruce Banner?",
+        a: "Bruce Banner tests in the 23–29% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Bruce Banner best for?",
+        a: "Bruce Banner reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -755,6 +995,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Green Crack and Green Cush the same strain?",
         a: "Yes — same genetics. 'Green Cush' is the alternate name (Snoop Dogg's rename); 'Green Crack' is the original. Many WA shops use both interchangeably.",
       },
+      {
+        q: "Is Green Crack indica, sativa, or hybrid?",
+        a: "Green Crack is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Skunk #1 × Afghani (debated).",
+      },
+      {
+        q: "What does Green Crack taste like?",
+        a: "Green Crack hits mango up front, citrus through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Green Crack?",
+        a: "Green Crack tests in the 16–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Green Crack best for?",
+        a: "Green Crack reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -795,6 +1051,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is AK-47 a strong strain?",
         a: "Moderately strong — it's about the long-lasting easy effect, not raw THC. The cup-winning reputation is about character, not punch.",
+      },
+      {
+        q: "Is AK-47 indica, sativa, or hybrid?",
+        a: "AK-47 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Colombian × Mexican × Thai × Afghani. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does AK-47 taste like?",
+        a: "AK-47 hits earthy up front, sour through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is AK-47?",
+        a: "AK-47 tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is AK-47 best for?",
+        a: "AK-47 reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -841,6 +1113,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Chemdawg so important to other strains?",
         a: "It's a parent to OG Kush, Sour Diesel, Stardawg, and many more. Most modern diesel-aroma strains trace back to Chemdawg somewhere in the lineage.",
       },
+      {
+        q: "Is Chemdawg indica, sativa, or hybrid?",
+        a: "Chemdawg is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Nepalese × Thai (debated). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Chemdawg taste like?",
+        a: "Chemdawg hits diesel up front, earthy through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Chemdawg?",
+        a: "Chemdawg tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Chemdawg best for?",
+        a: "Chemdawg reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     lineageAlternates: ["Bagseed of unknown origin (Grateful Dead concert folklore)"],
     verification: {
@@ -883,6 +1171,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Durban Poison a pure sativa?",
         a: "Yes — it's a near-pure landrace sativa from South Africa, and one of the only ones on most Washington shelves. The effect is much more head-up than modern 'sativa' hybrids.",
       },
+      {
+        q: "Is Durban Poison indica, sativa, or hybrid?",
+        a: "Durban Poison is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is South African landrace.",
+      },
+      {
+        q: "What does Durban Poison taste like?",
+        a: "Durban Poison hits anise/licorice up front, pine through the middle, and sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Durban Poison?",
+        a: "Durban Poison tests in the 15–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Durban Poison best for?",
+        a: "Durban Poison reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -923,6 +1227,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Hindu Kush called 'Kush'?",
         a: "It's literally the strain that gave the Kush family its name — bred for centuries in the Hindu Kush mountain range. Every modern Kush traces back to this landrace.",
+      },
+      {
+        q: "Is Hindu Kush indica, sativa, or hybrid?",
+        a: "Hindu Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Hindu Kush landrace (Afghanistan/Pakistan).",
+      },
+      {
+        q: "What does Hindu Kush taste like?",
+        a: "Hindu Kush hits earthy up front, sandalwood through the middle, and sweet pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Hindu Kush?",
+        a: "Hindu Kush tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Hindu Kush best for?",
+        a: "Hindu Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -965,6 +1285,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Afghani the same as Afghan Kush?",
         a: "Closely related — 'Afghani' usually refers to pure landrace indica from Afghanistan, while 'Afghan Kush' is a more specific Hindu Kush-region cultivar. Same broad family.",
       },
+      {
+        q: "Is Afghani indica, sativa, or hybrid?",
+        a: "Afghani is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani landrace.",
+      },
+      {
+        q: "What does Afghani taste like?",
+        a: "Afghani hits earthy up front, hash through the middle, and sweet spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Afghani?",
+        a: "Afghani tests in the 14–20% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Afghani best for?",
+        a: "Afghani reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1005,6 +1341,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called Headband?",
         a: "Many users report a mild pressure around the temples — a 'headband' sensation. It's an anecdotal experience, not a guaranteed effect.",
+      },
+      {
+        q: "Is Headband indica, sativa, or hybrid?",
+        a: "Headband is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × Sour Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Headband taste like?",
+        a: "Headband hits diesel up front, lemon through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Headband?",
+        a: "Headband tests in the 20–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Headband best for?",
+        a: "Headband reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -1047,6 +1399,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Strawberry Cough actually taste like strawberries?",
         a: "Notes of sweet strawberry, yes — on a skunky-earthy base. The 'cough' part isn't marketing: the smoke runs expansive.",
       },
+      {
+        q: "Is Strawberry Cough indica, sativa, or hybrid?",
+        a: "Strawberry Cough is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Strawberry Fields × Haze (debated).",
+      },
+      {
+        q: "How strong is Strawberry Cough?",
+        a: "Strawberry Cough tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Strawberry Cough best for?",
+        a: "Strawberry Cough reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
+      {
+        q: "What terpenes are in Strawberry Cough?",
+        a: "The dominant terpenes in Strawberry Cough are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1087,6 +1455,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Skywalker OG the same as Skywalker?",
         a: "Different strains. Skywalker is the parent (Mazar × Blueberry); Skywalker OG is the cross with OG Kush — heavier and more diesel-forward.",
+      },
+      {
+        q: "Is Skywalker OG indica, sativa, or hybrid?",
+        a: "Skywalker OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Skywalker × OG Kush.",
+      },
+      {
+        q: "What does Skywalker OG taste like?",
+        a: "Skywalker OG hits diesel up front, pine through the middle, and lemon zest on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Skywalker OG?",
+        a: "Skywalker OG tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Skywalker OG best for?",
+        a: "Skywalker OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -1131,6 +1515,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why does Bubba Kush smell like coffee?",
         a: "It's the natural terpene profile — heavy myrcene + caryophyllene over a soft sweet base. A subset of phenos read distinctly coffee-and-chocolate.",
+      },
+      {
+        q: "Is Bubba Kush indica, sativa, or hybrid?",
+        a: "Bubba Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × unknown indica (debated).",
+      },
+      {
+        q: "What does Bubba Kush taste like?",
+        a: "Bubba Kush hits coffee up front, chocolate through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Bubba Kush?",
+        a: "Bubba Kush tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Bubba Kush best for?",
+        a: "Bubba Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     lineageAlternates: [
@@ -1177,6 +1577,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Are Cherry Pie and Cherry Kush the same strain?",
         a: "Often used interchangeably in WA shops — same genetics (GDP × Durban). Some breeders distinguish the two as sister phenos.",
       },
+      {
+        q: "Is Cherry Pie indica, sativa, or hybrid?",
+        a: "Cherry Pie is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Granddaddy Purple × Durban Poison. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cherry Pie taste like?",
+        a: "Cherry Pie hits sweet cherry up front, earthy through the middle, and sour fruit on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cherry Pie?",
+        a: "Cherry Pie tests in the 16–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cherry Pie best for?",
+        a: "Cherry Pie reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1217,6 +1633,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Pineapple Kush the same as Pineapple Express?",
         a: "No — different parents. Pineapple Express is Trainwreck × Hawaiian (sativa-leaning); Pineapple Kush is Pineapple × Master Kush (more indica-leaning).",
+      },
+      {
+        q: "Is Pineapple Kush indica, sativa, or hybrid?",
+        a: "Pineapple Kush is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Pineapple × Master Kush. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Pineapple Kush taste like?",
+        a: "Pineapple Kush hits pineapple up front, caramel through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pineapple Kush?",
+        a: "Pineapple Kush tests in the 15–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Pineapple Kush best for?",
+        a: "Pineapple Kush reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -1259,6 +1691,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What makes Tahoe OG different from regular OG Kush?",
         a: "Tahoe is heavier on the body side — faster onset, more sedating. Same OG aroma family, just landed more on the indica end of the spectrum.",
       },
+      {
+        q: "Is Tahoe OG indica, sativa, or hybrid?",
+        a: "Tahoe OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush phenotype (SFV OG × OG Kush, debated). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Tahoe OG taste like?",
+        a: "Tahoe OG hits lemon up front, diesel through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tahoe OG?",
+        a: "Tahoe OG tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tahoe OG best for?",
+        a: "Tahoe OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1298,6 +1746,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Lemon Haze the same as Super Lemon Haze?",
         a: "No — Super Lemon Haze is Lemon Skunk × Lemon Haze, a child strain. Super Lemon Haze is generally stronger and more head-up.",
+      },
+      {
+        q: "Is Lemon Haze indica, sativa, or hybrid?",
+        a: "Lemon Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Lemon Skunk × Silver Haze.",
+      },
+      {
+        q: "What does Lemon Haze taste like?",
+        a: "Lemon Haze hits lemon zest up front, citrus through the middle, and herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Haze?",
+        a: "Lemon Haze tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Lemon Haze best for?",
+        a: "Lemon Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -1340,6 +1804,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Super Lemon Haze?",
         a: "It's a 'super' version of Lemon Haze, bred by Greenhouse Seeds. Won the Cannabis Cup in 2008 and 2009, which cemented the name.",
       },
+      {
+        q: "Is Super Lemon Haze indica, sativa, or hybrid?",
+        a: "Super Lemon Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Lemon Skunk × Super Silver Haze.",
+      },
+      {
+        q: "What does Super Lemon Haze taste like?",
+        a: "Super Lemon Haze hits lemon zest up front, citrus through the middle, and herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Super Lemon Haze?",
+        a: "Super Lemon Haze tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Super Lemon Haze best for?",
+        a: "Super Lemon Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1380,6 +1860,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Maui Wowie a real Hawaiian strain?",
         a: "Yes — it's a 1970s Hawaiian landrace that became one of the first 'name brand' strains in U.S. cannabis culture.",
+      },
+      {
+        q: "Is Maui Wowie indica, sativa, or hybrid?",
+        a: "Maui Wowie is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Hawaiian landrace.",
+      },
+      {
+        q: "What does Maui Wowie taste like?",
+        a: "Maui Wowie hits pineapple up front, tropical citrus through the middle, and sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Maui Wowie?",
+        a: "Maui Wowie tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Maui Wowie best for?",
+        a: "Maui Wowie reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -1422,6 +1918,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Acapulco Gold still around?",
         a: "Most 'Acapulco Gold' on Washington shelves today is a modern recreation rather than the original landrace. Still a fine sativa — just be aware the original is rare.",
       },
+      {
+        q: "Is Acapulco Gold indica, sativa, or hybrid?",
+        a: "Acapulco Gold is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican landrace (Acapulco region).",
+      },
+      {
+        q: "What does Acapulco Gold taste like?",
+        a: "Acapulco Gold hits sweet earth up front, toffee through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Acapulco Gold?",
+        a: "Acapulco Gold tests in the 15–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Acapulco Gold best for?",
+        a: "Acapulco Gold reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -1461,6 +1973,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Purple Punch a nighttime strain?",
         a: "It's one of the more popular sleep-time picks on Washington shelves. Sweet, slow-onset, body-heavy — customers commonly reach for it for evening wind-down.",
+      },
+      {
+        q: "Is Purple Punch indica, sativa, or hybrid?",
+        a: "Purple Punch is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Larry OG × Granddaddy Purple.",
+      },
+      {
+        q: "What does Purple Punch taste like?",
+        a: "Purple Punch hits grape up front, blueberry through the middle, and sweet vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Purple Punch?",
+        a: "Purple Punch tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Purple Punch best for?",
+        a: "Purple Punch reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -1505,6 +2033,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Where did Black Cherry Soda come from?",
         a: "Often associated with TGA Subcool Seeds in Oregon, but the actual breeding heritage was given to TGA already-bred and the original parents are not publicly confirmed. Some accounts cite Cherry AK-47 × Blackberry × Ortega × Airborne G13 as candidate ancestors.",
+      },
+      {
+        q: "Is Black Cherry Soda indica, sativa, or hybrid?",
+        a: "Black Cherry Soda is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Unknown / proprietary (debated). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Black Cherry Soda taste like?",
+        a: "Black Cherry Soda hits dark cherry up front, sweet-tart through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Black Cherry Soda?",
+        a: "Black Cherry Soda tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Black Cherry Soda best for?",
+        a: "Black Cherry Soda reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     lineageAlternates: [
@@ -1555,6 +2099,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is GMO Cookies genetically modified?",
         a: "No — the GMO acronym is about flavor, not genetic engineering. Cannabis on WA shelves is not GMO in the agricultural sense.",
       },
+      {
+        q: "Is GMO Cookies indica, sativa, or hybrid?",
+        a: "GMO Cookies is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Chemdawg × Girl Scout Cookies.",
+      },
+      {
+        q: "What does GMO Cookies taste like?",
+        a: "GMO Cookies hits garlic up front, diesel through the middle, and onion on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is GMO Cookies?",
+        a: "GMO Cookies tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is GMO Cookies best for?",
+        a: "GMO Cookies reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1596,6 +2156,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Apple Fritter strong?",
         a: "Yes — regularly tests 22%+ THC. Start with a small amount if you're trying it for the first time.",
       },
+      {
+        q: "Is Apple Fritter indica, sativa, or hybrid?",
+        a: "Apple Fritter is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Apple × Animal Cookies. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Apple Fritter taste like?",
+        a: "Apple Fritter hits sweet apple up front, pastry through the middle, and cinnamon on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Apple Fritter?",
+        a: "Apple Fritter tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apple Fritter best for?",
+        a: "Apple Fritter reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1636,6 +2212,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Mimosa a sativa?",
         a: "Sativa-leaning hybrid. Head-forward enough to feel like a sativa but balanced enough not to spike anxiety the way a true sativa can.",
+      },
+      {
+        q: "Is Mimosa indica, sativa, or hybrid?",
+        a: "Mimosa is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Clementine × Purple Punch. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Mimosa taste like?",
+        a: "Mimosa hits orange up front, citrus through the middle, and sweet berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mimosa?",
+        a: "Mimosa tests in the 19–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mimosa best for?",
+        a: "Mimosa reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -1680,6 +2272,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Do-Si-Dos related to Girl Scout Cookies?",
         a: "Yes — GSC is one of the parents. Do-Si-Dos pushes the GSC profile heavier on the body side.",
       },
+      {
+        q: "Is Do-Si-Dos indica, sativa, or hybrid?",
+        a: "Do-Si-Dos is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Girl Scout Cookies × Face Off OG.",
+      },
+      {
+        q: "What does Do-Si-Dos taste like?",
+        a: "Do-Si-Dos hits sweet mint up front, earthy pine through the middle, and sweet pastry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Do-Si-Dos?",
+        a: "Do-Si-Dos tests in the 19–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Do-Si-Dos best for?",
+        a: "Do-Si-Dos reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -1720,6 +2328,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Animal Cookies the same as Animal Crackers?",
         a: "Often used interchangeably — same genetics line. Some breeders treat them as sister phenos with subtle aroma differences.",
+      },
+      {
+        q: "Is Animal Cookies indica, sativa, or hybrid?",
+        a: "Animal Cookies is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Girl Scout Cookies × Fire OG.",
+      },
+      {
+        q: "What does Animal Cookies taste like?",
+        a: "Animal Cookies hits sweet mint up front, earthy through the middle, and pastry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Animal Cookies?",
+        a: "Animal Cookies tests in the 20–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Animal Cookies best for?",
+        a: "Animal Cookies reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -1762,6 +2386,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Cookies and Cream a strong strain?",
         a: "Moderately strong — regularly tests 20%+ THC. Effect is more 'comfortably high' than overwhelming for most users.",
       },
+      {
+        q: "Is Cookies and Cream indica, sativa, or hybrid?",
+        a: "Cookies and Cream is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Starfighter F2 × Girl Scout Cookies. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cookies and Cream taste like?",
+        a: "Cookies and Cream hits sweet vanilla up front, cream through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cookies and Cream?",
+        a: "Cookies and Cream tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cookies and Cream best for?",
+        a: "Cookies and Cream reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1803,6 +2443,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called Triangle Kush?",
         a: "Named after Florida's 'cannabis triangle' (Jacksonville, Miami, Tampa) where the strain was originally bred. It's an OG Kush phenotype with its own distinct profile.",
+      },
+      {
+        q: "Is Triangle Kush indica, sativa, or hybrid?",
+        a: "Triangle Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype (Florida).",
+      },
+      {
+        q: "What does Triangle Kush taste like?",
+        a: "Triangle Kush hits lemon up front, earthy pine through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Triangle Kush?",
+        a: "Triangle Kush tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Triangle Kush best for?",
+        a: "Triangle Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     lineageAlternates: [
@@ -1854,6 +2510,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why does it smell like a skunk?",
         a: "The natural terpene profile reads as pungent skunk-and-earth to most noses. The smell gave the whole family its name.",
       },
+      {
+        q: "Is Skunk #1 indica, sativa, or hybrid?",
+        a: "Skunk #1 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Afghani × Acapulco Gold × Colombian Gold. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Skunk #1 taste like?",
+        a: "Skunk #1 hits skunk up front, earthy through the middle, and sweet pungency on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Skunk #1?",
+        a: "Skunk #1 tests in the 15–19% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Skunk #1 best for?",
+        a: "Skunk #1 reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -1895,6 +2567,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Haze a single strain or a family?",
         a: "Both — 'Original Haze' is a specific 1970s landrace cross, but 'Haze' has also become a category name for any sativa with the terpinolene-forward head-up profile.",
+      },
+      {
+        q: "Is Haze indica, sativa, or hybrid?",
+        a: "Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican × Colombian × Thai × Indian landraces.",
+      },
+      {
+        q: "What does Haze taste like?",
+        a: "Haze hits spicy pine up front, sweet earth through the middle, and herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Haze?",
+        a: "Haze tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Haze best for?",
+        a: "Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     lineageAlternates: [
@@ -1943,6 +2631,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Blueberry the parent of Blue Dream?",
         a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and body-relaxing side.",
       },
+      {
+        q: "Is Blueberry indica, sativa, or hybrid?",
+        a: "Blueberry is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Purple Thai × Thai (Highland Thai).",
+      },
+      {
+        q: "What does Blueberry taste like?",
+        a: "Blueberry hits sweet blueberry up front, berry through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Blueberry?",
+        a: "Blueberry tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Blueberry best for?",
+        a: "Blueberry reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -1985,6 +2689,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Thin Mint GSC the same as regular GSC?",
         a: "It's a specific phenotype within the GSC line — same parent genetics, but selected for the strongest cool-mint expression. Effect is similar; aroma is more distinctly mint.",
       },
+      {
+        q: "Is Thin Mint GSC indica, sativa, or hybrid?",
+        a: "Thin Mint GSC is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Girl Scout Cookies phenotype. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Thin Mint GSC taste like?",
+        a: "Thin Mint GSC hits cool mint up front, sweet chocolate through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Thin Mint GSC?",
+        a: "Thin Mint GSC tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Thin Mint GSC best for?",
+        a: "Thin Mint GSC reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2025,6 +2745,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is it Sherbet or Sherbert?",
         a: "Both spellings appear on Washington shelves — same strain. The breeder used 'Sherbert' originally, but 'Sherbet' is more common now.",
+      },
+      {
+        q: "Is Sunset Sherbet indica, sativa, or hybrid?",
+        a: "Sunset Sherbet is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Girl Scout Cookies × Pink Panties. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sunset Sherbet taste like?",
+        a: "Sunset Sherbet hits orange cream up front, sweet citrus through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sunset Sherbet?",
+        a: "Sunset Sherbet tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sunset Sherbet best for?",
+        a: "Sunset Sherbet reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -2067,6 +2803,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called White Widow?",
         a: "The trichome coverage is so heavy the buds appear white — bred to maximize visible resin. The name is purely about the look.",
       },
+      {
+        q: "Is White Widow indica, sativa, or hybrid?",
+        a: "White Widow is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Brazilian sativa × South Indian indica. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does White Widow taste like?",
+        a: "White Widow hits earthy pine up front, sweet wood through the middle, and pepper on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is White Widow?",
+        a: "White Widow tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is White Widow best for?",
+        a: "White Widow reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2107,6 +2859,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Cheese actually smell like cheese?",
         a: "Yes — sharp, pungent, distinctively cheesy. It's the natural terpene profile (heavy myrcene + caryophyllene over a sour-skunk base).",
+      },
+      {
+        q: "Is Cheese indica, sativa, or hybrid?",
+        a: "Cheese is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Skunk #1 phenotype. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cheese taste like?",
+        a: "Cheese hits sharp cheese up front, earthy skunk through the middle, and sour on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cheese?",
+        a: "Cheese tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cheese best for?",
+        a: "Cheese reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -2149,6 +2917,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Grape Ape a nighttime strain?",
         a: "It's one of the more popular evening picks on WA shelves. Body-heavy, sweet grape aroma, slow-onset — customers commonly reach for it for wind-down.",
       },
+      {
+        q: "Is Grape Ape indica, sativa, or hybrid?",
+        a: "Grape Ape is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Mendocino Purps × Skunk × Afghani.",
+      },
+      {
+        q: "What does Grape Ape taste like?",
+        a: "Grape Ape hits sweet grape up front, berry through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Grape Ape?",
+        a: "Grape Ape tests in the 15–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Grape Ape best for?",
+        a: "Grape Ape reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2189,6 +2973,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Super Silver Haze the same as Silver Haze?",
         a: "Closely related — Silver Haze is the parent line, Super Silver Haze is the most-circulated cross (adds Skunk + Northern Lights to the lineage).",
+      },
+      {
+        q: "Is Super Silver Haze indica, sativa, or hybrid?",
+        a: "Super Silver Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Skunk × Northern Lights × Haze.",
+      },
+      {
+        q: "What does Super Silver Haze taste like?",
+        a: "Super Silver Haze hits spicy citrus up front, sweet pine through the middle, and herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Super Silver Haze?",
+        a: "Super Silver Haze tests in the 18–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Super Silver Haze best for?",
+        a: "Super Silver Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -2247,6 +3047,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What does Ice Cream Cake taste like?",
         a: "Sweet vanilla and sugar up front, a light peppery finish from the caryophyllene. Smells like cake batter.",
       },
+      {
+        q: "Is Ice Cream Cake indica, sativa, or hybrid?",
+        a: "Ice Cream Cake is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Wedding Cake × Gelato #33.",
+      },
+      {
+        q: "How strong is Ice Cream Cake?",
+        a: "Ice Cream Cake tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Ice Cream Cake best for?",
+        a: "Ice Cream Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in Ice Cream Cake?",
+        a: "The dominant terpenes in Ice Cream Cake are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Linalool (floral lavender, soft and calming on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2288,6 +3104,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is LA Confidential a strong indica?",
         a: "Yes — fast-onset, body-heavy, one of the more no-nonsense indicas on the shelf. Start small if you're not used to indicas.",
       },
+      {
+        q: "Is LA Confidential indica, sativa, or hybrid?",
+        a: "LA Confidential is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG LA Affie × Afghani.",
+      },
+      {
+        q: "What does LA Confidential taste like?",
+        a: "LA Confidential hits pine up front, skunk through the middle, and earthy sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is LA Confidential?",
+        a: "LA Confidential tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is LA Confidential best for?",
+        a: "LA Confidential reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2328,6 +3160,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Master Kush related to OG Kush?",
         a: "Not directly. Both are Kush-family, but Master Kush is a Hindu Kush × Skunk #1 cross from the Netherlands. OG Kush is a separate West Coast line.",
+      },
+      {
+        q: "Is Master Kush indica, sativa, or hybrid?",
+        a: "Master Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Hindu Kush × Skunk #1.",
+      },
+      {
+        q: "What does Master Kush taste like?",
+        a: "Master Kush hits earthy up front, citrus through the middle, and hash on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Master Kush?",
+        a: "Master Kush tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Master Kush best for?",
+        a: "Master Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -2371,6 +3219,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Death Star?",
         a: "Original Ohio grower lore — the buds were so dense and frosty they looked like the Death Star. Effect-wise it leans heavier than the name suggests it would be edgy.",
       },
+      {
+        q: "Is Death Star indica, sativa, or hybrid?",
+        a: "Death Star is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Sour Diesel × Sensi Star.",
+      },
+      {
+        q: "What does Death Star taste like?",
+        a: "Death Star hits diesel up front, sweet earth through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Death Star?",
+        a: "Death Star tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Death Star best for?",
+        a: "Death Star reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2411,6 +3275,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Critical Mass the same as Critical+?",
         a: "Critical+ is a Dinafem reworking of the same Afghani × Skunk #1 idea, slightly different pheno. Most WA shelves use the names interchangeably.",
+      },
+      {
+        q: "Is Critical Mass indica, sativa, or hybrid?",
+        a: "Critical Mass is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Skunk #1.",
+      },
+      {
+        q: "What does Critical Mass taste like?",
+        a: "Critical Mass hits sweet earth up front, skunk through the middle, and honey on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Critical Mass?",
+        a: "Critical Mass tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Critical Mass best for?",
+        a: "Critical Mass reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -2453,6 +3333,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Banana Kush actually taste like banana?",
         a: "Yes — the banana note is real, not marketing. Comes from the terpene profile, mostly limonene + linalool combination.",
       },
+      {
+        q: "Is Banana Kush indica, sativa, or hybrid?",
+        a: "Banana Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Ghost OG × Skunk Haze.",
+      },
+      {
+        q: "How strong is Banana Kush?",
+        a: "Banana Kush tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Banana Kush best for?",
+        a: "Banana Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in Banana Kush?",
+        a: "The dominant terpenes in Banana Kush are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2493,6 +3389,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Khalifa Kush just OG Kush?",
         a: "It's a specific OG Kush phenotype that Wiz Khalifa selected and circulated. Same family, but the cut is the cut — slightly more head-up than typical OG.",
+      },
+      {
+        q: "Is Khalifa Kush indica, sativa, or hybrid?",
+        a: "Khalifa Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype (proprietary).",
+      },
+      {
+        q: "What does Khalifa Kush taste like?",
+        a: "Khalifa Kush hits pine up front, lemon through the middle, and diesel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Khalifa Kush?",
+        a: "Khalifa Kush tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Khalifa Kush best for?",
+        a: "Khalifa Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     lineageAlternates: ["OG Kush selection (most-cited)", "Unknown × OG Kush hybrid (alternate community theory)"],
@@ -2536,6 +3448,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Ghost OG different from OG Kush?",
         a: "It's a phenotype — same family, slightly different expression. Ghost OG tends heavier on the body than the average OG Kush cut.",
       },
+      {
+        q: "Is Ghost OG indica, sativa, or hybrid?",
+        a: "Ghost OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype.",
+      },
+      {
+        q: "What does Ghost OG taste like?",
+        a: "Ghost OG hits lemon up front, pine through the middle, and diesel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Ghost OG?",
+        a: "Ghost OG tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Ghost OG best for?",
+        a: "Ghost OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2576,6 +3504,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Fire OG stronger than regular OG Kush?",
         a: "Often, yes — Fire OG tends to test on the higher end of the OG family. Body-heavy and fast-onset; not a starter OG.",
+      },
+      {
+        q: "Is Fire OG indica, sativa, or hybrid?",
+        a: "Fire OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × SFV OG Kush.",
+      },
+      {
+        q: "What does Fire OG taste like?",
+        a: "Fire OG hits lemon zest up front, diesel through the middle, and earthy pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Fire OG?",
+        a: "Fire OG tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Fire OG best for?",
+        a: "Fire OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -2618,6 +3562,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Larry OG also called Lemon Larry?",
         a: "Same strain — the lemon-pine aroma is the loudest part of the pheno, so 'Lemon Larry' became the more descriptive name. Cali Connection branded it as Larry OG.",
       },
+      {
+        q: "Is Larry OG indica, sativa, or hybrid?",
+        a: "Larry OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × SFV OG Kush.",
+      },
+      {
+        q: "What does Larry OG taste like?",
+        a: "Larry OG hits lemon up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Larry OG?",
+        a: "Larry OG tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Larry OG best for?",
+        a: "Larry OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2658,6 +3618,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is SFV OG indica or hybrid?",
         a: "Indica-leaning hybrid — body-relaxing with enough head-up to stay social. One of the more functional OG family members.",
+      },
+      {
+        q: "Is SFV OG indica, sativa, or hybrid?",
+        a: "SFV OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype (Afghani descent).",
+      },
+      {
+        q: "What does SFV OG taste like?",
+        a: "SFV OG hits lemon zest up front, pine through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is SFV OG?",
+        a: "SFV OG tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is SFV OG best for?",
+        a: "SFV OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -2700,6 +3676,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Slurricane stronger than Purple Punch?",
         a: "Usually, yes — the Do-Si-Dos parent pushes the THC higher. Most Slurricane phenos sit in the 22–28% range; Purple Punch is more 18–22%.",
       },
+      {
+        q: "Is Slurricane indica, sativa, or hybrid?",
+        a: "Slurricane is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Do-Si-Dos × Purple Punch.",
+      },
+      {
+        q: "What does Slurricane taste like?",
+        a: "Slurricane hits berry up front, grape through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Slurricane?",
+        a: "Slurricane tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Slurricane best for?",
+        a: "Slurricane reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2740,6 +3732,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Donny Burger really smell like garlic?",
         a: "Yes — the GMO parent brings the garlic-funk, and the Han Solo Burger adds gas. Not for everyone; customers who love GMO Cookies tend to love Donny Burger.",
+      },
+      {
+        q: "Is Donny Burger indica, sativa, or hybrid?",
+        a: "Donny Burger is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is GMO Cookies × Han Solo Burger.",
+      },
+      {
+        q: "What does Donny Burger taste like?",
+        a: "Donny Burger hits garlic up front, diesel through the middle, and savory funk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Donny Burger?",
+        a: "Donny Burger tests in the 22–30% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Donny Burger best for?",
+        a: "Donny Burger reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -2786,6 +3794,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Tangie really smell like tangerines?",
         a: "Yes — the tangerine aroma is the loudest part of the strain. Comes from a high limonene + citrus-terpene profile. Smell carries across a room.",
       },
+      {
+        q: "Is Tangie indica, sativa, or hybrid?",
+        a: "Tangie is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is California Orange × Skunk #1.",
+      },
+      {
+        q: "What does Tangie taste like?",
+        a: "Tangie hits tangerine up front, citrus zest through the middle, and sweet orange on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tangie?",
+        a: "Tangie tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tangie best for?",
+        a: "Tangie reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2826,6 +3850,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is NYC Diesel the same as Sour Diesel?",
         a: "Cousins, not twins. Both are Diesel-family sativas from the late-'90s East Coast, but NYC Diesel comes from Soma Seeds and tends to lean more grapefruit-forward. Sour Diesel is more fuel-pungent.",
+      },
+      {
+        q: "Is NYC Diesel indica, sativa, or hybrid?",
+        a: "NYC Diesel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican × Afghani.",
+      },
+      {
+        q: "What does NYC Diesel taste like?",
+        a: "NYC Diesel hits diesel up front, grapefruit through the middle, and lime on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is NYC Diesel?",
+        a: "NYC Diesel tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is NYC Diesel best for?",
+        a: "NYC Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -2868,6 +3908,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is ECSD different from regular Sour Diesel?",
         a: "It's the East Coast-selected pheno of Sour Diesel — sharper fuel aroma, slightly faster onset. Same family, different cut.",
       },
+      {
+        q: "Is East Coast Sour Diesel indica, sativa, or hybrid?",
+        a: "East Coast Sour Diesel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Sour Diesel phenotype.",
+      },
+      {
+        q: "What does East Coast Sour Diesel taste like?",
+        a: "East Coast Sour Diesel hits diesel up front, sour citrus through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is East Coast Sour Diesel?",
+        a: "East Coast Sour Diesel tests in the 18–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is East Coast Sour Diesel best for?",
+        a: "East Coast Sour Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2909,6 +3965,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Sour Tangie a strong sativa?",
         a: "Yes — head-forward, energetic, fast-onset. Not for first-timers; customers who already like sativas tend to love it.",
       },
+      {
+        q: "Is Sour Tangie indica, sativa, or hybrid?",
+        a: "Sour Tangie is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is East Coast Sour Diesel × Tangie.",
+      },
+      {
+        q: "What does Sour Tangie taste like?",
+        a: "Sour Tangie hits tangerine up front, diesel through the middle, and sour citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sour Tangie?",
+        a: "Sour Tangie tests in the 19–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Sour Tangie best for?",
+        a: "Sour Tangie reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -2949,6 +4021,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Panama Red the same as the 1960s strain?",
         a: "Almost certainly not — true Panamanian landrace seeds are nearly impossible to source. What's on shelves today is a modern recreation chasing the same effect profile.",
+      },
+      {
+        q: "Is Panama Red indica, sativa, or hybrid?",
+        a: "Panama Red is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Panamanian landrace.",
+      },
+      {
+        q: "What does Panama Red taste like?",
+        a: "Panama Red hits earthy up front, spicy through the middle, and wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Panama Red?",
+        a: "Panama Red tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Panama Red best for?",
+        a: "Panama Red reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     lineageAlternates: ["Modern recreation of original Panamanian landrace (most likely shelf reality)"],
@@ -2992,6 +4080,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Colombian Gold related to Skunk #1?",
         a: "Yes — Colombian Gold is one of the parent landraces behind Skunk #1, and by extension behind most of the modern hybrid family. Old-school heritage line.",
       },
+      {
+        q: "Is Colombian Gold indica, sativa, or hybrid?",
+        a: "Colombian Gold is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Colombian landrace (Santa Marta).",
+      },
+      {
+        q: "What does Colombian Gold taste like?",
+        a: "Colombian Gold hits earthy up front, sweet spice through the middle, and wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Colombian Gold?",
+        a: "Colombian Gold tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Colombian Gold best for?",
+        a: "Colombian Gold reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     lineageAlternates: ["Modern recreation of Santa Marta landrace (most likely shelf reality)"],
     verification: {
@@ -3034,6 +4138,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Jack Flash the same as Jack Herer?",
         a: "Closely related — Jack Flash uses Jack Herer as one of three parents. Same family, slightly different cut. Jack Flash tends to hit faster and stays more head-forward.",
       },
+      {
+        q: "Is Jack Flash indica, sativa, or hybrid?",
+        a: "Jack Flash is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Jack Herer × Super Skunk × Haze.",
+      },
+      {
+        q: "What does Jack Flash taste like?",
+        a: "Jack Flash hits citrus up front, pine through the middle, and spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Jack Flash?",
+        a: "Jack Flash tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Jack Flash best for?",
+        a: "Jack Flash reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3074,6 +4194,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Cinex a good morning strain?",
         a: "Yes — head-forward, energetic, low body weight. Customers reach for it as a wake-up sativa.",
+      },
+      {
+        q: "Is Cinex indica, sativa, or hybrid?",
+        a: "Cinex is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Cinderella 99 × Vortex.",
+      },
+      {
+        q: "What does Cinex taste like?",
+        a: "Cinex hits citrus up front, sweet earth through the middle, and lime on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cinex?",
+        a: "Cinex tests in the 17–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cinex best for?",
+        a: "Cinex reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -3116,6 +4252,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Lemon Skunk the same as Lemon Haze?",
         a: "No — Lemon Skunk is a Skunk #1 × Skunk #1 selection. Lemon Haze is Lemon Skunk × Silver Haze. Lemon Skunk is one of Lemon Haze's parents.",
       },
+      {
+        q: "Is Lemon Skunk indica, sativa, or hybrid?",
+        a: "Lemon Skunk is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Skunk #1 × Skunk #1 (lemon-pheno selection).",
+      },
+      {
+        q: "What does Lemon Skunk taste like?",
+        a: "Lemon Skunk hits lemon zest up front, skunk through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Skunk?",
+        a: "Lemon Skunk tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Lemon Skunk best for?",
+        a: "Lemon Skunk reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3156,6 +4308,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Strawberry Banana a sativa?",
         a: "Sativa-dominant hybrid. Head-forward but with enough body to round it out — not a pure racey sativa.",
+      },
+      {
+        q: "Is Strawberry Banana indica, sativa, or hybrid?",
+        a: "Strawberry Banana is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Banana Kush × Strawberry.",
+      },
+      {
+        q: "What does Strawberry Banana taste like?",
+        a: "Strawberry Banana hits strawberry up front, banana through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Strawberry Banana?",
+        a: "Strawberry Banana tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Strawberry Banana best for?",
+        a: "Strawberry Banana reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -3198,6 +4366,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Tropicana Cookies an indica or sativa?",
         a: "Sativa-dominant hybrid. Head-forward and energetic but with the GSC parent keeping the body grounded.",
       },
+      {
+        q: "Is Tropicana Cookies indica, sativa, or hybrid?",
+        a: "Tropicana Cookies is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is GSC × Tangie.",
+      },
+      {
+        q: "What does Tropicana Cookies taste like?",
+        a: "Tropicana Cookies hits orange up front, sweet citrus through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tropicana Cookies?",
+        a: "Tropicana Cookies tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tropicana Cookies best for?",
+        a: "Tropicana Cookies reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3239,6 +4423,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Clementine the parent of Mimosa?",
         a: "Yes — Mimosa is Clementine × Purple Punch. Clementine drives the citrus side of Mimosa's profile.",
       },
+      {
+        q: "Is Clementine indica, sativa, or hybrid?",
+        a: "Clementine is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Tangie × Lemon Skunk.",
+      },
+      {
+        q: "What does Clementine taste like?",
+        a: "Clementine hits citrus up front, sweet orange through the middle, and tangerine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Clementine?",
+        a: "Clementine tests in the 19–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Clementine best for?",
+        a: "Clementine reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3279,6 +4479,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Cherry AK-47 a different strain from AK-47?",
         a: "It's a phenotype — same AK-47 genetics, selected for the cherry-sweet aroma. Effect is similar to AK-47, the aroma is the most distinct difference.",
+      },
+      {
+        q: "Is Cherry AK-47 indica, sativa, or hybrid?",
+        a: "Cherry AK-47 is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is AK-47 selection (Colombian × Mexican × Thai × Afghani lineage).",
+      },
+      {
+        q: "What does Cherry AK-47 taste like?",
+        a: "Cherry AK-47 hits cherry up front, sweet earth through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cherry AK-47?",
+        a: "Cherry AK-47 tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cherry AK-47 best for?",
+        a: "Cherry AK-47 reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -3329,6 +4545,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is GG4 so sticky?",
         a: "GG Strains' Joesy Whales accidentally combined the parents and noticed the buds were so resinous they gummed up trim scissors — that's the 'Glue' name origin. The high THC + heavy resin is what made the strain famous.",
       },
+      {
+        q: "Is GG4 indica, sativa, or hybrid?",
+        a: "GG4 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Chem's Sister × Sour Dubb × Chocolate Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does GG4 taste like?",
+        a: "GG4 hits diesel up front, chocolate through the middle, and earthy pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is GG4?",
+        a: "GG4 tests in the 23–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is GG4 best for?",
+        a: "GG4 reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3369,6 +4601,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Wedding Crasher more like Wedding Cake or Purple Punch?",
         a: "Splits the difference — sativa-leaning head from the Wedding Cake side, sweet grape-vanilla aroma from both parents. Less body-heavy than either parent.",
+      },
+      {
+        q: "Is Wedding Crasher indica, sativa, or hybrid?",
+        a: "Wedding Crasher is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Wedding Cake × Purple Punch. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Wedding Crasher taste like?",
+        a: "Wedding Crasher hits vanilla up front, grape through the middle, and sweet pastry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Wedding Crasher?",
+        a: "Wedding Crasher tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Wedding Crasher best for?",
+        a: "Wedding Crasher reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3411,6 +4659,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Biscotti a Cookies strain?",
         a: "Yes — bred by Cookies Fam, who also brought Gelato and GSC. Biscotti is part of the dessert family but leans heavier than most Gelato cuts.",
       },
+      {
+        q: "Is Biscotti indica, sativa, or hybrid?",
+        a: "Biscotti is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Gelato #25 × Sour Florida OG. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Biscotti taste like?",
+        a: "Biscotti hits sweet diesel up front, vanilla through the middle, and cookies on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Biscotti?",
+        a: "Biscotti tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Biscotti best for?",
+        a: "Biscotti reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3451,6 +4715,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Lemon Cherry Gelato so hyped?",
         a: "It's one of the most balanced of the modern Cookies hybrids — high-THC without being knockout-heavy, with a flavor profile that's the loudest part of the strain. Customers reach for it for both the effect and the smell.",
+      },
+      {
+        q: "Is Lemon Cherry Gelato indica, sativa, or hybrid?",
+        a: "Lemon Cherry Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Girl Scout Cookies × Lemonnade. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Lemon Cherry Gelato taste like?",
+        a: "Lemon Cherry Gelato hits cherry up front, lemon through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Cherry Gelato?",
+        a: "Lemon Cherry Gelato tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Lemon Cherry Gelato best for?",
+        a: "Lemon Cherry Gelato reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3493,6 +4773,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is White Truffle related to Truffle Butter?",
         a: "It's a phenotype of Gorilla Butter, sometimes mislabeled. White Truffle is the Beleaf cut; Truffle Butter is a separate Beleaf strain. Different effect profiles.",
       },
+      {
+        q: "Is White Truffle indica, sativa, or hybrid?",
+        a: "White Truffle is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Gorilla Butter phenotype (Peanut Butter Breath × GG4). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does White Truffle taste like?",
+        a: "White Truffle hits savory earth up front, funk through the middle, and light diesel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is White Truffle?",
+        a: "White Truffle tests in the 23–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is White Truffle best for?",
+        a: "White Truffle reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3533,6 +4829,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Permanent Marker really smell like a marker?",
         a: "Kind of — there's a sharp gassy-chemical note up front that customers describe as 'sharpie.' The sweet Cookies side comes in on the exhale. Polarizing aroma but loved by the people who love it.",
+      },
+      {
+        q: "Is Permanent Marker indica, sativa, or hybrid?",
+        a: "Permanent Marker is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Biscotti × Jealousy × Sherbet Bx1. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Permanent Marker taste like?",
+        a: "Permanent Marker hits gassy sweet up front, marker through the middle, and cookies on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Permanent Marker?",
+        a: "Permanent Marker tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Permanent Marker best for?",
+        a: "Permanent Marker reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3575,6 +4887,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Birthday Cake the same as Wedding Cake?",
         a: "No — different strains, similar dessert vibe. Birthday Cake is Cherry Pie × GSC. Wedding Cake is Triangle Kush × Animal Mints. Both indica-leaning Cookies-family.",
       },
+      {
+        q: "Is Birthday Cake indica, sativa, or hybrid?",
+        a: "Birthday Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cherry Pie × Girl Scout Cookies. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Birthday Cake taste like?",
+        a: "Birthday Cake hits vanilla up front, sweet pastry through the middle, and cherry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Birthday Cake?",
+        a: "Birthday Cake tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Birthday Cake best for?",
+        a: "Birthday Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3615,6 +4943,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "What's the difference between Cake Crasher and Wedding Crasher?",
         a: "Cake Crasher backcrosses Wedding Cake to Wedding Crasher — leans slightly more head-forward and sweeter than Wedding Crasher, which is already lighter than Wedding Cake.",
+      },
+      {
+        q: "Is Cake Crasher indica, sativa, or hybrid?",
+        a: "Cake Crasher is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Wedding Cake × Wedding Crasher. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cake Crasher taste like?",
+        a: "Cake Crasher hits vanilla up front, grape through the middle, and sweet pepper on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cake Crasher?",
+        a: "Cake Crasher tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cake Crasher best for?",
+        a: "Cake Crasher reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3657,6 +5001,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Animal Mints the parent of Wedding Cake?",
         a: "Yes — Wedding Cake is Triangle Kush × Animal Mints. The minty-sweet side of Wedding Cake comes from the Animal Mints parent.",
       },
+      {
+        q: "Is Animal Mints indica, sativa, or hybrid?",
+        a: "Animal Mints is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Animal Cookies × Sin Mint Cookies. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Animal Mints taste like?",
+        a: "Animal Mints hits mint up front, sweet gas through the middle, and cookies on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Animal Mints?",
+        a: "Animal Mints tests in the 20–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Animal Mints best for?",
+        a: "Animal Mints reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3697,6 +5057,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Kush Mints stronger than Animal Mints?",
         a: "Usually, yes — the Bubba Kush parent brings more body weight. Both parents are in our index if you want to read up on the lineage.",
+      },
+      {
+        q: "Is Kush Mints indica, sativa, or hybrid?",
+        a: "Kush Mints is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Bubba Kush × Animal Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Kush Mints taste like?",
+        a: "Kush Mints hits mint up front, earthy kush through the middle, and sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Kush Mints?",
+        a: "Kush Mints tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Kush Mints best for?",
+        a: "Kush Mints reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3739,6 +5115,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Apples and Bananas really taste like fruit?",
         a: "Yes — the fruit-cocktail aroma is the loudest part of the strain. Comes from the limonene + caryophyllene + myrcene combination. Smell carries.",
       },
+      {
+        q: "Is Apples and Bananas indica, sativa, or hybrid?",
+        a: "Apples and Bananas is a hybrid — a cross that pulls from both sides of the family tree. The lineage is (Platinum Cookies × GDP) × (Blue Power × Gelatti). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Apples and Bananas?",
+        a: "Apples and Bananas tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apples and Bananas best for?",
+        a: "Apples and Bananas reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Apples and Bananas?",
+        a: "The dominant terpenes in Apples and Bananas are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3779,6 +5171,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Sundae Driver indica or sativa?",
         a: "Balanced hybrid — slight indica lean, but more functional than most modern dessert hybrids. Head-up enough for social, body-mellow enough for couch time.",
+      },
+      {
+        q: "Is Sundae Driver indica, sativa, or hybrid?",
+        a: "Sundae Driver is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Fruity Pebbles OG × Grape Pie. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sundae Driver taste like?",
+        a: "Sundae Driver hits vanilla up front, grape through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sundae Driver?",
+        a: "Sundae Driver tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sundae Driver best for?",
+        a: "Sundae Driver reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3821,6 +5229,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Banana Punch stronger than Purple Punch?",
         a: "Comparable — the Banana OG parent brings sweetness and slightly more head-up; Purple Punch keeps the body weight. Similar THC range.",
       },
+      {
+        q: "Is Banana Punch indica, sativa, or hybrid?",
+        a: "Banana Punch is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Banana OG × Purple Punch. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Banana Punch taste like?",
+        a: "Banana Punch hits banana up front, tropical through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Banana Punch?",
+        a: "Banana Punch tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Banana Punch best for?",
+        a: "Banana Punch reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3861,6 +5285,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Triangle Mints the same as Wedding Cake?",
         a: "Same parents, different selection. Wedding Cake was the most-circulated pheno; Triangle Mints is a separate selection from the same Triangle Kush × Animal Mints cross. Subtly heavier on the body for most customers.",
+      },
+      {
+        q: "Is Triangle Mints indica, sativa, or hybrid?",
+        a: "Triangle Mints is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Triangle Kush × Animal Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Triangle Mints taste like?",
+        a: "Triangle Mints hits mint up front, earthy kush through the middle, and sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Triangle Mints?",
+        a: "Triangle Mints tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Triangle Mints best for?",
+        a: "Triangle Mints reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3903,6 +5343,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What's the difference between Chemdawg 4 and the other Chem cuts?",
         a: "Chem 4 is the most-circulated Chemdawg phenotype — slightly more body-weight than Chem 91 (which is more head-forward). All are bagseed-origin selections from the original Chemdawg pop.",
       },
+      {
+        q: "Is Chemdawg 4 indica, sativa, or hybrid?",
+        a: "Chemdawg 4 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Chemdawg phenotype (bagseed origin). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Chemdawg 4 taste like?",
+        a: "Chemdawg 4 hits diesel up front, earthy pine through the middle, and sour citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Chemdawg 4?",
+        a: "Chemdawg 4 tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Chemdawg 4 best for?",
+        a: "Chemdawg 4 reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -3943,6 +5399,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is OG Diesel more like OG Kush or Sour Diesel?",
         a: "Splits the difference — body-weight from OG Kush, head-up from Sour Diesel. Citrus-diesel-pine aroma carries notes from both.",
+      },
+      {
+        q: "Is OG Diesel indica, sativa, or hybrid?",
+        a: "OG Diesel is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × Sour Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does OG Diesel taste like?",
+        a: "OG Diesel hits diesel up front, lemon through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is OG Diesel?",
+        a: "OG Diesel tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is OG Diesel best for?",
+        a: "OG Diesel reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -3994,6 +5466,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Harlequin a sativa?",
         a: "Sativa-dominant. The Colombian Gold + Thai parents drive the head-up character; the high CBD keeps it from feeling racey.",
       },
+      {
+        q: "Is Harlequin indica, sativa, or hybrid?",
+        a: "Harlequin is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Colombian Gold × Thai × Swiss × Nepali Indica.",
+      },
+      {
+        q: "What does Harlequin taste like?",
+        a: "Harlequin hits earthy up front, mango through the middle, and sweet wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Harlequin?",
+        a: "Harlequin tests in the 4–10% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Harlequin best for?",
+        a: "Harlequin reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4039,6 +5527,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is ACDC the same as Cannatonic?",
         a: "It's a CBD-dominant phenotype of Cannatonic — selected for the highest CBD:THC ratio (often 20:1 or higher). Same family, different cut.",
       },
+      {
+        q: "Is ACDC indica, sativa, or hybrid?",
+        a: "ACDC is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Cannatonic phenotype.",
+      },
+      {
+        q: "What does ACDC taste like?",
+        a: "ACDC hits earthy up front, sweet wood through the middle, and herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is ACDC?",
+        a: "ACDC tests in the 1–6% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is ACDC best for?",
+        a: "ACDC reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4079,6 +5583,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why does Cannatonic vary so much in CBD content?",
         a: "It's a genetically variable line — different phenotypes express different CBD:THC ratios. Higher-CBD cuts were selected into ACDC; lower-CBD cuts run closer to 1:1.",
+      },
+      {
+        q: "Is Cannatonic indica, sativa, or hybrid?",
+        a: "Cannatonic is a hybrid — a cross that pulls from both sides of the family tree. The lineage is MK Ultra × G13 Haze. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cannatonic taste like?",
+        a: "Cannatonic hits earthy up front, citrus through the middle, and sweet wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cannatonic?",
+        a: "Cannatonic tests in the 4–12% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Cannatonic best for?",
+        a: "Cannatonic reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -4125,6 +5645,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Charlotte’s Web?",
         a: "The Stanley Brothers named it after Charlotte Figi, a child whose family used the strain in CBD-only treatment. Industry name, not a medical claim.",
       },
+      {
+        q: "Is Charlotte’s Web indica, sativa, or hybrid?",
+        a: "Charlotte’s Web is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Industrial hemp selection.",
+      },
+      {
+        q: "What does Charlotte’s Web taste like?",
+        a: "Charlotte’s Web hits earthy up front, pine through the middle, and sweet wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Charlotte’s Web?",
+        a: "Charlotte’s Web tests in the <0.3% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Charlotte’s Web best for?",
+        a: "Charlotte’s Web reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4165,6 +5701,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Ringo’s Gift higher in CBD than ACDC?",
         a: "Usually comparable — both run 15–24% CBD with THC under 5%. Specific lot-to-lot variation is common.",
+      },
+      {
+        q: "Is Ringo’s Gift indica, sativa, or hybrid?",
+        a: "Ringo’s Gift is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Harle-Tsu × ACDC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Ringo’s Gift taste like?",
+        a: "Ringo’s Gift hits earthy up front, floral through the middle, and sweet wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Ringo’s Gift?",
+        a: "Ringo’s Gift tests in the 1–4% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Ringo’s Gift best for?",
+        a: "Ringo’s Gift reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -4207,6 +5759,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Sour Tsunami high in THC?",
         a: "No — THC sits around 6–10%, with CBD higher at 10–13%. The Diesel parents give it the family aroma but the CBD-dominance keeps it calm.",
       },
+      {
+        q: "Is Sour Tsunami indica, sativa, or hybrid?",
+        a: "Sour Tsunami is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Diesel × NYC Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sour Tsunami taste like?",
+        a: "Sour Tsunami hits diesel up front, earthy through the middle, and sour citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sour Tsunami?",
+        a: "Sour Tsunami tests in the 6–10% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Sour Tsunami best for?",
+        a: "Sour Tsunami reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4248,6 +5816,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What’s a 1:1 CBD:THC strain like?",
         a: "Noticeably calmer than a THC-forward strain — the CBD softens the head. Some intoxication, but less racey or heavy. Customers describe it as 'functional.'",
       },
+      {
+        q: "Is Pennywise indica, sativa, or hybrid?",
+        a: "Pennywise is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Harlequin × Jack the Ripper.",
+      },
+      {
+        q: "What does Pennywise taste like?",
+        a: "Pennywise hits earthy up front, bubblegum through the middle, and sweet wood on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pennywise?",
+        a: "Pennywise tests in the 8–14% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Pennywise best for?",
+        a: "Pennywise reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4288,6 +5872,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is CBD Critical Mass the same as Critical Mass?",
         a: "Different — CBD Critical Mass is a CBD-dominant version (1:1 CBD:THC). Regular Critical Mass is THC-dominant (in our index separately).",
+      },
+      {
+        q: "Is CBD Critical Mass indica, sativa, or hybrid?",
+        a: "CBD Critical Mass is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Critical Mass × CBD-dominant parent.",
+      },
+      {
+        q: "What does CBD Critical Mass taste like?",
+        a: "CBD Critical Mass hits sweet earth up front, skunk through the middle, and honey on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is CBD Critical Mass?",
+        a: "CBD Critical Mass tests in the 5–10% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is CBD Critical Mass best for?",
+        a: "CBD Critical Mass reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4344,6 +5944,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Banana OG taste like banana?",
         a: "Sweet banana-peel up front with the OG diesel underneath. More funky than candy-banana — closer to overripe than to a smoothie.",
       },
+      {
+        q: "Is Banana OG indica, sativa, or hybrid?",
+        a: "Banana OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × Banana.",
+      },
+      {
+        q: "How strong is Banana OG?",
+        a: "Banana OG tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Banana OG best for?",
+        a: "Banana OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in Banana OG?",
+        a: "The dominant terpenes in Banana OG are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4384,6 +6000,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Black Cherry Punch compare to Purple Punch?",
         a: "Same family, more cherry on the nose. The Black Cherry Pie side pushes the aroma darker; effect-wise it lands close to Purple Punch — heavy, sweet, late-night.",
+      },
+      {
+        q: "Is Black Cherry Punch indica, sativa, or hybrid?",
+        a: "Black Cherry Punch is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Purple Punch × Black Cherry Pie.",
+      },
+      {
+        q: "What does Black Cherry Punch taste like?",
+        a: "Black Cherry Punch hits dark cherry up front, sweet grape through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Black Cherry Punch?",
+        a: "Black Cherry Punch tests in the 19–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Black Cherry Punch best for?",
+        a: "Black Cherry Punch reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4426,6 +6058,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Blackberry Kush a strong indica?",
         a: "Yes — pure indica leaning, body-heavy, classic Afghani heaviness with a berry-sweet top. Not a starter strain if you’re very low-tolerance.",
       },
+      {
+        q: "Is Blackberry Kush indica, sativa, or hybrid?",
+        a: "Blackberry Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Blackberry.",
+      },
+      {
+        q: "What does Blackberry Kush taste like?",
+        a: "Blackberry Kush hits sweet berry up front, hash through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Blackberry Kush?",
+        a: "Blackberry Kush tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Blackberry Kush best for?",
+        a: "Blackberry Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4466,6 +6114,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Blue Cheese actually smell like cheese?",
         a: "Yes — the UK Cheese parent brings a sharp pungent funk that customers either love or hate. The blueberry side softens it a bit on the exhale.",
+      },
+      {
+        q: "Is Blue Cheese indica, sativa, or hybrid?",
+        a: "Blue Cheese is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Blueberry × UK Cheese.",
+      },
+      {
+        q: "What does Blue Cheese taste like?",
+        a: "Blue Cheese hits funky cheese up front, sweet blueberry through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Blue Cheese?",
+        a: "Blue Cheese tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Blue Cheese best for?",
+        a: "Blue Cheese reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4508,6 +6172,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Garlic Breath related to Garlic Cookies?",
         a: "Same family. Garlic Cookies (aka GMO) is one of Garlic Breath’s parents. Garlic Breath leans heavier and runs more savory than GMO alone.",
       },
+      {
+        q: "Is Garlic Breath indica, sativa, or hybrid?",
+        a: "Garlic Breath is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is GMO × Mendo Breath.",
+      },
+      {
+        q: "What does Garlic Breath taste like?",
+        a: "Garlic Breath hits savory garlic up front, funk through the middle, and light diesel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Garlic Breath?",
+        a: "Garlic Breath tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Garlic Breath best for?",
+        a: "Garlic Breath reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4548,6 +6228,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Grape Pie a parent of Lava Cake?",
         a: "Yes — Lava Cake is Thin Mint GSC × Grape Pie. Grape Pie also shows up in a lot of modern dessert-hybrid lineages.",
+      },
+      {
+        q: "Is Grape Pie indica, sativa, or hybrid?",
+        a: "Grape Pie is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Cherry Pie × Grape Stomper.",
+      },
+      {
+        q: "What does Grape Pie taste like?",
+        a: "Grape Pie hits grape up front, sweet pastry through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Grape Pie?",
+        a: "Grape Pie tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Grape Pie best for?",
+        a: "Grape Pie reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4590,6 +6286,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Lava Cake similar to Wedding Cake?",
         a: "Same dessert-hybrid family, different cross. Wedding Cake is Triangle Kush × Animal Mints; Lava Cake is Thin Mint GSC × Grape Pie. Both indica-leaning, both heavy.",
       },
+      {
+        q: "Is Lava Cake indica, sativa, or hybrid?",
+        a: "Lava Cake is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Thin Mint GSC × Grape Pie.",
+      },
+      {
+        q: "What does Lava Cake taste like?",
+        a: "Lava Cake hits sweet mint up front, grape through the middle, and pastry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lava Cake?",
+        a: "Lava Cake tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Lava Cake best for?",
+        a: "Lava Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4630,6 +6342,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is the lineage half-hidden?",
         a: "Cookies Fam kept the second parent proprietary. What’s on shelves is the Sunset Sherbet × (unknown) framing — same as a few other Cookies releases.",
+      },
+      {
+        q: "Is London Pound Cake indica, sativa, or hybrid?",
+        a: "London Pound Cake is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Sunset Sherbet × proprietary.",
+      },
+      {
+        q: "What does London Pound Cake taste like?",
+        a: "London Pound Cake hits sweet berry up front, lemon pastry through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is London Pound Cake?",
+        a: "London Pound Cake tests in the 22–29% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is London Pound Cake best for?",
+        a: "London Pound Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     lineageAlternates: ["Sunset Sherbet × proprietary (Cookies Fam, most-cited)", "Sunset Sherbet × Cherry Pie (community theory)"],
@@ -4673,6 +6401,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What does the ‘Breath’ in Mendo Breath refer to?",
         a: "It’s a naming convention — Breath strains tend to share the sweet-funky aromatic signature from the Mendo Montage side. Garlic Breath and Peanut Butter Breath are both crosses with Mendo Breath as a parent.",
       },
+      {
+        q: "Is Mendo Breath indica, sativa, or hybrid?",
+        a: "Mendo Breath is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OGKB × Mendo Montage.",
+      },
+      {
+        q: "What does Mendo Breath taste like?",
+        a: "Mendo Breath hits caramel up front, sweet vanilla through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mendo Breath?",
+        a: "Mendo Breath tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mendo Breath best for?",
+        a: "Mendo Breath reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4714,6 +6458,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Papaya a strong indica?",
         a: "It’s on the milder side of indica — body-relaxing but not couch-pinning. Good entry point for customers who normally avoid heavier indicas.",
       },
+      {
+        q: "Is Papaya indica, sativa, or hybrid?",
+        a: "Papaya is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Citral #13 × Ice #2.",
+      },
+      {
+        q: "What does Papaya taste like?",
+        a: "Papaya hits mango up front, papaya through the middle, and tropical sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Papaya?",
+        a: "Papaya tests in the 15–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Papaya best for?",
+        a: "Papaya reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4754,6 +6514,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Peanut Butter Breath actually taste like peanut butter?",
         a: "The nutty note is real — comes from the terpene combination, mostly caryophyllene + a touch of nuttiness from the Mendo Breath side. More savory than candy-sweet.",
+      },
+      {
+        q: "Is Peanut Butter Breath indica, sativa, or hybrid?",
+        a: "Peanut Butter Breath is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Do-Si-Dos × Mendo Breath.",
+      },
+      {
+        q: "How strong is Peanut Butter Breath?",
+        a: "Peanut Butter Breath tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Peanut Butter Breath best for?",
+        a: "Peanut Butter Breath reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
+      {
+        q: "What terpenes are in Peanut Butter Breath?",
+        a: "The dominant terpenes in Peanut Butter Breath are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -4800,6 +6576,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is the name a medical claim?",
         a: "No — it’s a breeder-chosen name in their Great Minds series (Albert Walker is another). Not a therapeutic claim.",
       },
+      {
+        q: "Is Stephen Hawking Kush indica, sativa, or hybrid?",
+        a: "Stephen Hawking Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Harle-Tsu × Sin City Kush.",
+      },
+      {
+        q: "What does Stephen Hawking Kush taste like?",
+        a: "Stephen Hawking Kush hits mint up front, earthy wood through the middle, and sweet pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Stephen Hawking Kush?",
+        a: "Stephen Hawking Kush tests in the 5–10% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Stephen Hawking Kush best for?",
+        a: "Stephen Hawking Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -4840,6 +6632,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "What’s in Watermelon’s lineage?",
         a: "Honest answer: the original cross isn’t documented. Royal Queen Seeds and others circulate seed lines, but the original Watermelon parents are lost. Modern WA shelf product is whichever cut the grower has.",
+      },
+      {
+        q: "Is Watermelon indica, sativa, or hybrid?",
+        a: "Watermelon is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Unknown × Unknown.",
+      },
+      {
+        q: "What does Watermelon taste like?",
+        a: "Watermelon hits watermelon up front, sweet melon through the middle, and grape hint on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Watermelon?",
+        a: "Watermelon tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Watermelon best for?",
+        a: "Watermelon reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4882,6 +6690,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Watermelon Zkittlez heavier than Zkittlez?",
         a: "Yes — the Watermelon side pushes it deeper into indica. Same candy nose, more body weight, more late-night.",
       },
+      {
+        q: "Is Watermelon Zkittlez indica, sativa, or hybrid?",
+        a: "Watermelon Zkittlez is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Original Z × Watermelon.",
+      },
+      {
+        q: "What does Watermelon Zkittlez taste like?",
+        a: "Watermelon Zkittlez hits watermelon candy up front, sweet melon through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Watermelon Zkittlez?",
+        a: "Watermelon Zkittlez tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Watermelon Zkittlez best for?",
+        a: "Watermelon Zkittlez reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -4922,6 +6746,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Strawberry Cheesecake related to Blue Cheese?",
         a: "No — different lines. Blue Cheese is Blueberry × UK Cheese (savory-funk). Strawberry Cheesecake is a backcross dessert hybrid with a sweet-pastry profile.",
+      },
+      {
+        q: "Is Strawberry Cheesecake indica, sativa, or hybrid?",
+        a: "Strawberry Cheesecake is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Purple Panty Dropper × Forum GSC.",
+      },
+      {
+        q: "What does Strawberry Cheesecake taste like?",
+        a: "Strawberry Cheesecake hits strawberry up front, sweet cream through the middle, and pastry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Strawberry Cheesecake?",
+        a: "Strawberry Cheesecake tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Strawberry Cheesecake best for?",
+        a: "Strawberry Cheesecake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -4968,6 +6808,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Black Jack related to Black Domina or Jack Herer more?",
         a: "Splits the difference — head-up Jack Herer character, frosty Black Domina bud structure. Sweet Seeds bred it to keep the Jack head with more shelf appeal.",
       },
+      {
+        q: "Is Black Jack indica, sativa, or hybrid?",
+        a: "Black Jack is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Black Domina × Jack Herer.",
+      },
+      {
+        q: "What does Black Jack taste like?",
+        a: "Black Jack hits pine up front, pepper through the middle, and sweet herbal on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Black Jack?",
+        a: "Black Jack tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Black Jack best for?",
+        a: "Black Jack reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5008,6 +6864,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Bubble Gum’s lineage half-mystery?",
         a: "The original Indiana growers didn’t document the parents — the cut traveled to Amsterdam in the early ’90s, won several Cannabis Cups, and has been propagated globally. What’s on shelves descends from the Indiana cut.",
+      },
+      {
+        q: "Is Bubble Gum indica, sativa, or hybrid?",
+        a: "Bubble Gum is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Indiana Bubble Gum (heritage cross).",
+      },
+      {
+        q: "What does Bubble Gum taste like?",
+        a: "Bubble Gum hits bubblegum up front, sweet candy through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Bubble Gum?",
+        a: "Bubble Gum tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Bubble Gum best for?",
+        a: "Bubble Gum reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5050,6 +6922,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Cherry Cookies related to Black Cherry Pie?",
         a: "Different cross. Black Cherry Pie is its own line; Cherry Cookies is Cherry Pie × Cookies F2 — keeps the head-up of the Cookies side.",
       },
+      {
+        q: "Is Cherry Cookies indica, sativa, or hybrid?",
+        a: "Cherry Cookies is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Cherry Pie × Cookies F2.",
+      },
+      {
+        q: "What does Cherry Cookies taste like?",
+        a: "Cherry Cookies hits cherry up front, sweet cookies through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cherry Cookies?",
+        a: "Cherry Cookies tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cherry Cookies best for?",
+        a: "Cherry Cookies reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5090,6 +6978,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Dutch Treat a strong sativa?",
         a: "Head-up uplifting but not racey — the Northern Lights side smooths out the Haze head. Sits in the comfortable middle of the sativa shelf.",
+      },
+      {
+        q: "Is Dutch Treat indica, sativa, or hybrid?",
+        a: "Dutch Treat is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Northern Lights × Haze.",
+      },
+      {
+        q: "What does Dutch Treat taste like?",
+        a: "Dutch Treat hits sweet pine up front, eucalyptus through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Dutch Treat?",
+        a: "Dutch Treat tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Dutch Treat best for?",
+        a: "Dutch Treat reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5132,6 +7036,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Mac and Cheese related to MAC 1?",
         a: "Yes — one parent is The Mac (Miracle Alien Cookies, the ‘mac’ in our index). Mac and Cheese adds Alien Cheese on top, giving it the savory-funky aromatic.",
       },
+      {
+        q: "Is Mac and Cheese indica, sativa, or hybrid?",
+        a: "Mac and Cheese is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is The Mac × Alien Cheese.",
+      },
+      {
+        q: "What does Mac and Cheese taste like?",
+        a: "Mac and Cheese hits funky cheese up front, cream through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mac and Cheese?",
+        a: "Mac and Cheese tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mac and Cheese best for?",
+        a: "Mac and Cheese reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5172,6 +7092,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Stardawg the same as Chemdawg?",
         a: "Related but not the same. Stardawg is Chemdog 4 × Tres Dawg — keeps the Chem aromatic but lands more head-up. Chemdawg in our index is a separate strain.",
+      },
+      {
+        q: "Is Stardawg indica, sativa, or hybrid?",
+        a: "Stardawg is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Chemdog 4 × Tres Dawg.",
+      },
+      {
+        q: "What does Stardawg taste like?",
+        a: "Stardawg hits diesel up front, chem through the middle, and citrus pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Stardawg?",
+        a: "Stardawg tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Stardawg best for?",
+        a: "Stardawg reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5214,6 +7150,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Super Boof also called Blockberry?",
         a: "Original breeder Blockhead released it as Blockberry in 2019. Michigan grower Mobilejay popularized it as Super Boof in 2021-2022 and the new name stuck.",
       },
+      {
+        q: "Is Super Boof indica, sativa, or hybrid?",
+        a: "Super Boof is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Black Cherry Punch × Tropicana Cookies.",
+      },
+      {
+        q: "What does Super Boof taste like?",
+        a: "Super Boof hits citrus up front, berry through the middle, and zest on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Super Boof?",
+        a: "Super Boof tests in the 24–30% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Super Boof best for?",
+        a: "Super Boof reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5255,6 +7207,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Tangerine Dream actually smell like tangerines?",
         a: "Yes — the citrus is the loudest part of the strain. Bright, juicy, closer to tangerine than to orange. Comes from the limonene + Haze parentage.",
       },
+      {
+        q: "Is Tangerine Dream indica, sativa, or hybrid?",
+        a: "Tangerine Dream is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is G13 × Afghani × Neville’s A5 Haze.",
+      },
+      {
+        q: "What does Tangerine Dream taste like?",
+        a: "Tangerine Dream hits tangerine up front, sweet citrus through the middle, and light earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tangerine Dream?",
+        a: "Tangerine Dream tests in the 17–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tangerine Dream best for?",
+        a: "Tangerine Dream reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5295,6 +7263,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Jet Fuel related to Sour Diesel?",
         a: "Yes — East Coast Sour Diesel is in the deeper lineage (via the Aspen OG side). Sharper diesel than Sour D, more head-up.",
+      },
+      {
+        q: "Is Jet Fuel indica, sativa, or hybrid?",
+        a: "Jet Fuel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Aspen OG × High Country Diesel.",
+      },
+      {
+        q: "What does Jet Fuel taste like?",
+        a: "Jet Fuel hits diesel up front, sharp citrus through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Jet Fuel?",
+        a: "Jet Fuel tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Jet Fuel best for?",
+        a: "Jet Fuel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5341,6 +7325,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why did Animal Face win the 2022 Emerald Cup?",
         a: "Combination of high THC, dense trichome coverage, and a flavor profile that’s simultaneously sweet and gassy. The Animal Mints side gives it the cookies-family aromatic; Face Off OG gives it the body weight.",
       },
+      {
+        q: "Is Animal Face indica, sativa, or hybrid?",
+        a: "Animal Face is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Face Off OG × Animal Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Animal Face taste like?",
+        a: "Animal Face hits sweet gas up front, mint through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Animal Face?",
+        a: "Animal Face tests in the 24–30% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Animal Face best for?",
+        a: "Animal Face reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5381,6 +7381,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Apple Tartz taste like apple?",
         a: "Yes — tart-sour apple up front with a creamy berry-gas finish. Apple Jacks cereal is the common comparison. The Runtz side keeps it sweet.",
+      },
+      {
+        q: "Is Apple Tartz indica, sativa, or hybrid?",
+        a: "Apple Tartz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Apple Fritter × Runtz. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Apple Tartz?",
+        a: "Apple Tartz tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apple Tartz best for?",
+        a: "Apple Tartz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Apple Tartz?",
+        a: "The dominant terpenes in Apple Tartz are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -5423,6 +7439,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Bacio Gelato the same as Gelato 41?",
         a: "Same family, different cut. Both are Sunset Sherbet × Thin Mint GSC, but Bacio Gelato is a separately-named Sherbinski selection. Gelato 41 leans more balanced; Bacio runs heavier on the body.",
       },
+      {
+        q: "Is Bacio Gelato indica, sativa, or hybrid?",
+        a: "Bacio Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Bacio Gelato taste like?",
+        a: "Bacio Gelato hits vanilla up front, mint through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Bacio Gelato?",
+        a: "Bacio Gelato tests in the 21–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Bacio Gelato best for?",
+        a: "Bacio Gelato reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5463,6 +7495,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Biscotti Mints related to Permanent Marker?",
         a: "Both came out of the same Cookies-shelf modernization. Permanent Marker is Biscotti × Jealousy × Sherbet Bx1. Biscotti Mints is the more straightforward Biscotti × Kush Mints cross.",
+      },
+      {
+        q: "Is Biscotti Mints indica, sativa, or hybrid?",
+        a: "Biscotti Mints is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Biscotti × Kush Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Biscotti Mints taste like?",
+        a: "Biscotti Mints hits sweet mint up front, gassy cookies through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Biscotti Mints?",
+        a: "Biscotti Mints tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Biscotti Mints best for?",
+        a: "Biscotti Mints reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -5505,6 +7553,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Forbidden Fruit related to Forbidden Apple?",
         a: "Different strains. Forbidden Fruit is Cherry Pie × Tangie. Forbidden Apple is a separate cross (less-circulated). Same Forbidden naming convention, different parents.",
       },
+      {
+        q: "Is Forbidden Fruit indica, sativa, or hybrid?",
+        a: "Forbidden Fruit is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cherry Pie × Tangie. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Forbidden Fruit taste like?",
+        a: "Forbidden Fruit hits cherry up front, mango through the middle, and passionfruit on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Forbidden Fruit?",
+        a: "Forbidden Fruit tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Forbidden Fruit best for?",
+        a: "Forbidden Fruit reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5545,6 +7609,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it named after Gary Payton?",
         a: "Cookies’ Berner has a long-standing connection to Bay Area / Seattle sports culture. Gary Payton (the SuperSonics Hall of Fame guard) signed off on the name; it’s an officially licensed collaboration.",
+      },
+      {
+        q: "Is Gary Payton indica, sativa, or hybrid?",
+        a: "Gary Payton is a hybrid — a cross that pulls from both sides of the family tree. The lineage is The Y × Snowman. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Gary Payton taste like?",
+        a: "Gary Payton hits sweet diesel up front, pine through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Gary Payton?",
+        a: "Gary Payton tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Gary Payton best for?",
+        a: "Gary Payton reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5587,6 +7667,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What’s the difference between Gelato 33 and Gelato 41?",
         a: "Both are Cookies Fam Gelato phenos from the same Sunset Sherbet × Thin Mint GSC cross. Gelato 33 (the ‘gelato’ in our index) leans more balanced; Gelato 41 runs heavier on the body. Same family, different pheno selection.",
       },
+      {
+        q: "Is Gelato 41 indica, sativa, or hybrid?",
+        a: "Gelato 41 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Gelato 41 taste like?",
+        a: "Gelato 41 hits sweet vanilla up front, citrus through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Gelato 41?",
+        a: "Gelato 41 tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Gelato 41 best for?",
+        a: "Gelato 41 reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5627,6 +7723,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why are there two names — Grape Stomper and Sour Grapes?",
         a: "Naming dispute from the early seed days. Same Gage Green cross; both names are still used interchangeably on WA shelves.",
+      },
+      {
+        q: "Is Grape Stomper indica, sativa, or hybrid?",
+        a: "Grape Stomper is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Diesel × Purple Elephant. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Grape Stomper taste like?",
+        a: "Grape Stomper hits grape up front, sweet diesel through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Grape Stomper?",
+        a: "Grape Stomper tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Grape Stomper best for?",
+        a: "Grape Stomper reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5669,6 +7781,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Granddaddy Bruce stronger than Granddaddy Purple?",
         a: "Yes — Bruce Banner pushes the THC higher than GDP alone. Same sweet-grape aroma, more body weight and more cerebral start.",
       },
+      {
+        q: "Is Granddaddy Bruce indica, sativa, or hybrid?",
+        a: "Granddaddy Bruce is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Granddaddy Purple × Bruce Banner. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Granddaddy Bruce taste like?",
+        a: "Granddaddy Bruce hits sweet grape up front, berry through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Granddaddy Bruce?",
+        a: "Granddaddy Bruce tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Granddaddy Bruce best for?",
+        a: "Granddaddy Bruce reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5709,6 +7837,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Gushers the same as White Gushers?",
         a: "Yes — same strain. White Gushers (or TK41) refers to the frostier phenotypes; the underlying cross is the same Triangle Kush × Gelato 41.",
+      },
+      {
+        q: "Is Gushers indica, sativa, or hybrid?",
+        a: "Gushers is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Triangle Kush × Gelato 41. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Gushers taste like?",
+        a: "Gushers hits candy fruit up front, sweet berry through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Gushers?",
+        a: "Gushers tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Gushers best for?",
+        a: "Gushers reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -5751,6 +7895,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Horchata actually taste like horchata?",
         a: "The vanilla and nutty notes hit close — comes from the terpene combination. Coffee comes in on the exhale. Loaded sweet aromatic, named accurately.",
       },
+      {
+        q: "Is Horchata indica, sativa, or hybrid?",
+        a: "Horchata is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Jet Fuel Gelato × Mochi Gelato. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Horchata?",
+        a: "Horchata tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Horchata best for?",
+        a: "Horchata reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
+      {
+        q: "What terpenes are in Horchata?",
+        a: "The dominant terpenes in Horchata are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5791,6 +7951,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why was Jealousy named 2022 Strain of the Year?",
         a: "Combination of high THC, distinctive sweet-fuel aroma, and the unusual balanced effect (mentally chill, physically energetic). Customers reach for it as a high-shelf social hybrid.",
+      },
+      {
+        q: "Is Jealousy indica, sativa, or hybrid?",
+        a: "Jealousy is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sherbert Bx1 × Gelato 41. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Jealousy taste like?",
+        a: "Jealousy hits sweet fuel up front, cookies through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Jealousy?",
+        a: "Jealousy tests in the 22–29% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Jealousy best for?",
+        a: "Jealousy reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -5833,6 +8009,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How is Modified Grapes different from GMO?",
         a: "The Purple Punch side sweetens it — same savory baseline as GMO, with a grape-honey top that softens the overall aroma. Effect lands a bit more relaxed than GMO alone.",
       },
+      {
+        q: "Is Modified Grapes indica, sativa, or hybrid?",
+        a: "Modified Grapes is a hybrid — a cross that pulls from both sides of the family tree. The lineage is GMO × Purple Punch. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Modified Grapes taste like?",
+        a: "Modified Grapes hits grape up front, honey through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Modified Grapes?",
+        a: "Modified Grapes tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Modified Grapes best for?",
+        a: "Modified Grapes reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5873,6 +8065,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Oreoz really smell like Oreos?",
         a: "The chocolate is real — customers consistently describe campfire s’mores. The diesel from Secret Weapon underneath keeps it from being too candy.",
+      },
+      {
+        q: "Is Oreoz indica, sativa, or hybrid?",
+        a: "Oreoz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cookies and Cream × Secret Weapon. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Oreoz taste like?",
+        a: "Oreoz hits chocolate up front, diesel through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Oreoz?",
+        a: "Oreoz tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Oreoz best for?",
+        a: "Oreoz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -5915,6 +8123,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Pink Runtz different from regular Runtz?",
         a: "Same family, different pheno selection. Runtz is the parent line. Pink Runtz selects for the pink-hued buds and tends to lean more head-up. Same Zkittlez × Gelato underneath.",
       },
+      {
+        q: "Is Pink Runtz indica, sativa, or hybrid?",
+        a: "Pink Runtz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Runtz phenotype (Zkittlez × Gelato). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Pink Runtz taste like?",
+        a: "Pink Runtz hits sweet candy up front, tropical through the middle, and floral on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pink Runtz?",
+        a: "Pink Runtz tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Pink Runtz best for?",
+        a: "Pink Runtz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -5955,6 +8179,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "What does the RS in RS11 stand for?",
         a: "Rainbow Sherbert — the 11 is the pheno number selected by Wizard Trees out of the Deo Farms cross. The fruit-forward apricot-peach aroma is the defining feature.",
+      },
+      {
+        q: "Is RS11 indica, sativa, or hybrid?",
+        a: "RS11 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Pink Guava × Sunset Sherbet. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does RS11 taste like?",
+        a: "RS11 hits apricot up front, peach through the middle, and citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is RS11?",
+        a: "RS11 tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is RS11 best for?",
+        a: "RS11 reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -5997,6 +8237,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Runtz Muffin sweeter than Runtz?",
         a: "Brighter on the citrus from the Orange Punch side. Same Runtz candy backbone, more orange and less generic tropical. Lighter body landing.",
       },
+      {
+        q: "Is Runtz Muffin indica, sativa, or hybrid?",
+        a: "Runtz Muffin is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Runtz × Orange Punch. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Runtz Muffin taste like?",
+        a: "Runtz Muffin hits orange candy up front, butter through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Runtz Muffin?",
+        a: "Runtz Muffin tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Runtz Muffin best for?",
+        a: "Runtz Muffin reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6037,6 +8293,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Sherbinski Mints the same as Bacio Gelato?",
         a: "Both are Sherbinski Gelato selections from the same Sunset Sherbet × Thin Mint GSC genetic pool. Sherbinski Mints emphasizes the mint pheno; Bacio runs slightly heavier. Different cuts of the same family.",
+      },
+      {
+        q: "Is Sherbinski Mints indica, sativa, or hybrid?",
+        a: "Sherbinski Mints is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sherbinski Mints taste like?",
+        a: "Sherbinski Mints hits mint up front, cream through the middle, and vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sherbinski Mints?",
+        a: "Sherbinski Mints tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sherbinski Mints best for?",
+        a: "Sherbinski Mints reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -6079,6 +8351,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Sour OG more like Sour Diesel or OG Kush?",
         a: "Honestly splits the difference. Head-up energetic start (Sour D side), relaxed body landing (OG Kush side). Sharp sour-lemon-fuel aroma from Sour D, pine and earth from OG.",
       },
+      {
+        q: "Is Sour OG indica, sativa, or hybrid?",
+        a: "Sour OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Diesel × OG Kush. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sour OG taste like?",
+        a: "Sour OG hits sour lemon up front, diesel through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sour OG?",
+        a: "Sour OG tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sour OG best for?",
+        a: "Sour OG reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6119,6 +8407,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called The Soap?",
         a: "Aroma is unmistakably clean-soap — sharp mint over a slight pine. The double-Mints parentage (Animal Mints × Kush Mints) pushes the minty note all the way to actual-soap territory. Polarizing but named accurately.",
+      },
+      {
+        q: "Is The Soap indica, sativa, or hybrid?",
+        a: "The Soap is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Animal Mints × Kush Mints. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does The Soap taste like?",
+        a: "The Soap hits sharp mint up front, pine through the middle, and soap on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is The Soap?",
+        a: "The Soap tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is The Soap best for?",
+        a: "The Soap reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -6161,6 +8465,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Berry White lean more Blueberry or White Widow?",
         a: "Body-wise, more Blueberry (relaxed, mellow). Head-wise, more White Widow (uplifting, conversational). One of the more balanced of the older-school hybrids.",
       },
+      {
+        q: "Is Berry White indica, sativa, or hybrid?",
+        a: "Berry White is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Blueberry × White Widow. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Berry White taste like?",
+        a: "Berry White hits sweet berry up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Berry White?",
+        a: "Berry White tests in the 15–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Berry White best for?",
+        a: "Berry White reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6201,6 +8521,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Watermelon Gushers heavier than Gushers?",
         a: "Yes — the Watermelon Zkittlez side adds body weight. Same candy-sweet nose, more late-night landing.",
+      },
+      {
+        q: "Is Watermelon Gushers indica, sativa, or hybrid?",
+        a: "Watermelon Gushers is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Gushers × Watermelon Zkittlez. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Watermelon Gushers taste like?",
+        a: "Watermelon Gushers hits watermelon candy up front, sweet berry through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Watermelon Gushers?",
+        a: "Watermelon Gushers tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Watermelon Gushers best for?",
+        a: "Watermelon Gushers reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -6243,6 +8579,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why are White Runtz buds so white?",
         a: "Heavy trichome coverage — selected pheno that frosts up more than the average Runtz cut. Same Zkittlez × Gelato cross, different visual selection. Looks snow-dusted in good light.",
       },
+      {
+        q: "Is White Runtz indica, sativa, or hybrid?",
+        a: "White Runtz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Gelato × Zkittlez. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does White Runtz taste like?",
+        a: "White Runtz hits sweet candy up front, peach through the middle, and vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is White Runtz?",
+        a: "White Runtz tests in the 17–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is White Runtz best for?",
+        a: "White Runtz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6283,6 +8635,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Zoap related to RS11?",
         a: "Yes — both come out of Deo Farms’ Pink Guava project. Zoap is Rainbow Sherbet × Pink Guava; RS11 is the same Pink Guava paired with Sunset Sherbet. Sister strains.",
+      },
+      {
+        q: "Is Zoap indica, sativa, or hybrid?",
+        a: "Zoap is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Rainbow Sherbet × Pink Guava. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Zoap taste like?",
+        a: "Zoap hits floral soap up front, sweet citrus through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Zoap?",
+        a: "Zoap tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Zoap best for?",
+        a: "Zoap reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -6325,6 +8693,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Zookies more like Animal Cookies or GG4?",
         a: "Splits the difference. Cookies-family aromatic up front, GG4 stickiness and diesel base. More head-up than either parent alone — focused without being racey.",
       },
+      {
+        q: "Is Zookies indica, sativa, or hybrid?",
+        a: "Zookies is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Animal Cookies × Original Glue (GG4). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Zookies taste like?",
+        a: "Zookies hits nutty cookies up front, pepper through the middle, and butter on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Zookies?",
+        a: "Zookies tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Zookies best for?",
+        a: "Zookies reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6365,6 +8749,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Blue Zkittlez lower-THC than other Zkittlez crosses?",
         a: "The Blue Diamond parent runs lower-THC than most Zkittlez parents. Blue Zkittlez tends to test in the 12–18% range — gentler effect, good for customers who don’t want a heavy hit.",
+      },
+      {
+        q: "Is Blue Zkittlez indica, sativa, or hybrid?",
+        a: "Blue Zkittlez is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Blue Diamond × Original Z (Zkittlez). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Blue Zkittlez taste like?",
+        a: "Blue Zkittlez hits tart citrus up front, sweet earth through the middle, and wildflower on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Blue Zkittlez?",
+        a: "Blue Zkittlez tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Blue Zkittlez best for?",
+        a: "Blue Zkittlez reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -6426,6 +8826,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Amnesia Haze too strong for daytime use?",
         a: "It's a head-forward sativa with a long ceiling — pace yourself if you're newer to haze-family strains. Customers reach for it when they want talkative and creative, not racey.",
       },
+      {
+        q: "Is Amnesia Haze indica, sativa, or hybrid?",
+        a: "Amnesia Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Haze × Afghani (with Jamaican and Hawaiian heritage).",
+      },
+      {
+        q: "What does Amnesia Haze taste like?",
+        a: "Amnesia Haze hits citrus up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Amnesia Haze?",
+        a: "Amnesia Haze tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Amnesia Haze best for?",
+        a: "Amnesia Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6471,6 +8887,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Thai important to modern strain lineages?",
         a: "Thai is one of the equatorial sativas that underpins the haze family. Original Haze itself crossed Mexican, Colombian, South Indian, and Thai — Thai is in the DNA of most modern haze strains.",
+      },
+      {
+        q: "Is Thai indica, sativa, or hybrid?",
+        a: "Thai is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Thailand (Mekong region).",
+      },
+      {
+        q: "What does Thai taste like?",
+        a: "Thai hits citrus up front, spice through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Thai?",
+        a: "Thai tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Thai best for?",
+        a: "Thai reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -6518,6 +8950,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What modern strains have Colombian heritage?",
         a: "Skunk #1 (Colombian × Mexican × Afghani) is the most famous — Colombian is in the DNA of the entire Skunk family. Haze also had Colombian in the original four-way cross.",
       },
+      {
+        q: "Is Colombian indica, sativa, or hybrid?",
+        a: "Colombian is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Colombia (Andes / Sierra Nevada de Santa Marta regions).",
+      },
+      {
+        q: "What does Colombian taste like?",
+        a: "Colombian hits citrus up front, earth through the middle, and light pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Colombian?",
+        a: "Colombian tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Colombian best for?",
+        a: "Colombian reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6564,6 +9012,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Northern Lights #5 a parent of other famous strains?",
         a: "Yes — Neville's Haze and Shiva Skunk both have NL#5 in the cross. Super Silver Haze also descends from this line. NL#5 is one of the most-used parent strains in modern breeding.",
       },
+      {
+        q: "Is Northern Lights #5 indica, sativa, or hybrid?",
+        a: "Northern Lights #5 is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Northern Lights phenotype #5 (Afghani-leaning selection from the original NL group).",
+      },
+      {
+        q: "What does Northern Lights #5 taste like?",
+        a: "Northern Lights #5 hits sweet pine up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Northern Lights #5?",
+        a: "Northern Lights #5 tests in the 16–21% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Northern Lights #5 best for?",
+        a: "Northern Lights #5 reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6608,6 +9072,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Sundae Strudel similar to Sundae Driver?",
         a: "Same family — Sundae Driver is one of its parents. Sundae Strudel adds more pastry-apple on top of the Sundae Driver creaminess. Customers who already like Sundae Driver tend to reach for this when they want the same effect with a sweeter nose.",
+      },
+      {
+        q: "Is Sundae Strudel indica, sativa, or hybrid?",
+        a: "Sundae Strudel is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sundae Driver × Apple Strudel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sundae Strudel taste like?",
+        a: "Sundae Strudel hits apple pastry up front, sweet cream through the middle, and light vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sundae Strudel?",
+        a: "Sundae Strudel tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sundae Strudel best for?",
+        a: "Sundae Strudel reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -6654,6 +9134,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Cereal Milk related to Gelato?",
         a: "Same shelf, different cross. Both are in the Cookies-family modern-dessert lineup, but Cereal Milk comes through Y Life × Snowman while Gelato comes through Sunset Sherbet × Thin Mint GSC. They share the Cookies heritage.",
       },
+      {
+        q: "Is Cereal Milk indica, sativa, or hybrid?",
+        a: "Cereal Milk is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Y Life × Snowman. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cereal Milk taste like?",
+        a: "Cereal Milk hits sweet cream up front, vanilla through the middle, and light berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cereal Milk?",
+        a: "Cereal Milk tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cereal Milk best for?",
+        a: "Cereal Milk reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6695,6 +9191,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Lemon Tree compare to Lemon Skunk?",
         a: "Same lemon-skunk family, but the Sour Diesel side adds more head-up lift and a fuel undercurrent. Lemon Skunk alone is more candy-citrus; Lemon Tree is sharper with diesel pungency.",
       },
+      {
+        q: "Is Lemon Tree indica, sativa, or hybrid?",
+        a: "Lemon Tree is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Lemon Skunk × Sour Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Lemon Tree taste like?",
+        a: "Lemon Tree hits lemon up front, diesel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Tree?",
+        a: "Lemon Tree tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Lemon Tree best for?",
+        a: "Lemon Tree reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6735,6 +9247,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Frosted Cake lower-THC than other dessert hybrids?",
         a: "Phenotype selection emphasizes the flavor profile over the THC ceiling. Most batches land 13–18% — closer to heritage strains than to the 25%+ modern cookies-shelf top end.",
+      },
+      {
+        q: "Is Frosted Cake indica, sativa, or hybrid?",
+        a: "Frosted Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Strawberry Shortcake × Jungle Cake. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Frosted Cake taste like?",
+        a: "Frosted Cake hits strawberry pastry up front, sweet cream through the middle, and light vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Frosted Cake?",
+        a: "Frosted Cake tests in the 13–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Frosted Cake best for?",
+        a: "Frosted Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -6778,6 +9306,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Rainbow Beltz the same as Rainbow Belts?",
         a: "Same strain, alternate spelling. Archive Seed Bank uses 'Rainbow Belts' on their canonical packaging — 'Rainbow Beltz' is the common alternative spelling used at shops and on packaging from licensees.",
       },
+      {
+        q: "Is Rainbow Beltz indica, sativa, or hybrid?",
+        a: "Rainbow Beltz is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Zkittlez × Moonbow #75. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Rainbow Beltz taste like?",
+        a: "Rainbow Beltz hits candy fruit up front, grape through the middle, and light gas on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Rainbow Beltz?",
+        a: "Rainbow Beltz tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Rainbow Beltz best for?",
+        a: "Rainbow Beltz reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6818,6 +9362,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Han Solo Burger compare to GMO?",
         a: "Same savory family, but the Larry OG side adds more OG pine and a bit more body weight. GMO alone is more diesel-funk; Han Solo Burger softens the diesel and layers in OG.",
+      },
+      {
+        q: "Is Han Solo Burger indica, sativa, or hybrid?",
+        a: "Han Solo Burger is a hybrid — a cross that pulls from both sides of the family tree. The lineage is GMO Cookies × Larry OG. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Han Solo Burger taste like?",
+        a: "Han Solo Burger hits savory garlic up front, funk through the middle, and og pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Han Solo Burger?",
+        a: "Han Solo Burger tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Han Solo Burger best for?",
+        a: "Han Solo Burger reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -6860,6 +9420,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Modified Apples the same as Apples and Bananas?",
         a: "Same family — Apples and Bananas is one of its parents. Modified Apples adds GMO on top, which makes the aroma savorier and the effect heavier. Apples and Bananas alone is sweeter and lighter.",
       },
+      {
+        q: "Is Modified Apples indica, sativa, or hybrid?",
+        a: "Modified Apples is a hybrid — a cross that pulls from both sides of the family tree. The lineage is GMO Cookies × Apples and Bananas. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Modified Apples taste like?",
+        a: "Modified Apples hits sweet apple up front, savory funk through the middle, and light banana on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Modified Apples?",
+        a: "Modified Apples tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Modified Apples best for?",
+        a: "Modified Apples reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -6901,6 +9477,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How is Pink Lemonade different from Lemon Tree?",
         a: "Both are lemon-forward hybrids, but Pink Lemonade leans sweeter and softer (Purple Kush side adds berry undertones). Lemon Tree is sharper with Sour Diesel pungency.",
       },
+      {
+        q: "Is Pink Lemonade indica, sativa, or hybrid?",
+        a: "Pink Lemonade is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Lemon Skunk × Purple Kush. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Pink Lemonade taste like?",
+        a: "Pink Lemonade hits sweet lemon up front, light grapefruit through the middle, and berry undertone on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pink Lemonade?",
+        a: "Pink Lemonade tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Pink Lemonade best for?",
+        a: "Pink Lemonade reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -6941,6 +9533,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Jungle Cake relate to Wedding Cake?",
         a: "Wedding Cake is one of its parents. Jungle Cake adds White Fire #43 on top, which brings more head-up lift and a fuel undercurrent. Wedding Cake alone is heavier; Jungle Cake is more balanced.",
+      },
+      {
+        q: "Is Jungle Cake indica, sativa, or hybrid?",
+        a: "Jungle Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is White Fire #43 × Wedding Cake. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Jungle Cake taste like?",
+        a: "Jungle Cake hits sweet cake up front, pine through the middle, and light fuel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Jungle Cake?",
+        a: "Jungle Cake tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Jungle Cake best for?",
+        a: "Jungle Cake reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -6984,6 +9592,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Cap Junky so high-THC?",
         a: "Both parents (Alien Cookies and Kush Mints #11) are already high-THC, and Capulator + Seed Junky selected the cross for maximum potency. Batches commonly test 28–32%+. Not a starter strain.",
       },
+      {
+        q: "Is Cap Junky indica, sativa, or hybrid?",
+        a: "Cap Junky is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Alien Cookies × Kush Mints #11. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cap Junky taste like?",
+        a: "Cap Junky hits apricot up front, menthol through the middle, and gas on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cap Junky?",
+        a: "Cap Junky tests in the 26–32% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cap Junky best for?",
+        a: "Cap Junky reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7025,6 +9649,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Mochi Gelato the same as Bacio Gelato?",
         a: "Same parents (Sunset Sherbet × Thin Mint GSC), different pheno selection. Sherbinski sells both — Mochi emphasizes the creamy side, Bacio emphasizes the dessert side. Sister strains.",
+      },
+      {
+        q: "Is Mochi Gelato indica, sativa, or hybrid?",
+        a: "Mochi Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Mochi Gelato taste like?",
+        a: "Mochi Gelato hits sweet cream up front, mint through the middle, and light berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mochi Gelato?",
+        a: "Mochi Gelato tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mochi Gelato best for?",
+        a: "Mochi Gelato reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -7072,6 +9712,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Honey Bun actually taste like a honey bun?",
         a: "Closer than most candy-named strains. Sweet honey-glazed pastry on the nose, with a light vanilla undertone on the exhale.",
       },
+      {
+        q: "Is Honey Bun indica, sativa, or hybrid?",
+        a: "Honey Bun is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cookies-bred (parents not publicly disclosed). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Honey Bun?",
+        a: "Honey Bun tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Honey Bun best for?",
+        a: "Honey Bun reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Honey Bun?",
+        a: "The dominant terpenes in Honey Bun are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -7113,6 +9769,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why the name Project 4516?",
         a: "The breeder code-named the cross during development. The number stuck even after the strain went to market — customers ask for it by the project name.",
       },
+      {
+        q: "Is Project 4516 indica, sativa, or hybrid?",
+        a: "Project 4516 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is E85 × Bubble Bath. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Project 4516 taste like?",
+        a: "Project 4516 hits sweet citrus up front, light fuel through the middle, and floral on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Project 4516?",
+        a: "Project 4516 tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Project 4516 best for?",
+        a: "Project 4516 reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7153,6 +9825,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Black Cherry Gelato taste like Black Cherry Punch?",
         a: "Same cherry family, different cross. Black Cherry Gelato comes through Acai Berry Gelato — sweeter and more berry-forward. Black Cherry Punch comes through Purple Punch — heavier and more pure cherry-grape.",
+      },
+      {
+        q: "Is Black Cherry Gelato indica, sativa, or hybrid?",
+        a: "Black Cherry Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Acai Berry Gelato × Black Cherry Funk. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Black Cherry Gelato?",
+        a: "Black Cherry Gelato tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Black Cherry Gelato best for?",
+        a: "Black Cherry Gelato reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Black Cherry Gelato?",
+        a: "The dominant terpenes in Black Cherry Gelato are Pinene (sharp pine, fresh and focusing), Limonene (citrus zest, bright and mood-lifting on the nose), and Humulene (earthy and hop-like, similar to fresh hops). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -7196,6 +9884,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How is Sherbacio different from Bacio Gelato?",
         a: "Both are Sunset Sherbet crosses in the gelato family. Sherbacio crosses with Gelato #41 specifically (Alien Labs); Bacio Gelato crosses with Thin Mint GSC. Sherbacio is creamier and smoother; Bacio is mintier.",
       },
+      {
+        q: "Is Sherbacio indica, sativa, or hybrid?",
+        a: "Sherbacio is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Gelato #41. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sherbacio taste like?",
+        a: "Sherbacio hits sweet cream up front, light citrus through the middle, and vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sherbacio?",
+        a: "Sherbacio tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sherbacio best for?",
+        a: "Sherbacio reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7237,6 +9941,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Does Sour Apple actually taste like apple?",
         a: "Sour-green-apple on the nose with the Sour Diesel fuel underneath. The Cinderella 99 side brings the fruit; the Sour Diesel keeps it sharp rather than candy-sweet.",
       },
+      {
+        q: "Is Sour Apple indica, sativa, or hybrid?",
+        a: "Sour Apple is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Diesel × Cinderella 99. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Sour Apple?",
+        a: "Sour Apple tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Sour Apple best for?",
+        a: "Sour Apple reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
+      {
+        q: "What terpenes are in Sour Apple?",
+        a: "The dominant terpenes in Sour Apple are Myrcene (earthy, mango-like, with a mild body-heavy quality), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7277,6 +9997,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Black Mamba related to Granddaddy Purple?",
         a: "Yes — Granddaddy Purple is one of its parents. The grape side comes directly from there. Black Domina adds more body weight and a floral lift on top.",
+      },
+      {
+        q: "Is Black Mamba indica, sativa, or hybrid?",
+        a: "Black Mamba is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Granddaddy Purple × Black Domina.",
+      },
+      {
+        q: "What does Black Mamba taste like?",
+        a: "Black Mamba hits grape up front, floral through the middle, and earthy berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Black Mamba?",
+        a: "Black Mamba tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Black Mamba best for?",
+        a: "Black Mamba reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -7322,6 +10058,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Ghost Train Haze a strong sativa?",
         a: "Yes — Rare Dankness selected for high THC (often 22%+) and a long ceiling. The Ghost OG side adds focus where most pure hazes get racey. Not a beginner strain.",
+      },
+      {
+        q: "Is Ghost Train Haze indica, sativa, or hybrid?",
+        a: "Ghost Train Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Ghost OG × Neville's Wreck.",
+      },
+      {
+        q: "What does Ghost Train Haze taste like?",
+        a: "Ghost Train Haze hits sour citrus up front, floral through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Ghost Train Haze?",
+        a: "Ghost Train Haze tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Ghost Train Haze best for?",
+        a: "Ghost Train Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7369,6 +10121,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Cinderella 99 a parent of Sour Apple?",
         a: "Yes — Sour Apple is Sour Diesel × Cinderella 99. C99 also shows up in many other gas-and-fruit modern hybrids.",
       },
+      {
+        q: "Is Cinderella 99 indica, sativa, or hybrid?",
+        a: "Cinderella 99 is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Jack Herer × Shiva Skunk.",
+      },
+      {
+        q: "What does Cinderella 99 taste like?",
+        a: "Cinderella 99 hits sweet citrus up front, tropical fruit through the middle, and light earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cinderella 99?",
+        a: "Cinderella 99 tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cinderella 99 best for?",
+        a: "Cinderella 99 reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7415,6 +10183,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Was Purple Haze around in the 1960s?",
         a: "The name and the lineage trace to that era — psychedelic-era heritage. Modern Purple Haze flower is stabilized seed line work, not direct genetic descent from a 1960s plant.",
       },
+      {
+        q: "Is Purple Haze indica, sativa, or hybrid?",
+        a: "Purple Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Purple Thai × Haze.",
+      },
+      {
+        q: "What does Purple Haze taste like?",
+        a: "Purple Haze hits sweet berry up front, earth through the middle, and spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Purple Haze?",
+        a: "Purple Haze tests in the 14–19% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Purple Haze best for?",
+        a: "Purple Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7455,6 +10239,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How is Lemon Jack different from Lemon Haze?",
         a: "Both are lemon-forward sativas. Lemon Jack comes through Jack Herer — more focused and energizing. Lemon Haze comes through Silver Haze — longer ceiling, more head-up. Different feel, similar nose.",
+      },
+      {
+        q: "Is Lemon Jack indica, sativa, or hybrid?",
+        a: "Lemon Jack is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Jack Herer × Lemon Kush.",
+      },
+      {
+        q: "What does Lemon Jack taste like?",
+        a: "Lemon Jack hits sharp lemon up front, light pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Jack?",
+        a: "Lemon Jack tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Lemon Jack best for?",
+        a: "Lemon Jack reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7497,6 +10297,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How is Pineapple Diesel different from Pineapple Express?",
         a: "Both have pineapple in the cross. Pineapple Express is Trainwreck × Hawaiian — sweeter and gentler. Pineapple Diesel adds Sour Diesel for more lift and fuel pungency. Different feel.",
       },
+      {
+        q: "Is Pineapple Diesel indica, sativa, or hybrid?",
+        a: "Pineapple Diesel is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Pineapple × Sour Diesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Pineapple Diesel taste like?",
+        a: "Pineapple Diesel hits pineapple up front, diesel through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pineapple Diesel?",
+        a: "Pineapple Diesel tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Pineapple Diesel best for?",
+        a: "Pineapple Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7537,6 +10353,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Did Strawberry Lemonade win a Cannabis Cup?",
         a: "Yes — 1st place at the 2015 High Times Denver Cannabis Cup in the Best Sativa Concentrate category. Barney's Farm seeds.",
+      },
+      {
+        q: "Is Strawberry Lemonade indica, sativa, or hybrid?",
+        a: "Strawberry Lemonade is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Strawberry Cough × Lemon OG.",
+      },
+      {
+        q: "What does Strawberry Lemonade taste like?",
+        a: "Strawberry Lemonade hits sweet strawberry up front, lemon through the middle, and light earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Strawberry Lemonade?",
+        a: "Strawberry Lemonade tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Strawberry Lemonade best for?",
+        a: "Strawberry Lemonade reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7579,6 +10411,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Moby Dick named after the novel?",
         a: "Yes — Dinafem named it after Melville's white whale, riffing on the White Widow parent. The name references the strain's pale, frosty trichome coverage.",
       },
+      {
+        q: "Is Moby Dick indica, sativa, or hybrid?",
+        a: "Moby Dick is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is White Widow × Haze.",
+      },
+      {
+        q: "What does Moby Dick taste like?",
+        a: "Moby Dick hits citrus up front, spice through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Moby Dick?",
+        a: "Moby Dick tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Moby Dick best for?",
+        a: "Moby Dick reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7619,6 +10467,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How is Tangie Dream different from Tangie?",
         a: "Tangie alone is sharper and more racey — pure citrus sativa lift. Tangie Dream adds Blue Dream for balance, which calms the racey edge and makes it a friendlier daytime pick.",
+      },
+      {
+        q: "Is Tangie Dream indica, sativa, or hybrid?",
+        a: "Tangie Dream is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Blue Dream × Tangie.",
+      },
+      {
+        q: "What does Tangie Dream taste like?",
+        a: "Tangie Dream hits orange peel up front, sweet citrus through the middle, and light earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tangie Dream?",
+        a: "Tangie Dream tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Tangie Dream best for?",
+        a: "Tangie Dream reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7661,6 +10525,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Silver Haze the same as Super Silver Haze?",
         a: "Related, not identical. Silver Haze is Northern Lights × Haze (parent). Super Silver Haze is Skunk #1 × Northern Lights × Haze — a three-way cross built on top of Silver Haze with Skunk added. SSH is the more famous modern descendant.",
       },
+      {
+        q: "Is Silver Haze indica, sativa, or hybrid?",
+        a: "Silver Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Northern Lights × Haze.",
+      },
+      {
+        q: "What does Silver Haze taste like?",
+        a: "Silver Haze hits citrus up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Silver Haze?",
+        a: "Silver Haze tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Silver Haze best for?",
+        a: "Silver Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7701,6 +10581,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Mexican Sativa a pure landrace?",
         a: "No — it's a Sensi Seeds hybrid that combines three landrace lines. The point was to keep the equatorial-sativa feel while compressing the long flowering into something growable indoors. Sister concept to Sensi's other landrace-derived stabilizations.",
+      },
+      {
+        q: "Is Mexican Sativa indica, sativa, or hybrid?",
+        a: "Mexican Sativa is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Oaxacan landrace × Durban Poison × Pakistani landrace.",
+      },
+      {
+        q: "What does Mexican Sativa taste like?",
+        a: "Mexican Sativa hits earth up front, citrus through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mexican Sativa?",
+        a: "Mexican Sativa tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Mexican Sativa best for?",
+        a: "Mexican Sativa reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7743,6 +10639,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Island Sweet Skunk related to other famous strains?",
         a: "Yes — it's a parent of Golden Goat and Outer Space. The Skunk #1 side keeps it in the broader Skunk family that underpins most modern sativa-leaning hybrids.",
+      },
+      {
+        q: "Is Island Sweet Skunk indica, sativa, or hybrid?",
+        a: "Island Sweet Skunk is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Sweet Pink Grapefruit × Skunk #1.",
+      },
+      {
+        q: "What does Island Sweet Skunk taste like?",
+        a: "Island Sweet Skunk hits sweet grapefruit up front, light skunk through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Island Sweet Skunk?",
+        a: "Island Sweet Skunk tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Island Sweet Skunk best for?",
+        a: "Island Sweet Skunk reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7789,6 +10701,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Did Neville's Haze win a Cannabis Cup?",
         a: "Yes — High Times Cannabis Cup in 1998. The win cemented its reputation as a benchmark long-flowering haze.",
+      },
+      {
+        q: "Is Neville's Haze indica, sativa, or hybrid?",
+        a: "Neville's Haze is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Haze × Northern Lights #5.",
+      },
+      {
+        q: "What does Neville's Haze taste like?",
+        a: "Neville's Haze hits pine up front, floral through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Neville's Haze?",
+        a: "Neville's Haze tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Neville's Haze best for?",
+        a: "Neville's Haze reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -7840,6 +10768,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Kosher Kush a pure OG Kush?",
         a: "It's a clone-only OG Kush phenotype selected for its specific expression — heavier and more fruit-forward than the OG Kush mother. Later released in seed form by DNA Genetics.",
       },
+      {
+        q: "Is Kosher Kush indica, sativa, or hybrid?",
+        a: "Kosher Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype (clone-only origin, later released in seed form).",
+      },
+      {
+        q: "What does Kosher Kush taste like?",
+        a: "Kosher Kush hits earth up front, fruit through the middle, and woody on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Kosher Kush?",
+        a: "Kosher Kush tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Kosher Kush best for?",
+        a: "Kosher Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7881,6 +10825,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is King Louis XIII the same as King Louie XIII?",
         a: "Yes — alternate spellings of the same strain. Some sources spell it Louie, others Louis. Both refer to the OG Kush × LA Confidential cross.",
       },
+      {
+        q: "Is King Louis XIII indica, sativa, or hybrid?",
+        a: "King Louis XIII is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × LA Confidential.",
+      },
+      {
+        q: "What does King Louis XIII taste like?",
+        a: "King Louis XIII hits pine up front, earth through the middle, and woody on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is King Louis XIII?",
+        a: "King Louis XIII tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is King Louis XIII best for?",
+        a: "King Louis XIII reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -7921,6 +10881,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Purple Urkle a parent of Granddaddy Purple?",
         a: "Yes — GDP is Purple Urkle × Big Bud. The grape character that GDP is known for comes directly from Urkle.",
+      },
+      {
+        q: "Is Purple Urkle indica, sativa, or hybrid?",
+        a: "Purple Urkle is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Mendocino Purps phenotype.",
+      },
+      {
+        q: "What does Purple Urkle taste like?",
+        a: "Purple Urkle hits grape up front, skunk through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Purple Urkle?",
+        a: "Purple Urkle tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Purple Urkle best for?",
+        a: "Purple Urkle reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -7964,6 +10940,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Pink Kush?",
         a: "The mature buds typically express pink-orange hairs (pistils) against the green-purple flower. Visual rather than flavor — the inside reads sweet vanilla and candy, not pink-fruit.",
       },
+      {
+        q: "Is Pink Kush indica, sativa, or hybrid?",
+        a: "Pink Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype.",
+      },
+      {
+        q: "What does Pink Kush taste like?",
+        a: "Pink Kush hits sweet vanilla up front, candy through the middle, and light pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pink Kush?",
+        a: "Pink Kush tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Pink Kush best for?",
+        a: "Pink Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8005,6 +10997,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why does Goji OG taste like fruit punch?",
         a: "The Snow Lotus side brings the bright red-berry and cherry notes; the Nepali OG side adds the licorice and depth. Together it reads closer to a Hawaiian Punch can than to most OG-family strains.",
       },
+      {
+        q: "Is Goji OG indica, sativa, or hybrid?",
+        a: "Goji OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Nepali OG × Snow Lotus. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Goji OG?",
+        a: "Goji OG tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Goji OG best for?",
+        a: "Goji OG reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Goji OG?",
+        a: "The dominant terpenes in Goji OG are Myrcene (earthy, mango-like, with a mild body-heavy quality), Caryophyllene (peppery and warm, spicy on the back end), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8045,6 +11053,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Hash Plant called that?",
         a: "High resin output — historically a benchmark strain for making hashish. The deep Afghani aroma and tight resin-coated buds carry the hash signature into the live flower.",
+      },
+      {
+        q: "Is Hash Plant indica, sativa, or hybrid?",
+        a: "Hash Plant is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Northern Lights × Afghani.",
+      },
+      {
+        q: "What does Hash Plant taste like?",
+        a: "Hash Plant hits hash up front, earth through the middle, and sweet undertone on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Hash Plant?",
+        a: "Hash Plant tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Hash Plant best for?",
+        a: "Hash Plant reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8088,6 +11112,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is WiFi OG the same as White Fire OG?",
         a: "Yes — WiFi OG is the common shop nickname (a play on the W-Fire abbreviation). Both names refer to the Fire OG × The White cross.",
       },
+      {
+        q: "Is White Fire OG indica, sativa, or hybrid?",
+        a: "White Fire OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Fire OG × The White. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does White Fire OG taste like?",
+        a: "White Fire OG hits sour earth up front, citrus through the middle, and diesel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is White Fire OG?",
+        a: "White Fire OG tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is White Fire OG best for?",
+        a: "White Fire OG reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8128,6 +11168,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called Yoda OG?",
         a: "Breeder lore — the strain was named after the Star Wars character, riffing on the small-but-mighty pattern (the buds are chunky and dense for an OG descendant).",
+      },
+      {
+        q: "Is Yoda OG indica, sativa, or hybrid?",
+        a: "Yoda OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush phenotype.",
+      },
+      {
+        q: "What does Yoda OG taste like?",
+        a: "Yoda OG hits citrus up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Yoda OG?",
+        a: "Yoda OG tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Yoda OG best for?",
+        a: "Yoda OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8170,6 +11226,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Mob Boss compare to Chemdawg?",
         a: "Same chem-fuel base, but the Tang Tang side adds citrus and brightness on top. Mob Boss leans more sativa than pure Chemdawg, with more head-up lift.",
       },
+      {
+        q: "Is Mob Boss indica, sativa, or hybrid?",
+        a: "Mob Boss is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Chemdawg × Tang Tang. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Mob Boss taste like?",
+        a: "Mob Boss hits citrus up front, pine through the middle, and light fuel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mob Boss?",
+        a: "Mob Boss tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mob Boss best for?",
+        a: "Mob Boss reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8210,6 +11282,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Critical Kush relate to Critical Mass?",
         a: "Critical Mass is one of its parents. Critical Kush adds OG Kush on top, which brings more body weight and a deeper earthy note. Critical Mass alone is more balanced; Critical Kush leans heavier.",
+      },
+      {
+        q: "Is Critical Kush indica, sativa, or hybrid?",
+        a: "Critical Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × Critical Mass.",
+      },
+      {
+        q: "What does Critical Kush taste like?",
+        a: "Critical Kush hits earth up front, spice through the middle, and light pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Critical Kush?",
+        a: "Critical Kush tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Critical Kush best for?",
+        a: "Critical Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8252,6 +11340,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why the name Obama Kush?",
         a: "Like many strains named after public figures, the name is breeder branding rather than any actual connection. The strain emerged during the Obama administration era.",
       },
+      {
+        q: "Is Obama Kush indica, sativa, or hybrid?",
+        a: "Obama Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × OG Kush.",
+      },
+      {
+        q: "What does Obama Kush taste like?",
+        a: "Obama Kush hits pine up front, citrus through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Obama Kush?",
+        a: "Obama Kush tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Obama Kush best for?",
+        a: "Obama Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8293,6 +11397,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How is Super Skunk different from Skunk #1?",
         a: "Skunk #1 is the foundational parent — sativa-leaning hybrid. Super Skunk adds Afghani on top, which pulls it indica-side and adds more body weight. Same skunk aroma, heavier feel.",
+      },
+      {
+        q: "Is Super Skunk indica, sativa, or hybrid?",
+        a: "Super Skunk is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Skunk #1 × Afghani.",
+      },
+      {
+        q: "What does Super Skunk taste like?",
+        a: "Super Skunk hits skunk up front, earth through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Super Skunk?",
+        a: "Super Skunk tests in the 14–20% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Super Skunk best for?",
+        a: "Super Skunk reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8340,6 +11460,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is CBD OG just OG Kush with CBD added?",
         a: "Not quite — it's a separately bred cross that selected for CBD expression alongside OG aromatics. Two phenotypes exist (Lion's Tabernacle × SFV OG IBL and Lion's Tabernacle × Tahoe OG S1). Both express the OG family character with a 1:1 to 1:2 THC:CBD ratio.",
       },
+      {
+        q: "Is CBD OG indica, sativa, or hybrid?",
+        a: "CBD OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Lion's Tabernacle × SFV OG IBL (regular) / Lion's Tabernacle × Tahoe OG S1 (feminized). The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does CBD OG taste like?",
+        a: "CBD OG hits pine up front, earth through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is CBD OG?",
+        a: "CBD OG tests in the 5–10% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is CBD OG best for?",
+        a: "CBD OG reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8380,6 +11516,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Critical Cure compare to Critical Kush?",
         a: "Same Critical Kush base, but Critical Cure pulls down THC and pushes up CBD. Same earthy aroma and indica body feel, much less psychoactive ceiling. Friendlier pick for low-tolerance or CBD-curious customers.",
+      },
+      {
+        q: "Is Critical Cure indica, sativa, or hybrid?",
+        a: "Critical Cure is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Critical Kush × Shanti Baba CBD-enhanced selection.",
+      },
+      {
+        q: "What does Critical Cure taste like?",
+        a: "Critical Cure hits earth up front, sweet undertone through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Critical Cure?",
+        a: "Critical Cure tests in the 8–12% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Critical Cure best for?",
+        a: "Critical Cure reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8425,6 +11577,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Valentine X related to ACDC?",
         a: "Yes — it's a selected ACDC phenotype with the CBD ratio pushed even higher. Sister strain to ACDC and Ringo's Gift in the high-CBD lineup.",
+      },
+      {
+        q: "Is Valentine X indica, sativa, or hybrid?",
+        a: "Valentine X is a hybrid — a cross that pulls from both sides of the family tree. The lineage is ACDC phenotype. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Valentine X taste like?",
+        a: "Valentine X hits earth up front, pine through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Valentine X?",
+        a: "Valentine X tests in the <1% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Valentine X best for?",
+        a: "Valentine X reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -8472,6 +11640,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Avi-Dekel compare to ACDC?",
         a: "Both are CBD-dominant, very-low-THC strains. ACDC traces to Cannatonic lineage and the US CBD-genetics scene; Avi-Dekel comes through Tikun Olam's Israeli medical program. Similar effect profile — near-zero psychoactive lift.",
       },
+      {
+        q: "Is Avi-Dekel indica, sativa, or hybrid?",
+        a: "Avi-Dekel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Tikun Olam proprietary selection (parents not publicly disclosed).",
+      },
+      {
+        q: "What does Avi-Dekel taste like?",
+        a: "Avi-Dekel hits earth up front, light citrus through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Avi-Dekel?",
+        a: "Avi-Dekel tests in the <1% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Avi-Dekel best for?",
+        a: "Avi-Dekel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -8513,6 +11697,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Canna-Tsu consistently high-CBD?",
         a: "Both parents (Sour Tsunami and Cannatonic) are themselves CBD-dominant strains. Crossing two high-CBD parents stabilizes the CBD expression in the offspring — that's why Canna-Tsu lands reliably in the 1:2+ THC:CBD range across batches.",
+      },
+      {
+        q: "Is Canna-Tsu indica, sativa, or hybrid?",
+        a: "Canna-Tsu is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Tsunami × Cannatonic. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Canna-Tsu taste like?",
+        a: "Canna-Tsu hits earth up front, light pine through the middle, and sweet undertone on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Canna-Tsu?",
+        a: "Canna-Tsu tests in the 4–8% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Canna-Tsu best for?",
+        a: "Canna-Tsu reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -8570,6 +11770,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Skywalker the same as Skywalker OG?",
         a: "No — and this is one of the most common mix-ups on the shelf. Original Skywalker is a Dutch Passion Blueberry × Mazar cross from the 1990s. Skywalker OG is a later cross of Skywalker × OG Kush. Effects and aromatics differ.",
       },
+      {
+        q: "Is Skywalker indica, sativa, or hybrid?",
+        a: "Skywalker is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Blueberry × Mazar.",
+      },
+      {
+        q: "What does Skywalker taste like?",
+        a: "Skywalker hits sweet berry up front, earth through the middle, and hash on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Skywalker?",
+        a: "Skywalker tests in the 16–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Skywalker best for?",
+        a: "Skywalker reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8610,6 +11826,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Grease Monkey compare to Gorilla Glue #4?",
         a: "Same Gorilla Glue gas backbone, with the Cookies & Cream side adding sweet-vanilla aromatics on top. Effects land slightly heavier on the indica side than straight GG#4 — customers reach for Grease Monkey when they want the gas profile with more body weight.",
       },
+      {
+        q: "Is Grease Monkey indica, sativa, or hybrid?",
+        a: "Grease Monkey is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Gorilla Glue #4 × Cookies & Cream.",
+      },
+      {
+        q: "What does Grease Monkey taste like?",
+        a: "Grease Monkey hits gas up front, sweet vanilla through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Grease Monkey?",
+        a: "Grease Monkey tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Grease Monkey best for?",
+        a: "Grease Monkey reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8648,6 +11880,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Master Yoda related to Yoda OG?",
         a: "Yoda OG is one of its parents. Master Yoda adds Master Kush on top, which deepens the earthy-kush aromatics and pushes the indica side further toward body-heavy.",
+      },
+      {
+        q: "Is Master Yoda indica, sativa, or hybrid?",
+        a: "Master Yoda is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Master Kush × Yoda OG.",
+      },
+      {
+        q: "What does Master Yoda taste like?",
+        a: "Master Yoda hits sweet earth up front, kush through the middle, and light pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Master Yoda?",
+        a: "Master Yoda tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Master Yoda best for?",
+        a: "Master Yoda reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8689,6 +11937,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Big Bud famous?",
         a: "Two reasons — the massive flower size that gives the strain its name, and the 1989 Cannabis Cup win that put it on the international map. It's one of the foundational commercial-yield indicas of the modern shelf era.",
       },
+      {
+        q: "Is Big Bud indica, sativa, or hybrid?",
+        a: "Big Bud is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Northern Lights × Skunk.",
+      },
+      {
+        q: "What does Big Bud taste like?",
+        a: "Big Bud hits sweet earth up front, spice through the middle, and light pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Big Bud?",
+        a: "Big Bud tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Big Bud best for?",
+        a: "Big Bud reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8729,6 +11993,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Cookies Kush compare to GSC?",
         a: "Cookies Kush leans heavier on the indica side — the Rolex Kush parent pulls it toward dense kush earth where GSC sits more balanced. Same Cookies sweetness on the nose, deeper body weight in the session.",
       },
+      {
+        q: "Is Cookies Kush indica, sativa, or hybrid?",
+        a: "Cookies Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Girl Scout Cookies × Rolex Kush.",
+      },
+      {
+        q: "What does Cookies Kush taste like?",
+        a: "Cookies Kush hits sweet earth up front, cookies through the middle, and kush on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cookies Kush?",
+        a: "Cookies Kush tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cookies Kush best for?",
+        a: "Cookies Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8768,6 +12048,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Where is Rockstar popular?",
         a: "It's been a BC and broader Canadian shelf staple since the mid-2000s — one of the heritage indicas that defined the Canadian craft scene before the legal-market era. Less well-known south of the border but worth knowing on the heritage-indica shelf.",
       },
+      {
+        q: "Is Rockstar indica, sativa, or hybrid?",
+        a: "Rockstar is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Rock Bud × Sensi Star.",
+      },
+      {
+        q: "What does Rockstar taste like?",
+        a: "Rockstar hits sweet grape up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Rockstar?",
+        a: "Rockstar tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Rockstar best for?",
+        a: "Rockstar reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8806,6 +12102,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Death Bubba stronger than regular Bubba Kush?",
         a: "Yes — the Death Star side pushes both THC potential and resin coverage higher. Customers who like Bubba Kush as a baseline tend to reach for Death Bubba when they want the same family profile turned up.",
+      },
+      {
+        q: "Is Death Bubba indica, sativa, or hybrid?",
+        a: "Death Bubba is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Bubba Kush × Death Star.",
+      },
+      {
+        q: "What does Death Bubba taste like?",
+        a: "Death Bubba hits earth up front, pine through the middle, and light fuel on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Death Bubba?",
+        a: "Death Bubba tests in the 20–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Death Bubba best for?",
+        a: "Death Bubba reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -8851,6 +12163,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is NYC Sour Diesel a coffeeshop classic?",
         a: "Soma released it through Amsterdam coffeeshops in the late 1990s — by 2003 and 2004 it had back-to-back Cannabis Cup wins. It's been on Amsterdam menus continuously since then.",
       },
+      {
+        q: "Is NYC Sour Diesel indica, sativa, or hybrid?",
+        a: "NYC Sour Diesel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican × Afghani × Hawaiian × Sour Diesel.",
+      },
+      {
+        q: "What does NYC Sour Diesel taste like?",
+        a: "NYC Sour Diesel hits diesel up front, sweet citrus through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is NYC Sour Diesel?",
+        a: "NYC Sour Diesel tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is NYC Sour Diesel best for?",
+        a: "NYC Sour Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -8890,6 +12218,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Cherry Garcia named after the Grateful Dead?",
         a: "Indirectly — it's named after the Ben & Jerry's ice cream flavor that itself was named after Jerry Garcia. Compound Genetics built the cross around the cherry-shelf aromatic profile to match the namesake.",
+      },
+      {
+        q: "Is Cherry Garcia indica, sativa, or hybrid?",
+        a: "Cherry Garcia is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cherry Pie × OGiesel. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cherry Garcia taste like?",
+        a: "Cherry Garcia hits sweet cherry up front, fuel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cherry Garcia?",
+        a: "Cherry Garcia tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cherry Garcia best for?",
+        a: "Cherry Garcia reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -8934,6 +12278,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Lamb's Bread the same as Lamb's Breath?",
         a: "Same strain — Lamb's Breath is a common alternate spelling. Both refer to the Jamaican landrace.",
+      },
+      {
+        q: "Is Lamb's Bread indica, sativa, or hybrid?",
+        a: "Lamb's Bread is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Jamaica.",
+      },
+      {
+        q: "What does Lamb's Bread taste like?",
+        a: "Lamb's Bread hits cheese up front, grass through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lamb's Bread?",
+        a: "Lamb's Bread tests in the 14–20% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Lamb's Bread best for?",
+        a: "Lamb's Bread reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -8981,6 +12341,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How is Acapulco different from Acapulco Gold?",
         a: "Acapulco Gold is one specific phenotype of the broader Acapulco landrace — the gold-leaf expression with the famous golden-trichome coverage. Acapulco as a category includes the gold pheno plus other regional expressions from the Guerrero coast.",
       },
+      {
+        q: "Is Acapulco indica, sativa, or hybrid?",
+        a: "Acapulco is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Mexico (Guerrero / Acapulco region).",
+      },
+      {
+        q: "What does Acapulco taste like?",
+        a: "Acapulco hits citrus up front, earth through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Acapulco?",
+        a: "Acapulco tests in the 13–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Acapulco best for?",
+        a: "Acapulco reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -9023,6 +12399,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Malawi Gold considered a heritage strain?",
         a: "It's one of the foundational African landrace sativas — pure equatorial genetics from the Malawi highlands, undocumented hybridization. Like Thai or Colombian, it's part of the genetic library that modern sativa-leaning breeders draw from when they want long-ceiling heritage effects.",
       },
+      {
+        q: "Is Malawi Gold indica, sativa, or hybrid?",
+        a: "Malawi Gold is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Malawi (highland regions).",
+      },
+      {
+        q: "What does Malawi Gold taste like?",
+        a: "Malawi Gold hits citrus up front, spice through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Malawi Gold?",
+        a: "Malawi Gold tests in the 14–20% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Malawi Gold best for?",
+        a: "Malawi Gold reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9062,6 +12454,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Swazi Gold compare to Malawi Gold?",
         a: "Same broader southern African heritage category — both pure landrace sativas with golden-trichome expression. Swazi tends to be slightly more citrus-forward; Malawi leans more spice-and-pine. Phenotype variance is wide on both.",
+      },
+      {
+        q: "Is Swazi Gold indica, sativa, or hybrid?",
+        a: "Swazi Gold is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Eswatini (formerly Swaziland).",
+      },
+      {
+        q: "What does Swazi Gold taste like?",
+        a: "Swazi Gold hits sweet citrus up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Swazi Gold?",
+        a: "Swazi Gold tests in the 13–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Swazi Gold best for?",
+        a: "Swazi Gold reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -9103,6 +12511,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Highland Nepalese tied to hashish history?",
         a: "Nepal is one of the historical centers of charas production — hand-rubbed hashish made by rolling fresh flower between the palms. The Nepalese landrace was selected over generations for resin coverage, making it one of the few sativas with hash-friendly trichome density.",
       },
+      {
+        q: "Is Highland Nepalese indica, sativa, or hybrid?",
+        a: "Highland Nepalese is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Nepal (Himalayan foothills).",
+      },
+      {
+        q: "What does Highland Nepalese taste like?",
+        a: "Highland Nepalese hits sweet spice up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Highland Nepalese?",
+        a: "Highland Nepalese tests in the 14–20% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Highland Nepalese best for?",
+        a: "Highland Nepalese reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9143,6 +12567,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Pakistani Chitral Kush relate to Hindu Kush?",
         a: "Hindu Kush is the broader landrace category — the mountain range spans Pakistan and Afghanistan. Pakistani Chitral Kush is the specific Chitral valley regional selection on the Pakistani side. Same family, regional pheno selection.",
       },
+      {
+        q: "Is Pakistani Chitral Kush indica, sativa, or hybrid?",
+        a: "Pakistani Chitral Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Landrace — Pakistan (Chitral valley, Hindu Kush range).",
+      },
+      {
+        q: "What does Pakistani Chitral Kush taste like?",
+        a: "Pakistani Chitral Kush hits earth up front, hashish through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Pakistani Chitral Kush?",
+        a: "Pakistani Chitral Kush tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Pakistani Chitral Kush best for?",
+        a: "Pakistani Chitral Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9182,6 +12622,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is African Sativa a specific strain?",
         a: "It's a broader category rather than a single named strain — covers the regional African landrace heritage including Malawi, Swazi, Durban, and Congolese expressions. Useful when shelf product is from African heritage genetics but the exact regional pheno isn't documented.",
+      },
+      {
+        q: "Is African Sativa indica, sativa, or hybrid?",
+        a: "African Sativa is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — African continent (regional varieties).",
+      },
+      {
+        q: "What does African Sativa taste like?",
+        a: "African Sativa hits citrus up front, earth through the middle, and spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is African Sativa?",
+        a: "African Sativa tests in the 13–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is African Sativa best for?",
+        a: "African Sativa reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -9225,6 +12681,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Punto Rojo relate to Colombian Gold?",
         a: "Both are named phenotypes of the broader Colombian landrace. Colombian Gold is the gold-trichome Santa Marta expression; Punto Rojo (Spanish for 'red point') is the Andes red-tipped pheno. Same Colombian landrace family, distinct regional expressions.",
       },
+      {
+        q: "Is Punto Rojo indica, sativa, or hybrid?",
+        a: "Punto Rojo is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Colombia (Andes, red-tip phenotype).",
+      },
+      {
+        q: "What does Punto Rojo taste like?",
+        a: "Punto Rojo hits citrus up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Punto Rojo?",
+        a: "Punto Rojo tests in the 12–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Punto Rojo best for?",
+        a: "Punto Rojo reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9264,6 +12736,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Cuban Linx named after the Raekwon album?",
         a: "Yes — Cookies has a track record of naming releases after hip-hop classics, and Cuban Linx is the Raekwon reference (Only Built 4 Cuban Linx, 1995). The genetics are unrelated to the name; it's a branding choice.",
+      },
+      {
+        q: "Is Cuban Linx indica, sativa, or hybrid?",
+        a: "Cuban Linx is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Cookies × OGKB. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Cuban Linx taste like?",
+        a: "Cuban Linx hits sweet cookie up front, earth through the middle, and light citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cuban Linx?",
+        a: "Cuban Linx tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Cuban Linx best for?",
+        a: "Cuban Linx reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -9305,6 +12793,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Is Tropicana Cherry an award-winner?",
         a: "Yes — it's placed in multiple Emerald Cup hybrid categories and is part of the Compound Genetics / Wizard Trees catalog that's driven a lot of the modern citrus-cherry hybrid shelf.",
       },
+      {
+        q: "Is Tropicana Cherry indica, sativa, or hybrid?",
+        a: "Tropicana Cherry is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Tropicana Cookies × Cherry Cookies.",
+      },
+      {
+        q: "What does Tropicana Cherry taste like?",
+        a: "Tropicana Cherry hits citrus up front, sweet cherry through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tropicana Cherry?",
+        a: "Tropicana Cherry tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tropicana Cherry best for?",
+        a: "Tropicana Cherry reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9344,6 +12848,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Apple Sundae compare to Sundae Strudel?",
         a: "Both are Sundae Driver crosses on the apple side of the dessert-hybrid shelf. Apple Sundae uses Apple Fritter as the second parent, leaning sweeter and creamier. Sundae Strudel uses Apple Strudel and leans more pastry-forward. Similar family, distinct expressions.",
+      },
+      {
+        q: "Is Apple Sundae indica, sativa, or hybrid?",
+        a: "Apple Sundae is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sundae Driver × Apple Fritter. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Apple Sundae taste like?",
+        a: "Apple Sundae hits sweet apple up front, vanilla through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Apple Sundae?",
+        a: "Apple Sundae tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apple Sundae best for?",
+        a: "Apple Sundae reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -9390,6 +12910,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Snow Cap?",
         a: "The flower comes covered in dense white trichome frost — at harvest the buds look snow-capped. The Snow White parent contributes the heavy resin coverage; the Haze side keeps the structure sativa-leaning.",
       },
+      {
+        q: "Is Snow Cap indica, sativa, or hybrid?",
+        a: "Snow Cap is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Snow White × Haze.",
+      },
+      {
+        q: "What does Snow Cap taste like?",
+        a: "Snow Cap hits citrus up front, pine through the middle, and mint on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Snow Cap?",
+        a: "Snow Cap tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Snow Cap best for?",
+        a: "Snow Cap reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9428,6 +12964,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "What does Black Banana taste like?",
         a: "Distinctly banana-sweet on the inhale with dark-berry funk on the exhale — closer to a banana-and-blackberry pastry than the candy-shelf banana profile. It's a less common aromatic combination on the modern shelf.",
+      },
+      {
+        q: "Is Black Banana indica, sativa, or hybrid?",
+        a: "Black Banana is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Black Cherry Funk × Banana OG. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "How strong is Black Banana?",
+        a: "Black Banana tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Black Banana best for?",
+        a: "Black Banana reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
+      {
+        q: "What terpenes are in Black Banana?",
+        a: "The dominant terpenes in Black Banana are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -9469,6 +13021,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Mochi Cake compare to Mochi Gelato?",
         a: "Same family, but the Wedding Cake side pulls Mochi Cake more indica-leaning and adds vanilla-cake aromatics on top of the Mochi Gelato cream base. Customers who like both parents tend to find Mochi Cake bridges the two.",
       },
+      {
+        q: "Is Mochi Cake indica, sativa, or hybrid?",
+        a: "Mochi Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Mochi Gelato × Wedding Cake. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Mochi Cake taste like?",
+        a: "Mochi Cake hits sweet cream up front, vanilla through the middle, and light berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mochi Cake?",
+        a: "Mochi Cake tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mochi Cake best for?",
+        a: "Mochi Cake reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9509,6 +13077,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What does Tropic Truffle smell like?",
         a: "Bright citrus on the top note from Tropicana, with dense gas and earth on the bottom from Gorilla Truffle. The combination reads as citrus-then-gas rather than fully blended — it's distinct from the candy-shelf citrus profile.",
       },
+      {
+        q: "Is Tropic Truffle indica, sativa, or hybrid?",
+        a: "Tropic Truffle is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Tropicana Cookies × Gorilla Truffle. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Tropic Truffle taste like?",
+        a: "Tropic Truffle hits citrus up front, gas through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tropic Truffle?",
+        a: "Tropic Truffle tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tropic Truffle best for?",
+        a: "Tropic Truffle reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9548,6 +13132,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Frosted Donuts?",
         a: "Two-fold — The White parent contributes the dense white trichome frost (the 'frosted' part) and the sweet-pastry aromatics from the Donny Burger side give it the donut-shelf nose. The visual presentation is heavily frosted at harvest.",
       },
+      {
+        q: "Is Frosted Donuts indica, sativa, or hybrid?",
+        a: "Frosted Donuts is a hybrid — a cross that pulls from both sides of the family tree. The lineage is The White × Donny Burger. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Frosted Donuts taste like?",
+        a: "Frosted Donuts hits sweet pastry up front, gas through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Frosted Donuts?",
+        a: "Frosted Donuts tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Frosted Donuts best for?",
+        a: "Frosted Donuts reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9586,6 +13186,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does this compare to Apple Fritter alone?",
         a: "Apple Fritter Crasher carries the apple-pastry nose forward but the Wedding Crasher side adds a slightly heavier body and more vanilla-cake undercurrent. Customers who already like Apple Fritter tend to reach for this when they want the same family profile turned slightly heavier.",
+      },
+      {
+        q: "Is Apple Fritter Crasher indica, sativa, or hybrid?",
+        a: "Apple Fritter Crasher is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Apple Fritter × Wedding Crasher. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Apple Fritter Crasher taste like?",
+        a: "Apple Fritter Crasher hits sweet apple up front, vanilla through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Apple Fritter Crasher?",
+        a: "Apple Fritter Crasher tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apple Fritter Crasher best for?",
+        a: "Apple Fritter Crasher reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -9633,6 +13249,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Mochi compare to Gelato?",
         a: "Same parent stock (Sunset Sherbet × Thin Mint GSC) — both are pheno selections from the same cross. Gelato #33 and #41 are the most famous selections; Mochi is the #18 selection that leans more indica.",
       },
+      {
+        q: "Is Mochi indica, sativa, or hybrid?",
+        a: "Mochi is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Thin Mint GSC. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Mochi taste like?",
+        a: "Mochi hits sweet cream up front, berry through the middle, and mint on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mochi?",
+        a: "Mochi tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Mochi best for?",
+        a: "Mochi reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9672,6 +13304,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "What modern strains have Hawaiian heritage?",
         a: "Pineapple Express (Trainwreck × Hawaiian), Maui Wowie (Hawaiian landrace selection), NYC Sour Diesel (Mexican × Afghani × Hawaiian × Diesel) all have Hawaiian in the family tree. It's one of the foundational tropical-citrus parents in modern breeding.",
+      },
+      {
+        q: "Is Hawaiian indica, sativa, or hybrid?",
+        a: "Hawaiian is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Landrace — Hawaiian islands.",
+      },
+      {
+        q: "What does Hawaiian taste like?",
+        a: "Hawaiian hits tropical up front, sweet pineapple through the middle, and citrus on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Hawaiian?",
+        a: "Hawaiian tests in the 13–18% THC range — on the lower end for a flower strain. Customers report a milder, easier experience than the 24%+ heavy hitters.",
+      },
+      {
+        q: "What time of day is Hawaiian best for?",
+        a: "Hawaiian reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -9713,6 +13361,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How strong is Hawaiian Snow compared to Neville's Haze?",
         a: "Hawaiian Snow inherits the long ceiling of Neville's Haze and adds tropical-citrus aromatics from the Hawaiian Haze side. It's one of the heavier-hitting haze hybrids — customers newer to haze-family strains should pace themselves.",
       },
+      {
+        q: "Is Hawaiian Snow indica, sativa, or hybrid?",
+        a: "Hawaiian Snow is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Hawaiian Haze × Neville's Haze.",
+      },
+      {
+        q: "What does Hawaiian Snow taste like?",
+        a: "Hawaiian Snow hits tropical citrus up front, pine through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "What time of day is Hawaiian Snow best for?",
+        a: "Hawaiian Snow reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
+      {
+        q: "What terpenes are in Hawaiian Snow?",
+        a: "The dominant terpenes in Hawaiian Snow are Terpinolene (fruity and piney, with a fresh herbal edge), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9752,6 +13416,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is Kali Mist a coffeeshop classic?",
         a: "Sensi Seeds released it in the mid-1990s and it won the Cannabis Cup in 1995 and 2000. It's been continuously on Amsterdam coffeeshop menus and remains one of the foundational pure-sativa selections in the haze-family heritage.",
+      },
+      {
+        q: "Is Kali Mist indica, sativa, or hybrid?",
+        a: "Kali Mist is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Haze-family proprietary cross (Sensi Seeds).",
+      },
+      {
+        q: "What does Kali Mist taste like?",
+        a: "Kali Mist hits sweet herbal up front, citrus through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Kali Mist?",
+        a: "Kali Mist tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Kali Mist best for?",
+        a: "Kali Mist reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -9801,6 +13481,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Bubba's Gift compare to Bubba Kush?",
         a: "Same family with the God's Gift side adding grape and purple aromatics on top of the Bubba earthy-kush base. Effects land in the same body-heavy zone as standard Bubba Kush; aromatics are sweeter.",
       },
+      {
+        q: "Is Bubba's Gift indica, sativa, or hybrid?",
+        a: "Bubba's Gift is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Bubba Kush × God's Gift.",
+      },
+      {
+        q: "What does Bubba's Gift taste like?",
+        a: "Bubba's Gift hits sweet grape up front, earth through the middle, and kush on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Bubba's Gift?",
+        a: "Bubba's Gift tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Bubba's Gift best for?",
+        a: "Bubba's Gift reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9840,6 +13536,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How is Purple Kush different from Granddaddy Purple?",
         a: "Different parents, same purple shelf. Purple Kush is Hindu Kush × Purple Afghani — pure-leaning indica with kush earth. Granddaddy Purple is Purple Urkle × Big Bud — leans grape-and-berry sweeter. Both heavy, both purple, distinct aromatic profiles.",
+      },
+      {
+        q: "Is Purple Kush indica, sativa, or hybrid?",
+        a: "Purple Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Hindu Kush × Purple Afghani.",
+      },
+      {
+        q: "What does Purple Kush taste like?",
+        a: "Purple Kush hits sweet grape up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Purple Kush?",
+        a: "Purple Kush tests in the 17–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Purple Kush best for?",
+        a: "Purple Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -9881,6 +13593,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Granddaddy Black compare to Granddaddy Purple?",
         a: "Same GDP body-weight base, with the Black Cherry side pushing aromatics darker — closer to blackberry and dark-cherry rather than the candy-grape of straight GDP. Effects are similar; aromatics shift to the dark-fruit side.",
       },
+      {
+        q: "Is Granddaddy Black indica, sativa, or hybrid?",
+        a: "Granddaddy Black is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Granddaddy Purple × Black Cherry.",
+      },
+      {
+        q: "What does Granddaddy Black taste like?",
+        a: "Granddaddy Black hits dark berry up front, grape through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Granddaddy Black?",
+        a: "Granddaddy Black tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Granddaddy Black best for?",
+        a: "Granddaddy Black reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -9920,6 +13648,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Chocolope actually taste like chocolate?",
         a: "Yes — it's one of the rare strains where the aroma genuinely reads as chocolate and coffee, from the Chocolate Thai parent. The Cannalope Haze side adds a melon-citrus top note. Distinct aromatic profile compared to most modern sativas.",
+      },
+      {
+        q: "Is Chocolope indica, sativa, or hybrid?",
+        a: "Chocolope is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Chocolate Thai × Cannalope Haze.",
+      },
+      {
+        q: "How strong is Chocolope?",
+        a: "Chocolope tests in the 18–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Chocolope best for?",
+        a: "Chocolope reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+      },
+      {
+        q: "What terpenes are in Chocolope?",
+        a: "The dominant terpenes in Chocolope are Caryophyllene (peppery and warm, spicy on the back end), Limonene (citrus zest, bright and mood-lifting on the nose), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -9965,6 +13709,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is G13 considered heritage?",
         a: "It's one of the foundational heavy indicas of the modern shelf era, alongside Northern Lights, Hindu Kush, and Afghani. The myth gives it cultural weight; the genetics give it staying power.",
       },
+      {
+        q: "Is G13 indica, sativa, or hybrid?",
+        a: "G13 is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Proprietary indica (folklore: US government research strain, debated).",
+      },
+      {
+        q: "What does G13 taste like?",
+        a: "G13 hits earth up front, sweet pine through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is G13?",
+        a: "G13 tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is G13 best for?",
+        a: "G13 reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -10006,6 +13766,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Lemon Diesel compare to Lemon Tree?",
         a: "Both are citrus-diesel hybrids on the lemon shelf. Lemon Tree (Lemon Skunk × Sour Diesel) leans more skunk-sweet on the bottom; Lemon Diesel (California Sour × Lost Coast OG) leans more OG-fuel. Same family-zone, different undercurrents.",
       },
+      {
+        q: "Is Lemon Diesel indica, sativa, or hybrid?",
+        a: "Lemon Diesel is a hybrid — a cross that pulls from both sides of the family tree. The lineage is California Sour × Lost Coast OG. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Lemon Diesel taste like?",
+        a: "Lemon Diesel hits lemon up front, diesel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Diesel?",
+        a: "Lemon Diesel tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Lemon Diesel best for?",
+        a: "Lemon Diesel reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10045,6 +13821,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called Trinity OG?",
         a: "Three OG anchor strains in the cross — OG Kush, SFV OG, and Triangle Kush. The 'trinity' refers to those three foundational OG-family selections being stacked together. Fuel-heavy aromatic profile.",
+      },
+      {
+        q: "Is Trinity OG indica, sativa, or hybrid?",
+        a: "Trinity OG is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × SFV OG × Triangle Kush. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Trinity OG taste like?",
+        a: "Trinity OG hits fuel up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Trinity OG?",
+        a: "Trinity OG tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Trinity OG best for?",
+        a: "Trinity OG reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -10086,6 +13878,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Platinum?",
         a: "The flower comes covered in dense silvery-platinum trichome frost at harvest — the visual presentation reads as platinum rather than the more common golden or white. Both parents contribute to the heavy resin coverage.",
       },
+      {
+        q: "Is Platinum OG indica, sativa, or hybrid?",
+        a: "Platinum OG is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Master Kush × OG Kush × Purple Kush.",
+      },
+      {
+        q: "What does Platinum OG taste like?",
+        a: "Platinum OG hits fuel up front, earth through the middle, and sweet pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Platinum OG?",
+        a: "Platinum OG tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Platinum OG best for?",
+        a: "Platinum OG reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10125,6 +13933,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "How does Cinderella XX differ from Cinderella 99?",
         a: "Cinderella XX is a stabilized line — the same Cindy 99 parent bred back into itself across multiple generations to lock in phenotype consistency. Customers get the same Cindy aromatic profile with less variation across batches.",
+      },
+      {
+        q: "Is Cinderella XX indica, sativa, or hybrid?",
+        a: "Cinderella XX is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Cinderella 99 × Cinderella 99 (stabilized selection).",
+      },
+      {
+        q: "What does Cinderella XX taste like?",
+        a: "Cinderella XX hits sweet pineapple up front, citrus through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Cinderella XX?",
+        a: "Cinderella XX tests in the 18–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Cinderella XX best for?",
+        a: "Cinderella XX reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
       },
     ],
     verification: {
@@ -10175,6 +13999,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is it called Donkey Butter?",
         a: "The name comes from the dense gas-and-grease aromatic profile — Exotic Genetix's branding for the heavy-bottom-end nose. The 'butter' refers to the creamy gas finish on the exhale. It's a polarizing aroma; customers either love it or skip it.",
       },
+      {
+        q: "Is Donkey Butter indica, sativa, or hybrid?",
+        a: "Donkey Butter is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Grease Monkey × Triple OG.",
+      },
+      {
+        q: "What does Donkey Butter taste like?",
+        a: "Donkey Butter hits gas up front, grease through the middle, and sweet pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Donkey Butter?",
+        a: "Donkey Butter tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Donkey Butter best for?",
+        a: "Donkey Butter reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10215,6 +14055,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Forbidden Zkittlez compare to Zkittlez alone?",
         a: "Same Zkittlez candy-rainbow finish, but the Forbidden Fruit parent adds dark-cherry and tropical layers on top. Heavier-leaning than straight Zkittlez. Customers who like both parents tend to find this bridges the two.",
       },
+      {
+        q: "Is Forbidden Zkittlez indica, sativa, or hybrid?",
+        a: "Forbidden Zkittlez is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Forbidden Fruit × Zkittlez. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Forbidden Zkittlez taste like?",
+        a: "Forbidden Zkittlez hits sweet tropical up front, dark cherry through the middle, and candy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Forbidden Zkittlez?",
+        a: "Forbidden Zkittlez tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Forbidden Zkittlez best for?",
+        a: "Forbidden Zkittlez reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10254,6 +14110,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Lemon Pound Cake a separate strain from London Pound Cake?",
         a: "It's a phenotype selection in the London Pound Cake family that leans more lemon-citrus on the top note. Same family, distinct expression — customers seeking the citrus side of the LPC profile end up here.",
+      },
+      {
+        q: "Is Lemon Pound Cake indica, sativa, or hybrid?",
+        a: "Lemon Pound Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is London Pound Cake citrus-leaning phenotype. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Lemon Pound Cake taste like?",
+        a: "Lemon Pound Cake hits lemon up front, vanilla cake through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Lemon Pound Cake?",
+        a: "Lemon Pound Cake tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Lemon Pound Cake best for?",
+        a: "Lemon Pound Cake reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -10297,6 +14169,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "Why is Mendocino Purps a heritage strain?",
         a: "It's one of the foundational Northern California purple-shelf strains — Cannabis Cup wins in 2005 and 2006 put it on the international map. Customers familiar with the heritage California scene recognize Mendo Purps as a precursor to a lot of the modern purple-leaning indica catalog.",
       },
+      {
+        q: "Is Mendocino Purps indica, sativa, or hybrid?",
+        a: "Mendocino Purps is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Mendocino heritage selection (proprietary purple-leaning parents).",
+      },
+      {
+        q: "What does Mendocino Purps taste like?",
+        a: "Mendocino Purps hits sweet grape up front, earth through the middle, and light spice on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Mendocino Purps?",
+        a: "Mendocino Purps tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Mendocino Purps best for?",
+        a: "Mendocino Purps reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10336,6 +14224,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Does Apricot Jelly actually smell like apricot?",
         a: "Yes — the stone-fruit aromatic profile is the strain's defining feature. It reads as fresh apricot with a sweet-cream finish, distinct from the more common citrus or berry profiles on the modern shelf.",
+      },
+      {
+        q: "Is Apricot Jelly indica, sativa, or hybrid?",
+        a: "Apricot Jelly is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Legend OG × Forbidden Fruit phenotype. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Apricot Jelly taste like?",
+        a: "Apricot Jelly hits apricot up front, stone fruit through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Apricot Jelly?",
+        a: "Apricot Jelly tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Apricot Jelly best for?",
+        a: "Apricot Jelly reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
       },
     ],
     verification: {
@@ -10377,6 +14281,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "What does Sour Banana Sherbet smell like?",
         a: "Sweet-banana on the top note with diesel pungency on the bottom — the sherbet side adds a creamy finish in between. It's an uncommon aromatic stack on the modern shelf.",
       },
+      {
+        q: "Is Sour Banana Sherbet indica, sativa, or hybrid?",
+        a: "Sour Banana Sherbet is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sour Diesel × Banana Sherbet. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Sour Banana Sherbet taste like?",
+        a: "Sour Banana Sherbet hits sweet banana up front, diesel through the middle, and sherbet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Sour Banana Sherbet?",
+        a: "Sour Banana Sherbet tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Sour Banana Sherbet best for?",
+        a: "Sour Banana Sherbet reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10416,6 +14336,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Is Tahoe OG Kush the same as Tahoe OG?",
         a: "Same strain family with two common shelf names. Some growers and dispensaries use 'Tahoe OG Kush' to be explicit about the OG Kush parent; others just label it 'Tahoe OG.' Genetics are the same.",
+      },
+      {
+        q: "Is Tahoe OG Kush indica, sativa, or hybrid?",
+        a: "Tahoe OG Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is OG Kush × SFV OG (Tahoe regional phenotype).",
+      },
+      {
+        q: "What does Tahoe OG Kush taste like?",
+        a: "Tahoe OG Kush hits fuel up front, pine through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Tahoe OG Kush?",
+        a: "Tahoe OG Kush tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Tahoe OG Kush best for?",
+        a: "Tahoe OG Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
@@ -10459,6 +14395,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does this differ from Banana Kush?",
         a: "Banana Kush (Ghost OG × Banana) is the broader banana-kush family selection. Banana OG Kush specifically emphasizes the OG Kush side as the second parent, pulling the fuel undercurrent forward. Same banana-shelf nose with deeper OG fuel on the bottom.",
       },
+      {
+        q: "Is Banana OG Kush indica, sativa, or hybrid?",
+        a: "Banana OG Kush is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Banana Kush × OG Kush.",
+      },
+      {
+        q: "What does Banana OG Kush taste like?",
+        a: "Banana OG Kush hits sweet banana up front, fuel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Banana OG Kush?",
+        a: "Banana OG Kush tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Banana OG Kush best for?",
+        a: "Banana OG Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified-with-note",
@@ -10501,6 +14453,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Animal Tsunami compare to Animal Mints?",
         a: "Same Animal Mints family on the top note (sweet mint), but the Tsunami OG side pulls the body weight heavier and adds dense OG fuel on the bottom. Customers who already like Animal Mints tend to reach for this when they want the same family profile with more OG depth.",
       },
+      {
+        q: "Is Animal Tsunami indica, sativa, or hybrid?",
+        a: "Animal Tsunami is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Animal Mints × Tsunami OG. The balance leans on phenotype and the day-of harvest.",
+      },
+      {
+        q: "What does Animal Tsunami taste like?",
+        a: "Animal Tsunami hits sweet mint up front, fuel through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Animal Tsunami?",
+        a: "Animal Tsunami tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Animal Tsunami best for?",
+        a: "Animal Tsunami reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10541,6 +14509,22 @@ export const STRAINS: Record<string, Strain> = {
         q: "How does Northern Skunk relate to Shiva Skunk?",
         a: "Both come from the Northern Lights × Skunk family — Shiva Skunk specifically uses NL#5 × Skunk #1. Northern Skunk uses the broader Northern Lights parent. Same family, slightly different selections. Heritage indica-skunk genetics either way.",
       },
+      {
+        q: "Is Northern Skunk indica, sativa, or hybrid?",
+        a: "Northern Skunk is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Northern Lights × Skunk #1.",
+      },
+      {
+        q: "What does Northern Skunk taste like?",
+        a: "Northern Skunk hits sweet pine up front, skunk through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Northern Skunk?",
+        a: "Northern Skunk tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+      },
+      {
+        q: "What time of day is Northern Skunk best for?",
+        a: "Northern Skunk reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+      },
     ],
     verification: {
       status: "verified",
@@ -10580,6 +14564,22 @@ export const STRAINS: Record<string, Strain> = {
       {
         q: "Why is it called Black Domina?",
         a: "The flower's deep purple-and-black-leaf coloration at harvest gives it the name — the four-way Afghani-heavy parentage pushes the dark phenotypes. It's been a Sensi Seeds catalog staple since the late 1990s.",
+      },
+      {
+        q: "Is Black Domina indica, sativa, or hybrid?",
+        a: "Black Domina is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Northern Lights × Ortega × Hash Plant × Afghani SA.",
+      },
+      {
+        q: "What does Black Domina taste like?",
+        a: "Black Domina hits hashish up front, earth through the middle, and sweet pepper on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+      },
+      {
+        q: "How strong is Black Domina?",
+        a: "Black Domina tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+      },
+      {
+        q: "What time of day is Black Domina best for?",
+        a: "Black Domina reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
       },
     ],
     verification: {
