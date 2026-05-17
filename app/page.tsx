@@ -601,7 +601,7 @@ export default async function HomePage() {
             </p>
             <h2
               id="why-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight mt-2"
+              className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-2"
             >
               The Valley&apos;s best cannabis staff.
             </h2>
@@ -724,7 +724,7 @@ export default async function HomePage() {
             </p>
             <h2
               id="towns-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight mt-2"
+              className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-2"
             >
               We serve the whole valley.
             </h2>

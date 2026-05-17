@@ -313,7 +313,7 @@ export default async function StrainSlugPage({
       {/* Effects + Flavor */}
       <section className="max-w-3xl mx-auto px-4 pb-10 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h2 className="text-lg font-bold tracking-tight text-stone-900 mb-3">Customers often describe</h2>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 mb-3">Customers often describe</h2>
           <div className="flex flex-wrap gap-1.5">
             {s.effects.map((e) => (
               <span key={e} className="rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 text-xs font-medium">
@@ -323,7 +323,7 @@ export default async function StrainSlugPage({
           </div>
         </div>
         <div>
-          <h2 className="text-lg font-bold tracking-tight text-stone-900 mb-3">Aroma + flavor</h2>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 mb-3">Aroma + flavor</h2>
           <div className="flex flex-wrap gap-1.5">
             {s.flavor.map((f) => (
               <span key={f} className="rounded-full bg-stone-100 text-stone-800 border border-stone-300 px-2.5 py-1 text-xs font-medium">
@@ -361,7 +361,7 @@ export default async function StrainSlugPage({
       {/* FAQ */}
       {s.faqs.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 pb-12">
-          <h2 className="text-xl font-semibold text-stone-900 mb-4">Frequently asked about {s.name}</h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-4">Frequently asked about {s.name}</h2>
           <div className="space-y-2">
             {s.faqs.map((f, i) => (
               <details key={i} className="rounded-lg border border-stone-200 bg-white">
@@ -389,7 +389,7 @@ export default async function StrainSlugPage({
           max-w-3xl. Card grid stays grid-cols-2 md:grid-cols-3. */}
       {related.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 pb-12">
-          <h2 className="text-xl font-semibold text-stone-900 mb-4">Other {typeLabel.toLowerCase()} strains worth a look</h2>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-4">Other {typeLabel.toLowerCase()} strains worth a look</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {related.map((r) => (
               <Link
