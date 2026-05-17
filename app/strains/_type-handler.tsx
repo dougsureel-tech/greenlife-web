@@ -238,12 +238,17 @@ export function StrainTypePage({ slug }: { slug: string }) {
               .
             </p>
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {/* Polish-audit move #4 (2026-05-17): density adjustment for the
+              lit-up type pages. Drop lg:grid-cols-3 → lg:grid-cols-2 when
+              the type has >40 strains (cognitive overload at 70-111 micro
+              rectangles per page). Bumped card padding for breathing room.
+              Added top terpene chip under the lineage line for scan-signal. */}
+          <ul className={`grid grid-cols-1 sm:grid-cols-2 ${strainsForType.length > 40 ? "lg:grid-cols-2" : "lg:grid-cols-3"} gap-3 sm:gap-4`}>
             {strainsForType.map((s) => (
               <li key={s.slug}>
                 <Link
                   href={`/strains/${s.slug}`}
-                  className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                  className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-4 sm:px-5 sm:py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1">
                     <span className="text-sm sm:text-base font-semibold text-stone-900 group-hover:text-green-900 transition-colors truncate">
@@ -255,6 +260,13 @@ export function StrainTypePage({ slug }: { slug: string }) {
                   </div>
                   {s.lineage && (
                     <div className="text-[11px] sm:text-xs text-stone-500 leading-snug truncate">{s.lineage}</div>
+                  )}
+                  {s.terpenes && s.terpenes.length > 0 && s.terpenes[0]?.name && (
+                    <div className="mt-2 flex flex-wrap gap-1">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-emerald-700 bg-emerald-50 rounded-full px-1.5 py-0.5">
+                        {s.terpenes[0].name}
+                      </span>
+                    </div>
                   )}
                 </Link>
               </li>
