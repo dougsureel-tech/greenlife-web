@@ -35,9 +35,14 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
+import { StrainInStockSection } from "@/components/StrainInStockSection";
+import { getStrainMatchedProducts, getActiveDeals } from "@/lib/db";
 
-export const dynamic = "force-static";
-export const revalidate = false;
+// ISR with 5-min revalidate — flipped from force-static 2026-05-17 to
+// support the "In stock today" live-inventory section without forcing a
+// full rebuild on every product update. Cache invalidation is implicit
+// via ISR window. STRAIN_MENU_INTEGRATION_SPEC §3.6.
+export const revalidate = 300;
 export const dynamicParams = false;
 
 // Combined static params: strain-type slugs (indica/sativa/hybrid/cbd) + per-strain
@@ -157,6 +162,15 @@ export default async function StrainSlugPage({
     .sort((a, b) => b.score - a.score)
     .slice(0, 6)
     .map((r) => r.strain);
+
+  // Live-inventory match — STRAIN_MENU_INTEGRATION_SPEC §3.2. Server-side
+  // DB read, scored + ranked via lib/strain-match.ts, top 6 cards.
+  // Parallel-fetched with active-deals for online-pricing math; both wrapped
+  // in React.cache() so re-renders within the same request don't refetch.
+  const [matchedProducts, activeDeals] = await Promise.all([
+    getStrainMatchedProducts(s, { graph, strainsBySlug: STRAINS, limit: 6 }),
+    getActiveDeals(),
+  ]);
 
   const breadcrumbItems = [
     { label: "Strains", href: "/strains" },
@@ -360,6 +374,16 @@ export default async function StrainSlugPage({
           </div>
         </section>
       )}
+
+      {/* In stock today — live-inventory section (server-rendered from
+          local Postgres products SoT, 5-min ISR cache). HIDES entirely
+          when 0 matches per Doug §7 decision. */}
+      <StrainInStockSection
+        strain={s}
+        matched={matchedProducts}
+        deals={activeDeals}
+        storeName={STORE.name}
+      />
 
       {/* Related strains — width-jitter fix: align with prose rail at
           max-w-3xl. Card grid stays grid-cols-2 md:grid-cols-3. */}

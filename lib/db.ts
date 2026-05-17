@@ -1,6 +1,8 @@
 import "server-only";
 import { cache } from "react";
 import { cleanBrandName } from "./clean-brand-name";
+import { scoreProduct, rankStrainMatches, type ScoredProduct } from "./strain-match";
+import type { Strain, LineageGraph } from "./strains";
 
 export type VendorBrand = {
   id: string;
@@ -523,7 +525,8 @@ export async function getTreasureChestProducts(limit = 60): Promise<MenuProduct[
     SELECT
       p.id, p.name, p.brand, p.category, p.strain_type,
       p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
     INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
@@ -653,7 +656,8 @@ export async function getCategoryPreviewProducts(
     )
     SELECT p.id, p.name, p.brand, p.category, p.strain_type,
       p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
     FROM products p
     INNER JOIN latest_inv li ON li.product_id = p.id
     INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
@@ -940,3 +944,109 @@ export async function getBrandProducts(vendorId: string) {
     terpenes: string | null;
   }>;
 }
+
+// ─── Strain↔menu integration ──────────────────────────────────────────────
+//
+// Returns ranked + scored products matching a given strain by name / lineage
+// / terpene / type. Backs the "In stock today" section on /strains/<slug>.
+//
+// Spec: STRAIN_MENU_INTEGRATION_SPEC_2026_05_17.md §3.2. Doug greenlight
+// 2026-05-17 — Path B (local Postgres) won over Path A (Algolia direct).
+//
+// Same DB invariants as getMenuProducts (carry_status='active' + latest_inv
+// qty>0 + brands_with_recent_sales 365d window) — keeps the ghost-inventory
+// filter that closed the cross-store leakage bug.
+export const getStrainMatchedProducts = cache(async (
+  strain: Strain,
+  opts: {
+    graph: LineageGraph | null;
+    strainsBySlug: Record<string, Strain>;
+    deals?: ActiveDeal[];
+    limit: number;
+  },
+): Promise<ScoredProduct[]> => {
+  // CBD-type strains aren't in products.strain_type enum (which is just
+  // sativa/indica/hybrid). Doug spec §7 decision: SKIP CBD strains entirely
+  // for now — the match would be confusing across topicals/tinctures/edibles
+  // and the section would be misleading. Hide via empty result.
+  if (strain.type !== "indica" && strain.type !== "sativa" && strain.type !== "hybrid") {
+    return [];
+  }
+
+  const sql = getClient();
+
+  // Build ILIKE search stems. Word-boundary enforcement happens in JS
+  // scoreProduct via nameContains() — the SQL is a permissive pre-filter
+  // (cast wide, JS scoring narrows).
+  const nameStem = `%${strain.name}%`;
+  const parentStems = (opts.graph?.parents ?? [])
+    .map((p) => p.name)
+    .filter((n) => n && n.length >= 3)
+    .map((n) => `%${n}%`);
+  const childStems = (opts.graph?.descendants ?? [])
+    .map((c) => c.name)
+    .filter((n) => n && n.length >= 3)
+    .map((n) => `%${n}%`);
+  const myTerpenes = (strain.terpenes ?? [])
+    .map((t) => t.name)
+    .filter((n) => n && n.length >= 3);
+
+  const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    ),
+    brands_with_recent_sales AS (
+      SELECT DISTINCT p.vendor_id
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+        AND p.vendor_id IS NOT NULL
+    )
+    SELECT
+      p.id, p.name, p.brand, p.category, p.strain_type,
+      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+      FALSE AS is_new,
+      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+    FROM products p
+    INNER JOIN latest_inv li ON li.product_id = p.id
+    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+    WHERE p.carry_status = 'active'
+      AND p.unit_price IS NOT NULL AND p.unit_price > 0
+      AND li.qty > 0
+      AND p.image_url IS NOT NULL
+      AND (
+        p.name ILIKE ${nameStem}
+        OR EXISTS (SELECT 1 FROM unnest(${parentStems}::text[]) ps WHERE p.name ILIKE ps)
+        OR EXISTS (SELECT 1 FROM unnest(${childStems}::text[]) cs WHERE p.name ILIKE cs)
+        OR (
+          p.strain_type = ${strain.type}
+          AND p.terpenes IS NOT NULL
+          AND EXISTS (SELECT 1 FROM unnest(${myTerpenes}::text[]) t WHERE p.terpenes ILIKE '%' || t || '%')
+        )
+      )
+    LIMIT 80
+  `;
+
+  const candidates: MenuProduct[] = (rows as Array<{
+    id: string; name: string; brand: string | null; category: string | null;
+    strain_type: string | null; thc_pct: number | null; cbd_pct: number | null;
+    unit_price: number | null; image_url: string | null; effects: string | null;
+    terpenes: string | null; is_new: boolean; is_doh_compliant: boolean;
+  }>).map((r) => ({
+    id: r.id, name: r.name, brand: r.brand, category: r.category,
+    strainType: r.strain_type, thcPct: r.thc_pct, cbdPct: r.cbd_pct,
+    unitPrice: r.unit_price, imageUrl: r.image_url, effects: r.effects,
+    terpenes: r.terpenes, isNew: r.is_new, isDohCompliant: r.is_doh_compliant,
+  }));
+
+  const scored: ScoredProduct[] = [];
+  for (const product of candidates) {
+    const s = scoreProduct(product, strain, opts.graph, opts.strainsBySlug);
+    if (s) scored.push(s);
+  }
+
+  return rankStrainMatches(scored, { limit: opts.limit });
+});
