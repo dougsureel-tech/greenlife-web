@@ -312,25 +312,26 @@ export function SiteFooter() {
             {STORE.wslcbLicense && <span className="font-mono">#{STORE.wslcbLicense}</span>}
           </p>
         </div>
-        {/* Built-by-Sureel-AI credit + build identity. Sureel AI is
-            Doug's AI services company — the same hub we point at when
-            people ask "who built this?" Subtle, lives next to the
-            deploy-identity stamp. Doug 2026-05-02.
-            URL was the in-progress Vercel preview (sureel-ai.vercel.app)
-            until the real sureel.ai domain flipped (Doug 2026-05-03).
-            Now flipped to canonical https://sureelai.com/ — caught
-            2026-05-10 by /loop outbound-link audit (sureelai.com is the
-            production hostname per `curl https://sureelai.com/api/health
-            → ok:true`; the .vercel.app URL still 200s but is non-canonical
-            and bleeds equity from the live site). Sister scc same-push. */}
+        {/* Powered-by-CannAgent credit + build identity. CannAgent is
+            the SaaS product that runs both Green Life Cannabis +
+            Seattle Cannabis Co — positioning GLW + SCC as reference
+            installs of the product, not "consulting clients of Sureel
+            AI." Doug 2026-05-17 brand-positioning correction: the
+            consulting-firm framing (Sureel AI) was understating CannAgent
+            and over-attributing to the consultancy. CannAgent.ai is the
+            product surface dispensary prospects land on; pointing
+            outbound traffic there from the live customer footer feeds
+            the parent product brand instead of the consultancy. Sister
+            scc same-push. Previous attribution: "Built by Sureel AI"
+            pointing at sureelai.com (active 2026-05-02 → 2026-05-17). */}
         <p className="max-w-7xl mx-auto mt-2 flex items-center justify-between text-[9px] font-mono tabular-nums text-green-500/30">
           <a
-            href="https://sureelai.com/"
+            href="https://cannagent.ai/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans text-[10px] hover:text-green-300/80 transition-colors"
           >
-            Built by Sureel AI ↗
+            Powered by CannAgent ↗
           </a>
           <span className="select-all">
             v{BUILD_VERSION} · {BUILD_SHA}
