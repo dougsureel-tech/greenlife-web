@@ -165,7 +165,29 @@ export function JaneMenu({ storeId, embedConfigId }: { storeId: number; embedCon
              MenuActiveDealsStrip + MenuFallback + MenuLocalStrip below don't
              shift down when Boost paints — viewport-aware CLS defense per
              vercel:performance-optimizer P2 finding. */}
-      <div id="app" className="app min-h-[60vh]" />
+      {/* Boost hydrates inline by overwriting `#app.innerHTML`. The
+          skeleton inside is the server-rendered loading state shown
+          between paint and Boost-script execution (1-3s warm cache,
+          8-15s cold). Boost cleanly replaces it on hydrate. Polish
+          audit move #8 — eliminates the blank-area window on slow
+          connections without competing with MenuFallback (which fires
+          at 6s as a higher-tier "something's wrong" message). */}
+      <div id="app" className="app min-h-[60vh]">
+        <div className="max-w-7xl mx-auto px-4 py-8 animate-pulse" aria-hidden="true">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-stone-200 bg-white overflow-hidden">
+                <div className="aspect-square bg-stone-100" />
+                <div className="p-3 space-y-2">
+                  <div className="h-3 bg-stone-100 rounded w-3/4" />
+                  <div className="h-3 bg-stone-100 rounded w-1/2" />
+                  <div className="h-4 bg-stone-100 rounded w-1/3 mt-3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       {/* 1. Runtime config — must be parsed before the Boost module loads.
              Routed through next/script so React 19's "Encountered a script
              tag while rendering React component" warning doesn't fire on

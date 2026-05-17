@@ -244,6 +244,17 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
     bio: "Craft Elixirs is a Seattle-based I-502 edibles producer that builds its catalog around a foodie-first premise: handmade products, clean labels, locally sourced ingredients where the supply chain allows. The company runs on full-spectrum cannabis oil extracted using organic sugar-cane alcohol — a less common approach than the CO2 or hydrocarbon paths most WA edible brands take — and every product is vegan, GMO-free, gluten-free, and kosher.\n\nThe lineup includes Pioneer Squares (chocolate-format confections named after the historic Seattle neighborhood), Lori’s Cannabis Potato Chips (a savory snack that has been one of the brand’s signature pieces since launch), and Dank Chocolate Syrup. Each piece is dosed to Washington’s 10mg-per-serving rule, with portion guidance printed on-pack.\n\nCraft Elixirs sources cannabis from local Washington growers and has been covered in the Seattle Times for its kitchen-led approach. Customers who reach for the brand tend to be edible-first shoppers who care about ingredient quality, dietary fit (vegan and gluten-free), and a clear connection to a Seattle production team. A good pick when a customer wants something on the savory end of the edible spectrum — the potato chips are a category the brand essentially owns on Washington shelves.",
     updatedAt: "2026-05-16",
   },
+  // Slug-alias for the trailing-dash variant in our sitemap
+  // (`/brands/dewey-cannabis-co-`). Same brand, same bio — duplicated
+  // under the dash-suffixed key so getBrandCopy() resolves both. Doug
+  // flagged 2026-05-17 page-completion-agent report.
+  "dewey-cannabis-co-": {
+    slug: "dewey-cannabis-co-",
+    tagline: "Washington flower-and-rosin brand. “Cultivation Meets Curiosity.”",
+    bio: "Dewey Cannabis Co is a Washington I-502 brand with a flower-first catalog and a meaningful solventless-extract side. The brand frames its work as “Cultivation Meets Curiosity,” which shows up in a strain library that rotates through both modern dessert/gas cuts and less-common phenos that the cultivation team has been experimenting with.\n\nThe lineup includes Signature Flower (the everyday eighth and ounce line), Live Resin vape cartridges, an all-in-one disposable dab pen, Live Rosin (solventless hash), and the Hella Dewbie pre-roll jar — 28 pre-rolls in a single jar, a format that gives party-pack shoppers a clear use case. The Matchsticks line is hash-infused, solvent-free pre-rolls for customers who specifically want a solventless infusion rather than the more common distillate-coated approach.\n\nThe brand publishes an annual “Lookbook” detailing cultivar runs and a “Dewsletter” email for upcoming drops — both of which are unusual for a Washington producer at this scale and point to a brand that takes the educational side seriously. Customers who reach for Dewey tend to be flower-first shoppers who also want a solventless-rosin option from the same operator, and pre-roll buyers looking for a real volume format.",
+    updatedAt: "2026-05-17",
+  },
+
   "dewey-cannabis-co": {
     slug: "dewey-cannabis-co",
     tagline: "Washington flower-and-rosin brand. “Cultivation Meets Curiosity.”",
