@@ -6,6 +6,7 @@ import { NEAR_TOWNS } from "@/lib/near-towns";
 import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { STRAIN_TYPES } from "@/lib/strain-types";
 import { getStrainsInCurrentWave } from "@/lib/strains";
+import { STRAIN_FAMILIES } from "@/lib/strain-families";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
@@ -97,6 +98,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.65,
     })),
+    // Strain Family Album — /strains/families hub + 10 per-family pages.
+    // Gated by SEO_FAMILY_WAVE (separate lever from SEO_STRAIN_WAVE to
+    // honor the 6/day/stack cadence doctrine — 11 net-new URLs roll out
+    // over 2 days). The hub URL appears once SEO_FAMILY_WAVE>=1; each
+    // numbered family slot appears when wave>=its position. Default 0 =
+    // all pages physically exist + carry noindex meta + omitted from
+    // sitemap.
+    ...(() => {
+      const familyWave = parseInt(process.env.SEO_FAMILY_WAVE ?? "0", 10);
+      if (!Number.isFinite(familyWave) || familyWave <= 0) return [];
+      const entries: MetadataRoute.Sitemap = [
+        {
+          url: `${STORE.website}/strains/families`,
+          lastModified: STATIC_LASTMOD,
+          changeFrequency: "monthly" as const,
+          priority: 0.75,
+        },
+      ];
+      STRAIN_FAMILIES.slice(0, familyWave).forEach((f) => {
+        entries.push({
+          url: `${STORE.website}/strains/families/${f.slug}`,
+          lastModified: STATIC_LASTMOD,
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+        });
+      });
+      return entries;
+    })(),
     {
       url: `${STORE.website}/heroes`,
       lastModified: STATIC_LASTMOD,

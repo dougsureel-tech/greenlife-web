@@ -3,9 +3,11 @@ import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE } from "@/lib/store";
 import { STRAIN_TYPES } from "@/lib/strain-types";
 import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
+import { STRAIN_FAMILIES } from "@/lib/strain-families";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { FamilyAlbumGrid } from "@/components/FamilyAlbumGrid";
 
 // Map strain.type slug → label + accent so the hub strain-card grid
 // can chip the type without re-importing STRAIN_TYPES table mid-render.
@@ -165,11 +167,40 @@ export default function StrainsIndexPage() {
               Take the 3-question quiz
             </Link>
           </div>
+
+          {/* In-hero lens switcher — server-rendered anchor links between
+              the two organizational lenses (By Type, the current default,
+              and By Family, the new Family Album surface). Zero JS — the
+              two panels live further down the page as anchor targets. */}
+          <nav
+            aria-label="Browse strains by"
+            className="mt-7 flex flex-wrap gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em]"
+          >
+            <span className="text-green-300/70 self-center mr-1">Lens:</span>
+            <a
+              href="#by-type"
+              className="rounded-full bg-green-400 text-green-950 px-3 py-1.5 hover:bg-green-300 transition-colors"
+            >
+              By Type
+            </a>
+            <a
+              href="#by-family"
+              className="rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
+            >
+              By Family
+            </a>
+            <a
+              href="#a-z"
+              className="rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
+            >
+              A–Z
+            </a>
+          </nav>
         </div>
       </section>
 
       {/* Type cards — four big cards, one per strain category. */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <section id="by-type" className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 scroll-mt-16">
         <div className="mb-8">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
             Pick a category
@@ -208,7 +239,37 @@ export default function StrainsIndexPage() {
         </ul>
       </section>
 
-      {/* ── PER-STRAIN CARD GRID ────────────────────────────────────────
+      {/* ── BY FAMILY ─ Family Album lens (genetic lineage view) ───────
+          New ship 2026-05-17. Sister-organizational lens to "By Type"
+          above. Routes to /strains/families/<family> for per-family
+          deep-dives. Lives between Type and A-Z grids so it reads as
+          a sibling lens rather than a competing CTA. Internal-link
+          only — no wave-gate concern since the 10 family URLs are
+          gated by SEO_FAMILY_WAVE for sitemap emission. */}
+      <section id="by-family" className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-stone-200 scroll-mt-16">
+        <div className="mb-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
+            Browse by genetic line
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+            The Strain Family Album
+          </h2>
+          <p className="mt-3 text-stone-600 max-w-2xl text-sm sm:text-base leading-relaxed">
+            {STRAIN_FAMILIES.length} founder lines anchor the modern cannabis shelf — Kush, Cookies, Haze, Diesel, Cheese, Skunk, Blueberry, Afghani, Northern Lights, plus the landrace pre-modern lineages. Click through to see every strain that descends from each line.
+          </p>
+        </div>
+        <FamilyAlbumGrid compact />
+        <div className="mt-6 text-center">
+          <Link
+            href="/strains/families"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-green-800 hover:text-green-950"
+          >
+            Open the full Family Album <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── PER-STRAIN CARD GRID ─ A-Z lens (library entries) ───────────
           Wave-gated card list of the actual library entries. Hidden
           when wave=0 (build is dormant). Each card links to the
           per-strain page (`/strains/<slug>`) — lineage family-tree,
@@ -218,7 +279,7 @@ export default function StrainsIndexPage() {
           at a glance. Internal links only — no new URLs.
       */}
       {inWaveStrains.length > 0 && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-stone-200">
+        <section id="a-z" className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-stone-200 scroll-mt-16">
           <div className="mb-6 sm:mb-8">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-green-800 mb-2">
               The library
