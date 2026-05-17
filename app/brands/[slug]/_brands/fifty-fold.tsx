@@ -31,7 +31,7 @@ const ABOUT_QA = [
   },
   {
     q: "What does Fifty Fold actually ship?",
-    a: "Premium flower (eighths, grams), pre-rolls (singles and packs), and infused pre-rolls coated with their own house-made kief. They also run a DOH-compliant medical line that passes Washington's full pesticide / solvent / microbial / heavy-metal panel — the highest QA bar on the rec shelf.",
+    a: "Premium flower (eighths, grams), pre-rolls (singles and packs), and infused pre-rolls coated with their own house-made kief. They also run a DOH-compliant medical line that passes Washington's full pesticide / solvent / microbial / heavy-metal panel — one of the strictest QA bars on the rec shelf.",
   },
 ];
 
@@ -80,7 +80,7 @@ const SUB_BRANDS: Array<{
   {
     name: "DOH Compliant",
     tag: "Medical Program",
-    line: "Department-of-Health-compliant flower and pre-rolls — full pesticide / solvent / microbial / heavy-metal panel. The highest QA bar on the rec shelf.",
+    line: "Department-of-Health-compliant flower and pre-rolls — full pesticide / solvent / microbial / heavy-metal panel. One of the strictest QA bars on the rec shelf.",
     matchToken: "DOH",
   },
   {

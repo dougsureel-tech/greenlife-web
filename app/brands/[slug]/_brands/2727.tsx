@@ -22,7 +22,7 @@ const ABOUT_QA = [
   },
   {
     q: "Is 2727 outdoor or indoor grown?",
-    a: "Outdoor. The whole brand is built around sun-grown identity — full-sun terpene development, lower carbon footprint than indoor, the seasonal flavor variation outdoor brings. Their tagline 'Made to Burn with Perfection' tracks back to the cure, not the lights.",
+    a: "Outdoor. The whole brand is built around sun-grown identity — full-sun terpene development, lower carbon footprint than indoor, the seasonal flavor variation outdoor brings. Their tagline “Made to Burn with Perfection” tracks back to the cure, not the lights.",
   },
   {
     q: "Who runs 2727?",
