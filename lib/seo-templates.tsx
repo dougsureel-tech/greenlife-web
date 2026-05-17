@@ -47,11 +47,16 @@ function productSlug(p: MenuProduct): string {
 }
 
 function productUrl(p: MenuProduct): string {
-  // Convention: when the design agent ships a product detail route,
-  // both /menu/[id] and /order/[id] should resolve to the canonical
-  // detail page. Pass through @id so AI engines see one entity even
-  // if multiple URLs render it.
-  return `${STORE.website}/menu/${productSlug(p)}`;
+  // Anchor to /menu#<id> until /menu/[id] detail route ships. Pre-fix
+  // returned `/menu/${id}` which 404s today (no such route) — every
+  // Product JSON-LD link from any future caller would become a SERP-
+  // visible dead URL the moment the schema lands. /menu#<id> works
+  // today (the menu page renders, the anchor scrolls to the product
+  // card) and stays correct as a redirect target once the detail route
+  // ships. Cross-ref Menu Model A Phase 1 + memory pin
+  // `feedback_menu_cutover_guardrail_2026_05_16`. When detail route
+  // lands, swap back to /menu/${id}.
+  return `${STORE.website}/menu#${productSlug(p)}`;
 }
 
 function productImage(p: MenuProduct): string {

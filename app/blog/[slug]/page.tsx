@@ -5,6 +5,7 @@ import { getPost, getPosts, fetchDynamicPosts, fetchDynamicPost } from "@/lib/po
 import { STORE, STORE_TZ } from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { RelatedShopLinks } from "@/components/RelatedShopLinks";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -345,6 +346,11 @@ export default async function BlogPost({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* ── RELATED SHOP LINKS — SEO internal-link refactor 2026-05-17 ──
+          Pipes PageRank from /blog/[slug] long-tail to commercial-intent
+          /brands + /strains pages. Cross-stack mirror in seattle-cannabis-web. */}
+      <RelatedShopLinks />
     </>
   );
 }

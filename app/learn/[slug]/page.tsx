@@ -5,6 +5,7 @@ import { STORE } from "@/lib/store";
 import { LEARN_HUB_TOPICS, getLearnHubTopic, getRelatedLearnHubTopics } from "@/lib/learn-hub";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { RelatedShopLinks } from "@/components/RelatedShopLinks";
 
 // /learn/<slug> — long-form educational hub pages. One page per topic
 // in LEARN_HUB_TOPICS, keyed off slug. Static (force-static) — content
@@ -348,6 +349,12 @@ export default async function LearnTopicPage({
           </div>
         </div>
       </section>
+
+      {/* ── RELATED SHOP LINKS — SEO internal-link refactor 2026-05-17 ──
+          Pipes PageRank from /learn/[slug] educational long-tail to
+          commercial-intent /brands + /strains pages. Cross-stack mirror
+          in seattle-cannabis-web. */}
+      <RelatedShopLinks />
 
       {/* ── OTHER TOPICS ──────────────────────────────────────────────── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
