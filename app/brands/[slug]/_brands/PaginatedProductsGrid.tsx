@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
+import type { ActiveDeal } from "@/lib/db";
 
 type Product = {
   id: string;
@@ -61,6 +63,7 @@ type SortBy = "default" | "price-asc" | "price-desc" | "thc-desc" | "name-asc";
 // shortest path between landing and finding what fits the day.
 export function PaginatedProductsGrid({
   products,
+  deals = [],
   accentBg = "bg-[#0e2a1f]",
   accentBorder = "border-[#c8b06b]",
   accentHoverBorder = "hover:border-[#c8b06b]",
@@ -73,6 +76,10 @@ export function PaginatedProductsGrid({
   onClearNameFilter,
 }: {
   products: Product[];
+  /** Active deals so each card can apply BIGGER of (20% online floor, daily-deal %).
+   *  Defaults to empty → only the 20% floor applies. Brand-override pages should
+   *  pass the deals fetched at the top-level brand page (BrandComponentProps). */
+  deals?: ActiveDeal[];
   accentBg?: string;
   accentBorder?: string;
   accentHoverBorder?: string;
@@ -320,6 +327,7 @@ export function PaginatedProductsGrid({
           {featured && (
             <FeaturedCard
               product={featured}
+              deals={deals}
               accentText={accentText}
               accentHoverText={accentHoverText}
               accentHoverBorder={accentHoverBorder}
@@ -399,13 +407,23 @@ export function PaginatedProductsGrid({
                         )}
                       </div>
                       <div className="flex items-center justify-between pt-1 border-t border-stone-100">
-                        {p.unit_price != null ? (
-                          <span className="font-extrabold text-stone-900">
-                            ${p.unit_price.toFixed(2)}
-                          </span>
-                        ) : (
-                          <span className="text-stone-300">—</span>
-                        )}
+                        {(() => {
+                          if (p.unit_price == null) return <span className="text-stone-300">—</span>;
+                          const pricing = effectivePriceFor(
+                            { unitPrice: p.unit_price, category: p.category },
+                            findDealForProduct({ category: p.category }, deals),
+                          );
+                          if (pricing.displayPrice == null) return <span className="text-stone-300">—</span>;
+                          return (
+                            <div className="flex flex-col leading-tight">
+                              <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
+                              <span className="font-extrabold text-stone-900">${pricing.displayPrice.toFixed(2)}</span>
+                              <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
+                                {pricing.dealName ? `${Math.round(pricing.discountPct)}% off · ${pricing.dealName}` : `${ONLINE_DISCOUNT_PCT}% off online`}
+                              </span>
+                            </div>
+                          );
+                        })()}
                         <Link
                           href="/menu"
                           className={`text-xs font-bold ${accentText} ${accentHoverText} transition-colors`}
@@ -472,12 +490,14 @@ export function PaginatedProductsGrid({
 // what they want.
 function FeaturedCard({
   product: p,
+  deals,
   accentText,
   accentHoverText,
   accentHoverBorder,
   accentGlow,
 }: {
   product: Product;
+  deals: ActiveDeal[];
   accentText: string;
   accentHoverText: string;
   accentHoverBorder: string;
@@ -555,13 +575,23 @@ function FeaturedCard({
             </div>
           </div>
           <div className="flex items-end justify-between pt-3 border-t border-stone-100">
-            {p.unit_price != null ? (
-              <span className="text-3xl font-extrabold text-stone-900 tabular-nums">
-                ${p.unit_price.toFixed(2)}
-              </span>
-            ) : (
-              <span className="text-stone-300">—</span>
-            )}
+            {(() => {
+              if (p.unit_price == null) return <span className="text-stone-300">—</span>;
+              const pricing = effectivePriceFor(
+                { unitPrice: p.unit_price, category: p.category },
+                findDealForProduct({ category: p.category }, deals),
+              );
+              if (pricing.displayPrice == null) return <span className="text-stone-300">—</span>;
+              return (
+                <div className="flex flex-col leading-tight">
+                  <span className="text-stone-400 line-through text-xs decoration-red-500 decoration-2 tabular-nums">${pricing.originalPrice?.toFixed(2)}</span>
+                  <span className="text-3xl font-extrabold text-stone-900 tabular-nums">${pricing.displayPrice.toFixed(2)}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-green-700 leading-none mt-0.5">
+                    {pricing.dealName ? `${Math.round(pricing.discountPct)}% off · ${pricing.dealName}` : `${ONLINE_DISCOUNT_PCT}% off online`}
+                  </span>
+                </div>
+              );
+            })()}
             <span
               className={`text-sm font-bold ${accentText} ${accentHoverText} group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1`}
             >
