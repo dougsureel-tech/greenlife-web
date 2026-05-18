@@ -369,7 +369,7 @@ export default async function DealsPage({ searchParams }: Props) {
       {/* Only render chips if we actually have multiple categories on tap.
           Otherwise the row is decoration without value. */}
       {allDeals.length > 1 && (
-        <section className="border-b border-stone-200 bg-white sticky top-0 z-20 backdrop-blur-md bg-white/90">
+        <section className="border-b border-stone-200 bg-white sticky top-0 z-20 backdrop-blur-md bg-white/90 pt-[env(safe-area-inset-top)]">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 overflow-x-auto scrollbar-none">
             {(["all", ...FILTER_CATS] as const).map((cat) => {
               const count = catCounts[cat];

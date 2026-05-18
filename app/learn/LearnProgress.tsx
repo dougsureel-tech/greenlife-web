@@ -65,7 +65,7 @@ export function LearnProgress({ initialCompletedIds, signedIn }: Props) {
     <>
       {/* Top progress bar (signed-in only) */}
       {signedIn && (
-        <section className="sticky top-0 z-20 -mx-4 sm:mx-0 px-4 sm:px-0 bg-zinc-950/80 backdrop-blur border-b border-zinc-800/60 py-3">
+        <section className="sticky top-0 z-20 -mx-4 sm:mx-0 px-4 sm:px-0 bg-zinc-950/80 backdrop-blur border-b border-zinc-800/60 py-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
           <div className="flex items-center gap-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2 mb-1">
