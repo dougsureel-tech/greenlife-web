@@ -441,7 +441,9 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Sour Diesel is the East Coast classic — pungent fuel-and-citrus aroma, high-energy clear-headed effect. " +
       "Less of a body buzz than most modern hybrids, more of a 'turn up and go.' New Yorkers built a culture around it " +
-      "in the '90s; it's never gone away.",
+      "in the '90s; it's never gone away. On our floor Sour Diesel is one of the strains customers most often walk in " +
+      "asking for by name — the diesel-gas aroma is distinctive enough that people who used it a decade ago still " +
+      "recognize it, and it shows up across nearly every brand and price tier we carry so the request almost always has a match on the shelf.",
     lineage: "Chemdawg × Super Skunk (debated)",
     parents: ["chemdawg", null],
     thcRange: "19–25%",
@@ -456,6 +458,10 @@ export const STRAINS: Record<string, Strain> = {
     bestFor: ["Daytime energy", "Creative push", "Cleaning the house", "Afternoon hike"],
     avoidIf: ["You want neighbors not to smell it", "Anxiety-prone — Sour D runs high"],
     faqs: [
+      {
+        q: "Why is Sour Diesel one of the most-requested strains on the shelf?",
+        a: "Sour Diesel is one of the few legacy names customers walk in asking for by name — the diesel-and-citrus aroma is recognizable enough that people who used it years ago still know it when they smell it. It stays in our rotation as a fixture rather than a trend, and tends to show up across nearly every brand and price tier we carry, so there's usually a match on the shelf whatever the budget.",
+      },
       {
         q: "Why does Sour Diesel smell so strong?",
         a: "Fuel-forward terpenes (driven by caryophyllene + the Chemdawg lineage). It's part of the experience — but worth knowing if you're being discreet.",
