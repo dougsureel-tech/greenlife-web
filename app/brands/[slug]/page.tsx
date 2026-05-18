@@ -713,7 +713,7 @@ async function BrandNotCarriedFallback({ rawSlug }: { rawSlug: string }) {
         <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 p-6 sm:p-8 text-center">
           <p className="text-5xl mb-3" aria-hidden="true">🌿</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-2">
-            {prettyName} isn&rsquo;t on our shelf right now
+            {prettyName + " isn’t on our shelf right now"}
           </h1>
           <p className="text-stone-600 text-sm sm:text-base max-w-lg mx-auto">
             Our menu rotates as vendors restock. This brand may be back soon, or

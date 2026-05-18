@@ -189,12 +189,14 @@ export default function StrainsIndexPage() {
             >
               By Family
             </a>
-            <a
-              href="#a-z"
-              className="rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
-            >
-              A–Z
-            </a>
+            {inWaveStrains.length > 0 && (
+              <a
+                href="#a-z"
+                className="rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
+              >
+                A–Z
+              </a>
+            )}
           </nav>
         </div>
       </section>
