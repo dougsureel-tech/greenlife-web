@@ -55,6 +55,8 @@ function ProductCard({ p }: { p: MenuProduct }) {
             src={p.imageUrl}
             alt={p.name}
             loading="lazy"
+            width={400}
+            height={400}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
