@@ -7,7 +7,7 @@ import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/li
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
-import { getActiveBrands, getActiveDeals, getFeaturedProducts, getJustInProducts, getTreasureChestProducts } from "@/lib/db";
+import { getTopBrandsBySales, getActiveDeals, getFeaturedProducts, getJustInProducts, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { getBrandCopy } from "@/lib/brand-copy";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
@@ -166,7 +166,11 @@ export default async function HomePage() {
   // PWA-gated cards client-side via <AppOnlyDealsFilter />. ~50ms pre-
   // hydrate flicker is the accepted tradeoff for the cache win.
   const [brands, featured, justIn, deals, closure, treasureChest] = await Promise.all([
-    getActiveBrands().catch(() => []),
+    // Top Brands carousel ordered by 90d sales-line-item count (Doug
+    // 2026-05-17 "top brands should be based on sales"). Limit 30 gives
+    // headroom for the .filter(logoUrl) downstream so we still land 10
+    // logo'd tiles even when some top sellers don't have a curated logo.
+    getTopBrandsBySales(30, 90).catch(() => []),
     getFeaturedProducts(8).catch(() => []),
     getJustInProducts(12).catch(() => []),
     getActiveDeals({ includeAppOnly: true }).catch(() => []),

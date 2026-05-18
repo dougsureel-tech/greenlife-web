@@ -799,6 +799,95 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
   }));
 }
 
+/**
+ * Top brands ranked by recent sales-line-item COUNT.
+ *
+ * Doug 2026-05-17: "top brands should be based on sales." Pre-fix the
+ * homepage carousel used getActiveBrands() which ORDER BY v.name —
+ * alphabetical. "Top Brands" claiming to be Washington's finest then
+ * surfacing whoever started with A is misleading. This function:
+ *
+ *   - Counts sale_line_items per vendor in the past `days` window
+ *     (default 90 — recency-weighted; brands selling NOW float, dormant
+ *     brands sink)
+ *   - INNER JOIN-gates to that count so brand-new vendors with 0 sales
+ *     don't show on the carousel (same active-skus + image_url gate
+ *     pattern as getActiveBrands so the consumer-side .filter(logoUrl)
+ *     doesn't get a wall of logo-less tiles)
+ *   - ORDER BY sales DESC, name ASC for deterministic tiebreaks
+ *
+ * `getActiveBrands()` (alphabetical) is intentionally kept for the
+ * `/brands` index page where alphabetical browsing is the expected UX.
+ */
+export async function getTopBrandsBySales(
+  limit = 30,
+  days = 90,
+): Promise<(VendorBrand & { recentSalesCount: number })[]> {
+  const sql = getClient();
+  const rows = await sql`
+    WITH latest_inv AS (
+      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+      FROM inventory_snapshots
+      ORDER BY product_id, captured_at DESC
+    ),
+    brand_sales_window AS (
+      SELECT p.vendor_id, COUNT(*)::int AS sales_count
+      FROM sale_line_items sli
+      INNER JOIN products p ON p.id = sli.product_id
+      WHERE sli.sold_at >= NOW() - (${days}::int || ' days')::interval
+        AND p.vendor_id IS NOT NULL
+      GROUP BY p.vendor_id
+    )
+    SELECT
+      v.id,
+      v.name,
+      LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+      v.website,
+      v.logo_url,
+      v.image_source,
+      v.notes,
+      v.brand_bio,
+      v.social_instagram,
+      v.social_x,
+      v.social_facebook,
+      bsw.sales_count AS recent_sales_count,
+      COUNT(p.id) FILTER (
+        WHERE p.carry_status = 'active'
+          AND p.unit_price IS NOT NULL
+          AND p.unit_price > 0
+          AND COALESCE(li.qty, 0) > 0
+      )::int AS active_skus
+    FROM vendors v
+    INNER JOIN brand_sales_window bsw ON bsw.vendor_id = v.id
+    LEFT JOIN products p ON p.vendor_id = v.id
+    LEFT JOIN latest_inv li ON li.product_id = p.id
+    GROUP BY v.id, bsw.sales_count
+    HAVING COUNT(p.id) FILTER (
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price > 0
+        AND COALESCE(li.qty, 0) > 0
+    ) > 0
+    ORDER BY bsw.sales_count DESC, v.name ASC
+    LIMIT ${limit}
+  `;
+  return rows.map((r) => ({
+    id: r.id as string,
+    name: cleanBrandName(r.name as string) || (r.name as string),
+    slug: r.slug as string,
+    website: r.website as string | null,
+    logoUrl: r.logo_url as string | null,
+    imageSource: r.image_source as string | null,
+    notes: r.notes as string | null,
+    activeSkus: r.active_skus as number,
+    brandBio: (r.brand_bio as string | null) ?? null,
+    socialInstagram: (r.social_instagram as string | null) ?? null,
+    socialX: (r.social_x as string | null) ?? null,
+    socialFacebook: (r.social_facebook as string | null) ?? null,
+    recentSalesCount: r.recent_sales_count as number,
+  }));
+}
+
 // Wrapped with React.cache() so generateMetadata + the page component
 // share the same result within a single request. Pre-fix /loop tick 10
 // JSON-LD audit found ~17 custom-override brand pages emitting only the
