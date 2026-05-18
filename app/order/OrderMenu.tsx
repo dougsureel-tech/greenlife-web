@@ -281,16 +281,49 @@ function ProductImage({
       <div
         role="img"
         aria-label={alt}
-        className={`w-full h-full ${gradient} flex flex-col items-center justify-center gap-2`}
+        className={`relative w-full h-full ${gradient} overflow-hidden`}
       >
-        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
-          {icon}
-        </span>
-        {brand ? (
-          <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
-            {brand}
+        {/* Subtle dot-grid texture so the placeholder reads as a deliberate
+            card surface (not a missing-photo state). ~6% opacity sits below
+            the icon + brand pill without competing for attention. */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "14px 14px",
+            color: "rgb(68 64 60)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Soft light-glow corners — adds depth so the gradient feels lit
+            rather than flat. Larger blurs on the bottom-left so the eye
+            settles on the brand pill. */}
+        <div
+          className="absolute -top-6 -right-6 w-24 h-24 bg-white/40 rounded-full blur-2xl pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-8 -left-8 w-28 h-28 bg-white/25 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
+        {/* Strain-type eyebrow chip top-left when present — reads as a
+            shelf-section tag, mirrors brand-page grid card affordance. */}
+        {strainType ? (
+          <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-stone-700/85 px-2 py-0.5 bg-white/75 backdrop-blur-sm rounded-md border border-white/50 shadow-sm">
+            {strainType}
           </span>
         ) : null}
+        <div className="relative w-full h-full flex flex-col items-center justify-center gap-2.5 px-3">
+          <span className="text-6xl leading-none drop-shadow-md" aria-hidden="true">
+            {icon}
+          </span>
+          {brand ? (
+            <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
+              {brand}
+            </span>
+          ) : null}
+        </div>
       </div>
     );
   }
