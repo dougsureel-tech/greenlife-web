@@ -138,12 +138,20 @@ const SLUG_ALIASES: Record<string, string> = {
 
 type Props = { params: Promise<{ slug: string }> };
 
-// dynamicParams=false: unknown brand slugs return proper HTTP 404 at the
-// edge instead of falling through to a soft-404 origin render. SLUG_ALIASES
-// keys are emitted alongside canonical brand slugs so the friendly URLs
-// (`/brands/plaid-jacket` etc.) continue to resolve. Sister scc + GW Z48
-// cross-stack port (matrix-route fast-404 doctrine).
-export const dynamicParams = false;
+// dynamicParams=true (Doug 2026-05-17 — sister scc v28.705 same-pattern fix).
+// Previously false (fast-404 at the edge for unknown slugs), but brands
+// that sell through + drop off `getActiveBrands()` for a week then come
+// back are a normal pattern (vendor restocks, customer hits a bookmark
+// or Google-cached URL). Hard-404'ing those URLs is bad customer UX vs.
+// a soft "not on the shelf right now" page.
+//
+// SEO defense: any unknown-slug render returns `robots: { index: false,
+// follow: false }` via generateMetadata's null-brand branch so Google
+// doesn't index the fallback as a dupe. generateStaticParams still emits
+// all canonical brand slugs + SLUG_ALIASES, so KNOWN brands keep their
+// ISR pre-render + proper meta. Only the dynamic catch-all path gets the
+// noindex fallback render.
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const brands = await getActiveBrands().catch(() => []);
@@ -244,7 +252,15 @@ export default async function BrandPage({ params }: Props) {
   const { slug: rawSlug } = await params;
   const slug = SLUG_ALIASES[rawSlug] ?? rawSlug;
   const brand = await getBrandBySlug(slug).catch(() => null);
-  if (!brand) notFound();
+  if (!brand) {
+    // Soft-fallback render — brand isn't in our active vendor list right
+    // now (sold through, name changed, or never set up). Show top brands +
+    // CTAs so the customer doesn't bounce. Returns HTTP 200 with
+    // robots:noindex (set in generateMetadata above) so Google doesn't
+    // dupe-index this URL. Sister scc v28.705 same-pattern fix (Doug
+    // 2026-05-17 /brands/ballin 404 screenshot).
+    return <BrandNotCarriedFallback rawSlug={rawSlug} />;
+  }
 
   // Defense-in-depth: drop aggregator/broken logoUrls before they hit
   // render, JSON-LD, or product-image fallback. Sitemap already filters
@@ -670,5 +686,76 @@ export default async function BrandPage({ params }: Props) {
 
       </div>
     </>
+  );
+}
+
+// Doug 2026-05-17 — /brands/<unknown> soft-fallback (sister scc v28.705).
+// Customer hit a bookmark or Google-cached URL for a brand we don't
+// currently carry. Render a friendly "not on the shelf right now —
+// here's similar" page with noindex (set in generateMetadata above).
+// Set dynamicParams=true (top of file) for the catch-all to reach this.
+async function BrandNotCarriedFallback({ rawSlug }: { rawSlug: string }) {
+  // Pretty the slug back into a brand-name-ish display ("ballin" → "Ballin").
+  // Never trust the slug for HTML attributes — only display text inside
+  // text children (no innerHTML).
+  const prettyName = rawSlug
+    .split("-")
+    .map((p) => (p.length === 0 ? p : p[0].toUpperCase() + p.slice(1)))
+    .join(" ");
+  const allBrands = await getActiveBrands().catch(() => []);
+  const featured = allBrands.slice(0, 8);
+
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: prettyName }]} />
+
+        <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 p-6 sm:p-8 text-center">
+          <p className="text-5xl mb-3" aria-hidden="true">🌿</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-2">
+            {prettyName} isn&rsquo;t on our shelf right now
+          </h1>
+          <p className="text-stone-600 text-sm sm:text-base max-w-lg mx-auto">
+            Our menu rotates as vendors restock. This brand may be back soon, or
+            you may have followed an older link. Try a brand we carry today or
+            shop the live menu below.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3 justify-center">
+            <a
+              href="/menu"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-700 transition-colors"
+            >
+              Shop the live menu →
+            </a>
+            <a
+              href="/brands"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-stone-300 text-stone-800 text-sm font-bold hover:border-stone-500 transition-colors"
+            >
+              See all brands
+            </a>
+          </div>
+        </div>
+
+        {featured.length > 0 && (
+          <section className="mt-10">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-stone-500 mb-3">
+              Brands we&rsquo;re carrying today
+            </h2>
+            <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {featured.map((b) => (
+                <li key={b.id}>
+                  <a
+                    href={`/brands/${b.slug}`}
+                    className="block rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm font-bold text-stone-900 hover:border-emerald-300 hover:text-emerald-700 transition-colors text-center"
+                  >
+                    {b.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </div>
   );
 }
