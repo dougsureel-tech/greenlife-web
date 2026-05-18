@@ -37,10 +37,11 @@ const CATEGORY_GRADIENTS: Record<string, string> = {
   Tincture: "bg-gradient-to-br from-teal-100 via-cyan-50 to-sky-100",
   Topicals: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
   Topical: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
-  // Capsules + Accessories were stone/slate (dead-neutral). Stack-tint to
-  // green so they read as part of the glw surface, not as missing-art.
-  Capsules: "bg-gradient-to-br from-emerald-50 via-slate-50 to-lime-50",
-  Capsule: "bg-gradient-to-br from-emerald-50 via-slate-50 to-lime-50",
+  // Capsules + Accessories — stack-tinted green. v37.505 cycle-3 polish:
+  // dropped the `via-slate-50` middle stop in Capsule (had killed the
+  // saturation cycle-2 was trying to deliver) so the tint actually shows.
+  Capsules: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
+  Capsule: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
   Accessories: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
   Accessory: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
 };

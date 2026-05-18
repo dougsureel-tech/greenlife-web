@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { medicalNoTaxPrice } from "@/lib/medical-pricing";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
@@ -271,7 +272,7 @@ function ProductImage({
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
-  const icon = CAT_ICONS[category ?? ""] ?? "🌱";
+  const CategoryIcon = getCategoryIcon(category);
 
   if (!src || errored) {
     // Strain-tinted (Flower/Pre-Roll) or category-tinted gradient — picks
@@ -321,20 +322,28 @@ function ProductImage({
           </span>
         ) : null}
         <div className="relative w-full h-full flex flex-col items-center justify-center gap-2 px-3">
-          <span className="text-6xl leading-none drop-shadow-md" aria-hidden="true">
-            {icon}
-          </span>
+          {/* Line-art SVG category icon (cycle 3 v37.505) — replaces the
+              prior emoji glyph. currentColor inherits stone-700/70 so the
+              icon sits UNDER the brand pill in the visual hierarchy
+              instead of competing. Sized 56px (w-14 h-14) — close to the
+              cycle-2 6xl emoji visual weight but with consistent stroke
+              quality across OS/browser combinations. */}
+          <CategoryIcon
+            className="w-14 h-14 text-stone-700/70 drop-shadow-sm"
+            aria-hidden="true"
+          />
           {brand ? (
             <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
               {brand}
             </span>
           ) : null}
-          {/* THC% on placeholder cards only — uses free real estate that
-              a real photo wouldn't give up. Gives the customer a signal
-              to tap a no-photo card over scrolling past it. Real-photo
-              branch skips this entirely. */}
+          {/* THC% on placeholder cards only — wrapped in a smaller
+              outlined pill so brand-pill + THC-pill read as a deliberate
+              two-pill group rather than chip + free-floating caption
+              (cycle-3 expert-review pick). Real-photo branch skips this
+              entirely. */}
           {typeof thcPct === "number" && thcPct > 0 ? (
-            <span className="text-[10px] font-semibold tracking-wide text-stone-700/85 font-variant-numeric tabular-nums">
+            <span className="text-[10px] font-medium tracking-wide text-stone-700/85 font-variant-numeric tabular-nums px-2 py-0.5 bg-white/55 backdrop-blur-sm rounded-full border border-white/45">
               THC {thcPct.toFixed(1)}%
             </span>
           ) : null}
