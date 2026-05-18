@@ -223,15 +223,22 @@ export default async function StrainSlugPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
 
-      {/* Breadcrumb */}
-      <div className="max-w-3xl mx-auto px-4 pt-6">
-        <Breadcrumb items={breadcrumbItems} />
-      </div>
-
-      {/* Hero — width-jitter fix 2026-05-17: standardize prose rail at
-          max-w-3xl. The only legitimate width-break on this page is the
-          lineage tree (max-w-5xl) which needs the room for its SVG. */}
-      <section className="max-w-3xl mx-auto px-4 pt-6 pb-10">
+      {/* Hero — v37.285 (Doug 2026-05-18 screenshot "relocate the nav tree
+          so the other part below can come up and improve the UX").
+          Pre-fix the breadcrumb lived in its own pt-6 wrapper ABOVE the
+          hero, and the hero added another pt-6 — plus the Breadcrumb
+          component carries its own `mt-2 mb-4`, stacking to ~88px of
+          mostly-empty vertical air between page top and the eyebrow line.
+          Now the breadcrumb lives INSIDE the hero section, sharing the
+          hero's pt-4 padding; the `-mt-2` wrapper neutralizes the
+          component's internal mt-2 so it sits flush. Net: ~50px of
+          vertical air recovered above-the-fold. Width-jitter fix
+          2026-05-17 preserved (max-w-3xl rail standardized). Sister scc
+          v28.645 same-push. */}
+      <section className="max-w-3xl mx-auto px-4 pt-4 pb-10">
+        <div className="-mt-2">
+          <Breadcrumb items={breadcrumbItems} />
+        </div>
         <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-3">
           {typeLabel} · {STORE.address.city}, WA
         </div>
