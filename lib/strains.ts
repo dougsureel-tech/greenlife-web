@@ -610,7 +610,10 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Pineapple Express became famous outside cannabis culture (thanks, movie). Inside cannabis culture it's " +
       "loved on its own merits: a sativa-leaning hybrid with bright pineapple-and-cedar flavor and a clear, " +
-      "happy effect. Daytime-friendly, social-easy.",
+      "happy effect. Daytime-friendly, social-easy. On our floor most Pineapple Express moves as cartridges " +
+      "and disposables — the pineapple terps translate cleanly through distillate, and the on-the-go vape " +
+      "format fits the daytime profile. Flower phenotypes are still here for customers who want the full " +
+      "terpene spectrum.",
     lineage: "Trainwreck × Hawaiian",
     parents: ["trainwreck", "hawaiian"],
     thcRange: "17–24%",
@@ -625,6 +628,10 @@ export const STRAINS: Record<string, Strain> = {
     bestFor: ["Daytime", "Social events", "Outdoor activities", "Light creative work"],
     avoidIf: ["You want sleep", "You're caffeine-anxious"],
     faqs: [
+      {
+        q: "Should I buy Pineapple Express as flower or as a vape?",
+        a: "On our shelf, most Pineapple Express moves as cartridges and disposables — the pineapple and cedar terps come through cleanly in distillate, and the daytime-friendly profile fits the on-the-go vape format. Flower phenotypes are great if you want the full terpene spectrum and the choosing-your-grind experience.",
+      },
       {
         q: "Is Pineapple Express like the movie?",
         a: "Cinematically embellished. The real strain is gentler than the movie suggests — pleasant, bright, daytime-suitable.",
