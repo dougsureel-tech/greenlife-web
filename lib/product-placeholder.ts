@@ -1,7 +1,13 @@
 // Shared placeholder treatment for product cards that lack `image_url`.
 // Picks a Tailwind gradient class: strain-type-tinted for Flower/Pre-Rolls
 // (where strain is the meaningful shelf signal), category-tinted otherwise.
-// Falls back to stone-neutral when neither signal is present.
+// Stack-branded defaults — Wenatchee emerald accent; scc mirror uses indigo.
+//
+// 2026-05-18 (v37.485): stack-brand DEFAULT + Accessory/Capsule gradients
+// so placeholders feel like part of the green chrome rather than dead-
+// neutral stone. Hybrid stays emerald (matches glw brand). Sister scc file
+// holds indigo Hybrid + DEFAULT for that stack — file-level divergence is
+// intentional (per-stack brand), not a mirror drift.
 //
 // Tailwind classes are scanned at build via module-scope string literals —
 // safe under JIT-purge.
@@ -31,13 +37,17 @@ const CATEGORY_GRADIENTS: Record<string, string> = {
   Tincture: "bg-gradient-to-br from-teal-100 via-cyan-50 to-sky-100",
   Topicals: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
   Topical: "bg-gradient-to-br from-rose-100 via-pink-50 to-fuchsia-100",
-  Capsules: "bg-gradient-to-br from-slate-100 via-gray-50 to-zinc-100",
-  Capsule: "bg-gradient-to-br from-slate-100 via-gray-50 to-zinc-100",
-  Accessories: "bg-gradient-to-br from-stone-100 via-neutral-50 to-gray-100",
-  Accessory: "bg-gradient-to-br from-stone-100 via-neutral-50 to-gray-100",
+  // Capsules + Accessories were stone/slate (dead-neutral). Stack-tint to
+  // green so they read as part of the glw surface, not as missing-art.
+  Capsules: "bg-gradient-to-br from-emerald-50 via-slate-50 to-lime-50",
+  Capsule: "bg-gradient-to-br from-emerald-50 via-slate-50 to-lime-50",
+  Accessories: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
+  Accessory: "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50",
 };
 
-const DEFAULT_GRADIENT = "bg-gradient-to-br from-stone-100 via-stone-50 to-stone-200";
+// DEFAULT_GRADIENT was stone-neutral — replaced with a subtle green tint
+// so the fallback-of-fallbacks still belongs to glw chrome.
+const DEFAULT_GRADIENT = "bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50";
 
 // Category emoji icons — moved here so brand-page grid + OrderMenu + future
 // strain-page related-products card all read from the same source.

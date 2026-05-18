@@ -258,12 +258,16 @@ function ProductImage({
   category,
   brand,
   strainType,
+  thcPct,
 }: {
   src: string | null;
   alt: string;
   category: string | null;
   brand?: string | null;
   strainType?: string | null;
+  /** Optional THC% — only rendered on the no-photo placeholder branch
+   *  (real vendor photo cards don't sacrifice photography for it). */
+  thcPct?: number | null;
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
@@ -307,20 +311,31 @@ function ProductImage({
           className="absolute -bottom-8 -left-8 w-28 h-28 bg-white/25 rounded-full blur-3xl pointer-events-none"
           aria-hidden="true"
         />
-        {/* Strain-type eyebrow chip top-left when present — reads as a
-            shelf-section tag, mirrors brand-page grid card affordance. */}
+        {/* Strain-type eyebrow chip top-RIGHT (moved from top-left v37.485
+            cycle 2 — top-left is owned by the deal `%-OFF` and DOH chips
+            on the outer card. Placeholder strain chip moved here to avoid
+            three-chip pileup on a sale+DOH flower product). */}
         {strainType ? (
-          <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-stone-700/85 px-2 py-0.5 bg-white/75 backdrop-blur-sm rounded-md border border-white/50 shadow-sm">
+          <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-wider text-stone-700/85 px-2 py-0.5 bg-white/75 backdrop-blur-sm rounded-md border border-white/50 shadow-sm">
             {strainType}
           </span>
         ) : null}
-        <div className="relative w-full h-full flex flex-col items-center justify-center gap-2.5 px-3">
+        <div className="relative w-full h-full flex flex-col items-center justify-center gap-2 px-3">
           <span className="text-6xl leading-none drop-shadow-md" aria-hidden="true">
             {icon}
           </span>
           {brand ? (
             <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
               {brand}
+            </span>
+          ) : null}
+          {/* THC% on placeholder cards only — uses free real estate that
+              a real photo wouldn't give up. Gives the customer a signal
+              to tap a no-photo card over scrolling past it. Real-photo
+              branch skips this entirely. */}
+          {typeof thcPct === "number" && thcPct > 0 ? (
+            <span className="text-[10px] font-semibold tracking-wide text-stone-700/85 font-variant-numeric tabular-nums">
+              THC {thcPct.toFixed(1)}%
             </span>
           ) : null}
         </div>
@@ -1123,6 +1138,7 @@ export function OrderMenu({
                               category={product.category}
                               brand={product.brand}
                               strainType={product.strainType}
+                              thcPct={product.thcPct}
                             />
                             {deal && (
                               // %-off overlay top-left — iHeartJane-style
