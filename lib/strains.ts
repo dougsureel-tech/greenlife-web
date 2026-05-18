@@ -320,7 +320,9 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Named for the legalization advocate, Jack Herer is the sativa most non-cannabis people have actually heard of. " +
       "Clean head-up energy, very little body weight, with a piney-spicy aroma. Daytime by design — productive, focused, " +
-      "social-easy.",
+      "social-easy. On our floor Jack Herer tends to cycle back into the rotation each spring — customers who lean sativa " +
+      "rediscover the head-up clarity when daytime activities show back up on the calendar, and it's one of the few legacy " +
+      "names new-to-cannabis customers walk in already asking for by name.",
     lineage: "Haze × (Northern Lights #5 × Shiva Skunk)",
     parents: ["haze", "northern-lights-5", "shiva-skunk"],
     thcRange: "15–24%",
@@ -335,6 +337,10 @@ export const STRAINS: Record<string, Strain> = {
     bestFor: ["Morning use", "Creative work", "Hike or run", "Social pre-game"],
     avoidIf: ["You're prone to caffeine-style anxiety", "You want a body-heavy buzz"],
     faqs: [
+      {
+        q: "Is Jack Herer still popular, or is it a dated strain?",
+        a: "Jack Herer is one of the few legacy sativa names that keeps cycling back — customers walk in asking for it by name year after year, and it tends to pick up extra in the spring when daytime and outdoor strains see fresh attention. We carry it through every season as the reference point for what 'classic sativa' means on a Washington shelf.",
+      },
       {
         q: "Is Jack Herer a true sativa?",
         a: "Yes — about as close to a 'pure sativa' experience as you'll find on a Washington shelf, despite some indica genetics in the lineage.",
