@@ -94,7 +94,7 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
           dark
             ? "bg-green-950/85 backdrop-blur-md border-b border-green-900/50"
             : "bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-sm"
