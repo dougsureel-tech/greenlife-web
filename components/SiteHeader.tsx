@@ -49,6 +49,7 @@ const NAV = [
   { href: "/find-your-strain", label: "Strains" },
   { href: "/blog", label: "Guides" },
   { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
   { href: "/faq", label: "FAQ" },
 ];
 
