@@ -251,12 +251,17 @@ function ApplyForm() {
     const isPdf =
       file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
     if (!isPdf) {
-      setResumeError("Resume must be a PDF.");
+      setResumeError(
+        "This file isn't a PDF. We only accept PDFs — see the conversion tips just below.",
+      );
       setResume(null);
       return;
     }
     if (file.size > MAX_RESUME_BYTES) {
-      setResumeError("Resume must be 10MB or smaller.");
+      const mb = (file.size / 1024 / 1024).toFixed(1);
+      setResumeError(
+        `Your file is ${mb} MB — the limit is 10 MB. Try saving with smaller images, or scan at a lower resolution.`,
+      );
       setResume(null);
       return;
     }
@@ -278,16 +283,20 @@ function ApplyForm() {
 
   // Client-side gates that mirror the server contract. Server-side is the
   // source of truth — these keep the user from a wasted round-trip on
-  // obvious misses.
-  const canSubmit =
-    !submitting &&
-    fullName.trim().length > 0 &&
-    /^\S+@\S+\.\S+$/.test(email.trim()) &&
-    phone.trim().length > 0 &&
-    resume !== null &&
-    refs[0].name.trim().length > 0 &&
-    refs[0].phone.trim().length > 0 &&
-    age21Confirmed;
+  // obvious misses. `missing` enumerates what's blocking submit so the
+  // hint under the disabled button can tell applicants exactly which
+  // required field to fill in (was: button greyed silently, applicant had
+  // no signal which field was empty — Tyler-referred Wenatchee applicant
+  // 2026-05-19 couldn't get the form to submit, no specific error reported).
+  const missing: string[] = [];
+  if (fullName.trim().length === 0) missing.push("your name");
+  if (!/^\S+@\S+\.\S+$/.test(email.trim())) missing.push("a valid email");
+  if (phone.trim().length === 0) missing.push("a phone number");
+  if (resume === null) missing.push("a PDF resume");
+  if (refs[0].name.trim().length === 0) missing.push("first reference's name");
+  if (refs[0].phone.trim().length === 0) missing.push("first reference's phone");
+  if (!age21Confirmed) missing.push("the 21+ confirmation");
+  const canSubmit = !submitting && missing.length === 0;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -569,9 +578,27 @@ function ApplyForm() {
             </Field>
 
             {/* ── Resume ── */}
-            <Field label="Resume (PDF)" required hint="Up to 10MB. PDF only.">
-              <ResumeDrop file={resume} onFile={handleResumeChange} error={resumeError} />
-            </Field>
+            {/* `<details>` lives OUTSIDE the `<Field>` (which is a `<label>`) so
+                clicking the summary doesn't trigger the file picker via the
+                label's implicit association with the hidden file input inside
+                ResumeDrop. Default collapsed so applicants who already have a
+                PDF aren't bothered. */}
+            <div>
+              <Field label="Resume (PDF)" required hint="Up to 10MB. PDF only.">
+                <ResumeDrop file={resume} onFile={handleResumeChange} error={resumeError} />
+              </Field>
+              <details className="mt-2 px-1 text-[12px] text-stone-600">
+                <summary className="cursor-pointer text-green-700 hover:text-green-800 inline-block font-medium">
+                  Not sure how to make a PDF?
+                </summary>
+                <div className="mt-2 space-y-1.5 pl-4 leading-relaxed text-stone-700">
+                  <p><strong>Microsoft Word:</strong> File → Save As → choose &ldquo;PDF&rdquo; from the file type list.</p>
+                  <p><strong>Apple Pages:</strong> File → Export To → PDF.</p>
+                  <p><strong>Google Docs:</strong> File → Download → PDF Document (.pdf).</p>
+                  <p><strong>Photo of a paper resume:</strong> on iPhone, open Notes, tap the camera icon, choose &ldquo;Scan Documents,&rdquo; then Share → Save to Files as PDF.</p>
+                </div>
+              </details>
+            </div>
 
             {/* ── Personality prompts (written-only — no photo per WA RCW 49.60 / EEOC) ── */}
             <Field label="What's a strain or product you'd love to recommend to a customer, and why?">
@@ -776,6 +803,12 @@ function ApplyForm() {
             >
               {submitting ? "Submitting…" : "Send application"}
             </button>
+
+            {!canSubmit && !submitting && missing.length > 0 && (
+              <p className="text-center text-xs text-stone-500 -mt-2">
+                Still needed: {missing.join(", ")}.
+              </p>
+            )}
 
             <p className="text-[11px] text-stone-400 text-center">
               By submitting, you confirm the information is accurate.
