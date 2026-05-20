@@ -253,6 +253,22 @@ function parseProductName(p: MenuProduct): { name: string; weight: string | null
   return { name: kept.join(" — ") || p.name, weight };
 }
 
+// Brand-logo fallback (sister-port of scc v29.005): when a product has no
+// real photo, try to render the vendor's brand logo (~60 logos shipped in
+// /public/brand-logos/) before falling through to the strain-tinted
+// gradient. Slug the brand name to match the file convention
+// (`buddy-boy-farm.png`, `the-goodship.png`). We can't probe file existence
+// from a client component, so the <Image> onError flips state to drop back
+// to CategoryIcon — gives the same "deliberate surface" feel for brands we
+// don't have a logo for yet.
+function slugifyBrandForLogo(brand: string): string {
+  return brand
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 function ProductImage({
   src,
   alt,
@@ -272,7 +288,10 @@ function ProductImage({
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
+  const [brandLogoErrored, setBrandLogoErrored] = useState(false);
   const CategoryIcon = getCategoryIcon(category);
+  const brandLogoSlug = brand ? slugifyBrandForLogo(brand) : null;
+  const tryBrandLogo = !!brandLogoSlug && !brandLogoErrored;
 
   if (!src || errored) {
     // Strain-tinted (Flower/Pre-Roll) or category-tinted gradient — picks
@@ -322,21 +341,35 @@ function ProductImage({
           </span>
         ) : null}
         <div className="relative w-full h-full flex flex-col items-center justify-center gap-2 px-3">
-          {/* Line-art SVG category icon (cycle 3 v37.505) — replaces the
-              prior emoji glyph. currentColor inherits stone-700/70 so the
-              icon sits UNDER the brand pill in the visual hierarchy
-              instead of competing. Sized 56px (w-14 h-14) — close to the
-              cycle-2 6xl emoji visual weight but with consistent stroke
-              quality across OS/browser combinations. */}
-          <CategoryIcon
-            className="w-14 h-14 text-stone-700/70 drop-shadow-sm"
-            aria-hidden="true"
-          />
-          {brand ? (
-            <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
-              {brand}
-            </span>
-          ) : null}
+          {tryBrandLogo ? (
+            // Brand-logo fallback (`/public/brand-logos/<slug>.png`). When
+            // the file is missing for this brand the onError handler flips
+            // brandLogoErrored=true and the next render falls through to
+            // the CategoryIcon branch. The brand pill is suppressed when
+            // the logo renders successfully — the logo carries the
+            // wordmark, so the pill would just repeat the brand name.
+            <Image
+              src={`/brand-logos/${brandLogoSlug}.png`}
+              alt={`${brand} brand logo`}
+              width={160}
+              height={160}
+              className="w-24 h-24 object-contain drop-shadow-sm"
+              onError={() => setBrandLogoErrored(true)}
+              unoptimized
+            />
+          ) : (
+            <>
+              <CategoryIcon
+                className="w-14 h-14 text-stone-700/70 drop-shadow-sm"
+                aria-hidden="true"
+              />
+              {brand ? (
+                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
+                  {brand}
+                </span>
+              ) : null}
+            </>
+          )}
           {/* THC% on placeholder cards only — wrapped in a smaller
               outlined pill so brand-pill + THC-pill read as a deliberate
               two-pill group rather than chip + free-floating caption
@@ -1124,7 +1157,7 @@ export function OrderMenu({
                       {items.length}
                     </span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                     {visibleItems.map((product) => {
                       const cartItem = cart.find((i) => i.id === product.id);
                       const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
@@ -1174,8 +1207,16 @@ export function OrderMenu({
                               </span>
                             )}
                             {strain && (
+                              // v37.645: strain chip moved to bottom-right
+                              // always (was conditionally top-left when no
+                              // deal — would collide with the DOH chip when
+                              // a DOH+strain card had no deal running). Top
+                              // corners are reserved for higher-priority
+                              // chips (deal + DOH on left, NEW/cart on
+                              // right); strain is informational, fine on the
+                              // bottom edge opposite the weight chip.
                               <span
-                                className={`absolute ${deal ? "bottom-2.5 right-2.5" : "top-2.5 left-2.5"} text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}
+                                className={`absolute bottom-2.5 right-2.5 text-xs px-2.5 py-1 rounded-full font-semibold border ${strain.badge}`}
                               >
                                 <span
                                   className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${strain.dot}`}
@@ -1212,11 +1253,30 @@ export function OrderMenu({
                                 authoritative data already in the products
                                 table. */}
                             {(product.isDohCompliant || /^DOH\s+/i.test(product.category ?? "") || /\bDOH\b/i.test(product.name ?? "")) && (
+                              // v37.645: stacks UNDER the deal chip when a
+                              // sale is running (top-12 ≈ 48px down) so top-
+                              // left never piles two chips side-by-side.
+                              // Alone in top-left when no deal. Medical-
+                              // grade cross + caps "DOH" reads as clinical,
+                              // not consumer-marketing — matches the
+                              // regulatory weight (WSLCB extra-tested SKU,
+                              // no excise tax for verified patients).
+                              // TODO swap inline SVG for the official WA-DOH
+                              // logo Doug attached — needs Doug to re-drop
+                              // into chat; file not in /public yet.
                               <span
-                                className="absolute top-2.5 left-2.5 text-[10px] px-2 py-0.5 rounded-full font-bold bg-purple-700 text-white shadow-md uppercase tracking-wide"
-                                title="DOH-compliant — extra-tested SKU. Medical patients pay no tax."
+                                className={`absolute ${deal ? "top-12" : "top-2.5"} left-2.5 inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-md font-extrabold bg-purple-700 text-white shadow-md uppercase tracking-wider pointer-events-none`}
+                                title="DOH-compliant — extra-tested medical SKU. No tax for verified patients."
                               >
-                                <span aria-hidden="true">🟣 </span>DOH
+                                <svg
+                                  className="w-2.5 h-2.5"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z" />
+                                </svg>
+                                DOH
                               </span>
                             )}
                           </div>
@@ -1355,20 +1415,31 @@ export function OrderMenu({
           </div>
 
           {filtered.length === 0 && (
-            <div className="py-20 text-center space-y-3">
+            // v37.645: empty state now offers concrete next steps instead
+            // of just "clear filters." When the filters were the cause,
+            // surface the top-4 categories as one-tap recovery buttons
+            // so the user can pivot rather than feeling stuck. Search
+            // misses get a different recovery path (clear search +
+            // suggestion to phone the store).
+            <div className="py-16 text-center space-y-4">
               <div className="text-4xl" aria-hidden>🔍</div>
-              <p className="text-stone-500 font-medium">
+              <p className="text-stone-600 font-semibold text-base">
                 {search ? (
                   <>No products match &ldquo;{search}&rdquo;</>
                 ) : (
-                  <>No products match those filters.</>
+                  <>No products match those filters</>
                 )}
               </p>
-              <div className="flex flex-wrap justify-center gap-2">
+              <p className="text-stone-500 text-sm max-w-md mx-auto">
+                {search
+                  ? "Try a shorter search or one of the popular categories below. Still stuck? Call the store and a budtender can check the back."
+                  : "Some combinations are stricter than what's on the shelf today. Reset or pivot to a category below."}
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 pt-1">
                 {search && (
                   <button type="button"
                     onClick={() => setSearch("")}
-                    className="text-sm text-green-700 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"
+                    className="text-sm text-white bg-green-700 hover:bg-green-600 font-semibold py-2 px-4 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 transition-colors"
                   >
                     Clear search
                   </button>
@@ -1382,12 +1453,43 @@ export function OrderMenu({
                       setThcTier("all");
                       setSortBy("default");
                     }}
-                    className="text-sm text-green-700 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 rounded px-1"
+                    className="text-sm text-white bg-green-700 hover:bg-green-600 font-semibold py-2 px-4 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 transition-colors"
                   >
                     Reset filters
                   </button>
                 )}
               </div>
+              {/* Category pivot — only render top-4 categories with stock so
+                  the user can fall sideways into something that exists on
+                  the shelf today instead of just reset-and-retry. */}
+              {categories.length > 0 && (
+                <div className="pt-3">
+                  <p className="text-xs uppercase tracking-widest text-stone-400 font-semibold mb-2">
+                    Or browse a category
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {categories.slice(0, 4).map((c) => (
+                      <button
+                        type="button"
+                        key={c}
+                        onClick={() => {
+                          setStrainFilter(null);
+                          setBrandFilter(null);
+                          setPriceTier("all");
+                          setThcTier("all");
+                          setSortBy("default");
+                          setSearch("");
+                          selectCategory(c);
+                        }}
+                        className="inline-flex items-center gap-1.5 text-sm text-stone-700 bg-white hover:bg-stone-50 border border-stone-200 hover:border-green-300 font-semibold py-2 px-4 rounded-full transition-colors"
+                      >
+                        <span aria-hidden="true">{CAT_ICONS[c] ?? "🌱"}</span>
+                        {displayCategory(c)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
