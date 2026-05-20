@@ -36,3 +36,46 @@ export function safeLogoUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   return isBannedLogoUrl(url) ? null : url;
 }
+
+// ── Product-image domain denylist ─────────────────────────────────────────
+//
+// Sister concept to BANNED_LOGO_DOMAINS but for the PRODUCT_IMAGE plane.
+// Doug 2026-05-20 reported /menu-preview rendered 80% broken cards. Root
+// cause: the Dutchie product catalog has `image_url` values pointing at
+// `the420bar.com/wp-content/...` (returns HTTP 405 server-wide). Our
+// `ProductImage` at `app/order/OrderMenu.tsx:262-389` has the onError
+// → gradient-placeholder + brand-logo + category-icon fallback chain,
+// but that only fires CLIENT-SIDE on actual image-load failure. For
+// SSR'd cards the browser races the image fetch before React's onError
+// can swap state — dead URLs still flash the broken-img glyph.
+//
+// Fix: null out known-bad domains SERVER-SIDE in the DB-read helpers
+// (getMenuProducts, getJustInProducts, etc.). Empty imageUrl triggers
+// the placeholder branch directly: brand logo (60+ shipped at
+// /public/brand-logos/) when available, category icon when not. End-to-
+// end: NO broken-img glyph possible from a known-dead host.
+//
+// Maintenance: add a new domain here when an upstream vendor host
+// goes dark. Cheap forever — strip happens on every read.
+export const BANNED_PRODUCT_IMAGE_DOMAINS = [
+  // the420bar.com returns HTTP 405 server-wide (verified 2026-05-19);
+  // catalog has hundreds of products with image_url pointing here.
+  "the420bar.com",
+];
+
+export function isBannedProductImageUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return BANNED_PRODUCT_IMAGE_DOMAINS.some((banned) => host === banned || host.endsWith(`.${banned}`));
+  } catch {
+    return true; // malformed URL = treat as banned
+  }
+}
+
+// Strip dead-host URLs server-side so the SSR'd card renders the
+// gradient-placeholder + brand-logo fallback directly, never the
+// broken-img glyph. Pass through valid URLs untouched.
+export function safeProductImageUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  return isBannedProductImageUrl(url) ? null : url;
+}
