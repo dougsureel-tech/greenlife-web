@@ -33,6 +33,7 @@ import TwoKGardensBrandPage from "./_brands/2k-gardens";
 // `_brands/avitas.tsx` kept on disk in case the brand returns.
 import BotanicaSeattleBrandPage from "./_brands/botanica-seattle";
 import RaysLemonadeBrandPage from "./_brands/ray-s-lemonade-wa";
+import BuddyBoyFarmBrandPage from "./_brands/buddy-boy-farm";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ISR: brand detail pages are pre-rendered for known slugs (via
@@ -96,6 +97,7 @@ const BRAND_OVERRIDES: Record<string, React.ComponentType<BrandComponentProps>> 
   // works correctly there.)
   "botanica-seattle": BotanicaSeattleBrandPage,
   "ray-s-lemonade-wa": RaysLemonadeBrandPage,
+  "buddy-boy-farm": BuddyBoyFarmBrandPage,
 };
 
 // Slug aliases — friendly customer-facing URLs that map to the actual
