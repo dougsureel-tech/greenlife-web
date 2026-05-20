@@ -66,7 +66,9 @@ function fmtRelativeDay(iso: string): string {
 
 export default async function OrderHistoryPage() {
   const { userId } = await auth();
-  if (!userId) redirect("/sign-in");
+  // Post-sign-in link-follow: deep-link to order history should resume
+  // after auth, not dump to default /account.
+  if (!userId) redirect("/sign-in?redirect_url=/account/orders");
 
   const user = await currentUser();
   const portalUser = await getOrCreatePortalUser(

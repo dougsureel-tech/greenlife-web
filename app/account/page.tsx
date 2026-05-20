@@ -63,7 +63,11 @@ type Props = { searchParams: Promise<{ ordered?: string }> };
 export default async function AccountPage({ searchParams }: Props) {
   const { ordered } = await searchParams;
   const { userId } = await auth();
-  if (!userId) redirect("/sign-in");
+  // Pass current path as ?redirect_url so post-sign-in link-follow lands
+  // back here instead of the default /account. Path is hardcoded (no
+  // attacker-controlled input), so no safeRedirectPath guard needed
+  // here — guard fires at READ time in /sign-in.
+  if (!userId) redirect("/sign-in?redirect_url=/account");
 
   const user = await currentUser();
   const { user: portalUser, created } = await getOrCreatePortalUserWithCreated(

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SignIn } from "@clerk/nextjs";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 export const metadata = {
   // Root layout's title.template appends " | Green Life Cannabis" automatically.
@@ -41,36 +42,23 @@ const clerkAppearance = {
   },
 };
 
-// Same-origin guard for the post-sign-in `?redirect_url=<path>` target.
-// Pre-fix `params.redirect_url || params.redirectUrl || "/account"` flowed
-// any attacker-controlled URL into Clerk's `fallbackRedirectUrl`. Attack:
-// `https://www.greenlifecannabis.com/sign-in?redirect_url=https://attacker.com/phish`
-// — after successful sign-in, Clerk performed a full-page navigation
-// off-origin (classic open-redirect / OAuth-style trust-handoff abuse).
-// Sister of inv v396.645 + scc same-day port. Require the path to:
-//   - start with `/` (relative to public site origin)
-//   - NOT start with `//` (protocol-relative URLs like `//attacker.com/x`)
-//   - NOT start with `/\` (Windows path-trick variants)
-//   - NOT contain `://` anywhere (defense-in-depth)
-//   - 512-char cap (DoS belt)
-function safeRedirectPath(raw: string | null | undefined): string {
-  if (!raw) return "/account";
-  if (!raw.startsWith("/")) return "/account";
-  if (raw.startsWith("//")) return "/account";
-  if (raw.startsWith("/\\")) return "/account";
-  if (raw.includes("://")) return "/account";
-  return raw.slice(0, 512);
-}
+// safeRedirectPath lifted to @/lib/safe-redirect (v37.685) — same guard now
+// imported by every redirect-param surface (sister of brapp v411.545
+// port). Custom "/account" fallback passed at call-site preserves prior
+// "default to /account when no explicit ?redirect_url=" behavior.
 
 type Props = { searchParams: Promise<{ redirect_url?: string; redirectUrl?: string }> };
 
 export default async function SignInPage({ searchParams }: Props) {
   const params = await searchParams;
-  // Honor an explicit redirect target if one was passed (e.g. from /order
-  // when the visitor needed to authenticate to checkout); otherwise default
-  // to /account where their orders & loyalty live. Validated via
-  // safeRedirectPath() to prevent open-redirect after successful sign-in.
-  const fallback = safeRedirectPath(params.redirect_url || params.redirectUrl);
+  // Honor an explicit redirect target if one was passed (e.g. from
+  // /account/orders when a logged-out customer hit the deep-link);
+  // otherwise default to /account where their orders & loyalty live.
+  // Validated via safeRedirectPath() to prevent open-redirect after
+  // successful sign-in. `forceRedirectUrl` (not `fallbackRedirectUrl`) so
+  // Clerk uses our validated path deterministically rather than honoring
+  // an attacker-controlled value from its own internal redirect state.
+  const target = safeRedirectPath(params.redirect_url || params.redirectUrl, "/account");
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-10 sm:py-16 bg-gradient-to-b from-stone-50 to-stone-100">
@@ -110,7 +98,7 @@ export default async function SignInPage({ searchParams }: Props) {
           ))}
         </ul>
 
-        <SignIn appearance={clerkAppearance} fallbackRedirectUrl={fallback} signUpUrl="/sign-up" />
+        <SignIn appearance={clerkAppearance} forceRedirectUrl={target} signUpUrl="/sign-up" />
 
         {/* Escape hatches — guest browse and back-home */}
         <div className="flex items-center justify-between text-xs text-stone-500">

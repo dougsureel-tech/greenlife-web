@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SignUp } from "@clerk/nextjs";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 export const metadata = {
   // Root layout's title.template appends " | Green Life Cannabis" automatically.
@@ -40,24 +41,17 @@ const clerkAppearance = {
   },
 };
 
-// Same-origin guard for the post-sign-up `?redirect_url=<path>` target.
-// Sister of the sign-in fix + inv v396.645 + glw v23.705. Pre-fix any
-// attacker-controlled URL flowed into Clerk's `fallbackRedirectUrl`,
-// triggering an off-origin redirect after successful sign-up.
-function safeRedirectPath(raw: string | null | undefined): string {
-  if (!raw) return "/account";
-  if (!raw.startsWith("/")) return "/account";
-  if (raw.startsWith("//")) return "/account";
-  if (raw.startsWith("/\\")) return "/account";
-  if (raw.includes("://")) return "/account";
-  return raw.slice(0, 512);
-}
+// safeRedirectPath lifted to @/lib/safe-redirect (v37.685) — same guard
+// now shared with sign-in + the protected /account/* page redirects.
 
 type Props = { searchParams: Promise<{ redirect_url?: string; redirectUrl?: string }> };
 
 export default async function SignUpPage({ searchParams }: Props) {
   const params = await searchParams;
-  const fallback = safeRedirectPath(params.redirect_url || params.redirectUrl);
+  // `forceRedirectUrl` (not `fallbackRedirectUrl`) so Clerk uses our
+  // validated path deterministically rather than honoring an
+  // attacker-controlled value from its own internal redirect state.
+  const target = safeRedirectPath(params.redirect_url || params.redirectUrl, "/account");
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-10 sm:py-16 bg-gradient-to-b from-stone-50 to-stone-100">
@@ -97,7 +91,7 @@ export default async function SignUpPage({ searchParams }: Props) {
           ))}
         </ul>
 
-        <SignUp appearance={clerkAppearance} fallbackRedirectUrl={fallback} signInUrl="/sign-in" />
+        <SignUp appearance={clerkAppearance} forceRedirectUrl={target} signInUrl="/sign-in" />
 
         {/* Escape hatches */}
         <div className="flex items-center justify-between text-xs text-stone-500">
