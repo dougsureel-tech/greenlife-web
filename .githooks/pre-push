@@ -77,6 +77,7 @@ for gate in \
   scripts/check-breadcrumb-ld-id.mjs \
   scripts/check-redirect-shadow.mjs \
   scripts/check-no-store-isr-poison.mjs \
+  scripts/check-customer-cta-order-href.mjs \
   scripts/check-fabricated-review-schema.mjs \
   scripts/check-usesyncexternalstore-cache.mjs \
   scripts/check-conflict-markers.mjs \
