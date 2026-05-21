@@ -81,7 +81,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "falcanna": {
     slug: "falcanna",
     logoUrl: "/brand-logos/falcanna.png",
-    tagline: "Olympic Peninsula craft cannabis. Clean Green Certified, woman- and Native American-owned.",
+    tagline: "Olympic Peninsula craft cannabis since 2015. Clean Green Certified, woman- and Native American-owned.",
     bio: "Falcanna is a Port Angeles-based cannabis brand founded in November 2015 by Bethany and Justin Rondeaux. The Rondeauxs had been growing cannabis well before I-502 — they ran one of the first medical dispensaries on Washington’s Olympic Peninsula — and rolled that lineage into a licensed recreational brand when the state allowed it.\n\nThe farm is 100% minority-owned (50% woman-owned, 50% Native American-owned) and Clean Green Certified — the cannabis industry’s closest analog to USDA Organic certification, since federal law keeps cannabis out of the actual USDA program. Flower is grown organically and pesticide-free. The brand name nods to the founders’ work outside the grow: they’re active in falcon and hawk rehabilitation and habitat preservation on the Peninsula.\n\nFalcanna’s catalog is flower-forward, with the kind of strain selection you’d expect from a small craft operation — limited drops, rotating phenos, and concentrate runs sourced from their own material. Customers who reach for it tend to be looking for clean inputs and a documented chain of custody back to the farm.",
     updatedAt: "2026-05-16",
   },
@@ -97,7 +97,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "heylo-cannabis": {
     slug: "heylo-cannabis",
     logoUrl: "/brand-logos/heylo-cannabis.png",
-    tagline: "SODO Seattle extraction lab. 100% woman- and Latina-owned, terpene-forward.",
+    tagline: "SODO Seattle extraction lab since 2017. 100% woman- and Latina-owned, terpene-forward.",
     bio: "Heylo Cannabis is an I-502 extracts processor based in Seattle’s SODO neighborhood, founded in 2017 by Lo Friesen — an environmental chemist trained at Northwestern with prior bench experience in a gastroenterology research lab. The brand is 100% woman- and Latina-owned, and the working premise is that cannabis extracts should taste like the plant they came from, not like distillate with terpenes spiked back in.\n\nThe core lineup is RawX vape cartridges — single-strain oil pulled from fresh-frozen flower with the strain’s native terpene fraction preserved through the extraction. Around it sit Heylotion topicals (Body Budder, Body Balm), Louder Lube, Loud CBD products, and the Heylo AIO and Heylo Pico hardware lines. Sister brands Treehaus and Yolo round out the value-tier cart side. The throughline is education and transparency: COAs are published, the extraction approach is documented, and the marketing avoids the usual “best-in-class” puffery.\n\nThe brand has earned multiple Terpestival first-place finishes and Leafly’s Best Overall Company recognition. Customers who reach for Heylo tend to be terpene-curious shoppers and cartridge buyers who care about extraction method and farm-of-origin — and who appreciate the depth of operator detail Lo and the team publish about the work.",
     updatedAt: "2026-05-16",
   },
@@ -105,7 +105,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "honu-inc": {
     slug: "honu-inc",
     logoUrl: "/brand-logos/honu-inc.png",
-    tagline: "Family-owned Washington edibles. Chocolate-confection-first, dessert second.",
+    tagline: "Family-owned Washington edibles since 2013. Chocolate-confection-first, dessert second.",
     bio: "Honu is a family-owned I-502 producer/processor founded in Washington in 2013, with operations in the southwest part of the state. The name comes from the Hawaiian word for sea turtle — a symbol of longevity, peace, and humility in Hawaiian culture — and the brand’s approach mirrors that: take the time, do it by hand, keep the dose honest.\n\nThe catalog is edible-first, with the chocolate side as the flagship. Peanut Butter Cups, Chocolate Turtles, Coconut Snowballs, seasonal bars, and rotating confections make up most of the lineup, with each piece dosed to Washington’s 10mg-per-serving rule. The handcrafted side is meaningful here — Honu’s confections are made in small batches with high-quality cannabis extracts blended into the chocolate at the recipe step, not sprayed on after, which is why they taste like dessert before they taste like edible.\n\nThe brand carries 2016 Best Edibles Company and Best Sweet Edibles awards from Washington’s industry circuit, and every product goes through third-party lab testing. Customers who reach for Honu tend to be edible buyers who want the chocolate to actually taste like chocolate, and who appreciate a Washington-rooted family brand with a long enough track record that budtenders mention it without prompting.",
     updatedAt: "2026-05-16",
   },
@@ -113,7 +113,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "kiva-confections": {
     slug: "kiva-confections",
     logoUrl: "/brand-logos/kiva-confections.png",
-    tagline: "Edibles built like chocolate, not like cannabis novelty.",
+    tagline: "Edibles built like chocolate since 2010, not like cannabis novelty.",
     bio: "Kiva Confections was founded in 2010 by Scott and Kristi Palmer, who started making the first Kiva chocolate bars in their home kitchen in California. The company now operates out of a 13,000-square-foot production facility in Oakland and licenses its lines into legal markets across the country, Washington included.\n\nKiva’s catalog runs deeper than most edible brands. Their flagship is the Kiva chocolate bar in single-origin and dessert profiles. Around it sit Terra (chocolate-covered nuts and espresso beans), Petra (sugar-free breath mints with low-dose THC), Camino (fruit gummies built around terpene blends — the most-stocked of the lineup in many WA shops), and Lost Farm (a single-strain live-resin fruit chew). Doses are precise, and the formats are designed around how people actually eat candy — a square at a time, not a whole bar.\n\nThe Washington production is licensed through a local manufacturing partner so the products meet WSLCB sourcing rules, but the recipes and brand standards are the same as California. Customers reach for Kiva when they want a name they recognize and dose-by-dose consistency across formats.",
     updatedAt: "2026-05-16",
   },
@@ -176,7 +176,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "walden-cannabis": {
     slug: "walden-cannabis",
     logoUrl: "/brand-logos/walden-cannabis.png",
-    tagline: "Sun-grown Washington flower from a tier-none farm. Clean Green Certified.",
+    tagline: "Sun-grown Washington flower since 2014. Tier-none farm, Clean Green Certified.",
     bio: "Walden Cannabis is a tier-none producer/processor based in Everett, with grow and processing operations also in Brewster and a presence in South Bend. The brand started with a group of climbers, backpackers, and yogis who wanted to grow cannabis the way they grew everything else they cared about — outdoors, in the sun, with as light a chemical footprint as the regulations would allow.\n\nThe flower is sun-grown and Clean Green Certified — the closest available analog to USDA Organic for cannabis. No harmful pesticides, no synthetic regimen. The crop is dried and cured in temperature- and humidity-controlled rooms, hand-trimmed, and packaged on-site at a 3,200-square-foot facility. Walden also offers white-label drying, trimming, packaging, and consulting to other Washington growers — they’re plumbed into the back end of the state’s supply chain as much as the front.\n\nThe catalog is flower-forward with concentrates (cured resin, distillate carts, and CBD-balanced cartridges) and a small ingestibles line. The cartridge lineup includes 1:1 and 3:1 CBD ratios alongside THC-dominant options. Customers who reach for Walden tend to be looking for sun-grown WA flower with documented inputs and an accessible price point.",
     updatedAt: "2026-05-16",
   },
@@ -192,7 +192,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   "wyld": {
     slug: "wyld",
     logoUrl: "/brand-logos/wyld.png",
-    tagline: "Oregon-born real-fruit gummies. Now the most-stocked edible in the West.",
+    tagline: "Oregon-born real-fruit gummies since 2015. Now the most-stocked edible in the West.",
     bio: "Wyld was founded in 2015 in Tumalo, Oregon, by Aaron Morris and Chris Joseph — two spirits-industry veterans who started cooking marionberry and raspberry gummies in a farmhouse on a property that already held an Oregon cannabis license. The first batches reportedly weren’t great. The recipes that came out of the iteration process — fruit-forward, real-juice, low-cost-per-piece — became the brand.\n\nThe core lineup is gummies built around regional fruit profiles: marionberry, huckleberry, raspberry, pear, watermelon, peach, sour apple, and seasonal rotations. Each format is sold in single-strain CBD, 1:1, or THC-dominant ratios depending on what the customer is reaching for, and the doses (typically 10mg per piece) are calibrated for repeatable shopping. Wyld also runs vape cartridges and a hemp-derived THC beverage line in markets that allow it.\n\nThe Washington Wyld products are produced through a state-licensed manufacturing partner so they meet WSLCB sourcing rules, but the recipe and packaging are the same as the Oregon original. Wyld is now one of the most-stocked edible brands in the western U.S. — the name a customer reaches for when they want fruit-forward gummies they’ve had before.",
     updatedAt: "2026-05-16",
   },
@@ -277,7 +277,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "fairwinds-manufacturing": {
     slug: "fairwinds-manufacturing",
-    tagline: "Vancouver, WA wellness-focused processor. Tinctures, capsules, suppositories, inhalers — the deep ingestibles bench.",
+    tagline: "Vancouver, WA wellness processor. Tinctures, capsules, inhalers, suppositories — the deep ingestibles bench.",
     bio: "Fairwinds Manufacturing is a Washington I-502 processor that has built one of the deepest specialty-format catalogs in the state. The brand’s positioning is wellness-oriented, and the lineup reflects it: tinctures, vape cartridges, topical creams, FECO (Full Extract Cannabis Oil), inhalers, suppositories, and capsules — formats that most Washington producers don’t touch.\n\nThe catalog is organized around use-case categories rather than indica/sativa labels, with named lines for sleep, day-to-day balance, mental focus, and digestive support. Doses are documented carefully, and the brand has invested in formats — capsules, sublingual tinctures, suppositories — that give customers portion control well below what a typical edible or pre-roll allows. The Companion line is one of the longer-running pet-CBD products in the state, formulated specifically for animal use.\n\nFairwinds has earned coverage in Forbes and Fast Company over the years and has been one of the brands Washington operators reach for when a customer specifically asks about format options outside the standard flower / vape / gummy triangle. WAC framing rules apply — Fairwinds describes its category positioning and doses but does not make medical claims, and customers reach for the brand most often when they want precise low-dose ingestibles from an established WA producer.",
     updatedAt: "2026-05-16",
   },
@@ -325,7 +325,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "northwest-cannabis-solutions": {
     slug: "northwest-cannabis-solutions",
-    tagline: "One of the largest producer/processors in Washington. 200+ employees, multiple in-house brand lines.",
+    tagline: "Washington's biggest producer/processor — 200+ employees, multiple in-house brand lines.",
     bio: "Northwest Cannabis Solutions is one of the largest recreational cannabis producer/processors operating in Washington, with more than 200 employees across cultivation, extraction, and edibles production. The company runs a state-of-the-art growing facility, a dedicated extraction lab, and an edibles kitchen — a vertically integrated footprint that allows them to produce flower, concentrates, cartridges, edibles, topicals, and tinctures under a single roof.\n\nThe brand portfolio is deep. Legends and Private Reserve sit on the flower side. Funky Monkey, Mini Budz, and Terp Stix carry the pre-roll and concentrate-pre-roll formats. The edibles bench includes Marmas (gummies), Mari’s Mints, Pebbles Lozenges, Hi-Burst Fruit Chews, and Chewee’s Caramels. The variety is the point — NWCS is one of the few Washington operators where a single producer can supply an entire shelf from flower through edibles without leaving the umbrella.\n\nFor budtenders, NWCS is a baseline name — the producer behind a noticeable share of what’s stocked on a typical Washington menu, often without the customer realizing they’re reaching for the same operator across multiple categories. Customers who reach for the portfolio brands tend to be shoppers who care about the underlying production standards and want a producer whose distribution footprint covers most of the state.",
     updatedAt: "2026-05-16",
   },
