@@ -222,6 +222,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "agro-couture": {
     slug: "agro-couture",
+    displayName: "Agro Couture",
     logoUrl: "/brand-logos/agro-couture.png",
     tagline: "Tacoma artisan cannabis since 2015. Flower, concentrates, beverages, topicals under one roof.",
     bio: "Agro Couture is a Tacoma-based I-502 producer/processor (WSLCB #417142) that has been operating in the Washington recreational market since 2015. The brand positions itself as an artisan-tier multi-category operation, building a single in-house catalog across flower, concentrates, edibles, and topicals rather than focusing on one product class.\n\nThe flower side rotates through dessert and gas cuts — Donkey Butter, Gelato Cake, PB Pie show up regularly — and the pre-roll line includes a Diamond Stix infused-blunt format that has built its own following on Washington shelves. Concentrates run across live resin, shatter, distillate cartridges, and disposable vapes, drawing on the same in-house strain library that feeds the flower menu. The beverage side leans into 100mg lemonade formats (Tropical, Strawberry, Pink, Sour Grape) for customers who specifically want a drink format.\n\nThe topicals lineup is one of the broader ones from a Washington brand at this scale — body balms, lotions, and infusion drops in a range of THC/CBD/CBN/CBG ratios. Customers who reach for Agro Couture tend to be shoppers who want the same operator behind multiple categories, with a Tacoma-rooted brand they recognize from previous trips to the shelf.",
@@ -254,6 +255,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "ceres": {
     slug: "ceres",
+    displayName: "Ceres",
     tagline: "Washington flower and concentrate brand. Named for the Roman goddess of the harvest.",
     bio: "Ceres is a Washington I-502 producer/processor whose catalog runs across flower, pre-rolls, and concentrates. The name draws on the Roman goddess of agriculture and grain — a nod the brand carries through into its labeling, which leans more agricultural and less neon than most of the shelf around it.\n\nThe flower lineup rotates through a working strain library — pre-packaged eighths, ounces, and pre-rolls — with the concentrate side running across hash, distillate cartridges, and a small live-format selection. Ceres tends to land in the mid-tier price band on most Washington menus, which is where a lot of the everyday-shopper traffic lives.\n\nThe brand has been on Washington shelves since the early years of the recreational market. Customers who reach for Ceres tend to be flower-first shoppers who want a Washington-rooted name and an accessible price point, without committing to either the boutique top-shelf tier or the bottom-shelf budget bin. Worth asking your budtender what’s fresh in stock on a given week — the strain rotation moves with what the rooms are dropping.",
     updatedAt: "2026-05-16",
@@ -363,6 +365,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "northwest-cannabis-solutions": {
     slug: "northwest-cannabis-solutions",
+    displayName: "Northwest Cannabis Solutions",
     tagline: "Washington's biggest producer/processor — 200+ employees, multiple in-house brand lines.",
     bio: "Northwest Cannabis Solutions is one of the largest recreational cannabis producer/processors operating in Washington, with more than 200 employees across cultivation, extraction, and edibles production. The company runs a state-of-the-art growing facility, a dedicated extraction lab, and an edibles kitchen — a vertically integrated footprint that allows them to produce flower, concentrates, cartridges, edibles, topicals, and tinctures under a single roof.\n\nThe brand portfolio is deep. Legends and Private Reserve sit on the flower side. Funky Monkey, Mini Budz, and Terp Stix carry the pre-roll and concentrate-pre-roll formats. The edibles bench includes Marmas (gummies), Mari’s Mints, Pebbles Lozenges, Hi-Burst Fruit Chews, and Chewee’s Caramels. The variety is the point — NWCS is one of the few Washington operators where a single producer can supply an entire shelf from flower through edibles without leaving the umbrella.\n\nFor budtenders, NWCS is a baseline name — the producer behind a noticeable share of what’s stocked on a typical Washington menu, often without the customer realizing they’re reaching for the same operator across multiple categories. Customers who reach for the portfolio brands tend to be shoppers who care about the underlying production standards and want a producer whose distribution footprint covers most of the state.",
     updatedAt: "2026-05-16",
@@ -426,6 +429,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "kokua-services": {
     slug: "kokua-services",
+    displayName: "Kokua",
     tagline: "Lacey Tier 2 producer/processor. Hash-rosin joints and a strain-blended pre-roll bench.",
     bio: "Kokua Services is a Tier 2 I-502 producer/processor based in Lacey, in Thurston County. The brand name draws on the Hawaiian word for help, care, and cooperation — and the catalog leans into pre-roll formats that lean on craft extraction work for added flavor and potency rather than chasing the highest-test-percentage flower number.\n\nThe pre-roll bench is the line most Washington shoppers know first. The catalog runs across strain-blend pre-rolls and hash-rosin-infused formats, with the rosin pulled from material the team has worked through their own extraction pipeline. The premium tier centers on hash rosin joints — pre-rolled cones with cured hash rosin integrated into the smoke, a more labor-intensive infusion approach than the more common kief-coating or distillate-dab path. Concentrate formats run alongside on a smaller bench.\n\nKokua’s annual revenue tracked in the $3M range for 2025, which is mid-pack for a Tier 2 producer and reflects steady distribution rather than viral-shelf-presence. Customers who reach for Kokua tend to be pre-roll-first shoppers who want a hash-rosin or rosin-infused option from a single Washington producer, and budtenders mention the brand when a customer specifically asks for a solventless-infused joint format.",
     updatedAt: "2026-05-17",
@@ -538,12 +542,14 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "ceres-435011": {
     slug: "ceres-435011",
+    displayName: "Ceres",
     logoUrl: "/brand-logos/ceres-435011.png",
     tagline: "Washington flower and concentrate brand. Named for the Roman goddess of the harvest.",
     updatedAt: "2026-05-17",
   },
   "agro-couture-slab-mechanix": {
     slug: "agro-couture-slab-mechanix",
+    displayName: "Agro Couture",
     logoUrl: "/brand-logos/agro-couture-slab-mechanix.png",
     tagline: "Tacoma artisan cannabis since 2015. Flower, concentrates, beverages, topicals under one roof.",
     updatedAt: "2026-05-17",
