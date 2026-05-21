@@ -1,6 +1,30 @@
 import { ImageResponse } from "next/og";
 import { getBrandBySlug } from "@/lib/db";
+import { getBrandCopy } from "@/lib/brand-copy";
 import { STORE } from "@/lib/store";
+
+// Display-name override map for aliased slugs — mirrors the SLUG_DISPLAY_NAMES
+// in app/brands/[slug]/page.tsx so the OG card matches the visible brand
+// page when shared on social. Kept here (rather than imported) because the
+// page.tsx version is co-located with the route logic; this file only needs
+// the alias→display mapping for the few brands where the DB vendor row name
+// drifts from what customers search for.
+const SLUG_DISPLAY_NAMES: Record<string, string> = {
+  "phat-panda": "Phat Panda",
+  "plaid-jacket": "Plaid Jacket",
+  "sungrown": "Leafwerx · Cookies WA · Solr Bear",
+  "leafwerx": "Leafwerx",
+  "slab-mechanix": "Slab Mechanix",
+  "mr-moxeys": "Mr. Moxey's",
+  "mr-moxey-s": "Mr. Moxey's",
+  "moxey": "Mr. Moxey's",
+  "journeyman": "Journeyman",
+  "spot": "Spot",
+  "botanica": "Botanica Seattle",
+  "rays-lemonade": "Ray's Lemonade",
+  "ray-s-lemonade": "Ray's Lemonade",
+  "rays": "Ray's Lemonade",
+};
 
 // Cache OG image at CDN edge for 24h, stale 7d. Pattern matches
 // inv v342.405 /api/og — `revalidate` export alone doesn't apply to
@@ -25,8 +49,13 @@ export default async function BrandOG({ params }: { params: Promise<{ slug: stri
   const brand = await getBrandBySlug(slug).catch(() => null);
 
   // Fallback for missing brand — still render a nice card so even a 404
-  // share looks intentional.
-  const brandName = brand?.name ?? "Brands";
+  // share looks intentional. 3-layer display-name fallback chain so OG
+  // card matches the brand-page h1 (alias → BrandCopy override → DB).
+  const brandName =
+    SLUG_DISPLAY_NAMES[slug.toLowerCase()] ??
+    getBrandCopy(slug)?.displayName ??
+    brand?.name ??
+    "Brands";
   const skuCount = brand?.activeSkus ?? 0;
   const skuLine = brand
     ? `${skuCount} product${skuCount !== 1 ? "s" : ""} in stock`
