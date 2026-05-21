@@ -4,6 +4,7 @@ import { withAttr } from "@/lib/attribution";
 import { DAY_MS } from "@/lib/time-constants";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
+import { DohLogo } from "@/lib/doh-logo";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
 import Image from "next/image";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel } from "@/lib/store";
@@ -1511,7 +1512,10 @@ export default async function HomePage() {
                         return (
                           <div className="flex flex-col leading-tight">
                             <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
-                            <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                            <div className="flex items-center gap-1">
+                              <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                              <DohLogo product={p} size="sm" />
+                            </div>
                             <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
                               {pricing.dealName ? `${Math.round(pricing.discountPct)}% off` : `${ONLINE_DISCOUNT_PCT}% off online`}
                             </span>
@@ -1624,7 +1628,10 @@ export default async function HomePage() {
                         return (
                           <div className="flex flex-col leading-tight">
                             <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
-                            <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                            <div className="flex items-center gap-1">
+                              <span className="font-bold text-green-800 text-sm">${pricing.displayPrice.toFixed(2)}</span>
+                              <DohLogo product={p} size="sm" />
+                            </div>
                             <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
                               {pricing.dealName ? `${Math.round(pricing.discountPct)}% off` : `${ONLINE_DISCOUNT_PCT}% off online`}
                             </span>

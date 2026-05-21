@@ -7,6 +7,7 @@ import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db"
 import { withAttr } from "@/lib/attribution";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import { effectivePriceFor } from "@/lib/online-pricing";
+import { DohLogo } from "@/lib/doh-logo";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -313,7 +314,7 @@ export default async function DealDetailPage({ params }: Params) {
                       {p.name}
                     </div>
                     <div className="flex items-center justify-between pt-0.5">
-                      <span className="text-[12px] font-bold tabular-nums text-emerald-700">
+                      <span className="text-[12px] font-bold tabular-nums text-emerald-700 inline-flex items-center gap-1">
                         {(() => {
                           const pricing = effectivePriceFor(p, deal);
                           if (pricing.displayPrice == null) return "—";
@@ -324,6 +325,7 @@ export default async function DealDetailPage({ params }: Params) {
                             </>
                           );
                         })()}
+                        <DohLogo product={p} size="sm" />
                       </span>
                       {p.thcPct != null && (
                         <span className="text-[10px] text-stone-500 tabular-nums">
