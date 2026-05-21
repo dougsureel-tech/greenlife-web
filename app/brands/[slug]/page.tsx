@@ -138,6 +138,30 @@ const SLUG_ALIASES: Record<string, string> = {
   "rays": "ray-s-lemonade-wa",
 };
 
+// Display-name override for aliased slugs — when a customer lands on
+// /brands/phat-panda we want the page-title + meta + OG-card to say
+// "Phat Panda" not "Grow Op Farms" (the DB vendor row's name). Polish-
+// audit 2026-05-20 caught this: `<title>Grow Op Farms — Green Life...`
+// on /brands/phat-panda defeats the brand-first SEO pivot Doug just
+// shipped. When the rawSlug has an entry here, use the display name in
+// metadata; otherwise fall back to brand.name from the DB.
+const SLUG_DISPLAY_NAMES: Record<string, string> = {
+  "phat-panda": "Phat Panda",
+  "plaid-jacket": "Plaid Jacket",
+  "sungrown": "Leafwerx · Cookies WA · Solr Bear",
+  "leafwerx": "Leafwerx",
+  "slab-mechanix": "Slab Mechanix",
+  "mr-moxeys": "Mr. Moxey's",
+  "mr-moxey-s": "Mr. Moxey's",
+  "moxey": "Mr. Moxey's",
+  "journeyman": "Journeyman",
+  "spot": "Spot",
+  "botanica": "Botanica Seattle",
+  "rays-lemonade": "Ray's Lemonade",
+  "ray-s-lemonade": "Ray's Lemonade",
+  "rays": "Ray's Lemonade",
+};
+
 type Props = { params: Promise<{ slug: string }> };
 
 // dynamicParams=true (Doug 2026-05-17 — sister scc v28.705 same-pattern fix).
@@ -203,18 +227,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // "(Wenatchee)" parenthetical when brand name is long. Threshold = 23
     // chars on brand.name (so "Northwest Cannabis Solutions" 27 chars uses
     // the short pattern).
-    title: { absolute: brand.name.length > 23
-      ? `${brand.name} — Green Life Cannabis`
-      : `${brand.name} — Green Life Cannabis (Wenatchee)` },
+    // Brand-first display name — when rawSlug is a known alias
+    // (e.g. /brands/phat-panda), use the customer-facing display name
+    // ("Phat Panda") rather than the DB vendor row's parent-distributor
+    // name ("Grow Op Farms"). Polish-audit 2026-05-20.
+    title: { absolute: (() => {
+      const displayName = SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name;
+      return displayName.length > 23
+        ? `${displayName} — Green Life Cannabis`
+        : `${displayName} — Green Life Cannabis (Wenatchee)`;
+    })() },
     // ~155 chars — v10.105 length sweep.
-    description: `${brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
+    description: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
     // Canonical points at the resolved (canonical) slug, NOT the alias.
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
       siteName: STORE.name,
       locale: "en_US",
-      title: `${brand.name} | ${STORE.name}`,
-      description: `Browse ${brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
+      title: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} | ${STORE.name}`,
+      description: `Browse ${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
       url: `${STORE.website}/brands/${slug}`,
       type: "website",
       // Per-route OG at /brands/{slug}/opengraph-image (file convention) —
@@ -231,7 +262,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: `/brands/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${brand.name} — at ${STORE.name}`,
+          alt: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} — at ${STORE.name}`,
         },
       ],
     },

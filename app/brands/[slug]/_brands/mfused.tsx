@@ -169,8 +169,8 @@ export default function MfusedBrandPage({
         logoUrl={MFUSED_LOGO}
         logoAlt="MFUSED logo"
         title="MFUSED"
-        tagline="Super Fog"
-        subtitle="Seattle-built since 2012. One of Washington's top-selling cartridge brands — Super Fog AIO, ION carts, Jefé disposables, Fattys pre-rolls."
+        tagline="Seattle-built since 2012"
+        subtitle="One of Washington's top-selling cartridge brands — Super Fog AIO, ION carts, Jefé disposables, Fattys pre-rolls — all out of one Seattle facility."
         pills={[
           { kind: "muted", label: "Seattle, WA", dot: true },
           { kind: "muted", label: "Producer / Processor" },

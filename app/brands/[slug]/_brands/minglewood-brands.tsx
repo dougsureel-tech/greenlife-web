@@ -99,11 +99,11 @@ export default function MinglewoodBrandPage({
     <div className="bg-stone-50">
       <BrandHero
         palette={PALETTE}
-        crumb="Minglewood Brands"
+        crumb="High Tide · K-Savage · Minglewood"
         logoUrl={MW_LOGO}
         logoAlt="Minglewood Brands logo"
-        title="Minglewood"
-        tagline="Brands."
+        title="High Tide · K-Savage"
+        tagline="by Minglewood · Tacoma, WA"
         subtitle="Tacoma-based cannabis processing and distribution. Three lines under one roof — High Tide, K-Savage, and a private-label series — built for shelf-side variety without losing QA discipline."
         pills={[
           { kind: "muted", label: "Tacoma, WA", dot: true },
