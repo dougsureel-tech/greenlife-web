@@ -185,6 +185,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "trail-blazin-productions": {
     slug: "trail-blazin-productions",
+    displayName: "Trail Blazin’",
     logoUrl: "/brand-logos/trail-blazin-productions.png",
     tagline: "Bellingham craft flower. Pesticide-free since 2014.",
     bio: "Trail Blazin’ Productions is a craft cannabis farm in Bellingham, founded in 2014 by a group of Whatcom County professionals. The company has been pesticide-free from its first harvest — using beneficial predator insects for pest control rather than chemical sprays — and operates on 100% LED lighting with roughly 95% water reclaim across the facility.\n\nThe catalog skews high-CBD and balanced-ratio more than most Washington brands. Harlequin and Pennywise — both well-documented CBD-forward strains — anchor the flower lineup alongside Dutch-47, 9 Pound Hammer, Amnesia, GG4, and Dutch Grapefruit. Concentrates are shatter-format from the same strain library, and the edible line includes capsules in a range of THC:CBD ratios. There’s also a small topicals line (balms and lotions) for customers specifically asking for non-inhaled formats.\n\nThe brand is hand-trimmed and U.S.-sourced where it can be — nutrients and packaging tubes purchased domestically. Trail Blazin’ is the name budtenders mention when a customer asks for clean inputs, a stable CBD-side menu, and a craft farm with documented practices on the Pacific Northwest end of the state.",
@@ -298,6 +299,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "fairwinds-manufacturing": {
     slug: "fairwinds-manufacturing",
+    displayName: "Fairwinds",
     tagline: "Vancouver, WA wellness processor. Tinctures, capsules, inhalers, suppositories — the deep ingestibles bench.",
     bio: "Fairwinds Manufacturing is a Washington I-502 processor that has built one of the deepest specialty-format catalogs in the state. The brand’s positioning is wellness-oriented, and the lineup reflects it: tinctures, vape cartridges, topical creams, FECO (Full Extract Cannabis Oil), inhalers, suppositories, and capsules — formats that most Washington producers don’t touch.\n\nThe catalog is organized around use-case categories rather than indica/sativa labels, with named lines for sleep, day-to-day balance, mental focus, and digestive support. Doses are documented carefully, and the brand has invested in formats — capsules, sublingual tinctures, suppositories — that give customers portion control well below what a typical edible or pre-roll allows. The Companion line is one of the longer-running pet-CBD products in the state, formulated specifically for animal use.\n\nFairwinds has earned coverage in Forbes and Fast Company over the years and has been one of the brands Washington operators reach for when a customer specifically asks about format options outside the standard flower / vape / gummy triangle. WAC framing rules apply — Fairwinds describes its category positioning and doses but does not make medical claims, and customers reach for the brand most often when they want precise low-dose ingestibles from an established WA producer.",
     updatedAt: "2026-05-16",
