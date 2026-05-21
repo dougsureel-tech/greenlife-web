@@ -73,7 +73,7 @@ feature:
 All consumers MUST check:
 
 ```ts
-if (process.env.TERPENE_FINGERPRINT_ENABLED !== "true") {
+if (process.env.TERPENE_FINGERPRINT_ENABLED !== "true" && !previewMode) {
   notFound();
 }
 ```
@@ -85,6 +85,29 @@ Default OFF until:
 2. The nightly recompute cron has run at least once and backfilled
    real vectors for active customers.
 3. Doug greenlights the surface for soft-launch.
+
+## How Doug previews this page (no flag flip required)
+
+Append `?preview=1` (or `?preview=true`) to the URL — works on prod
+without logging in, surfaces the mock-fixture render with the dotted
+"Preview mode" banner. Live URLs:
+
+- glw: `https://www.greenlifecannabis.com/account/terpene-profile?preview=1`
+- scc: `https://www.seattlecannabis.co/account/terpene-profile?preview=1`
+
+The escape chain (sister of wrapped page's pattern):
+
+1. **Middleware** (`proxy.ts`) — Clerk's `auth.protect()` is skipped when
+   `?preview=1` is present on `/account/*` paths.
+2. **Page** (`app/account/terpene-profile/page.tsx`) — the env-flag
+   `notFound()` is gated on `!previewMode`; the in-page Clerk session
+   check is also skipped in preview.
+3. **Render** — same `buildMockFingerprint()` + cousin-finder code path
+   the real-data flow uses; only the auth + flag dance is bypassed.
+
+Real-data render still requires both flag ON AND Clerk login — the
+preview path renders mock fixtures only and never reads customer-
+specific data, so it can't be used to exfiltrate real terpene profiles.
 
 ## Mock-data mode
 
