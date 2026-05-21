@@ -173,8 +173,8 @@ export default function SparkIndustriesBrandPage({
           </div>
         }
         title="Plaid Jacket"
-        tagline="+ Flip Side"
-        subtitle="Spark Industries out of Tumwater — Pacific Northwest indoor flower, in-house BHO concentrates, and a separate vape brand (Flip Side) all under one roof."
+        tagline="+ Flip Side · by Spark Industries"
+        subtitle="Pacific Northwest indoor flower, in-house BHO concentrates, and Flip Side vapes — all built in Spark Industries' purpose-designed Tumwater facility."
         pills={[
           { kind: "muted", label: "Tumwater, WA", dot: true },
           { kind: "muted", label: "Tier 2 Producer / Processor" },

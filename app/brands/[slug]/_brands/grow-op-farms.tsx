@@ -137,12 +137,12 @@ export default function GrowOpFarmsBrandPage({
     <div className="bg-stone-50">
       <BrandHero
         palette={PALETTE}
-        crumb="Grow Op Farms / Phat Panda"
+        crumb="Phat Panda"
         logoUrl={PANDA_LOGO}
         logoAlt="Phat Panda logo"
-        title="Grow Op Farms"
-        tagline="/ Phat Panda"
-        subtitle="One of Washington's biggest growers. Spokane Valley, since 2014 — flower, pre-rolls, concentrates, and edibles all out of one 80,000-sq-ft house."
+        title="Phat Panda"
+        tagline="by Grow Op Farms · since 2014"
+        subtitle="One of Washington's biggest growers. Spokane Valley — flower, pre-rolls, concentrates, and edibles all out of one 80,000-sq-ft house."
         pills={[
           { kind: "muted", label: "Spokane Valley, WA", dot: true },
           { kind: "muted", label: "Tier 3 Producer / Processor" },

@@ -121,12 +121,12 @@ export default function SungrownBrandPage({
     <div className="bg-stone-50">
       <BrandHero
         palette={PALETTE}
-        crumb="Sungrown"
+        crumb="Leafwerx · Cookies WA · Sungrown"
         logoUrl={SG_LOGO}
         logoAlt="Sungrown logo"
-        title="Sungrown"
-        tagline="Soil to oil, single-source."
-        subtitle="The East Wenatchee producer/processor behind Leafwerx, Solr Bear, Full Spec, Cookies WA, and Ric Flair Drip — all built on cannabis they grow themselves."
+        title="Leafwerx · Cookies WA · Solr Bear"
+        tagline="by Sungrown · since 2016"
+        subtitle="The East Wenatchee producer/processor growing the flower behind Leafwerx, Solr Bear, Full Spec, Cookies WA, and Ric Flair Drip — every drop and every gram from cannabis they cultivated themselves."
         pills={[
           { kind: "muted", label: "East Wenatchee, WA", dot: true },
           { kind: "muted", label: "Tier-3 Producer/Processor" },

@@ -176,7 +176,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // layout default title + noindex hint. Google indexed alias URLs as
   // duplicates of the homepage title — exact duplicate-content signal
   // we don't want. Caught 2026-05-10 by /loop tick 4 sister scc fix.
-  const slug = SLUG_ALIASES[rawSlug] ?? rawSlug;
+  // Case-normalize the rawSlug — externally-linked URLs with mixed case
+  // ("/brands/ARTIZEN") would otherwise hit SLUG_ALIASES + DB lookups as
+  // case-sensitive and miss, soft-404'ing valid brands. Smoke-test audit
+  // 2026-05-20 found this against /brands/ARTIZEN. Lowercase once at the
+  // top of generateMetadata + the page function below.
+  const slug = SLUG_ALIASES[rawSlug.toLowerCase()] ?? rawSlug.toLowerCase();
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) {
     // Soft-404 mitigation: Next 16 + ISR + page-level `notFound()` (line ~135)
@@ -252,7 +257,9 @@ const CAT_ICONS: Record<string, string> = {
 
 export default async function BrandPage({ params }: Props) {
   const { slug: rawSlug } = await params;
-  const slug = SLUG_ALIASES[rawSlug] ?? rawSlug;
+  // Lowercase the rawSlug — see generateMetadata above for full context.
+  // Externally-linked URLs with mixed case would otherwise soft-404.
+  const slug = SLUG_ALIASES[rawSlug.toLowerCase()] ?? rawSlug.toLowerCase();
   const brand = await getBrandBySlug(slug).catch(() => null);
   if (!brand) {
     // Soft-fallback render — brand isn't in our active vendor list right
@@ -442,7 +449,19 @@ export default async function BrandPage({ params }: Props) {
           )}
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight">{brand.name}</h1>
-            <p className="text-green-300/70 text-sm mt-1 flex flex-wrap items-center gap-3">
+            {/* Heritage tagline — Doug 2026-05-20: "people want to know how
+                long the product has been getting people high for, not who
+                is behind it." Hero is the brand-first surface; tagline up
+                front, distributor relationship + SKU count secondary. */}
+            {(() => {
+              const fileCopy = getBrandCopy(slug);
+              return fileCopy?.tagline ? (
+                <p className="text-green-100 text-base font-semibold mt-1.5 max-w-2xl">
+                  {fileCopy.tagline}
+                </p>
+              ) : null;
+            })()}
+            <p className="text-green-300/70 text-sm mt-2 flex flex-wrap items-center gap-3">
               <span>
                 {brand.activeSkus} product{brand.activeSkus !== 1 ? "s" : ""} in {STORE.address.city}, WA
               </span>
