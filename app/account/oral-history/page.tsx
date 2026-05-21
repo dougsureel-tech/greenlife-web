@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
+type Props = {
+  searchParams: Promise<{ preview?: string }>;
+};
+
 const STATUS_PILL: Record<string, string> = {
   pending: "bg-amber-50 text-amber-800 border-amber-200",
   approved: "bg-emerald-50 text-emerald-800 border-emerald-200",
@@ -56,7 +60,49 @@ function fmtDate(iso: string | null): string {
   return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
-export default async function OralHistoryPage() {
+export default async function OralHistoryPage({ searchParams }: Props) {
+  // Preview-mode escape — Doug/Kat/Austin eye the recorder render before
+  // flipping VOICE_MEMO_ENABLED. Mirrors the wrapped/terpene-profile/
+  // tree-growth pattern. See proxy.ts + feedback_preview_query_escape_three_layer_chain_2026_05_21.
+  const { preview } = await searchParams;
+  const previewMode = preview === "1" || preview === "true";
+
+  if (previewMode) {
+    const canRecordSample = canRecordForStrain(VOICE_MEMO_MOCK_STRAIN_SLUG);
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <aside
+          role="note"
+          className="mb-6 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+        >
+          <strong>Preview mode.</strong> No sign-in required. Submissions are not persisted in this view.
+        </aside>
+        <header>
+          <h1 className="text-2xl font-bold text-stone-900">Your oral history</h1>
+          <p className="mt-2 max-w-prose text-stone-700">
+            You can leave a 15-second voice memo on a strain you're picking up
+            for the first time. Tell us what drew you to it. Approved memos
+            appear anonymously on the strain page — never your name.
+          </p>
+        </header>
+        {canRecordSample ? (
+          <div className="mt-6">
+            <VoiceMemoRecorder
+              strainSlug={VOICE_MEMO_MOCK_STRAIN_SLUG}
+              strainName={VOICE_MEMO_MOCK_STRAIN_SLUG
+                .replace(/-/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase())}
+              prompt={VOICE_MEMO_PROMPT}
+              attestLabel={VOICE_MEMO_ATTEST_LABEL}
+              maxMs={VOICE_MEMO_MAX_MS}
+              accent="emerald"
+            />
+          </div>
+        ) : null}
+      </main>
+    );
+  }
+
   const { userId } = await auth();
   if (!userId) redirect("/sign-in?redirect_url=/account/oral-history");
 
