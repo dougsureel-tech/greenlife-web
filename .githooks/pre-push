@@ -108,7 +108,8 @@ for gate in \
   scripts/check-vercel-project-link.mjs \
   scripts/check-no-xff-nullish-trap.mjs \
   scripts/check-canonical-or-noindex.mjs \
-  scripts/check-version-constant-matches-changelog.mjs; do
+  scripts/check-version-constant-matches-changelog.mjs \
+  scripts/check-brand-logos-manifest.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -117,7 +118,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (34/34)"
+echo "  ✓ Build-gates OK (35/35)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
