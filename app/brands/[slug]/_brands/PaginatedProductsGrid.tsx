@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
+import { DohLogo } from "@/lib/doh-logo";
 import type { ActiveDeal } from "@/lib/db";
 
 type Product = {
@@ -19,6 +20,10 @@ type Product = {
   image_url: string | null;
   effects: string | null;
   terpenes: string | null;
+  // Optional — when upstream query SELECTs it, DohLogo renders High THC /
+  // High CBD / General Use per WAC 246-70. When absent (current state),
+  // defaults to General Use which is the DOH framework's catch-all.
+  is_doh_compliant?: boolean | null;
 };
 
 const STRAIN_COLORS: Record<string, { badge: string }> = {
@@ -417,7 +422,18 @@ export function PaginatedProductsGrid({
                           return (
                             <div className="flex flex-col leading-tight">
                               <span className="text-stone-400 line-through text-[10px] decoration-red-500 decoration-2">${pricing.originalPrice?.toFixed(2)}</span>
-                              <span className="font-extrabold text-stone-900">${pricing.displayPrice.toFixed(2)}</span>
+                              <div className="flex items-center gap-1">
+                                <span className="font-extrabold text-stone-900">${pricing.displayPrice.toFixed(2)}</span>
+                                <DohLogo
+                                  product={{
+                                    isDohCompliant: p.is_doh_compliant ?? undefined,
+                                    thcPct: p.thc_pct ?? undefined,
+                                    cbdPct: p.cbd_pct ?? undefined,
+                                    category: p.category,
+                                  }}
+                                  size="sm"
+                                />
+                              </div>
                               <span className="text-[9px] font-bold uppercase tracking-wider text-green-700 leading-none">
                                 {pricing.dealName ? `${Math.round(pricing.discountPct)}% off · ${pricing.dealName}` : `${ONLINE_DISCOUNT_PCT}% off online`}
                               </span>
