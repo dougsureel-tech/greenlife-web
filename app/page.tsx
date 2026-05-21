@@ -597,7 +597,7 @@ export default async function HomePage() {
                     </div>
                   )}
                   <span className="text-[10px] text-stone-400 group-hover:text-green-700 transition-colors text-center leading-tight font-medium truncate w-full text-center">
-                    {brand.name}
+                    {getBrandCopy(brand.slug)?.displayName ?? brand.name}
                   </span>
                 </Link>
               ))}

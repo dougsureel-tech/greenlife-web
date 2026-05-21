@@ -1,5 +1,22 @@
 import { NextResponse } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { timingSafeEqual } from "node:crypto";
+
+// Timing-safe secret comparison. Sister of inv-App's `verifyBearer`
+// in packages/lib-shared/cron-bearer.ts. Length-mismatch short-circuit
+// is fine — length isn't a secret; without it timingSafeEqual throws
+// on unequal buffer lengths.
+function secretMatches(provided: string, expected: string): boolean {
+  if (provided.length !== expected.length) return false;
+  try {
+    return timingSafeEqual(
+      Buffer.from(provided, "utf-8"),
+      Buffer.from(expected, "utf-8"),
+    );
+  } catch {
+    return false;
+  }
+}
 
 // Sister-site revalidation endpoint — paired with inv-App's
 // `/api/cron/publish-scheduled-posts` cron (Wave 1 Job #1 of
@@ -49,7 +66,7 @@ async function handle(req: Request): Promise<NextResponse> {
     // configured" from "wrong secret" via response body.
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  if (!secret || secret !== expected) {
+  if (!secret || !secretMatches(secret, expected)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

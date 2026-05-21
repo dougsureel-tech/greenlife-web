@@ -232,20 +232,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // ("Phat Panda") rather than the DB vendor row's parent-distributor
     // name ("Grow Op Farms"). Polish-audit 2026-05-20.
     title: { absolute: (() => {
-      const displayName = SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name;
+      const displayName = SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name;
       return displayName.length > 23
         ? `${displayName} — Green Life Cannabis`
         : `${displayName} — Green Life Cannabis (Wenatchee)`;
     })() },
     // ~155 chars — v10.105 length sweep.
-    description: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
+    description: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} cannabis at ${STORE.name} — ${brand.activeSkus} product${brand.activeSkus !== 1 ? "s" : ""} in stock. Order ahead for cash pickup. 21+.`,
     // Canonical points at the resolved (canonical) slug, NOT the alias.
     alternates: { canonical: `/brands/${slug}` },
     openGraph: {
       siteName: STORE.name,
       locale: "en_US",
-      title: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} | ${STORE.name}`,
-      description: `Browse ${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
+      title: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} | ${STORE.name}`,
+      description: `Browse ${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} cannabis products available at ${STORE.name}, ${STORE.address.city} WA. Live menu, prices, lab data.`,
       url: `${STORE.website}/brands/${slug}`,
       type: "website",
       // Per-route OG at /brands/{slug}/opengraph-image (file convention) —
@@ -262,7 +262,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: `/brands/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? brand.name} — at ${STORE.name}`,
+          alt: `${SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} — at ${STORE.name}`,
         },
       ],
     },
@@ -464,14 +464,19 @@ export default async function BrandPage({ params }: Props) {
         />
       )}
 
-      <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: brand.name }]} />
+      {/* Display name — alias-specific override (SLUG_DISPLAY_NAMES) wins
+          first, then per-brand displayName from BRAND_COPY (fixes shouty
+          all-caps DB names like "ARTIZEN"→"Artizen"), then fall back to
+          the raw DB vendor name. Used in breadcrumb, h1, and logo alt. */}
+      {(() => null)()}
+      <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name }]} />
 
       {/* Header */}
       <div className="bg-green-950 text-white py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
           {logoUrl ? (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white flex items-center justify-center shadow-xl relative overflow-hidden">
-              <Image src={logoUrl} alt={brand.name} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
+              <Image src={logoUrl} alt={SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
             </div>
           ) : (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-4xl">
@@ -479,7 +484,7 @@ export default async function BrandPage({ params }: Props) {
             </div>
           )}
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">{brand.name}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight">{SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name}</h1>
             {/* Heritage tagline — Doug 2026-05-20: "people want to know how
                 long the product has been getting people high for, not who
                 is behind it." Hero is the brand-first surface; tagline up

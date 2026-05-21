@@ -26,6 +26,19 @@
 export type BrandCopy = {
   /** Slug — must exactly match the DB vendor slug. */
   slug: string;
+  /**
+   * Optional display-name override — when set, takes precedence over the
+   * DB `vendors.name` value in customer-facing surfaces (brand-page h1,
+   * homepage Top Brands carousel, breadcrumbs, OG cards, etc.). Use when
+   * the DB value is shouty all-caps ("ARTIZEN" → "Artizen"), abbreviated
+   * with a legal suffix the customer never types ("Dewey Botanicals LLC"
+   * → "Dewey Cannabis Co."), or otherwise differs from the brand's own
+   * customer-facing identity. LEAVE UNSET when the DB name is already
+   * how the brand presents itself ("Phat Panda", "MFUSED" stylized) —
+   * gratuitous overrides drift away from the brand's chosen rendering.
+   * Polish-audit 2026-05-20 item.
+   */
+  displayName?: string;
   /** Long-form bio. 2-4 paragraphs, separated by `\n\n`. Rendered as <p> blocks. Optional — entries may carry only a logoUrl when a brand bio hasn't been written yet but a logo is available. */
   bio?: string;
   /** Optional one-line tagline shown above the bio. */
@@ -57,6 +70,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "artizen": {
     slug: "artizen",
+    displayName: "Artizen",
     logoUrl: "/brand-logos/artizen.png",
     tagline: "Washington indoor flower since 2014. Consistency at a working-budget price.",
     bio: "Artizen is one of the original brands to come out of Washington’s I-502 rollout, founded in 2014 and built around a single premise: keep the flower consistent, keep the price approachable, and let the strain library do the talking. The team is a mix of in-house cultivators and independent growers operating across Washington, all running indoor rooms under the same quality bar.\n\nThe catalog is flower-first — pre-packaged eighths, ounces, and pre-rolls in a wide rotation of strains — with a handful of concentrate and vape formats around the edges. Artizen leans into approachable everyday selection rather than limited drops: the same strains show up week after week, so a customer who finds something they like can come back for it. Distribution reaches roughly 200 Washington retailers, which is why budtenders treat Artizen as a baseline name when a customer asks “what’s reliable?”\n\nThe brand has spent close to a decade in the top-ten by all-time WA flower sales. Customers who reach for it tend to be price-conscious shoppers who want indoor-grown flower without paying boutique pricing, and operators who want a brand they can keep stocked without constant menu rework.",
@@ -479,12 +493,14 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   // canonical tagline so the hero stays brand-first across the variants.
   "artizen-cga": {
     slug: "artizen-cga",
+    displayName: "Artizen",
     logoUrl: "/brand-logos/artizen-cga.png",
     tagline: "Washington indoor flower since 2014. Consistency at a working-budget price.",
     updatedAt: "2026-05-17",
   },
   "artizen-cannabis-company": {
     slug: "artizen-cannabis-company",
+    displayName: "Artizen",
     logoUrl: "/brand-logos/artizen-cannabis-company.png",
     tagline: "Washington indoor flower since 2014. Consistency at a working-budget price.",
     updatedAt: "2026-05-17",
