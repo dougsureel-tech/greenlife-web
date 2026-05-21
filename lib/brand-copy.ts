@@ -118,6 +118,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "honu-inc": {
     slug: "honu-inc",
+    displayName: "Honu",
     logoUrl: "/brand-logos/honu-inc.png",
     tagline: "Family-owned Washington edibles since 2013. Chocolate-confection-first, dessert second.",
     bio: "Honu is a family-owned I-502 producer/processor founded in Washington in 2013, with operations in the southwest part of the state. The name comes from the Hawaiian word for sea turtle — a symbol of longevity, peace, and humility in Hawaiian culture — and the brand’s approach mirrors that: take the time, do it by hand, keep the dose honest.\n\nThe catalog is edible-first, with the chocolate side as the flagship. Peanut Butter Cups, Chocolate Turtles, Coconut Snowballs, seasonal bars, and rotating confections make up most of the lineup, with each piece dosed to Washington’s 10mg-per-serving rule. The handcrafted side is meaningful here — Honu’s confections are made in small batches with high-quality cannabis extracts blended into the chocolate at the recipe step, not sprayed on after, which is why they taste like dessert before they taste like edible.\n\nThe brand carries 2016 Best Edibles Company and Best Sweet Edibles awards from Washington’s industry circuit, and every product goes through third-party lab testing. Customers who reach for Honu tend to be edible buyers who want the chocolate to actually taste like chocolate, and who appreciate a Washington-rooted family brand with a long enough track record that budtenders mention it without prompting.",
@@ -264,6 +265,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   // flagged 2026-05-17 page-completion-agent report.
   "dewey-cannabis-co-": {
     slug: "dewey-cannabis-co-",
+    displayName: "Dewey Cannabis Co.",
     tagline: "Washington flower-and-rosin brand. “Cultivation Meets Curiosity.”",
     bio: "Dewey Cannabis Co is a Washington I-502 brand with a flower-first catalog and a meaningful solventless-extract side. The brand frames its work as “Cultivation Meets Curiosity,” which shows up in a strain library that rotates through both modern dessert/gas cuts and less-common phenos that the cultivation team has been experimenting with.\n\nThe lineup includes Signature Flower (the everyday eighth and ounce line), Live Resin vape cartridges, an all-in-one disposable dab pen, Live Rosin (solventless hash), and the Hella Dewbie pre-roll jar — 28 pre-rolls in a single jar, a format that gives party-pack shoppers a clear use case. The Matchsticks line is hash-infused, solvent-free pre-rolls for customers who specifically want a solventless infusion rather than the more common distillate-coated approach.\n\nThe brand publishes an annual “Lookbook” detailing cultivar runs and a “Dewsletter” email for upcoming drops — both of which are unusual for a Washington producer at this scale and point to a brand that takes the educational side seriously. Customers who reach for Dewey tend to be flower-first shoppers who also want a solventless-rosin option from the same operator, and pre-roll buyers looking for a real volume format.",
     updatedAt: "2026-05-17",
@@ -337,6 +339,11 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "edgemont-group-dba-leafwerx": {
     slug: "edgemont-group-dba-leafwerx",
+    // displayName = "Leafwerx" because that's the brand customers
+    // recognize; "Edgemont Group" is the legal umbrella entity (same
+    // umbrella that operates Sungrown / Cookies WA / Solr Bear).
+    // Pattern: umbrella → sub-brand for carousel + meta + breadcrumb.
+    displayName: "Leafwerx",
     tagline: "Washington cannabis concentrate brand. Single-source extracts from in-house cultivation.",
     bio: "Leafwerx is a Washington cannabis brand operated by Edgemont Group, with a concentrate-first catalog built on a single-source extraction premise — every product is pulled from cannabis grown by the same operator, rather than sourced from third-party flower. The brand frames itself as family-and-friends-owned, with quality-and-value as the working positioning.\n\nThe catalog runs across two flagship extract lines. Terps Mood is a full-spectrum high-terpene extract — roughly 80% THC, around 10% cannabis-derived terpenes — designed to keep the strain-specific flavor profile of the source material intact. THC Mood is the distilled high-potency expression, sitting at roughly 90% THC and 5% cannabis terpenes for customers who specifically want a more concentrated potency profile in the same format. Both lines run on 100% cannabis and cannabis-derived terpenes — no botanical-terpene blends, no additives — and the brand labels the products as pesticide-free.\n\nLeafwerx organizes its strain library into mood-based categories (Go, Create, Vibe, Enjoy, Chill, Soothe) rather than indica/sativa labels, giving customers a different sort across the catalog. Customers who reach for Leafwerx tend to be cartridge and extract buyers who care that the source material and the extraction happen under the same roof.",
     updatedAt: "2026-05-16",
@@ -392,6 +399,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "downtown-cannabis-company": {
     slug: "downtown-cannabis-company",
+    displayName: "Downtown Cannabis Co.",
     tagline: "The 3rd-ever licensed WA producer/processor. SODO Seattle indoor, hand-trimmed, glass-cured.",
     bio: "Downtown Cannabis Company was established in 2014 as the third licensed producer/processor in Washington State — one of the operations that helped define what an indoor I-502 room would look like in the state’s opening years. The facility is a Tier 2 indoor grow in Seattle’s SODO district, and the team has been refining the same playbook since.\n\nThe flower side is the catalog’s focal point. The team hand-waters every plant rather than running a fertigation manifold, hand-trims every harvest, and cures the finished flower in sealed glass jars instead of bulk totes — the slower, more labor-intensive path that prioritizes terpene retention over throughput. Small-batch is the operating model, and the brand markets the consistency that comes from running the same in-house genetics through the same rooms drop after drop. Pre-rolls and strain-specific vape cartridges come off the same in-house material and meet Washington Department of Health compliance standards.\n\nDistribution reaches into Evergreen Market, Zips Cannabis, Bloom Cannabis, Herbs House, and a long list of other WA retailers. Customers who reach for Downtown Cannabis Company tend to be flower-first shoppers who care about cure method and trim style, and operators looking for a brand whose production process is documented end-to-end from clone to jar.",
     updatedAt: "2026-05-17",
@@ -487,6 +495,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "washington-bud-company": {
     slug: "washington-bud-company",
+    displayName: "Washington Bud Co.",
     tagline: "Bothell craft cannabis since 2012. Founders are medical patients and growers. Pesticide-free.",
     bio: "Washington Bud Company is a boutique-batch, artisan cannabis producer based in Bothell, founded by Shawn DeNae and Bill Wagenseller — both medical cannabis patients and growers who began providing cannabis to safe-access patients in 2012, well before I-502’s recreational rollout. The pair carried that medical-market lineage into the licensed recreational system and built the brand around the same operating principles: pesticide-free cultivation, environmental controls instead of chemical sprays, and a focus on strains that have proven naturally resistant to pests and mold.\n\nThe brand’s motto is BE HAPPY, and the catalog is built to support that across both pleasure and purpose-driven shoppers. The flower lineup runs across classic and Pacific Northwest cuts — Sky Master, Ripped Bubba, Harlequin, Blackberry Kush — with pre-rolls, shake, and concentrates from the same in-house material. Every batch is tested for pesticides and heavy metals through third-party labs, which is how the brand backs its pesticide-free claim.\n\nThe Bothell address (19315 Bothell-Everett Highway, Unit 1) means the brand is grown and finished within Snohomish County, and distribution covers Lux Pot Shop, Canna West Seattle, and a long list of independent WA retailers. Customers who reach for Washington Bud Company tend to be flower-first shoppers who want a brand whose founders have been growing cannabis personally for more than a decade, and who appreciate the documented pesticide-free testing pipeline backing every drop.",
     updatedAt: "2026-05-17",
