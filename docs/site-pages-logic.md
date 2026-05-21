@@ -143,7 +143,7 @@ Pages below are ordered by where in the funnel they live, not alphabetically.
 
 **Small-adjustments-compound watch list.**
 - Cart persistence (24h cookie) — recovers the abandoned-cart cohort
-- Order tracker (already shipped on Seattle, Wenatchee parity TODO)
+- Order tracker (shipped on both stacks at `/account/orders` — Clerk-gated history list)
 - Loyalty preview on home + cart — "you're 23 points from a free pre-roll" beats a pure points number
 
 ---
