@@ -61,16 +61,21 @@ const TYPE_COLORS: Record<"sativa" | "indica" | "hybrid", string> = {
 };
 
 export async function GET(req: NextRequest) {
-  if (process.env.TREE_TIMELAPSE_ENABLED !== "true") {
+  const url = new URL(req.url);
+  const displayName = sanitizeDisplayName(url.searchParams.get("name"));
+  const preview = url.searchParams.get("preview") === "1";
+
+  // Flag-gate UNLESS preview mode — sister glw v38.365 page-side pattern.
+  // Doug eyes the mock SVG render before flipping TREE_TIMELAPSE_ENABLED.
+  // Real-data render still requires flag ON (today: mock-data only; when
+  // verified-purchase wires through, the flag plus auth path will gate
+  // the customer-specific timeline lookup).
+  if (process.env.TREE_TIMELAPSE_ENABLED !== "true" && !preview) {
     return NextResponse.json(
       { error: "Tree-growth export not enabled." },
       { status: 404 },
     );
   }
-
-  const url = new URL(req.url);
-  const displayName = sanitizeDisplayName(url.searchParams.get("name"));
-  const preview = url.searchParams.get("preview") === "1";
 
   // Mock-data mode until verified-purchase ships. The mock fixture is
   // deterministic across all visitors during the preview window.
