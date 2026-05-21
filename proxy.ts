@@ -78,6 +78,18 @@ function isCanonicalOrLocal(host: string): boolean {
 // every other route.
 const clerk = clerkMiddleware(async (auth, req) => {
   if (!isProtectedRoute(req)) return;
+  // Preview-mode escape hatch: the C1 Wrapped page (and any other
+  // feature-flagged /account/* surface that explicitly opts into preview)
+  // sets its own no-auth fallback when ?preview=1 is present. Without this
+  // exemption, Clerk intercepts at the middleware layer BEFORE the page's
+  // preview-mode logic can run — defeating the "Doug eyes the mock fixture
+  // before flipping the flag" intent baked into the page code at
+  // app/account/wrapped/page.tsx:69-74. The preview escape is narrow
+  // (single query param, only on /account paths Clerk already covers) so
+  // it can't be used to bypass auth on a real-data path.
+  const url = new URL(req.url);
+  const preview = url.searchParams.get("preview");
+  if (preview === "1" || preview === "true") return;
   // auth.protect() defaults to 404 for unauthed users — bad UX. Redirect
   // them to the sign-in page so they can come back to /account after.
   const signInUrl = new URL("/sign-in", req.url);
