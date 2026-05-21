@@ -115,7 +115,7 @@ re-render.
 ## Mock-data mode
 
 Until the inv-App side ships verified-purchase wiring (post-cutover),
-the recorder is gated to a SINGLE sample strain (`SAMPLE_MOCK_STRAIN_SLUG`
+the recorder is gated to a SINGLE sample strain (`VOICE_MEMO_MOCK_STRAIN_SLUG`
 in `lib/voice-memo.ts`) and nothing aggregates publicly. The
 `StrainExpectationsSection` returns null when
 `VOICE_MEMO_ENABLED !== "true"` OR `VOICE_MEMO_MOCK_MODE === "true"`.
