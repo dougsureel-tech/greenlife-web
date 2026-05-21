@@ -49,15 +49,31 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default async function TerpeneProfilePage() {
+export default async function TerpeneProfilePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ preview?: string }>;
+}) {
+  // ?preview=1 escape — sister of wrapped page's preview pattern (v38.345).
+  // Doug eyes the mock-fixture render before flipping the customer-facing
+  // flag. Middleware (proxy.ts) already exempts ?preview=1 from Clerk
+  // auth.protect(); the page-level branch below skips the in-page Clerk
+  // session check too. Real-data render still requires both flag ON AND
+  // Clerk login — preview can't be used to bypass auth on real paths.
+  const { preview } = await searchParams;
+  const previewMode = preview === "1" || preview === "true";
+
   // Hard env-flag gate — return 404 when disabled so the route is
   // invisible to crawlers + curious customers during soft-launch.
-  if (process.env.TERPENE_FINGERPRINT_ENABLED !== "true") {
+  // Preview-mode escape lets Doug see the page even when the flag is OFF.
+  if (process.env.TERPENE_FINGERPRINT_ENABLED !== "true" && !previewMode) {
     notFound();
   }
 
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in?redirect_url=/account/terpene-profile");
+  if (!previewMode) {
+    const { userId } = await auth();
+    if (!userId) redirect("/sign-in?redirect_url=/account/terpene-profile");
+  }
 
   // Phase 0 — mock-data mode. When the nightly recompute cron lands,
   // swap this for a server-side fetch of the customer_terpene_profiles row.

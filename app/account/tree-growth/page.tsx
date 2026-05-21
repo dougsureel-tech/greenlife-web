@@ -35,9 +35,21 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function TreeGrowthPage() {
+export default async function TreeGrowthPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ preview?: string }>;
+}) {
+  // ?preview=1 escape — sister of wrapped page's preview pattern (v38.345).
+  // Doug eyes mock-fixture render before flipping the customer-facing flag.
+  // Middleware (proxy.ts) exempts ?preview=1 from Clerk auth.protect();
+  // the in-page Clerk check below is also skipped in preview mode.
+  const { preview } = await searchParams;
+  const previewMode = preview === "1" || preview === "true";
+
   // Feature-flag gate FIRST — Doug-flipped per Vercel env, default OFF.
-  if (process.env.TREE_TIMELAPSE_ENABLED !== "true") {
+  // Preview-mode escape lets Doug see the page even when the flag is OFF.
+  if (process.env.TREE_TIMELAPSE_ENABLED !== "true" && !previewMode) {
     notFound();
   }
 
@@ -45,15 +57,21 @@ export default async function TreeGrowthPage() {
   // post-sign-in lands them back here — matches the /account guard
   // shape in /app/account/page.tsx + /app/account/orders/page.tsx
   // (sister of the safe-redirect pattern from v29.065).
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in?redirect_url=/account/tree-growth");
+  // In preview mode, skip the Clerk session check + portal-user lookup;
+  // render anonymously with a neutral "preview" display name.
+  let portalDisplayName = "Friend of the shop";
+  if (!previewMode) {
+    const { userId } = await auth();
+    if (!userId) redirect("/sign-in?redirect_url=/account/tree-growth");
 
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
+    const user = await currentUser();
+    const portalUser = await getOrCreatePortalUser(
+      userId,
+      user?.emailAddresses[0]?.emailAddress,
+      user?.fullName,
+    );
+    portalDisplayName = user?.firstName ?? portalUser?.name ?? "Friend of the shop";
+  }
 
   // Mock-data mode — see lib/tree-timelapse-mock for the swap recipe.
   // When verified-purchase ships, this line becomes:
@@ -63,11 +81,11 @@ export default async function TreeGrowthPage() {
 
   // Display-name resolution mirrors the welcome-email + LoyaltyCard
   // pattern — Clerk first, then portal_users.name, then a neutral
-  // fallback. Never PII-leak the email address.
-  const displayName =
-    user?.firstName?.trim() ||
-    portalUser?.name?.trim().split(/\s+/)[0] ||
-    "friend";
+  // fallback. Never PII-leak the email address. In preview mode the
+  // portalDisplayName was set above without touching Clerk.
+  const displayName = previewMode
+    ? portalDisplayName.split(/\s+/)[0]
+    : (portalDisplayName.split(/\s+/)[0] || "friend");
 
   const visitCount = timeline.length;
   const distinctStrainCount = sequence.nodes.length;
