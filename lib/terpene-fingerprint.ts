@@ -32,6 +32,15 @@
 
 import "server-only";
 import type { Strain } from "./strains";
+// Pure type + const re-export from lib/terpene-types.ts so server modules
+// importing from lib/terpene-fingerprint keep the same import surface AND
+// Client Components can import the same shapes from lib/terpene-types
+// without pulling this server-only file into the client bundle.
+// (Use both import + re-export so this file can ALSO use TERPENE_AXES locally.)
+import { TERPENE_AXES, VECTOR_VERSION } from "./terpene-types";
+import type { TerpeneAxis, TerpeneVector } from "./terpene-types";
+export { TERPENE_AXES, VECTOR_VERSION };
+export type { TerpeneAxis, TerpeneVector };
 
 /**
  * Canonical terpene axes for the customer fingerprint. Order matters —
@@ -44,23 +53,9 @@ import type { Strain } from "./strains";
  * omitted from the customer-visible axes (low shelf presence, would
  * register as ~0 for nearly every customer) — keeps the radar legible.
  */
-export const TERPENE_AXES = [
-  "Myrcene",
-  "Limonene",
-  "Caryophyllene",
-  "Pinene",
-  "Linalool",
-  "Humulene",
-  "Terpinolene",
-] as const;
-
-export type TerpeneAxis = (typeof TERPENE_AXES)[number];
-
-/** Vector schema version. Bump if TERPENE_AXES changes shape/order. */
-export const VECTOR_VERSION = 1;
-
-/** Normalized 7-element vector, components sum to 1.0 (or vector is all-zero). */
-export type TerpeneVector = readonly [number, number, number, number, number, number, number];
+// TERPENE_AXES + TerpeneAxis + VECTOR_VERSION + TerpeneVector are
+// re-exported above from ./terpene-types so Client Components can import
+// the same shapes without bundling this server-only file.
 
 /** A strain in the customer's tasted history, with their rating (1-5) and a purchase weight. */
 export type RatedStrain = {

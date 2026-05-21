@@ -27,7 +27,12 @@
 
 "use client";
 
-import { TERPENE_AXES, type TerpeneVector } from "@/lib/terpene-fingerprint";
+// Import from terpene-types (no "server-only" directive) — lib/terpene-fingerprint
+// is server-only because it owns the scoring algorithm + per-strain anchor
+// vectors; the Client Component only needs the axis labels + vector type.
+// Lived 2026-05-21 build failure: importing from lib/terpene-fingerprint
+// pulled "server-only" into the client bundle → Next.js refused to build.
+import { TERPENE_AXES, type TerpeneVector } from "@/lib/terpene-types";
 
 type Props = {
   /** The customer's personal terpene preference vector. */
