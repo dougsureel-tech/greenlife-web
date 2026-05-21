@@ -24,7 +24,7 @@
 // "split before files become unreviewable." Importing the strains
 // SSoT from here is one-direction (families → strains, never back).
 
-import { STRAINS, STRAIN_SLUGS, type Strain } from "@/lib/strains";
+import { STRAINS, STRAIN_SLUGS, type Strain } from "./strains.ts";
 
 export type FamilyKey =
   | "kush"
