@@ -473,24 +473,32 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   // brand's logo file (same bytes, different filename) so the page-tier
   // logo fallback resolves on either stack without a slug-rewrite step.
   // ────────────────────────────────────────────────────────────────────
+  // DB-slug variants for Artizen (canonical at "artizen" above). When the
+  // POS sync writes products under these variant slugs, the customer hits
+  // /brands/artizen-cga which would otherwise render bare. Mirror the
+  // canonical tagline so the hero stays brand-first across the variants.
   "artizen-cga": {
     slug: "artizen-cga",
     logoUrl: "/brand-logos/artizen-cga.png",
+    tagline: "Washington indoor flower since 2014. Consistency at a working-budget price.",
     updatedAt: "2026-05-17",
   },
   "artizen-cannabis-company": {
     slug: "artizen-cannabis-company",
     logoUrl: "/brand-logos/artizen-cannabis-company.png",
+    tagline: "Washington indoor flower since 2014. Consistency at a working-budget price.",
     updatedAt: "2026-05-17",
   },
   "ceres-435011": {
     slug: "ceres-435011",
     logoUrl: "/brand-logos/ceres-435011.png",
+    tagline: "Washington flower and concentrate brand. Named for the Roman goddess of the harvest.",
     updatedAt: "2026-05-17",
   },
   "agro-couture-slab-mechanix": {
     slug: "agro-couture-slab-mechanix",
     logoUrl: "/brand-logos/agro-couture-slab-mechanix.png",
+    tagline: "Tacoma artisan cannabis since 2015. Flower, concentrates, beverages, topicals under one roof.",
     updatedAt: "2026-05-17",
   },
 
