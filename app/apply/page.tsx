@@ -39,6 +39,10 @@ const SOURCE_ORIGIN = "greenlife-web";
 const MAX_RESUME_BYTES = 10 * 1024 * 1024; // 10MB (mirror API)
 
 type Position = "budtender" | "inventory" | "lead" | "other";
+// `seattle` + `either` retained for type-compat with server-side parser; the
+// GLW form 2026-05-21 hides the radio + locks the state to "wenatchee" since
+// SCC has its own /apply page on seattle-cannabis-web. Reintroduce the picker
+// here only if Doug greenlights cross-store applicant routing.
 type StorePref = "wenatchee" | "seattle" | "either";
 
 // Shape returned by inventoryapp /api/positions/open. role_match values come
@@ -245,13 +249,26 @@ function ApplyForm() {
       setResume(null);
       return;
     }
-    // PDF-only — match API contract. Some browsers report empty MIME on .pdf
-    // upload (Safari sometimes), so check filename extension as a fallback.
+    // 2026-05-21 — accept PDF OR a phone-camera photo (JPG / PNG / HEIC).
+    // Doug feedback: pre-fix the upload demanded a PDF, but mobile users
+    // typically only have photos of their printed resume on the phone's
+    // camera roll. Refusing those filtered out applicants entirely. The
+    // server handler stores whatever the client uploads — for image
+    // uploads, reviewer manually reads the photo. PDF is still preferred
+    // (the conversion tips below stay visible) but no longer required.
+    const lower = file.name.toLowerCase();
     const isPdf =
-      file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
-    if (!isPdf) {
+      file.type === "application/pdf" || lower.endsWith(".pdf");
+    const isImage =
+      file.type.startsWith("image/") ||
+      lower.endsWith(".jpg") ||
+      lower.endsWith(".jpeg") ||
+      lower.endsWith(".png") ||
+      lower.endsWith(".heic") ||
+      lower.endsWith(".heif");
+    if (!isPdf && !isImage) {
       setResumeError(
-        "This file isn't a PDF. We only accept PDFs — see the conversion tips just below.",
+        "We only accept PDF or photos (JPG / PNG / HEIC). Try the conversion tips below, or take a photo of your printed resume on your phone.",
       );
       setResume(null);
       return;
@@ -413,7 +430,7 @@ function ApplyForm() {
           <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Careers</p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Apply to work with us</h1>
           <p className="text-green-300/80 mt-2 text-sm sm:text-base">
-            Wenatchee or Seattle — tell us about yourself.
+            Tell us about yourself.
           </p>
         </div>
       </div>
@@ -528,36 +545,13 @@ function ApplyForm() {
               </Field>
             </div>
 
-            <Field label="Store preference" required>
-              <div className="grid grid-cols-3 gap-2">
-                {(
-                  [
-                    { v: "wenatchee", l: "Wenatchee" },
-                    { v: "seattle", l: "Seattle" },
-                    { v: "either", l: "Either" },
-                  ] as const
-                ).map((opt) => (
-                  <label
-                    key={opt.v}
-                    className={`flex items-center justify-center px-3 py-2.5 rounded-xl border text-sm font-semibold cursor-pointer transition-colors ${
-                      storePref === opt.v
-                        ? "border-green-700 bg-green-50 text-green-800"
-                        : "border-stone-300 bg-white text-stone-700 hover:border-green-400"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="storePreference"
-                      value={opt.v}
-                      checked={storePref === opt.v}
-                      onChange={() => setStorePref(opt.v)}
-                      className="sr-only"
-                    />
-                    {opt.l}
-                  </label>
-                ))}
-              </div>
-            </Field>
+            {/* Store-preference picker removed 2026-05-21 — greenlifecannabis.com
+                is the Wenatchee storefront, so offering "Seattle / Either" on
+                the GLW careers form was cross-store leakage. storePreference
+                still posts as "wenatchee" (hardcoded via the StorePref state
+                initializer at line 153) so the existing server-side parser
+                + applicant-tracker schema stay unchanged. SCC has its own
+                /apply page on seattle-cannabis-web that handles SCC hiring. */}
 
             {/* ── Cover letter ── */}
             <Field
@@ -580,12 +574,12 @@ function ApplyForm() {
                 ResumeDrop. Default collapsed so applicants who already have a
                 PDF aren't bothered. */}
             <div>
-              <Field label="Resume (PDF)" required hint="Up to 10MB. PDF only.">
+              <Field label="Resume" required hint="Up to 10MB. PDF preferred — phone photo (JPG / HEIC / PNG) also OK.">
                 <ResumeDrop file={resume} onFile={handleResumeChange} error={resumeError} />
               </Field>
               <details className="mt-2 px-1 text-[12px] text-stone-600">
                 <summary className="cursor-pointer text-green-700 hover:text-green-800 inline-block font-medium">
-                  Not sure how to make a PDF?
+                  Not sure how to make a PDF? (or just snap a photo — that works too)
                 </summary>
                 <div className="mt-2 space-y-1.5 pl-4 leading-relaxed text-stone-700">
                   <p><strong>Microsoft Word:</strong> File → Save As → choose &ldquo;PDF&rdquo; from the file type list.</p>
@@ -864,10 +858,19 @@ function ResumeDrop({
               : "border-stone-300 bg-stone-50 hover:border-green-400 hover:bg-stone-100/60"
         }`}
       >
+        {/* Mobile-fix 2026-05-21 (Doug "PDF upload only works on computers not
+            phones it wouldn't let me either"). Phones generally have HEIC/JPG
+            photos in the camera roll, not PDFs. Pre-fix `accept="application/
+            pdf,.pdf"` filtered the picker to PDFs only — on iOS Safari that
+            meant the picker grayed out the photo library + only let you pick
+            from Files. Most applicants on phone never have a PDF in Files.
+            Broadened to PDF + JPG/PNG/HEIC so a phone photo of a printed
+            resume gets through; the validation below (`handleResumeChange`)
+            still surfaces a tip suggesting PDF, but allows the upload. */}
         <input
           ref={inputRef}
           type="file"
-          accept="application/pdf,.pdf"
+          accept="application/pdf,.pdf,image/jpeg,image/png,image/heic,image/heif,.jpg,.jpeg,.png,.heic,.heif"
           onChange={(e) => onFile(e.target.files?.[0] ?? null)}
           className="hidden"
         />
