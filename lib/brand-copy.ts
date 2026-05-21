@@ -87,6 +87,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "constellation-cannabis": {
     slug: "constellation-cannabis",
+    displayName: "Constellation",
     tagline: "Washington flower, hash rosin, and 1:1 edibles under one roof.",
     bio: "Constellation Cannabis is a licensed Washington producer/processor (WSLCB #427037) running a multi-format catalog — flower, pre-rolls (including infused), hash rosin and other concentrates, plus a gummy and capsule edible line with several CBD-balanced ratios.\n\nTheir flower side reaches for newer-school dessert and gas crosses (Cereal Milk, Blueberry, The Glove) alongside infused pre-roll novelties like Wedding Crasher and Purple Pineapple Express. The extract side leans into solventless: their Blush Velvet hash rosin line is the one that shows up most often on the shelf, with cured-resin carts and live products rounding out the vape side.\n\nThe edibles are where Constellation differentiates — gummies and capsules in 1:1 THC:CBD ratios at meaningful doses, for customers who specifically reach for balanced products rather than THC-dominant ones. It’s a useful brand to know when a customer wants flower, rosin, and edibles from a single Washington shop rather than three.",
     updatedAt: "2026-05-16",
@@ -110,6 +111,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "heylo-cannabis": {
     slug: "heylo-cannabis",
+    displayName: "Heylo",
     logoUrl: "/brand-logos/heylo-cannabis.png",
     tagline: "SODO Seattle extraction lab since 2017. 100% woman- and Latina-owned, terpene-forward.",
     bio: "Heylo Cannabis is an I-502 extracts processor based in Seattle’s SODO neighborhood, founded in 2017 by Lo Friesen — an environmental chemist trained at Northwestern with prior bench experience in a gastroenterology research lab. The brand is 100% woman- and Latina-owned, and the working premise is that cannabis extracts should taste like the plant they came from, not like distillate with terpenes spiked back in.\n\nThe core lineup is RawX vape cartridges — single-strain oil pulled from fresh-frozen flower with the strain’s native terpene fraction preserved through the extraction. Around it sit Heylotion topicals (Body Budder, Body Balm), Louder Lube, Loud CBD products, and the Heylo AIO and Heylo Pico hardware lines. Sister brands Treehaus and Yolo round out the value-tier cart side. The throughline is education and transparency: COAs are published, the extraction approach is documented, and the marketing avoids the usual “best-in-class” puffery.\n\nThe brand has earned multiple Terpestival first-place finishes and Leafly’s Best Overall Company recognition. Customers who reach for Heylo tend to be terpene-curious shoppers and cartridge buyers who care about extraction method and farm-of-origin — and who appreciate the depth of operator detail Lo and the team publish about the work.",
@@ -135,6 +137,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "lifted-cannabis": {
     slug: "lifted-cannabis",
+    displayName: "Lifted",
     logoUrl: "/brand-logos/lifted-cannabis.png",
     tagline: "Tacoma Tier 3 indoor. Pheno-hunted in-house, hand-watered, glass-jar cured.",
     bio: "Lifted Cannabis is a Tier 3 indoor producer/processor based in Tacoma, operating out of the former Nalley Fine Foods pickle factory — a piece of South Sound industrial history that’s now a working cannabis facility. The team got their start in Washington’s pre-I-502 medical market and carried that operator-grown experience into the licensed recreational system.\n\nThe approach is craft-style at indoor scale. Plants are hand-watered rather than fertigated through a manifold, pesticide-free with beneficial predator insects in place of chemical sprays, and the harvested flower is cured in glass jars instead of bulk totes — slower, more labor-intensive, better for terpene retention. Pheno-hunting is done in-house, and the genetics library is broad enough that the menu shifts noticeably between drops.\n\nThe lineup is flower-first — top-shelf eighths and pre-rolls — with cartridges, sugar sticks, and other oil concentrates rounding it out. Wedding Cake is the strain that put the brand on a lot of Washington shoppers’ radar, but the catalog goes well past it. Customers who reach for Lifted tend to be flower-first buyers who care about how the room was run.",
@@ -190,6 +193,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
 
   "walden-cannabis": {
     slug: "walden-cannabis",
+    displayName: "Walden",
     logoUrl: "/brand-logos/walden-cannabis.png",
     tagline: "Sun-grown Washington flower since 2014. Tier-none farm, Clean Green Certified.",
     bio: "Walden Cannabis is a tier-none producer/processor based in Everett, with grow and processing operations also in Brewster and a presence in South Bend. The brand started with a group of climbers, backpackers, and yogis who wanted to grow cannabis the way they grew everything else they cared about — outdoors, in the sun, with as light a chemical footprint as the regulations would allow.\n\nThe flower is sun-grown and Clean Green Certified — the closest available analog to USDA Organic for cannabis. No harmful pesticides, no synthetic regimen. The crop is dried and cured in temperature- and humidity-controlled rooms, hand-trimmed, and packaged on-site at a 3,200-square-foot facility. Walden also offers white-label drying, trimming, packaging, and consulting to other Washington growers — they’re plumbed into the back end of the state’s supply chain as much as the front.\n\nThe catalog is flower-forward with concentrates (cured resin, distillate carts, and CBD-balanced cartridges) and a small ingestibles line. The cartridge lineup includes 1:1 and 3:1 CBD ratios alongside THC-dominant options. Customers who reach for Walden tend to be looking for sun-grown WA flower with documented inputs and an accessible price point.",
@@ -306,6 +310,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "fireline-cannabis": {
     slug: "fireline-cannabis",
+    displayName: "Fireline",
     tagline: "Washington flower and concentrate brand. Solvent and solventless extracts.",
     bio: "Fireline Cannabis is a Washington I-502 producer with a flower-and-concentrate catalog organized around two main product lines. The flower lineup runs across strains like Skatalite, White Fire OG, Toxic Green, and Lit Cookie Blizzard, with pre-rolled formats in the same strain rotation.\n\nThe concentrate side is where Fireline carries more breadth — live resin, diamonds, crumble, and a mix of solvent and solventless extracts in various strain variations. The combination of both extraction approaches under one brand is meaningful for customers comparing options: a shopper who specifically wants solventless can find it from the same operator that produces the live-resin side, with the same source material feeding both pipelines.\n\nProduct information has been sourced directly from the brand by the retail-platform databases. Customers who reach for Fireline tend to be concentrate-first shoppers who want a mix of extraction styles from a Washington producer, and flower buyers who want to pair an eighth with a concentrate from the same source. Worth asking your budtender what extraction format is freshest in stock on a given visit — the rotation moves with what the lab is finishing.",
     updatedAt: "2026-05-16",
@@ -362,6 +367,7 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "ray-s-lemonade-wa": {
     slug: "ray-s-lemonade-wa",
+    displayName: "Ray's Lemonade",
     logoUrl: "/brand-logos/ray-s-lemonade-wa.png",
     tagline: "Washington cannabis lemonades. 100mg bottles, 10mg shots, a deep flavor bench.",
     bio: "Ray’s Lemonade is a Washington cannabis beverage line produced by Dogtown Pioneers (WSLCB #416538), with a parallel California operation under separate licensing. The brand has held a steady spot on the Washington beverage shelf for years and runs across several formats — full-size Original Ray’s bottles (typically 100mg THC), Lil’ Ray’s 10mg shots for single-serve dosing, and Ray’s Cans for the can-format expression.\n\nThe flavor bench is one of the deeper ones in the WA cannabis-beverage category. The rotation includes Original Lemonade, Raspberry, Huckleberry, Pineapple, Mango, Tiger’s Blood, Blackberry, Citrus Kush, Dragon Fruit, Elderberry, Peach, and Strawberry — with many flavors offered in multiple cannabinoid blends so a customer who likes the format can find a profile that matches what they reach for. The brand has also extended into Ray’s Vapes, Ray’s Gummies, live and hash rosin products, and minor-cannabinoid variants.\n\nProducts are produced to Washington State Department of Health compliance standards with third-party lab testing on every run. Customers who reach for Ray’s tend to be drink-format buyers who want a flavored lemonade that delivers the cannabis side cleanly — and the 10mg Lil’ Ray’s format is one of the few WA beverages explicitly portioned for a single-serve, low-dose customer.",
