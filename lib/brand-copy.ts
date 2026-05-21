@@ -317,6 +317,14 @@ export const BRAND_COPY: Record<string, BrandCopy> = {
   },
   "grow-op-farms": {
     slug: "grow-op-farms",
+    // displayName = "Phat Panda" because that's the consumer-facing brand
+    // customers actually search for. /brands/grow-op-farms renders the
+    // Phat Panda boutique (the BRAND_OVERRIDES + h1 already say "Phat
+    // Panda"). Aligning the carousel + breadcrumb + meta + alt with the
+    // brand customers recognize — Doug 2026-05-20 "more focused on the
+    // brand." Grow Op Farms still surfaces as "by Grow Op Farms · since
+    // 2014" in the boutique tagline so the umbrella attribution stays.
+    displayName: "Phat Panda",
     tagline: "Spokane Valley I-502 producer. The operator behind Phat Panda and seven sister brands.",
     bio: "Grow Op Farms is a Washington I-502 producer/processor based in Spokane Valley, operating out of a 100,000+ square-foot facility that has been in production since 2014. The company runs eight distinct consumer brands out of the same operation — Phat Panda is the flagship, with Hot Sugar, Sticky Frog, Snickle Fritz, Hot Shotz, Flav, Six Fifths, and Dabstract filling out the portfolio.\n\nPhat Panda is the line most Washington shoppers know first. The catalog runs across flower, infused pre-rolls, vape cartridges, and concentrates in a deep strain rotation — the cultivation team works with more than 40 strains across the facility. The brand has taken Dope Cup awards in categories including Best Infused Pre-Roll and Most Potent Flower, and the infused-pre-roll line in particular is one of the most distributed products in its category across Washington retailers.\n\nThe sister brands carve out distinct shelf positions — Dabstract on the concentrate-purist end, Snickle Fritz and Sticky Frog at the more playful packaging tier, Flav and Hot Shotz on the cartridge and edible side. Customers who reach for any of these names are reaching for Grow Op Farms. The Spokane facility supplies them all, which is why operators treat the umbrella as one of the more reliable production engines in the state.",
     updatedAt: "2026-05-16",
