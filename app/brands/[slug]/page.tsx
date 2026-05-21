@@ -343,12 +343,17 @@ export default async function BrandPage({ params }: Props) {
   });
 
   const brandUrl = `${STORE.website}/brands/${slug}`;
+  // 3-layer display-name fallback chain for ALL customer-facing surfaces
+  // (h1, breadcrumb, alt, JSON-LD schemas, OG cards, meta). Same chain
+  // generateMetadata uses above. Pulled out as a single const so every
+  // schema below references the consistent customer-facing name.
+  const displayName = SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name;
   const brandSchema = {
     "@context": "https://schema.org",
     "@type": "Brand",
     "@id": `${brandUrl}#brand`,
-    name: brand.name,
-    description: `${brand.name} — Washington-state cannabis brand carried at ${STORE.name} in ${STORE.address.city}, WA. ${brand.activeSkus} active product${brand.activeSkus !== 1 ? "s" : ""} on the menu.`,
+    name: displayName,
+    description: `${displayName} — Washington-state cannabis brand carried at ${STORE.name} in ${STORE.address.city}, WA. ${brand.activeSkus} active product${brand.activeSkus !== 1 ? "s" : ""} on the menu.`,
     ...(brand.website ? { url: brand.website, sameAs: [brand.website] } : {}),
     ...(logoUrl ? { logo: logoUrl, image: logoUrl } : {}),
   };
@@ -397,8 +402,8 @@ export default async function BrandPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "@id": `${brandUrl}#page`,
-    name: `${brand.name} at ${STORE.name}`,
-    description: `${brand.activeSkus} ${brand.name} cannabis product${brand.activeSkus !== 1 ? "s" : ""} in stock at ${STORE.name}, ${STORE.address.city}, WA.`,
+    name: `${displayName} at ${STORE.name}`,
+    description: `${brand.activeSkus} ${displayName} cannabis product${brand.activeSkus !== 1 ? "s" : ""} in stock at ${STORE.name}, ${STORE.address.city}, WA.`,
     url: brandUrl,
     about: { "@id": `${brandUrl}#brand` },
     mainEntity: {
@@ -422,7 +427,7 @@ export default async function BrandPage({ params }: Props) {
         // in the SERP path. Adding "Brands" matches the actual nav
         // structure (Home › Brands › Avitas) for richer SERP path display.
         { "@type": "ListItem", position: 2, name: "Brands", item: `${STORE.website}/brands` },
-        { "@type": "ListItem", position: 3, name: brand.name, item: brandUrl },
+        { "@type": "ListItem", position: 3, name: displayName, item: brandUrl },
       ],
     },
   };
@@ -469,14 +474,14 @@ export default async function BrandPage({ params }: Props) {
           all-caps DB names like "ARTIZEN"→"Artizen"), then fall back to
           the raw DB vendor name. Used in breadcrumb, h1, and logo alt. */}
       {(() => null)()}
-      <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name }]} />
+      <Breadcrumb items={[{ label: "Brands", href: "/brands" }, { label: displayName }]} />
 
       {/* Header */}
       <div className="bg-green-950 text-white py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 sm:gap-6">
           {logoUrl ? (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white flex items-center justify-center shadow-xl relative overflow-hidden">
-              <Image src={logoUrl} alt={SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
+              <Image src={logoUrl} alt={displayName} fill sizes="(max-width: 640px) 112px, 128px" className="object-contain p-4" />
             </div>
           ) : (
             <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-green-800 border border-green-700 flex items-center justify-center text-4xl">
@@ -484,7 +489,7 @@ export default async function BrandPage({ params }: Props) {
             </div>
           )}
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">{SLUG_DISPLAY_NAMES[rawSlug.toLowerCase()] ?? getBrandCopy(slug)?.displayName ?? brand.name}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight">{displayName}</h1>
             {/* Heritage tagline — Doug 2026-05-20: "people want to know how
                 long the product has been getting people high for, not who
                 is behind it." Hero is the brand-first surface; tagline up
