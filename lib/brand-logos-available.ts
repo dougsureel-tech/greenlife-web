@@ -52,6 +52,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "blaze-soda",
   "bondi-farms",
   "buddy-boy-farm",
+  "canasmith",
   "canna-cantina",
   "cannasol-farms",
   "captain-yeti",
@@ -129,7 +130,9 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "ray-s-lemonade-wa",
   "redbird-cannabis",
   "refine",
+  "regulator",
   "rochester-farms",
+  "scc",
   "seattle-bubble-works",
   "skord",
   "sky-high-gardens",
@@ -148,6 +151,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "walden-cannabis",
   "washington-bud-company",
   "western-cultured",
+  "whidbey-island-cannabis-co",
   "wyld",
 ]);
 
