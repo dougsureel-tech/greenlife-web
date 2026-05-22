@@ -216,6 +216,27 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Plaid Jacket (38 SKUs, mix of cartridge + flower + preroll
+  // from plaidjacket.com Squarespace. Originals were 3MB WebP — fetched at
+  // `?format=500w` for ~150KB each. Catalog "GB" matches "GB *Elevated*" +
+  // "GB *Black Label*" variants. Super Boof matches multiple cart + flower
+  // SKUs. ----
+  {
+    brand: "Plaid Jacket",
+    nameContains: ["Super Boof"],
+    file: "plaid-jacket--strain-super-boof.webp",
+  },
+  {
+    brand: "Plaid Jacket",
+    nameContains: ["GB"],
+    file: "plaid-jacket--strain-gb-glacee-blanche.webp",
+  },
+  {
+    brand: "Plaid Jacket",
+    category: "Flower",
+    file: "plaid-jacket--premium-flower-3-5g.webp",
+  },
+
   // ---- Bondi Farms (50 SKUs, all flower — per-strain photos from
   // bondifarms.com Squarespace label gallery). Per-strain matching by
   // name substring. ----
