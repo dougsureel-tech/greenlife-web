@@ -216,6 +216,47 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- K-Savage (25 SKUs — flower + prerolls + cartridge. Per-strain
+  // photos from k-savage.com Squarespace `/flower/<strain>` subpages via
+  // `?format=600w` URL trick. 7 strains match catalog (Angela 3, GMO 3,
+  // Blue Lobster 4, El Chivo 3, Lantz 2, Gas Face 1, Lilac Wine 1).
+  // Kush Mints not in current catalog — skipped. ----
+  {
+    brand: "K-Savage",
+    nameContains: ["Angela"],
+    file: "k-savage--angela.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["GMO"],
+    file: "k-savage--gmo.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["Blue Lobster"],
+    file: "k-savage--blue-lobster.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["El Chivo"],
+    file: "k-savage--el-chivo.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["Lantz"],
+    file: "k-savage--lantz.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["Gas Face"],
+    file: "k-savage--gas-face.webp",
+  },
+  {
+    brand: "K-Savage",
+    nameContains: ["Lilac Wine"],
+    file: "k-savage--lilac-wine.webp",
+  },
+
   // ---- Pioneer Squares (20 SKUs — Fruit Noms gummies in various flavors
   // from pioneersquares.com WP — Craft Elixirs parent). 10 per-flavor
   // photos cover ~18 of 20 SKUs. Skipped Peach Mango (no photo on site). ----
