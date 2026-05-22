@@ -851,7 +851,7 @@ export async function getTopBrandsBySales(
       SELECT p.vendor_id, COUNT(*)::int AS sales_count
       FROM sale_line_items sli
       INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - (${days}::int || ' days')::interval
+      WHERE sli.sold_at >= NOW() - (INTERVAL '1 day' * ${days})
         AND p.vendor_id IS NOT NULL
       GROUP BY p.vendor_id
     )
