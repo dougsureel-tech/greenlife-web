@@ -34,7 +34,13 @@
 // you drop a new placeholder JPG into the folder, ADD its slug + the
 // category strings it covers HERE too.
 
-type PlaceholderSlug = "flower" | "preroll" | "vape" | "concentrate";
+type PlaceholderSlug =
+  | "flower"
+  | "preroll"
+  | "vape"
+  | "concentrate"
+  | "tincture"
+  | "topical";
 
 // Mapping from DB `category` string (case-sensitive, matching the
 // strings used by `lib/product-placeholder.ts` CATEGORY_GRADIENTS) to
@@ -57,6 +63,10 @@ const CATEGORY_TO_PLACEHOLDER: Record<string, PlaceholderSlug> = {
   Pods: "vape",
   Concentrate: "concentrate",
   Concentrates: "concentrate",
+  Tincture: "tincture",
+  Tinctures: "tincture",
+  Topical: "topical",
+  Topicals: "topical",
 };
 
 /**
@@ -88,4 +98,6 @@ export const CATEGORY_PLACEHOLDER_SLUGS: ReadonlySet<PlaceholderSlug> = new Set(
   "preroll",
   "vape",
   "concentrate",
+  "tincture",
+  "topical",
 ]);
