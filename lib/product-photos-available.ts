@@ -216,6 +216,60 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Pioneer Squares (20 SKUs — Fruit Noms gummies in various flavors
+  // from pioneersquares.com WP — Craft Elixirs parent). 10 per-flavor
+  // photos cover ~18 of 20 SKUs. Skipped Peach Mango (no photo on site). ----
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Key Lime"],
+    file: "pioneer-squares--key-lime-pie.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Lemon Mandarin"],
+    file: "pioneer-squares--lemon-mandarin.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Pineapple Crush"],
+    file: "pioneer-squares--pineapple-crush.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Pink Lemonade"],
+    file: "pioneer-squares--pink-lemonade.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Ruby Grapefruit"],
+    file: "pioneer-squares--ruby-grapefruit.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Sour Cherry"],
+    file: "pioneer-squares--sour-cherry.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Watermelon Kiwi"],
+    file: "pioneer-squares--watermelon-kiwi.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Blueberry Dreams"],
+    file: "pioneer-squares--blueberry-dreams.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Cherry Dreams"],
+    file: "pioneer-squares--cherry-dreams.jpg",
+  },
+  {
+    brand: "Pioneer Squares",
+    nameContains: ["Pineapple Dreams"],
+    file: "pioneer-squares--pineapple-dreams.jpg",
+  },
+
   // ---- JourneyMan (29 SKUs — lemonade shooters + hash rosin lemonades +
   // gummies from lifeisajourneyman.com Squarespace. 6 per-product photos
   // matched to specific lemonade flavors. Catalog brand="JourneyMan" exact
