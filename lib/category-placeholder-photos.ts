@@ -40,7 +40,9 @@ type PlaceholderSlug =
   | "vape"
   | "concentrate"
   | "tincture"
-  | "topical";
+  | "topical"
+  | "beverage"
+  | "capsule";
 
 // Mapping from DB `category` string (case-sensitive, matching the
 // strings used by `lib/product-placeholder.ts` CATEGORY_GRADIENTS) to
@@ -67,6 +69,10 @@ const CATEGORY_TO_PLACEHOLDER: Record<string, PlaceholderSlug> = {
   Tinctures: "tincture",
   Topical: "topical",
   Topicals: "topical",
+  Beverage: "beverage",
+  Beverages: "beverage",
+  Capsule: "capsule",
+  Capsules: "capsule",
 };
 
 /**
@@ -100,4 +106,6 @@ export const CATEGORY_PLACEHOLDER_SLUGS: ReadonlySet<PlaceholderSlug> = new Set(
   "concentrate",
   "tincture",
   "topical",
+  "beverage",
+  "capsule",
 ]);
