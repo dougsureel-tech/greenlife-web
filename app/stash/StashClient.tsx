@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useStash } from "@/lib/stash";
 import { StashButton } from "@/components/StashButton";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
@@ -133,9 +134,10 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                         aria-label={p.name}
                         className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
                       >
-                        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
-                          {getProductPlaceholderIcon(p.category)}
-                        </span>
+                        {(() => {
+                          const Icon = getCategoryIcon(p.category);
+                          return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                        })()}
                         {p.brand && (
                           <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
                             {p.brand}

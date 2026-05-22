@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { DohLogo } from "@/lib/doh-logo";
 import type { ActiveDeal } from "@/lib/db";
@@ -380,9 +381,10 @@ export function PaginatedProductsGrid({
                         aria-label={p.name}
                         className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
                       >
-                        <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
-                          {getProductPlaceholderIcon(p.category)}
-                        </span>
+                        {(() => {
+                          const Icon = getCategoryIcon(p.category);
+                          return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                        })()}
                         {p.brand && (
                           <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
                             {p.brand}
@@ -543,9 +545,10 @@ function FeaturedCard({
               aria-label={p.name}
               className={`absolute inset-0 flex flex-col items-center justify-center gap-3 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
             >
-              <span className="text-6xl leading-none drop-shadow-sm" aria-hidden="true">
-                {getProductPlaceholderIcon(p.category)}
-              </span>
+              {(() => {
+                const Icon = getCategoryIcon(p.category);
+                return <Icon className="w-16 h-16 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+              })()}
               {p.brand && (
                 <span className="text-xs font-bold uppercase tracking-wider text-stone-700 px-4 py-1.5 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm">
                   {p.brand}

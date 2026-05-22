@@ -9,7 +9,8 @@ import { getBrandCopy } from "@/lib/brand-copy";
 import { withAttr } from "@/lib/attribution";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
 import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
@@ -667,9 +668,10 @@ export default async function BrandPage({ params }: Props) {
                             aria-label={p.name}
                             className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
                           >
-                            <span className="text-5xl leading-none drop-shadow-sm" aria-hidden="true">
-                              {getProductPlaceholderIcon(p.category)}
-                            </span>
+                            {(() => {
+                              const Icon = getCategoryIcon(p.category);
+                              return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                            })()}
                             {p.brand && (
                               <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
                                 {p.brand}

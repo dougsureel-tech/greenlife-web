@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRecentlyViewed } from "@/lib/recently-viewed";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
@@ -75,9 +76,12 @@ export function RecentlyViewedStrip({
                   <div
                     role="img"
                     aria-label={p.name}
-                    className={`w-full h-full flex items-center justify-center text-3xl ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                    className={`w-full h-full flex items-center justify-center ${getProductPlaceholderGradient(p.category, p.strainType)}`}
                   >
-                    <span aria-hidden="true">{getProductPlaceholderIcon(p.category)}</span>
+                    {(() => {
+                      const Icon = getCategoryIcon(p.category);
+                      return <Icon className="w-10 h-10 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                    })()}
                   </div>
                 )}
                 {p.strainType && STRAIN_DOT[p.strainType] && (

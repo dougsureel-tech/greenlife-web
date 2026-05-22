@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
 import { DAY_MS } from "@/lib/time-constants";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { DohLogo } from "@/lib/doh-logo";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
@@ -1469,9 +1470,10 @@ export default async function HomePage() {
                         aria-label={p.name}
                         className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
                       >
-                        <span className="text-4xl leading-none drop-shadow-sm" aria-hidden="true">
-                          {getProductPlaceholderIcon(p.category)}
-                        </span>
+                        {(() => {
+                          const Icon = getCategoryIcon(p.category);
+                          return <Icon className="w-12 h-12 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                        })()}
                         {p.brand && (
                           <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
                             {p.brand}
@@ -1585,9 +1587,10 @@ export default async function HomePage() {
                         aria-label={p.name}
                         className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
                       >
-                        <span className="text-4xl leading-none drop-shadow-sm" aria-hidden="true">
-                          {getProductPlaceholderIcon(p.category)}
-                        </span>
+                        {(() => {
+                          const Icon = getCategoryIcon(p.category);
+                          return <Icon className="w-12 h-12 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                        })()}
                         {p.brand && (
                           <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
                             {p.brand}

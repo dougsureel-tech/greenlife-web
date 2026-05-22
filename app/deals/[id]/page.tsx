@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 import { withAttr } from "@/lib/attribution";
-import { getProductPlaceholderGradient, getProductPlaceholderIcon } from "@/lib/product-placeholder";
+import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor } from "@/lib/online-pricing";
 import { DohLogo } from "@/lib/doh-logo";
 import { breadcrumbJsonLd, HOME_CRUMB } from "@/lib/breadcrumb-jsonld";
@@ -292,9 +293,12 @@ export default async function DealDetailPage({ params }: Params) {
                       <div
                         role="img"
                         aria-label={p.name}
-                        className={`w-full h-full flex items-center justify-center text-3xl ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                        className={`w-full h-full flex items-center justify-center ${getProductPlaceholderGradient(p.category, p.strainType)}`}
                       >
-                        <span aria-hidden="true">{getProductPlaceholderIcon(p.category)}</span>
+                        {(() => {
+                          const Icon = getCategoryIcon(p.category);
+                          return <Icon className="w-10 h-10 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
+                        })()}
                       </div>
                     )}
                     {p.strainType && STRAIN_DOT[p.strainType] && (
