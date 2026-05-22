@@ -216,6 +216,42 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Fifty Fold (30 SKUs — all DOH Flower + Infused Preroll. Per-strain
+  // photos from fiftyfolds.com/strains Squarespace gallery — 50+ strains
+  // available, but only 3 match current SCC catalog (Caribbean Cookies,
+  // Dante's Inferno, Double Stack etc not in fiftyfolds gallery today). ----
+  {
+    brand: "Fifty Fold",
+    nameContains: ["ChemDozer"],
+    file: "fifty-fold--chemdozer.webp",
+  },
+  {
+    brand: "Fifty Fold",
+    nameContains: ["First Class Funk"],
+    file: "fifty-fold--first-class-funk.webp",
+  },
+  {
+    brand: "Fifty Fold",
+    nameContains: ["Love"],
+    file: "fifty-fold--love.webp",
+  },
+
+  // ---- Dewey Cannabis (30 SKUs — cartridges + flower + prerolls + concentrate
+  // from deweycannabis.com Squarespace. Only category-level photography
+  // surfaced; brand-own /products /signature-flower /all-strains paths
+  // serve mostly logos. dab_pen_01 + pullmanprimer flower shot from
+  // homepage. ----
+  {
+    brand: "Dewey",
+    category: "Cartridge",
+    file: "dewey--cartridge.webp",
+  },
+  {
+    brand: "Dewey",
+    category: "Flower",
+    file: "dewey--flower.webp",
+  },
+
   // ---- High Tide (30 SKUs — flower + concentrate + cart + preroll across
   // many strains. Per-strain photos from hightidecannabis.com Wix strain
   // gallery — 21 distinct strain images served at w_480 from wixstatic.

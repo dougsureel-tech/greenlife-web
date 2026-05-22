@@ -3,6 +3,8 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 39.465 — 🖼️ **Fifty Fold × 3 + Dewey × 2 — covers ~10 SKUs (sister scc v30.775).** Modest yield — fiftyfolds.com/strains gallery has 50+ photos but only 3 match catalog (ChemDozer, Love, First Class Funk). Dewey 2 category-level rules. Manifest now 135 rules covering ~630 SKUs.
+//
 // 39.445 — 🖼️ **High Tide × 21 strain photos + Ceres × 11 category rules — covers ~50 of 84 SKUs (sister scc v30.755).** High Tide 21 per-strain JPGs from hightidecannabis.com Wix CDN at w_480. Ceres 11 rules across tinctures/topicals/bath-salts/concentrates/capsules/chocolates/chews/drops/gummies/vapes from ceresgarden.com. Manifest now 130 rules covering ~620 SKUs. Manifest gate CLEAN 130/130.
 //
 // 39.425 — 🖼️ **Dope Cooks × 6 + Fairwinds Companion × 1 — covers ~29 Dope Cooks + 2 Fairwinds Companion SKUs (sister scc v30.735).** Dope Cooks unlock: Safari UA bypassed 403 bot-block. Rules brand+category mostly + Crazy Cart name-keyword. Manifest now 99 rules. Manifest gate CLEAN 99/99.
@@ -752,7 +754,7 @@
 // 37.665 — 🩺 `emailFromAtRisk` health check updated to recognize apex-direct as SAFE — the SPF + Resend-DKIM-verification work shipped via the cannabis-stack apex-direct migration 2026-05-19 PM means bare `greenlifecannabis.com` is no longer at-risk. Pre-fix the check at `lib/email.ts:127` returned `true` whenever RESEND_FROM resolved to the bare apex — predates the apex-SPF-includes-Resend change. Now uses a VERIFIED_HOSTS set containing `greenlifecannabis.com` + `send.greenlifecannabis.com` — returns `false` for either (both have Resend SPF + DKIM verified), `true` for anything else (typo / wrong domain). `/api/health emailFromAtRisk` was false-positive showing `true` on the post-rotation deploy. Sister scc v29.045 same-push. Apex SPF confirmed via `dig TXT greenlifecannabis.com` → `v=spf1 include:_spf.resend.com include:secureserver.net include:spf.protection.outlook.com -all`. DMARC `aspf=r adkim=r` (relaxed alignment) means apex-direct passes SPF+DMARC at receiving Gmail/Apple Mail/Outlook. Comment block in lib/email.ts updated to reflect the new reality + flag the maintenance contract (if SPF/Resend-verification state changes, update VERIFIED_HOSTS). typecheck CLEAN.
 //
 // 38.185 — 🏷️ **6 more displayName backfills — fills the last shouty/legal-suffix gaps on producers with consumer-recognized short names (sister scc v29.545).** Continues the displayName arc from v38.045→v38.145. Adds: agro-couture → "Agro Couture" (title-case from shouty DB) · ceres → "Ceres" · northwest-cannabis-solutions → "Northwest Cannabis Solutions" (title-case from shouty DB; NWCS has no consumer-facing short brand so keep full name) · kokua-services → "Kokua" (drop corporate "Services" suffix) · ceres-435011 → "Ceres" (variant slug parity) · agro-couture-slab-mechanix → "Agro Couture" (variant slug parity). 28 brand entries total now use the displayName 3-layer fallback. Sister scc v29.545 ships byte-identical lib/brand-copy.ts. WAC clean. typecheck CLEAN.
-export const BUILD_VERSION = "39.445";
+export const BUILD_VERSION = "39.465";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ||
