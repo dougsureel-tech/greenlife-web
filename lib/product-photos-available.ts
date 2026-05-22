@@ -216,6 +216,41 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- JourneyMan (29 SKUs — lemonade shooters + hash rosin lemonades +
+  // gummies from lifeisajourneyman.com Squarespace. 6 per-product photos
+  // matched to specific lemonade flavors. Catalog brand="JourneyMan" exact
+  // capitalization (despite "Journeyman" in product NAME field). ----
+  {
+    brand: "JourneyMan",
+    nameContains: ["Berry Lemonade"],
+    file: "journeyman--berry-lemonade.webp",
+  },
+  {
+    brand: "JourneyMan",
+    nameContains: ["Tropical Lemonade"],
+    file: "journeyman--tropical-lemonade.webp",
+  },
+  {
+    brand: "JourneyMan",
+    nameContains: ["Tart Lemonade"],
+    file: "journeyman--tart-lemonade.webp",
+  },
+  {
+    brand: "JourneyMan",
+    nameContains: ["Strawberry", "Hash"],
+    file: "journeyman--strawberry-hash.webp",
+  },
+  {
+    brand: "JourneyMan",
+    nameContains: ["Peach", "Hash"],
+    file: "journeyman--peach-hash.webp",
+  },
+  {
+    brand: "JourneyMan",
+    nameContains: ["Pineapple", "Hash"],
+    file: "journeyman--pineapple-hash.webp",
+  },
+
   // ---- Flipside (50 SKUs, all DOH Cartridge — base + Platinum + Gold tiers).
   // Order matters: per-strain rules FIRST (Cherry Gelato / Pineapple Express
   // / etc cover specific SKUs regardless of tier), then "Platinum" + "Gold"
