@@ -66,6 +66,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "double-delicious",
   "downtown-cannabis-company",
   "drops",
+  "essential",
   "evergreen-herbal",
   "ez-vape",
   "fairwinds",
