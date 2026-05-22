@@ -7,6 +7,7 @@ import { useStash } from "@/lib/stash";
 import { StashButton } from "@/components/StashButton";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
+import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
@@ -129,21 +130,50 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                         loading="lazy"
                       />
                     ) : (
-                      <div
-                        role="img"
-                        aria-label={p.name}
-                        className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
-                      >
-                        {(() => {
-                          const Icon = getCategoryIcon(p.category);
-                          return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
-                        })()}
-                        {p.brand && (
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
-                            {p.brand}
-                          </span>
-                        )}
-                      </div>
+                      (() => {
+                        // Tier 2/3 of the /stash card fallback chain: when the
+                        // category maps to an installed placeholder JPG render
+                        // that photo full-bleed with a brand-pill overlay.
+                        // Otherwise fall through to the SVG-icon-on-gradient.
+                        const placeholderPath = getCategoryPlaceholderPhoto(p.category);
+                        if (placeholderPath) {
+                          return (
+                            <div role="img" aria-label={p.name} className="relative w-full h-full overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={placeholderPath}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-cover"
+                              />
+                              <div
+                                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"
+                                aria-hidden="true"
+                              />
+                              {p.brand && (
+                                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-wider text-stone-900 px-2.5 py-1 bg-white/85 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm border border-white/50">
+                                  {p.brand}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        }
+                        const Icon = getCategoryIcon(p.category);
+                        return (
+                          <div
+                            role="img"
+                            aria-label={p.name}
+                            className={`w-full h-full flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                          >
+                            <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />
+                            {p.brand && (
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-stone-700 px-2.5 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
+                                {p.brand}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })()
                     )}
                     <StashButton productId={p.id} />
                     {p.strainType && STRAIN_BADGE[p.strainType] && (
