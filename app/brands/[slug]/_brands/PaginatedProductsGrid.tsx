@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
+import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { DohLogo } from "@/lib/doh-logo";
 import type { ActiveDeal } from "@/lib/db";
@@ -372,25 +373,52 @@ export function PaginatedProductsGrid({
                         />
                       </div>
                     ) : (
-                      // Strain-tinted (Flower/Pre-Roll) or category-tinted gradient
-                      // placeholder + brand chip. h-44 to match the image case so
-                      // grid rows stay aligned (pre-v36.405 was h-32 which jagged
-                      // the row when a row mixed photo and no-photo cards).
-                      <div
-                        role="img"
-                        aria-label={p.name}
-                        className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
-                      >
-                        {(() => {
-                          const Icon = getCategoryIcon(p.category);
-                          return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
-                        })()}
-                        {p.brand && (
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
-                            {p.brand}
-                          </span>
-                        )}
-                      </div>
+                      (() => {
+                        // Tier 2/3 of the brand-page card fallback chain: when
+                        // the category maps to an installed placeholder JPG
+                        // (Flower/Pre-Roll/Vape/Concentrate/Tincture/Topical/
+                        // Beverage/Capsule), render that photo full-bleed with
+                        // a brand-pill overlay. Otherwise fall through to the
+                        // SVG-icon-on-gradient.
+                        const placeholderPath = getCategoryPlaceholderPhoto(p.category);
+                        if (placeholderPath) {
+                          return (
+                            <div role="img" aria-label={p.name} className="relative h-44 overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={placeholderPath}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-cover"
+                              />
+                              <div
+                                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"
+                                aria-hidden="true"
+                              />
+                              {p.brand && (
+                                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[11px] font-bold uppercase tracking-wider text-stone-900 px-3 py-1 bg-white/85 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
+                                  {p.brand}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        }
+                        const Icon = getCategoryIcon(p.category);
+                        return (
+                          <div
+                            role="img"
+                            aria-label={p.name}
+                            className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
+                          >
+                            <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />
+                            {p.brand && (
+                              <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
+                                {p.brand}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })()
                     )}
                     <div className="p-4 space-y-3">
                       <h4 className="font-bold text-stone-900 text-sm leading-snug">{p.name}</h4>
@@ -540,21 +568,47 @@ function FeaturedCard({
               loading="lazy"
             />
           ) : (
-            <div
-              role="img"
-              aria-label={p.name}
-              className={`absolute inset-0 flex flex-col items-center justify-center gap-3 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
-            >
-              {(() => {
-                const Icon = getCategoryIcon(p.category);
-                return <Icon className="w-16 h-16 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
-              })()}
-              {p.brand && (
-                <span className="text-xs font-bold uppercase tracking-wider text-stone-700 px-4 py-1.5 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm">
-                  {p.brand}
-                </span>
-              )}
-            </div>
+            (() => {
+              // Hero-card placeholder tier (sister of grid-card tier above).
+              const placeholderPath = getCategoryPlaceholderPhoto(p.category);
+              if (placeholderPath) {
+                return (
+                  <div role="img" aria-label={p.name} className="absolute inset-0 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={placeholderPath}
+                      alt={p.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                    <div
+                      className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 via-black/15 to-transparent pointer-events-none"
+                      aria-hidden="true"
+                    />
+                    {p.brand && (
+                      <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-wider text-stone-900 px-4 py-1.5 bg-white/90 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm border border-white/50">
+                        {p.brand}
+                      </span>
+                    )}
+                  </div>
+                );
+              }
+              const Icon = getCategoryIcon(p.category);
+              return (
+                <div
+                  role="img"
+                  aria-label={p.name}
+                  className={`absolute inset-0 flex flex-col items-center justify-center gap-3 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
+                >
+                  <Icon className="w-16 h-16 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />
+                  {p.brand && (
+                    <span className="text-xs font-bold uppercase tracking-wider text-stone-700 px-4 py-1.5 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm">
+                      {p.brand}
+                    </span>
+                  )}
+                </div>
+              );
+            })()
           )}
           <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-stone-900 shadow-sm">
             <span aria-hidden="true">⭐ </span>Featured
