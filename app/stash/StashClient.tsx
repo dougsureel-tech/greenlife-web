@@ -8,6 +8,7 @@ import { StashButton } from "@/components/StashButton";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
@@ -131,7 +132,23 @@ export function StashClient({ products }: { products: MenuProduct[] }) {
                       />
                     ) : (
                       (() => {
-                        // Tier 2/3 of the /stash card fallback chain: when the
+                        // Tier 2 of the /stash card fallback chain: per-product
+                        // brand photo via matchProductPhoto manifest (135 rules).
+                        const productPhotoPath = matchProductPhoto(p.name, p.brand, p.category);
+                        if (productPhotoPath) {
+                          return (
+                            <div role="img" aria-label={p.name} className="relative w-full h-full overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={productPhotoPath}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-contain p-2"
+                              />
+                            </div>
+                          );
+                        }
+                        // Tier 3 of the /stash card fallback chain: when the
                         // category maps to an installed placeholder JPG render
                         // that photo full-bleed with a brand-pill overlay.
                         // Otherwise fall through to the SVG-icon-on-gradient.
