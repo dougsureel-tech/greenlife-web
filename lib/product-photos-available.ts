@@ -143,6 +143,38 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     nameContains: ["Super Infusionz"],
     file: "double-delicious--hybrid-super-infusionz.png",
   },
+
+  // ---- 2727 (brand+category fallback — no per-strain photography on
+  // 2727life.com; instead they have 4 category-level art renders). Catalog
+  // emits multiple pre-roll category strings ("DOH Pre-Roll" / "Infused Pre-
+  // Roll" / "DOH Preroll" / "Pre-Roll") — handled via two rules (substring
+  // matches "Pre-Roll" + "Preroll" cover all variants). "Flower" matches
+  // both "Flower" and "DOH Flower". ----
+  {
+    brand: "2727",
+    category: "Cartridge",
+    file: "2727--cartridge-category.png",
+  },
+  {
+    brand: "2727",
+    category: "Concentrate",
+    file: "2727--concentrate-category.png",
+  },
+  {
+    brand: "2727",
+    category: "Pre-Roll",
+    file: "2727--preroll-pack-category.png",
+  },
+  {
+    brand: "2727",
+    category: "Preroll",
+    file: "2727--preroll-pack-category.png",
+  },
+  {
+    brand: "2727",
+    category: "Flower",
+    file: "2727--flower-category.png",
+  },
 ];
 
 /**
