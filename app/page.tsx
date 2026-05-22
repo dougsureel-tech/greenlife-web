@@ -5,6 +5,7 @@ import { DAY_MS } from "@/lib/time-constants";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { DohLogo } from "@/lib/doh-logo";
 import { LoyaltyArc } from "@/components/LoyaltyArc";
@@ -1467,7 +1468,25 @@ export default async function HomePage() {
                       />
                     ) : (
                       (() => {
-                        // Tier 2/3 of the homepage card fallback chain: when
+                        // Tier 2 of the homepage card fallback chain: per-product
+                        // brand photo via matchProductPhoto manifest (135 rules
+                        // across 20+ brands). Wins over category-placeholder when
+                        // we have brand-supplied per-product imagery.
+                        const productPhotoPath = matchProductPhoto(p.name, p.brand, p.category);
+                        if (productPhotoPath) {
+                          return (
+                            <div role="img" aria-label={p.name} className="relative w-full h-full overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={productPhotoPath}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-contain p-2"
+                              />
+                            </div>
+                          );
+                        }
+                        // Tier 3 of the homepage card fallback chain: when
                         // the category maps to an installed placeholder JPG
                         // (Flower/Pre-Roll/Vape/Concentrate), render that
                         // photo full-bleed with a brand-pill overlay.
@@ -1614,7 +1633,25 @@ export default async function HomePage() {
                       />
                     ) : (
                       (() => {
-                        // Tier 2/3 of the homepage card fallback chain: when
+                        // Tier 2 of the homepage card fallback chain: per-product
+                        // brand photo via matchProductPhoto manifest (135 rules
+                        // across 20+ brands). Wins over category-placeholder when
+                        // we have brand-supplied per-product imagery.
+                        const productPhotoPath = matchProductPhoto(p.name, p.brand, p.category);
+                        if (productPhotoPath) {
+                          return (
+                            <div role="img" aria-label={p.name} className="relative w-full h-full overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={productPhotoPath}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-contain p-2"
+                              />
+                            </div>
+                          );
+                        }
+                        // Tier 3 of the homepage card fallback chain: when
                         // the category maps to an installed placeholder JPG
                         // (Flower/Pre-Roll/Vape/Concentrate), render that
                         // photo full-bleed with a brand-pill overlay.
