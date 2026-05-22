@@ -91,6 +91,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "plaid-jacket",
   "raging-goat",
   "raven-grass",
+  "ray-s-lemonade",
   "ray-s-lemonade-wa",
   "redbird-cannabis",
   "refine",
