@@ -216,6 +216,176 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- High Tide (30 SKUs — flower + concentrate + cart + preroll across
+  // many strains. Per-strain photos from hightidecannabis.com Wix strain
+  // gallery — 21 distinct strain images served at w_480 from wixstatic.
+  // Most catalog strain names map cleanly to one of the gallery strains. ----
+  {
+    brand: "High Tide",
+    nameContains: ["Blue Limeade"],
+    file: "high-tide--blue-limeade.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Blue Lobster"],
+    file: "high-tide--blue-lobster.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Blue Nerdz"],
+    file: "high-tide--blue-nerdz.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Breathalyzer"],
+    file: "high-tide--breathalyzer.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Crunch Berriez"],
+    file: "high-tide--crunch-berriez.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Goo"],
+    file: "high-tide--goo.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Granddaddy Purple"],
+    file: "high-tide--granddaddy-purple.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Gumi"],
+    file: "high-tide--gumi.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Lemon Cherry Rocket"],
+    file: "high-tide--lemon-cherry-rocket.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Lulu Lemon"],
+    file: "high-tide--lulu-lemon.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Moechilla"],
+    file: "high-tide--moechilla.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Pink Runtz"],
+    file: "high-tide--pink-runtz.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Prezzure"],
+    file: "high-tide--prezzure.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Red Hotz"],
+    file: "high-tide--red-hotz.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Schrom"],
+    file: "high-tide--schrom.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Spooky"],
+    file: "high-tide--spooky.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Stashbox"],
+    file: "high-tide--stashbox.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Twin Peaks"],
+    file: "high-tide--twin-peaks.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Unicorn Factory"],
+    file: "high-tide--unicorn-factory.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Whistle Tip"],
+    file: "high-tide--whistle-tip.jpg",
+  },
+  {
+    brand: "High Tide",
+    nameContains: ["Zeaweed"],
+    file: "high-tide--zeaweed.jpg",
+  },
+
+  // ---- Ceres Garden (54 SKUs — tinctures + edibles + topicals + capsules
+  // from ceresgarden.com WP. Category-level product photography. Catalog
+  // brand="Ceres". Most-specific keyword rules first, then category
+  // fallbacks. ----
+  {
+    brand: "Ceres",
+    nameContains: ["Bath", "Salt"],
+    file: "ceres--bath-salts.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Capsule"],
+    file: "ceres--capsules.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Chocolate"],
+    file: "ceres--chocolates.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Chew"],
+    file: "ceres--chews.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Drop"],
+    file: "ceres--drops.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Gummies"],
+    file: "ceres--gummies.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Tincture"],
+    file: "ceres--tinctures.png",
+  },
+  {
+    brand: "Ceres",
+    nameContains: ["Vape"],
+    file: "ceres--hash-resin-vape.png",
+  },
+  {
+    brand: "Ceres",
+    category: "Tincture",
+    file: "ceres--tinctures.png",
+  },
+  {
+    brand: "Ceres",
+    category: "Topical",
+    file: "ceres--topicals.png",
+  },
+  {
+    brand: "Ceres",
+    category: "Concentrate",
+    file: "ceres--concentrates.png",
+  },
+
   // ---- Dope Cooks (29 SKUs — cartridges + concentrates + infused pre-rolls
   // from dopecooks420.com WP. Bot-blocked on default User-Agent; required
   // realistic Safari UA. Photos are product-line level (not per-strain), so
