@@ -144,6 +144,99 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "double-delicious--hybrid-super-infusionz.png",
   },
 
+  // ---- Slab Mechanix (29 SKUs — concentrate form distinguished by NAME
+  // not category. "Shatter" vs "Sugar Wax" are both category="DOH
+  // Concentrate" but the brand publishes distinct product photography for
+  // each. Order matters — name-keyword rules first, then category-based
+  // fallbacks for the rest. ----
+  {
+    brand: "Slab Mechanix",
+    nameContains: ["Sugar Wax"],
+    file: "slab-mechanix--sugar-wax.jpg",
+  },
+  {
+    brand: "Slab Mechanix",
+    nameContains: ["Shatter"],
+    file: "slab-mechanix--shatter.jpg",
+  },
+  {
+    brand: "Slab Mechanix",
+    nameContains: ["Joint"],
+    file: "slab-mechanix--infused-joint.jpg",
+  },
+  {
+    brand: "Slab Mechanix",
+    category: "Pre-Roll",
+    file: "slab-mechanix--infused-preroll.jpg",
+  },
+  {
+    brand: "Slab Mechanix",
+    category: "Cartridge",
+    file: "slab-mechanix--cartridge.jpg",
+  },
+  {
+    brand: "Slab Mechanix",
+    category: "Flower",
+    file: "slab-mechanix--bbud-flower.jpg",
+  },
+
+  // ---- Constellation Cannabis (41 SKUs across 6 category buckets from
+  // constellationcannabis.com/products/). Brand-own per-category renders
+  // are clean — `Hash` for concentrate, `All-In-One-Vape` for cartridge,
+  // `Moonshot Infused Drink` for liquid edible, `Gummies` for solid edible,
+  // `Hash Infused Preroll` for pre-roll. ----
+  {
+    brand: "Constellation Cannabis",
+    category: "Concentrate",
+    file: "constellation--hash.jpg",
+  },
+  {
+    brand: "Constellation Cannabis",
+    category: "Cartridge",
+    file: "constellation--vape.jpg",
+  },
+  {
+    brand: "Constellation Cannabis",
+    category: "Edible (Liquid)",
+    file: "constellation--drink.jpg",
+  },
+  {
+    brand: "Constellation Cannabis",
+    category: "Flower",
+    file: "constellation--flower.jpg",
+  },
+  {
+    brand: "Constellation Cannabis",
+    category: "Edible (Solid)",
+    file: "constellation--gummies.jpg",
+  },
+  {
+    brand: "Constellation Cannabis",
+    category: "Pre-Roll",
+    file: "constellation--preroll.jpg",
+  },
+
+  // ---- Fairwinds (19 SKUs across 3 category buckets from
+  // fairwindscannabis.com/products/). "Deep Sleep" tincture render works
+  // as a generic Edible (Liquid) fallback — most Fairwinds liquids are
+  // tinctures. Vape (Live Resin Cartridge) for cartridge. Capsules for
+  // solid. ----
+  {
+    brand: "Fairwinds",
+    category: "Cartridge",
+    file: "fairwinds--vape-1-1.jpg",
+  },
+  {
+    brand: "Fairwinds",
+    category: "Edible (Liquid)",
+    file: "fairwinds--tincture-deep-sleep.jpg",
+  },
+  {
+    brand: "Fairwinds",
+    category: "Edible (Solid)",
+    file: "fairwinds--capsule-1-1.jpg",
+  },
+
   // ---- 2727 (brand+category fallback — no per-strain photography on
   // 2727life.com; instead they have 4 category-level art renders). Catalog
   // emits multiple pre-roll category strings ("DOH Pre-Roll" / "Infused Pre-
