@@ -31,7 +31,7 @@
 //   - non-alphanumeric runs → single `-`
 //   - trim leading/trailing `-`
 //
-// Sister-mirrored at `seattle-cannabis-web/lib/brand-logos-available.ts` —
+// Sister-mirrored at `greenlife-web/lib/brand-logos-available.ts` —
 // keep the two stacks IDENTICAL (the public/ folders are also identical).
 
 export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
@@ -45,9 +45,11 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "artizen-cga",
   "artizen",
   "avitas",
+  "ballin",
   "ballin-cannabis",
   "binx-buds",
   "blaze",
+  "blaze-soda",
   "bondi-farms",
   "buddy-boy-farm",
   "canna-cantina",
@@ -64,6 +66,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "dope-cooks",
   "dose",
   "double-delicious",
+  "downtown-cannabis",
   "downtown-cannabis-company",
   "drops",
   "essential",
@@ -71,8 +74,10 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "ez-vape",
   "fairwinds",
   "falcanna",
+  "fifty",
   "fifty-fold",
   "flipside",
+  "flipside-gold",
   "foemina",
   "full-spec",
   "goodies-cannabis",
@@ -82,6 +87,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "heylo-cannabis",
   "hustler-s-ambition",
   "high-tide",
+  "hitz",
   "hitz-cannabis",
   "honu",
   "honu-inc",
@@ -100,6 +106,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "microbar",
   "mini-budz",
   "minglewood-brands",
+  "minglewood-brands-private-label",
   "momma-chans",
   "narrows",
   "old-mcdonald-s-farm",
@@ -112,6 +119,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "phat-panda",
   "plaid-jacket",
   "raging-goat",
+  "raven",
   "raven-grass",
   "ray-s-lemonade",
   "ray-s-lemonade-wa",
@@ -125,6 +133,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "smokiez",
   "stone-age",
   "super-fog",
+  "super-fog-twisted",
   "tahoma-cannabis-company",
   "tarukino",
   "terp-stix",
