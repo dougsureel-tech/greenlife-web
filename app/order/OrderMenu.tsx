@@ -16,6 +16,7 @@ import { MINUTE_MS, DAY_MS } from "@/lib/time-constants";
 import { fetchClosureStatus, type ClosureStatus } from "@/lib/closure-status";
 import { eligibleRedemptionTiers, applyRedemptionTier, type RedemptionTier } from "@/lib/loyalty-redemption";
 import { BRAND_LOGOS_AVAILABLE } from "@/lib/brand-logos-available";
+import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
 
 // Map a product to a running deal it qualifies for, if any. Deals are
 // category-scoped in our schema (`appliesTo` = "flower", "edibles", "all"
@@ -333,8 +334,20 @@ function ProductImage({
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
   const [brandLogoErrored, setBrandLogoErrored] = useState(false);
+  const [categoryPlaceholderErrored, setCategoryPlaceholderErrored] = useState(false);
   const CategoryIcon = getCategoryIcon(category);
   const brandLogoSlug = brand ? slugifyBrandForLogo(brand) : null;
+  // Generic category-placeholder photo path — only set when the category
+  // maps to an installed JPG (flower / preroll / vape variants). Doug
+  // 2026-05-21: "we can find generic photos we can use as placeholders for
+  // now if we cant find a cartrige image or something like that." Acts as
+  // the tier BELOW brand-logo and ABOVE the CategoryIcon SVG fallback.
+  // See lib/category-placeholder-photos.ts.
+  const categoryPlaceholderPath = !brandLogoSlug || !BRAND_LOGOS_AVAILABLE.has(brandLogoSlug)
+    ? getCategoryPlaceholderPhoto(category)
+    : null;
+  const tryCategoryPlaceholder =
+    !!categoryPlaceholderPath && !categoryPlaceholderErrored;
   // Build-time manifest gate — only attempt the brand-logo render when
   // the PNG actually exists on disk. Pre-manifest, products whose slug
   // didn't match an existing file would fetch a 404 + briefly show the
@@ -343,6 +356,51 @@ function ProductImage({
   // see lib/brand-logos-available.ts doctrine.
   const hasLogo = !!brandLogoSlug && BRAND_LOGOS_AVAILABLE.has(brandLogoSlug);
   const tryBrandLogo = hasLogo && !brandLogoErrored;
+
+  if ((!src || errored) && tryCategoryPlaceholder && categoryPlaceholderPath) {
+    // Generic-category placeholder branch (tier 3 of 4 in the fallback
+    // chain). Fires when there's no real product photo + no brand logo,
+    // but the category maps to a generic photo on disk (flower / preroll /
+    // vape). Full-bleed image with strain-chip + brand-pill + thc-pct
+    // overlays — same chip system as the brand-logo branch below, just
+    // composited on a photo instead of a gradient.
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className="relative w-full h-full overflow-hidden bg-stone-100"
+      >
+        <Image
+          src={categoryPlaceholderPath}
+          alt={alt}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover"
+          onError={() => setCategoryPlaceholderErrored(true)}
+          unoptimized
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"
+          aria-hidden="true"
+        />
+        {strainType ? (
+          <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-wider text-stone-900 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-md border border-white/50 shadow-sm">
+            {strainType}
+          </span>
+        ) : null}
+        {brand ? (
+          <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-wider text-stone-900 px-2.5 py-1 bg-white/85 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm border border-white/50">
+            {brand}
+          </span>
+        ) : null}
+        {typeof thcPct === "number" && thcPct > 0 ? (
+          <span className="absolute bottom-2 right-2 text-[9px] font-medium tracking-wide text-stone-900 font-variant-numeric tabular-nums px-1.5 py-0.5 bg-white/85 backdrop-blur-sm rounded-md border border-white/50 shadow-sm">
+            THC {thcPct.toFixed(1)}%
+          </span>
+        ) : null}
+      </div>
+    );
+  }
 
   if (!src || errored) {
     // Strain-tinted (Flower/Pre-Roll) or category-tinted gradient — picks
