@@ -11,6 +11,8 @@ import { isBannedLogoUrl } from "@/lib/banned-logo-url";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
+import { getCategoryPlaceholderPhoto } from "@/lib/category-placeholder-photos";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 import { STORE } from "@/lib/store";
 import NWCSBrandPage from "./_brands/northwest-cannabis-solutions";
 import GrowOpFarmsBrandPage from "./_brands/grow-op-farms";
@@ -662,23 +664,60 @@ export default async function BrandPage({ params }: Props) {
                               loading="lazy"
                             />
                           </div>
-                        ) : (
-                          <div
-                            role="img"
-                            aria-label={p.name}
-                            className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
-                          >
-                            {(() => {
-                              const Icon = getCategoryIcon(p.category);
-                              return <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
-                            })()}
-                            {p.brand && (
-                              <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
-                                {p.brand}
-                              </span>
-                            )}
-                          </div>
-                        )}
+                        ) : (() => {
+                          const productPhotoPath = matchProductPhoto(p.name, p.brand, p.category);
+                          if (productPhotoPath) {
+                            return (
+                              <div className="h-44 bg-stone-100 overflow-hidden relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={productPhotoPath}
+                                  alt={p.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-contain p-2"
+                                />
+                              </div>
+                            );
+                          }
+                          const placeholderPath = getCategoryPlaceholderPhoto(p.category);
+                          if (placeholderPath) {
+                            return (
+                              <div className="h-44 bg-stone-100 overflow-hidden relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={placeholderPath}
+                                  alt={p.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover"
+                                />
+                                <div
+                                  className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"
+                                  aria-hidden="true"
+                                />
+                                {p.brand && (
+                                  <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-wider text-stone-900 px-2.5 py-1 bg-white/85 backdrop-blur-sm rounded-full line-clamp-1 max-w-[80%] shadow-sm border border-white/50">
+                                    {p.brand}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          }
+                          const Icon = getCategoryIcon(p.category);
+                          return (
+                            <div
+                              role="img"
+                              aria-label={p.name}
+                              className={`h-44 flex flex-col items-center justify-center gap-2 ${getProductPlaceholderGradient(p.category, p.strain_type)}`}
+                            >
+                              <Icon className="w-14 h-14 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />
+                              {p.brand && (
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/75 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm">
+                                  {p.brand}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })()}
                         <div className="p-4 space-y-3">
                           <div>
                             <h3 className="font-bold text-stone-900 text-sm leading-snug">{p.name}</h3>
