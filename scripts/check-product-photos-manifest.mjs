@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build-gate: verify lockstep between `lib/product-photos-available.ts`
- * manifest entries and `public/product-photos/*.{png,jpg}` files on disk.
+ * manifest entries and `public/product-photos/*.{png,jpg,webp}` files on disk.
  *
  * Fails the push when:
  *   - A file referenced in `PRODUCT_PHOTO_RULES` doesn't exist on disk
@@ -44,9 +44,10 @@ if (manifestFiles.size === 0) {
   fail(`no \`file: "..."\` entries found in ${MANIFEST_PATH} — manifest empty?`);
 }
 
-// List files on disk (only .png + .jpg).
+// List files on disk (.png + .jpg + .webp — all browser-renderable formats
+// the menu's <Image unoptimized> can serve).
 const diskFiles = new Set(
-  readdirSync(PHOTOS_DIR).filter((f) => /\.(png|jpg)$/i.test(f)),
+  readdirSync(PHOTOS_DIR).filter((f) => /\.(png|jpg|webp)$/i.test(f)),
 );
 
 // Missing-on-disk: manifest entry has no file.

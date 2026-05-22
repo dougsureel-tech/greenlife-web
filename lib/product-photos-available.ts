@@ -216,6 +216,159 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Bondi Farms (50 SKUs, all flower — per-strain photos from
+  // bondifarms.com Squarespace label gallery). Per-strain matching by
+  // name substring. ----
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Blackberry"],
+    file: "bondi-farms--blackberry.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Blueberry"],
+    file: "bondi-farms--blueberry.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Candyland"],
+    file: "bondi-farms--candy-land.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Cherry Dosidos"],
+    file: "bondi-farms--cherry-do-si-do.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Crazy Goo"],
+    file: "bondi-farms--crazy-goo.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["GMO"],
+    file: "bondi-farms--gmo.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["God's Gift"],
+    file: "bondi-farms--gods-gift.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["LA Kush Cake"],
+    file: "bondi-farms--la-kush-cake.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Runtz"],
+    file: "bondi-farms--runtz.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Strawberry Gary"],
+    file: "bondi-farms--strawberry-gary.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Sunset Sherbert"],
+    file: "bondi-farms--sunset-sherbert.webp",
+  },
+  {
+    brand: "Bondi Farms",
+    nameContains: ["Super Boof"],
+    file: "bondi-farms--super-boof.webp",
+  },
+
+  // ---- Harmony Farms (52 SKUs, mostly flower from harmonyfarmsnw.com).
+  // Only 3 strain photos secured at usable sizes (the rest of the gallery
+  // serves 6-20MB originals that wouldn't compress cleanly without
+  // re-encoding). Other Harmony Farms SKUs fall to brand-logo. ----
+  {
+    brand: "Harmony Farms",
+    nameContains: ["Black Jack"],
+    file: "harmony-farms--black-jack.jpg",
+  },
+  {
+    brand: "Harmony Farms",
+    nameContains: ["Dutch Treat"],
+    file: "harmony-farms--dutch-treat.jpg",
+  },
+  {
+    brand: "Harmony Farms",
+    nameContains: ["Lemon Tart"],
+    file: "harmony-farms--lemon-tart.jpg",
+  },
+
+  // ---- Aloha Botanics (21 SKUs, mix of flower + disposable carts from
+  // alohabotanics.com). 4 strain photos secured. ----
+  {
+    brand: "Aloha Botanics",
+    nameContains: ["Maui Wowie"],
+    file: "aloha-botanics--maui-wowie.png",
+  },
+  {
+    brand: "Aloha Botanics",
+    nameContains: ["Jack Herer"],
+    file: "aloha-botanics--jack-herer.png",
+  },
+  {
+    brand: "Aloha Botanics",
+    nameContains: ["Acapulco Gold"],
+    file: "aloha-botanics--acapulco-gold.png",
+  },
+  {
+    brand: "Aloha Botanics",
+    nameContains: ["3 Kings"],
+    file: "aloha-botanics--3-kings.png",
+  },
+
+  // ---- Passion Flower (23 SKUs, mostly flower from passionflowerwa.com).
+  // Site is light on per-strain photos — using category-level renders. ----
+  {
+    brand: "Passion Flower",
+    category: "Pre-Roll",
+    file: "passion-flower--preroll-10pk-mockup.jpg",
+  },
+  {
+    brand: "Passion Flower",
+    category: "Cartridge",
+    file: "passion-flower--vape-cart-cartridge.png",
+  },
+  {
+    brand: "Passion Flower",
+    category: "Concentrate",
+    file: "passion-flower--concentrates-oil.jpg",
+  },
+
+  // ---- Washington Bud Company (21 SKUs, mostly flower from wabudco.com).
+  // Brand also makes cannagars + kief + ice-hash. ----
+  {
+    brand: "Washington Bud Company",
+    nameContains: ["Cannagar"],
+    file: "washington-bud-company--cannagar.jpg",
+  },
+  {
+    brand: "Washington Bud Company",
+    nameContains: ["Kief"],
+    file: "washington-bud-company--kief.jpg",
+  },
+  {
+    brand: "Washington Bud Company",
+    category: "Flower",
+    file: "washington-bud-company--flower-prerolls.jpg",
+  },
+
+  // ---- Rochester Farms (43 SKUs, mostly flower — only 1 photo at usable
+  // size after curation; the other 11 strain photos from rf.min.js Angular
+  // bundle were too large to ship economically. Match what we have, fall
+  // back to brand-logo for the rest. ----
+  {
+    brand: "Rochester Farms",
+    nameContains: ["Huckleberry"],
+    file: "rochester-farms--huckleberry-soda.jpg",
+  },
+
   // ---- Fairwinds (19 SKUs across 3 category buckets from
   // fairwindscannabis.com/products/). "Deep Sleep" tincture render works
   // as a generic Edible (Liquid) fallback — most Fairwinds liquids are
