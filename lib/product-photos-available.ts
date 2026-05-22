@@ -216,6 +216,42 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Dope Cooks (29 SKUs — cartridges + concentrates + infused pre-rolls
+  // from dopecooks420.com WP. Bot-blocked on default User-Agent; required
+  // realistic Safari UA. Photos are product-line level (not per-strain), so
+  // rules match by category-or-keyword. Order matters — narrow keywords
+  // first. ----
+  {
+    brand: "Dope Cooks",
+    nameContains: ["Crazy Cart"],
+    file: "dope-cooks--crazy-cart.png",
+  },
+  {
+    brand: "Dope Cooks",
+    nameContains: ["Pre-Roll"],
+    file: "dope-cooks--infused-preroll-bho.png",
+  },
+  {
+    brand: "Dope Cooks",
+    nameContains: ["Preroll"],
+    file: "dope-cooks--infused-preroll-bho.png",
+  },
+  {
+    brand: "Dope Cooks",
+    nameContains: ["Wax"],
+    file: "dope-cooks--bho-wax.png",
+  },
+  {
+    brand: "Dope Cooks",
+    category: "Concentrate",
+    file: "dope-cooks--bho-wax.png",
+  },
+  {
+    brand: "Dope Cooks",
+    category: "Cartridge",
+    file: "dope-cooks--vape-hybrid.png",
+  },
+
   // ---- K-Savage (25 SKUs — flower + prerolls + cartridge. Per-strain
   // photos from k-savage.com Squarespace `/flower/<strain>` subpages via
   // `?format=600w` URL trick. 7 strains match catalog (Angela 3, GMO 3,
@@ -579,6 +615,11 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     brand: "Fairwinds",
     category: "Edible (Solid)",
     file: "fairwinds--capsule-1-1.jpg",
+  },
+  {
+    brand: "Fairwinds",
+    nameContains: ["Companion"],
+    file: "fairwinds--tincture-companion-b32.png",
   },
 
   // ---- 2727 (brand+category fallback — no per-strain photography on
