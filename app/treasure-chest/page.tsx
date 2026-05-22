@@ -5,6 +5,7 @@ import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -49,21 +50,27 @@ function ProductCard({ p }: { p: MenuProduct }) {
         🪙 Treasure
       </span>
       <div className="aspect-square bg-stone-100 overflow-hidden relative">
-        {p.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={p.imageUrl}
-            alt={p.name}
-            loading="lazy"
-            width={400}
-            height={400}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-amber-50 to-amber-100">
-            🪙
-          </div>
-        )}
+        {(() => {
+          const photoSrc = p.imageUrl ?? matchProductPhoto(p.name, p.brand, p.category);
+          if (photoSrc) {
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={photoSrc}
+                alt={p.name}
+                loading="lazy"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            );
+          }
+          return (
+            <div className="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-amber-50 to-amber-100">
+              🪙
+            </div>
+          );
+        })()}
         {p.strainType && STRAIN_DOT[p.strainType] && (
           <span
             className={`absolute top-1.5 left-1.5 w-2.5 h-2.5 rounded-full ${STRAIN_DOT[p.strainType]} shadow-sm`}
