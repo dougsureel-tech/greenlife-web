@@ -235,6 +235,21 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     nameContains: ["Love"],
     file: "fifty-fold--love.webp",
   },
+  // Extended 2026-05-22 — category-level fallbacks from brand-own fiftyfolds.com
+  // Squarespace gallery. Snickerdoobie lineup covers the full DOH Infused Pre-Roll
+  // tail (121 SKUs); flower macro covers DOH Flower fallback (248 SKUs). Category
+  // "Infused Pre" substring catches DOH Infused Pre-Roll + DOH Infused PreRoll.
+  // Per-strain rules above this point still win first via array order.
+  {
+    brand: "Fifty Fold",
+    category: "Infused Pre",
+    file: "fifty-fold--snickerdoobie-lineup.jpg",
+  },
+  {
+    brand: "Fifty Fold",
+    category: "Flower",
+    file: "fifty-fold--flower-bud.jpg",
+  },
 
   // ---- Dewey Cannabis (30 SKUs — cartridges + flower + prerolls + concentrate
   // from deweycannabis.com Squarespace. Only category-level photography
@@ -1006,6 +1021,96 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     brand: "Pagoda",
     category: "Flower",
     file: "pagoda--flower.jpg",
+  },
+
+  // ---- Ooowee (799 SKUs combined — South Seattle WA brand "the sound of
+  // happiness in word form"). Largest single brand by SKU count without
+  // category rules until this batch. Brand-supplied product photography
+  // sourced from Weedmaps brand portal (Mama J's / Hustler's Ambition /
+  // Pagoda precedent). **DO NOT MATCH** "Ooh Wee" (separate Weedmaps brand) —
+  // exact "Ooowee" 3-o spelling enforced by brand-match. **Traps avoided
+  // during research**: POSaBIT generic stock flower photo (`posabit_stock_-
+  // flower_1.jpg`) reused across 14+ SKUs but NOT Ooowee branding; Ooowee
+  // brand-logo-on-black fallback (`440539855_image.jpeg`) Weedmaps serves
+  // when no real photo; AI-generated honeydew disposable. All excluded.
+  // Order: strain-keyword rules FIRST, then "Infused Pre" before "Pre-Roll"
+  // substring fallback, then "Preroll" (catches "DOH Preroll" 5 SKUs distinct
+  // from DOH Pre-Roll spelling), then generic-category fallbacks. Edibles +
+  // Paraphernalia + Sample categories fall through to brand-logo (no
+  // Ooowee-branded photo available for those).
+  {
+    brand: "Ooowee",
+    nameContains: ["Trophy Runtz"],
+    file: "ooowee--flower-trophy-runtz.jpg",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["Pink Zaza"],
+    file: "ooowee--flower-pink-zaza.jpg",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["Seattle Strawberry"],
+    file: "ooowee--flower-seattle-strawberry.jpg",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["Black Cherry Bomb"],
+    file: "ooowee--cartridge-black-cherry-bomb.jpg",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["FaceLock"],
+    category: "Concentrate",
+    file: "ooowee--concentrate-facelock-wax.jpg",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["Mac Cake"],
+    category: "Concentrate",
+    file: "ooowee--concentrate-mac-cake-wax.png",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["MAC Cake"],
+    category: "Concentrate",
+    file: "ooowee--concentrate-mac-cake-wax.png",
+  },
+  {
+    brand: "Ooowee",
+    nameContains: ["Gelato X"],
+    category: "Pre-Roll",
+    file: "ooowee--preroll-5pk-gelato-x.png",
+  },
+  {
+    brand: "Ooowee",
+    category: "Infused Pre",
+    file: "ooowee--preroll-single-marker.jpg",
+  },
+  {
+    brand: "Ooowee",
+    category: "Pre-Roll",
+    file: "ooowee--preroll-single-marker.jpg",
+  },
+  {
+    brand: "Ooowee",
+    category: "Preroll",
+    file: "ooowee--preroll-single-marker.jpg",
+  },
+  {
+    brand: "Ooowee",
+    category: "Cartridge",
+    file: "ooowee--cartridge-black-cherry-bomb.jpg",
+  },
+  {
+    brand: "Ooowee",
+    category: "Concentrate",
+    file: "ooowee--concentrate-facelock-wax.jpg",
+  },
+  {
+    brand: "Ooowee",
+    category: "Flower",
+    file: "ooowee--flower-marker-jar.jpg",
   },
 ];
 
