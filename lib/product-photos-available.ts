@@ -216,6 +216,46 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     file: "constellation--preroll.jpg",
   },
 
+  // ---- Flipside (50 SKUs, all DOH Cartridge — base + Platinum + Gold tiers).
+  // Order matters: per-strain rules FIRST (Cherry Gelato / Pineapple Express
+  // / etc cover specific SKUs regardless of tier), then "Platinum" + "Gold"
+  // tier fallbacks for the catch-all. ~43 of 50 SKUs covered by these 7 rules. ----
+  {
+    brand: "Flipside",
+    nameContains: ["Cherry Gelato"],
+    file: "flipside--cherry-gelato-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Pineapple Express"],
+    file: "flipside--pineapple-express-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Rocket Popz"],
+    file: "flipside--rocket-popz-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Strawberry Lemon Haze"],
+    file: "flipside--strawberry-lemon-haze-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Watermelon Sugar"],
+    file: "flipside--watermelon-sugar-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Platinum"],
+    file: "flipside--platinum-disposable.png",
+  },
+  {
+    brand: "Flipside",
+    nameContains: ["Gold"],
+    file: "flipside--gold-disposable.png",
+  },
+
   // ---- Plaid Jacket (38 SKUs, mix of cartridge + flower + preroll
   // from plaidjacket.com Squarespace. Originals were 3MB WebP — fetched at
   // `?format=500w` for ~150KB each. Catalog "GB" matches "GB *Elevated*" +
