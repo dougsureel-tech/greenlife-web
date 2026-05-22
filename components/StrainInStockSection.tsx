@@ -3,6 +3,7 @@ import Image from "next/image";
 import { withAttr } from "@/lib/attribution";
 import { effectivePriceFor, findDealForProduct } from "@/lib/online-pricing";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 import { renderReason, type ScoredProduct } from "@/lib/strain-match";
 import type { Strain } from "@/lib/strains";
 import type { ActiveDeal } from "@/lib/db";
@@ -65,17 +66,21 @@ export function StrainInStockSection({
               className="rounded-xl border border-stone-200 bg-white hover:border-stone-400 hover:shadow-sm transition-all overflow-hidden group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <div className="aspect-square relative bg-stone-50">
-                {p.imageUrl ? (
-                  <Image
-                    src={p.imageUrl}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 33vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0" style={{ background: placeholderBg }} />
-                )}
+                {(() => {
+                  const photoSrc = p.imageUrl ?? matchProductPhoto(p.name, p.brand, p.category);
+                  if (photoSrc) {
+                    return (
+                      <Image
+                        src={photoSrc}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    );
+                  }
+                  return <div className="absolute inset-0" style={{ background: placeholderBg }} />;
+                })()}
               </div>
               <div className="p-3 flex flex-col flex-1">
                 <div className="text-xs text-stone-500 truncate">{p.brand ?? p.category}</div>

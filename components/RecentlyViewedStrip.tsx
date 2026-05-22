@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRecentlyViewed } from "@/lib/recently-viewed";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
+import { matchProductPhoto } from "@/lib/product-photos-available";
 import { effectivePriceFor } from "@/lib/online-pricing";
 import type { MenuProduct } from "@/lib/db";
 
@@ -64,26 +65,30 @@ export function RecentlyViewedStrip({
               className="shrink-0 snap-start w-32 sm:w-36 group rounded-xl border border-stone-200 bg-white overflow-hidden hover:border-stone-300 hover:shadow-md transition-all"
             >
               <div className="aspect-square bg-stone-100 overflow-hidden relative">
-                {p.imageUrl ? (
-                  <Image
-                    src={p.imageUrl}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 640px) 128px, 144px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div
-                    role="img"
-                    aria-label={p.name}
-                    className={`w-full h-full flex items-center justify-center ${getProductPlaceholderGradient(p.category, p.strainType)}`}
-                  >
-                    {(() => {
-                      const Icon = getCategoryIcon(p.category);
-                      return <Icon className="w-10 h-10 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />;
-                    })()}
-                  </div>
-                )}
+                {(() => {
+                  const photoSrc = p.imageUrl ?? matchProductPhoto(p.name, p.brand, p.category);
+                  if (photoSrc) {
+                    return (
+                      <Image
+                        src={photoSrc}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 640px) 128px, 144px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    );
+                  }
+                  const Icon = getCategoryIcon(p.category);
+                  return (
+                    <div
+                      role="img"
+                      aria-label={p.name}
+                      className={`w-full h-full flex items-center justify-center ${getProductPlaceholderGradient(p.category, p.strainType)}`}
+                    >
+                      <Icon className="w-10 h-10 text-stone-700/70 drop-shadow-sm" aria-hidden="true" />
+                    </div>
+                  );
+                })()}
                 {p.strainType && STRAIN_DOT[p.strainType] && (
                   <span
                     className={`absolute top-1.5 left-1.5 w-2 h-2 rounded-full ${STRAIN_DOT[p.strainType]} shadow-sm`}
