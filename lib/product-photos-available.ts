@@ -859,6 +859,84 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     category: "Flower",
     file: "2727--flower-category.png",
   },
+
+  // ---- Mama J's (327 SKUs combined; WSLCB Tier-2 Longview producer).
+  // Brand-supplied product photography sourced from Weedmaps brand portal.
+  // Per-category rules cover the 3 largest categories (Flower 89 / Cartridge 37 /
+  // Pre-Roll 20) plus Concentrate (16). nameContains "Rosin" BEFORE generic
+  // Concentrate so rosin gets its own art. nameContains "Bubble Hash" BEFORE
+  // Infused Pre category to catch infused-PR-by-name. **Gap:** no Cartridge
+  // photo in this batch — Cart SKUs (37) fall through to brand-logo (still
+  // better than emoji). Follow-up to add later.
+  {
+    brand: "Mama J's",
+    nameContains: ["Rosin"],
+    file: "mama-js--rosin.jpg",
+  },
+  {
+    brand: "Mama J's",
+    nameContains: ["Bubble Hash"],
+    file: "mama-js--infused-preroll.jpg",
+  },
+  {
+    brand: "Mama J's",
+    category: "Infused Pre",
+    file: "mama-js--infused-preroll.jpg",
+  },
+  {
+    brand: "Mama J's",
+    category: "Concentrate",
+    file: "mama-js--concentrate.jpg",
+  },
+  {
+    brand: "Mama J's",
+    category: "Pre-Roll",
+    file: "mama-js--preroll-joints.jpg",
+  },
+  {
+    brand: "Mama J's",
+    category: "Flower",
+    file: "mama-js--flower-jar.jpg",
+  },
+
+  // ---- Hustler's Ambition (324 SKUs combined; WA-distributed brand also in NV).
+  // Brand-supplied product photography sourced from Weedmaps brand portal.
+  // Per-category rules cover Flower 63 / Cartridge 43 (substring also catches
+  // DOH Cartridge 13) / Pre-Roll 19 / Infused Pre-Roll 18 / Concentrate 5.
+  // nameContains "Multipack" / "Minis" / "28pk" BEFORE generic Pre-Roll for
+  // pre-roll-line photos. **DO NOT MATCH** "Hustler's Butter" (separate
+  // WA-stocked brand — exact-brand-match on "Hustler's Ambition" string
+  // already prevents this; flagging in comment).
+  {
+    brand: "Hustler's Ambition",
+    category: "Infused Pre",
+    file: "hustlers-ambition--infused-preroll.jpg",
+  },
+  {
+    brand: "Hustler's Ambition",
+    nameContains: ["Multipack"],
+    file: "hustlers-ambition--preroll-multipack.jpg",
+  },
+  {
+    brand: "Hustler's Ambition",
+    nameContains: ["Minis"],
+    file: "hustlers-ambition--preroll-minis.jpg",
+  },
+  {
+    brand: "Hustler's Ambition",
+    nameContains: ["28pk"],
+    file: "hustlers-ambition--preroll-multipack.jpg",
+  },
+  {
+    brand: "Hustler's Ambition",
+    category: "Cartridge",
+    file: "hustlers-ambition--cartridge.jpg",
+  },
+  {
+    brand: "Hustler's Ambition",
+    category: "Flower",
+    file: "hustlers-ambition--flower-big-buds.jpg",
+  },
 ];
 
 /**
