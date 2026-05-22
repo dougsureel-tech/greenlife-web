@@ -84,6 +84,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "honu-inc",
   "house-of-cultivar-grand-cru",
   "journeyman",
+  "just-cannabis",
   "just-cannabis-company",
   "k-savage",
   "kapow",
