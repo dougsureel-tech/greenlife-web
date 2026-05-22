@@ -35,6 +35,12 @@ describe("getCategoryPlaceholderPhoto — happy-path category → JPG path", () 
       getCategoryPlaceholderPhoto("Concentrate"),
     );
   });
+  test("Edible → /category-placeholders/edible.jpg", () => {
+    assert.equal(getCategoryPlaceholderPhoto("Edible"), "/category-placeholders/edible.jpg");
+  });
+  test("Accessory → /category-placeholders/accessory.jpg", () => {
+    assert.equal(getCategoryPlaceholderPhoto("Accessory"), "/category-placeholders/accessory.jpg");
+  });
 });
 
 describe("getCategoryPlaceholderPhoto — vape-family aliases collapse to single placeholder", () => {
@@ -74,6 +80,8 @@ describe("getCategoryPlaceholderPhoto — singular + plural parity across catego
     ["Topical", "Topicals"],
     ["Beverage", "Beverages"],
     ["Capsule", "Capsules"],
+    ["Edible", "Edibles"],
+    ["Accessory", "Accessories"],
   ];
   for (const [singular, plural] of pairs) {
     test(`${singular} === ${plural}`, () => {
@@ -115,7 +123,7 @@ describe("getCategoryPlaceholderPhoto — fallback (null) for un-mapped + degene
 
 describe("getCategoryPlaceholderPhoto — path shape invariants", () => {
   test("path always starts with '/category-placeholders/'", () => {
-    const cats = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Tincture", "Topical", "Beverage", "Capsule"];
+    const cats = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Tincture", "Topical", "Beverage", "Capsule", "Edible", "Accessory"];
     for (const c of cats) {
       const p = getCategoryPlaceholderPhoto(c);
       assert.ok(p?.startsWith("/category-placeholders/"), `${c} path malformed: ${p}`);
@@ -130,11 +138,11 @@ describe("getCategoryPlaceholderPhoto — path shape invariants", () => {
 });
 
 describe("CATEGORY_PLACEHOLDER_SLUGS — manifest of slugs that must have JPGs on disk", () => {
-  test("has exactly 8 entries (current state pin — bump when a new placeholder ships)", () => {
-    assert.equal(CATEGORY_PLACEHOLDER_SLUGS.size, 8);
+  test("has exactly 10 entries (current state pin — bump when a new placeholder ships)", () => {
+    assert.equal(CATEGORY_PLACEHOLDER_SLUGS.size, 10);
   });
-  test("includes all 8 expected slugs", () => {
-    const expected = ["flower", "preroll", "vape", "concentrate", "tincture", "topical", "beverage", "capsule"];
+  test("includes all 10 expected slugs", () => {
+    const expected = ["flower", "preroll", "vape", "concentrate", "tincture", "topical", "beverage", "capsule", "edible", "accessory"];
     for (const slug of expected) {
       assert.ok(CATEGORY_PLACEHOLDER_SLUGS.has(slug as never), `missing ${slug}`);
     }
@@ -147,7 +155,7 @@ describe("CATEGORY_PLACEHOLDER_SLUGS — manifest of slugs that must have JPGs o
     // returned path MUST be in CATEGORY_PLACEHOLDER_SLUGS. Catches drift
     // where the mapping points to a slug not in the manifest (→ 404 in
     // prod even if pin passes).
-    const cats = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Tincture", "Topical", "Beverage", "Capsule"];
+    const cats = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Tincture", "Topical", "Beverage", "Capsule", "Edible", "Accessory"];
     for (const c of cats) {
       const p = getCategoryPlaceholderPhoto(c);
       assert.ok(p, `${c} missing path`);

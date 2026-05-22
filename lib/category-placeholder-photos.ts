@@ -10,8 +10,9 @@
 //      after the v38.625→v38.725 arc + sister batches; gated by
 //      `BRAND_LOGOS_AVAILABLE`.
 //   3. Generic category placeholder (THIS FILE)        — NEW tier added
-//      2026-05-21 v38.765. 3 categories covered today: flower, preroll,
-//      vape (incl. cartridge/disposable/pod variants).
+//      2026-05-21 v38.765. 10 categories covered today: flower, preroll,
+//      vape (incl. cartridge/disposable/pod variants), concentrate,
+//      tincture, topical, beverage, capsule, edible, accessory.
 //   4. CategoryIcon SVG line-art + gradient            — universal fallback
 //      retained for categories without a placeholder photo OR if the
 //      placeholder JPG ever 404s.
@@ -42,7 +43,9 @@ type PlaceholderSlug =
   | "tincture"
   | "topical"
   | "beverage"
-  | "capsule";
+  | "capsule"
+  | "edible"
+  | "accessory";
 
 // Mapping from DB `category` string (case-sensitive, matching the
 // strings used by `lib/product-placeholder.ts` CATEGORY_GRADIENTS) to
@@ -73,6 +76,10 @@ const CATEGORY_TO_PLACEHOLDER: Record<string, PlaceholderSlug> = {
   Beverages: "beverage",
   Capsule: "capsule",
   Capsules: "capsule",
+  Edible: "edible",
+  Edibles: "edible",
+  Accessory: "accessory",
+  Accessories: "accessory",
 };
 
 /**
@@ -108,4 +115,6 @@ export const CATEGORY_PLACEHOLDER_SLUGS: ReadonlySet<PlaceholderSlug> = new Set(
   "topical",
   "beverage",
   "capsule",
+  "edible",
+  "accessory",
 ]);
