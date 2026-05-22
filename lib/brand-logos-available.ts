@@ -85,6 +85,7 @@ export const BRAND_LOGOS_AVAILABLE: ReadonlySet<string> = new Set([
   "harmony-farms",
   "hazee",
   "hellavated",
+  "hemparillo",
   "heylo-cannabis",
   "hustler-s-ambition",
   "high-tide",
