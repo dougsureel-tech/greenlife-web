@@ -937,6 +937,76 @@ export const PRODUCT_PHOTO_RULES: readonly ProductPhotoRule[] = [
     category: "Flower",
     file: "hustlers-ambition--flower-big-buds.jpg",
   },
+
+  // ---- Hitz Cannabis (272 SKUs combined; WSLCB i502 Tier-3 Yelm WA producer,
+  // founded 2018). Brand-supplied product photography from hitzproducts.com
+  // (the WA brand — NOT hitzbrand.com which is a separate non-cannabis vape
+  // company). Two brand strings exist in DB ('Hitz' alias 16 SKUs + 'Hitz
+  // Cannabis' 256 SKUs); both get rules. Edible Solid (24 SKUs) intentionally
+  // falls through to brand-logo (no HITZ-branded edible photo on .com).
+  {
+    brand: "Hitz Cannabis",
+    category: "Infused Pre",
+    file: "hitz-cannabis--preroll.jpg",
+  },
+  {
+    brand: "Hitz Cannabis",
+    category: "Pre-Roll",
+    file: "hitz-cannabis--preroll.jpg",
+  },
+  {
+    brand: "Hitz Cannabis",
+    category: "Cartridge",
+    file: "hitz-cannabis--cartridge.jpg",
+  },
+  {
+    brand: "Hitz Cannabis",
+    category: "Concentrate",
+    file: "hitz-cannabis--concentrate.jpg",
+  },
+  {
+    brand: "Hitz Cannabis",
+    category: "Flower",
+    file: "hitz-cannabis--flower.jpg",
+  },
+  {
+    brand: "Hitz",
+    category: "Cartridge",
+    file: "hitz-cannabis--cartridge.jpg",
+  },
+  {
+    brand: "Hitz",
+    category: "Concentrate",
+    file: "hitz-cannabis--concentrate.jpg",
+  },
+
+  // ---- Pagoda (488 SKUs combined; WA-distributed flower-heavy brand "Pagoda
+  // Premium Indoor"). No brand-own site found; brand-uploaded photography
+  // sourced from Weedmaps brand portal (same fallback pattern as Mama J's +
+  // Hustler's Ambition). Cartridge + Concentrate categories intentionally fall
+  // through to brand-logo (no Pagoda-branded photo for those on Weedmaps yet).
+  // nameContains "Big Buds" gets the strain-isolated Gary Payton art for that
+  // naming convention.
+  {
+    brand: "Pagoda",
+    nameContains: ["Big Buds"],
+    file: "pagoda--flower-bud.jpg",
+  },
+  {
+    brand: "Pagoda",
+    category: "Infused Pre",
+    file: "pagoda--infused-preroll.jpg",
+  },
+  {
+    brand: "Pagoda",
+    category: "Pre-Roll",
+    file: "pagoda--preroll.jpg",
+  },
+  {
+    brand: "Pagoda",
+    category: "Flower",
+    file: "pagoda--flower.jpg",
+  },
 ];
 
 /**

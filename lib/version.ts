@@ -3,6 +3,8 @@
 // comes from Vercel automatically on every deploy and is the authoritative
 // "did my push actually land" signal.
 
+// 39.705 — 🖼️ **+11 product-photo rules for Hitz Cannabis + Pagoda (272 + 488 = 760 SKUs; sister scc v31.015).** Final research wave. +8 files + 11 rules. Hitz from brand-own hitzproducts.com (×5 + ×2 alias rules — DB has both 'Hitz' and 'Hitz Cannabis' strings); Pagoda from Weedmaps brand portal (4 rules). Disambig: exact-brand-match prevents false-fire on hitzbrand.com. Manifest 145 → 153; lockstep both stacks.
+//
 // 39.685 — 🖼️ **+12 product-photo rules for Mama J's + Hustler's Ambition (sister scc v30.995).** +10 new files (Weedmaps brand portal — brand-supplied photography). +12 manifest rules. ~279 SKUs lift from logo-only to product photography. Mama J's 6 rules (cart gap deferred) + Hustler's 6 rules (substring covers DOH Cartridge). Disambig safeguard: exact-brand-match prevents false-fire on Hustler's Butter. Manifest 135 → 145; lockstep both stacks.
 //
 // 39.665 — 🖼️ **+4 brand-logos: scc / regulator / canasmith / whidbey-island-cannabis-co (manifest 114 → 118; sister scc v30.975).** +188 SKUs newly logo'd. 3 brand-own (scc, canasmith, whidbey-island-cannabis-co) + 1 aggregator-temp (regulator, goregulator.com TLS-expired). Skipped on disambig: Colors / Green Envy / Medio / Super Mega Bussin. Manifest 118/118 lockstep both stacks.
@@ -776,7 +778,7 @@
 // 37.665 — 🩺 `emailFromAtRisk` health check updated to recognize apex-direct as SAFE — the SPF + Resend-DKIM-verification work shipped via the cannabis-stack apex-direct migration 2026-05-19 PM means bare `greenlifecannabis.com` is no longer at-risk. Pre-fix the check at `lib/email.ts:127` returned `true` whenever RESEND_FROM resolved to the bare apex — predates the apex-SPF-includes-Resend change. Now uses a VERIFIED_HOSTS set containing `greenlifecannabis.com` + `send.greenlifecannabis.com` — returns `false` for either (both have Resend SPF + DKIM verified), `true` for anything else (typo / wrong domain). `/api/health emailFromAtRisk` was false-positive showing `true` on the post-rotation deploy. Sister scc v29.045 same-push. Apex SPF confirmed via `dig TXT greenlifecannabis.com` → `v=spf1 include:_spf.resend.com include:secureserver.net include:spf.protection.outlook.com -all`. DMARC `aspf=r adkim=r` (relaxed alignment) means apex-direct passes SPF+DMARC at receiving Gmail/Apple Mail/Outlook. Comment block in lib/email.ts updated to reflect the new reality + flag the maintenance contract (if SPF/Resend-verification state changes, update VERIFIED_HOSTS). typecheck CLEAN.
 //
 // 38.185 — 🏷️ **6 more displayName backfills — fills the last shouty/legal-suffix gaps on producers with consumer-recognized short names (sister scc v29.545).** Continues the displayName arc from v38.045→v38.145. Adds: agro-couture → "Agro Couture" (title-case from shouty DB) · ceres → "Ceres" · northwest-cannabis-solutions → "Northwest Cannabis Solutions" (title-case from shouty DB; NWCS has no consumer-facing short brand so keep full name) · kokua-services → "Kokua" (drop corporate "Services" suffix) · ceres-435011 → "Ceres" (variant slug parity) · agro-couture-slab-mechanix → "Agro Couture" (variant slug parity). 28 brand entries total now use the displayName 3-layer fallback. Sister scc v29.545 ships byte-identical lib/brand-copy.ts. WAC clean. typecheck CLEAN.
-export const BUILD_VERSION = "39.685";
+export const BUILD_VERSION = "39.705";
 
 export const BUILD_SHA = (
   process.env.VERCEL_GIT_COMMIT_SHA ||
