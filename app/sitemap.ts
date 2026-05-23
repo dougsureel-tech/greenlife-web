@@ -147,6 +147,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    // Ambassador Program v0.1 — Phase 2 customer surfaces. Per
+    // PLAN_AMBASSADOR_PROGRAM.md §6 — `/community/ambassador` is the
+    // discovery + submission landing; `/community/feedback` is the
+    // open-channel suggestion form. Both static + Doug-flag gated at
+    // env (AMBASSADOR_PROGRAM_ENABLED) — sitemap entry is safe to
+    // include even when the env is off (form gracefully no-ops, page
+    // still renders explanation copy).
+    {
+      url: `${STORE.website}/community/ambassador`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${STORE.website}/community/feedback`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
     // /alumni REMOVED 2026-05-10 (sister of cannagent v4.555 sitemap-vs-
     // canonical conflict fix): app/alumni/layout.tsx sets
     // `robots: { index: false, follow: false }` (privacy — exposes legacy
