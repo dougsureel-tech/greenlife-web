@@ -212,7 +212,7 @@ export default function AmbassadorPage() {
                   href={`/community/ambassador/briefs/${b.id}`}
                   className="mt-4 text-xs font-semibold text-green-700 hover:text-green-900 inline-flex items-center gap-1 self-start"
                 >
-                  See brief <span aria-hidden="true">&rarr;</span>
+                  See brief <span aria-hidden="true">→</span>
                 </Link>
               </div>
             ))}

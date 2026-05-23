@@ -270,7 +270,7 @@ export default async function AmbassadorBriefDeepPage({
           href="/community/ambassador"
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-700 hover:text-green-900 mb-5"
         >
-          <span aria-hidden="true">&larr;</span>
+          <span aria-hidden="true">←</span>
           <span>All briefs</span>
         </Link>
 
@@ -348,7 +348,7 @@ export default async function AmbassadorBriefDeepPage({
               href={`/community/ambassador?brief=${brief.id}#submit`}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-green-950 text-base font-bold transition-all shadow-md w-full sm:w-auto"
             >
-              Submit your video &rarr;
+              Submit your video →
             </Link>
           </div>
         </section>
@@ -401,7 +401,7 @@ export default async function AmbassadorBriefDeepPage({
             Take-downs honored within 7 days, no questions.
           </p>
           <p className="text-emerald-200/70 text-xs pt-1">
-            {STORE.name} &middot;{" "}
+            {STORE.name} ·{" "}
             {STORE.wslcbLicense ? `WSLCB ${STORE.wslcbLicense}` : "WSLCB-licensed"}
           </p>
         </section>

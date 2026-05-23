@@ -110,7 +110,7 @@ export default async function AmbassadorBriefOG({
               marginBottom: 16,
             }}
           >
-            Ambassador brief &middot; ~{brief.targetSeconds}s
+            Ambassador brief · ~{brief.targetSeconds}s
           </span>
           <span
             style={{
@@ -132,7 +132,7 @@ export default async function AmbassadorBriefOG({
               lineHeight: 1.3,
             }}
           >
-            Ambassador brief &mdash; phone in-store. $25 to $100 in store credit.
+            Ambassador brief — phone in-store. $25 to $100 in store credit.
           </span>
         </div>
 
