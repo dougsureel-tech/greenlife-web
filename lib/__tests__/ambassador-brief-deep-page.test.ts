@@ -88,9 +88,15 @@ test("DEEP_CARD_CONTENT covers every BRIEF_LIBRARY id", () => {
   }
 });
 
-test("metadata canonical follows /community/ambassador/briefs/<slug> shape", () => {
-  assert.match(pageSource, /const canonical = `\/community\/ambassador\/briefs\/\$\{brief\.id\}`/);
-  assert.match(pageSource, /alternates: \{ canonical \}/);
+test("metadata canonical follows /community/ambassador/briefs/<slug> shape (literal-string form for check-canonical-or-noindex gate)", () => {
+  // Inlined template literal (NOT variable reference) so the gate's
+  // regex `canonical:\s*["'`]` matches. Drift to variable-form would
+  // let root layout's `canonical: "/"` cascade + the gate would block
+  // the push.
+  assert.match(
+    pageSource,
+    /alternates: \{ canonical: `\/community\/ambassador\/briefs\/\$\{brief\.id\}` \}/,
+  );
 });
 
 test("metadata title.absolute embeds brief.title + STORE.name", () => {

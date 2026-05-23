@@ -150,22 +150,26 @@ export async function generateMetadata({
   if (!brief) {
     return { title: { absolute: `Ambassador brief — ${STORE.name}` } };
   }
-  const canonical = `/community/ambassador/briefs/${brief.id}`;
+  // Per-route canonical inlined as template literal (not variable
+  // reference) so check-canonical-or-noindex.mjs regex (literal-string
+  // shape: `canonical: "..."`) matches at build time. Drift back to
+  // variable-form would let root layout's `canonical: "/"` cascade and
+  // every deep page would be flagged duplicate-of-homepage in GSC.
   const desc = `${brief.title} — Ambassador brief at ${STORE.name}. Record outside the shop, manager-reviewed within 48 hours, $25 store credit on approval.`;
   return {
     title: { absolute: `${brief.title} — Ambassador brief — ${STORE.name}` },
     description: desc.slice(0, 155),
-    alternates: { canonical },
+    alternates: { canonical: `/community/ambassador/briefs/${brief.id}` },
     openGraph: {
       siteName: STORE.name,
       type: "article",
       locale: "en_US",
       title: `${brief.title} — Ambassador brief`,
       description: desc.slice(0, 155),
-      url: `${STORE.website}${canonical}`,
+      url: `${STORE.website}/community/ambassador/briefs/${brief.id}`,
       images: [
         {
-          url: `${canonical}/opengraph-image`,
+          url: `/community/ambassador/briefs/${brief.id}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: `${brief.title} — Ambassador brief — ${STORE.name}`,
