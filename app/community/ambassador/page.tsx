@@ -186,7 +186,7 @@ export default function AmbassadorPage() {
             {BRIEF_LIBRARY.map((b) => (
               <div
                 key={b.id}
-                className="rounded-2xl bg-white border border-stone-200 p-5 sm:p-6 hover:border-green-300 transition-colors"
+                className="rounded-2xl bg-white border border-stone-200 p-5 sm:p-6 hover:border-green-300 transition-colors flex flex-col"
               >
                 <div className="flex items-center justify-between mb-2.5">
                   <h3 className="font-bold text-stone-900 text-base">{b.title}</h3>
@@ -195,7 +195,7 @@ export default function AmbassadorPage() {
                   </span>
                 </div>
                 <p className="text-stone-700 text-sm leading-relaxed">{b.prompt}</p>
-                <ul className="mt-3.5 space-y-1.5">
+                <ul className="mt-3.5 space-y-1.5 flex-1">
                   {b.complianceTips.slice(0, 3).map((tip) => (
                     <li key={tip} className="text-stone-500 text-xs leading-snug flex gap-2">
                       <span aria-hidden="true" className="text-amber-600 mt-0.5">
@@ -205,6 +205,15 @@ export default function AmbassadorPage() {
                     </li>
                   ))}
                 </ul>
+                {/* Phase 2.5 — per-brief deep page link. Customer can
+                    tap through to the shareable 1-page card (prompt +
+                    compliance edge cases + QR for friend-in-line). */}
+                <Link
+                  href={`/community/ambassador/briefs/${b.id}`}
+                  className="mt-4 text-xs font-semibold text-green-700 hover:text-green-900 inline-flex items-center gap-1 self-start"
+                >
+                  See brief <span aria-hidden="true">&rarr;</span>
+                </Link>
               </div>
             ))}
           </div>

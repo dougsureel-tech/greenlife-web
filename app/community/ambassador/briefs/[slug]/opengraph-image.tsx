@@ -1,0 +1,163 @@
+import { ImageResponse } from "next/og";
+import { STORE } from "@/lib/store";
+import { BRIEF_LIBRARY, getBrief } from "@/lib/ambassador-briefs";
+
+// Per-brief OG share card. When a Featured-of-the-week social hand-off
+// references the deep page URL, the share unfurl shows brief-title-
+// specific framing instead of the parent /community/ambassador "Share
+// your story. Earn store credit." card. Mirrors the parent OG chrome
+// (gradient + amber accent + tenure footer) so cross-brief shares look
+// like a family.
+//
+// CRITICAL: byte-identical between greenlife-web + seattle-cannabis-web
+// except for STORE.* (tenure line + URL host). Maintain in lockstep.
+
+export const alt = `Ambassador brief · ${STORE.name}`;
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export function generateStaticParams() {
+  return BRIEF_LIBRARY.map((b) => ({ slug: b.id }));
+}
+
+export default async function AmbassadorBriefOG({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const brief = getBrief(slug) ?? { title: "Ambassador brief", targetSeconds: 30 };
+  // Brand tenure anchor — substituted per-stack at build time. GLW =
+  // "Center Road since 2014"; SCC = "Rainier Valley since 2010".
+  // STORE.address.city is the literal "Wenatchee" on GLW and "Seattle"
+  // on SCC (per lib/store.ts each stack); typed-as-literal so we need
+  // a string-cast to keep the same byte-identical file compiling on
+  // both stacks (otherwise TS narrows the comparison + flags the
+  // unreachable branch on whichever stack's literal doesn't match).
+  // SCC's anchor neighborhood ("Rainier Valley") differs from the city
+  // — handled inline so the line reads naturally on both surfaces.
+  const city: string = STORE.address.city;
+  const tenureLine =
+    city === "Wenatchee" ? "Center Road since 2014" : "Rainier Valley since 2010";
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: "70px 80px",
+          background: "linear-gradient(135deg, #022c22 0%, #064e3b 50%, #15803d 100%)",
+          color: "white",
+          fontFamily: "system-ui, sans-serif",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: 600,
+            height: 600,
+            background: "radial-gradient(circle, rgba(251,191,36,0.18) 0%, transparent 70%)",
+            transform: "translate(25%, -25%)",
+          }}
+        />
+
+        <div style={{ display: "flex", alignItems: "center", gap: 16, position: "relative" }}>
+          <div
+            style={{
+              width: 64,
+              height: 64,
+              background: "#15803d",
+              borderRadius: 16,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 36,
+            }}
+          >
+            🌿
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+            <span style={{ fontSize: 28, fontWeight: 800 }}>{STORE.name}</span>
+            <span style={{ fontSize: 18, color: "#86efac", marginTop: 2 }}>
+              {STORE.address.city}, WA
+            </span>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+            paddingTop: 20,
+            paddingBottom: 20,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 22,
+              color: "#fcd34d",
+              fontWeight: 700,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              marginBottom: 16,
+            }}
+          >
+            Ambassador brief &middot; ~{brief.targetSeconds}s
+          </span>
+          <span
+            style={{
+              fontSize: 88,
+              fontWeight: 900,
+              letterSpacing: -2,
+              lineHeight: 0.98,
+              color: "white",
+            }}
+          >
+            {brief.title}
+          </span>
+          <span
+            style={{
+              fontSize: 28,
+              color: "#bbf7d0",
+              marginTop: 22,
+              fontWeight: 600,
+              lineHeight: 1.3,
+            }}
+          >
+            Ambassador brief &mdash; phone in-store. $25 to $100 in store credit.
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            position: "relative",
+            borderTop: "1px solid rgba(134,239,172,0.25)",
+            paddingTop: 20,
+          }}
+        >
+          <span style={{ fontSize: 22, color: "#86efac", fontWeight: 600 }}>
+            {STORE.website.replace(/^https?:\/\/(www\.)?/, "")}/community/ambassador
+          </span>
+          <span style={{ fontSize: 18, color: "#fcd34d", fontWeight: 600 }}>{tenureLine}</span>
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+      headers: {
+        "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
+  );
+}

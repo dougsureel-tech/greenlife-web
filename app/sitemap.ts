@@ -8,6 +8,7 @@ import { STRAIN_TYPES } from "@/lib/strain-types";
 import { getStrainsInCurrentWave } from "@/lib/strains";
 import { STRAIN_FAMILIES } from "@/lib/strain-families";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
+import { BRIEF_LIBRARY } from "@/lib/ambassador-briefs";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
 // (brands, deals, posts) but those change rarely (deals daily at most;
@@ -166,6 +167,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    // Ambassador Program v0.1 — Phase 2.5 per-brief deep pages. Per
+    // PLAN_AMBASSADOR_PROGRAM.md §3, each brief gets a shareable
+    // 1-page graphic (QR-coded counter cards in-store + Featured-of-
+    // the-week social hand-offs link out to these). Slugs come from
+    // BRIEF_LIBRARY so adding a 6th brief auto-extends sitemap.
+    // Priority 0.6 (peer with /community/feedback, below
+    // /community/ambassador parent).
+    ...BRIEF_LIBRARY.map((b) => ({
+      url: `${STORE.website}/community/ambassador/briefs/${b.id}`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
     // /alumni REMOVED 2026-05-10 (sister of cannagent v4.555 sitemap-vs-
     // canonical conflict fix): app/alumni/layout.tsx sets
     // `robots: { index: false, follow: false }` (privacy — exposes legacy
