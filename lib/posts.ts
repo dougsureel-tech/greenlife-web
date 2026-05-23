@@ -574,7 +574,14 @@ export async function fetchDynamicPosts(): Promise<Post[]> {
   try {
     const res = await fetch(
       `${INV_CONTENT_BASE}/api/public/content/list?store=${INV_CONTENT_STORE}`,
-      { next: { revalidate: 300 } },
+      {
+        next: { revalidate: 300 },
+        // 8s ceiling — inv-App content API typically responds <300ms.
+        // A hang would silently consume the page's Vercel function budget
+        // and turn into a 504. Bounded fetch → catch block → empty
+        // array → page still renders (static fallback content).
+        signal: AbortSignal.timeout(8_000),
+      },
     );
     if (!res.ok) return [];
     const data: { items?: ApiPost[] } = await res.json().catch(() => ({}));
@@ -591,7 +598,11 @@ export async function fetchDynamicPost(slug: string): Promise<Post | undefined> 
   try {
     const res = await fetch(
       `${INV_CONTENT_BASE}/api/public/content/${encodeURIComponent(slug)}?store=${INV_CONTENT_STORE}`,
-      { next: { revalidate: 300 } },
+      {
+        next: { revalidate: 300 },
+        // 8s ceiling — same rationale as the sister `fetchDynamicPosts`.
+        signal: AbortSignal.timeout(8_000),
+      },
     );
     if (!res.ok) return undefined;
     const p: ApiPost | null = await res.json().catch(() => null);
