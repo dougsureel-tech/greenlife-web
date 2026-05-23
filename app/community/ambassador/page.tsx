@@ -107,6 +107,36 @@ const NOT_ACCEPTED = [
 ];
 
 export default function AmbassadorPage() {
+  // Pre-flight expert finding 2026-05-23: flag-gate the page so a flag-off
+  // rollback doesn't leave the upload form visible while the API rejects
+  // submissions (broken UX). Runtime check via process.env so Vercel env-var
+  // changes pick up on next request (no rebuild required for OFF flip).
+  if (process.env.AMBASSADOR_PROGRAM_ENABLED !== "true") {
+    return (
+      <main className="min-h-[80vh] bg-stone-50">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+        <Breadcrumb
+          items={[
+            { label: "Community", href: "/community" },
+            { label: "Ambassador Program" },
+          ]}
+        />
+        <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+          <h1 className="text-3xl font-semibold text-stone-900">Ambassador Program — coming soon</h1>
+          <p className="mt-4 text-stone-700">
+            We&apos;re putting the finishing touches on a way to thank customers who share
+            their visit with us. Check back shortly.
+          </p>
+          <p className="mt-6">
+            <Link href="/community" className="text-green-700 underline">
+              Back to {STORE.name}
+            </Link>
+          </p>
+        </section>
+      </main>
+    );
+  }
+
   const briefRows = BRIEF_LIBRARY.map((b) => ({
     id: b.id,
     title: b.title,
