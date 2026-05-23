@@ -83,6 +83,70 @@ export default function CommunityPage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16 sm:space-y-20">
+        {/* Get Involved — cross-links to /community/ambassador + /community/feedback.
+            Hub-discovery fix per cross-stack audit (Agent C, 2026-05-23): hub had
+            zero entry point to the two Phase-2 surfaces; SEO + customer-discovery
+            both missed them. Ambassador card respects AMBASSADOR_PROGRAM_ENABLED
+            (the destination page itself flips to "coming soon" panel when OFF, so
+            the link is never broken — but we hide the card when OFF to keep the
+            hub honest about what's live). Feedback is unconditional. */}
+        <section className="space-y-6">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+              Get involved
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+              Ways to be part of this.
+            </h2>
+            <p className="text-stone-500 text-sm mt-2 max-w-xl">
+              Two open channels: share a story for store credit, or tell us what
+              we&apos;re missing. Manager reads everything.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {process.env.AMBASSADOR_PROGRAM_ENABLED === "true" && (
+              <Link
+                href="/community/ambassador"
+                className="group rounded-2xl bg-white border border-stone-200 p-6 hover:border-emerald-400 hover:shadow-sm transition-all block"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+                  Ambassador Program
+                </p>
+                <h3 className="text-xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                  Share a video, earn store credit.
+                </h3>
+                <p className="text-stone-600 text-sm leading-relaxed mt-2">
+                  Quick phone videos or Google reviews about your favorite strain,
+                  budtender, or visit. $25 approved, $50 if we use it, $100 if it
+                  goes viral. Manager-reviewed, 48-hour turnaround.
+                </p>
+                <span className="inline-block text-sm font-semibold text-emerald-700 group-hover:text-emerald-600 transition-colors mt-3">
+                  See the briefs →
+                </span>
+              </Link>
+            )}
+            <Link
+              href="/community/feedback"
+              className="group rounded-2xl bg-white border border-stone-200 p-6 hover:border-emerald-400 hover:shadow-sm transition-all block"
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+                Suggest something
+              </p>
+              <h3 className="text-xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                Tell us what we&apos;re missing.
+              </h3>
+              <p className="text-stone-600 text-sm leading-relaxed mt-2">
+                Product idea, vendor we should carry, something we got wrong — open
+                channel to the manager. No script, no reward, no follow-up unless
+                you ask for one.
+              </p>
+              <span className="inline-block text-sm font-semibold text-emerald-700 group-hover:text-emerald-600 transition-colors mt-3">
+                Open the form →
+              </span>
+            </Link>
+          </div>
+        </section>
+
         {/* Featured alumni */}
         <section className="space-y-6">
           <div className="flex items-end justify-between gap-4 flex-wrap">
