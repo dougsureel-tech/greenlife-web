@@ -155,7 +155,14 @@ export async function generateMetadata({
   // shape: `canonical: "..."`) matches at build time. Drift back to
   // variable-form would let root layout's `canonical: "/"` cascade and
   // every deep page would be flagged duplicate-of-homepage in GSC.
-  const desc = `${brief.title} — Ambassador brief at ${STORE.name}. Record outside the shop, manager-reviewed within 48 hours, $25 store credit on approval.`;
+  // STORE.name ends with "." on SCC ("Seattle Cannabis Co.") so adding
+  // another period after the template substitution produces "Co.." in
+  // SERP descriptions + share cards (caught by
+  // check-store-name-double-period.mjs gate on SCC). Reshape the desc
+  // so STORE.name doesn't sit before a period — em-dash separator
+  // reads cleanly on both stacks regardless of whether the store name
+  // ends in a period.
+  const desc = `${brief.title} — Ambassador brief at ${STORE.name} — record outside the shop, manager-reviewed within 48 hours, $25 store credit on approval.`;
   return {
     title: { absolute: `${brief.title} — Ambassador brief — ${STORE.name}` },
     description: desc.slice(0, 155),
