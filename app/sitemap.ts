@@ -180,6 +180,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.6,
     })),
+    // Ambassador Program v0.2 — Phase F apply form + Phase G public
+    // leaderboard. Per PLAN_AMBASSADOR_V0_2_INFLUENCER_REACH_2026_05_23.md
+    // §3 Phase F + Phase G. Apply page is the customer-facing onboarding
+    // form (priority 0.7, peer with /community/ambassador parent since it
+    // shares the call-to-action surface). Ambassadors leaderboard is the
+    // public opt-in list (priority 0.65). Per-ambassador profile pages are
+    // dynamic (handle-based) — they're discoverable from the leaderboard
+    // index page so the sitemap doesn't need to enumerate them yet.
+    {
+      url: `${STORE.website}/community/ambassador/apply`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${STORE.website}/community/ambassadors`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "daily",
+      priority: 0.65,
+    },
     // /alumni REMOVED 2026-05-10 (sister of cannagent v4.555 sitemap-vs-
     // canonical conflict fix): app/alumni/layout.tsx sets
     // `robots: { index: false, follow: false }` (privacy — exposes legacy
