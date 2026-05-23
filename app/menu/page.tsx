@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { STORE, todayCloseLabel } from "@/lib/store";
 import { getActiveDeals, getTreasureChestProducts } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
@@ -236,6 +237,73 @@ export default async function MenuPage() {
       <MenuActiveDealsStrip deals={deals} treasureChestCount={treasureChestCount} />
       <AppOnlyDealsFilter />
       <MenuFallback featuredDeal={featuredDeal} />
+      {/* Get involved — cross-links to /community + /community/ambassador.
+          Sister to /community hub cross-link section (v40.105). /menu is
+          the highest-traffic public surface; adding a small ambassador +
+          feedback entry point below the product grid drives signups from
+          customers who just finished browsing. Ambassador card respects
+          AMBASSADOR_PROGRAM_ENABLED env (the destination page itself
+          flips to "coming soon" panel when OFF, so the link is never
+          broken — but we hide the card when OFF to keep /menu honest
+          about what's live). Community-hub link unconditional. */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <div className="space-y-5">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+              Get involved
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+              Loved what you found? Share + earn.
+            </h2>
+            <p className="text-stone-500 text-sm mt-2 max-w-xl">
+              Quick story about a strain or budtender for store credit, or tell
+              us what we&apos;re missing. Manager reads everything.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {process.env.AMBASSADOR_PROGRAM_ENABLED === "true" && (
+              <Link
+                href="/community/ambassador"
+                className="group rounded-2xl bg-white border border-stone-200 p-6 hover:border-emerald-400 hover:shadow-sm transition-all block"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+                  Ambassador Program
+                </p>
+                <h3 className="text-lg sm:text-xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                  Share a video, earn store credit.
+                </h3>
+                <p className="text-stone-600 text-sm leading-relaxed mt-2">
+                  Quick phone videos or Google reviews. $25 approved, $50 if we
+                  use it, $100 if it goes viral. Manager-reviewed, 48-hour
+                  turnaround.
+                </p>
+                <span className="inline-block text-sm font-semibold text-emerald-700 group-hover:text-emerald-600 transition-colors mt-3">
+                  See the briefs →
+                </span>
+              </Link>
+            )}
+            <Link
+              href="/community"
+              className="group rounded-2xl bg-white border border-stone-200 p-6 hover:border-emerald-400 hover:shadow-sm transition-all block"
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
+                Community
+              </p>
+              <h3 className="text-lg sm:text-xl font-extrabold text-stone-900 tracking-tight mt-1.5">
+                Meet the people behind the shop.
+              </h3>
+              <p className="text-stone-600 text-sm leading-relaxed mt-2">
+                Alumni, featured creators, neighborhood partners — and the
+                open-channel feedback form. Word of mouth is the channel
+                that&apos;s left, and we do it right.
+              </p>
+              <span className="inline-block text-sm font-semibold text-emerald-700 group-hover:text-emerald-600 transition-colors mt-3">
+                Visit the hub →
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
       {/* Geo-cohort tie-back. Homepage hero already promises "we serve
           the whole valley" with full town cards; here we surface the
           same STORE.nearbyTowns set as a compact strip so deep-link
