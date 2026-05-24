@@ -64,6 +64,8 @@ export function RelatedShopLinks() {
                     src={b.logoUrl}
                     alt=""
                     aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     className="h-8 w-8 shrink-0 rounded-md object-contain bg-white/90 p-1"
                   />
                 ) : null}
