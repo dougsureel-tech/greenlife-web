@@ -22,7 +22,18 @@ const REPO_ROOT = process.cwd();
 
 const RAW_ERR_RE = /console\.(error|log|warn)\s*\([^)]*,\s+(?:err|error|e|caught|rowErr|sendErr|fetchErr|dbErr|parseErr)\s*\)\s*;/;
 
-const ALLOWLIST = new Set();
+// Template-literal `${err.message}` form — bypasses the trailing-arg defense.
+// Cross-stack sister-port of cannagent v6.3765 + inv-App + GW v2.97.Z425.
+const MSG_INTERP_RE = /console\.(error|log|warn)\s*\([^)]*\b(?:err|error|e|caught|rowErr|sendErr|fetchErr|dbErr|parseErr)(?:\?\.|\.)message\b/;
+
+// `: String(err)` fallback ternary — also bypasses err.name defense
+// (String(new Error("PII")) → "Error: PII" echoes message).
+const STRING_FALLBACK_RE = /console\.(error|log|warn)\s*\([^)]*:\s*String\(\s*(?:err|error|e|caught|rowErr|sendErr|fetchErr|dbErr|parseErr)\s*\)/;
+
+const ALLOWLIST = new Set([
+  // Release-note prose legitimately quotes the literal patterns.
+  "lib/version.ts",
+]);
 
 function walk(dir) {
   const out = [];
@@ -69,10 +80,19 @@ for (const f of files) {
   } catch {
     continue;
   }
+  // Skip "use client" files — console.* there runs in the operator's
+  // browser DevTools, NOT Vercel logs. Sister of inv-App + GW gate logic.
+  if (/^\s*["']use client["']\s*;?\s*$/m.test(content.split("\n").slice(0, 5).join("\n"))) {
+    continue;
+  }
   const lines = content.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (RAW_ERR_RE.test(line)) {
+    if (
+      RAW_ERR_RE.test(line) ||
+      MSG_INTERP_RE.test(line) ||
+      STRING_FALLBACK_RE.test(line)
+    ) {
       offenders.push({ file: rel, line: i + 1, content: line.trim() });
     }
   }

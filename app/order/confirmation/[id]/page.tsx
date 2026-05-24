@@ -69,7 +69,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
     try {
       await notifyReadyOrders(portalUser.id);
     } catch (e) {
-      console.error("[order-confirmation] notifyReadyOrders failed", e instanceof Error ? e.name : String(e));
+      console.error("[order-confirmation] notifyReadyOrders failed", e instanceof Error ? e.name : "unknown");
     }
   });
   const cancelled = order.status === "cancelled";
