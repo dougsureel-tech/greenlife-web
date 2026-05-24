@@ -539,6 +539,7 @@ function ApplyForm() {
                   type="text"
                   value={availability}
                   onChange={(e) => setAvailability(e.target.value)}
+                  maxLength={120}
                   className={inputClass}
                   placeholder="e.g. Part-time, weekends + evenings"
                 />
@@ -562,6 +563,7 @@ function ApplyForm() {
                 value={coverLetter}
                 onChange={(e) => setCoverLetter(e.target.value)}
                 rows={5}
+                maxLength={3000}
                 className={`${inputClass} resize-y`}
                 placeholder="A few sentences is plenty."
               />
@@ -663,6 +665,7 @@ function ApplyForm() {
                         required={i === 0}
                         value={r.name}
                         onChange={(e) => updateRef(i, { name: e.target.value })}
+                        maxLength={80}
                         className={inputClass}
                       />
                       <input
@@ -671,6 +674,7 @@ function ApplyForm() {
                         autoComplete="off"
                         value={r.relationship}
                         onChange={(e) => updateRef(i, { relationship: e.target.value })}
+                        maxLength={80}
                         className={inputClass}
                       />
                       <input
@@ -680,6 +684,7 @@ function ApplyForm() {
                         required={i === 0}
                         value={r.phone}
                         onChange={(e) => updateRef(i, { phone: e.target.value })}
+                        maxLength={20}
                         className={inputClass}
                       />
                       <input
@@ -688,6 +693,7 @@ function ApplyForm() {
                         autoComplete="off"
                         value={r.email}
                         onChange={(e) => updateRef(i, { email: e.target.value })}
+                        maxLength={254}
                         className={inputClass}
                       />
                     </div>

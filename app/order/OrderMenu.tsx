@@ -1985,6 +1985,7 @@ export function OrderMenu({
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     rows={2}
+                    maxLength={2000}
                     className="w-full rounded-xl border border-stone-200 px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 bg-stone-50"
                   />
                   {orderError && (
