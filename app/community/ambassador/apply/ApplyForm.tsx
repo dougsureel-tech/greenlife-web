@@ -102,7 +102,7 @@ export function ApplyForm() {
     }
     if (!driverLicense) {
       setStatus("error");
-      setMsg("Driver's-license photo required for age verification (1 image, JPG/PNG).");
+      setMsg("Add a photo of your driver's license so we can confirm you're 21+.");
       return;
     }
     if (payoutMode === "cash_with_w9" && !w9File) {
@@ -149,8 +149,7 @@ export function ApplyForm() {
       window.location.href = "/community/ambassador/apply/thanks";
     } catch {
       setStatus("error");
-      setMsg("Network problem. Try again in a minute.");
-      setStatus("error");
+      setMsg("Couldn't reach us — check your connection and try again.");
     }
   }
 
@@ -472,7 +471,7 @@ export function ApplyForm() {
           className="mt-0.5"
         />
         <span className="text-sm text-amber-900 leading-relaxed">
-          I am 21 years of age or older. (Required by WSLCB regulations.)
+          I&apos;m 21+. (WSLCB requires this — no exceptions.)
         </span>
       </label>
 
@@ -509,7 +508,7 @@ export function ApplyForm() {
         disabled={status === "submitting"}
         className="w-full rounded-xl bg-green-700 hover:bg-green-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 transition-colors"
       >
-        {status === "submitting" ? "Submitting..." : "Submit application"}
+        {status === "submitting" ? "Sending…" : "Send application"}
       </button>
 
       {msg && (

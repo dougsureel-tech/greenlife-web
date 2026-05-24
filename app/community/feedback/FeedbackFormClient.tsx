@@ -38,7 +38,7 @@ export function FeedbackFormClient() {
       setContactEmail("");
     } catch {
       setStatus("error");
-      setMsg("Network problem. Try again in a minute.");
+      setMsg("Couldn't reach us — check your connection and try again.");
     }
   }
 
