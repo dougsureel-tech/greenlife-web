@@ -1378,9 +1378,12 @@ export function OrderMenu({
                               // not consumer-marketing — matches the
                               // regulatory weight (WSLCB extra-tested SKU,
                               // no excise tax for verified patients).
-                              // TODO swap inline SVG for the official WA-DOH
-                              // logo Doug attached — needs Doug to re-drop
-                              // into chat; file not in /public yet.
+                              // Note: the full-fidelity WA-DOH logos do exist
+                              // at `/public/doh-logos/{general-use,high-cbd,
+                              // high-thc}.jpg` (used by `pickDohLogo()` in the
+                              // pricing detail). They're intentionally NOT
+                              // used here — at 10×10px the stylized cross
+                              // reads cleaner than a downsized JPG would.
                               <span
                                 className={`absolute ${deal ? "top-12" : "top-2.5"} left-2.5 inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-md font-extrabold bg-purple-700 text-white shadow-md uppercase tracking-wider pointer-events-none`}
                                 title="DOH-compliant — extra-tested medical SKU. No tax for verified patients."
