@@ -267,7 +267,7 @@ export function ApplyForm() {
           </div>
           <div className="space-y-1.5">
             <label className="block text-xs font-semibold text-stone-700" htmlFor="igFollowers">
-              Followers (try 12K, 1.5M, 12500)
+              Followers
             </label>
             <input
               id="igFollowers"
@@ -279,6 +279,9 @@ export function ApplyForm() {
               placeholder="12K"
               className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900"
             />
+            <p className="text-[11px] text-stone-500">
+              Write it however your profile shows it — 12K, 1.5M, 12500.
+            </p>
           </div>
         </div>
         <div className="space-y-1.5">
@@ -413,7 +416,7 @@ export function ApplyForm() {
           className="w-full text-sm text-stone-700 file:mr-3 file:rounded-xl file:border-0 file:bg-green-700 file:px-4 file:py-2 file:text-white file:font-semibold hover:file:bg-green-600"
         />
         <p className="text-xs text-stone-500">
-          Used once to verify 21+. Stored privately; never shared or republished.
+          We check it once to confirm you&apos;re 21+, then it&apos;s locked in our admin tools. No one outside the team sees it, ever.
         </p>
       </div>
 

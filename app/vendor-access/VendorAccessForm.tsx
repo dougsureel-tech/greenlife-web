@@ -131,7 +131,7 @@ export function VendorAccessForm() {
       </button>
 
       <p className="text-xs text-stone-500 text-center">
-        We review every request manually. Approval typically lands within 1–2 business days.
+        We read every request ourselves. You&apos;ll hear back within two business days.
       </p>
     </form>
   );
