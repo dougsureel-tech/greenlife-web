@@ -916,9 +916,9 @@ export function OrderMenu({
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 text-center space-y-4">
         <div className="text-5xl mb-4" aria-hidden="true">🌿</div>
-        <p className="text-stone-700 text-xl font-semibold">Menu coming soon</p>
+        <p className="text-stone-700 text-xl font-semibold">Menu&apos;s down for a sec</p>
         <p className="text-stone-400 text-sm">
-          Call us to place an order:{" "}
+          Try refresh, or call us and we&apos;ll take your order over the phone:{" "}
           <a href={`tel:${STORE.phoneTel}`} className="text-green-700 font-semibold">
             {STORE.phone}
           </a>
@@ -1574,9 +1574,16 @@ export function OrderMenu({
                 )}
               </p>
               <p className="text-stone-500 text-sm max-w-md mx-auto">
-                {search
-                  ? "Try a shorter search or one of the popular categories below. Still stuck? Call the store and a budtender can check the back."
-                  : "Some combinations are stricter than what's on the shelf today. Reset or pivot to a category below."}
+                {search ? (
+                  <>
+                    Try a shorter search or pick a category below. Or call — a budtender can check the back:{" "}
+                    <a href={`tel:${STORE.phoneTel}`} className="text-green-700 font-semibold">
+                      {STORE.phone}
+                    </a>
+                  </>
+                ) : (
+                  "Some combinations are stricter than what's on the shelf today. Reset or pivot to a category below."
+                )}
               </p>
               <div className="flex flex-wrap justify-center gap-2 pt-1">
                 {search && (
