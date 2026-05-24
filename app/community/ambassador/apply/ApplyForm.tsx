@@ -309,6 +309,7 @@ export function ApplyForm() {
             onChange={(e) => setTiktokHandle(e.target.value)}
             maxLength={30}
             placeholder="Handle (no @)"
+            aria-label="TikTok handle"
             className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900"
           />
           <input
@@ -317,6 +318,7 @@ export function ApplyForm() {
             onChange={(e) => setTiktokFollowers(e.target.value)}
             maxLength={20}
             placeholder="Followers (12K, 1.5M)"
+            aria-label="TikTok followers"
             className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900"
           />
         </div>
@@ -334,6 +336,7 @@ export function ApplyForm() {
             onChange={(e) => setYoutubeHandle(e.target.value)}
             maxLength={30}
             placeholder="Handle (no @)"
+            aria-label="YouTube handle"
             className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900"
           />
           <input
@@ -342,6 +345,7 @@ export function ApplyForm() {
             onChange={(e) => setYoutubeFollowers(e.target.value)}
             maxLength={20}
             placeholder="Subscribers (12K, 1.5M)"
+            aria-label="YouTube subscribers"
             className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900"
           />
         </div>
