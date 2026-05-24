@@ -367,6 +367,7 @@ function ApplyForm() {
         method: "POST",
         body: fd,
         // No credentials — endpoint is public + CORS-enabled for our apex.
+        signal: AbortSignal.timeout(30000),
       });
 
       if (res.ok) {

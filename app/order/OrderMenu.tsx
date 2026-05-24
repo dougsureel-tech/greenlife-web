@@ -865,6 +865,7 @@ export function OrderMenu({
           pickupTime,
           loyaltyTierPointCost: appliedDiscount != null ? selectedTierPointCost : null,
         }),
+        signal: AbortSignal.timeout(15000),
       });
       if (res.status === 401) {
         // After Clerk redirects back, the `?cart=open` param tells the mount

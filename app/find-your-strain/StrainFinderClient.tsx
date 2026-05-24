@@ -154,6 +154,7 @@ export function StrainFinderClient() {
           strain_type: finalAnswers.strain || null,
           category: finalAnswers.form || null,
         }),
+        signal: AbortSignal.timeout(10000),
       });
       // Capture is best-effort — even if the API errors we route to
       // /order anyway so the customer never sees a dead-end. Show a

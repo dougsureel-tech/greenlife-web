@@ -46,6 +46,7 @@ export function VendorAccessForm() {
           intent: intent || null,
           storeOrigin: STORE_ORIGIN,
         }),
+        signal: AbortSignal.timeout(15000),
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) {
