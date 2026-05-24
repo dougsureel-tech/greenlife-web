@@ -79,13 +79,21 @@ function mapRoleMatchToFormPosition(roleMatch: string | null | undefined): Posit
 }
 
 interface Reference {
+  // Client-only stable id for React key — never serialized to the apply API.
+  // Generated via crypto.randomUUID() on add; used so reordering/removing refs
+  // doesn't trigger React key-by-index stale-state bugs (focus loss, etc.).
+  id: string;
   name: string;
   relationship: string;
   phone: string;
   email: string;
 }
 
-const EMPTY_REF: Reference = { name: "", relationship: "", phone: "", email: "" };
+const EMPTY_REF_FIELDS: Omit<Reference, "id"> = { name: "", relationship: "", phone: "", email: "" };
+
+function newRef(): Reference {
+  return { id: crypto.randomUUID(), ...EMPTY_REF_FIELDS };
+}
 
 declare global {
   interface Window {
@@ -163,7 +171,7 @@ function ApplyForm() {
   const [availability, setAvailability] = useState("");
   const [resume, setResume] = useState<File | null>(null);
   const [resumeError, setResumeError] = useState<string | null>(null);
-  const [refs, setRefs] = useState<Reference[]>([{ ...EMPTY_REF }]);
+  const [refs, setRefs] = useState<Reference[]>(() => [newRef()]);
   const [age21Confirmed, setAge21Confirmed] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
@@ -290,7 +298,7 @@ function ApplyForm() {
 
   function addRef() {
     if (refs.length >= 3) return;
-    setRefs((prev) => [...prev, { ...EMPTY_REF }]);
+    setRefs((prev) => [...prev, newRef()]);
   }
 
   function removeRef(i: number) {
@@ -632,7 +640,7 @@ function ApplyForm() {
               <div className="space-y-3">
                 {refs.map((r, i) => (
                   <div
-                    key={i}
+                    key={r.id}
                     className="rounded-2xl border border-stone-200 bg-stone-50/40 p-4 space-y-3"
                   >
                     <div className="flex items-center justify-between">
