@@ -145,8 +145,8 @@ export default function AboutPage() {
             </p>
             <p className="text-stone-600 leading-relaxed">
               Our team of knowledgeable budtenders takes time to understand what you&apos;re looking for and
-              guide you toward the right product. Whether you&apos;re seeking relief, relaxation, creativity,
-              or just exploring — we&apos;re here to help.
+              guide you toward the right product. Whether you want something for the end of the day, the
+              start of a hike, or you&apos;re just exploring — we&apos;ll point you to what fits.
             </p>
             <p className="text-stone-600 leading-relaxed">
               We handpick every product on our shelves, prioritizing quality, value, and Washington-grown
@@ -186,13 +186,13 @@ export default function AboutPage() {
               {
                 icon: "🎓",
                 title: "Education First",
-                body: "We don't just sell cannabis — we help you understand it. Our budtenders know terpenes, effects, dosing, and product pairings inside and out.",
+                body: "Our budtenders know terpenes, dosing, and what pairs with what. Ask anything — that's literally the job.",
                 color: "bg-green-50 border-green-200",
               },
               {
                 icon: "🌿",
                 title: "Quality Curation",
-                body: "Every product on our shelves was chosen deliberately. We try everything before it hits the shelf and drop what doesn't meet our standard.",
+                body: "We try everything before it hits the shelf. What we don't like, we don't carry.",
                 color: "bg-emerald-50 border-emerald-200",
               },
               {
@@ -427,9 +427,9 @@ export default function AboutPage() {
             className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
           >
             <div className="text-2xl mb-2" aria-hidden="true">🎖️</div>
-            <h3 className="font-bold text-stone-900 text-sm">Heroes 30% off</h3>
+            <h3 className="font-bold text-stone-900 text-sm">We support local heroes</h3>
             <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
-              Military, vets, first responders, healthcare, K-12 teachers.
+              Military, vets, first responders, healthcare, K-12 teachers. Show your service ID — every visit, forever.
             </p>
             <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
               Eligibility

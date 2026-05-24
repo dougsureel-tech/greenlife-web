@@ -401,9 +401,9 @@ export default async function VisitPage() {
               className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
             >
               <div className="text-2xl mb-2" aria-hidden="true">🎖️</div>
-              <h3 className="font-bold text-stone-900 text-sm">Heroes 30% off</h3>
+              <h3 className="font-bold text-stone-900 text-sm">We support local heroes</h3>
               <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
-                Active military, veterans, first responders, healthcare, K-12 teachers.
+                Active military, veterans, first responders, healthcare, K-12 teachers. Show your service ID — every visit, forever.
               </p>
               <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
                 Check eligibility
