@@ -11,7 +11,12 @@ import { getActiveDeals } from "@/lib/db";
 // cache is fine; the worst case is the bar showing yesterday's promo
 // for a single minute past midnight.
 export async function GET() {
-  const deals = await getActiveDeals().catch(() => []);
+  const deals = await getActiveDeals().catch((err) => {
+    console.error(
+      `[deals/top] getActiveDeals failed err=${err instanceof Error ? err.name : "unknown"}`,
+    );
+    return [];
+  });
   const top = deals[0]
     ? {
         id: deals[0].id,

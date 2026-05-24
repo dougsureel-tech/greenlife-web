@@ -35,7 +35,10 @@ async function checkContentLite(): Promise<{
       productsActive: (p as Array<{ n: number }>)[0]?.n ?? 0,
       dealsActive: (d as Array<{ n: number }>)[0]?.n ?? 0,
     };
-  } catch {
+  } catch (err) {
+    console.error(
+      `[health/ping] checkContentLite DB failure err=${err instanceof Error ? err.name : "unknown"}`,
+    );
     return null;
   }
 }
