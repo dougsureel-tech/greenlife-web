@@ -570,6 +570,531 @@ The other rule worth pinning: have a non-cannabis snack and water on hand before
     ],
     relatedTopics: ["lab-panel-coa", "indica-sativa-hybrid", "first-time-visitor"],
   },
+  {
+    slug: "edibles-dosing",
+    eyebrow: "Edibles, the honest version",
+    title: "Edibles dosing, the honest version",
+    description:
+      "Edibles take 60-90 minutes to hit. Start at 2.5 mg THC and wait two full hours before considering a second dose. Honest dosing math from Green Life.",
+    body: `Edibles are the easiest way to have a long, uncomfortable evening if you get the math wrong. They're also the easiest, most reliable way to have a good one if you get it right. Here's the math.
+
+## The number to remember: 2.5 mg
+
+For a first-time customer — or someone coming back after a long break — 2.5 milligrams of THC is plenty. Most edibles in Washington come in 5 mg or 10 mg pieces (the state caps a single piece at 10 mg and a whole package at 100 mg). Cut the 5 mg gummy in half. That's your starting dose.
+
+Why so low? Because edible-THC is processed by the liver into a compound that's roughly four to five times more potent than the THC you'd get from smoking. The "I smoke regularly so I'll be fine on a 10 mg gummy" calculation almost never holds up. Different mechanism, different math.
+
+## Wait 90 minutes — actually wait
+
+Edibles take 60 to 90 minutes to fully come on. Longer if you ate a heavy meal first. Shorter if you took it on a near-empty stomach. The most common dosing mistake we hear about at the counter goes like this:
+
+"I took a 10 mg gummy. Nothing happened for 30 minutes. So I took another. Then the first one hit and I was way past where I wanted to be."
+
+If you don't feel anything at 30 minutes, that's normal. If you don't feel anything at 60 minutes, that's still normal. Two hours is the right window before you make any decision about a second dose.
+
+## A starting menu
+
+These are the dose levels we describe at the counter. Where you land depends on tolerance, body chemistry, what you ate, and what you're after.
+
+- **2.5 mg** — first-timer, returning after a break, low-tolerance. Detectable, not overwhelming. A glass of wine equivalent for most people.
+- **5 mg** — Washington's per-piece cap. Comfortable for occasional users. Noticeable.
+- **10 mg** — regular consumer territory. New users should rarely start here.
+- **20 mg+** — high-tolerance regulars. Not a starter dose. Ever.
+
+Always read the package — the per-piece dose is on the front, and the per-package total is on the back. A 100 mg gummy bag with 10 pieces is 10 mg per piece. A 100 mg chocolate bar scored into 20 squares is 5 mg per square.
+
+## What to do if you are too high
+
+It happens. Here's what helps and what doesn't.
+
+- **Helps:** sit down, drink water, eat something with protein or carbs, put on a familiar show, breathe.
+- **Helps:** CBD. Some people reach for a 10 mg CBD tincture or gummy alongside the THC. Worth keeping a bottle around if you dose with edibles often.
+- **Doesn't help:** caffeine, sugar alone, lying down in the dark with anxious thoughts running. The ride is going to last another two to four hours regardless. Set yourself up for it.
+
+It's uncomfortable. It's not dangerous. There has never been a recorded fatal overdose from cannabis. The worst case is "I never want to do that again," not the ER.
+
+## Pairings and form factors
+
+Beyond gummies, edibles come in:
+
+- **Chocolates** — usually scored into 5 or 10 mg squares; melt-in-mouth onset can be slightly faster.
+- **Drinks and shots** — 10 mg micro-shots are increasingly common; onset is often the fastest of any edible because of liquid absorption.
+- **Baked goods** — cookies, brownies, rice crispies. Usually 10 mg single-serve.
+- **Tinctures** — drops under the tongue. Faster than swallowed edibles (15-45 minutes) because of sublingual absorption.
+
+If you want predictability, gummies and chocolates are the best choices — uniform dosing per piece. Drinks and tinctures kick in faster but the lower-onset-time means timing matters more.
+
+## What we do at the counter
+
+When a first-time customer asks for an edibles recommendation, we walk through three things: tolerance, intent (sleep, social, mood, recovery), and how long the experience needs to last. We'll usually pull two or three options at different dose levels and walk you through which we'd start with. The 2.5 mg starting dose isn't us being conservative — it's the math.
+
+Ask. We'd rather have you in here ten minutes longer at the counter than dosed wrong on the couch.
+
+This information is general cannabis education for adults 21 and over. We're not making medical claims, and edibles affect every person differently. If you have questions about how cannabis interacts with prescription medications, that's a conversation for your doctor.`,
+    faqs: [
+      {
+        q: "What's a safe first edibles dose?",
+        a: "2.5 mg THC. Cut a 5 mg gummy in half. That's plenty for a first-time customer or someone coming back after a long break. Tolerance to smoking does not automatically translate to tolerance for edibles.",
+      },
+      {
+        q: "How long do edibles take to kick in?",
+        a: "60 to 90 minutes for most gummies and chocolates. Longer if you ate a heavy meal first; shorter on an empty stomach. Wait two full hours before considering a second dose.",
+      },
+      {
+        q: "I took too much. What do I do?",
+        a: "Sit down, drink water, eat something with protein or carbs, put on a familiar show, breathe. Some people reach for a CBD tincture or gummy. Don't drive. The peak passes in 1 to 3 hours; the whole experience runs 4 to 6 hours.",
+      },
+      {
+        q: "Why are edibles stronger than smoking the same amount?",
+        a: "Edibles get processed through the liver and converted to 11-hydroxy-THC, a metabolite that for many people delivers a noticeably stronger subjective effect than inhaled delta-9 THC. The path is slower, the peak is longer, and the dose-to-experience ratio shifts.",
+      },
+    ],
+    relatedTopics: ["edibles-dosing-101", "microdosing", "first-time-visitor"],
+  },
+  {
+    slug: "rso",
+    eyebrow: "RSO explained",
+    title: "What is RSO?",
+    description:
+      "RSO ('Rick Simpson Oil') is a thick whole-plant cannabis extract sold in Washington dispensaries as a syringe or capsule. What it is and how to read the label.",
+    body: `RSO stands for "Rick Simpson Oil" — a whole-plant cannabis extract named after the Canadian who popularized the method in the early 2000s. In a Washington dispensary, RSO is one of the most concentrated products on the shelf, usually sold in a 1-gram syringe or in capsule form.
+
+## What's actually in it
+
+RSO is made by soaking cannabis flower or trim in a food-grade solvent (typically grain alcohol), then evaporating the solvent off. What's left is a thick, dark, tar-like oil that contains the full spectrum of cannabinoids and terpenes from the original plant — not just isolated THC.
+
+Two things follow from that:
+
+- **It's potent.** A typical RSO syringe is 60-90% total THC. For comparison, dispensary flower is 18-28% THC; vape cartridges run 60-90%. A "rice grain" amount of RSO — about a quarter of a 0.1 mL line — contains roughly 25 mg of THC. That's two and a half full edible servings.
+- **It's whole-plant.** Distillate vape cartridges are usually THC isolated and re-suspended; RSO keeps the original cannabinoid and terpene profile. Some customers specifically prefer RSO for the "entourage effect" — the idea that cannabinoids and terpenes work together — though research on the entourage effect is still developing.
+
+## How people commonly use it
+
+RSO is dispensed with a graduated syringe so you can dose by volume. A tenth of a milliliter (0.1 mL) is the smallest reliable measurement.
+
+The most common methods:
+
+- **Sublingual** — dose under the tongue, hold for 30-60 seconds, then swallow. Onset is faster than a swallowed edible (15-45 minutes) because some absorbs through the mucosa directly.
+- **Capsules** — pre-measured RSO inside a soft gel. Onset is the same as any swallowed edible (60-90 minutes). Easier dosing math.
+- **Topical** — spread on skin. Doesn't cause a high; most of the cannabinoids stay in the local tissue.
+
+Customers who ask about RSO at the counter usually fall into two groups: experienced consumers looking for the strongest delivery format the legal market sells, and people exploring whole-plant cannabis after talking to their doctor. We're not in the second conversation — we sell what's on the shelf, we describe what's on the label, and we don't make medical claims. If RSO is part of a treatment conversation, it's a conversation for your doctor.
+
+## Reading the RSO label
+
+Every RSO product in Washington has a Certificate of Analysis from a licensed lab. The numbers to look at:
+
+- **Total THC %** — typically 60-90%. Higher isn't always "better" — the terpene profile and the strain it was extracted from matter for the experience.
+- **Total CBD %** — RSO comes in THC-dominant, CBD-dominant, and 1:1 versions. CBD-dominant or 1:1 RSO has different effects than THC-dominant.
+- **Strain or "blend"** — most RSO is a blend of trim from multiple harvests; some producers extract from a single strain (single-strain RSO is rarer, often more expensive).
+- **Producer name** — the licensed Washington company that made it. We can tell you which producers we've stocked the longest if that's useful.
+
+## What we will and won't say
+
+We'll happily walk you through dosing math, label reading, and how RSO compares to other concentrates. We'll point you toward the producers we trust.
+
+We won't tell you RSO will treat any specific condition. We can't — Washington's WAC 314-55-155 prohibits cannabis retailers from making efficacy claims, and even if it didn't, RSO is not a substitute for medical advice. If you're considering RSO as part of treating a condition, talk to your doctor first.
+
+This information is general cannabis education for adults 21 and over. We're not making medical claims about RSO. If you're considering RSO as part of treating a medical condition, that's a conversation for your doctor.`,
+    faqs: [
+      {
+        q: "Is RSO the same as FECO or QWET?",
+        a: "Not exactly. FECO ('Full Extract Cannabis Oil') and QWET ('Quick Wash Ethanol') are similar whole-plant extraction methods. The output is broadly similar; the specifics of the wash time, the strain selection, and the post-processing vary. Most customers use the terms interchangeably.",
+      },
+      {
+        q: "Can I cook with RSO?",
+        a: "Yes. It's already decarboxylated (heat-activated) during extraction, so it works in recipes without baking. Mix into honey, oil, or a fatty food. The rice-grain dose still applies.",
+      },
+      {
+        q: "How long does an RSO syringe last?",
+        a: "A 1-gram syringe holds 1,000 mg of dose. At a beginner dose of 10 mg per use, that's 100 doses. Most customers spend a syringe over weeks or months, not days.",
+      },
+      {
+        q: "Is RSO regulated the same way as flower or edibles?",
+        a: "Yes. It's a Washington recreational cannabis product, sold only in licensed dispensaries to adults 21+. Same possession limits, same testing requirements, same purchase caps.",
+      },
+    ],
+    relatedTopics: ["coa", "edibles-dosing", "medical-vs-recreational-wa"],
+  },
+  {
+    slug: "coa",
+    eyebrow: "Reading the lab panel",
+    title: "How to read a Certificate of Analysis (COA)",
+    description:
+      "Every Washington cannabis product ships with a Certificate of Analysis. Plain-English walkthrough of cannabinoid panels, terpenes, and pesticide testing.",
+    body: `Every cannabis product sold in a Washington dispensary has been tested by a state-licensed lab. The result of that testing is a Certificate of Analysis — a COA — that lists what's in the product and what isn't. We can pull a COA on most products on request. Here's what's on one and what each number is telling you.
+
+## The five sections of a COA
+
+A typical Washington cannabis COA has five panels of data plus a header. We'll walk through each.
+
+## Header — who, what, when
+
+The top of the COA names the producer (the licensed company that grew or made the product), the product (strain or formulation), the batch number, the harvest or production date, and the testing lab. The batch number is the trace-back ID — if the producer ever recalls a batch, that's the number that matches.
+
+If you ever want to check whether a product on our shelf has a current COA, the batch number is what we'd look up.
+
+## Cannabinoid panel — the headline numbers
+
+This is the panel everyone looks at first. It lists the cannabinoids the lab tested for and the percentage by weight in the product. The two most common columns:
+
+- **Total THC** — combined THC and THCA after decarboxylation. This is the "potency" number on the label.
+- **Total CBD** — combined CBD and CBDA. CBD is non-intoxicating; CBD-heavy products have markedly different effects than THC-heavy ones.
+
+Modern COAs increasingly list minor cannabinoids:
+
+- **CBG** — often described as a focus-leaning, non-intoxicating cannabinoid. Common in low percentages.
+- **CBN** — typically present in older flower and in sleep-marketed products. We say what's on the label, not what it does.
+- **CBC** — even less common; non-intoxicating.
+
+Some COAs split THC into "THCA" (the unactivated acid form, present in raw flower) and "Delta-9 THC" (the activated form, present after heat). When you smoke flower, the THCA converts to Delta-9 THC. Most product labels show "Total THC" as the headline.
+
+## Terpene panel — the smell, the flavor, often the effect
+
+Terpenes are aromatic compounds (cannabis has them; so do citrus, pine, lavender, basil — every plant). Most modern COAs test for 15-25 terpenes. The big ones:
+
+- **Myrcene** — earthy, musky. Common dominant terpene in indica-leaning strains.
+- **Limonene** — bright citrus. Often associated with uplift.
+- **Pinene** — pine-forward. Often associated with focus and clear-headedness.
+- **Linalool** — floral, lavender-like. Often associated with calm.
+- **Caryophyllene** — peppery. Unusual among terpenes in that it directly binds CB2 receptors.
+- **Terpinolene** — fruity-floral. Common in head-leaning sativas.
+
+Total terpene percentage matters for the experience as much as THC percentage. A 20% THC flower with 3% total terpenes will usually outperform a 28% THC flower with 0.5% total terpenes for most consumers — terpene content is what gives the flower its smell and shapes how the high feels.
+
+## Pesticide panel — pass/fail by analyte
+
+Washington requires every batch to test below threshold for a list of pesticides. The COA lists each pesticide tested and either a numerical concentration (in parts per billion) or "ND" (not detected) or "Pass / Fail." Anything that fails is destroyed at the producer level — it never reaches a dispensary shelf.
+
+Pesticides commonly tested for include myclobutanil, abamectin, bifenazate, imidacloprid, and ~40 others. Most COAs show a clean pass-line with all 40+ analytes at "ND" — that's what a clean test looks like.
+
+## Microbiological panel — pass/fail for living contaminants
+
+This panel tests for total yeast and mold, total aerobic bacteria, salmonella, E. coli, and aspergillus. Same pass/fail mechanic — anything that fails doesn't ship.
+
+Aspergillus is the one most worth knowing about for medical-cannabis-curious customers — it's a mold whose spores can cause respiratory infection in immunocompromised people. WA tests for it and rejects on detection. That's a meaningful safety floor.
+
+## Heavy metals + residual solvents — pass/fail again
+
+Heavy metals (lead, cadmium, arsenic, mercury) can accumulate in cannabis from the soil. Tested every batch.
+
+For concentrates and vape cartridges, there's an additional residual solvents panel — testing for leftover butane, propane, ethanol, hexane, and other solvents that were used during extraction. Pass/fail again.
+
+## What "premium" looks like on a COA
+
+When we describe a product as premium, here's what we're usually pointing at on the COA:
+
+- **Total terpenes greater than 2%** — high terpene content correlates with full flavor and complete high.
+- **Total cannabinoids greater than 22%** — strong but not hot-housed; mid-20s on flower is the sweet spot.
+- **All pesticide / microbio / heavy-metal panels showing ND across the board** — clean baseline.
+- **Single-strain extraction** — for concentrates, the COA shows the extract was made from a single strain, not blended trim.
+
+Fail any of those and we'd describe it as "fine, gets the job done" rather than premium. We don't sell anything that fails the state-required panels — every product on our shelves passes those by definition. The "premium" call is the next tier above that floor.
+
+## Asking us for a COA
+
+Producer COAs sit on a shared portal. If you want to see one for a product you're considering, ask the budtender — we can usually pull it up in under a minute. Useful when you want to know the dominant terpene, the exact CBD level, or the batch date.
+
+This information is general cannabis education for adults 21 and over. WAC 314-55-102 lays out Washington's required testing standards; the full list of analytes and thresholds is on the Washington State Liquor and Cannabis Board's website.`,
+    faqs: [
+      {
+        q: "Where do I find the COA for a product I already bought?",
+        a: "Use the batch number printed on the label. Many processors post COAs on their websites searchable by batch; the rest provide them on request through the retailer. We can pull the COA for any product on our shelves.",
+      },
+      {
+        q: "What's the difference between THCA and Total THC?",
+        a: "THCA is the raw acid form found in unheated flower; Total THC accounts for what THCA becomes when heated (decarboxylated) plus any active delta-9 THC already present. The Total THC number is the one to compare across products.",
+      },
+      {
+        q: "What does it mean if the terpene panel is missing?",
+        a: "Not every Washington lab runs a full terpene panel on every batch. The strain still has terpenes; the data just wasn't included on this particular COA. Ask a budtender; we often know the terpene-dominant profile from prior batches.",
+      },
+      {
+        q: "What's the most important number on a COA?",
+        a: "Depends on what you're shopping for. Total THC and CBD set baseline potency. Total terpenes (when listed) often predicts the experience better than THC alone. For concentrates and vapes, the residual solvents panel is the safety floor worth scanning.",
+      },
+    ],
+    relatedTopics: ["lab-panel-coa", "indica-sativa-hybrid", "rso"],
+  },
+  {
+    slug: "first-visit",
+    eyebrow: "First visit, walked through",
+    title: "Your first time at a dispensary, walked through",
+    description:
+      "Never been to a dispensary? Here's what happens, start to finish — from the door, to the ID check, to the budtender at the counter. Plain-English first-visit guide.",
+    body: `First-time customers ask us the same three things at the door: "Do you check ID?" "How does the menu work?" "What do you recommend?" Here's what actually happens, start to finish, so the visit is not your first time figuring it out.
+
+## At the door — ID check, no exceptions
+
+You'll show your ID before you walk past the lobby. We're required by Washington State law to verify everyone's age every visit, even if you've been here a hundred times. Anyone under 21 cannot enter the retail floor — including kids in strollers. (We know. The law is the law.)
+
+What works as ID: a Washington driver's license, an out-of-state driver's license, a US passport, a US passport card, a military ID, or a Tribal ID with a date of birth. What doesn't work: an expired ID, a photo of an ID, a temporary paper ID without a photo.
+
+If your ID is vertical (i.e. issued to you when you were under 21) and you're now over 21, that still counts — but we'll look closely at the date of birth, because the state pays close attention to vertical-ID transactions and so do we.
+
+## On the floor — what the menu looks like
+
+A typical Washington dispensary menu is broken into seven or eight categories:
+
+- **Flower** — the bud, sold by weight (eighth, quarter, half, ounce).
+- **Pre-rolls** — joints, already rolled. Single or multi-pack.
+- **Vapes** — cartridges and disposables.
+- **Concentrates** — wax, shatter, live resin, rosin (used with a dab rig).
+- **Edibles** — gummies, chocolates, drinks, baked goods.
+- **Tinctures** — drops, sublingual.
+- **Topicals** — lotions, balms (most don't get you high).
+- **Accessories** — papers, lighters, batteries, dab tools.
+
+You can browse the menu on your phone before you walk in (it's at /menu — same products you'll see in the case), or take it slow at the counter.
+
+## At the counter — what to ask a budtender
+
+The most useful thing a first-time customer can say is some version of:
+
+"I haven't done this in a while," or "I'm new — what would you recommend?"
+
+We're not going to push you toward the most expensive thing on the shelf. We're going to ask three questions:
+
+1. **Tolerance.** Have you used cannabis before? When was the last time?
+2. **Intent.** What are you hoping it does? Sleep, social, focus, recovery, just curious?
+3. **Format.** Do you want to smoke, vape, eat, or drop something under your tongue?
+
+From those three answers, we can usually narrow to two or three products. We'll tell you what we'd start with and why. We'll usually steer you toward a smaller-quantity / lower-dose product on a first visit — it's better to come back next week with a follow-up question than to dose wrong on day one.
+
+The thing first-timers are most often surprised by: how willing we are to talk. Take 10 minutes. Ask the dumb-feeling question. We've heard it.
+
+## At the till — cash, ATM, the math
+
+We're cash-only — every Washington dispensary is, because cannabis is federally illegal and the major card networks won't process for our category. There's an ATM in the lobby; expect a $3 surcharge typical for a cannabis-store ATM. Bring extra and you'll be fine.
+
+If you signed up for our customer system (we ask once at the counter — it's a phone number or email, not a "loyalty card") you'll see your visits add up over time and you'll get the email or text discount we run on your account.
+
+You don't have to sign up. Plenty of customers don't. But when first-time customers ask, we usually pitch the signup with: "Sign up real quick — first visit's 30% off and you'll be in the system for next time."
+
+## On the way out — what's in the bag
+
+Your products go in an opaque exit bag — Washington requires it, no branded packaging visible. The receipt's in the bag. If you ordered online, your order is already staged with your name on it.
+
+What's NOT in the bag: medical advice, dosing guarantees, anything we promised would treat or cure something. We don't make those claims. We can't, legally, and even if we could, every person's body chemistry is different. What's in the bag is what's on the label.
+
+## In the parking lot — don't open it here
+
+Washington law prohibits consuming cannabis in any public space, including dispensary parking lots, sidewalks, parks, and most outdoor areas. The product is sealed in the exit bag for a reason — it's labeled for transport, not for use on-site.
+
+Some specific things we want first-timers to know:
+
+- **Don't open the bag in the parking lot.** Even smelling the package can trigger a complaint. Wait til you're home.
+- **Don't smoke or vape in the lot.** Same issue, more obvious.
+- **Driving impaired is a DUI** under Washington law, same as alcohol. If you've consumed, get a ride.
+
+## After your first visit
+
+Most first-time customers come back within two weeks. The most common feedback we get on a second visit:
+
+"I should have asked you sooner."
+
+Right answer is to ask. Wrong answer is to guess.
+
+If something didn't work the way you expected — wrong dose, wrong format, wrong strain feel — tell us when you come back. We can usually narrow to a better fit on the second try.
+
+Welcome to the shop.`,
+    faqs: [
+      {
+        q: "What ID do I need to bring?",
+        a: "A valid 21+ government photo ID. Washington accepts in-state and out-of-state driver's licenses, US passports, US passport cards, military IDs, and Tribal IDs with date of birth. Expired IDs, photos of IDs, and paper temporary IDs do not work.",
+      },
+      {
+        q: "Can I bring a friend who is under 21?",
+        a: "No. Washington WAC requires every person on the retail floor to be 21+ with valid ID. That includes infants and children. Anyone under 21 has to wait outside or in the car.",
+      },
+      {
+        q: "How much should I expect to spend on a first visit?",
+        a: "Plan on $20-50 total. That covers a single edible, a pre-roll, a small eighth of flower, or a starter cartridge — enough to try something without overcommitting. You can always come back next week.",
+      },
+      {
+        q: "Do I have to know what I want before I walk in?",
+        a: "No. The most useful thing a first-time customer can say is 'I'm new — what would you recommend?' A budtender will ask about tolerance, intent, and format, then narrow to two or three options.",
+      },
+    ],
+    relatedTopics: ["first-time-visitor", "edibles-dosing", "cash-only-dispensaries"],
+  },
+  {
+    slug: "microdosing",
+    eyebrow: "Microdosing edibles",
+    title: "Microdosing edibles: what it is, what’s on the shelf",
+    description:
+      "Microdosing means using small doses (1-2.5 mg THC) to feel a subtle shift without getting high. What's on the Washington dispensary shelf and how to start.",
+    body: `Microdosing means using a small enough cannabis dose that you don't actually get high — just a subtle shift you can carry through your day. The word borrows from the psychedelic-research community where it originated; in cannabis context it usually means 1 to 2.5 milligrams of THC at a time. Here's what's on the dispensary shelf if you want to try it, and what to know before you do.
+
+## What microdose products look like
+
+Washington dispensaries carry several edibles formats specifically for low-dose use:
+
+- **2 mg or 2.5 mg gummies** — single-piece dose, no math required. Common formats: small fruit-flavored gummies in 20-piece bags.
+- **5 mg gummies that score in half** — most 5 mg gummies will split cleanly into two 2.5 mg halves. Cheaper per mg than purpose-made 2.5 mg products.
+- **1:1 CBD:THC chocolates** — a 5 mg THC + 5 mg CBD chocolate gives you a "softer" experience than 5 mg THC alone; the CBD takes some of the edge off.
+- **Tinctures** — drops let you measure to the milligram. A typical tincture is 10 mg/mL, so 0.1 mL under the tongue is 1 mg. Useful for fine-tuning.
+- **Mints + microdose lozenges** — pre-portioned at 2 to 2.5 mg per piece.
+
+The two cleanest entry points for a microdoser: 2.5 mg gummies (no measuring) or a 10 mg/mL tincture (full control).
+
+## A typical microdosing rhythm
+
+Customers who microdose usually report doing it one of three ways:
+
+- **Once-daily** — one 2.5 mg piece in the late afternoon. No math, no decision-making mid-day.
+- **Twice-daily** — 1 mg or 2 mg morning + 2 mg evening, separated by 6+ hours. Tincture is easier for this.
+- **As-needed** — a single low dose before a long walk, before bed, before social plans, etc.
+
+Find your dose first, then find your rhythm. Almost everyone who tries microdosing for the first time underestimates how subtle the effect is — there's no high, just a shift. If you're hoping for a noticeable buzz, you're not looking for a microdose; you're looking for a regular edible (see our edibles dosing guide).
+
+## What microdosing is and isn't
+
+We can describe what's on the label and what customers commonly use it for. We can't make claims about what it treats. That said, here's a useful reframe:
+
+- **Microdosing is:** a way to use cannabis with little or no perceptible high. Subtle. Consistent. Sometimes paired with daily life rather than a "session."
+- **Microdosing isn't:** a substitute for medical advice, a guaranteed treatment for any condition, or a "cure" for anything. If you're considering microdosing as part of treating a specific health issue, that's a conversation for your doctor.
+
+We don't know whether microdosing will work for you. We know what dose levels customers report success with. We know what products on our shelf are well-suited for it. Beyond that, it's an experiment of one — your body, your tolerance, your math.
+
+## What to expect (and what not to)
+
+If you take a 2.5 mg microdose:
+
+- You will not feel "high" in the recreational-dose sense.
+- You may notice a subtle mood shift — slightly more relaxed, slightly more focused, slightly less anxious — within 60-90 minutes.
+- The effect lasts 2-4 hours, then fades cleanly.
+- You can drive within an hour or two for most people, but the same DUI rule applies. If you're feeling anything, don't drive.
+
+If you DO feel high on a 2.5 mg dose, you have unusually low tolerance. That's not bad news — it means a smaller dose works for you. Drop to 1 mg next time.
+
+## Tolerance — the catch
+
+The thing nobody mentions about microdosing: tolerance still builds. If you microdose every day for two weeks, the effect at week-three is dimmer than the effect on day-one. Most regular microdosers take a "tolerance break" — a few days off — every couple of weeks. Helps reset baseline.
+
+## Asking us about it
+
+If you want to start microdosing, the question to ask the budtender is some version of:
+
+"What's the lowest-dose edible you carry?"
+
+We can pull two or three products at the 2 mg / 2.5 mg level and walk you through the differences (full-spectrum vs. distillate, gummy vs. chocolate vs. tincture, indica- vs. sativa-leaning). The pick depends on what you're after. Ask.
+
+This information is general cannabis education for adults 21 and over. We're not making medical claims about microdosing. If you're considering microdosing as part of treating a medical condition, talk to your doctor first.`,
+    faqs: [
+      {
+        q: "What counts as a microdose of THC?",
+        a: "Generally 1 to 2.5 milligrams of THC at a time. That's low enough that most people don't feel intoxicated — the shift is subtle, like a slight mood change or relaxation, rather than a recognizable high.",
+      },
+      {
+        q: "What products are best for microdosing?",
+        a: "Two clean entry points: pre-made 2.5 mg gummies (no measuring required) or a 10 mg/mL tincture (full control, easy to titrate). 1:1 CBD:THC chocolates are a softer alternative for people who notice 2.5 mg THC on its own.",
+      },
+      {
+        q: "Does tolerance build with microdosing?",
+        a: "Yes. Daily microdosing dims the effect over time. Most regular microdosers take a tolerance break — a few days off — every couple of weeks to reset baseline.",
+      },
+      {
+        q: "Can I drive after a microdose?",
+        a: "Washington's 5 ng/mL active-THC blood limit applies regardless of dose size. Most people are below threshold within an hour or two of a 2.5 mg dose, but if you're feeling anything, don't drive.",
+      },
+    ],
+    relatedTopics: ["edibles-dosing", "edibles-dosing-101", "cannabis-driving-wa"],
+  },
+  {
+    slug: "sleep",
+    eyebrow: "Cannabis and sleep",
+    title: "Cannabis and sleep: what’s on the shelf, what we won’t claim",
+    description:
+      "Customers ask about sleep more than any other use-case. Here's what's on the Washington dispensary shelf and what WAC 314-55-155 prevents us from claiming.",
+    body: `"What do you have for sleep?" is the question we hear most. It's also the question we have to answer most carefully, because Washington's WAC 314-55-155 prohibits cannabis retailers from making medical or efficacy claims — including "this will help you sleep." We can't promise that. What we can do is describe what's on the shelf and what the labels say. Below is the honest version.
+
+## What customers asking about sleep usually mean
+
+When a customer asks about sleep, they usually mean one of three things:
+
+1. **"I have trouble falling asleep"** — busy mind, racing thoughts, can't wind down.
+2. **"I have trouble staying asleep"** — wake up at 3 AM, can't get back down.
+3. **"I want to feel rested when I wake up"** — slept fine but morning is rough.
+
+Different products tend to fit different patterns. We'll describe each below — but we're describing what's on the label and what customers commonly choose, not making promises about results.
+
+## Indica-leaning flower
+
+The "indica = body, sativa = head" rule of thumb is loose, but for sleep-curious customers we usually point at indica or indica-dominant hybrids with a high myrcene content. Myrcene is the dominant terpene in many sleep-marketed strains. Strains we'd typically pull for this question: Granddaddy Purple, Northern Lights, Bubba Kush, Wedding Cake. Whether any of them work for your sleep is your body's call, not ours.
+
+## CBN edibles + tinctures
+
+CBN (cannabinol) is a minor cannabinoid that increases as cannabis ages. It's often featured in sleep-marketed edibles — typically a 5 mg THC + 5 mg CBN gummy, sometimes with melatonin added.
+
+Two things to know:
+
+- The research base on CBN for sleep is small and the studies are mixed. Some people report a dim, body-heavy sedation; others notice no effect.
+- "CBN for sleep" is in heavy marketing rotation at the moment; we carry the products, we describe them, we won't tell you they'll work.
+
+## 1:1 or CBD-dominant tinctures and edibles
+
+Some customers find that a CBD-heavy product without a strong THC dose helps wind down without the high. Common formats: 10 mg CBD + 2 mg THC, 1:1 tinctures, and 10 mg CBD-only capsules. CBD doesn't intoxicate; the experience is closer to a calmer baseline than a high.
+
+## Lower-THC pre-rolls and small bowls
+
+Some customers find a single small dose of inhaled cannabis 30 minutes before bed works better for them than an edible (faster onset, faster fade — easier to dial). Smoke or vape isn't for everyone, but it's worth mentioning as an option. THC effect on inhaled cannabis peaks at about 30 minutes and fades by 2-3 hours; edibles peak later and last longer.
+
+## Topicals — generally not for sleep
+
+Topicals don't cross the skin into the bloodstream meaningfully (most don't get you high; the cannabinoids stay in the local tissue). They're not the right category for sleep-related questions. If a topical is being marketed for sleep, the marketing's outpacing the chemistry.
+
+## What we will NOT claim
+
+We will not tell you any cannabis product:
+
+- Will fix your sleep.
+- Cures, prevents, or addresses any sleep disorder.
+- Is "as good as" or "an alternative to" prescription sleep medication.
+- Will work for your specific situation.
+
+These are statements we're prohibited from making by Washington State retail-cannabis advertising rules (WAC 314-55-155), and they're statements we couldn't honestly make even if we were allowed to — sleep is complicated, biology is individual, and cannabis interacts with other medications and conditions in ways we are not your doctor.
+
+## What we WILL say
+
+- Customers ask us about sleep more than any other topic at the counter.
+- Customers ask about CBN, indica-leaning strains, and 1:1 edibles most frequently.
+- Customers tell us what worked for them on follow-up visits, which informs what we describe to the next customer asking.
+- We carry products specifically marketed and labeled for sleep. We carry alternatives for customers whose first try didn't fit.
+
+## If sleep is a real medical issue
+
+Persistent sleep problems are worth a conversation with your doctor — they can have causes (apnea, anxiety, medication interactions) that cannabis won't address and might worsen. Cannabis is not a substitute for diagnosis. We're a retail dispensary; we sell what's on the shelf and describe what's on the label. Anything beyond that is a doctor conversation.
+
+## Asking us at the counter
+
+The honest question to ask a budtender if you're sleep-curious is some version of:
+
+"What's been working for other customers asking about sleep?"
+
+That gets you a description of what we've stocked and what regulars come back for. It doesn't get you a promise. That's the right shape of conversation.
+
+This information is general cannabis education for adults 21 and over. We're not making medical claims about cannabis and sleep, and nothing here substitutes for medical advice from your doctor.`,
+    faqs: [
+      {
+        q: "What products do customers ask about most for sleep?",
+        a: "CBN edibles (often paired with THC and sometimes melatonin), indica-leaning flower high in myrcene, 1:1 CBD:THC tinctures or gummies, and lower-THC pre-rolls for inhaled use 30 minutes before bed. Different patterns fit different sleep complaints.",
+      },
+      {
+        q: "Does CBN actually do anything for sleep?",
+        a: "The research base is small and the studies are mixed. Some people report a body-heavy sedation; others notice no effect. We carry the products and describe what's on the label. We're prohibited by WAC 314-55-155 from telling you it will work for you.",
+      },
+      {
+        q: "Why won't you just recommend something specific for sleep?",
+        a: "Washington WAC 314-55-155 prohibits cannabis retailers from making medical or efficacy claims. We can describe what's on the shelf and what customers commonly choose. We can't tell you any product will treat or improve a specific condition, including sleep.",
+      },
+      {
+        q: "Should I talk to my doctor before using cannabis for sleep?",
+        a: "If sleep problems are persistent or disruptive, yes. They can have causes (apnea, anxiety, medication interactions) that cannabis won't address and might worsen. Cannabis is not a substitute for diagnosis. Use it after a doctor conversation, not instead of one.",
+      },
+    ],
+    relatedTopics: ["edibles-dosing", "indica-sativa-hybrid", "medical-vs-recreational-wa"],
+  },
 ];
 
 /** O(1) slug lookup. */

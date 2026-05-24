@@ -71,6 +71,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // products move in/out as inventory turns.
     { url: `${STORE.website}/treasure-chest`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
     { url: `${STORE.website}/visit`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.85 },
+    // /visit/from-leavenworth — driver-side high-intent landing page
+    // for Leavenworth visitors. Per SEO_CONTENT_DRAFTS_2026_05_09
+    // Tier-1 Draft 7. Static page (force-static); changeFrequency
+    // monthly because directions / drive-time copy doesn't turn over.
+    {
+      url: `${STORE.website}/visit/from-leavenworth`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
     {
       url: `${STORE.website}/find-your-strain`,
       lastModified: STATIC_LASTMOD,
