@@ -268,7 +268,7 @@ export default async function OrderConfirmationPage({ params }: { params: Promis
             <a
               href={STORE.googleMapsUrl}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="text-xs font-semibold text-green-700 hover:text-green-600"
             >
               Get directions →
