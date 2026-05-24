@@ -589,7 +589,13 @@ export async function fetchDynamicPosts(): Promise<Post[]> {
       .filter((p) => p.slug && p.title && p.publishedAt)
       .map(apiPostToPost)
       .filter((p) => isPublished(p));
-  } catch {
+  } catch (err) {
+    // Defensive return-empty stays (blog list keeps rendering with the
+    // static fallback set), but log err.name to Vercel runtime logs so
+    // ops can spot inv-App content-API outages. err.name only — fetch
+    // exception messages can echo the request URL with store params.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[posts] fetchDynamicPosts failed: ${reason}`);
     return [];
   }
 }
@@ -609,7 +615,11 @@ export async function fetchDynamicPost(slug: string): Promise<Post | undefined> 
     if (!p?.slug || !p?.title) return undefined;
     const post = apiPostToPost(p);
     return isPublished(post) ? post : undefined;
-  } catch {
+  } catch (err) {
+    // Sister of fetchDynamicPosts catch above — return-undefined stays
+    // (page falls through to 404), but log err.name for observability.
+    const reason = err instanceof Error ? err.name : "unknown";
+    console.error(`[posts] fetchDynamicPost(${slug.slice(0, 32)}) failed: ${reason}`);
     return undefined;
   }
 }
