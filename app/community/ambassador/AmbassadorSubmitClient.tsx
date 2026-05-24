@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MINUTE_MS } from "@/lib/time-constants";
 
 // Client island for the inline submission form on /community/ambassador.
 //
@@ -61,6 +62,7 @@ export function AmbassadorSubmitClient({ briefs }: { briefs: BriefRow[] }) {
         const res = await fetch("/api/community/upload-video", {
           method: "POST",
           body: form,
+          signal: AbortSignal.timeout(MINUTE_MS),
         });
         const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
         if (!res.ok) {
@@ -81,6 +83,7 @@ export function AmbassadorSubmitClient({ briefs }: { briefs: BriefRow[] }) {
             reviewUrl,
             mentionedBudtender: budtender || undefined,
           }),
+          signal: AbortSignal.timeout(15000),
         });
         const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
         if (!res.ok) {

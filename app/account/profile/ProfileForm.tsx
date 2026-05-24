@@ -24,6 +24,7 @@ export function ProfileForm({ user }: { user: PortalUser }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone, smsOptIn, emailOptIn, frequencyPref, noSubstitutePref, heroesSelfAttestType }),
+        signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);

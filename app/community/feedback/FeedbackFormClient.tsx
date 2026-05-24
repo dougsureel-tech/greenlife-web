@@ -25,6 +25,7 @@ export function FeedbackFormClient() {
           text,
           contactEmail: contactEmail || undefined,
         }),
+        signal: AbortSignal.timeout(15000),
       });
       const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
       if (!res.ok) {

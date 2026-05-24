@@ -54,6 +54,7 @@ export function HeroesForm({ current }: { current: HeroesAttestType }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: selected }),
+        signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) throw new Error(`save failed (${res.status})`);
       setSaved(true);

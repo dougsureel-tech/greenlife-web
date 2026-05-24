@@ -136,6 +136,7 @@ export function ApplyForm() {
       const res = await fetch("/api/community/ambassador-apply", {
         method: "POST",
         body: form,
+        signal: AbortSignal.timeout(30000),
       });
       const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
 
