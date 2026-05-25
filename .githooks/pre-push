@@ -132,4 +132,15 @@ if ! node --test --experimental-strip-types --no-warnings lib/__tests__/*.test.t
 fi
 echo "  ✓ Lib tests OK"
 
+# ── 4. Batch-ship guard (cool-down on single-commit pushes) ───────────────
+# Source: /CODE/scripts/batch-ship-guard.sh — see README for env-var overrides.
+# Doctrine: feedback_vercel_build_cadence_doctrine.md (~$10/mo recoverable
+# on this repo per last night's Vercel cost expert; sister of SCC/inv-App
+# guards landing the top-3 batch-ship discipline).
+# Stdin already consumed by the while-read loop at top — guard falls back to
+# `git rev-parse HEAD` vs `@{u}` which resolves to origin/<branch>.
+if [[ -x "/Users/GreenLife/Documents/CODE/scripts/batch-ship-guard.sh" ]]; then
+  bash /Users/GreenLife/Documents/CODE/scripts/batch-ship-guard.sh </dev/null || exit 1
+fi
+
 exit 0
