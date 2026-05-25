@@ -262,9 +262,10 @@ test("lib/inventory-floor.ts is the only NEW canonical floor-read site", () => {
   // surfaces as a failing test, forcing the author to either migrate it
   // through the helper or add to the allowlist with a justified comment.
   const GRANDFATHERED = new Set([
-    "lib/db.ts", // 8 raw query sites — C4 will migrate
-    "lib/portal.ts", // legacy reader — C4 will migrate
+    "lib/db.ts", // C4 migrated 2026-05-24 v41.625 — all reads now floor-filtered via withFloorFallback, kept on list because raw `FROM inventory_snapshots` text still appears (now inside the helper wrapper)
+    "lib/portal.ts", // C4 migrated 2026-05-24 v41.625 — checkAvailability now floor-filtered
     "lib/inventory-floor.ts", // the helper itself (this file IS the canonical reader)
+    "lib/version.ts", // changelog prose references the table by name (e.g. "raw FROM inventory_snapshots reads"); not a query site
   ]);
   const libDir = join(REPO_ROOT, "lib");
   const offenders = walkFiles(libDir, [".ts", ".tsx"]).filter((p) => {

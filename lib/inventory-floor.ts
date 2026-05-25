@@ -81,3 +81,37 @@ export function isUndefinedColumnError(err: unknown): boolean {
     (err as { code: unknown }).code === "42703"
   );
 }
+
+/**
+ * Wraps a primary query that filters on `stock_zone` with a legacy
+ * fallback for the brief two-store Vercel-build asymmetry window when
+ * the column exists on one Neon DB but not the other.
+ *
+ * Usage:
+ *   return withFloorFallback(
+ *     () => sql`... AND stock_zone = 'floor' ...`,
+ *     () => sql`... (no stock_zone clause) ...`,
+ *   );
+ *
+ * Primary runs first. If it throws SQLSTATE 42703 (undefined_column),
+ * the fallback runs and its result is returned. Any other error
+ * re-throws (real-outage visibility preserved). Since the inv-App
+ * migration backfills every pre-existing snapshot row with
+ * stock_zone='floor', the fallback returns semantically-identical
+ * results during the transition window.
+ *
+ * See PLAN_TWO_BUCKET_INVENTORY_2026_05_24.md §10 4th-expert blocker #2.
+ */
+export async function withFloorFallback<T>(
+  primary: () => Promise<T>,
+  fallback: () => Promise<T>,
+): Promise<T> {
+  try {
+    return await primary();
+  } catch (err) {
+    if (isUndefinedColumnError(err)) {
+      return fallback();
+    }
+    throw err;
+  }
+}

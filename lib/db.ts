@@ -4,6 +4,7 @@ import { cleanBrandName } from "./clean-brand-name";
 import { scoreProduct, rankStrainMatches, type ScoredProduct } from "./strain-match";
 import type { Strain, LineageGraph } from "./strains";
 import { safeProductImageUrl } from "./banned-logo-url";
+import { withFloorFallback } from "./inventory-floor";
 
 export type VendorBrand = {
   id: string;
@@ -66,41 +67,89 @@ export async function getMenuProducts(): Promise<MenuProduct[]> {
   // here" signal. Tradeoff: a brand-new vendor before first sale would
   // be hidden — acceptable, onboarding-side friction is far less
   // customer-visible than ghost-product listings.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant,
-      p.menu_ready_at
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    LEFT JOIN (
-      SELECT product_id, MIN(captured_at) AS first_seen
-      FROM inventory_snapshots
-      WHERE quantity_on_hand > 0
-      GROUP BY product_id
-    ) fs ON fs.product_id = p.id
-    WHERE p.carry_status = 'active'
-      AND li.qty > 0
-      AND p.unit_price IS NOT NULL
-      AND p.unit_price >= 1.99
-    ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
-  `;
+  //
+  // Two-bucket inventory (PLAN_TWO_BUCKET_INVENTORY_2026_05_24.md §3.4):
+  // `latest_inv` is the customer-facing on-hand read → floor-only. The
+  // `first_seen` aggregate inside the SELECT is treated as A (aggregate):
+  // a vault arrival counts as "received" for the "🆕 New" badge timing.
+  // Wrapped in withFloorFallback for the brief two-store Vercel-build
+  // asymmetry window.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: customer menu reads on-hand from sales floor only
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant,
+        p.menu_ready_at
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        -- SAFE-AGGREGATE: "first seen" includes vault arrivals (= received here)
+        WHERE quantity_on_hand > 0
+          AND stock_zone IN ('vault','floor')
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.carry_status = 'active'
+        AND li.qty > 0
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price >= 1.99
+      ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant,
+        p.menu_ready_at
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        WHERE quantity_on_hand > 0
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.carry_status = 'active'
+        AND li.qty > 0
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price >= 1.99
+      ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
+    `,
+  );
   // Phase 3b receive-automation menu-readiness gate (deferred from inv-App
   // v410.285 Phase 3a — board-flagged 2026-05-19, shipped here as an
   // env-flag-gated post-filter). The inv-App migration 0281 backfilled every
@@ -144,38 +193,78 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
   // item from a leaked Wenatchee-era brand silently disappears from
   // the customer's stash on Seattle (correct — they couldn't have
   // legitimately stashed it; localStorage was carrying a ghost id).
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    LEFT JOIN (
-      SELECT product_id, MIN(captured_at) AS first_seen
-      FROM inventory_snapshots
-      WHERE quantity_on_hand > 0
-      GROUP BY product_id
-    ) fs ON fs.product_id = p.id
-    WHERE p.id = ANY(${ids}::text[])
-      AND p.carry_status = 'active'
-      AND li.qty > 0
-  `;
+  // Two-bucket: floor-only on-hand for customer hydration. See
+  // PLAN_TWO_BUCKET_INVENTORY_2026_05_24.md §3.4.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: /stash hydration only shows what's grab-and-go
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        -- SAFE-AGGREGATE: first-seen window includes vault arrivals
+        WHERE quantity_on_hand > 0
+          AND stock_zone IN ('vault','floor')
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.id = ANY(${ids}::text[])
+        AND p.carry_status = 'active'
+        AND li.qty > 0
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        WHERE quantity_on_hand > 0
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.id = ANY(${ids}::text[])
+        AND p.carry_status = 'active'
+        AND li.qty > 0
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: r.name as string,
@@ -231,51 +320,39 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   }
   // Bug fix 2026-05-04 (round 3): extends brands_with_recent_sales gate
   // so the home-page featured carousel doesn't surface leaked-brand SKUs.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      FALSE AS is_new,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.carry_status = 'active'
-      AND p.unit_price IS NOT NULL
-      AND p.image_url IS NOT NULL
-      AND li.qty > 0
-    ORDER BY p.updated_at DESC
-    LIMIT ${limit}
-  `;
-  const mapped = rows.map((r) => ({
-    id: r.id as string,
-    name: r.name as string,
-    brand: (r.brand ?? null) as string | null,
-    category: (r.category ?? null) as string | null,
-    strainType: (r.strain_type ?? null) as string | null,
-    thcPct: (r.thc_pct ?? null) as number | null,
-    cbdPct: (r.cbd_pct ?? null) as number | null,
-    unitPrice: (r.unit_price ?? null) as number | null,
-    imageUrl: safeProductImageUrl(r.image_url as string | null | undefined),
-    effects: (r.effects ?? null) as string | null,
-    terpenes: (r.terpenes ?? null) as string | null,
-    isNew: false,
-    isDohCompliant: Boolean(r.is_doh_compliant),
-  }));
-  if (mapped.length < 4) {
-    const fallback = await sql`
+  // Two-bucket: floor-only — featured carousel is customer-facing.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: featured carousel surfaces only grab-and-go SKUs
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        FALSE AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.image_url IS NOT NULL
+        AND li.qty > 0
+      ORDER BY p.updated_at DESC
+      LIMIT ${limit}
+    `,
+    () => sql`
       WITH latest_inv AS (
         SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
         FROM inventory_snapshots
@@ -298,10 +375,87 @@ export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
       INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
       WHERE p.carry_status = 'active'
         AND p.unit_price IS NOT NULL
+        AND p.image_url IS NOT NULL
         AND li.qty > 0
       ORDER BY p.updated_at DESC
       LIMIT ${limit}
-    `;
+    `,
+  );
+  const mapped = rows.map((r) => ({
+    id: r.id as string,
+    name: r.name as string,
+    brand: (r.brand ?? null) as string | null,
+    category: (r.category ?? null) as string | null,
+    strainType: (r.strain_type ?? null) as string | null,
+    thcPct: (r.thc_pct ?? null) as number | null,
+    cbdPct: (r.cbd_pct ?? null) as number | null,
+    unitPrice: (r.unit_price ?? null) as number | null,
+    imageUrl: safeProductImageUrl(r.image_url as string | null | undefined),
+    effects: (r.effects ?? null) as string | null,
+    terpenes: (r.terpenes ?? null) as string | null,
+    isNew: false,
+    isDohCompliant: Boolean(r.is_doh_compliant),
+  }));
+  if (mapped.length < 4) {
+    // Two-bucket: floor-only — featured fallback also customer-facing.
+    const fallback = await withFloorFallback(
+      () => sql`
+        WITH latest_inv AS (
+          SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+          FROM inventory_snapshots
+          -- SAFE-FLOOR-ONLY: featured fallback also customer-facing
+          WHERE stock_zone = 'floor'
+          ORDER BY product_id, captured_at DESC
+        ),
+        brands_with_recent_sales AS (
+          SELECT DISTINCT p.vendor_id
+          FROM sale_line_items sli
+          INNER JOIN products p ON p.id = sli.product_id
+          WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+            AND p.vendor_id IS NOT NULL
+        )
+        SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+          p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+          p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+          FALSE AS is_new,
+          COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+        FROM products p
+        INNER JOIN latest_inv li ON li.product_id = p.id
+        INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+        WHERE p.carry_status = 'active'
+          AND p.unit_price IS NOT NULL
+          AND li.qty > 0
+        ORDER BY p.updated_at DESC
+        LIMIT ${limit}
+      `,
+      () => sql`
+        WITH latest_inv AS (
+          SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+          FROM inventory_snapshots
+          ORDER BY product_id, captured_at DESC
+        ),
+        brands_with_recent_sales AS (
+          SELECT DISTINCT p.vendor_id
+          FROM sale_line_items sli
+          INNER JOIN products p ON p.id = sli.product_id
+          WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+            AND p.vendor_id IS NOT NULL
+        )
+        SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+          p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+          p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+          FALSE AS is_new,
+          COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+        FROM products p
+        INNER JOIN latest_inv li ON li.product_id = p.id
+        INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+        WHERE p.carry_status = 'active'
+          AND p.unit_price IS NOT NULL
+          AND li.qty > 0
+        ORDER BY p.updated_at DESC
+        LIMIT ${limit}
+      `,
+    );
     return fallback.map((r) => ({
       id: r.id as string,
       name: r.name as string,
@@ -461,44 +615,90 @@ export async function getActiveVendorAds(slot: string, limit = 3): Promise<Vendo
 // surface leaked-brand SKUs.
 export async function getJustInProducts(limit = 12): Promise<MenuProduct[]> {
   const sql = getClient();
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
-      FROM inventory_snapshots
-      WHERE location_id = 'default'
-      ORDER BY product_id, captured_at DESC
-    ),
-    first_seen AS (
-      SELECT product_id, MIN(captured_at) AS first_at
-      FROM inventory_snapshots
-      WHERE quantity_on_hand > 0
-      GROUP BY product_id
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      TRUE AS is_new,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN first_seen fs ON fs.product_id = p.id
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.carry_status = 'active'
-      AND p.unit_price IS NOT NULL
-      AND p.unit_price > 0
-      AND p.image_url IS NOT NULL
-      AND li.qty > 0
-      AND fs.first_at >= NOW() - INTERVAL '7 days'
-    ORDER BY fs.first_at DESC, p.name ASC
-    LIMIT ${limit}
-  `;
+  // Two-bucket: latest_inv = floor-only (customer-visible on-hand);
+  // first_seen = aggregate (vault arrivals count as "received").
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: "🆕 Just In" customer card requires grab-and-go stock
+        WHERE location_id = 'default'
+          AND stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      first_seen AS (
+        SELECT product_id, MIN(captured_at) AS first_at
+        FROM inventory_snapshots
+        -- SAFE-AGGREGATE: vault arrivals also start the "new" 7d window
+        WHERE quantity_on_hand > 0
+          AND stock_zone IN ('vault','floor')
+        GROUP BY product_id
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        TRUE AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN first_seen fs ON fs.product_id = p.id
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price > 0
+        AND p.image_url IS NOT NULL
+        AND li.qty > 0
+        AND fs.first_at >= NOW() - INTERVAL '7 days'
+      ORDER BY fs.first_at DESC, p.name ASC
+      LIMIT ${limit}
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
+        FROM inventory_snapshots
+        WHERE location_id = 'default'
+        ORDER BY product_id, captured_at DESC
+      ),
+      first_seen AS (
+        SELECT product_id, MIN(captured_at) AS first_at
+        FROM inventory_snapshots
+        WHERE quantity_on_hand > 0
+        GROUP BY product_id
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        TRUE AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN first_seen fs ON fs.product_id = p.id
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price > 0
+        AND p.image_url IS NOT NULL
+        AND li.qty > 0
+        AND fs.first_at >= NOW() - INTERVAL '7 days'
+      ORDER BY fs.first_at DESC, p.name ASC
+      LIMIT ${limit}
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: r.name as string,
@@ -525,36 +725,71 @@ export async function getJustInProducts(limit = 12): Promise<MenuProduct[]> {
 // can't slip through.
 export async function getTreasureChestProducts(limit = 60): Promise<MenuProduct[]> {
   const sql = getClient();
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
-      FROM inventory_snapshots
-      WHERE location_id = 'default'
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.carry_status = 'active'
-      AND p.display_priority = 'clearance'
-      AND li.qty > 0
-      AND p.unit_price IS NOT NULL
-      AND p.unit_price >= 1.99
-    ORDER BY p.unit_price ASC NULLS LAST, p.name ASC
-    LIMIT ${limit}
-  `;
+  // Two-bucket: floor-only — treasure chest = customer-facing clearance.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: treasure-chest clearance only shows what customer can grab
+        WHERE location_id = 'default'
+          AND stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.display_priority = 'clearance'
+        AND li.qty > 0
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price >= 1.99
+      ORDER BY p.unit_price ASC NULLS LAST, p.name ASC
+      LIMIT ${limit}
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::float AS qty
+        FROM inventory_snapshots
+        WHERE location_id = 'default'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.display_priority = 'clearance'
+        AND li.qty > 0
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price >= 1.99
+      ORDER BY p.unit_price ASC NULLS LAST, p.name ASC
+      LIMIT ${limit}
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: r.name as string,
@@ -658,34 +893,67 @@ export async function getCategoryPreviewProducts(
   const pat = `%${stem}%`;
   // Bug fix 2026-05-04 (round 3): extends brands_with_recent_sales gate
   // so home-page category previews don't surface leaked-brand SKUs.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.carry_status = 'active'
-      AND p.unit_price IS NOT NULL AND p.unit_price > 0
-      AND p.image_url IS NOT NULL
-      AND p.category ILIKE ${pat}
-      AND li.qty > 0
-    ORDER BY p.updated_at DESC
-    LIMIT ${limit}
-  `;
+  // Two-bucket: floor-only — category preview is on homepage.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: home-page category preview is customer-facing
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL AND p.unit_price > 0
+        AND p.image_url IS NOT NULL
+        AND p.category ILIKE ${pat}
+        AND li.qty > 0
+      ORDER BY p.updated_at DESC
+      LIMIT ${limit}
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL AND p.unit_price > 0
+        AND p.image_url IS NOT NULL
+        AND p.category ILIKE ${pat}
+        AND li.qty > 0
+      ORDER BY p.updated_at DESC
+      LIMIT ${limit}
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: r.name as string,
@@ -756,50 +1024,101 @@ export async function getActiveBrands(): Promise<VendorBrand[]> {
   // paid for it at this register (per CLAUDE.md). Brand only renders
   // if it has ≥1 sale in last 365d. Mirrored on seattle-cannabis-web.
   // Tradeoff: brand-new vendor before first sale is hidden — acceptable.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      v.id,
-      v.name,
-      LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
-      v.website,
-      v.logo_url,
-      v.image_source,
-      v.notes,
-      v.brand_bio,
-      v.social_instagram,
-      v.social_x,
-      v.social_facebook,
-      COUNT(p.id) FILTER (
+  //
+  // Two-bucket: floor-only — `active_skus` counts only customer-visible
+  // stock so /brands/[slug] doesn't claim "12 products" when 11 are vault.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: brand-page SKU count must match customer-visible stock
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id
+      HAVING COUNT(p.id) FILTER (
         WHERE p.carry_status = 'active'
           AND p.unit_price IS NOT NULL
           AND p.unit_price > 0
           AND COALESCE(li.qty, 0) > 0
-      )::int AS active_skus
-    FROM vendors v
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
-    LEFT JOIN products p ON p.vendor_id = v.id
-    LEFT JOIN latest_inv li ON li.product_id = p.id
-    GROUP BY v.id
-    HAVING COUNT(p.id) FILTER (
-      WHERE p.carry_status = 'active'
-        AND p.unit_price IS NOT NULL
-        AND p.unit_price > 0
-        AND COALESCE(li.qty, 0) > 0
-    ) > 0
-    ORDER BY v.name
-  `;
+      ) > 0
+      ORDER BY v.name
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id
+      HAVING COUNT(p.id) FILTER (
+        WHERE p.carry_status = 'active'
+          AND p.unit_price IS NOT NULL
+          AND p.unit_price > 0
+          AND COALESCE(li.qty, 0) > 0
+      ) > 0
+      ORDER BY v.name
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: cleanBrandName(r.name as string) || (r.name as string),
@@ -841,53 +1160,105 @@ export async function getTopBrandsBySales(
   days = 90,
 ): Promise<(VendorBrand & { recentSalesCount: number })[]> {
   const sql = getClient();
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brand_sales_window AS (
-      SELECT p.vendor_id, COUNT(*)::int AS sales_count
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - (INTERVAL '1 day' * ${days})
-        AND p.vendor_id IS NOT NULL
-      GROUP BY p.vendor_id
-    )
-    SELECT
-      v.id,
-      v.name,
-      LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
-      v.website,
-      v.logo_url,
-      v.image_source,
-      v.notes,
-      v.brand_bio,
-      v.social_instagram,
-      v.social_x,
-      v.social_facebook,
-      bsw.sales_count AS recent_sales_count,
-      COUNT(p.id) FILTER (
+  // Two-bucket: floor-only — homepage carousel must match customer-visible stock.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: homepage top-brands ranks only by customer-visible stock
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brand_sales_window AS (
+        SELECT p.vendor_id, COUNT(*)::int AS sales_count
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - (INTERVAL '1 day' * ${days})
+          AND p.vendor_id IS NOT NULL
+        GROUP BY p.vendor_id
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        bsw.sales_count AS recent_sales_count,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brand_sales_window bsw ON bsw.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id, bsw.sales_count
+      HAVING COUNT(p.id) FILTER (
         WHERE p.carry_status = 'active'
           AND p.unit_price IS NOT NULL
           AND p.unit_price > 0
           AND COALESCE(li.qty, 0) > 0
-      )::int AS active_skus
-    FROM vendors v
-    INNER JOIN brand_sales_window bsw ON bsw.vendor_id = v.id
-    LEFT JOIN products p ON p.vendor_id = v.id
-    LEFT JOIN latest_inv li ON li.product_id = p.id
-    GROUP BY v.id, bsw.sales_count
-    HAVING COUNT(p.id) FILTER (
-      WHERE p.carry_status = 'active'
-        AND p.unit_price IS NOT NULL
-        AND p.unit_price > 0
-        AND COALESCE(li.qty, 0) > 0
-    ) > 0
-    ORDER BY bsw.sales_count DESC, v.name ASC
-    LIMIT ${limit}
-  `;
+      ) > 0
+      ORDER BY bsw.sales_count DESC, v.name ASC
+      LIMIT ${limit}
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brand_sales_window AS (
+        SELECT p.vendor_id, COUNT(*)::int AS sales_count
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - (INTERVAL '1 day' * ${days})
+          AND p.vendor_id IS NOT NULL
+        GROUP BY p.vendor_id
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        bsw.sales_count AS recent_sales_count,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brand_sales_window bsw ON bsw.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id, bsw.sales_count
+      HAVING COUNT(p.id) FILTER (
+        WHERE p.carry_status = 'active'
+          AND p.unit_price IS NOT NULL
+          AND p.unit_price > 0
+          AND COALESCE(li.qty, 0) > 0
+      ) > 0
+      ORDER BY bsw.sales_count DESC, v.name ASC
+      LIMIT ${limit}
+    `,
+  );
   return rows.map((r) => ({
     id: r.id as string,
     name: cleanBrandName(r.name as string) || (r.name as string),
@@ -926,45 +1297,89 @@ async function _getBrandBySlugInner(slug: string): Promise<VendorBrand | null> {
   // gate as getActiveBrands. Direct /brands/abs-buds visit returns null →
   // page 404s instead of rendering an empty-products page or worse, a
   // hand-authored brand override component for a brand we don't carry.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      v.id,
-      v.name,
-      LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
-      v.website,
-      v.logo_url,
-      v.image_source,
-      v.notes,
-      v.brand_bio,
-      v.social_instagram,
-      v.social_x,
-      v.social_facebook,
-      COUNT(p.id) FILTER (
-        WHERE p.carry_status = 'active'
-          AND p.unit_price IS NOT NULL
-          AND p.unit_price > 0
-          AND COALESCE(li.qty, 0) > 0
-      )::int AS active_skus
-    FROM vendors v
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
-    LEFT JOIN products p ON p.vendor_id = v.id
-    LEFT JOIN latest_inv li ON li.product_id = p.id
-    GROUP BY v.id
-    HAVING LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) = ${slug}
-    LIMIT 1
-  `;
+  // Two-bucket: floor-only — brand-page active_skus count is customer-facing.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: brand detail page must match customer-visible stock
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id
+      HAVING LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) = ${slug}
+      LIMIT 1
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        v.id,
+        v.name,
+        LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) AS slug,
+        v.website,
+        v.logo_url,
+        v.image_source,
+        v.notes,
+        v.brand_bio,
+        v.social_instagram,
+        v.social_x,
+        v.social_facebook,
+        COUNT(p.id) FILTER (
+          WHERE p.carry_status = 'active'
+            AND p.unit_price IS NOT NULL
+            AND p.unit_price > 0
+            AND COALESCE(li.qty, 0) > 0
+        )::int AS active_skus
+      FROM vendors v
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = v.id
+      LEFT JOIN products p ON p.vendor_id = v.id
+      LEFT JOIN latest_inv li ON li.product_id = p.id
+      GROUP BY v.id
+      HAVING LOWER(REGEXP_REPLACE(v.name, '[^a-zA-Z0-9]+', '-', 'g')) = ${slug}
+      LIMIT 1
+    `,
+  );
   if (!rows[0]) return null;
   const r = rows[0];
   return {
@@ -1001,41 +1416,81 @@ export async function getBrandProducts(vendorId: string) {
   // (the page 404s before reaching here). But add the same product-level
   // sales guard for defense-in-depth — if a future surface calls this
   // bypassing the brand filter, we still don't render leaked SKUs.
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      p.id,
-      p.name,
-      p.brand,
-      p.category,
-      p.strain_type,
-      p.thc_pct::float   AS thc_pct,
-      p.cbd_pct::float   AS cbd_pct,
-      p.unit_price::float AS unit_price,
-      p.image_url,
-      p.effects,
-      p.terpenes
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.vendor_id = ${vendorId}
-      AND p.carry_status = 'active'
-      AND p.unit_price IS NOT NULL
-      AND p.unit_price > 0
-      AND li.qty > 0
-    ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
-  `;
+  // Two-bucket: floor-only — /brands/[slug] product list is customer-facing.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: brand product listing only shows customer-visible SKUs
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id,
+        p.name,
+        p.brand,
+        p.category,
+        p.strain_type,
+        p.thc_pct::float   AS thc_pct,
+        p.cbd_pct::float   AS cbd_pct,
+        p.unit_price::float AS unit_price,
+        p.image_url,
+        p.effects,
+        p.terpenes
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.vendor_id = ${vendorId}
+        AND p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price > 0
+        AND li.qty > 0
+      ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id,
+        p.name,
+        p.brand,
+        p.category,
+        p.strain_type,
+        p.thc_pct::float   AS thc_pct,
+        p.cbd_pct::float   AS cbd_pct,
+        p.unit_price::float AS unit_price,
+        p.image_url,
+        p.effects,
+        p.terpenes
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.vendor_id = ${vendorId}
+        AND p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL
+        AND p.unit_price > 0
+        AND li.qty > 0
+      ORDER BY p.category NULLS LAST, p.brand NULLS LAST, p.name
+    `,
+  );
   return rows as Array<{
     id: string;
     name: string;
@@ -1097,44 +1552,87 @@ export const getStrainMatchedProducts = cache(async (
     .map((t) => t.name)
     .filter((n) => n && n.length >= 3);
 
-  const rows = await sql`
-    WITH latest_inv AS (
-      SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
-      FROM inventory_snapshots
-      ORDER BY product_id, captured_at DESC
-    ),
-    brands_with_recent_sales AS (
-      SELECT DISTINCT p.vendor_id
-      FROM sale_line_items sli
-      INNER JOIN products p ON p.id = sli.product_id
-      WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
-        AND p.vendor_id IS NOT NULL
-    )
-    SELECT
-      p.id, p.name, p.brand, p.category, p.strain_type,
-      p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
-      p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
-      FALSE AS is_new,
-      COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
-    FROM products p
-    INNER JOIN latest_inv li ON li.product_id = p.id
-    INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
-    WHERE p.carry_status = 'active'
-      AND p.unit_price IS NOT NULL AND p.unit_price > 0
-      AND li.qty > 0
-      AND p.image_url IS NOT NULL
-      AND (
-        p.name ILIKE ${nameStem}
-        OR EXISTS (SELECT 1 FROM unnest(${parentStems}::text[]) ps WHERE p.name ILIKE ps)
-        OR EXISTS (SELECT 1 FROM unnest(${childStems}::text[]) cs WHERE p.name ILIKE cs)
-        OR (
-          p.strain_type = ${strain.type}
-          AND p.terpenes IS NOT NULL
-          AND EXISTS (SELECT 1 FROM unnest(${myTerpenes}::text[]) t WHERE p.terpenes ILIKE '%' || t || '%')
-        )
+  // Two-bucket: floor-only — /strains/[slug] "In stock today" surface.
+  const rows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: "In stock today" must be grab-and-go
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
       )
-    LIMIT 80
-  `;
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        FALSE AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL AND p.unit_price > 0
+        AND li.qty > 0
+        AND p.image_url IS NOT NULL
+        AND (
+          p.name ILIKE ${nameStem}
+          OR EXISTS (SELECT 1 FROM unnest(${parentStems}::text[]) ps WHERE p.name ILIKE ps)
+          OR EXISTS (SELECT 1 FROM unnest(${childStems}::text[]) cs WHERE p.name ILIKE cs)
+          OR (
+            p.strain_type = ${strain.type}
+            AND p.terpenes IS NOT NULL
+            AND EXISTS (SELECT 1 FROM unnest(${myTerpenes}::text[]) t WHERE p.terpenes ILIKE '%' || t || '%')
+          )
+        )
+      LIMIT 80
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        FALSE AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      WHERE p.carry_status = 'active'
+        AND p.unit_price IS NOT NULL AND p.unit_price > 0
+        AND li.qty > 0
+        AND p.image_url IS NOT NULL
+        AND (
+          p.name ILIKE ${nameStem}
+          OR EXISTS (SELECT 1 FROM unnest(${parentStems}::text[]) ps WHERE p.name ILIKE ps)
+          OR EXISTS (SELECT 1 FROM unnest(${childStems}::text[]) cs WHERE p.name ILIKE cs)
+          OR (
+            p.strain_type = ${strain.type}
+            AND p.terpenes IS NOT NULL
+            AND EXISTS (SELECT 1 FROM unnest(${myTerpenes}::text[]) t WHERE p.terpenes ILIKE '%' || t || '%')
+          )
+        )
+      LIMIT 80
+    `,
+  );
 
   const candidates: MenuProduct[] = (rows as Array<{
     id: string; name: string; brand: string | null; category: string | null;

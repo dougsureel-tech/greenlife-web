@@ -1,5 +1,6 @@
 import "server-only";
 import { getClient } from "./db";
+import { withFloorFallback } from "./inventory-floor";
 import { sendPushToClerkUser } from "./push-db";
 import { round2 } from "./money-math.ts";
 
@@ -503,17 +504,35 @@ export async function checkAvailability(
   const ids = items.map((i) => i.productId).filter((id): id is string => !!id);
   if (ids.length === 0) return [];
 
-  const rows = await sql`
-    SELECT p.id, p.name, p.carry_status,
-      COALESCE(snap.qty, 0)::float AS on_hand
-    FROM products p
-    LEFT JOIN LATERAL (
-      SELECT quantity_on_hand::numeric AS qty FROM inventory_snapshots
-      WHERE product_id = p.id
-      ORDER BY captured_at DESC LIMIT 1
-    ) snap ON TRUE
-    WHERE p.id = ANY(${ids}::text[])
-  `;
+  // Two-bucket: floor-only — cart availability check must match what the
+  // customer can actually grab off the shelf at checkout. Vault rows
+  // would falsely pass the "in stock" check and break the cart.
+  const rows = await withFloorFallback(
+    () => sql`
+      SELECT p.id, p.name, p.carry_status,
+        COALESCE(snap.qty, 0)::float AS on_hand
+      FROM products p
+      LEFT JOIN LATERAL (
+        -- SAFE-FLOOR-ONLY: cart availability checks customer-visible stock only
+        SELECT quantity_on_hand::numeric AS qty FROM inventory_snapshots
+        WHERE product_id = p.id
+          AND stock_zone = 'floor'
+        ORDER BY captured_at DESC LIMIT 1
+      ) snap ON TRUE
+      WHERE p.id = ANY(${ids}::text[])
+    `,
+    () => sql`
+      SELECT p.id, p.name, p.carry_status,
+        COALESCE(snap.qty, 0)::float AS on_hand
+      FROM products p
+      LEFT JOIN LATERAL (
+        SELECT quantity_on_hand::numeric AS qty FROM inventory_snapshots
+        WHERE product_id = p.id
+        ORDER BY captured_at DESC LIMIT 1
+      ) snap ON TRUE
+      WHERE p.id = ANY(${ids}::text[])
+    `,
+  );
 
   const byId = new Map(rows.map((r) => [r.id as string, r]));
   const issues: AvailabilityIssue[] = [];
