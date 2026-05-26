@@ -198,7 +198,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Gelato is the parent (or grandparent) of half the modern hybrid market. Bay Area genetics, sweet and " +
       "creamy, balanced head + body. Most numbered Gelato cuts (33, 41, 45) are slight variations on the same " +
-      "theme — uplifted but not racey, relaxed but not heavy. Easy to like.",
+      "theme — uplifted but not racey, body-present but not couch-lock. Easy to like.",
     lineage: "Sunset Sherbet × Thin Mint GSC",
     parents: ["sunset-sherbet", "thin-mint-gsc"],
     thcRange: "20–25%",
@@ -937,7 +937,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Hard-hitting sativa-leaning hybrid named for the Hulk.",
     intro:
       "Bruce Banner is the strain that always seems to top THC-test charts in Colorado and Washington. " +
-      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset euphoric head, and enough body to round it out. " +
+      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset head rush, and enough body to round it out. " +
       "Bruce Banner #3 is the most-circulated pheno.",
     lineage: "OG Kush × Strawberry Diesel",
     parents: ["og-kush", "strawberry-diesel"],
@@ -1577,7 +1577,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Cherry Pie is the bright side of the GDP family — balanced hybrid (slight indica lean) with a " +
       "sweet-tart cherry-and-earth aroma. Parent of Sunset Sherbet, grandparent of Gelato. The effect is " +
-      "lifting + body-leaning in equal parts — good for late afternoon.",
+      "head-up and body-leaning in equal parts — a solid late-afternoon pick.",
     lineage: "Granddaddy Purple × Durban Poison",
     parents: ["granddaddy-purple", "durban-poison"],
     thcRange: "16–24%",
@@ -2648,7 +2648,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Blueberry the parent of Blue Dream?",
-        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and body-leaning side.",
+        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and the body-heavy side.",
       },
       {
         q: "Is Blueberry indica, sativa, or hybrid?",
@@ -3558,7 +3558,7 @@ export const STRAINS: Record<string, Strain> = {
     name: "Larry OG",
     type: "indica",
     aliases: ["Larry OG", "Lemon Larry", "Lemon Larry OG"],
-    tagline: "Lemony OG Kush phenotype — bright, body-forward.",
+    tagline: "Lemony OG Kush phenotype — bright, body-leaning.",
     intro:
       "Larry OG (also called Lemon Larry) is the lemoniest of the OG Kush phenotypes — bred by Cali Connection " +
       "from OG Kush × SFV OG. Bright lemon-pine aroma, balanced body and head landing, more functional than " +
@@ -4658,7 +4658,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-family hybrid — sweet, gassy, dessert end.",
     intro:
       "Biscotti is a Cookies Fam cross of Gelato #25 × Sour Florida OG — indica-leaning hybrid, with a sweet " +
-      "gas-and-vanilla aroma and a heavy euphoric body landing. Parent strain to a long list of modern " +
+      "gas-and-vanilla aroma and a heavy body-forward landing. Parent strain to a long list of modern " +
       "dessert crosses including Biscotti Mints and Lemon Cherry Gelato.",
     lineage: "Gelato #25 × Sour Florida OG",
     parents: ["gelato", null],
@@ -5000,7 +5000,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-Mints lineage — minty, gassy, balanced hybrid.",
     intro:
       "Animal Mints is a Seed Junky Genetics cross of Animal Cookies × Sin Mint Cookies — balanced hybrid, " +
-      "with a minty-gassy-sweet aroma and a heavy euphoric body landing. Parent strain to Wedding Cake " +
+      "with a minty-gassy-sweet aroma and a heavy body-forward landing. Parent strain to Wedding Cake " +
       "(Wave 1) and a long list of mint-family hybrids.",
     lineage: "Animal Cookies × Sin Mint Cookies",
     parents: ["animal-cookies", null],
@@ -6114,7 +6114,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Blueberry × UK Cheese — funky-sweet British indica.",
     intro:
       "Blue Cheese is a Blueberry × UK Cheese cross out of the British seed scene — indica-leaning, with the " +
-      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-leaning, mellow head, " +
+      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-heavy, mellow head, " +
       "long-time international shelf staple. Polarizing aroma but loved by the people who love it.",
     lineage: "Blueberry × UK Cheese",
     parents: ["blueberry", null],
@@ -6629,10 +6629,10 @@ export const STRAINS: Record<string, Strain> = {
     name: "Watermelon",
     type: "indica",
     aliases: ["Watermelon", "Watermelon OG"],
-    tagline: "Sweet melon indica — relaxed body, slow-build.",
+    tagline: "Sweet melon indica — body-heavy, slow-build.",
     intro:
       "Watermelon is a long-time indica with a sweet melon-and-grape aroma — the genetic lineage is " +
-      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-leaning, slow-build, " +
+      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-heavy, slow-build, " +
       "more sweet-fruit than skunky. Customers reach for it as a mellow evening pick.",
     lineage: "Unknown × Unknown",
     parents: [null, null],
@@ -7036,7 +7036,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Mac and Cheese is a hybrid cross of The Mac (Wave 1 mac entry) × Alien Cheese — sativa-leaning, with a " +
       "savory funky-cheese aroma over the Mac’s creamy backbone. Head-up focused effect, more head-forward than " +
-      "body-easing. Customers who like funky aromatic profiles reach for this.",
+      "body-leaning. Customers who like funky aromatic profiles reach for this.",
     lineage: "The Mac × Alien Cheese",
     parents: ["mac", null],
     thcRange: "20–25%",
@@ -7381,7 +7381,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Clearwater Genetics — Apple Fritter × Runtz, sweet-tart.",
     intro:
       "Apple Tartz is a Clearwater Genetics cross of Apple Fritter × Runtz — balanced hybrid with a tart " +
-      "apple-and-cream aroma and an effect people reach for both evening and morning use. Modern " +
+      "apple-and-cream aroma and a body-leaning character that suits both evening and early-morning use. Modern " +
       "high-shelf hybrid, runs high-THC, sweet aromatic loaded customers find approachable.",
     lineage: "Apple Fritter × Runtz",
     parents: ["apple-fritter", "runtz"],
@@ -9706,7 +9706,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-shelf sweet pastry hybrid — honey-glazed donut aroma.",
     intro:
       "Honey Bun is a Cookies-bred hybrid with a sweet honey-glazed pastry aroma that genuinely reads as the " +
-      "donut the name suggests. Balanced effect — head-forward and bright first, body-leaning later. Sits in the " +
+      "donut the name suggests. Balanced effect — head-forward first, body-heavy later. Sits in the " +
       "modern dessert-hybrid lineup. Customers reach for it when they want sweet aromatics with a gentle " +
       "session arc.",
     lineage: "Cookies-bred (parents not publicly disclosed)",
@@ -11338,9 +11338,9 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Obama Kush", "OK"],
     tagline: "Afghani × OG Kush — indica with cerebral lift.",
     intro:
-      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a body-easing quality and a cerebral " +
-      "stimulating top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
-      "OG-family relaxation that still leaves some headroom for conversation.",
+      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a body-leaning character and a cerebral " +
+      "head-forward top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
+      "OG-family body weight that still leaves some headroom for conversation.",
     lineage: "Afghani × OG Kush",
     parents: ["afghani", "og-kush"],
     thcRange: "17–22%",
