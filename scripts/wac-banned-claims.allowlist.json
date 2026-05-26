@@ -1,0 +1,223 @@
+{
+  "_doc": "WAC 314-55-155 banned-claim corpus. Loaded by scripts/check-wac-314-55-155-banned-claims.mjs. Edit to expand corpus or add allowlist exceptions. NO code changes needed when this JSON evolves.",
+  "_audit_doc": "../../WAC_314_55_155_AUDIT_2026_05_26.md",
+  "corpus": {
+    "_doc": "Each entry: pattern (regex source, case-insensitive), rule (description). The gate combines them into a single sweep.",
+    "patterns": [
+      { "pattern": "\\bpain\\s+relief\\b", "rule": "therapeutic noun phrase ('Pain relief')" },
+      { "pattern": "\\bstress\\s+relief\\b", "rule": "therapeutic noun phrase ('Stress relief')" },
+      { "pattern": "\\bpain\\s+reliever\\b", "rule": "therapeutic noun phrase ('pain reliever')" },
+      { "pattern": "\\blight\\s+pain\\b", "rule": "condition framing ('Light pain')" },
+      { "pattern": "\\blight\\s+insomnia\\b", "rule": "condition framing ('Light insomnia')" },
+      { "pattern": "\\bbody\\s+soreness\\b", "rule": "condition framing ('Body soreness')" },
+      { "pattern": "\\bsleep\\s+aid\\b", "rule": "therapeutic noun phrase ('sleep aid')" },
+      { "pattern": "\\bsleep\\s+medicine\\b", "rule": "medical-grade claim ('sleep medicine')" },
+      { "pattern": "\\bmedical[-\\s]grade\\b", "rule": "medical-grade descriptor" },
+      { "pattern": "\\bpharmaceutical[-\\s]grade\\b", "rule": "pharmaceutical-grade descriptor" },
+      { "pattern": "\\bdoctor[-\\s]grade\\b", "rule": "doctor-grade descriptor" },
+      { "pattern": "\\bfda[-\\s]approved\\b", "rule": "FDA-approved claim (only OK in defensive disclaimer)" },
+      { "pattern": "\\bcancer[-\\s]fighting\\b", "rule": "anti-cancer claim" },
+      { "pattern": "\\banti[-\\s]?cancer\\b", "rule": "anti-cancer claim" },
+      { "pattern": "\\banti[-\\s]?anxiety\\b", "rule": "pharmacological descriptor" },
+      { "pattern": "\\banxiolytic\\b", "rule": "pharmacological descriptor" },
+      { "pattern": "\\banalgesic\\b", "rule": "pharmacological descriptor" },
+      { "pattern": "\\b(?:treats?|cures?|heals?|relieves?)\\s+(?:anxiety|insomnia|sleep|pain|depression|ptsd|nausea|cancer|migraines?|inflammation|stress)\\b", "rule": "claim verb + condition" },
+      { "pattern": "\\bhelps?\\s+(?:with\\s+)?(?:anxiety|insomnia|sleep|pain|depression|ptsd|nausea|cancer|migraines?)\\b", "rule": "claim verb + condition" },
+      { "pattern": "\\bgood\\s+for\\s+(?:anxiety|insomnia|sleep|pain|depression|ptsd|nausea|cancer)\\b", "rule": "claim verb + condition" }
+    ]
+  },
+  "scanDirs": ["app", "components", "lib"],
+  "extensions": [".ts", ".tsx", ".md", ".mdx"],
+  "excludePatterns": [
+    "__tests__",
+    "\\.test\\.",
+    "node_modules",
+    "\\.next/"
+  ],
+  "allowlistFiles": [
+    {
+      "path": "lib/strains.ts",
+      "reason": "Audit-batch-1 deferred fix: bestFor arrays use 'Pain relief' / 'Stress relief' bare phrases. Doug/Kat review queue in WAC_314_55_155_AUDIT_2026_05_26.md. Remove this allowlist after rewrite-batch-2 ships."
+    },
+    {
+      "path": "lib/version.ts",
+      "reason": "Changelog comments quote banned terms when describing prior compliance fixes."
+    },
+    {
+      "path": "lib/wac-banned-patterns.ts",
+      "reason": "Defense-layer file — by definition lists banned terms."
+    },
+    {
+      "path": "lib/wslcb-compliance-scanner.ts",
+      "reason": "Server-side scanner that LOOKS FOR violations."
+    },
+    {
+      "path": "lib/voice-memo.ts",
+      "reason": "Defensive matcher for customer-said phrases (e.g., 'i have cancer' redirect-to-staff)."
+    },
+    {
+      "path": "lib/learn-hub.ts",
+      "reason": "Defensive disclaimer copy ('Cannabis isn't FDA-approved', 'Cannabis is not a substitute for diagnosis') + statutory RCW 69.51A.010 MMJ-program qualifying-condition recitation."
+    },
+    {
+      "path": "lib/posts.ts",
+      "reason": "Blog corpus — defensive disclaimer footers quote 'FDA-approved' in NEGATING context."
+    },
+    {
+      "path": "lib/strain-types.ts",
+      "reason": "Strain-type page doctrine file — comments list banned phrases for compliance reference. Pinned by lib/__tests__/strain-types.test.ts at v39.245."
+    },
+    {
+      "path": "lib/ambassador-briefs.ts",
+      "reason": "Operator-defensive copy about budtender claim limits."
+    },
+    {
+      "path": "lib/terpene-fingerprint.ts",
+      "reason": "Defensive header comment — explicitly avoids therapeutic claims."
+    },
+    {
+      "path": "lib/cousin-finder.ts",
+      "reason": "Defensive header comment — explicitly avoids 'similar effects' / 'treats same condition' framing."
+    },
+    {
+      "path": "lib/welcome-ref.ts",
+      "reason": "Defensive code-comment about XSS prevention (the word 'prevents' is non-medical)."
+    },
+    {
+      "path": "lib/inventory-floor.ts",
+      "reason": "Code comment about how the system 'treats' missing entries (non-medical 'treats')."
+    },
+    {
+      "path": "lib/banned-logo-url.ts",
+      "reason": "Defensive code: returns true to 'treat as banned' for malformed URLs (non-medical 'treat')."
+    },
+    {
+      "path": "lib/client-ip.ts",
+      "reason": "Code comment about how the function 'treats empty/unknown' (non-medical 'treats')."
+    },
+    {
+      "path": "lib/near-towns.ts",
+      "reason": "Code comment about visual 'treatment' (non-medical)."
+    },
+    {
+      "path": "lib/db.ts",
+      "reason": "Code comment about preventing leaked-brand calls (non-medical 'prevents')."
+    },
+    {
+      "path": "lib/product-photos-available.ts",
+      "reason": "Code comment about 'prevents' (non-medical) + 'Dutch Treat' strain name."
+    },
+    {
+      "path": "lib/brand-copy.ts",
+      "reason": "Pinned by lib/__tests__/brand-copy.test.ts at v39.745. Header comment 'No efficacy/medical claims. \"Strict quality bar\" not \"medical-grade\".' references banned term."
+    },
+    {
+      "path": "lib/ambassador-briefs.ts",
+      "reason": "Operator defensive copy."
+    },
+    {
+      "path": "lib/product-placeholder-icons.tsx",
+      "reason": "Code comment about visual 'treatment' (non-medical)."
+    },
+    {
+      "path": "app/brands/[slug]/_brands/",
+      "reason": "3rd-party brand-page bios — own marketing voice, per existing efficacy-claims gate convention."
+    },
+    {
+      "path": "app/heroes/[cohort]/page.tsx",
+      "reason": "Healthcare-worker hero cohort copy: 'clinical care environment' is non-medical descriptor (where they work)."
+    },
+    {
+      "path": "app/heroes/page.tsx",
+      "reason": "Heroes program listing; 'healthcare workers' / 'medical' for eligibility cohort."
+    },
+    {
+      "path": "app/accessibility/page.tsx",
+      "reason": "Defensive interaction-warning copy: 'prescription medications', 'medical condition' — required for honest accessibility/health disclosure."
+    },
+    {
+      "path": "app/health-data-policy/page.tsx",
+      "reason": "Consumer Health Data Act privacy policy — required statutory language."
+    },
+    {
+      "path": "app/order/OrderMenu.tsx",
+      "reason": "Code comment about 'treated as items' (non-medical)."
+    },
+    {
+      "path": "app/manifest.ts",
+      "reason": "Code comment about Chrome 'treats www + apex' (non-medical)."
+    },
+    {
+      "path": "app/apply/layout.tsx",
+      "reason": "Code comment about Google 'treats canonical' (non-medical)."
+    },
+    {
+      "path": "app/learn/[slug]/page.tsx",
+      "reason": "Code comment about AI engines 'treat the topic' (non-medical)."
+    },
+    {
+      "path": "app/learn/page.tsx",
+      "reason": "Code comment about AI engines 'treat the educational content' (non-medical)."
+    },
+    {
+      "path": "app/our-story/page.tsx",
+      "reason": "'treat every customer like a regular' (non-medical idiom)."
+    },
+    {
+      "path": "app/blog/[slug]/page.tsx",
+      "reason": "Code comment about 'treats publication date' (non-medical)."
+    },
+    {
+      "path": "app/strains/families/[family]/page.tsx",
+      "reason": "Code comment about SEO-wave gating 'treats family pages' (non-medical)."
+    },
+    {
+      "path": "app/account/terpene-profile/page.tsx",
+      "reason": "Defensive comment 'never medical (treats...)' references banned term."
+    },
+    {
+      "path": "app/api/quiz/capture/route.ts",
+      "reason": "Code comment about dedupe 'prevents' (non-medical)."
+    },
+    {
+      "path": "app/api/revalidate/route.ts",
+      "reason": "Security comment 'prevents a leaked secret' (non-medical)."
+    },
+    {
+      "path": "app/menu/page.tsx",
+      "reason": "Code comment about 'diagnosis tree' (non-medical metaphor)."
+    },
+    {
+      "path": "app/order/confirmation/[id]/page.tsx",
+      "reason": "Code comment about robots 'prevents' indexing (non-medical)."
+    },
+    {
+      "path": "app/opengraph-image.tsx",
+      "reason": "Code comment about visual 'depth treatment' (non-medical)."
+    },
+    {
+      "path": "app/page.tsx",
+      "reason": "Code comment about UI 'treatment' (non-medical visual)."
+    },
+    {
+      "path": "app/layout.tsx",
+      "reason": "Code comment about reviews 'treated as source-of-truth' (non-medical)."
+    },
+    {
+      "path": "components/MobileStickyCta.tsx",
+      "reason": "Code comment about visual 'active-state treatment' (non-medical)."
+    },
+    {
+      "path": "components/CartResumeBanner.tsx",
+      "reason": "Code comment about visual 'active-state treatment' (non-medical)."
+    },
+    {
+      "path": "components/DealBanner.tsx",
+      "reason": "Code comment about 'Treat YYYY-MM-DD as Pacific time' (non-medical)."
+    },
+    {
+      "path": "components/Reviews.tsx",
+      "reason": "Customer review quote 'treated me with respect' + UI 'star treatment' (non-medical)."
+    }
+  ]
+}
