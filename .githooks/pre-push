@@ -112,7 +112,8 @@ for gate in \
   scripts/check-brand-logos-manifest.mjs \
   scripts/check-product-photos-manifest.mjs \
   scripts/check-wac-314-55-155-banned-claims.mjs \
-  scripts/check-vercel-crons.mjs; do
+  scripts/check-vercel-crons.mjs \
+  scripts/check-root-layout-no-dynamic-api.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."
@@ -121,7 +122,7 @@ for gate in \
     exit 1
   fi
 done
-echo "  ✓ Build-gates OK (37/37)"
+echo "  ✓ Build-gates OK (38/38)"
 
 # ── 3. Lib unit tests (node:test pin tests on lib/__tests__/*.ts) ─────────
 echo "  Running lib tests..."
