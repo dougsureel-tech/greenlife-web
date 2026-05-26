@@ -101,7 +101,7 @@ The excise doesn’t pay for federal banking access (which is why dispensaries a
       "Indica, sativa, and hybrid are shorthand labels for how a cannabis strain tends to land. Modern science says terpenes drive the experience more than the label. Here’s what each term actually means.",
     body: `## The shorthand most shops still use
 
-Walk into any Washington dispensary and you’ll see the menu sorted into three buckets: indica, sativa, and hybrid. The labels come from 18th- and 19th-century botanical taxonomy. Cannabis indica plants were described as short and bushy with broad leaves; cannabis sativa plants as tall and lanky with narrow leaves. Over time the labels migrated from describing the plant to describing the perceived experience: indica leans body-heavy and relaxing, sativa leans head-forward and energetic, hybrid is somewhere between.
+Walk into any Washington dispensary and you’ll see the menu sorted into three buckets: indica, sativa, and hybrid. The labels come from 18th- and 19th-century botanical taxonomy. Cannabis indica plants were described as short and bushy with broad leaves; cannabis sativa plants as tall and lanky with narrow leaves. Over time the labels migrated from describing the plant to describing the perceived experience: indica leans body-heavy and slow-landing, sativa leans head-forward and energetic, hybrid is somewhere between.
 
 ## What the labels actually predict (and what they don’t)
 
@@ -121,7 +121,7 @@ A few of the most commonly named terpenes and the general patterns associated wi
 - **Linalool** — floral, lavender. Strains people pick to wind down.
 - **Caryophyllene** — pepper, clove. Spicy, sometimes warming.
 
-A strain labeled "sativa" that’s heavy in myrcene may land more like a classic indica. A strain labeled "indica" that’s heavy in limonene may land more like an uplifting sativa. The terpene panel on a lab sheet tells you more than the marketing label on the jar.
+A strain labeled "sativa" that’s heavy in myrcene may land more like a classic indica. A strain labeled "indica" that’s heavy in limonene may land more like a head-forward sativa. The terpene panel on a lab sheet tells you more than the marketing label on the jar.
 
 ## How to shop with this in mind
 
@@ -134,8 +134,8 @@ Ask the budtender. We work with these strains every day. Tell us what you’re l
 The indica/sativa label travels along with flower into edibles and concentrates, but the experience is mediated by the format. A 5mg indica gummy and a 5mg sativa gummy land more similarly than the same two strains smoked. Format, dose, and your own tolerance shape the experience as much as the strain category.`,
     faqs: [
       {
-        q: "Is sativa really more energizing than indica?",
-        a: "The label tracks the general pattern, but terpenes drive the experience more than the indica/sativa category. A myrcene-heavy sativa can land like a classic indica; a limonene-heavy indica can land like an uplifting sativa.",
+        q: "Is sativa really more head-forward than indica?",
+        a: "The label tracks the general pattern, but terpenes drive the experience more than the indica/sativa category. A myrcene-heavy sativa can land like a classic indica; a limonene-heavy indica can land like a head-forward sativa.",
       },
       {
         q: "What does hybrid mean if everything is a hybrid?",

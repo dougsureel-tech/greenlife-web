@@ -78,7 +78,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Uplifted", "Relaxed", "Creative", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, mild sedative — the body-loose side" },
+      { name: "Myrcene", note: "earthy, musky — the body-loose side" },
       { name: "Pinene", note: "fresh pine — sharp, focusing" },
       { name: "Caryophyllene", note: "peppery, warm woody" },
     ],
@@ -157,7 +157,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "Is Wedding Cake a nighttime strain?",
-        a: "Yes, especially the higher-THC phenotypes. Indica-leaning, body-relaxing, and the limonene keeps it from feeling too heavy.",
+        a: "Yes, especially the higher-THC phenotypes. Indica-leaning, body-heavy, and the limonene keeps it from feeling too heavy.",
       },
       {
         q: "Is Wedding Cake indica, sativa, or hybrid?",
@@ -198,7 +198,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Gelato is the parent (or grandparent) of half the modern hybrid market. Bay Area genetics, sweet and " +
       "creamy, balanced head + body. Most numbered Gelato cuts (33, 41, 45) are slight variations on the same " +
-      "theme — uplifted but not racey, relaxed but not sedative. Easy to like.",
+      "theme — uplifted but not racey, body-present but not couch-lock. Easy to like.",
     lineage: "Sunset Sherbet × Thin Mint GSC",
     parents: ["sunset-sherbet", "thin-mint-gsc"],
     thcRange: "20–25%",
@@ -292,7 +292,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in OG Kush?",
-        a: "The dominant terpenes in OG Kush are Limonene (citrus zest, bright and mood-lifting on the nose), Myrcene (earthy, mango-like, with a mild body-heavy quality), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in OG Kush are Limonene (citrus zest, bright and citrus-forward on the nose), Myrcene (earthy, mango-like, with a mild body-heavy quality), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     lineageAlternates: [
@@ -690,7 +690,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Zkittlez is the candy strain — a bowl genuinely tastes like a handful of fruit candies. " +
       "Indica-leaning hybrid that's calmer than its bright flavor suggests: relaxed body, happy head, " +
-      "rarely sedating. Big winner on the 2010s cup circuit out of Northern California.",
+      "rarely body-heavy. Big winner on the 2010s cup circuit out of Northern California.",
     lineage: "Grape Ape × Grapefruit",
     parents: ["grape-ape", "grapefruit"],
     thcRange: "15–23%",
@@ -711,7 +711,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "Is Zkittlez sativa or indica?",
-        a: "Indica-leaning hybrid. Calmer than the bright candy flavor implies — body-relaxing without going full couch-lock for most users.",
+        a: "Indica-leaning hybrid. More body-forward than the bright candy flavor implies — body-heavy without going full couch-lock for most users.",
       },
       {
         q: "What does Zkittlez taste like?",
@@ -727,7 +727,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Zkittlez?",
-        a: "The dominant terpenes in Zkittlez are Caryophyllene (peppery and warm, spicy on the back end), Humulene (earthy and hop-like, similar to fresh hops), and Linalool (floral lavender, soft and calming on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Zkittlez are Caryophyllene (peppery and warm, spicy on the back end), Humulene (earthy and hop-like, similar to fresh hops), and Linalool (floral lavender, soft and floral on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -914,7 +914,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in MAC?",
-        a: "The dominant terpenes in MAC are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in MAC are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -937,7 +937,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Hard-hitting sativa-leaning hybrid named for the Hulk.",
     intro:
       "Bruce Banner is the strain that always seems to top THC-test charts in Colorado and Washington. " +
-      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset euphoric head, and enough body to round it out. " +
+      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset head rush, and enough body to round it out. " +
       "Bruce Banner #3 is the most-circulated pheno.",
     lineage: "OG Kush × Strawberry Diesel",
     parents: ["og-kush", "strawberry-diesel"],
@@ -1284,7 +1284,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Landrace indica that founded modern indica genetics.",
     intro:
       "Afghani is the other foundational landrace indica — from the Hindu Kush region of Afghanistan. Deeply " +
-      "sedating, classic hash-and-earth aroma, the kind of indica that most modern indicas trace genetics back to. " +
+      "body-heavy, classic hash-and-earth aroma, the kind of indica that most modern indicas trace genetics back to. " +
       "Northern Lights, Bubba Kush, Granddaddy Purple — all have Afghani somewhere in the family tree.",
     lineage: "Afghani landrace",
     parents: [null],
@@ -1577,7 +1577,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Cherry Pie is the bright side of the GDP family — balanced hybrid (slight indica lean) with a " +
       "sweet-tart cherry-and-earth aroma. Parent of Sunset Sherbet, grandparent of Gelato. The effect is " +
-      "lifting + relaxing in equal parts — good for late afternoon.",
+      "head-up and body-leaning in equal parts — a solid late-afternoon pick.",
     lineage: "Granddaddy Purple × Durban Poison",
     parents: ["granddaddy-purple", "durban-poison"],
     thcRange: "16–24%",
@@ -1708,7 +1708,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "What makes Tahoe OG different from regular OG Kush?",
-        a: "Tahoe is heavier on the body side — faster onset, more sedating. Same OG aroma family, just landed more on the indica end of the spectrum.",
+        a: "Tahoe is heavier on the body side — faster onset, more body-forward. Same OG aroma family, just landed more on the indica end of the spectrum.",
       },
       {
         q: "Is Tahoe OG indica, sativa, or hybrid?",
@@ -2268,10 +2268,10 @@ export const STRAINS: Record<string, Strain> = {
     name: "Do-Si-Dos",
     type: "indica",
     aliases: ["Do-Si-Dos", "Dosidos", "Dosi", "DSD"],
-    tagline: "Heavy GSC-family indica — sweet, sedating, dependable.",
+    tagline: "Heavy GSC-family indica — sweet, body-heavy, dependable.",
     intro:
       "Do-Si-Dos (often written Dosidos) is what happens when you push the Cookies family toward the indica " +
-      "end. Sweet mint-and-pine aroma like GSC, but heavier in body and more sedating. OGKB × Face Off OG " +
+      "end. Sweet mint-and-pine aroma like GSC, but heavier in body and more body-forward. OGKB × Face Off OG " +
       "parentage. A go-to evening flower for many regulars.",
     lineage: "Girl Scout Cookies × Face Off OG",
     parents: ["girl-scout-cookies", "face-off-og"],
@@ -2648,7 +2648,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Blueberry the parent of Blue Dream?",
-        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and body-relaxing side.",
+        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and the body-heavy side.",
       },
       {
         q: "Is Blueberry indica, sativa, or hybrid?",
@@ -3080,7 +3080,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Ice Cream Cake?",
-        a: "The dominant terpenes in Ice Cream Cake are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Linalool (floral lavender, soft and calming on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Ice Cream Cake are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Linalool (floral lavender, soft and floral on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -3227,7 +3227,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Sleepy", "Euphoric", "Happy"],
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm base" },
-      { name: "Myrcene", note: "earthy, sedative" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "citrus-sweet top" },
     ],
     flavor: ["Diesel", "Sweet earth", "Skunk"],
@@ -3283,7 +3283,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoric"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedative" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Pinene", note: "fresh pine" },
       { name: "Caryophyllene", note: "peppery, mellow" },
     ],
@@ -3366,7 +3366,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Banana Kush?",
-        a: "The dominant terpenes in Banana Kush are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Banana Kush are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -3558,7 +3558,7 @@ export const STRAINS: Record<string, Strain> = {
     name: "Larry OG",
     type: "indica",
     aliases: ["Larry OG", "Lemon Larry", "Lemon Larry OG"],
-    tagline: "Lemony OG Kush phenotype — bright, body-relaxing.",
+    tagline: "Lemony OG Kush phenotype — bright, body-leaning.",
     intro:
       "Larry OG (also called Lemon Larry) is the lemoniest of the OG Kush phenotypes — bred by Cali Connection " +
       "from OG Kush × SFV OG. Bright lemon-pine aroma, balanced body and head landing, more functional than " +
@@ -3636,7 +3636,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is SFV OG indica or hybrid?",
-        a: "Indica-leaning hybrid — body-relaxing with enough head-up to stay social. One of the more functional OG family members.",
+        a: "Indica-leaning hybrid — body-heavy with enough head-up to stay social. One of the more functional OG family members.",
       },
       {
         q: "Is SFV OG indica, sativa, or hybrid?",
@@ -4658,7 +4658,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-family hybrid — sweet, gassy, dessert end.",
     intro:
       "Biscotti is a Cookies Fam cross of Gelato #25 × Sour Florida OG — indica-leaning hybrid, with a sweet " +
-      "gas-and-vanilla aroma and a heavy euphoric body landing. Parent strain to a long list of modern " +
+      "gas-and-vanilla aroma and a heavy body-forward landing. Parent strain to a long list of modern " +
       "dessert crosses including Biscotti Mints and Lemon Cherry Gelato.",
     lineage: "Gelato #25 × Sour Florida OG",
     parents: ["gelato", null],
@@ -5000,7 +5000,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-Mints lineage — minty, gassy, balanced hybrid.",
     intro:
       "Animal Mints is a Seed Junky Genetics cross of Animal Cookies × Sin Mint Cookies — balanced hybrid, " +
-      "with a minty-gassy-sweet aroma and a heavy euphoric body landing. Parent strain to Wedding Cake " +
+      "with a minty-gassy-sweet aroma and a heavy body-forward landing. Parent strain to Wedding Cake " +
       "(Wave 1) and a long list of mint-family hybrids.",
     lineage: "Animal Cookies × Sin Mint Cookies",
     parents: ["animal-cookies", null],
@@ -5148,7 +5148,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Apples and Bananas?",
-        a: "The dominant terpenes in Apples and Bananas are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Apples and Bananas are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -5977,7 +5977,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Banana OG?",
-        a: "The dominant terpenes in Banana OG are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Banana OG are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -6114,7 +6114,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Blueberry × UK Cheese — funky-sweet British indica.",
     intro:
       "Blue Cheese is a Blueberry × UK Cheese cross out of the British seed scene — indica-leaning, with the " +
-      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-relaxing, mellow head, " +
+      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-heavy, mellow head, " +
       "long-time international shelf staple. Polarizing aroma but loved by the people who love it.",
     lineage: "Blueberry × UK Cheese",
     parents: ["blueberry", null],
@@ -6171,7 +6171,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "GMO × Mendo Breath — savory funk, heavy late-night indica.",
     intro:
       "Garlic Breath is a ThugPug Genetics cross of GMO × Mendo Breath — heavy indica with a savory-garlic-funk " +
-      "aroma that’s closer to roasted onion than to candy. Body-heavy, slow-build, gets sedative as the session " +
+      "aroma that’s closer to roasted onion than to candy. Body-heavy, slow-build, gets heavier as the session " +
       "goes on. Customers who already like GMO or Garlic Cookies reach for this.",
     lineage: "GMO × Mendo Breath",
     parents: ["gmo-cookies", "mendo-breath"],
@@ -6475,7 +6475,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Papaya a strong indica?",
-        a: "It’s on the milder side of indica — body-relaxing but not couch-pinning. Good entry point for customers who normally avoid heavier indicas.",
+        a: "It’s on the milder side of indica — body-leaning but not couch-pinning. Good entry point for customers who normally avoid heavier indicas.",
       },
       {
         q: "Is Papaya indica, sativa, or hybrid?",
@@ -6548,7 +6548,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Peanut Butter Breath?",
-        a: "The dominant terpenes in Peanut Butter Breath are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Peanut Butter Breath are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -6629,10 +6629,10 @@ export const STRAINS: Record<string, Strain> = {
     name: "Watermelon",
     type: "indica",
     aliases: ["Watermelon", "Watermelon OG"],
-    tagline: "Sweet melon indica — relaxed body, slow-build.",
+    tagline: "Sweet melon indica — body-heavy, slow-build.",
     intro:
       "Watermelon is a long-time indica with a sweet melon-and-grape aroma — the genetic lineage is " +
-      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-relaxing, slow-build, " +
+      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-heavy, slow-build, " +
       "more sweet-fruit than skunky. Customers reach for it as a mellow evening pick.",
     lineage: "Unknown × Unknown",
     parents: [null, null],
@@ -7035,8 +7035,8 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "The Mac × Alien Cheese — head-up hybrid with savory funk.",
     intro:
       "Mac and Cheese is a hybrid cross of The Mac (Wave 1 mac entry) × Alien Cheese — sativa-leaning, with a " +
-      "savory funky-cheese aroma over the Mac’s creamy backbone. Head-up focused effect, more energizing than " +
-      "calming. Customers who like funky aromatic profiles reach for this.",
+      "savory funky-cheese aroma over the Mac’s creamy backbone. Head-up focused effect, more head-forward than " +
+      "body-leaning. Customers who like funky aromatic profiles reach for this.",
     lineage: "The Mac × Alien Cheese",
     parents: ["mac", null],
     thcRange: "20–25%",
@@ -7381,7 +7381,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Clearwater Genetics — Apple Fritter × Runtz, sweet-tart.",
     intro:
       "Apple Tartz is a Clearwater Genetics cross of Apple Fritter × Runtz — balanced hybrid with a tart " +
-      "apple-and-cream aroma and a calming effect that suits both evening and wake-and-bake use. Modern " +
+      "apple-and-cream aroma and a body-leaning character that suits both evening and early-morning use. Modern " +
       "high-shelf hybrid, runs high-THC, sweet aromatic loaded customers find approachable.",
     lineage: "Apple Fritter × Runtz",
     parents: ["apple-fritter", "runtz"],
@@ -7415,7 +7415,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Apple Tartz?",
-        a: "The dominant terpenes in Apple Tartz are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Apple Tartz are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and citrus-forward on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -8008,7 +8008,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Symbiotic — GMO × Purple Punch, savory-grape hybrid.",
     intro:
       "Modified Grapes is a Symbiotic Genetics cross of GMO × Purple Punch — balanced hybrid with a savory-and-sweet " +
-      "grape-honey aroma. Lighter than GMO alone, sweeter than Purple Punch alone. Calming effect, fairly mellow. " +
+      "grape-honey aroma. Lighter than GMO alone, sweeter than Purple Punch alone. Body-leaning, fairly mellow. " +
       "Modern Symbiotic shelf addition.",
     lineage: "GMO × Purple Punch",
     parents: ["gmo-cookies", "purple-punch"],
@@ -8237,7 +8237,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Runtz Muffin is a Runtz × Orange Punch cross — balanced hybrid with a sweet candy-citrus aroma and a " +
       "tingly relaxed effect. Lighter than its Runtz parent on the body, with a brighter citrus top from the " +
-      "Orange Punch side. Calming overall, good late-afternoon pick.",
+      "Orange Punch side. Body-leaning overall, good late-afternoon pick.",
     lineage: "Runtz × Orange Punch",
     parents: ["runtz", null],
     thcRange: "20–26%",
@@ -8465,7 +8465,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Berry White is a Blueberry × White Widow cross — indica-leaning hybrid with a sweet berry aroma and a " +
       "mellow uplifting head + relaxed body. Lighter than most Blueberry crosses, more conversational than " +
-      "sedating. Named after the singer. Long-time WA shelf staple.",
+      "body-heavy. Named after the singer. Long-time WA shelf staple.",
     lineage: "Blueberry × White Widow",
     parents: ["blueberry", "white-widow"],
     thcRange: "15–22%",
@@ -8635,7 +8635,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Deo Farms — Rainbow Sherbet × Pink Guava, soap-floral hybrid.",
     intro:
       "Zoap is a Deo Farms cross of Rainbow Sherbet × Pink Guava — balanced hybrid with a floral soap-and-sweet " +
-      "aroma. Calming effect with a giggly head. Sister strain to RS11 (both Deo Farms / Pink Guava lineage). " +
+      "aroma. Body-leaning with a giggly head. Sister strain to RS11 (both Deo Farms / Pink Guava lineage). " +
       "Modern California shelf hybrid.",
     lineage: "Rainbow Sherbet × Pink Guava",
     parents: [null, null],
@@ -9706,7 +9706,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-shelf sweet pastry hybrid — honey-glazed donut aroma.",
     intro:
       "Honey Bun is a Cookies-bred hybrid with a sweet honey-glazed pastry aroma that genuinely reads as the " +
-      "donut the name suggests. Balanced effect — uplifting and happy first, body-relaxing later. Sits in the " +
+      "donut the name suggests. Balanced effect — head-forward first, body-heavy later. Sits in the " +
       "modern dessert-hybrid lineup. Customers reach for it when they want sweet aromatics with a gentle " +
       "session arc.",
     lineage: "Cookies-bred (parents not publicly disclosed)",
@@ -9745,7 +9745,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Honey Bun?",
-        a: "The dominant terpenes in Honey Bun are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Honey Bun are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Pinene (sharp pine, fresh and focusing). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -9859,7 +9859,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Black Cherry Gelato?",
-        a: "The dominant terpenes in Black Cherry Gelato are Pinene (sharp pine, fresh and focusing), Limonene (citrus zest, bright and mood-lifting on the nose), and Humulene (earthy and hop-like, similar to fresh hops). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Black Cherry Gelato are Pinene (sharp pine, fresh and focusing), Limonene (citrus zest, bright and citrus-forward on the nose), and Humulene (earthy and hop-like, similar to fresh hops). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -9997,7 +9997,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Granddaddy Purple × Black Domina — grape-and-floral heavy indica.",
     intro:
       "Black Mamba is a Granddaddy Purple × Black Domina cross — heavy indica with a grape-and-floral aroma " +
-      "and an earthy berry undertone. Body-relaxing and sedating. Customers who already like Granddaddy " +
+      "and an earthy berry undertone. Body-heavy and slow-build. Customers who already like Granddaddy " +
       "Purple reach for this when they want the same grape profile with more body weight.",
     lineage: "Granddaddy Purple × Black Domina",
     parents: ["granddaddy-purple", null],
@@ -10824,7 +10824,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "OG Kush × LA Confidential — heritage indica with pine pungency.",
     intro:
       "King Louis XIII is an OG Kush × LA Confidential cross — heavy indica with a pine-and-earth aroma that " +
-      "reads classic-OG. Body-relaxing and sedating. Customers reach for it when they want late-night OG " +
+      "reads classic-OG. Body-heavy and slow-build. Customers reach for it when they want late-night OG " +
       "weight without the citrus-forward Lemon-OG side.",
     lineage: "OG Kush × LA Confidential",
     parents: ["og-kush", "la-confidential"],
@@ -11030,7 +11030,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Goji OG?",
-        a: "The dominant terpenes in Goji OG are Myrcene (earthy, mango-like, with a mild body-heavy quality), Caryophyllene (peppery and warm, spicy on the back end), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Goji OG are Myrcene (earthy, mango-like, with a mild body-heavy quality), Caryophyllene (peppery and warm, spicy on the back end), and Limonene (citrus zest, bright and citrus-forward on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -11338,9 +11338,9 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Obama Kush", "OK"],
     tagline: "Afghani × OG Kush — indica with cerebral lift.",
     intro:
-      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a calming body effect and a cerebral " +
-      "stimulating top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
-      "OG-family relaxation that still leaves some headroom for conversation.",
+      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a body-leaning character and a cerebral " +
+      "head-forward top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
+      "OG-family body weight that still leaves some headroom for conversation.",
     lineage: "Afghani × OG Kush",
     parents: ["afghani", "og-kush"],
     thcRange: "17–22%",
@@ -12998,7 +12998,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Black Banana?",
-        a: "The dominant terpenes in Black Banana are Limonene (citrus zest, bright and mood-lifting on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Black Banana are Limonene (citrus zest, bright and citrus-forward on the nose), Caryophyllene (peppery and warm, spicy on the back end), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -13394,7 +13394,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Hawaiian Snow?",
-        a: "The dominant terpenes in Hawaiian Snow are Terpinolene (fruity and piney, with a fresh herbal edge), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and mood-lifting on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Hawaiian Snow are Terpinolene (fruity and piney, with a fresh herbal edge), Pinene (sharp pine, fresh and focusing), and Limonene (citrus zest, bright and citrus-forward on the nose). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -13682,7 +13682,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "What terpenes are in Chocolope?",
-        a: "The dominant terpenes in Chocolope are Caryophyllene (peppery and warm, spicy on the back end), Limonene (citrus zest, bright and mood-lifting on the nose), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        a: "The dominant terpenes in Chocolope are Caryophyllene (peppery and warm, spicy on the back end), Limonene (citrus zest, bright and citrus-forward on the nose), and Myrcene (earthy, mango-like, with a mild body-heavy quality). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
       },
     ],
     verification: {
@@ -14507,7 +14507,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Northern Lights × Skunk #1 — heritage indica-skunk cross.",
     intro:
       "Northern Skunk is a Northern Lights × Skunk #1 cross — heritage indica-leaning hybrid stacking two " +
-      "of the foundational shelf strains of the modern era. Body-leaning with the Northern Lights sedating " +
+      "of the foundational shelf strains of the modern era. Body-leaning with the Northern Lights body-heavy " +
       "backbone and the Skunk pungent aromatics on top. Customers familiar with both parents will " +
       "recognize the family resemblance to Shiva Skunk and the broader Northern Lights × Skunk family.",
     lineage: "Northern Lights × Skunk #1",

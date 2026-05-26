@@ -374,8 +374,8 @@ We'd rather you come in, ask which 5 mg gummy is good for a first edible, walk o
 
 Walk into any dispensary and you'll get the same elevator pitch:
 
-- **Indica** — body high, relaxing, "in da couch," for nighttime
-- **Sativa** — head high, energizing, social, for daytime
+- **Indica** — body high, body-heavy, "in da couch," for nighttime
+- **Sativa** — head high, head-forward, social, for daytime
 - **Hybrid** — somewhere in between
 
 It's a useful shorthand. It's also wrong often enough that taking it as a guarantee will get you a strain that does the opposite of what you wanted. Here's the honest version.
