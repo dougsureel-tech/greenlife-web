@@ -1,3 +1,9 @@
 {
-  "ignoreCommand": "bash scripts/check-doc-only-commit.sh"
+  "ignoreCommand": "bash scripts/check-doc-only-commit.sh",
+  "crons": [
+    {
+      "path": "/api/cron/retry-memory-prompts",
+      "schedule": "0 7 * * *"
+    }
+  ]
 }
