@@ -32,6 +32,10 @@ import { isStrainTypeSlug, strainTypeMetadata, StrainTypePage } from "../_type-h
 // strain-slug attribution channel for /menu deep-links from per-strain pages
 const STRAIN_ATTR_KEY = "strains" as const;
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import {
+  buildStrainProductLd,
+  buildStrainBreadcrumbLd,
+} from "@/lib/strain-product-json-ld";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
@@ -216,12 +220,33 @@ export default async function StrainSlugPage({
     url: STORE.website,
   };
 
+  // Product + AggregateOffer JSON-LD — Tech-SEO win #1
+  // (SEO_AUDIT_AUTONOMOUS_WINS_2026_05_26.md). Mirrors brand-detail Product
+  // pattern at strain-not-SKU granularity; offers OMITTED when no live
+  // inventory matches (per WSLCB-safe defaults). Constructed via
+  // lib/strain-product-json-ld.ts which scrubs banned medical/efficacy
+  // language defensively (WAC 314-55-155).
+  const matchedMenuProducts = matchedProducts.map((m) => m.product);
+  const productLd = buildStrainProductLd({
+    strain: s,
+    matchedProducts: matchedMenuProducts,
+    storeWebsite: STORE.website,
+    storeName: STORE.name,
+  });
+  const productBreadcrumbLd = buildStrainBreadcrumbLd({
+    strain: s,
+    storeWebsite: STORE.website,
+    storeName: STORE.name,
+  });
+
   return (
     <main className="bg-stone-50 text-stone-900 min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(definedTermJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productBreadcrumbLd) }} />
 
       {/* Hero — v37.285 (Doug 2026-05-18 screenshot "relocate the nav tree
           so the other part below can come up and improve the UX").
