@@ -267,7 +267,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Euphoric", "Happy", "Sleepy"],
     terpenes: [
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery, mellow" },
     ],
     flavor: ["Diesel", "Lemon zest", "Earthy pine"],
@@ -389,8 +389,8 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating — the foundation" },
-      { name: "Caryophyllene", note: "peppery, calming" },
+      { name: "Myrcene", note: "earthy, musky — the backbone" },
+      { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Pinene", note: "soft pine on the back end" },
     ],
     flavor: ["Earthy", "Sweet spice", "Pine"],
@@ -1060,7 +1060,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Happy", "Uplifted", "Creative"],
     terpenes: [
       { name: "Myrcene", note: "earthy base" },
-      { name: "Caryophyllene", note: "peppery, calming" },
+      { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Pinene", note: "fresh pine" },
     ],
     flavor: ["Earthy", "Sour", "Skunk"],
@@ -1235,8 +1235,8 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, deeply sedating" },
-      { name: "Caryophyllene", note: "peppery, calming" },
+      { name: "Myrcene", note: "earthy, deeply musky" },
+      { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Limonene", note: "soft citrus on top" },
     ],
     flavor: ["Earthy", "Sandalwood", "Sweet pine"],
@@ -1292,7 +1292,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "the foundational sedating earthy terp" },
+      { name: "Myrcene", note: "the foundational musky earthy terp" },
       { name: "Caryophyllene", note: "peppery, mellow" },
       { name: "Limonene", note: "soft citrus accent" },
     ],
@@ -1463,7 +1463,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, deeply sedating" },
+      { name: "Myrcene", note: "earthy, deeply musky" },
       { name: "Caryophyllene", note: "peppery base" },
       { name: "Limonene", note: "citrus on the back end" },
     ],
@@ -1523,7 +1523,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating base" },
+      { name: "Myrcene", note: "earthy, musky base" },
       { name: "Caryophyllene", note: "peppery, mellow" },
       { name: "Limonene", note: "subtle citrus accent" },
     ],
@@ -1700,7 +1700,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery base" },
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
     ],
     flavor: ["Lemon", "Diesel", "Pine"],
     bestFor: ["Sleep", "Pain relief", "End-of-day couch time"],
@@ -2452,7 +2452,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoric"],
     terpenes: [
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery base" },
     ],
     flavor: ["Lemon", "Earthy pine", "Sweet earth"],
@@ -2638,7 +2638,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating base" },
+      { name: "Myrcene", note: "earthy, musky base" },
       { name: "Caryophyllene", note: "peppery accent" },
       { name: "Pinene", note: "soft pine" },
     ],
@@ -2924,7 +2924,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating base" },
+      { name: "Myrcene", note: "earthy, musky base" },
       { name: "Caryophyllene", note: "peppery accent" },
       { name: "Pinene", note: "soft pine" },
     ],
@@ -3170,7 +3170,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus undertone" },
-      { name: "Caryophyllene", note: "peppery, calming" },
+      { name: "Caryophyllene", note: "peppery, warm" },
     ],
     flavor: ["Earthy", "Citrus", "Hash"],
     bestFor: ["End of day", "Pre-sleep", "Casual evening"],
@@ -3226,7 +3226,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Euphoric", "Happy"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, calming base" },
+      { name: "Caryophyllene", note: "peppery, warm base" },
       { name: "Myrcene", note: "earthy, sedative" },
       { name: "Limonene", note: "citrus-sweet top" },
     ],
@@ -3514,7 +3514,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm woody" },
       { name: "Limonene", note: "citrus zest" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
     ],
     flavor: ["Lemon zest", "Diesel", "Earthy pine"],
     bestFor: ["End of day", "Late-night use", "Couch time"],
@@ -3626,7 +3626,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Uplifted", "Euphoric"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "bright lemon" },
       { name: "Caryophyllene", note: "peppery, warm woody" },
     ],
@@ -6008,7 +6008,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Tingly", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "citrus-sweet" },
       { name: "Caryophyllene", note: "peppery base" },
     ],
@@ -6067,7 +6067,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Limonene", note: "berry-sweet undertone" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
     ],
     flavor: ["Sweet berry", "Hash", "Earth"],
     bestFor: ["End of day", "Late-night use", "Pre-sleep wind-down"],
@@ -6410,7 +6410,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm woody" },
       { name: "Limonene", note: "citrus-sweet" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
     ],
     flavor: ["Caramel", "Sweet vanilla", "Earth"],
     bestFor: ["End of day", "Pre-sleep wind-down", "Couch + show"],
@@ -9015,7 +9015,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "sweet citrus undertone" },
     ],
@@ -10005,7 +10005,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Pinene", note: "light pine" },
     ],
@@ -10771,7 +10771,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10832,7 +10832,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10889,7 +10889,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Pinene", note: "sharp pine" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10947,7 +10947,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Limonene", note: "sweet citrus" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -11061,7 +11061,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Ocimene", note: "sweet floral undertone" },
     ],
@@ -11178,7 +11178,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Limonene", note: "citrus undertone" },
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
     ],
     flavor: ["Citrus", "Pine", "Earth"],
     bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
@@ -11290,7 +11290,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Limonene", note: "citrus undertone" },
     ],
@@ -11524,7 +11524,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "15–20%",
     effects: ["Relaxed", "Happy", "Sleepy", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Pinene", note: "light pine" },
     ],
@@ -11888,7 +11888,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -12110,7 +12110,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -12574,7 +12574,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13488,7 +13488,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -13544,7 +13544,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13600,7 +13600,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -13712,7 +13712,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13885,7 +13885,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery fuel" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -14006,7 +14006,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery gas" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -14176,7 +14176,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -14516,7 +14516,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery skunk" },
       { name: "Humulene", note: "hop-like earthy" },
     ],
@@ -14572,7 +14572,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, sedating" },
+      { name: "Myrcene", note: "earthy, musky" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Humulene", note: "hop-like earthy" },
     ],

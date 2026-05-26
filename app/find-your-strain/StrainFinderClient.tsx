@@ -40,8 +40,8 @@ const STEPS: { key: StepKey; question: string; intro: string; options: Choice[] 
     question: "Sativa, indica, or hybrid?",
     intro: "Quick rule of thumb: indica = body, sativa = head, hybrid = both.",
     options: [
-      { value: "sativa", emoji: "☀️", label: "Sativa", sub: "Daytime · uplifting" },
-      { value: "indica", emoji: "🌙", label: "Indica", sub: "Nighttime · relaxing" },
+      { value: "sativa", emoji: "☀️", label: "Sativa", sub: "Daytime · head-forward" },
+      { value: "indica", emoji: "🌙", label: "Indica", sub: "Nighttime · body-heavy" },
       { value: "hybrid", emoji: "🍃", label: "Hybrid", sub: "Best of both" },
       { value: "", emoji: "🤝", label: "No pref", sub: "All three are good" },
     ],

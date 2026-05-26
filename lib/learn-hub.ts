@@ -175,7 +175,7 @@ The cannabinoid panel is the headline. For flower, the lines that matter most:
 - **Total THC** — the load-bearing number. This is THCA + delta-9 THC adjusted for the chemistry that happens when THCA decarboxylates (heats up and turns into active THC). Total THC of 18% is mid; 22%+ is high; 28%+ is very high. Higher isn’t automatically better — terpenes and curing matter at least as much for the experience.
 - **THCA** — the non-intoxicating acid form of THC found in raw flower. When you smoke or vape it, heat converts THCA into active THC. THCA itself doesn’t get you high until it’s heated.
 - **Delta-9 THC** — the active form. In raw flower, this number is usually small; the lab math rolls it up into Total THC.
-- **CBD** — non-intoxicating cannabinoid. CBD-heavy products land differently than THC-heavy ones — many people reach for CBD when they want a calming chemical without the head change.
+- **CBD** — non-intoxicating cannabinoid. CBD-heavy products land differently than THC-heavy ones — many people reach for CBD when they want the cannabinoid without the head change.
 - **CBG, CBN, CBC** — minor cannabinoids in small concentrations. Some products feature them; for most flower the numbers are <1%.
 
 ## Reading the terpene panel
