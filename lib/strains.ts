@@ -78,7 +78,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Uplifted", "Relaxed", "Creative", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky — the body-loose side" },
+      { name: "Myrcene", note: "earthy, body-heavy — the body-loose side" },
       { name: "Pinene", note: "fresh pine — sharp, focusing" },
       { name: "Caryophyllene", note: "peppery, warm woody" },
     ],
@@ -198,7 +198,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Gelato is the parent (or grandparent) of half the modern hybrid market. Bay Area genetics, sweet and " +
       "creamy, balanced head + body. Most numbered Gelato cuts (33, 41, 45) are slight variations on the same " +
-      "theme — uplifted but not racey, body-present but not couch-lock. Easy to like.",
+      "theme — uplifted but not racey, relaxed but not heavy. Easy to like.",
     lineage: "Sunset Sherbet × Thin Mint GSC",
     parents: ["sunset-sherbet", "thin-mint-gsc"],
     thcRange: "20–25%",
@@ -267,7 +267,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Euphoric", "Happy", "Sleepy"],
     terpenes: [
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery, mellow" },
     ],
     flavor: ["Diesel", "Lemon zest", "Earthy pine"],
@@ -389,7 +389,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky — the backbone" },
+      { name: "Myrcene", note: "earthy, body-heavy — the foundation" },
       { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Pinene", note: "soft pine on the back end" },
     ],
@@ -711,7 +711,7 @@ export const STRAINS: Record<string, Strain> = {
       },
       {
         q: "Is Zkittlez sativa or indica?",
-        a: "Indica-leaning hybrid. More body-forward than the bright candy flavor implies — body-heavy without going full couch-lock for most users.",
+        a: "Indica-leaning hybrid. Mellower than the bright candy flavor implies — body-leaning without going full couch-lock for most users.",
       },
       {
         q: "What does Zkittlez taste like?",
@@ -937,7 +937,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Hard-hitting sativa-leaning hybrid named for the Hulk.",
     intro:
       "Bruce Banner is the strain that always seems to top THC-test charts in Colorado and Washington. " +
-      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset head rush, and enough body to round it out. " +
+      "Sativa-leaning hybrid with a sweet-diesel aroma, fast-onset euphoric head, and enough body to round it out. " +
       "Bruce Banner #3 is the most-circulated pheno.",
     lineage: "OG Kush × Strawberry Diesel",
     parents: ["og-kush", "strawberry-diesel"],
@@ -1235,7 +1235,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, deeply musky" },
+      { name: "Myrcene", note: "earthy, deeply body-heavy" },
       { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Limonene", note: "soft citrus on top" },
     ],
@@ -1292,7 +1292,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "the foundational musky earthy terp" },
+      { name: "Myrcene", note: "the foundational body-heavy earthy terp" },
       { name: "Caryophyllene", note: "peppery, mellow" },
       { name: "Limonene", note: "soft citrus accent" },
     ],
@@ -1463,7 +1463,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, deeply musky" },
+      { name: "Myrcene", note: "earthy, deeply body-heavy" },
       { name: "Caryophyllene", note: "peppery base" },
       { name: "Limonene", note: "citrus on the back end" },
     ],
@@ -1523,7 +1523,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky base" },
+      { name: "Myrcene", note: "earthy, body-heavy base" },
       { name: "Caryophyllene", note: "peppery, mellow" },
       { name: "Limonene", note: "subtle citrus accent" },
     ],
@@ -1577,7 +1577,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Cherry Pie is the bright side of the GDP family — balanced hybrid (slight indica lean) with a " +
       "sweet-tart cherry-and-earth aroma. Parent of Sunset Sherbet, grandparent of Gelato. The effect is " +
-      "head-up and body-leaning in equal parts — a solid late-afternoon pick.",
+      "lifting + body-leaning in equal parts — good for late afternoon.",
     lineage: "Granddaddy Purple × Durban Poison",
     parents: ["granddaddy-purple", "durban-poison"],
     thcRange: "16–24%",
@@ -1700,7 +1700,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery base" },
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Lemon", "Diesel", "Pine"],
     bestFor: ["Sleep", "Pain relief", "End-of-day couch time"],
@@ -1708,7 +1708,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "What makes Tahoe OG different from regular OG Kush?",
-        a: "Tahoe is heavier on the body side — faster onset, more body-forward. Same OG aroma family, just landed more on the indica end of the spectrum.",
+        a: "Tahoe is heavier on the body side — faster onset, heavier on the body. Same OG aroma family, just landed more on the indica end of the spectrum.",
       },
       {
         q: "Is Tahoe OG indica, sativa, or hybrid?",
@@ -2271,7 +2271,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Heavy GSC-family indica — sweet, body-heavy, dependable.",
     intro:
       "Do-Si-Dos (often written Dosidos) is what happens when you push the Cookies family toward the indica " +
-      "end. Sweet mint-and-pine aroma like GSC, but heavier in body and more body-forward. OGKB × Face Off OG " +
+      "end. Sweet mint-and-pine aroma like GSC, but heavier in body. OGKB × Face Off OG " +
       "parentage. A go-to evening flower for many regulars.",
     lineage: "Girl Scout Cookies × Face Off OG",
     parents: ["girl-scout-cookies", "face-off-og"],
@@ -2452,7 +2452,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoric"],
     terpenes: [
       { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery base" },
     ],
     flavor: ["Lemon", "Earthy pine", "Sweet earth"],
@@ -2638,7 +2638,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky base" },
+      { name: "Myrcene", note: "earthy, body-heavy base" },
       { name: "Caryophyllene", note: "peppery accent" },
       { name: "Pinene", note: "soft pine" },
     ],
@@ -2648,7 +2648,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Blueberry the parent of Blue Dream?",
-        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and the body-heavy side.",
+        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and body-leaning side.",
       },
       {
         q: "Is Blueberry indica, sativa, or hybrid?",
@@ -2924,7 +2924,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky base" },
+      { name: "Myrcene", note: "earthy, body-heavy base" },
       { name: "Caryophyllene", note: "peppery accent" },
       { name: "Pinene", note: "soft pine" },
     ],
@@ -3227,7 +3227,7 @@ export const STRAINS: Record<string, Strain> = {
     effects: ["Relaxed", "Sleepy", "Euphoric", "Happy"],
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm base" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus-sweet top" },
     ],
     flavor: ["Diesel", "Sweet earth", "Skunk"],
@@ -3283,7 +3283,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoric"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Pinene", note: "fresh pine" },
       { name: "Caryophyllene", note: "peppery, mellow" },
     ],
@@ -3514,7 +3514,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm woody" },
       { name: "Limonene", note: "citrus zest" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Lemon zest", "Diesel", "Earthy pine"],
     bestFor: ["End of day", "Late-night use", "Couch time"],
@@ -3558,7 +3558,7 @@ export const STRAINS: Record<string, Strain> = {
     name: "Larry OG",
     type: "indica",
     aliases: ["Larry OG", "Lemon Larry", "Lemon Larry OG"],
-    tagline: "Lemony OG Kush phenotype — bright, body-leaning.",
+    tagline: "Lemony OG Kush phenotype — bright, body-forward.",
     intro:
       "Larry OG (also called Lemon Larry) is the lemoniest of the OG Kush phenotypes — bred by Cali Connection " +
       "from OG Kush × SFV OG. Bright lemon-pine aroma, balanced body and head landing, more functional than " +
@@ -3626,7 +3626,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Uplifted", "Euphoric"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "bright lemon" },
       { name: "Caryophyllene", note: "peppery, warm woody" },
     ],
@@ -3636,7 +3636,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is SFV OG indica or hybrid?",
-        a: "Indica-leaning hybrid — body-heavy with enough head-up to stay social. One of the more functional OG family members.",
+        a: "Indica-leaning hybrid — body-leaning with enough head-up to stay social. One of the more functional OG family members.",
       },
       {
         q: "Is SFV OG indica, sativa, or hybrid?",
@@ -3793,7 +3793,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Bright tangerine sativa from DNA Genetics.",
     intro:
       "Tangie is the citrus end of the modern sativa lineup — a DNA Genetics rework of '90s Tangerine Dream, " +
-      "with a tangerine-rind aroma that's strong enough to fill a room. Head-forward, uplifting, low body weight. " +
+      "with a tangerine-rind aroma that's strong enough to fill a room. Head-forward, low body weight. " +
       "Parent strain to Sundae Driver, Sour Tangie, and a long list of citrus-forward crosses.",
     lineage: "California Orange × Skunk #1",
     parents: [null, "skunk-1"],
@@ -3850,7 +3850,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "East Coast diesel sativa — pungent fuel + grapefruit.",
     intro:
       "NYC Diesel is a Soma Seeds sativa that captured the late-'90s New York scene — Mexican × Afghani " +
-      "genetics with a pungent fuel-and-grapefruit aroma that's unmistakable. Head-up, uplifting, with enough " +
+      "genetics with a pungent fuel-and-grapefruit aroma that's unmistakable. Head-up, head-forward, with enough " +
       "body to keep it from going racey. Sister strain to Sour Diesel.",
     lineage: "Mexican × Afghani",
     parents: [null, "afghani"],
@@ -4194,7 +4194,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cinderella 99 × Vortex — bright citrus, daytime-clean.",
     intro:
       "Cinex is a Cinderella 99 × Vortex cross — pure sativa, with a sweet citrus aroma and a clear-headed " +
-      "uplifting effect. Built for daytime use without the racey edge some sativas carry. Long-time " +
+      "head-forward character. Built for daytime use without the racey edge some sativas carry. Long-time " +
       "Washington shelf favorite for morning customers.",
     lineage: "Cinderella 99 × Vortex",
     parents: [null, null],
@@ -4601,7 +4601,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Wedding Cake × Purple Punch — sweet, balanced hybrid.",
     intro:
       "Wedding Crasher is a Symbiotic Genetics cross of Wedding Cake × Purple Punch — sativa-leaning hybrid, " +
-      "with a sweet vanilla-grape aroma and a smooth uplifting head followed by a mellow body. More " +
+      "with a sweet vanilla-grape aroma and a head-forward character followed by a mellow body. More " +
       "head-up than Wedding Cake; less heavy than Purple Punch.",
     lineage: "Wedding Cake × Purple Punch",
     parents: ["wedding-cake", "purple-punch"],
@@ -4658,7 +4658,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-family hybrid — sweet, gassy, dessert end.",
     intro:
       "Biscotti is a Cookies Fam cross of Gelato #25 × Sour Florida OG — indica-leaning hybrid, with a sweet " +
-      "gas-and-vanilla aroma and a heavy body-forward landing. Parent strain to a long list of modern " +
+      "gas-and-vanilla aroma and a heavy euphoric body landing. Parent strain to a long list of modern " +
       "dessert crosses including Biscotti Mints and Lemon Cherry Gelato.",
     lineage: "Gelato #25 × Sour Florida OG",
     parents: ["gelato", null],
@@ -4716,7 +4716,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Lemon Cherry Gelato is a Cookies Fam release that took over the dessert-hybrid lineup the year it " +
       "dropped. Sunset Sherbet × Girl Scout Cookies × Lemonnade — balanced hybrid, with a cherry-lemon-sweet " +
-      "aroma and a smooth uplifting head + mellow body landing.",
+      "aroma and a head-forward character + mellow body landing.",
     lineage: "Sunset Sherbet × Girl Scout Cookies × Lemonnade",
     parents: ["sunset-sherbet", "girl-scout-cookies", null],
     thcRange: "22–28%",
@@ -5000,7 +5000,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-Mints lineage — minty, gassy, balanced hybrid.",
     intro:
       "Animal Mints is a Seed Junky Genetics cross of Animal Cookies × Sin Mint Cookies — balanced hybrid, " +
-      "with a minty-gassy-sweet aroma and a heavy body-forward landing. Parent strain to Wedding Cake " +
+      "with a minty-gassy-sweet aroma and a heavy euphoric body landing. Parent strain to Wedding Cake " +
       "(Wave 1) and a long list of mint-family hybrids.",
     lineage: "Animal Cookies × Sin Mint Cookies",
     parents: ["animal-cookies", null],
@@ -5114,7 +5114,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Compound Genetics fruit hybrid — sweet, modern, head-up.",
     intro:
       "Apples and Bananas is a Compound Genetics × Cookies cross of (Platinum Cookies × Granddaddy Purp) × " +
-      "(Blue Power × Gelatti) — balanced hybrid, with a sweet fruit-cocktail aroma and a smooth uplifting " +
+      "(Blue Power × Gelatti) — balanced hybrid, with a sweet fruit-cocktail aroma and a head-forward " +
       "head + mellow body landing. Modern-era standout that hit Washington shelves hard in 2022.",
     lineage: "(Platinum Cookies × GDP) × (Blue Power × Gelatti)",
     parents: ["granddaddy-purple", null],
@@ -6008,7 +6008,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Tingly", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus-sweet" },
       { name: "Caryophyllene", note: "peppery base" },
     ],
@@ -6067,7 +6067,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm" },
       { name: "Limonene", note: "berry-sweet undertone" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Sweet berry", "Hash", "Earth"],
     bestFor: ["End of day", "Late-night use", "Pre-sleep wind-down"],
@@ -6114,7 +6114,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Blueberry × UK Cheese — funky-sweet British indica.",
     intro:
       "Blue Cheese is a Blueberry × UK Cheese cross out of the British seed scene — indica-leaning, with the " +
-      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-heavy, mellow head, " +
+      "funky-sweet aroma the name implies (cheese pungency over blueberry sweetness). Body-leaning, mellow head, " +
       "long-time international shelf staple. Polarizing aroma but loved by the people who love it.",
     lineage: "Blueberry × UK Cheese",
     parents: ["blueberry", null],
@@ -6171,8 +6171,8 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "GMO × Mendo Breath — savory funk, heavy late-night indica.",
     intro:
       "Garlic Breath is a ThugPug Genetics cross of GMO × Mendo Breath — heavy indica with a savory-garlic-funk " +
-      "aroma that’s closer to roasted onion than to candy. Body-heavy, slow-build, gets heavier as the session " +
-      "goes on. Customers who already like GMO or Garlic Cookies reach for this.",
+      "aroma that’s closer to roasted onion than to candy. Body-heavy, slow-build, deepens through the session. " +
+      "Customers who already like GMO or Garlic Cookies reach for this.",
     lineage: "GMO × Mendo Breath",
     parents: ["gmo-cookies", "mendo-breath"],
     thcRange: "22–28%",
@@ -6410,7 +6410,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery, warm woody" },
       { name: "Limonene", note: "citrus-sweet" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Caramel", "Sweet vanilla", "Earth"],
     bestFor: ["End of day", "Pre-sleep wind-down", "Couch + show"],
@@ -6629,10 +6629,10 @@ export const STRAINS: Record<string, Strain> = {
     name: "Watermelon",
     type: "indica",
     aliases: ["Watermelon", "Watermelon OG"],
-    tagline: "Sweet melon indica — body-heavy, slow-build.",
+    tagline: "Sweet melon indica — relaxed body, slow-build.",
     intro:
       "Watermelon is a long-time indica with a sweet melon-and-grape aroma — the genetic lineage is " +
-      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-heavy, slow-build, " +
+      "undocumented but it’s circulated through Royal Queen Seeds and others. Body-leaning, slow-build, " +
       "more sweet-fruit than skunky. Customers reach for it as a mellow evening pick.",
     lineage: "Unknown × Unknown",
     parents: [null, null],
@@ -6864,7 +6864,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Indiana heritage hybrid — sweet candy nose, head-up effect.",
     intro:
       "Bubble Gum is a long-time Indiana heritage strain — the original cross was lost but every modern Bubble " +
-      "Gum descends from the Indiana cut. Sweet candy-bubblegum aroma, head-up uplifting effect, body relaxation " +
+      "Gum descends from the Indiana cut. Sweet candy-bubblegum aroma, head-up effect, body relaxation " +
       "without sedation. Award-winning since 1994.",
     lineage: "Indiana Bubble Gum (heritage cross)",
     parents: [null, null],
@@ -6918,7 +6918,7 @@ export const STRAINS: Record<string, Strain> = {
     name: "Cherry Cookies",
     type: "sativa",
     aliases: ["Cherry Cookies", "CC"],
-    tagline: "Cherry Pie × Cookies F2 — uplifting hybrid with cherry-sweet nose.",
+    tagline: "Cherry Pie × Cookies F2 — head-forward hybrid with cherry-sweet nose.",
     intro:
       "Cherry Cookies is a Cherry Pie × Cookies F2 cross — sativa-leaning hybrid with the cherry-sweet aroma " +
       "of the Cherry Pie side and the head-up uplift of the Cookies F2 parent. Combines mental alertness with " +
@@ -6978,7 +6978,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Amsterdam coffee-shop classic — Northern Lights × Haze.",
     intro:
       "Dutch Treat is a Northern Lights × Haze cross out of Amsterdam — sativa-leaning, with a sweet piney-eucalyptus " +
-      "aroma and a head-up uplifting effect. Long-time coffee-shop staple, terpinolene-led aromatic profile. " +
+      "aroma and a head-up effect. Long-time coffee-shop staple, terpinolene-led aromatic profile. " +
       "Customers who already like terpinolene-led sativas (Jack Herer, Tangie) tend to like Dutch Treat.",
     lineage: "Northern Lights × Haze",
     parents: ["northern-lights", "haze"],
@@ -6996,7 +6996,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Is Dutch Treat a strong sativa?",
-        a: "Head-up uplifting but not racey — the Northern Lights side smooths out the Haze head. Sits in the comfortable middle of the sativa shelf.",
+        a: "Head-up but not racey — the Northern Lights side smooths out the Haze head. Sits in the comfortable middle of the sativa shelf.",
       },
       {
         q: "Is Dutch Treat indica, sativa, or hybrid?",
@@ -7036,7 +7036,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Mac and Cheese is a hybrid cross of The Mac (Wave 1 mac entry) × Alien Cheese — sativa-leaning, with a " +
       "savory funky-cheese aroma over the Mac’s creamy backbone. Head-up focused effect, more head-forward than " +
-      "body-leaning. Customers who like funky aromatic profiles reach for this.",
+      "body-easing. Customers who like funky aromatic profiles reach for this.",
     lineage: "The Mac × Alien Cheese",
     parents: ["mac", null],
     thcRange: "20–25%",
@@ -7092,7 +7092,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Chemdog 4 × Tres Dawg — head-up sativa with chem-fuel aroma.",
     intro:
       "Stardawg is a Chemdog 4 × Tres Dawg cross — sativa-leaning hybrid with a chem-diesel-citrus aroma and " +
-      "a head-up uplifting effect. Tingly, focused, more energizing than most Chem-family strains. Parent strain " +
+      "a head-up effect. Tingly, focused, more head-forward than most Chem-family strains. Parent strain " +
       "to a long list of modern hybrids; runs higher-THC than most sativas.",
     lineage: "Chemdog 4 × Tres Dawg",
     parents: ["chemdawg-4", null],
@@ -7150,7 +7150,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Super Boof (originally Blockberry, renamed by Michigan grower Mobilejay) is a Blockhead cross of " +
       "Black Cherry Punch × Tropicana Cookies — sativa-leaning, with a zesty citrus-berry aroma and a head-up " +
-      "uplifting effect. Runs high-THC; not a sleep strain — customers reach for it for daytime.",
+      "head-forward effect. Runs high-THC; not a sleep strain — customers reach for it for daytime.",
     lineage: "Black Cherry Punch × Tropicana Cookies",
     parents: ["black-cherry-punch", "tropicana-cookies"],
     thcRange: "24–30%",
@@ -7206,7 +7206,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Barney’s Farm sativa — tangerine-citrus, head-up effect.",
     intro:
       "Tangerine Dream is a Barney’s Farm cross of G13 × Afghani × Neville’s A5 Haze — sativa-leaning with " +
-      "a bright tangerine-citrus aroma and a head-up uplifting effect. 2010 Cannabis Cup winner, long-time " +
+      "a bright tangerine-citrus aroma and a head-up effect. 2010 Cannabis Cup winner, long-time " +
       "shelf staple. Customers who like clementine and tangie reach for this for the same citrus aromatic.",
     lineage: "G13 × Afghani × Neville’s A5 Haze",
     parents: [null, "afghani", null],
@@ -7381,7 +7381,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Clearwater Genetics — Apple Fritter × Runtz, sweet-tart.",
     intro:
       "Apple Tartz is a Clearwater Genetics cross of Apple Fritter × Runtz — balanced hybrid with a tart " +
-      "apple-and-cream aroma and a body-leaning character that suits both evening and early-morning use. Modern " +
+      "apple-and-cream aroma and an effect people reach for both evening and morning use. Modern " +
       "high-shelf hybrid, runs high-THC, sweet aromatic loaded customers find approachable.",
     lineage: "Apple Fritter × Runtz",
     parents: ["apple-fritter", "runtz"],
@@ -7723,7 +7723,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Gage Green sativa-hybrid — sweet grape, head-up effect.",
     intro:
       "Grape Stomper (sometimes Sour Grapes) is a Gage Green Group cross of Sour Diesel × Purple Elephant. " +
-      "Sativa-leaning hybrid with a sweet grape-diesel aroma and a head-up uplifting effect. Parent strain to " +
+      "Sativa-leaning hybrid with a sweet grape-diesel aroma and a head-up effect. Parent strain to " +
       "Grape Pie, which is a parent of Lava Cake. Long-time WA shelf staple with a strong aroma signature.",
     lineage: "Sour Diesel × Purple Elephant",
     parents: ["sour-diesel", null],
@@ -7837,7 +7837,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies Fam — Triangle Kush × Gelato 41, candy-fruit hybrid.",
     intro:
       "Gushers (sometimes White Gushers or TK41) is a Cookies Fam cross of Triangle Kush × Gelato 41 — " +
-      "indica-leaning hybrid with a sweet candy-fruit aroma and a uplifting-then-soothing effect. Bright " +
+      "indica-leaning hybrid with a sweet candy-fruit aroma and a head-forward-then-mellow effect. Bright " +
       "green buds with heavy trichome coverage; popular modern dessert hybrid.",
     lineage: "Triangle Kush × Gelato 41",
     parents: ["triangle-kush", "gelato-41"],
@@ -7894,7 +7894,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Compound Genetics — Jet Fuel Gelato × Mochi Gelato, vanilla-nutty.",
     intro:
       "Horchata is a Compound Genetics cross of Jet Fuel Gelato × Mochi Gelato — balanced hybrid with a sweet " +
-      "vanilla-coffee-nutty aroma that matches the name. Uplifting-and-relaxing effect with myrcene-led terpene " +
+      "vanilla-coffee-nutty aroma that matches the name. Head-forward-and-body-leaning effect with myrcene-led terpene " +
       "profile. Modern Compound Genetics shelf staple.",
     lineage: "Jet Fuel Gelato × Mochi Gelato",
     parents: [null, null],
@@ -8065,8 +8065,8 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies and Cream × Secret Weapon — campfire-s’mores hybrid.",
     intro:
       "Oreoz is a Cookies and Cream × Secret Weapon cross — balanced hybrid with a sweet chocolate-diesel-s’mores " +
-      "aroma. Calming effect, long-lasting, suited for evening use. Customers reach for it for the unusual " +
-      "chocolatey flavor and the steady relaxed landing.",
+      "aroma. Body-leaning, long-lasting, suited for evening use. Customers reach for it for the unusual " +
+      "chocolatey flavor and the steady body landing.",
     lineage: "Cookies and Cream × Secret Weapon",
     parents: ["cookies-and-cream", null],
     thcRange: "18–24%",
@@ -8122,7 +8122,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Runtz phenotype — sweet candy hybrid, head-up uplift.",
     intro:
       "Pink Runtz is a phenotype of Runtz (Zkittlez × Gelato) — balanced hybrid with a sweet candy-floral " +
-      "aroma and an energizing effect that lands more uplifting than its parent. Long-lasting; runs high-THC. " +
+      "aroma and a head-forward effect more head-up than its parent. Long-lasting; runs high-THC. " +
       "Customers who already like Runtz tend to land on Pink Runtz when they want more head-up.",
     lineage: "Runtz phenotype (Zkittlez × Gelato)",
     parents: ["runtz"],
@@ -8407,8 +8407,8 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Seed Junky / Berner’s Cookies — Animal Mints × Kush Mints.",
     intro:
       "The Soap is a Seed Junky Genetics and Berner’s Cookies collaboration — Animal Mints × Kush Mints cross. " +
-      "Balanced hybrid with a sharp clean minty-pine aroma that lives up to the name. Head-up energizing effect, " +
-      "more focused than relaxing. Runs high-THC.",
+      "Balanced hybrid with a sharp clean minty-pine aroma that lives up to the name. Head-up effect, " +
+      "more head-forward than body-heavy. Runs high-THC.",
     lineage: "Animal Mints × Kush Mints",
     parents: ["animal-mints", "kush-mints"],
     thcRange: "19–25%",
@@ -8464,7 +8464,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Blueberry × White Widow — sweet-berry, mellow classic hybrid.",
     intro:
       "Berry White is a Blueberry × White Widow cross — indica-leaning hybrid with a sweet berry aroma and a " +
-      "mellow uplifting head + relaxed body. Lighter than most Blueberry crosses, more conversational than " +
+      "mellow head-forward + relaxed body. Lighter than most Blueberry crosses, more conversational than " +
       "body-heavy. Named after the singer. Long-time WA shelf staple.",
     lineage: "Blueberry × White Widow",
     parents: ["blueberry", "white-widow"],
@@ -8482,7 +8482,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "Does Berry White lean more Blueberry or White Widow?",
-        a: "Body-wise, more Blueberry (relaxed, mellow). Head-wise, more White Widow (uplifting, conversational). One of the more balanced of the older-school hybrids.",
+        a: "Body-wise, more Blueberry (relaxed, mellow). Head-wise, more White Widow (head-forward, conversational). One of the more balanced of the older-school hybrids.",
       },
       {
         q: "Is Berry White indica, sativa, or hybrid?",
@@ -9015,7 +9015,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "sweet citrus undertone" },
     ],
@@ -9706,7 +9706,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Cookies-shelf sweet pastry hybrid — honey-glazed donut aroma.",
     intro:
       "Honey Bun is a Cookies-bred hybrid with a sweet honey-glazed pastry aroma that genuinely reads as the " +
-      "donut the name suggests. Balanced effect — head-forward first, body-heavy later. Sits in the " +
+      "donut the name suggests. Balanced effect — head-forward and bright first, body-leaning later. Sits in the " +
       "modern dessert-hybrid lineup. Customers reach for it when they want sweet aromatics with a gentle " +
       "session arc.",
     lineage: "Cookies-bred (parents not publicly disclosed)",
@@ -9997,7 +9997,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Granddaddy Purple × Black Domina — grape-and-floral heavy indica.",
     intro:
       "Black Mamba is a Granddaddy Purple × Black Domina cross — heavy indica with a grape-and-floral aroma " +
-      "and an earthy berry undertone. Body-heavy and slow-build. Customers who already like Granddaddy " +
+      "and an earthy berry undertone. Body-heavy and evening-leaning. Customers who already like Granddaddy " +
       "Purple reach for this when they want the same grape profile with more body weight.",
     lineage: "Granddaddy Purple × Black Domina",
     parents: ["granddaddy-purple", null],
@@ -10005,7 +10005,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Pinene", note: "light pine" },
     ],
@@ -10239,7 +10239,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Jack Herer × Lemon Kush — focused citrus sativa.",
     intro:
       "Lemon Jack is a Jack Herer × Lemon Kush cross — sativa-dominant with a chemical-lemon aroma and a " +
-      "focused, energizing effect curve. Customers reach for it when they want a clear citrus head-up that " +
+      "focused, head-forward effect curve. Customers reach for it when they want a clear citrus head-up that " +
       "leans more talkative than racey. Mid-morning to mid-afternoon session pick.",
     lineage: "Jack Herer × Lemon Kush",
     parents: ["jack-herer", null],
@@ -10257,7 +10257,7 @@ export const STRAINS: Record<string, Strain> = {
     faqs: [
       {
         q: "How is Lemon Jack different from Lemon Haze?",
-        a: "Both are lemon-forward sativas. Lemon Jack comes through Jack Herer — more focused and energizing. Lemon Haze comes through Silver Haze — longer ceiling, more head-up. Different feel, similar nose.",
+        a: "Both are lemon-forward sativas. Lemon Jack comes through Jack Herer — more focused and head-forward. Lemon Haze comes through Silver Haze — longer ceiling, more head-up. Different feel, similar nose.",
       },
       {
         q: "Is Lemon Jack indica, sativa, or hybrid?",
@@ -10771,7 +10771,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10824,7 +10824,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "OG Kush × LA Confidential — heritage indica with pine pungency.",
     intro:
       "King Louis XIII is an OG Kush × LA Confidential cross — heavy indica with a pine-and-earth aroma that " +
-      "reads classic-OG. Body-heavy and slow-build. Customers reach for it when they want late-night OG " +
+      "reads classic-OG. Body-heavy and evening-leaning. Customers reach for it when they want late-night OG " +
       "weight without the citrus-forward Lemon-OG side.",
     lineage: "OG Kush × LA Confidential",
     parents: ["og-kush", "la-confidential"],
@@ -10832,7 +10832,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "citrus undertone" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10881,7 +10881,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Mendocino Purps phenotype — heritage California purple indica.",
     intro:
       "Purple Urkle is a heritage California indica — a selected phenotype of Mendocino Purps. Sweet grape " +
-      "aroma with a skunk-berry undertone. Deeply relaxing, sleep-leaning. Parent strain to Granddaddy " +
+      "aroma with a skunk-berry undertone. Deeply body-heavy, sleep-leaning. Parent strain to Granddaddy " +
       "Purple. Customers who like GDP can trace the grape lineage back through Urkle.",
     lineage: "Mendocino Purps phenotype",
     parents: [null, null],
@@ -10889,7 +10889,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Pinene", note: "sharp pine" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -10947,7 +10947,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Limonene", note: "sweet citrus" },
       { name: "Caryophyllene", note: "peppery warm" },
     ],
@@ -11061,7 +11061,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Ocimene", note: "sweet floral undertone" },
     ],
@@ -11110,7 +11110,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "Fire OG × The White — high-resin OG hybrid.",
     intro:
       "White Fire OG (often called WiFi OG) is a Fire OG × The White cross — balanced hybrid with cerebral " +
-      "uplifting effects and a sour-earthy aroma with citrus and diesel notes. Heavy trichome coverage gives " +
+      "head-forward character and a sour-earthy aroma with citrus and diesel notes. Heavy trichome coverage gives " +
       "the buds a white-frosted appearance. Customers reach for it when they want OG-family lift with a clearer " +
       "head than typical OG indicas.",
     lineage: "Fire OG × The White",
@@ -11168,7 +11168,7 @@ export const STRAINS: Record<string, Strain> = {
     tagline: "OG Kush descendant — pungent citrus-pine indica.",
     intro:
       "Yoda OG is an OG Kush descendant — heavy indica with chunky pale buds, orange-hair coverage, and a " +
-      "pungent citrus aroma. Sedating, body-relaxing. Customers reach for it for late-night sessions when " +
+      "pungent citrus aroma. Body-heavy, evening-leaning. Customers reach for it for late-night sessions when " +
       "they want OG-family weight without the lemon-forward Lemon-OG citrus profile.",
     lineage: "OG Kush phenotype",
     parents: ["og-kush", null],
@@ -11178,7 +11178,7 @@ export const STRAINS: Record<string, Strain> = {
     terpenes: [
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Limonene", note: "citrus undertone" },
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Citrus", "Pine", "Earth"],
     bestFor: ["End of day", "Pre-sleep wind-down", "OG-family fans"],
@@ -11290,7 +11290,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Limonene", note: "citrus undertone" },
     ],
@@ -11338,9 +11338,9 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Obama Kush", "OK"],
     tagline: "Afghani × OG Kush — indica with cerebral lift.",
     intro:
-      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a body-leaning character and a cerebral " +
-      "head-forward top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
-      "OG-family body weight that still leaves some headroom for conversation.",
+      "Obama Kush is an Afghani × OG Kush cross — indica-dominant with a body-easing quality and a cerebral " +
+      "stimulating top. Pine-and-citrus aroma over a peppery base. Customers reach for it when they want " +
+      "OG-family relaxation that still leaves some headroom for conversation.",
     lineage: "Afghani × OG Kush",
     parents: ["afghani", "og-kush"],
     thcRange: "17–22%",
@@ -11395,7 +11395,7 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Super Skunk", "SS"],
     tagline: "Skunk #1 × Afghani — Sensi Seeds heritage indica skunk.",
     intro:
-      "Super Skunk is a Sensi Seeds cross of Skunk #1 × Afghani — indica-dominant with the bold relaxing " +
+      "Super Skunk is a Sensi Seeds cross of Skunk #1 × Afghani — indica-dominant with the bold body-leaning " +
       "Afghani body and an extra-skunky aroma from the Skunk #1 side. Heritage 1990s release that anchored " +
       "the next generation of skunk-family stabilizations. Customers familiar with Skunk #1 will recognize " +
       "the family signature with more weight.",
@@ -11524,7 +11524,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "15–20%",
     effects: ["Relaxed", "Happy", "Sleepy", "Calm"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warm" },
       { name: "Pinene", note: "light pine" },
     ],
@@ -11888,7 +11888,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -12110,7 +12110,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -12274,7 +12274,7 @@ export const STRAINS: Record<string, Strain> = {
     intro:
       "Lamb's Bread is a pure Jamaican landrace sativa with deep Rastafarian cultural roots — Bob Marley was " +
       "famously associated with the strain. Bright cheesy-grass nose with hints of tropical sweetness, " +
-      "head-up and uplifting. Customers reach for it as a heritage-strain experience as much as a session " +
+      "head-up and head-forward. Customers reach for it as a heritage-strain experience as much as a session " +
       "pick. Landrace genetics mean phenotype variance is wide.",
     lineage: "Landrace — Jamaica",
     parents: [null, null],
@@ -12574,7 +12574,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13488,7 +13488,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -13544,7 +13544,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13600,7 +13600,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -13712,7 +13712,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -13885,7 +13885,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery fuel" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -14006,7 +14006,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery gas" },
       { name: "Limonene", note: "subtle citrus" },
     ],
@@ -14176,7 +14176,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Pinene", note: "subtle pine" },
     ],
@@ -14516,7 +14516,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery skunk" },
       { name: "Humulene", note: "hop-like earthy" },
     ],
@@ -14572,7 +14572,7 @@ export const STRAINS: Record<string, Strain> = {
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, musky" },
+      { name: "Myrcene", note: "earthy, body-heavy" },
       { name: "Caryophyllene", note: "peppery warmth" },
       { name: "Humulene", note: "hop-like earthy" },
     ],
