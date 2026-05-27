@@ -22,6 +22,7 @@ import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { ReviewsSection } from "@/components/Reviews";
 import { TownCardLink } from "@/components/TownCardLink";
 import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
+import { StrainPickOfWeek } from "@/components/StrainPickOfWeek";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 
@@ -238,6 +239,10 @@ export default async function HomePage() {
           <VendorAdSlot slot="homepage_top" loading="eager" />
         </div>
       </section>
+      {/* ─── Pick of the Week (Ship 0.2 Strain Tree arc) ──────────────── */}
+      {/* Async Server Component. Returns null when flag-OFF OR no pick    */}
+      {/* published → entire <section> unmounts (comms-expert spec).        */}
+      <StrainPickOfWeek />
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div

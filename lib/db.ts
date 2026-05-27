@@ -1654,3 +1654,69 @@ export const getStrainMatchedProducts = cache(async (
 
   return rankStrainMatches(scored, { limit: opts.limit });
 });
+
+// ─── Pick of the Week (Ship 0.2 of Strain Tree autonomous arc) ────────
+// Operator-curated row from inv-App's /admin/curation/pick-of-week. Public
+// hero rail reads the latest week_of for THIS store. Flag-gated on the
+// reader side via PICK_OF_THE_WEEK_ENABLED — when OFF, the page-level
+// component returns null and the section unmounts entirely.
+
+export type StrainPickOfWeek = {
+  strainName: string;
+  strainSlug: string;
+  editorialNote: string;
+  budtenderName: string;
+  weekOf: string; // YYYY-MM-DD
+};
+
+export const getCurrentStrainPickOfWeek = cache(async (): Promise<StrainPickOfWeek | null> => {
+  // Flag-gate read at this layer too — saves a Neon round-trip on the
+  // 99% case where the flag is OFF in production.
+  if ((process.env.PICK_OF_THE_WEEK_ENABLED ?? "").toLowerCase() !== "true") {
+    return null;
+  }
+
+  const sql = getClient();
+  try {
+    // Greenlife-web is the Wenatchee public site → store_id='wen'.
+    // Take the newest pick whose week_of is <= today.
+    const rows = await sql`
+      SELECT
+        s.name AS strain_name,
+        s.slug AS strain_slug,
+        p.editorial_note AS editorial_note,
+        p.budtender_name AS budtender_name,
+        p.week_of::text AS week_of
+      FROM strain_picks_of_the_week p
+      INNER JOIN strains s ON s.id = p.strain_id
+      WHERE p.store_id = 'wen'
+        AND p.week_of <= CURRENT_DATE
+      ORDER BY p.week_of DESC
+      LIMIT 1
+    `;
+    if (!rows || rows.length === 0) return null;
+    const r = rows[0] as {
+      strain_name: string;
+      strain_slug: string;
+      editorial_note: string;
+      budtender_name: string;
+      week_of: string;
+    };
+    return {
+      strainName: r.strain_name,
+      strainSlug: r.strain_slug,
+      editorialNote: r.editorial_note,
+      budtenderName: r.budtender_name,
+      weekOf: r.week_of,
+    };
+  } catch (err) {
+    // Defensive: a missing table (early in the inv-App migration window)
+    // or a transient Neon hiccup should NEVER take down the home page.
+    // PII guard: err.name only (Drizzle echoes bound params in err.message).
+    // eslint-disable-next-line no-console
+    console.error(
+      `[strain-pick-of-week] read failed err=${err instanceof Error ? err.name : "unknown"}`,
+    );
+    return null;
+  }
+});
