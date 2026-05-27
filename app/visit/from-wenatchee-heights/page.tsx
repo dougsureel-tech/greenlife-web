@@ -26,7 +26,7 @@ export const revalidate = false;
 const CONFIG: VisitFromSourceConfig = {
   slug: "wenatchee-heights",
   sourceName: "Wenatchee Heights",
-  title: "From Wenatchee Heights: 12 minutes down to Green Life Cannabis",
+  title: "From Wenatchee Heights: 12 minutes down through Sunnyslope",
   description:
     "From the Wenatchee Heights / Squilchuck Canyon side, Green Life Cannabis is a 12-minute drive down through Sunnyslope. Directions, hours, and what to bring.",
   body: `Wenatchee Heights, Squilchuck Canyon, and the Number One Canyon foothills sit up the hill south of downtown Wenatchee. Green Life Cannabis is at the bottom — 12 minutes down through Sunnyslope on the corner of Center Road.

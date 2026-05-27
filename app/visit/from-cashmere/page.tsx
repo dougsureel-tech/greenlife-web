@@ -29,7 +29,7 @@ export const revalidate = false;
 const CONFIG: VisitFromSourceConfig = {
   slug: "cashmere",
   sourceName: "Cashmere",
-  title: "From Cashmere: 18 minutes east to Green Life Cannabis",
+  title: "From Cashmere: 18 minutes east on US-2",
   description:
     "Cashmere has no recreational dispensary inside city limits. Green Life Cannabis is 18 minutes east on US-2 — directions, hours, and what to bring.",
   body: `Cashmere doesn't have a recreational cannabis dispensary inside city limits. Green Life Cannabis is the closest legal cannabis to Cashmere — 18 minutes east on US-2, in the Sunnyslope neighborhood of Wenatchee.

@@ -1095,6 +1095,284 @@ This information is general cannabis education for adults 21 and over. We're not
     ],
     relatedTopics: ["edibles-dosing", "indica-sativa-hybrid", "medical-vs-recreational-wa"],
   },
+  {
+    slug: "pre-roll",
+    eyebrow: "Cannabis basics",
+    title: "What is a pre-roll?",
+    description:
+      "A pre-roll is a cannabis cigarette rolled and packaged by the producer. Here’s what’s inside one, how to read the label, and how the formats differ on a Washington dispensary shelf.",
+    body: `## The one-sentence answer
+
+A pre-roll is a cannabis cigarette — ground flower rolled inside a paper cone, finished with a small filter tip, and packaged ready to smoke. Producers do the rolling so the customer doesn’t have to.
+
+## What’s inside one
+
+The contents of a pre-roll vary by producer, and the label is the honest record. The three things worth checking before you buy:
+
+- **What flower** — single-strain (one strain only) or blend (multiple strains, often labeled "house blend" or by lineage). Single-strain pre-rolls behave like the strain on the label; blends are designed to land somewhere in the middle.
+- **What part of the plant** — top-shelf bud, trim (the leafy cuttings from harvesting bud), or shake (the loose flower that breaks off larger nuggets during packaging). Top-shelf rolls smoke smoother; trim and shake rolls cost less but tend to burn hotter or unevenly.
+- **Whether it’s infused** — some pre-rolls are infused with kief, hash, distillate, or rosin to push the THC percentage higher. Infused pre-rolls hit harder and burn slower than standard ones. The label will say.
+
+The COA (Certificate of Analysis — see the COA explainer) reports the total THC by weight. Standard pre-rolls land in the 18-28% range, the same as the flower they were made from. Infused pre-rolls can run 30-45%.
+
+## Sizes on the shelf
+
+Washington pre-rolls come in standard weights:
+
+- **0.5 g** — the small format. Quick session, often sold as a single.
+- **0.75 g** — middle weight. Common as a single or in 2-packs.
+- **1 g** — the most common single size. About a 20-30 minute session for one person.
+- **1.5 g and 2 g** — larger formats, marketed as "dogwalkers" or "blunts" depending on the paper. Usually shared.
+- **Multi-packs** — five 0.5 g rolls in a tin is the classic pack; producers also sell 3-packs and 10-packs of smaller rolls.
+
+The label states the weight per roll and the total package weight separately. Washington caps single-purchase flower (including pre-roll weight) at 28 g per transaction for recreational customers.
+
+## How the paper changes the experience
+
+Most pre-rolls use thin white rice paper or hemp paper. Some use unbleached paper (slightly hempier flavor). Blunts use tobacco-leaf or cannabis-leaf wraps and burn slower with a different mouthfeel. Cones with a glass tip or ceramic tip exist for customers who want a reusable mouthpiece.
+
+The paper isn’t a tax line — it shapes how the smoke draws and how clean the burn runs. If a pre-roll keeps going out (called "canoeing" when one side burns faster than the other), the paper quality, the grind, or the moisture content is usually the cause.
+
+## Infused pre-rolls — read the label
+
+"Infused" can mean several things, and the label will spell out which:
+
+- **Kief-rolled** — the outside of the cone is rolled in kief (the trichome dust that falls off flower). Quick to make; bumps potency modestly.
+- **Hash-coated** — the outside is coated in hash (concentrated trichomes). Stronger bump than kief.
+- **Distillate-infused** — refined THC oil added to the flower before rolling. Pushes total THC into the 30-40% range. The flavor leans cleaner but more neutral than the underlying strain.
+- **Live-resin or rosin-infused** — full-spectrum concentrate added in. Keeps more of the original strain’s terpene profile than distillate does; typically more expensive.
+
+## How to shop for one
+
+Three questions cover most of it:
+
+- **How long is your session?** A 0.5 g lands somewhere around 15-20 minutes; a 1 g around 30. Match the size to the time you’ve got.
+- **Single-strain or blend?** Single-strain if you already know what you like. Blend if you want something balanced and the producer’s reputation does the legwork.
+- **Standard or infused?** Standard for everyday. Infused when the goal is a strong session in a short window.
+
+Ask a budtender. We open the jar, you smell, we tell you the dominant terpene and the strain’s pattern. That tends to tell you more than the THC number on the front of the package.`,
+    faqs: [
+      {
+        q: "Are pre-rolls just leftover trim?",
+        a: "Some are, some aren’t. Budget pre-rolls often use trim and shake (the loose flower that breaks off during packaging). Top-shelf pre-rolls use full bud from the same strain on the jar. The label and price tell you which tier you’re looking at.",
+      },
+      {
+        q: "Why are infused pre-rolls so much stronger?",
+        a: "An infused pre-roll adds kief, hash, distillate, or rosin to the rolled flower. That pushes the total THC by weight from a flower-typical 18-28% up to 30-45%. The result is a stronger session per gram. Onset and timing are still the same as inhaled cannabis (peak around 15-30 minutes, taper over a few hours).",
+      },
+      {
+        q: "How long does an unsmoked pre-roll keep?",
+        a: "Stored in its packaging in a cool dark place, a pre-roll keeps for several months without meaningful degradation. After about six months the flower starts to dry out and the smoke gets harsher. A small humidity pack in the storage tin extends shelf life.",
+      },
+      {
+        q: "Can I bring my own paper and just buy flower?",
+        a: "Yes. Most customers who roll their own buy whole flower in 1 g, 3.5 g, or 7 g formats from the menu and roll at home. Pre-rolls are convenience — the producer did the grinding, rolling, and tipping for you.",
+      },
+      {
+        q: "Are pre-rolls more or less expensive than rolling your own?",
+        a: "Per gram, pre-rolls usually cost slightly more than the equivalent flower — the price covers the rolling labor and the paper. Multi-pack pre-rolls close the gap and are often the best per-gram value if you smoke them regularly.",
+      },
+    ],
+    relatedTopics: ["indica-sativa-hybrid", "lab-panel-coa", "first-time-visitor"],
+  },
+  {
+    slug: "rosin-vs-resin",
+    eyebrow: "Concentrates basics",
+    title: "Rosin vs live resin — what’s the difference?",
+    description:
+      "Rosin and live resin are both full-spectrum cannabis concentrates, but they’re made differently and they taste different. Here’s what each one is and how to pick.",
+    body: `## The short version
+
+Rosin is made with heat and pressure — no solvent. Live resin is made by extracting fresh-frozen cannabis with a hydrocarbon solvent (typically butane), then purging the solvent off. Both end up as full-spectrum concentrates that keep the original strain’s terpene profile; the path each one takes to get there is different, and so is the price and the texture.
+
+## How rosin is made
+
+Rosin presses use a heated plate and a hydraulic ram. Cured flower (or hash) goes between two pieces of parchment paper, the plates close at around 180-220°F, the ram applies a few thousand pounds of pressure, and resin pushes out from inside the trichomes. The result is a translucent amber or golden material that holds the strain’s smell almost completely intact.
+
+What this process gets you:
+
+- **No residual solvent** — there was never a solvent. The COA shows ND across the residual solvent panel by default.
+- **Full terpene retention** — heat and pressure are gentle compared to chemical extraction; volatile terpenes survive.
+- **Higher price per gram** — pressing is slow, the yield is modest (10-20% of starting weight is typical), and the input flower has to be top-shelf for the output to be good.
+
+Rosin grades on a Washington shelf are usually labeled:
+
+- **Flower rosin** — pressed straight from cured flower.
+- **Hash rosin** — pressed from ice-water hash. Cleaner, more terpene-dense, typically the highest tier.
+- **Live rosin** — pressed from fresh-frozen flower that was first turned into ice-water hash, then pressed. The "live" means the starting plant was frozen at harvest instead of dried and cured. The top of the rosin category.
+
+## How live resin is made
+
+Live resin starts with cannabis that was flash-frozen at harvest instead of dried. The frozen plant material gets washed with a hydrocarbon solvent (butane is the most common, sometimes propane or a butane-propane blend) inside a closed-loop extraction system. The solvent dissolves the cannabinoids and terpenes; the plant matter gets filtered out; the solvent is purged off with heat and vacuum. What’s left is the live resin.
+
+What this process gets you:
+
+- **High terpene retention** — flash-freezing locks in the terpene profile before drying can off-gas them. Live resin smells closer to fresh cannabis than any other concentrate.
+- **Higher yield, lower per-gram cost than rosin** — closed-loop extraction is efficient. Producers can charge less and still profit.
+- **Trace residual solvent** — the COA will list ppm values for butane, propane, and any other solvents used. Washington sets action limits; anything passing the panel is below those limits. ND ("not detected") is common on quality producers.
+
+## Texture and naming
+
+Both rosin and live resin come in a range of consistencies. Producers and customers use a lot of texture words:
+
+- **Badder / batter** — whipped to a soft, malleable consistency. Easy to scoop.
+- **Sauce** — wet, syrupy, with terpene-rich liquid pooled around small THCA crystals (called diamonds).
+- **Diamonds and sauce** — crystallized THCA in a terpene sauce. Strongest THC reading on the shelf.
+- **Sugar** — granular, sandy texture.
+- **Shatter** — glass-like, brittle. Less common in live resin (the moisture content usually keeps it softer) and rare in rosin.
+- **Jam / jelly** — semi-fluid, runs slowly. Common live-resin texture.
+
+Texture is mostly cosmetic — it affects how the concentrate handles on a dab tool, not how it hits.
+
+## Which one to pick
+
+The most common reasons customers pick one over the other:
+
+- **You want zero solvent involved at all** → rosin.
+- **You want the strongest possible terpene preservation per dollar** → live resin (or live rosin if budget allows).
+- **You want maximum flavor and you don’t mind paying for it** → hash rosin or live rosin.
+- **You want strong concentrate at the lowest reliable price** → live resin in a 1 g jar from a producer with good COAs.
+
+Both categories pass the same WA testing requirements. Both are full-spectrum (they keep the strain’s terpene profile) — distillate is the category that strips it down and re-suspends, and that’s a different conversation.
+
+## Use formats
+
+Concentrates of either type get consumed three ways:
+
+- **Dab rig** — torch and nail (or e-rig with electronic heat). Most flavor, steepest learning curve.
+- **Vape cartridge** — live resin and rosin both come pre-loaded in carts. Faster onset than dabbing, less terpene depth.
+- **Topped on flower** — a small amount added to a bowl or pre-roll. Boosts the session without buying a rig.
+
+Onset is fast for inhaled concentrates (15-30 minutes to peak, full taper over 2-4 hours), the same as smoking flower. Dose is small — a piece the size of a grain of rice is a typical first dab. Concentrates run 60-90% THC by weight, so the dose-to-effect ratio is shifted compared to flower.`,
+    faqs: [
+      {
+        q: "Is rosin or live resin stronger?",
+        a: "Both run in the 60-90% total THC range. Diamonds-and-sauce live resin and live hash rosin both top out near the same numbers. Strain choice and terpene profile shape the experience more than the small potency difference between the two categories.",
+      },
+      {
+        q: "Why is rosin so much more expensive than live resin?",
+        a: "Rosin presses use top-shelf flower or hash as input and the yield is modest. A producer needs more starting material per gram of output, and the labor per press is higher. Live resin runs through a closed-loop extractor that processes more plant material per hour and gets a higher yield, so the per-gram cost is lower.",
+      },
+      {
+        q: "Is live resin safe? Solvent extraction sounds risky.",
+        a: "Washington licensed extractors run closed-loop systems and the finished product is tested for residual solvents before it reaches a shelf. The COA shows the exact ppm for any solvent the lab detected. Products that exceed WAC action limits don’t ship. The safety floor is the same as for any other Washington concentrate.",
+      },
+      {
+        q: "What’s the difference between live resin and cured resin?",
+        a: "Live resin starts with fresh-frozen plant material (frozen at harvest, before drying). Cured resin starts with dried and cured flower. Live resin keeps more of the terpene profile that off-gases during the drying process; cured resin tends to taste more like the flower you would have smoked.",
+      },
+      {
+        q: "Can I dab rosin in a vape cartridge?",
+        a: "Most pre-filled cartridges are designed for a specific oil viscosity. Rosin and live resin sold as vape carts are formulated to flow through the cart’s wick and coil — not all rosin works in every cart. The label on a rosin cart or live resin cart tells you it’s been prepared for that format.",
+      },
+    ],
+    relatedTopics: ["lab-panel-coa", "vape-cartridges-explained", "rso"],
+  },
+  {
+    slug: "vape-cartridges-explained",
+    eyebrow: "Vape cartridges",
+    title: "Vape cartridges explained: distillate, live resin, and rosin carts",
+    description:
+      "Vape cartridges look identical on the shelf but the oil inside can be three very different things. Distillate, live resin, and rosin — what’s the difference and how to pick.",
+    body: `## What a vape cartridge is
+
+A vape cartridge — a "cart" — is a small glass or plastic chamber filled with cannabis oil, sealed at the bottom with a heating coil and a 510-thread connector. It screws onto a battery (or a disposable pen has the battery built in), the battery heats the coil, the coil vaporizes the oil, and the user inhales the vapor.
+
+On the shelf, two carts can look identical and contain very different oil. The label says which.
+
+## The three main oil types
+
+Most carts on a Washington dispensary shelf fall into one of three categories.
+
+### Distillate carts
+
+The most common and the cheapest. Distillate is THC isolated from the rest of the cannabis plant — refined down to 80-95% pure THC and almost no terpenes. To give the cart flavor, producers re-add terpenes after the fact: either cannabis-derived terpenes (CDT) recovered during extraction, or botanical terpenes from other plants (limonene from citrus, myrcene from hops, etc.).
+
+- **Strong** — total THC runs 75-90%.
+- **Cheap** — usually the lowest per-gram price in the cart case.
+- **Flavor leans neutral** — the re-added terpenes carry the flavor; some carts taste close to a candy or a fruit, less like cannabis.
+- **Effect leans flat** — without the full terpene profile, distillate tends to feel more uniformly "high" across strains. Less of the variation between an indica and a sativa carries through.
+
+### Live resin carts
+
+Live resin oil from fresh-frozen cannabis (see the rosin-vs-resin explainer) loaded into a cart. The oil is full-spectrum — the cannabinoid and terpene profile of the source strain is preserved.
+
+- **Mid-strength** — total THC runs 70-85%, slightly lower than distillate because some weight is real terpenes instead of THC.
+- **More expensive than distillate** — usually $5-15 more per cart.
+- **Flavor matches the strain** — if it’s a Blue Dream live resin cart, it tastes like Blue Dream flower vaped.
+- **Strain experience shows through** — the indica/sativa/hybrid pattern lands more recognizably than with distillate.
+
+### Live rosin carts
+
+The top tier and the most expensive. Live rosin (see the rosin-vs-resin explainer) loaded into a cart. Same full-spectrum profile as live resin, with no solvent ever involved in the extraction.
+
+- **Mid-strength** — similar range to live resin, 65-80% total THC.
+- **Top of the cart-price range** — often double the price of a distillate cart of the same size.
+- **Strongest flavor preservation** — most accurate to the source strain.
+- **Smallest market share** — yield economics keep volume low.
+
+## Hardware: the cart and the battery
+
+The cart side has two pieces worth knowing about:
+
+- **510-thread connector** — the screw-thread standard most carts use. Any 510 battery fits any 510 cart.
+- **Coil material** — ceramic coils are the current default. Cotton-wick coils still exist but burn faster and tend to taste burnt sooner. Ceramic is what we usually steer customers toward.
+
+The battery side:
+
+- **Variable voltage** — most batteries have three or four heat settings. Lower voltage gives a cleaner-tasting hit; higher voltage gives a bigger cloud but burns through oil faster.
+- **Preheat function** — a soft pre-warm that helps cold or thick oil flow before a draw. Useful in winter or with rosin carts.
+- **Battery life** — a full battery usually lasts a couple of days of moderate use.
+
+Disposable vapes have the battery built in and discard when empty. Refillable batteries with a separate cart cost less over time and produce less e-waste.
+
+## Reading the cart label
+
+Three numbers and one name on every label tell you most of what you need:
+
+- **Oil type** — Distillate, Live Resin, Live Rosin, or Cured Resin. The biggest single label-read.
+- **Strain** — single-strain (Blue Dream, Wedding Cake) or blend (often "Indica Blend," "Sativa Blend").
+- **Total THC %** — the potency. Higher isn’t always better; live resin and live rosin trade some THC % for terpenes.
+- **Producer name** — the licensed Washington company. Some producers have a long track record on carts specifically; we can tell you who we’ve stocked the longest.
+
+The COA carries everything else — terpene panel, residual solvents (especially relevant for live resin), heavy metals (matters for the cart hardware as much as the oil).
+
+## What to pick when
+
+The most common reasons customers pick one type over another:
+
+- **You want the cheapest reliable cart** → distillate from a producer with a clean COA.
+- **You want the strain on the label to actually taste and feel like that strain** → live resin.
+- **You want maximum flavor and budget isn’t the constraint** → live rosin.
+- **You want a discreet, portable format** with onset like smoking → any of the three; the format matters more than the oil type for portability.
+
+## A note on cart safety
+
+Cart safety is mostly about the COA — residual solvents (live resin), heavy metals (any cart, comes from the hardware), and the pesticide panel. The 2019 EVALI illness cluster traced to unlicensed-market carts cut with vitamin E acetate; regulated Washington carts are tested for it and ND on the panel is the safety floor. Buying carts from a licensed dispensary that pulls COAs on request is the cleanest safety move.`,
+    faqs: [
+      {
+        q: "Why are distillate carts so much cheaper than live resin?",
+        a: "Distillate is a refined, high-THC oil that producers can make from less expensive input material (often trim or shake-derived). Live resin requires fresh-frozen flower and a closed-loop extraction setup, which costs more per gram. The price gap reflects the inputs and the process.",
+      },
+      {
+        q: "Do live resin carts get me higher than distillate carts?",
+        a: "On total THC percentage, distillate is usually a few points higher. On subjective experience, customers often report live resin feels more recognizable as the source strain because the full terpene profile is intact. Different shape of experience, not strictly stronger or weaker.",
+      },
+      {
+        q: "How long does one cart last?",
+        a: "A 1 g cart typically lasts a regular user one to three weeks. Battery setting, draw length, and how often you hit it all factor in. The cart visually empties as you go; some have measurement lines on the side.",
+      },
+      {
+        q: "Are the terpenes in a distillate cart natural or artificial?",
+        a: "Both options exist. Cannabis-derived terpenes (CDT) are recovered from cannabis during extraction and re-added. Botanical terpenes are isolated from other plants (citrus for limonene, hops for myrcene). Both are real terpenes; the label often says which the producer used.",
+      },
+      {
+        q: "What’s the difference between a cart and a disposable vape?",
+        a: "A cart screws onto a separate, reusable 510-thread battery. A disposable has the battery built in and gets discarded when the oil runs out. Disposables are slightly cheaper up front but cost more over time; carts plus a battery are the standard setup for regular customers.",
+      },
+    ],
+    relatedTopics: ["rosin-vs-resin", "lab-panel-coa", "indica-sativa-hybrid"],
+  },
 ];
 
 /** O(1) slug lookup. */
