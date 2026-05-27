@@ -15506,11 +15506,10 @@ export function getStrain(slug: string): Strain | undefined {
 
 /** SEO wave gating — only slugs at index < effective-wave get indexed.
  *  Per Doug 2026-05-14 cadence-gate doctrine + 2026-05-27 auto-cadence
- *  upgrade. Two modes:
+ *  upgrade + 2026-05-27 cap-env-removal refactor. Two modes:
  *
- *  AUTO-CADENCE mode (preferred — set both `SEO_STRAIN_WAVE_START_DATE`
- *  + `SEO_STRAIN_WAVE_CAP`):
- *    wave = min(CAP, INITIAL + floor(days_since_start / STEP_DAYS) * STEP_SIZE)
+ *  AUTO-CADENCE mode (preferred — set `SEO_STRAIN_WAVE_START_DATE`):
+ *    wave = min(STRAIN_SLUGS.length, INITIAL + floor(days_since_start / STEP_DAYS) * STEP_SIZE)
  *    Defaults: INITIAL=25, STEP_SIZE=10, STEP_DAYS=3.
  *    Sitemap revalidates every 30min so the cadence picks up automatically
  *    each day without a redeploy. Override defaults via
@@ -15518,29 +15517,39 @@ export function getStrain(slug: string): Strain | undefined {
  *    `SEO_STRAIN_WAVE_STEP_DAYS`.
  *
  *  LEGACY mode (`SEO_STRAIN_WAVE` only — preserved for backwards-compat
- *  + as a hard manual override): the env-var integer IS the wave. */
+ *  + as a hard manual override): the env-var integer IS the wave.
+ *
+ *  ─────────────────────────────────────────────────────────────────────────
+ *  WHY `SEO_STRAIN_WAVE_CAP` IS GONE (per Doug 2026-05-27):
+ *  The cap was a manually-maintained env-var that required bumping every
+ *  time the corpus grew (229 → 244 the same day). That's a maintenance
+ *  trap: forget to bump it and new strains never get indexed even though
+ *  the cadence has elapsed. `STRAIN_SLUGS.length` IS the natural ceiling —
+ *  it grows when the corpus grows, so cadence auto-tracks corpus growth
+ *  without any human action. The env var was removed entirely from the
+ *  code path; the leftover Vercel value (currently 9999 as a stopgap) is
+ *  harmless and can be deleted at Doug's leisure.
+ *  ─────────────────────────────────────────────────────────────────────── */
 export function getEffectiveWaveSize(now: Date = new Date()): number {
+  const ceiling = STRAIN_SLUGS.length;
   const startStr = process.env.SEO_STRAIN_WAVE_START_DATE;
-  const capStr = process.env.SEO_STRAIN_WAVE_CAP;
-  if (startStr && capStr) {
-    const cap = parseInt(capStr, 10);
-    if (!Number.isFinite(cap) || cap < 0) return 0;
+  if (startStr) {
     const start = new Date(startStr);
     if (Number.isNaN(start.getTime())) return 0;
     const initial = parseInt(process.env.SEO_STRAIN_WAVE_INITIAL ?? "25", 10);
     const stepSize = parseInt(process.env.SEO_STRAIN_WAVE_STEP_SIZE ?? "10", 10);
     const stepDays = parseInt(process.env.SEO_STRAIN_WAVE_STEP_DAYS ?? "3", 10);
     if (!Number.isFinite(initial) || !Number.isFinite(stepSize) || !Number.isFinite(stepDays) || stepDays <= 0) {
-      return Math.min(cap, Math.max(0, initial));
+      return Math.min(ceiling, Math.max(0, initial));
     }
     const ageDays = Math.floor((now.getTime() - start.getTime()) / DAY_MS);
     if (ageDays < 0) return 0;
     const cadenceWave = initial + Math.floor(ageDays / stepDays) * stepSize;
-    return Math.min(cap, Math.max(0, cadenceWave));
+    return Math.min(ceiling, Math.max(0, cadenceWave));
   }
   const wave = parseInt(process.env.SEO_STRAIN_WAVE ?? "0", 10);
   if (!Number.isFinite(wave) || wave <= 0) return 0;
-  return wave;
+  return Math.min(ceiling, wave);
 }
 
 export function isStrainInWave(slug: string): boolean {

@@ -347,10 +347,13 @@ describe("STRAINS — getStrainsInCurrentWave", () => {
   });
 });
 
-describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () => {
+describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27 — corpus-length ceiling)", () => {
+  // SEO_STRAIN_WAVE_CAP env var REMOVED 2026-05-27 per Doug — natural
+  // ceiling is `STRAIN_SLUGS.length` (corpus grows → ceiling grows
+  // automatically). Tests now stub only the cadence vars; the ceiling
+  // assertion uses the live corpus.
   const ENV_KEYS = [
     "SEO_STRAIN_WAVE",
-    "SEO_STRAIN_WAVE_CAP",
     "SEO_STRAIN_WAVE_START_DATE",
     "SEO_STRAIN_WAVE_INITIAL",
     "SEO_STRAIN_WAVE_STEP_SIZE",
@@ -363,7 +366,6 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
   test("auto-cadence mode: day 0 = INITIAL (default 25)", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     const now = new Date("2026-05-27T12:00:00Z");
     assert.equal(getEffectiveWaveSize(now), 25);
     cleanEnv();
@@ -372,25 +374,76 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
   test("auto-cadence mode: day 3 = INITIAL + STEP_SIZE (35)", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     const now = new Date("2026-05-30T12:00:00Z");
     assert.equal(getEffectiveWaveSize(now), 35);
     cleanEnv();
   });
 
-  test("auto-cadence mode: clamps to CAP at long horizons", () => {
+  test("auto-cadence mode: clamps to STRAIN_SLUGS.length at long horizons (no manual env-var cap)", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
-    process.env.SEO_STRAIN_WAVE_CAP = "100";
-    const now = new Date("2027-01-01T00:00:00Z");
-    assert.equal(getEffectiveWaveSize(now), 100);
+    const now = new Date("2030-01-01T00:00:00Z");
+    // ~4 years of cadence ticks would explode well past corpus size;
+    // natural ceiling is STRAIN_SLUGS.length, not a hardcoded number.
+    assert.equal(getEffectiveWaveSize(now), STRAIN_SLUGS.length);
+    cleanEnv();
+  });
+
+  test("ceiling tracks STRAIN_SLUGS.length — NOT a hardcoded constant (Doug 2026-05-27 corpus-grows-ceiling-grows)", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    // Use tight STEP_DAYS=1 + huge STEP_SIZE so cadence rockets past any
+    // hypothetical hardcoded cap quickly; ceiling MUST come from corpus.
+    process.env.SEO_STRAIN_WAVE_INITIAL = "1";
+    process.env.SEO_STRAIN_WAVE_STEP_SIZE = "1000";
+    process.env.SEO_STRAIN_WAVE_STEP_DAYS = "1";
+    const now = new Date("2026-06-27T00:00:00Z"); // 31 days → cadence = 1 + 31*1000 = 31001
+    const result = getEffectiveWaveSize(now);
+    assert.equal(result, STRAIN_SLUGS.length, `expected ceiling=corpus length ${STRAIN_SLUGS.length}, got ${result}`);
+    // Anti-regression: ceiling MUST NOT equal the legacy 229 hardcoded value
+    // (corpus has grown past that since 2026-05-27).
+    assert.ok(result !== 229 || STRAIN_SLUGS.length === 229, "ceiling must derive from STRAIN_SLUGS.length, not legacy 229");
+    cleanEnv();
+  });
+
+  test("monotonic non-decreasing across elapsed days until ceiling", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    const samples = [0, 3, 6, 9, 30, 60, 90, 365].map((days) => {
+      const now = new Date(`2026-05-27T00:00:00Z`);
+      now.setUTCDate(now.getUTCDate() + days);
+      return getEffectiveWaveSize(now);
+    });
+    for (let i = 1; i < samples.length; i++) {
+      assert.ok(samples[i] >= samples[i - 1], `wave must be monotonic non-decreasing: day ${i} (${samples[i]}) < prev (${samples[i - 1]})`);
+    }
+    // Final sample must equal ceiling (after a year)
+    assert.equal(samples.at(-1), STRAIN_SLUGS.length);
+    cleanEnv();
+  });
+
+  test("+10/3-days cadence math preserved (10 strains added every 3 days)", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    // Day 0 = 25, Day 3 = 35, Day 6 = 45, Day 9 = 55 (steps of 10 per 3 days)
+    const day0 = getEffectiveWaveSize(new Date("2026-05-27T00:00:00Z"));
+    const day3 = getEffectiveWaveSize(new Date("2026-05-30T00:00:00Z"));
+    const day6 = getEffectiveWaveSize(new Date("2026-06-02T00:00:00Z"));
+    const day9 = getEffectiveWaveSize(new Date("2026-06-05T00:00:00Z"));
+    assert.equal(day0, 25);
+    assert.equal(day3, 35);
+    assert.equal(day6, 45);
+    assert.equal(day9, 55);
+    // Cadence delta is exactly +10 per 3 days
+    assert.equal(day3 - day0, 10);
+    assert.equal(day6 - day3, 10);
+    assert.equal(day9 - day6, 10);
     cleanEnv();
   });
 
   test("auto-cadence mode: returns 0 for date before start", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-06-01";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     const now = new Date("2026-05-15T00:00:00Z");
     assert.equal(getEffectiveWaveSize(now), 0);
     cleanEnv();
@@ -399,7 +452,6 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
   test("auto-cadence mode: custom STEP_SIZE + STEP_DAYS honored", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     process.env.SEO_STRAIN_WAVE_INITIAL = "10";
     process.env.SEO_STRAIN_WAVE_STEP_SIZE = "5";
     process.env.SEO_STRAIN_WAVE_STEP_DAYS = "7";
@@ -409,10 +461,18 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
     cleanEnv();
   });
 
-  test("legacy mode: SEO_STRAIN_WAVE alone still works without cadence vars", () => {
+  test("legacy mode: SEO_STRAIN_WAVE alone still works without cadence vars (clamped to corpus length)", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE = "7";
     assert.equal(getEffectiveWaveSize(), 7);
+    cleanEnv();
+  });
+
+  test("legacy mode: SEO_STRAIN_WAVE > corpus length clamps to STRAIN_SLUGS.length", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE = "999999";
+    // Legacy stopgap value 9999 currently in Vercel must NEVER exceed corpus.
+    assert.equal(getEffectiveWaveSize(), STRAIN_SLUGS.length);
     cleanEnv();
   });
 
@@ -420,7 +480,6 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
     cleanEnv();
     process.env.SEO_STRAIN_WAVE = "1";
     process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     const now = new Date("2026-05-30T12:00:00Z");
     // day 3 cadence = 35, beats legacy=1
     assert.equal(getEffectiveWaveSize(now), 35);
@@ -430,8 +489,25 @@ describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () =
   test("auto-cadence mode: malformed START_DATE returns 0 (fail-safe, not infinity-of-strains)", () => {
     cleanEnv();
     process.env.SEO_STRAIN_WAVE_START_DATE = "not-a-date";
-    process.env.SEO_STRAIN_WAVE_CAP = "229";
     assert.equal(getEffectiveWaveSize(), 0);
+    cleanEnv();
+  });
+
+  test("SEO_STRAIN_WAVE_CAP env-var is DEAD — setting it must NOT change behavior (Doug 2026-05-27 removal)", () => {
+    cleanEnv();
+    // Anti-regression: if a future refactor accidentally re-introduces
+    // SEO_STRAIN_WAVE_CAP, this test catches it. With cadence active, the
+    // wave must be driven by STRAIN_SLUGS.length, not by this leftover var.
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_INITIAL = "1";
+    process.env.SEO_STRAIN_WAVE_STEP_SIZE = "1000";
+    process.env.SEO_STRAIN_WAVE_STEP_DAYS = "1";
+    // Set the now-dead env var to a stupidly-low value; if it were still
+    // read, ceiling would be 5; with refactor, ceiling is STRAIN_SLUGS.length.
+    process.env.SEO_STRAIN_WAVE_CAP = "5";
+    const now = new Date("2026-06-27T00:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), STRAIN_SLUGS.length);
+    delete process.env.SEO_STRAIN_WAVE_CAP;
     cleanEnv();
   });
 });
