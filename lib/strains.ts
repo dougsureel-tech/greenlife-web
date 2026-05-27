@@ -15426,6 +15426,785 @@ export const STRAINS: Record<string, Strain> = {
       verifiedAt: "2026-05-27",
     },
   },
+
+  // ────────────────────────────────────────────────────────────────────
+  // TIER 2 — P1 + P2 + Doug-suggested + repeat-carry catalog adds (2026-05-27)
+  // Sister of Tier 1 adds (lines ~14640-15428). Authored individually per
+  // Doug's pinned anti-template-copy doctrine. WSLCB 314-55-155 compliant.
+  // ────────────────────────────────────────────────────────────────────
+
+  "studio-54": {
+    slug: "studio-54",
+    name: "Studio 54",
+    type: "hybrid",
+    aliases: ["Studio 54", "RS54", "Rainbow Sherbert #54", "Rainbow Sherbet 54"],
+    tagline: "Doja Pak premium — Sunset Sherbert × OZ Kush #54.",
+    intro:
+      "Studio 54 (often labeled RS54 on jars) is a Doja Pak / Deep East collab that crossed Sunset Sherbert with " +
+      "OZ Kush #54. Premium-shelf hybrid that's held its rotation slot from 2023 into 2026 — rare for a single " +
+      "Doja Pak cut to stay that long. The nose is candy-and-gas, the smoke runs creamy with a kush back-end. " +
+      "Pheno hunting on this one continues — the #54 cut is the one the brand stamps.",
+    lineage: "Sunset Sherbert × OZ Kush #54",
+    parents: ["sunset-sherbet", "oz-kush"],
+    thcRange: "26–32%",
+    cbdRange: "<1%",
+    effects: ["Euphoric", "Happy", "Relaxed", "Creative"],
+    terpenes: [
+      { name: "Limonene", note: "lead — candy-citrus brightness" },
+      { name: "Caryophyllene", note: "kush pepper underneath" },
+      { name: "Linalool", note: "soft floral on the back of the exhale" },
+    ],
+    flavor: ["Sherbet candy", "Gas funk", "Creamy citrus"],
+    bestFor: ["Premium-shelf pickups", "Doja Pak collectors", "Evening hybrid rotation"],
+    avoidIf: ["Budget-tier is what you're after", "Very low THC tolerance — these run hot"],
+    faqs: [
+      {
+        q: "Is Studio 54 the same as RS54?",
+        a: "Yes — RS54 is the breeder-side label (Rainbow Sherbert #54, the #54 pheno), Studio 54 is the consumer-facing name. Same genetics, same Doja Pak cut. Some growers carry one label, some the other.",
+      },
+      {
+        q: "What's the deal with the #54 pheno?",
+        a: "Doja Pak pheno-hunted the Rainbow Sherbert seedline and the #54 selection is the one they kept stamping. Other numbers existed in the hunt but didn't make the catalog. When you see RS54, that's specifically the kept cut.",
+      },
+      {
+        q: "How does Studio 54 compare to other Sherbert crosses?",
+        a: "The OZ Kush side gives it a kushier base than something like Lemon Cherry Gelato or straight Sunset Sherbet — there's a gas-and-funk anchor underneath the candy. Closer to the Black Amber side of the Doja Pak family than the pure-dessert side.",
+      },
+      {
+        q: "Why has Studio 54 stayed on premium shelves so long?",
+        a: "Most modern hybrid cuts cycle out within a year as the next-new-thing arrives. Studio 54 kept selling through 2023, 2024, 2025 because the THC numbers stay high batch-over-batch and the nose is distinctive enough that returning customers ask for it by name.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/rs-54",
+        "https://www.dojapak.com/",
+      ],
+      notes:
+        "Doja Pak / Deep East collab — Sunset Sherbert × OZ Kush #54. Both parents in corpus. Limonene-leading per brand notes. THC range reflects premium-shelf 2026 WA batches.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "cheetah-piss": {
+    slug: "cheetah-piss",
+    name: "Cheetah Piss",
+    type: "hybrid",
+    aliases: ["Cheetah Piss", "Cheetah"],
+    tagline: "Cookies cross — ammonia-bright citrus, sister to Gelato 42.",
+    intro:
+      "Cheetah Piss is a Cookies Fam release that crossed Lemonnade with Gelato 42 and London Pound Cake — the " +
+      "three-way bringing a sharp ammonia-citrus top note that gives the strain its punchy nickname. Hybrid that " +
+      "leans slightly indica but reads daytime-functional on most phenos. Already in the lineage of FaceLock " +
+      "(Thin Mint Cookies × Cheetah Piss) — now standalone in the corpus to anchor that parent reference.",
+    lineage: "Lemonnade × Gelato 42 × London Pound Cake",
+    parents: ["lemonnade", null, "london-pound-cake"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Happy", "Relaxed", "Talkative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "lead — peppery wood, ammonia-edge backbone" },
+      { name: "Limonene", note: "the citrus bright that cuts through the funk" },
+      { name: "Myrcene", note: "earthy under the top notes" },
+    ],
+    flavor: ["Ammonia citrus", "Sweet cream", "Peppery cookie"],
+    bestFor: ["Cookies-cohort regulars", "Sharp-aroma hunters", "Mid-afternoon rotation"],
+    avoidIf: ["Sharp ammonia-funk noses bother you", "You want gentle dessert sweetness"],
+    faqs: [
+      {
+        q: "Why is it called Cheetah Piss?",
+        a: "The aroma. Cookies Fam tagged the cross after the ammonia-citrus top note that hits when you crack a jar — sharp enough to be unmistakable, citrus enough to not be off-putting. Sister naming convention to RS11 'Pink Certz' (Cookies likes the punchy-name shape).",
+      },
+      {
+        q: "How is Cheetah Piss related to Cat Piss?",
+        a: "Different lineage entirely. Cat Piss is an older sativa-leaner with no Cookies-fam connection. Cheetah Piss shares the naming pattern but is a modern Cookies cross — Lemonnade × Gelato 42 × London Pound Cake. Same convention, separate strains.",
+      },
+      {
+        q: "Is the three-parent lineage actually verified?",
+        a: "Cookies Fam published the cross as the three-way; Leafly + Wikileaf both carry it that way. Some breeder accounts collapse it to Lemonnade × Gelato 42 (treating LPC as a stabilizing backcross). We keep the three-way on the page since Cookies' own listing carries it.",
+      },
+      {
+        q: "What does Cheetah Piss pair with shelf-wise?",
+        a: "Customers who like Cheetah Piss often pick up FaceLock (its direct child cross), Sugar Cone (sister Cookies-cohort cross), or Lemon Cherry Gelato when they want the Lemonnade-side citrus without the ammonia edge.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/cheetah-piss",
+        "https://cookiessf.com/",
+      ],
+      notes:
+        "Cookies Fam release. Three-parent cross per Cookies' own listing + Leafly. Lemonnade + London Pound Cake in corpus; Gelato 42 absent (kept null). Caryophyllene-leading. Parent of facelock (already in corpus).",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "sugar-cone": {
+    slug: "sugar-cone",
+    name: "Sugar Cone",
+    type: "hybrid",
+    aliases: ["Sugar Cone", "SC", "SugarCone"],
+    tagline: "Connected flagship — Gelato #45 × Cookies N' Cream cream-funk.",
+    intro:
+      "Sugar Cone is Connected Cannabis Co.'s flagship hybrid drop — Gelato #45 crossed with Cookies N' Cream — " +
+      "and one of the few non-Cookies-brand cuts that has held WA premium-shelf real estate against the Cookies " +
+      "juggernaut. The name reads dessert; the smoke reads creamy on the inhale, gas-funky on the exhale. " +
+      "Connected pheno-hunting is their thing — the cut they ship is intentional.",
+    lineage: "Gelato #45 × Cookies N' Cream",
+    parents: [null, "cookies-and-cream"],
+    thcRange: "24–30%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Euphoric", "Relaxed", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery base — Cookies N' Cream side" },
+      { name: "Limonene", note: "sweet citrus middle" },
+      { name: "Myrcene", note: "earth-cream undertone" },
+    ],
+    flavor: ["Cream funk", "Sweet vanilla", "Gas exhale"],
+    bestFor: ["Connected catalog regulars", "Premium-shelf evenings", "Dessert-cohort variety"],
+    avoidIf: ["You want a clearly indica or sativa pick", "Cream-funk noses aren't your thing"],
+    faqs: [
+      {
+        q: "What makes Sugar Cone a Connected flagship?",
+        a: "Connected built their reputation on tight pheno-hunting + limited drops; Sugar Cone is one of the cuts they've kept in long-term rotation rather than cycling out. That means the genetics are stable enough that batch-over-batch character doesn't drift much.",
+      },
+      {
+        q: "Is the Gelato #45 pheno different from regular Gelato?",
+        a: "Yes — the #45 selection runs creamier and slightly heavier than the original Gelato seedline. Sherbinski's numbered phenos (33, 41, 45) each have their own character; #45 is the one Connected picked for this cross.",
+      },
+      {
+        q: "How does Sugar Cone smell vs taste?",
+        a: "The jar nose is sweet-cream with a gas funk underneath. On the inhale that creaminess leads; on the exhale the gas comes forward and a slight peppery warmth lands. Closer to actual cream-and-vanilla than most 'dessert' strains.",
+      },
+      {
+        q: "When do regulars pick Sugar Cone?",
+        a: "Best fit is evening rotation — the cross runs heavy enough on the body side that most customers save it for after-dinner sessions. Sativa-tolerant regulars sometimes reach for it earlier; phenotype matters here.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/sugar-cone",
+        "https://connected.shop/",
+      ],
+      notes:
+        "Connected Cannabis Co. flagship. Cookies N' Cream parent in corpus; Gelato #45 specific pheno absent (kept null). Caryophyllene-leading per Connected catalog notes.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "apple-pie": {
+    slug: "apple-pie",
+    name: "Apple Pie",
+    type: "hybrid",
+    aliases: ["Apple Pie", "AP"],
+    tagline: "Apple cohort modern variant — lineage debated, profile real.",
+    intro:
+      "Apple Pie sits in the apple-cohort of modern hybrids alongside Apple Fritter, Granny Apple Runtz, and " +
+      "Apple Sundae. Lineage is genuinely debated — Apple Fritter is the consistent parent across breeder " +
+      "accounts but the second-side varies (Sour Apple, Animal Cookies, and others all show up depending on " +
+      "the source). Baked-apple-and-pastry nose, hybrid effect profile. We mark it debated rather than pick one " +
+      "for cleanliness.",
+    lineage: "Apple Fritter × (debated)",
+    parents: ["apple-fritter", null],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Hungry", "Sleepy"],
+    terpenes: [
+      { name: "Caryophyllene", note: "warm pepper-pastry" },
+      { name: "Limonene", note: "tart-apple brightness" },
+      { name: "Myrcene", note: "baked-fruit earthiness" },
+    ],
+    flavor: ["Baked apple", "Pastry crust", "Sweet spice"],
+    bestFor: ["Apple-cohort fans", "Cozy-evening picks", "Comfort-aroma seekers"],
+    avoidIf: ["You need a clear lineage answer", "Heavy sweet aromas turn you off"],
+    lineageAlternates: [
+      "Apple Fritter × Sour Apple",
+      "Apple Fritter × Animal Cookies",
+      "Apple Fritter × LA Confidential",
+    ],
+    faqs: [
+      {
+        q: "Why is Apple Pie's lineage debated?",
+        a: "Different growers carry different crosses under the same name. Apple Fritter is the one parent that shows up across most sources; the second parent varies — Sour Apple, Animal Cookies, and a few others all appear in different breeder writeups. We list it debated rather than pick one source over another.",
+      },
+      {
+        q: "Is Apple Pie the same as Apple Fritter?",
+        a: "No — Apple Fritter is a parent. Apple Pie is downstream, with a different second-side parent (varies by grower). The two share the cinnamon-pastry aroma profile but Apple Pie generally runs slightly heavier on the body side.",
+      },
+      {
+        q: "What's the apple cohort in modern cannabis?",
+        a: "A loose grouping of crosses built on Apple Fritter — Apple Pie, Granny Apple Runtz, Apple Sundae, Apple Fritter Crasher, and others. They share the baked-apple-and-pastry aroma signature and most lean dessert-hybrid. Different breeders, similar end-state.",
+      },
+      {
+        q: "What does Apple Pie taste like?",
+        a: "The nose is baked apple with a cinnamon-pastry layer. On the smoke that sweet-spice character carries through and lands on a slightly tart-apple exhale. Closer to actual apple-pie aroma than most fruit-named hybrids manage.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/apple-pie",
+        "https://en.seedfinder.eu/strain-info/Apple_Pie/",
+      ],
+      notes:
+        "Apple Fritter consistent across breeder accounts; second parent varies. Listed debated. Apple Fritter parent in corpus; second-side null. Caryophyllene-leading. THC range reflects WA shelf data 2026.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "granny-apple-runtz": {
+    slug: "granny-apple-runtz",
+    name: "Granny Apple Runtz",
+    type: "hybrid",
+    aliases: ["Granny Apple Runtz", "GAR", "Granny Apple"],
+    tagline: "Apple Fritter × Runtz — the cookie-cohort apple bridge.",
+    intro:
+      "Granny Apple Runtz bridges the two biggest cookie-cohort jars on a shelf: Apple Fritter and Runtz. Both " +
+      "parents already carry strong WA demand on their own, and the cross brings the tart-apple bite of the " +
+      "Granny Smith side of the Apple Fritter line together with the candy-sweet Runtz signature. Hybrid that " +
+      "tends to lean slightly indica on most phenos — body-loose without being couch-locked.",
+    lineage: "Apple Fritter × Runtz",
+    parents: ["apple-fritter", "runtz"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Hungry"],
+    terpenes: [
+      { name: "Limonene", note: "lead — bright candy-apple citrus" },
+      { name: "Caryophyllene", note: "warm spice underneath" },
+      { name: "Myrcene", note: "earthy backbone" },
+    ],
+    flavor: ["Tart apple", "Candy sweet", "Pastry warmth"],
+    bestFor: ["Apple Fritter + Runtz crossover fans", "Afternoon-into-evening rotation", "Cookie-cohort variety pickups"],
+    avoidIf: ["You want one parent's character without the other", "Tart-fruit aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Is Granny Apple Runtz related to Granny Smith apples?",
+        a: "Naming reference, not genetics. The 'Granny' label leans on the Granny Smith side of the Apple Fritter aroma — that tart-apple bite. Cannabis strains aren't bred from fruit; the name signals what the aroma reminds growers of.",
+      },
+      {
+        q: "How does this compare to straight Runtz?",
+        a: "The Apple Fritter side adds a tart-apple top note that pure Runtz doesn't carry — Runtz on its own is sweeter-candy with no fruit-bite. The body weight on Granny Apple Runtz also tends to land a bit heavier than the original Runtz phenotype.",
+      },
+      {
+        q: "Is Granny Apple Runtz a Cookies-fam strain?",
+        a: "Indirectly — Runtz is on the Cookies side of modern breeding, but Granny Apple Runtz itself isn't a Cookies-branded release. Different growers carry their own pheno cuts, which is why batch character can shift jar to jar.",
+      },
+      {
+        q: "What time of day works for Granny Apple Runtz?",
+        a: "Mid-to-late afternoon tends to fit best — early enough that the body weight isn't a problem, late enough that you're past the need for sharp head-up energy. Some indica-leaning phenos push it firmly into evening territory.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/granny-apple-runtz",
+        "https://en.seedfinder.eu/strain-info/Granny_Apple/",
+      ],
+      notes:
+        "Apple Fritter × Runtz — both parents in corpus. Limonene-leading per Leafly. Multiple grower phenos circulating; specific breeder of record varies.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "lemonnade": {
+    slug: "lemonnade",
+    name: "Lemonnade",
+    type: "sativa",
+    aliases: ["Lemonnade", "Lemonade", "Cookies Lemonnade"],
+    tagline: "Cookies sativa flagship — distinct from Lemon Skunk.",
+    intro:
+      "Lemonnade is Cookies' sativa flagship — Lemon Skunk crossed with Las Vegas Lemon Skunk, intentionally " +
+      "stacking the citrus side of the lineage. Distinct shelf identity from straight Lemon Skunk: brighter on " +
+      "the nose, slightly more head-clear on the effect. Already shows up across the corpus as a parent (Lemon " +
+      "Cherry Gelato, Cheetah Piss) — adding the standalone page closes the gap.",
+    lineage: "Lemon Skunk × Las Vegas Lemon Skunk",
+    parents: [null, null],
+    thcRange: "19–24%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Energetic", "Creative", "Happy"],
+    terpenes: [
+      { name: "Limonene", note: "lead — sharp lemon-rind brightness" },
+      { name: "Terpinolene", note: "the citrus-cool finish" },
+      { name: "Caryophyllene", note: "warm peppery edge" },
+    ],
+    flavor: ["Sharp lemon", "Sweet citrus", "Skunk underbelly"],
+    bestFor: ["Morning sativa picks", "Citrus-cohort regulars", "Creative work sessions"],
+    avoidIf: ["You're sensitive to head-up energy", "Sharp citrus aromas turn you off"],
+    faqs: [
+      {
+        q: "What's the difference between Lemonnade and Lemon Skunk?",
+        a: "Lemonnade is built on Lemon Skunk × Las Vegas Lemon Skunk — the second parent stacks the citrus side. The result is brighter on the nose and slightly more head-clear than straight Lemon Skunk, which has more of the skunky underbelly forward.",
+      },
+      {
+        q: "Why is the spelling 'Lemonnade' and not 'Lemonade'?",
+        a: "Cookies' branding choice — the extra 'n' is intentional and trademark-distinct. Some POS systems and casual references drop it; the canonical Cookies label keeps both n's.",
+      },
+      {
+        q: "Where else does Lemonnade appear in the lineage tree?",
+        a: "It's a parent of Lemon Cherry Gelato (one of the biggest modern Cookies crosses) and Cheetah Piss (three-way Cookies release). Both of those carry Lemonnade as the citrus-stack contribution. The standalone Lemonnade page closes the gap where those parent references used to dead-end.",
+      },
+      {
+        q: "Is Lemonnade Washington-shelf-available?",
+        a: "Yes — Cookies products land on WA premium shelves and Lemonnade rotates in and out as flower or pre-rolls depending on the producer-processor. Availability varies week to week; not all WA-licensed Cookies SKUs land at every store.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/lemonnade",
+        "https://cookiessf.com/",
+      ],
+      notes:
+        "Cookies Fam release — Lemon Skunk × Las Vegas Lemon Skunk. Neither parent in corpus (both kept null; both are landrace-adjacent skunk lines). Limonene-leading per Cookies brand notes. Parent of lemon-cherry-gelato + cheetah-piss in corpus.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "durban-cookies": {
+    slug: "durban-cookies",
+    name: "Durban Cookies",
+    type: "hybrid",
+    aliases: ["Durban Cookies", "Durban GSC"],
+    tagline: "Durban Poison × GSC — the daytime-cookie cross.",
+    intro:
+      "Durban Cookies takes Durban Poison's clean African-sativa energy and crosses it with the GSC dessert " +
+      "anchor. Hybrid that runs closer to the sativa side than most cookie crosses — the Durban side dominates " +
+      "the head profile while the GSC layer adds a sweet-spice character to what would otherwise be a more " +
+      "spear-mint-and-licorice Durban nose. Both parents are already corpus members, which closes the lineage " +
+      "graph cleanly on both sides.",
+    lineage: "Durban Poison × Girl Scout Cookies",
+    parents: ["durban-poison", "girl-scout-cookies"],
+    thcRange: "20–25%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Energetic", "Creative", "Happy"],
+    terpenes: [
+      { name: "Terpinolene", note: "lead — the Durban side's spear-mint cool" },
+      { name: "Caryophyllene", note: "GSC pepper anchor" },
+      { name: "Limonene", note: "sweet citrus through the middle" },
+    ],
+    flavor: ["Spear mint", "Sweet spice", "Licorice undertone"],
+    bestFor: ["Daytime sativa-leaning hybrid", "Durban Poison regulars wanting more body", "Creative work mornings"],
+    avoidIf: ["You want pure dessert sweetness", "You're sensitive to terpinolene's cool finish"],
+    faqs: [
+      {
+        q: "Is Durban Cookies more sativa or hybrid?",
+        a: "Falls on the sativa-leaning side of hybrid — closer to Durban Poison's character than to GSC's body weight. The Durban side dominates the effect arc on most phenos; the GSC side adds a slight body relaxation that pure Durban lacks.",
+      },
+      {
+        q: "How does Durban Cookies smell different from regular GSC?",
+        a: "The Durban parent brings spear-mint and licorice notes that pure GSC doesn't carry. So you get the GSC sweet-spice base but with that cooler-mint top layer. Closer to a chocolate-mint-cookie aroma than the straight-cookie GSC profile.",
+      },
+      {
+        q: "What's a Durban-leaning GSC phenotype?",
+        a: "When growers hunt the seedline they keep cuts that lean more toward one parent or the other. Durban-leaning phenos prioritize the spear-mint Durban side; GSC-leaning phenos prioritize the dessert side. The label 'Durban Cookies' is typically the Durban-forward cut.",
+      },
+      {
+        q: "Is Durban Cookies good for morning use?",
+        a: "Yes — the Durban side's head-up character makes this one of the more morning-friendly cookie crosses. Customers who find regular GSC too body-heavy for daytime use sometimes rotate Durban Cookies in instead.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/durban-cookies",
+        "https://en.seedfinder.eu/strain-info/Durban_Cookies/",
+      ],
+      notes:
+        "Durban Poison × GSC — both parents in corpus. Terpinolene-leading per Leafly. THC range reflects WA shelf data 2026.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "white-cherries": {
+    slug: "white-cherries",
+    name: "White Cherries",
+    type: "hybrid",
+    aliases: ["White Cherries", "White Cherry"],
+    tagline: "White Truffle × Trop Cherry — funk meets fruit.",
+    intro:
+      "White Cherries crosses White Truffle with Tropicana Cherry — pulling the gas-and-funk side of the White " +
+      "Truffle family together with the fruit-forward Trop Cherry top notes. Hybrid that reads cherry-sweet on " +
+      "the open and lands gas-funky on the back end. White Truffle is the breeder anchor; Trop Cherry is the " +
+      "shorthand pheno label many growers use for cuts derived from Tropicana Cherry (corpus member).",
+    lineage: "White Truffle × Tropicana Cherry",
+    parents: [null, "tropicana-cherry"],
+    thcRange: "23–29%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "lead — White Truffle gas-pepper backbone" },
+      { name: "Limonene", note: "the cherry-bright citrus middle" },
+      { name: "Linalool", note: "soft floral cherry on the exhale" },
+    ],
+    flavor: ["Cherry sweet", "Gas funk", "Earthy truffle"],
+    bestFor: ["Cherry-cohort fans", "Premium-shelf evening picks", "Gas-funk regulars wanting fruit variety"],
+    avoidIf: ["You want pure dessert without gas", "Truffle-earthiness aromas put you off"],
+    faqs: [
+      {
+        q: "How does White Cherries differ from White Truffle alone?",
+        a: "The Trop Cherry side adds a sweet-cherry top note that pure White Truffle doesn't carry. White Truffle on its own is gas-and-earth-forward; the cherry layer brightens the aroma without losing the funky base.",
+      },
+      {
+        q: "Is Trop Cherry the same as Tropicana Cherry?",
+        a: "Same family, slightly different pheno labels. Different growers use 'Trop Cherry' as the abbreviated form; the lineage is shared. Pheno hunts within Tropicana Cherry produce the cut that breeders cross into other lines.",
+      },
+      {
+        q: "What does the truffle-side aroma actually smell like?",
+        a: "Earthy and slightly mushroom-funky — White Truffle's name leans on that. In White Cherries the cherry top note covers most of it on the open jar; the truffle character shows up more on the exhale and on later jar-ages.",
+      },
+      {
+        q: "When do regulars pick White Cherries?",
+        a: "Reads as a sit-down-for-the-night strain on most batches — the White Truffle body weight is heavy enough that morning use isn't the right context. The cherry sweetness pulls cherry-cohort regulars (Cherry Pie, Cherry Garcia) toward trying it as a heavier variant.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/white-cherries",
+        "https://en.seedfinder.eu/strain-info/White_Cherries/",
+      ],
+      notes:
+        "White Truffle × Tropicana Cherry. White Truffle absent from corpus (kept null); tropicana-cherry in corpus. Caryophyllene-leading. THC range reflects WA premium-shelf batches.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "orange-drizzle": {
+    slug: "orange-drizzle",
+    name: "Orange Drizzle",
+    type: "hybrid",
+    aliases: ["Orange Drizzle", "OD"],
+    tagline: "Evermore drop — Mimosa × Wedding Cake, citrus over dessert.",
+    intro:
+      "Orange Drizzle is an Evermore Cannabis Company release that crossed Mimosa with Wedding Cake — putting " +
+      "Mimosa's bright orange-blossom top notes over Wedding Cake's vanilla-pastry base. Hybrid that reads " +
+      "sativa-leaning on the nose, indica-leaning on the body — the Wedding Cake side weighs the effect arc " +
+      "heavier than the Mimosa side would alone. Both parents are corpus members so the parent-link chain is " +
+      "intact in the family graph.",
+    lineage: "Mimosa × Wedding Cake",
+    parents: ["mimosa", "wedding-cake"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Uplifted", "Hungry"],
+    terpenes: [
+      { name: "Limonene", note: "lead — Mimosa orange brightness" },
+      { name: "Caryophyllene", note: "Wedding Cake pepper-vanilla" },
+      { name: "Myrcene", note: "earthy base under the citrus" },
+    ],
+    flavor: ["Orange blossom", "Sweet vanilla", "Citrus glaze"],
+    bestFor: ["Citrus-cohort fans", "Wedding Cake regulars wanting variety", "Late-afternoon transition"],
+    avoidIf: ["You want either pure Mimosa or pure Wedding Cake character", "Citrus glaze isn't your aroma family"],
+    faqs: [
+      {
+        q: "What's an Evermore release?",
+        a: "Evermore Cannabis Company is a producer-processor that does limited-run drops. Their releases tend to lean small-batch and cycle in and out of the market rather than maintain steady year-round shelves. Orange Drizzle is one of their flagship pheno-hunts.",
+      },
+      {
+        q: "Does Orange Drizzle taste like an actual orange drizzle?",
+        a: "Closer than most citrus-themed strain names get. The Mimosa side carries genuine orange-blossom top notes; the Wedding Cake side brings the vanilla-glaze sweetness. Together the nose reads as orange citrus over baked pastry — the 'drizzle' label fits.",
+      },
+      {
+        q: "Is Orange Drizzle more like Mimosa or Wedding Cake?",
+        a: "Splits the difference but the Wedding Cake side weighs heavier on the body. The aroma leans Mimosa; the effect leans Wedding Cake. Customers who liked one parent but found the other too one-sided often land on this cross as the middle ground.",
+      },
+      {
+        q: "When does Orange Drizzle show up on WA shelves?",
+        a: "Availability is irregular — Evermore drops cycle and the cut doesn't always land in every WA-licensed dispensary. When it shows up it tends to sell through quickly in the premium shelves. Ask a budtender if a current batch is on the floor.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/orange-drizzle",
+        "https://evermorecannabis.com/",
+      ],
+      notes:
+        "Evermore Cannabis Company release. Mimosa × Wedding Cake — both parents in corpus. Limonene-leading. Availability irregular per Evermore drop cadence.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "sour-haze": {
+    slug: "sour-haze",
+    name: "Sour Haze",
+    type: "sativa",
+    aliases: ["Sour Haze", "SH"],
+    tagline: "Jah Goo × SSH × Sour Diesel — three-way sativa stack.",
+    intro:
+      "Sour Haze is a three-way sativa stack: (Jah Goo × Super Silver Haze) crossed back into Sour Diesel. Two " +
+      "of the three contributors are corpus members (Super Silver Haze + Sour Diesel) so the lineage graph " +
+      "completes the way most three-way crosses don't. Pure-sativa character on the head profile, fuel-and-haze " +
+      "nose, energy that comes on sharp and stays. Regulars who can't tolerate modern hybrid THC numbers often " +
+      "land here as the 'old-school sativa upgrade.'",
+    lineage: "(Jah Goo × Super Silver Haze) × Sour Diesel",
+    parents: [null, "sour-diesel"],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Creative", "Focused"],
+    terpenes: [
+      { name: "Terpinolene", note: "lead — the Haze-side cool brightness" },
+      { name: "Limonene", note: "Sour Diesel citrus-fuel layer" },
+      { name: "Caryophyllene", note: "warm pepper underneath" },
+    ],
+    flavor: ["Diesel fuel", "Haze pine", "Citrus zest"],
+    bestFor: ["Pure-sativa rotation", "Haze-cohort regulars", "Morning creative work"],
+    avoidIf: ["You're sensitive to high-energy sativas", "You want body weight, not head clarity"],
+    faqs: [
+      {
+        q: "Why is it a three-way cross instead of two-way?",
+        a: "Breeders stack three parents when they want a specific terpene or effect to come forward more strongly than a two-way would deliver. In Sour Haze, the Jah Goo × Super Silver Haze first-step builds the Haze backbone, then the Sour Diesel cross adds the fuel-citrus top notes. The result is more 'Sour' than a straight Haze cross would be.",
+      },
+      {
+        q: "What's Jah Goo?",
+        a: "Jah Goo is a TGA Subcool / TGA Genetics indica-leaning cross — relatively obscure on modern shelves but used by breeders as a stabilizing parent in three-way stacks like Sour Haze. We don't carry it as a standalone strain page yet.",
+      },
+      {
+        q: "How does Sour Haze compare to straight Sour Diesel?",
+        a: "Sour Haze runs slightly more head-clear and slightly less body — the Haze side adds clarity that pure Sour Diesel doesn't carry as strongly. Customers who like Sour D but find it occasionally edgy often pick up Sour Haze when they want the same fuel-citrus character with a smoother head profile.",
+      },
+      {
+        q: "Is Sour Haze a good morning sativa?",
+        a: "Yes — head-up energy lasts hours on most phenos. Customers who reach for Jack Herer or Sour Diesel in the morning rotation often add Sour Haze as a third option when they want variety inside the same energy-arc.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/sour-haze",
+        "https://en.seedfinder.eu/strain-info/Sour_Haze/",
+      ],
+      notes:
+        "Three-way: (Jah Goo × Super Silver Haze) × Sour Diesel. SSH + Sour Diesel in corpus; Jah Goo absent (kept null, first-half of three-way reduced to single parent in graph). Terpinolene-leading per Leafly.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "golden-pineapple": {
+    slug: "golden-pineapple",
+    name: "Golden Pineapple",
+    type: "sativa",
+    aliases: ["Golden Pineapple", "GP", "Gold Pineapple"],
+    tagline: "Golden Goat × Pineapple — tropical sativa-leaning hybrid.",
+    intro:
+      "Golden Pineapple crosses Golden Goat with Pineapple — keeping the tropical-fruit top notes of the " +
+      "Pineapple side and the sour-tropical complexity Golden Goat brings. Sativa-leaning hybrid that suits " +
+      "daytime rotation; the head profile stays clear enough for work, the body weight doesn't push toward " +
+      "couch territory. WA shelves carry it intermittently; growers tend to label it under the Golden Pineapple " +
+      "name even when the underlying pheno is a Golden Goat-leaning cut.",
+    lineage: "Golden Goat × Pineapple",
+    parents: [null, null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Uplifted", "Happy", "Creative", "Energetic"],
+    terpenes: [
+      { name: "Terpinolene", note: "lead — tropical-cool top notes" },
+      { name: "Limonene", note: "sweet citrus middle" },
+      { name: "Myrcene", note: "earthy fruit underbelly" },
+    ],
+    flavor: ["Tropical pineapple", "Sweet citrus", "Sour fruit"],
+    bestFor: ["Daytime sativa-leaning rotation", "Tropical-fruit aroma fans", "Creative-work mornings"],
+    avoidIf: ["You're sensitive to high-terpinolene sativas", "Sweet tropical aromas turn you off"],
+    faqs: [
+      {
+        q: "Is Golden Pineapple related to Pineapple Express?",
+        a: "Indirectly — both share the Pineapple lineage on one parent, but Golden Pineapple uses Golden Goat as the other side while Pineapple Express uses Trainwreck. Different second-parent, similar tropical-fruit aroma family.",
+      },
+      {
+        q: "What's Golden Goat?",
+        a: "Golden Goat is a Colorado-originated sativa-leaning hybrid (Hawaiian × Romulan × Island Sweet Skunk lineage in most accounts). Known for sour-tropical aroma and head-clear energy. Used as a parent in several modern sativa crosses; not commonly carried as a standalone on WA shelves anymore.",
+      },
+      {
+        q: "How does Golden Pineapple smell vs taste?",
+        a: "The jar nose reads pineapple-sweet with a sour-citrus edge. On the smoke that tropical sweetness leads, then a slightly sour exhale lands — closer to actual pineapple-juice character than most fruit-named strains achieve.",
+      },
+      {
+        q: "When do regulars pick Golden Pineapple?",
+        a: "Morning and early-afternoon rotation. The sativa lean keeps the energy head-up, and customers who reach for Pineapple Express or Jack Herer often rotate this in for variety inside the same daytime-sativa lane.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/golden-pineapple",
+        "https://en.seedfinder.eu/strain-info/Golden_Pineapple/",
+      ],
+      notes:
+        "Golden Goat × Pineapple. Neither parent in corpus (kept null). Terpinolene-leading per Leafly. THC range reflects WA shelf data 2026.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "og-chem": {
+    slug: "og-chem",
+    name: "OG Chem",
+    type: "hybrid",
+    aliases: ["OG Chem", "OGC", "OG Chemdawg"],
+    tagline: "OG Kush × Chemdawg — the foundational gas-cohort cross.",
+    intro:
+      "OG Chem is the direct cross of OG Kush and Chemdawg — two of the most-influential strains in modern " +
+      "cannabis combined. Distinct from Chemdawg itself (Chemdawg is one of the parents OF OG Kush, so OG Chem " +
+      "loops back on the family tree); shelves carry it as its own labeled strain rather than under either " +
+      "parent's name. Heavy gas-and-fuel aroma, hybrid effect that runs slightly indica on most phenos. Both " +
+      "parents already corpus members.",
+    lineage: "OG Kush × Chemdawg",
+    parents: ["og-kush", "chemdawg"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Sleepy"],
+    terpenes: [
+      { name: "Caryophyllene", note: "lead — gas-pepper backbone from both parents" },
+      { name: "Limonene", note: "OG citrus brightness" },
+      { name: "Myrcene", note: "kush earthiness" },
+    ],
+    flavor: ["Diesel fuel", "Pine kush", "Earthy citrus"],
+    bestFor: ["Gas-cohort regulars", "OG Kush + Chemdawg crossover fans", "Evening rotation"],
+    avoidIf: ["You want sweet dessert-cohort character", "Fuel aromas put you off"],
+    faqs: [
+      {
+        q: "Is OG Chem the same as Chemdawg?",
+        a: "No — they're closely related but distinct. Chemdawg is one of the original parents that produced OG Kush (per the most-cited OG Kush origin story). OG Chem is then the cross of OG Kush back to Chemdawg, which loops on the family tree but creates its own labeled cut. Different strain pages, related lineage.",
+      },
+      {
+        q: "Why cross two strains that are already related?",
+        a: "Backcrossing (and near-backcrossing) is a breeder technique that stabilizes specific traits. By crossing OG Kush back into one of its own parents, breeders push the genetics toward the Chemdawg side more strongly than the original OG Kush phenotype expressed. The result is heavier on gas-fuel character than straight OG Kush.",
+      },
+      {
+        q: "How does OG Chem smell compared to OG Kush?",
+        a: "Heavier on the fuel-diesel side. OG Kush has a piney-kush base with citrus brightness; OG Chem amplifies the diesel character (from the Chemdawg reinforcement) while keeping the OG pine. Closer to straight Chemdawg's nose than to OG Kush's nose.",
+      },
+      {
+        q: "Is OG Chem an alias for Chemdawg or a separate strain?",
+        a: "Separate strain. Some growers casually use 'Chem' as shorthand for Chemdawg, but 'OG Chem' specifically refers to the OG Kush × Chemdawg cross. If a budtender says 'OG Chem,' they mean the cross — not the original Chemdawg.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/og-chem",
+        "https://en.seedfinder.eu/strain-info/OG_Chem/",
+      ],
+      notes:
+        "OG Kush × Chemdawg — both parents in corpus. Loops on family tree (Chemdawg is also OG Kush parent per origin story). Caryophyllene-leading. Distinct from Chemdawg per Leafly's separate strain listings.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "candy-mac": {
+    slug: "candy-mac",
+    name: "Candy Mac",
+    type: "hybrid",
+    aliases: ["Candy Mac", "CM", "MAC Candy"],
+    tagline: "MAC × Candy lineage — funky cookies with candy-sweet top notes.",
+    intro:
+      "Candy Mac crosses MAC (Miracle Alien Cookies) with the candy-lineage side of modern breeding — the " +
+      "second parent varies across breeder accounts (sometimes a specific Candy Land cut, sometimes a Zkittlez " +
+      "pheno-hunt). MAC stays the consistent contributor and brings the funky-cookies character; the candy " +
+      "layer brightens the aroma without losing MAC's signature gas-pepper base. Surfaced at Wen on the live " +
+      "shelf in 2026 spring rotation.",
+    lineage: "MAC × Candy (debated)",
+    parents: ["mac", null],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Euphoric", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "lead — MAC pepper-gas anchor" },
+      { name: "Limonene", note: "candy-sweet citrus brightness" },
+      { name: "Linalool", note: "soft floral candy on the exhale" },
+    ],
+    flavor: ["Sweet candy", "MAC gas funk", "Floral pastry"],
+    bestFor: ["MAC regulars wanting candy variety", "Cookie-cohort variety pickups", "Afternoon-into-evening transitions"],
+    avoidIf: ["You want pure MAC without the candy layer", "Sweet candy aromas aren't your thing"],
+    lineageAlternates: [
+      "MAC × Candy Land",
+      "MAC × Zkittlez (specific pheno)",
+    ],
+    faqs: [
+      {
+        q: "Why is Candy Mac's second parent debated?",
+        a: "Different growers cross MAC with different candy-lineage parents and ship the result under the same name. Some carry MAC × Candy Land; others ship MAC × Zkittlez phenos. MAC stays consistent; the second side varies. We mark it debated rather than pick one as canonical.",
+      },
+      {
+        q: "How does Candy Mac compare to straight MAC?",
+        a: "The candy parent brightens the top of the aroma — pure MAC has a more gas-and-cookies forward nose, while Candy Mac runs sweeter and slightly more floral on the open jar. The body weight is comparable on most phenos.",
+      },
+      {
+        q: "Is this related to Candy Land?",
+        a: "Possibly — some Candy Mac cuts are specifically MAC × Candy Land. Others use a different candy-lineage parent. If the second parent matters to you for picking, ask a budtender what cut the current batch was sourced from; growers sometimes know.",
+      },
+      {
+        q: "Where did the name Candy Mac surface?",
+        a: "Wen's 2026 spring shelf carried it as a live SKU under that label. Surfaced through the repeat-carry matcher analysis (multiple-period vendor data) — added to the corpus to close the gap where the matcher previously had no canonical strain page to map it to.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/candy-mac",
+        "https://en.seedfinder.eu/strain-info/Candy_Mac/",
+      ],
+      notes:
+        "MAC × Candy lineage — second parent debated across grower accounts. MAC in corpus; second side null. Caryophyllene-leading. Sourced from Wen 2026 spring shelf carry.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "lemon-og": {
+    slug: "lemon-og",
+    name: "Lemon OG",
+    type: "hybrid",
+    aliases: ["Lemon OG", "Lemon OG Kush", "LOG"],
+    tagline: "OG Kush × Lemon Skunk — citrus-forward kush hybrid.",
+    intro:
+      "Lemon OG crosses OG Kush with Lemon Skunk — the result keeps OG Kush's weight and gas-kush backbone " +
+      "while the Lemon Skunk side stacks citrus brightness on top. Hybrid that runs slightly indica on body " +
+      "weight but stays head-functional enough for afternoon rotation. Already referenced as a parent in the " +
+      "corpus (Strawberry Lemonade lineage); adding the standalone page closes the gap. Surfaced at Wen as a " +
+      "live SKU in 2026 spring rotation.",
+    lineage: "OG Kush × Lemon Skunk",
+    parents: ["og-kush", null],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Uplifted", "Hungry"],
+    terpenes: [
+      { name: "Limonene", note: "lead — sharp Lemon Skunk citrus" },
+      { name: "Caryophyllene", note: "OG kush pepper anchor" },
+      { name: "Myrcene", note: "earthy body underneath" },
+    ],
+    flavor: ["Sharp lemon", "Pine kush", "Sweet citrus"],
+    bestFor: ["OG Kush regulars wanting citrus brightness", "Afternoon hybrid rotation", "Lemon-cohort variety"],
+    avoidIf: ["You want pure OG Kush character without citrus", "Sharp lemon aromas turn you off"],
+    faqs: [
+      {
+        q: "Is Lemon OG the same as Super Lemon OG?",
+        a: "Different. Super Lemon OG is a separate cross (Las Vegas Lemon Skunk × OG Kush in most accounts) that runs more sativa-leaning. Lemon OG is the OG Kush × Lemon Skunk cross — closer to OG Kush in body weight, with citrus-stack instead of the heavier-citrus Super Lemon variant.",
+      },
+      {
+        q: "Why is OG Kush the dominant character even with Lemon Skunk on the other side?",
+        a: "OG Kush is a high-impact parent — its kush backbone and gas-pepper character tend to express strongly across most crosses it shows up in. Lemon Skunk adds the bright citrus top notes but doesn't dominate the body-weight side of the effect arc.",
+      },
+      {
+        q: "Which downstream crosses use Lemon OG as a parent?",
+        a: "Strawberry Lemonade (Strawberry Cough × Lemon OG, the Barney's Farm cross) is the corpus-side example. The standalone Lemon OG page closes the gap where that parent reference used to dead-end without a clickable upstream node.",
+      },
+      {
+        q: "How does Lemon OG smell on the inhale vs exhale?",
+        a: "Inhale leads with sharp Lemon Skunk citrus and a slight skunk underbelly; exhale shifts toward the OG Kush pine and gas-pepper character. The transition is one of the recognizable signatures — citrus into kush rather than either one dominating start to finish.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/lemon-og",
+        "https://en.seedfinder.eu/strain-info/Lemon_OG/",
+      ],
+      notes:
+        "OG Kush × Lemon Skunk. OG Kush in corpus; Lemon Skunk absent (kept null — landrace-adjacent). Limonene-leading. Parent of strawberry-lemonade in corpus. Sourced from Wen 2026 spring shelf carry.",
+      verifiedAt: "2026-05-27",
+    },
+  },
 };
 
 export const STRAIN_SLUGS = Object.keys(STRAINS);
