@@ -14688,11 +14688,48 @@ export function getStrain(slug: string): Strain | undefined {
   return STRAINS[slug];
 }
 
-/** SEO wave gating — only slugs ≤ SEO_STRAIN_WAVE index get indexed.
- *  Default 0 (none indexed). Per Doug 2026-05-14 cadence-gate doctrine. */
-export function isStrainInWave(slug: string): boolean {
+/** SEO wave gating — only slugs at index < effective-wave get indexed.
+ *  Per Doug 2026-05-14 cadence-gate doctrine + 2026-05-27 auto-cadence
+ *  upgrade. Two modes:
+ *
+ *  AUTO-CADENCE mode (preferred — set both `SEO_STRAIN_WAVE_START_DATE`
+ *  + `SEO_STRAIN_WAVE_CAP`):
+ *    wave = min(CAP, INITIAL + floor(days_since_start / STEP_DAYS) * STEP_SIZE)
+ *    Defaults: INITIAL=25, STEP_SIZE=10, STEP_DAYS=3.
+ *    Sitemap revalidates every 30min so the cadence picks up automatically
+ *    each day without a redeploy. Override defaults via
+ *    `SEO_STRAIN_WAVE_INITIAL` / `SEO_STRAIN_WAVE_STEP_SIZE` /
+ *    `SEO_STRAIN_WAVE_STEP_DAYS`.
+ *
+ *  LEGACY mode (`SEO_STRAIN_WAVE` only — preserved for backwards-compat
+ *  + as a hard manual override): the env-var integer IS the wave. */
+export function getEffectiveWaveSize(now: Date = new Date()): number {
+  const startStr = process.env.SEO_STRAIN_WAVE_START_DATE;
+  const capStr = process.env.SEO_STRAIN_WAVE_CAP;
+  if (startStr && capStr) {
+    const cap = parseInt(capStr, 10);
+    if (!Number.isFinite(cap) || cap < 0) return 0;
+    const start = new Date(startStr);
+    if (Number.isNaN(start.getTime())) return 0;
+    const initial = parseInt(process.env.SEO_STRAIN_WAVE_INITIAL ?? "25", 10);
+    const stepSize = parseInt(process.env.SEO_STRAIN_WAVE_STEP_SIZE ?? "10", 10);
+    const stepDays = parseInt(process.env.SEO_STRAIN_WAVE_STEP_DAYS ?? "3", 10);
+    if (!Number.isFinite(initial) || !Number.isFinite(stepSize) || !Number.isFinite(stepDays) || stepDays <= 0) {
+      return Math.min(cap, Math.max(0, initial));
+    }
+    const ageDays = Math.floor((now.getTime() - start.getTime()) / 86_400_000);
+    if (ageDays < 0) return 0;
+    const cadenceWave = initial + Math.floor(ageDays / stepDays) * stepSize;
+    return Math.min(cap, Math.max(0, cadenceWave));
+  }
   const wave = parseInt(process.env.SEO_STRAIN_WAVE ?? "0", 10);
-  if (!Number.isFinite(wave) || wave <= 0) return false;
+  if (!Number.isFinite(wave) || wave <= 0) return 0;
+  return wave;
+}
+
+export function isStrainInWave(slug: string): boolean {
+  const wave = getEffectiveWaveSize();
+  if (wave <= 0) return false;
   const idx = STRAIN_SLUGS.indexOf(slug);
   return idx >= 0 && idx < wave;
 }

@@ -32,6 +32,7 @@ import {
   getStrain,
   isStrainInWave,
   getStrainsInCurrentWave,
+  getEffectiveWaveSize,
   buildLineageGraph,
   type Strain,
 } from "../strains.ts";
@@ -343,6 +344,95 @@ describe("STRAINS — getStrainsInCurrentWave", () => {
     assert.equal(wave.length, 3);
     assert.deepEqual(wave, STRAIN_SLUGS.slice(0, 3));
     delete process.env.SEO_STRAIN_WAVE;
+  });
+});
+
+describe("STRAINS — getEffectiveWaveSize auto-cadence (Doug 2026-05-27)", () => {
+  const ENV_KEYS = [
+    "SEO_STRAIN_WAVE",
+    "SEO_STRAIN_WAVE_CAP",
+    "SEO_STRAIN_WAVE_START_DATE",
+    "SEO_STRAIN_WAVE_INITIAL",
+    "SEO_STRAIN_WAVE_STEP_SIZE",
+    "SEO_STRAIN_WAVE_STEP_DAYS",
+  ];
+  const cleanEnv = () => {
+    for (const k of ENV_KEYS) delete process.env[k];
+  };
+
+  test("auto-cadence mode: day 0 = INITIAL (default 25)", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    const now = new Date("2026-05-27T12:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), 25);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode: day 3 = INITIAL + STEP_SIZE (35)", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    const now = new Date("2026-05-30T12:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), 35);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode: clamps to CAP at long horizons", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_CAP = "100";
+    const now = new Date("2027-01-01T00:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), 100);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode: returns 0 for date before start", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-06-01";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    const now = new Date("2026-05-15T00:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), 0);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode: custom STEP_SIZE + STEP_DAYS honored", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    process.env.SEO_STRAIN_WAVE_INITIAL = "10";
+    process.env.SEO_STRAIN_WAVE_STEP_SIZE = "5";
+    process.env.SEO_STRAIN_WAVE_STEP_DAYS = "7";
+    // day 14 = 10 + 2 * 5 = 20
+    const now = new Date("2026-06-10T12:00:00Z");
+    assert.equal(getEffectiveWaveSize(now), 20);
+    cleanEnv();
+  });
+
+  test("legacy mode: SEO_STRAIN_WAVE alone still works without cadence vars", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE = "7";
+    assert.equal(getEffectiveWaveSize(), 7);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode wins over legacy when both set", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE = "1";
+    process.env.SEO_STRAIN_WAVE_START_DATE = "2026-05-27";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    const now = new Date("2026-05-30T12:00:00Z");
+    // day 3 cadence = 35, beats legacy=1
+    assert.equal(getEffectiveWaveSize(now), 35);
+    cleanEnv();
+  });
+
+  test("auto-cadence mode: malformed START_DATE returns 0 (fail-safe, not infinity-of-strains)", () => {
+    cleanEnv();
+    process.env.SEO_STRAIN_WAVE_START_DATE = "not-a-date";
+    process.env.SEO_STRAIN_WAVE_CAP = "229";
+    assert.equal(getEffectiveWaveSize(), 0);
+    cleanEnv();
   });
 });
 
