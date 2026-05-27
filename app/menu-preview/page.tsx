@@ -5,6 +5,7 @@ import { STORE, getOrderingStatus, todayCloseLabel, DEFAULT_OG_IMAGE } from "@/l
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { getLoyaltyByClerkId, getMedicalStatusByClerkId } from "@/lib/portal";
 import { ClosureBanner } from "@/components/ClosureBanner";
+import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { OrderMenu } from "../order/OrderMenu";
 
 // /menu-preview = post-cutover preview surface. Renders the DEV TREE MENU
@@ -152,8 +153,13 @@ export default async function MenuPreviewPage() {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 space-y-3">
         <ClosureBanner closure={closure} />
+        {/* Active-deals strip — visual parity with the cutover-target /menu
+            surface (renders this same component below the JaneMenu embed).
+            Gives at-a-glance overview of all running promos. Per
+            MENU_PREVIEW_DIAL_IN_AUDIT §5. */}
+        <MenuActiveDealsStrip deals={activeDeals} treasureChestCount={0} />
       </div>
       <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} />
     </>

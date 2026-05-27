@@ -554,12 +554,32 @@ export function OrderMenu({
     () => searchParams?.get("category") ?? null,
   );
   const [strainFilter, setStrainFilter] = useState<string | null>(() => {
+    // Strain-type direct: ?strain=sativa|indica|hybrid|cbd from /strains/<type>
+    // pages and the find-your-strain quiz. Quiz emits lower-case; strain pills
+    // compare exact-case with what the DB returned. Title-case canonicalize.
     const s = searchParams?.get("strain");
-    if (!s) return null;
-    // Quiz emits lower-case (sativa/indica/hybrid); strain pills compare
-    // exact-case with what the DB returned. Title-case canonicalize so a
-    // ?strain=sativa link selects the "Sativa" pill.
-    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+    if (s) return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+    // Vibe alias: ?vibe=chill|energize|sleep|creative|social|calm from homepage
+    // mood-shortcut chips (app/page.tsx ~line 996), /not-found mood recovery,
+    // and find-your-strain quiz. Maps to a strain-type filter so the customer's
+    // mood-led tap doesn't dead-end at an unfiltered menu. Mapping is
+    // DESCRIPTIVE not THERAPEUTIC — we never print "indica helps X"; the chip
+    // is "Chill" and the result is a strain-filtered grid. WAC 314-55-077 safe.
+    // Per MENU_PREVIEW_DIAL_IN_AUDIT_2026_05_27.md §7.
+    const vibe = searchParams?.get("vibe");
+    if (!vibe) return null;
+    const VIBE_TO_STRAIN: Record<string, string> = {
+      chill: "Hybrid",
+      calm: "Indica",
+      energize: "Sativa",
+      sleep: "Indica",
+      creative: "Sativa",
+      social: "Hybrid",
+      // Backward-compat aliases per architecture doc §6: "relief" was renamed
+      // to "calm" pre-WAC sweep; honor legacy shared links for 90d.
+      relief: "Indica",
+    };
+    return VIBE_TO_STRAIN[vibe.toLowerCase()] ?? null;
   });
   const [brandFilter, setBrandFilter] = useState<string | null>(() => {
     // `/brands/[slug]` CTAs (shipped v36.305) deep-link with `?brand=<slug>`
@@ -1019,7 +1039,7 @@ export function OrderMenu({
       {/* Search bar */}
       <div className="relative mb-4">
         <svg
-          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -1108,9 +1128,11 @@ export function OrderMenu({
               <button type="button"
                 key={c}
                 onClick={() => selectCategory(activeCategory === c ? null : c)}
+                aria-pressed={activeCategory === c}
+                aria-label={`Category: ${displayCategory(c)}`}
                 className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors ${activeCategory === c ? "bg-green-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}
               >
-                <span>{CAT_ICONS[c] ?? "•"}</span>
+                <span aria-hidden="true">{CAT_ICONS[c] ?? "•"}</span>
                 {displayCategory(c)}
               </button>
             ))}
@@ -1136,6 +1158,7 @@ export function OrderMenu({
                       <button type="button"
                         key={s}
                         onClick={() => setStrainFilter(active ? null : s)}
+                        aria-pressed={active}
                         // 44px tap target on mobile (Apple HIG) — visual stays
                         // py-1.5 on sm+ where pointer precision is fine. Mobile
                         // floor uses min-h-[44px] to clear the Fitts violation
@@ -1158,6 +1181,7 @@ export function OrderMenu({
                 <select
                   value={brandFilter ?? ""}
                   onChange={(e) => setBrandFilter(e.target.value || null)}
+                  aria-label="Filter by brand"
                   className="text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="">All brands ({availableBrands.length})</option>
@@ -1172,6 +1196,7 @@ export function OrderMenu({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortKey)}
+                aria-label="Sort products"
                 className="text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 rounded-full border border-stone-200 bg-white text-stone-700 focus:outline-none focus:ring-2 focus:ring-green-500 ml-auto"
               >
                 <option value="default">Sort: Featured</option>
@@ -1192,6 +1217,8 @@ export function OrderMenu({
                     <button type="button"
                       key={t.key}
                       onClick={() => setPriceTier(active ? "all" : t.key)}
+                      aria-pressed={active}
+                      aria-label={`Price tier: ${t.label}`}
                       className={`text-xs font-semibold px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center rounded-full border transition-colors ${active ? "bg-green-700 text-white border-green-700" : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"}`}
                     >
                       {t.label}
@@ -1213,6 +1240,8 @@ export function OrderMenu({
                     <button type="button"
                       key={t.key}
                       onClick={() => setThcTier(active ? "all" : t.key)}
+                      aria-pressed={active}
+                      aria-label={`THC tier: ${t.label}`}
                       // THC pill active = amber-600 (potency / "heat" semantic).
                       // Differentiates from price pill green-700 in the same row.
                       // Per UX_AUDIT_2026_05_03 P2-2.
@@ -1529,14 +1558,19 @@ export function OrderMenu({
                               ) : (
                                 <button type="button"
                                   onClick={() => addToCart(product, deal)}
-                                  disabled={product.unitPrice == null}
-                                  aria-label={`Add ${parsed.name} to cart`}
+                                  disabled={product.unitPrice == null || closure.isClosed}
+                                  aria-label={closure.isClosed ? `${parsed.name} — store closed today, can't add to cart` : `Add ${parsed.name} to cart`}
+                                  title={closure.isClosed ? "We're closed today — online orders paused" : undefined}
                                   // min-h-[44px] floor (Apple HIG) — visually
                                   // unchanged on desktop where px-4 py-2 already
                                   // hits ~36px and pointer precision is fine.
-                                  className="flex items-center gap-1.5 px-4 py-2 min-h-[44px] sm:min-h-0 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                                  // Closure-disabled: gives the customer
+                                  // honest signal that add-to-cart is paused,
+                                  // instead of letting them cart up and fail
+                                  // at submit. Per MENU_PREVIEW_DIAL_IN_AUDIT §3.
+                                  className="flex items-center gap-1.5 px-4 py-2 min-h-[44px] sm:min-h-0 rounded-xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white text-xs font-bold transition-all shadow-md shadow-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5 disabled:hover:translate-y-0"
                                 >
-                                  + Add
+                                  {closure.isClosed ? "Closed today" : "+ Add"}
                                 </button>
                               )}
                             </div>
