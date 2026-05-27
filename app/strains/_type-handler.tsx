@@ -15,6 +15,7 @@ import { STORE } from "@/lib/store";
 import { STRAIN_TYPES, getStrainType } from "@/lib/strain-types";
 import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { buildHubItemListJsonLd } from "@/lib/hub-itemlist-json-ld";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -115,12 +116,38 @@ export function StrainTypePage({ slug }: { slug: string }) {
   // Available for future "featured" sub-section if needed:
   void inWaveSlugs;
 
+  // ItemList JSON-LD — completes the hub-itemlist-jsonld coverage arc
+  // (Tech-SEO win #2 follow-on). The 4 strain-type hub pages (indica /
+  // sativa / hybrid / cbd) ship the same Schema.org ItemList shape as
+  // /heroes /learn /blog so SERP carousel rendering can pick them up.
+  // Per the comment above, the link list itself is NOT wave-gated — all
+  // type-matching strains render with internal links; the per-strain
+  // detail pages outside the SEO_STRAIN_WAVE carry robots:noindex.
+  // Including them in the ItemList still serves Google's link-graph
+  // discovery (Google crawls + accumulates PageRank on noindex pages)
+  // without affecting the cadence-gate indexation policy. The /strains/cbd
+  // hub produces an empty itemListElement today (no strain has type='cbd'
+  // — STRAIN.type is a 3-value enum); the helper handles empty gracefully.
+  // WSLCB scrubber lives in buildHubItemListJsonLd — banned-phrase names
+  // are omitted (e.g. nothing in the strain corpus today, but the safety
+  // net is in place if a future strain lands with a non-compliant name).
+  const itemListLd = buildHubItemListJsonLd({
+    siteOrigin: STORE.website,
+    hubPath: `/strains/${t.slug}`,
+    hubName: `${t.name} strains · ${STORE.name}`,
+    items: strainsForType.map((s) => ({
+      url: `/strains/${s.slug}`,
+      name: s.name,
+    })),
+  });
+
   const menuHref = withAttr(`/menu?strain=${t.slug}`, "strains", t.slug);
 
   return (
     <main className="bg-stone-50 text-stone-900">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListLd) }} />
 
       <Breadcrumb items={[{ label: "Strains", href: "/strains" }, { label: t.name }]} />
 

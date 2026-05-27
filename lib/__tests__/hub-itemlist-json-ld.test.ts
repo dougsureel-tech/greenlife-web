@@ -1,5 +1,6 @@
 // Tests for hub-itemlist-json-ld helpers — emits Schema.org ItemList +
-// BreadcrumbList JSON-LD across /heroes, /learn, /blog hub pages.
+// BreadcrumbList JSON-LD across /heroes, /learn, /blog hub pages +
+// the 4 /strains/<type> category hubs (indica/sativa/hybrid/cbd).
 //
 // Why pinned:
 //   1. WSLCB compliance — silent drift in the banned-phrase filter could
