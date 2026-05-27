@@ -7,6 +7,7 @@ import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { buildVisitFaqJsonLd, type FaqEntry } from "@/lib/visit-faq-jsonld";
 
 // "Driving over from another town?" card grid below the directions
 // section — closes SEO Fix 1 by giving the highest-intent page (/visit)
@@ -73,6 +74,48 @@ const breadcrumbSchema = {
   ],
 };
 
+// FAQPage JSON-LD — pre-visit Q&A from the visible page copy (hours,
+// parking, ID, cash, ATM, dog policy). WSLCB-filtered downstream. Per
+// SEO_AUDIT_AUTONOMOUS_WINS_2026_05_26 Tech-SEO #5 Part A. Answers stay
+// in factual / what-to-bring lane — NO efficacy / medical phrasing.
+const VISIT_FAQS: readonly FaqEntry[] = [
+  {
+    question: `What are the hours at ${STORE.name}?`,
+    answer: `${STORE.name} is open every day of the year, including holidays. Monday through Thursday 8 AM to 9 PM, Friday and Saturday 8 AM to 10 PM, Sunday 8 AM to 9 PM. Pickup orders cut off 15 minutes before close.`,
+  },
+  {
+    question: `Where is ${STORE.name} located?`,
+    answer: `${STORE.address.full}. On the corner of Center Road in the Sunnyslope neighborhood, about 4 minutes off US-2 and 5 minutes from downtown Wenatchee.`,
+  },
+  {
+    question: "Is there parking?",
+    answer:
+      "Yes — free dedicated parking right out front, with side-street overflow on Center Road. The entrance is ADA-accessible with no curb step.",
+  },
+  {
+    question: "What ID do I need to bring?",
+    answer:
+      "A valid 21+ government photo ID. Washington driver's license, out-of-state license, US passport, US passport card, military ID, or Tribal ID all work. Expired IDs do not. Photos of IDs do not.",
+  },
+  {
+    question: "Do you take credit or debit cards?",
+    answer:
+      "Cash only at the till. Cannabis is federally illegal, so the major card networks won't process for Washington dispensaries — every shop in the state is cash-only. There's an ATM in our lobby with a typical $3 surcharge if you forget.",
+  },
+  {
+    question: "Do you have an ATM on-site?",
+    answer:
+      "Yes — in the lobby, $3 surcharge typical. If you forgot to stop at the bank, no judgment, this happens daily.",
+  },
+  {
+    question: "Can I order ahead online?",
+    answer:
+      "Yes — browse the live menu at /menu and place a pickup order. Last online order is 15 minutes before close so staff can stage the bag. Same products in the case either way.",
+  },
+];
+
+const visitFaqSchema = buildVisitFaqJsonLd("/visit", VISIT_FAQS);
+
 const PARKING_NEARBY = [
   "Free dedicated parking right out front",
   "Side-street overflow on Center Road",
@@ -128,6 +171,10 @@ export default async function VisitPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(visitFaqSchema) }}
       />
 
       <Breadcrumb items={[{ label: "Visit" }]} />
