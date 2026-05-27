@@ -373,7 +373,7 @@ describe("strainCategory — dominant-category derivation", () => {
     );
   });
 
-  test("Vapes/Concentrates → Cannabis Concentrate", () => {
+  test("Vapes/Concentrates → Cannabis Concentrate (no strain hint)", () => {
     assert.equal(strainCategory([{ category: "Vapes" }]), "Cannabis Concentrate");
     assert.equal(
       strainCategory([{ category: "Concentrates" }]),
@@ -383,6 +383,41 @@ describe("strainCategory — dominant-category derivation", () => {
 
   test("empty input → fallback to Cannabis Flower (WA default taxonomy)", () => {
     assert.equal(strainCategory([]), "Cannabis Flower");
+  });
+
+  // Regression pins for v41.925 — strain.type wins over matchedProducts.
+  // Pre-fix the live /strains/blue-dream page rendered
+  // `"category":"Cannabis Concentrate"` because its 6 matched products
+  // were majority cart/concentrate-named SKUs that shared the strain
+  // name. Blue Dream IS a hybrid (= flower) by taxonomy — strain.type
+  // is canonical; matched-product cross-format derivatives should not
+  // override it.
+  test("strain.type=hybrid overrides concentrate-leaning matchedProducts → Cannabis Flower", () => {
+    assert.equal(
+      strainCategory(
+        [{ category: "Vapes" }, { category: "Concentrates" }, { category: "Cartridges" }],
+        { type: "hybrid" },
+      ),
+      "Cannabis Flower",
+    );
+  });
+
+  test("strain.type=sativa overrides matchedProducts → Cannabis Flower", () => {
+    assert.equal(
+      strainCategory([{ category: "Vapes" }], { type: "sativa" }),
+      "Cannabis Flower",
+    );
+  });
+
+  test("strain.type=indica overrides matchedProducts → Cannabis Flower", () => {
+    assert.equal(
+      strainCategory([{ category: "Concentrates" }], { type: "indica" }),
+      "Cannabis Flower",
+    );
+  });
+
+  test("strain.type=hybrid with empty matchedProducts → Cannabis Flower (not default-concentrate)", () => {
+    assert.equal(strainCategory([], { type: "hybrid" }), "Cannabis Flower");
   });
 });
 

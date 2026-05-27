@@ -91,14 +91,33 @@ export function scrubWslcbClaims(input: string | null | undefined): string | nul
 }
 
 /** Map strain.category-style hints to a Schema.org-friendly enum. The
- *  /strains/[slug] page is per-strain (not per-SKU), so derive from
- *  the dominant matched-product category when available. Falls back to
- *  "Cannabis Flower" — the default WA-cannabis category if nothing else
- *  signals otherwise. */
+ *  /strains/[slug] page is per-strain (not per-SKU). Derivation order:
+ *  1. `strain.type` ∈ {sativa, indica, hybrid} — the strain is
+ *     definitionally FLOWER; that's the canonical signal. We do NOT let
+ *     matched-product cross-format derivatives (e.g. a "Blue Dream" vape
+ *     cart hitting the strain-name match) override the strain's own form.
+ *     Pre-fix the live `/strains/blue-dream` page rendered
+ *     `"category":"Cannabis Concentrate"` because matchedProducts
+ *     happened to be majority-cart/concentrate.
+ *  2. Otherwise, tally `matchedProducts` and pick the dominant category.
+ *  3. Final fallback: "Cannabis Flower" — the WA-cannabis baseline
+ *     category (most strains are flower). */
 export function strainCategory(
   matchedProducts: ReadonlyArray<Pick<MenuProduct, "category">>,
+  strain?: Pick<Strain, "type">,
 ): StrainProductCategory {
-  // Tally categories across matched products; pick the dominant one.
+  // Tier 1 — strain.type is the canonical form signal. sativa / indica /
+  // hybrid all mean FLOWER on the cannabis-strain taxonomy. (cbd-strains
+  // can also be flower; current Strain.type union covers the 3 flower
+  // psychotypes — extend here if the type union grows to include
+  // edible/concentrate-native taxonomies.)
+  if (strain) {
+    if (strain.type === "sativa" || strain.type === "indica" || strain.type === "hybrid") {
+      return "Cannabis Flower";
+    }
+  }
+
+  // Tier 2 — tally categories across matched products; pick the dominant.
   const counts: Record<string, number> = {};
   for (const p of matchedProducts) {
     if (!p.category) continue;
@@ -118,7 +137,7 @@ export function strainCategory(
   ) {
     return "Cannabis Concentrate";
   }
-  // Flower / Pre-Rolls / unknown → Flower (the WA default taxonomy).
+  // Tier 3 — Flower / Pre-Rolls / empty / unknown → Flower (WA default).
   return "Cannabis Flower";
 }
 
@@ -209,7 +228,7 @@ export function buildStrainProductLd(args: {
     "@type": "Product",
     "@id": `${strainUrl}#product`,
     name: `${strain.name} — at ${storeName}`,
-    category: strainCategory(matchedProducts),
+    category: strainCategory(matchedProducts, strain),
     image,
     url: strainUrl,
   };

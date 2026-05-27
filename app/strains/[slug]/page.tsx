@@ -32,10 +32,7 @@ import { isStrainTypeSlug, strainTypeMetadata, StrainTypePage } from "../_type-h
 // strain-slug attribution channel for /menu deep-links from per-strain pages
 const STRAIN_ATTR_KEY = "strains" as const;
 import { safeJsonLd } from "@/lib/json-ld-safe";
-import {
-  buildStrainProductLd,
-  buildStrainBreadcrumbLd,
-} from "@/lib/strain-product-json-ld";
+import { buildStrainProductLd } from "@/lib/strain-product-json-ld";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
@@ -233,11 +230,12 @@ export default async function StrainSlugPage({
     storeWebsite: STORE.website,
     storeName: STORE.name,
   });
-  const productBreadcrumbLd = buildStrainBreadcrumbLd({
-    strain: s,
-    storeWebsite: STORE.website,
-    storeName: STORE.name,
-  });
+  // Note: a SECOND BreadcrumbList (3-item "Store → Strains → Strain") used
+  // to be emitted via buildStrainBreadcrumbLd() — removed v41.925 because
+  // it duplicated the 4-item `breadcrumbLd` above (which includes the
+  // per-type Hybrid/Indica/Sativa intermediate step) and Google was
+  // arbitrarily picking one. The 4-item shape is the canonical one;
+  // single-BreadcrumbList emission per page now.
 
   return (
     <main className="bg-stone-50 text-stone-900 min-h-screen">
@@ -246,7 +244,6 @@ export default async function StrainSlugPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productBreadcrumbLd) }} />
 
       {/* Hero — v37.285 (Doug 2026-05-18 screenshot "relocate the nav tree
           so the other part below can come up and improve the UX").
