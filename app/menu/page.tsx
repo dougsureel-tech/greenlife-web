@@ -8,6 +8,7 @@ import { MenuFallback } from "./MenuFallback";
 import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
 import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
+import { MenuTopDealsRail } from "@/components/MenuTopDealsRail";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -229,6 +230,14 @@ export default async function MenuPage() {
             Slot key matches admin curation surface (placement_slot='menu_sidebar'). */}
         <VendorAdSlot slot="menu_sidebar" />
       </div>
+      {/* Top-6 deals rail — server-rendered ABOVE the iHJ Boost iframe so
+          customers see a useful value-prop before Boost's 2-3s cold-load
+          completes. Closes the 30-40% bounce window flagged by the
+          2026-05-27 growth/SEO 3-expert review. Returns null when deals
+          is empty (no skeleton, no placeholder — empty is worse than the
+          iframe alone). Pure additive: <JaneMenu> below renders
+          unchanged regardless. */}
+      <MenuTopDealsRail deals={deals} />
       <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
       {/* Active-deals strip — every running deal as a brand-tinted chip.
           Boost is third-party and can't ribbon individual product cards;

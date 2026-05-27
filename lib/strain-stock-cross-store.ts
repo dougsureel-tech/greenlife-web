@@ -14,6 +14,7 @@
 // to a wrong host. WSLCB-safe shape (no $ figures, no PII).
 
 import type { Strain } from "./strains";
+import { HOUR_MS, DAY_MS } from "./time-constants";
 
 export type StoreStockResult = {
   store: "wen" | "sea";
@@ -128,12 +129,13 @@ export function freshnessLabel(input: {
   if (!Number.isFinite(refMs)) return null;
   const now = input.now ? input.now.getTime() : Date.now();
   const ageMs = Math.max(0, now - refMs);
-  const HOUR = 60 * 60 * 1000;
-  const DAY = 24 * HOUR;
-  if (ageMs < HOUR) return "less than an hour ago";
-  if (ageMs < 2 * HOUR) return "about an hour ago";
-  if (ageMs < DAY) return `${Math.floor(ageMs / HOUR)}h ago`;
-  if (ageMs < 2 * DAY) return "yesterday";
-  if (ageMs < 7 * DAY) return `${Math.floor(ageMs / DAY)} days ago`;
+  // HOUR_MS + DAY_MS from @/lib/time-constants — drift-defense per the
+  // check-time-constants-inline gate (pre-fix used inline ms-math locals
+  // which the gate, correctly, rejected as drift risk).
+  if (ageMs < HOUR_MS) return "less than an hour ago";
+  if (ageMs < 2 * HOUR_MS) return "about an hour ago";
+  if (ageMs < DAY_MS) return `${Math.floor(ageMs / HOUR_MS)}h ago`;
+  if (ageMs < 2 * DAY_MS) return "yesterday";
+  if (ageMs < 7 * DAY_MS) return `${Math.floor(ageMs / DAY_MS)} days ago`;
   return null; // older than a week — keep quiet; "back soon" framing doesn't apply
 }
