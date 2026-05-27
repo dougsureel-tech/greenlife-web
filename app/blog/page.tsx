@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE, STORE_TZ, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getPosts, fetchDynamicPosts } from "@/lib/posts";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { buildHubItemListJsonLd } from "@/lib/hub-itemlist-json-ld";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
@@ -72,10 +73,29 @@ export default async function BlogIndex() {
     ],
   };
 
+  // ItemList — SERP carousel-result eligible. Complements the Blog
+  // schema above which uses BlogPosting nodes (article-class); this
+  // ItemList is the carousel-class node Google needs to render a
+  // horizontal carousel under a /blog search result. WSLCB banned-phrase
+  // filter applied via the helper — non-compliant titles are omitted
+  // before render.
+  const blogItemListLd = buildHubItemListJsonLd({
+    siteOrigin: STORE.website,
+    hubPath: "/blog",
+    hubName: `${STORE.name} Blog — Guides + Vendor Spotlights`,
+    items: posts.map((p) => ({
+      url: `/blog/${p.slug}`,
+      name: p.title,
+      description: p.description,
+      image: `${STORE.website}/blog/${p.slug}/opengraph-image`,
+    })),
+  });
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogItemListLd) }} />
 
       <Breadcrumb items={[{ label: "Blog" }]} />
 

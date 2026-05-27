@@ -6,6 +6,7 @@ import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { LEARN_TOPICS } from "@/lib/learn-topics";
 import { LEARN_HUB_TOPICS } from "@/lib/learn-hub";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { buildHubItemListJsonLd } from "@/lib/hub-itemlist-json-ld";
 import { getCompletedSteps } from "@/lib/learn-db";
 import { LearnProgress } from "./LearnProgress";
 
@@ -216,6 +217,28 @@ export default function LearnPage() {
               { "@type": "ListItem", position: 2, name: "Cannabis 101", item: `${STORE.website}/learn` },
             ],
           }),
+        }}
+      />
+      {/* ItemList — SERP carousel-result eligible. Lists the long-form
+          /learn/<slug> hub-topic cards (the LearningResource above lists
+          the microlearning Cannabis-101 entries by name only; this is
+          the URL-deep-linkable hub). WSLCB banned-phrase filter applied
+          via the helper — non-compliant titles are omitted before render. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: safeJsonLd(
+            buildHubItemListJsonLd({
+              siteOrigin: STORE.website,
+              hubPath: "/learn",
+              hubName: `Cannabis 101 long-form guides · ${STORE.name}`,
+              items: LEARN_HUB_TOPICS.map((t) => ({
+                url: `/learn/${t.slug}`,
+                name: t.title,
+                description: t.description,
+              })),
+            }),
+          ),
         }}
       />
     </div>

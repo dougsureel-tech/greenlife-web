@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE} from "@/lib/store";
 import { safeJsonLd } from "@/lib/json-ld-safe";
+import { buildHubItemListJsonLd } from "@/lib/hub-itemlist-json-ld";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 // /heroes — informational landing for the Heroes service discount.
@@ -136,11 +137,34 @@ const breadcrumbLd = {
   ],
 };
 
+// ItemList — SERP carousel-result eligible. Each cohort with a cohortHref
+// becomes a deep-linkable ListItem. Law Enforcement + Fire & EMS both
+// map to /heroes/first-responders, so dedupe by URL to keep the carousel
+// clean (carousel renders one card per unique target page).
+const HUB_HEROES_ITEMS = (() => {
+  const seen = new Set<string>();
+  const items: Array<{ url: string; name: string }> = [];
+  for (const e of ELIGIBILITY) {
+    if (!e.cohortHref || seen.has(e.cohortHref)) continue;
+    seen.add(e.cohortHref);
+    items.push({ url: e.cohortHref, name: e.title });
+  }
+  return items;
+})();
+
+const heroesItemListLd = buildHubItemListJsonLd({
+  siteOrigin: STORE.website,
+  hubPath: "/heroes",
+  hubName: `Heroes Discount Programs · ${STORE.name}`,
+  items: HUB_HEROES_ITEMS,
+});
+
 export default function HeroesPage() {
   return (
     <main className="min-h-[80vh] bg-stone-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(heroesItemListLd) }} />
 
       <Breadcrumb items={[{ label: "Heroes" }]} />
 
