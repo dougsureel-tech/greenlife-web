@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STORE, todayCloseLabel } from "@/lib/store";
-import { getActiveDeals, getTreasureChestProducts } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { STORE, todayCloseLabel, getOrderingStatus } from "@/lib/store";
+import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { fetchClosureStatus } from "@/lib/closure-status";
-import { JaneMenu } from "./JaneMenu";
-import { MenuFallback } from "./MenuFallback";
-import { AppOnlyDealsFilter } from "@/components/AppOnlyDealsFilter";
+import { getLoyaltyByClerkId, getMedicalStatusByClerkId } from "@/lib/portal";
+import { OrderMenu } from "../order/OrderMenu";
 import { MenuLocalStrip } from "@/components/MenuLocalStrip";
 import { MenuActiveDealsStrip } from "@/components/MenuActiveDealsStrip";
 import { MenuTopDealsRail } from "@/components/MenuTopDealsRail";
@@ -14,46 +14,23 @@ import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 
-// /menu = iHeartJane Jane Boost (iframeless) embed. Customer stays on
-// greenlifecannabis.com — the Boost JS module hydrates the menu inline.
-// Naive iframe is blocked (iHeartJane sets X-Frame-Options: SAMEORIGIN).
+// /menu = BRAPP-native product grid (post-cutover 2026-05-27).
 //
-// Config + script tags live in JaneMenu.tsx; values were recovered from
-// the WordPress site archive on web.archive.org (2026-01-12 snapshot).
+// History: this surface used to host the iHeartJane Jane Boost (iframeless)
+// embed via `<JaneMenu>` + `<MenuFallback>` + `prewarmDutchieMenu()`. Doug
+// 2026-05-27 greenlit the atomic cutover from the embed to the native
+// BRAPP-DB-backed product grid. See `MENU_CUTOVER_COMMIT_BRIEF_2026_05_16.md`
+// for the cutover recipe + `MIGRATIONS/IHEARTJANE_MENU.md` round-2 deep-dive
+// for the verified live-state diff that informed the cutover.
 //
-// ═══════════════════════════════════════════════════════════════════════
-// 🚨 LOAD-BEARING DOUG-DIRECTIVE 2026-05-16 ~02:50 PT
+// The post-cutover surface body is byte-equivalent to the previously-live
+// `/menu-preview` body (now deleted) plus the JSON-LD / Breadcrumb /
+// VendorAdSlot / MenuActiveDealsStrip / "Get involved" / MenuLocalStrip
+// blocks that were unique to the canonical `/menu` surface.
 //
-// "we need to keep that [iHJ /menu] live until our devmenu is 100 ·
-//  we would like to get it switched over asap"
-//
-// /menu MUST continue rendering <JaneMenu> (iHJ Boost) as the default
-// surface until Doug greenlights the single-flip cutover to the dev tree
-// menu (the `/order` route's OrderMenu.tsx visual register × MenuSearch.tsx
-// polish, per Phase 1 of MENU_MODEL_A_ARCHITECTURE_2026_05_16.md).
-//
-// Future agents: do NOT remove JaneMenu rendering or flip the default to
-// MenuFallback / a revived MenuSearch without explicit Doug-greenlight.
-// The Phase 1 build is allowed to:
-//   - polish OrderMenu / MenuSearch on the /order or /menu-preview route
-//   - wire URL-param contracts (?q ?brand ?strain ?vibe etc.) into the
-//     dev menu surface
-//   - delete unused JaneMenu code ONLY AFTER cutover greenlight
-//
-// What it is NOT allowed to do:
-//   - change /menu/page.tsx default render from <JaneMenu> to anything else
-//   - 308-redirect /menu to a new path
-//   - hide the JaneMenu behind a feature flag default-off
-//
-// The cutover flip is intentionally a SINGLE atomic Doug-greenlit edit:
-// replace <JaneMenu products={products} … /> with the dev tree menu,
-// delete the iHJ-Boost rendering, ship as a single commit, monitor.
-// ═══════════════════════════════════════════════════════════════════════
-// See also INCIDENTS.md (2026-05-01 entry) for the regression history.
-//
-// Was force-static (embed config is static), now ISR 60s so MenuFallback
-// can show the most-urgent active deal without losing the cache benefit.
-// One getActiveDeals() call per minute per region — negligible.
+// Rollback recipe (if something breaks post-deploy):
+//   `git revert HEAD --no-edit && git push` — restores `<JaneMenu>` on /menu
+//   within 60-90s (glw) / 3-5min (scc). See cutover brief for full recipe.
 
 export const revalidate = 60;
 
@@ -69,10 +46,7 @@ export const metadata: Metadata = {
     description: `Live cannabis menu — prices, THC/CBD, lab data. ${STORE.address.full}.`,
     url: `${STORE.website}/menu`,
     type: "website",
-    // Per-route OG at /menu/opengraph-image (file convention). Pre-fix
-    // DEFAULT_OG_IMAGE override made the per-route file dead code; share-
-    // cards rendered homepage OG instead of menu-specific. Sister T48
-    // /blog/[slug] same fix class.
+    // Per-route OG at /menu/opengraph-image (file convention).
     images: [
       {
         url: "/menu/opengraph-image",
@@ -82,82 +56,41 @@ export const metadata: Metadata = {
       },
     ],
   },
-  // Partner-presence signal the WP plugin emits. The WP origin (208.109.64.51)
-  // shipped <meta name="jane:version" content="1.4.7"/> on every /menu page;
-  // our Vercel deploy doesn't, and that's the lone Jane-touching DOM diff
-  // between WP (where Boost works) and Vercel (where the API CORS-rejects).
-  // Untested hypothesis but a safe one-liner to flush from the diagnosis tree.
-  // See ~/Documents/CODE/MENU_LOG.md hypothesis #5.
-  other: { "jane:version": "1.4.7" },
 };
 
-// Wenatchee config recovered from the WP archive. embedConfigId is provisioned
-// per-partner-store on iHeartJane's side; Seattle (5295) needs its own.
-const IHEARTJANE_STORE_ID = 5294;
-const IHEARTJANE_EMBED_CONFIG_ID = 234;
-
-// Server-side prewarm — touches iHeartJane's edge cache for this store's
-// Dutchie-backed `menu_products` query BEFORE the page response reaches
-// the customer. Reason: Boost runs `afterInteractive`, which means the
-// browser doesn't query the same URL until after Next hydration completes.
-// If Dutchie's API hadn't been hit recently for this store, the cold-start
-// can take 8-15s — long enough that `MenuFallback`'s 6s watchdog flips
-// the amber "menu is taking a moment to load" panel even though Boost is
-// just-about to succeed. Doug 2026-05-04 confirmed this matches the
-// "menu error coming up first pass" customer report. See MENU_LOG.md +
-// MenuFallback.tsx FALLBACK_AFTER_MS for the visible threshold this
-// dodges.
-//
-// Best-effort + non-blocking: 1.5s AbortSignal timeout caps the impact on
-// /menu TTFB if Jane/Dutchie is unreachable. Failure is silently swallowed
-// — page render proceeds normally and the existing MenuFallback handles
-// the customer-visible side. We run it inside Promise.all alongside the
-// awaited DB fetches so the prewarm RTT overlaps with our own queries
-// instead of stacking serially.
-async function prewarmDutchieMenu(): Promise<void> {
-  try {
-    // CDN-cache fix (v20.605): was `cache: "no-store"` which opted the
-    // entire /menu page out of ISR per `feedback_isr_killed_by_no_store_fetch`.
-    // Switched to `next: { revalidate: 60 }` — we still warm Jane's CDN
-    // on each ISR revalidate (every 60s), but our own page can prerender.
-    await fetch(
-      `https://api.iheartjane.com/api/v1/stores/${IHEARTJANE_STORE_ID}/menu_products?per_page=1`,
-      { signal: AbortSignal.timeout(1500), next: { revalidate: 60 } },
-    );
-  } catch {
-    // expected: timeout, Jane down, network blip — page render proceeds
-  }
+function minToLabel(min: number): string {
+  const h24 = Math.floor(min / 60);
+  const m = min % 60;
+  const ampm = h24 >= 12 ? "PM" : "AM";
+  const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
 }
 
 export default async function MenuPage() {
-  // CDN-cache fix (sister homepage v20.405): previously called `cookies()`
-  // here, opting /menu out of ISR despite `revalidate=60`. Now fetch all
-  // deals server-side (`includeAppOnly: true`); MenuFallback receives the
-  // full array and picks the first non-PWA-only deal client-side based on
-  // `glw_pwa_installed` cookie. PWA-install carrot preserved. Plus pass
-  // `revalidate: 60` to fetchClosureStatus so the upstream fetch
-  // participates in ISR (vs default `cache: "no-store"`).
-  const [deals, closure, treasureChest] = await Promise.all([
+  const [products, eta, { userId }, activeDeals, closure] = await Promise.all([
+    getMenuProducts().catch(() => []),
+    getPickupEta().catch(() => ({ depth: 0, label: "Usually ready in under 10 min" })),
+    auth().catch(() => ({ userId: null as string | null })),
     getActiveDeals({ includeAppOnly: true }).catch(() => []),
-    fetchClosureStatus({ revalidate: 60 }),
-    getTreasureChestProducts(60).catch(() => []),
-    prewarmDutchieMenu(),
+    fetchClosureStatus({ revalidate: 60 }).catch(() => ({ isClosed: false, reason: null })),
   ]);
-  // featuredDeal is shown in the MenuFallback when iHJ Boost stalls > 6s.
-  // It may be a PWA-only deal — the appOnly flag rides through so the
-  // client-side <AppOnlyDealsFilter /> hides it for non-installed visitors
-  // post-hydrate. Same pattern as MenuActiveDealsStrip's data-app-only attrs.
-  const featuredDeal = deals[0]
-    ? { short: deals[0].short, name: deals[0].name, endDate: deals[0].endDate, appOnly: deals[0].appOnly }
+  const status = getOrderingStatus();
+  const signedIn = !!userId;
+  const initialLoyalty = userId
+    ? await getLoyaltyByClerkId(userId)
+        .then((s) => (s ? { points: s.points, tieredFlagOn: s.tieredFlagOn } : null))
+        .catch(() => null)
     : null;
-  const treasureChestCount = treasureChest.length;
+  const dohVerified = userId
+    ? await getMedicalStatusByClerkId(userId)
+        .then((m) => Boolean(m?.dohVerifiedAt))
+        .catch(() => false)
+    : false;
 
-  // CollectionPage + ItemList of menu categories. Boost holds the live
-  // product data inside its iframe-less embed so we can't expose per-
-  // product LD; what we CAN expose is the canonical category set so
-  // Google understands /menu is a structured collection. Earns site-
-  // link / category-carousel eligibility on the SERP. Sister to /near
-  // index ItemList pattern.
+  // CollectionPage + ItemList of menu categories. Now that /menu serves the
+  // native product grid, Google can crawl per-product link-graph via the
+  // grid itself; this CollectionPage shape still earns sitelink/category-
+  // carousel eligibility on the SERP at the hub level.
   const collectionLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -197,55 +130,82 @@ export default async function MenuPage() {
 
   return (
     <div className="bg-stone-50">
-      {/* Preconnect to iHeartJane Boost origins. /menu's LCP is the first
-          rendered product card from inside the Boost embed — the embed
-          loads JS from boost-assets.iheartjane.com (script bundle), then
-          hits api.iheartjane.com (REST + WebSocket cable) and
-          search.iheartjane.com (Algolia index) on first interaction.
-          Pre-fix the customer paid full DNS+TLS+TCP RTT for each origin
-          on first visit. Preconnect primes the connection pool. Pure
-          additive — no behavior change, no compatibility risk. Caught
-          2026-05-10 by /loop tick 40 cross-stack preconnect audit
-          (glw + scc only preconnect to images.squarespace-cdn.com +
-          static.wixstatic.com — the brand-logo CDNs — but NOT to iHJ).
-          React 19 hoists these to <head> automatically. Sister scc
-          v13.X same-fix. */}
-      <link rel="preconnect" href="https://boost-assets.iheartjane.com" crossOrigin="anonymous" />
-      <link rel="preconnect" href="https://api.iheartjane.com" crossOrigin="anonymous" />
-      <link rel="preconnect" href="https://search.iheartjane.com" crossOrigin="anonymous" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <Breadcrumb items={[{ label: "Menu" }]} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
         <VendorAdSlot slot="menu_top" />
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
+      {/* Premium page header — visual register lifted from the prior
+          `/menu-preview` body (now deleted post-cutover). */}
+      <div className="relative overflow-hidden bg-green-950 text-white py-10">
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{ backgroundImage: "radial-gradient(ellipse 70% 80% at 20% 50%, #4ade80, transparent)" }}
+        />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end gap-4">
+          <div className="flex-1 space-y-2">
+            <p className="text-green-400 text-xs font-bold uppercase tracking-widest">Live Menu</p>
+            <h1 className="text-3xl font-extrabold tracking-tight">Cannabis Menu — {STORE.address.city}</h1>
+            <p className="text-green-100 text-sm">
+              Real-time inventory · Pickup orders open daily 8 AM–{todayCloseLabel()} · Cash at the counter · 21+ with valid ID
+            </p>
+            <p className="text-green-200/90 text-xs">
+              Hand-picked by the best crew in {STORE.address.city} — walk in or call us if you want backup.
+            </p>
+          </div>
+          <div className="flex flex-col items-start sm:items-end gap-2 text-xs">
+            {status.state === "open" && status.minutesUntilLastCall <= 60 && (
+              <span className="inline-flex items-center gap-1.5 text-amber-300/90 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_4px_#fbbf24] animate-pulse" />
+                Last call in {status.minutesUntilLastCall} min · order by {minToLabel(status.lastCallMin)}
+              </span>
+            )}
+            {status.state !== "open" && (
+              <span className="inline-flex items-center gap-1.5 text-amber-300/90 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_4px_#fbbf24]" />
+                {status.state === "before_open"
+                  ? `Online ordering opens at ${status.opensAt}`
+                  : status.state === "after_last_call"
+                    ? `Online ordering closed · reopens at ${status.reopensAt}`
+                    : `Online ordering closed · reopens at ${status.opensAt}`}
+              </span>
+            )}
+            {status.state === "open" && (
+              <span className="inline-flex items-center gap-1.5 text-green-200/95 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_4px_#4ade80] animate-pulse" />
+                <span aria-hidden="true">⚡ </span>{eta.label}
+              </span>
+            )}
+            <span className="inline-flex items-center gap-1.5 text-green-300/60">
+              <span className="w-1 h-1 rounded-full bg-green-400/60" />
+              Cash only · 21+ ID required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 space-y-3">
         <ClosureBanner closure={closure} />
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">Live Menu</h1>
-        <p className="text-sm text-stone-600">
-          Real-time inventory from {STORE.name}. Pickup orders open daily 8 AM–
-          {todayCloseLabel()}. Cash only at the counter, 21+ with valid ID.
-        </p>
-        {/* Vendor / house ad — sidebar-style banner above the Boost embed.
-            Slot key matches admin curation surface (placement_slot='menu_sidebar'). */}
         <VendorAdSlot slot="menu_sidebar" />
       </div>
-      {/* Top-6 deals rail — server-rendered ABOVE the iHJ Boost iframe so
-          customers see a useful value-prop before Boost's 2-3s cold-load
-          completes. Closes the 30-40% bounce window flagged by the
-          2026-05-27 growth/SEO 3-expert review. Returns null when deals
-          is empty (no skeleton, no placeholder — empty is worse than the
-          iframe alone). Pure additive: <JaneMenu> below renders
-          unchanged regardless. */}
-      <MenuTopDealsRail deals={deals} />
-      <JaneMenu storeId={IHEARTJANE_STORE_ID} embedConfigId={IHEARTJANE_EMBED_CONFIG_ID} />
+      {/* Top-6 deals rail — server-rendered above the native product grid.
+          Pre-cutover this sat above the iHJ Boost iframe; native grid keeps
+          the same visual lead so customers see the value-prop before the
+          grid scroll. Returns null when no active deals (empty is worse
+          than no card). */}
+      <MenuTopDealsRail deals={activeDeals} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} />
       {/* Active-deals strip — every running deal as a brand-tinted chip.
-          Boost is third-party and can't ribbon individual product cards;
-          this is the pragmatic substitute that keeps the discount surface
-          loud directly under the embed. See MENU_TREE_AUDIT.md priority #3. */}
-      <MenuActiveDealsStrip deals={deals} treasureChestCount={treasureChestCount} />
-      <AppOnlyDealsFilter />
-      <MenuFallback featuredDeal={featuredDeal} />
+          Visual parity with what the prior iHJ-embed `/menu` rendered
+          below the embed. See MENU_TREE_AUDIT.md priority #3. */}
+      <MenuActiveDealsStrip deals={activeDeals} treasureChestCount={0} />
       {/* Get involved — cross-links to /community + /community/ambassador.
           Sister to /community hub cross-link section (v40.105). /menu is
           the highest-traffic public surface; adding a small ambassador +
