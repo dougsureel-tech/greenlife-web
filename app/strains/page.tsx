@@ -297,9 +297,56 @@ export default function StrainsIndexPage() {
               .
             </p>
           </div>
+          {/* Ship 0.3 — card-hierarchy flip, flag-gated.
+              When CARD_HIERARCHY_FLIP_V2="true" AND strain has a populated
+              tagline, render the new vertical hierarchy: name (larger) →
+              tagline (1 sentence) → smaller chip row (type, dominant
+              terpene, THC%). Falls back per-card to the legacy layout for
+              any strain with an empty tagline (no half-broken state).
+              Default OFF — Doug greenlights the flip after morning review.
+              Sister scc app/strains/page.tsx mirrors this block byte-shape
+              (only hover-color differs per per-stack brand). */}
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {inWaveStrains.map((s) => {
               const typeBadge = TYPE_LABELS[s.type] ?? { label: s.type, chip: "bg-stone-100 text-stone-700" };
+              const flipOn = process.env.CARD_HIERARCHY_FLIP_V2 === "true";
+              const hasTagline = typeof s.tagline === "string" && s.tagline.trim().length > 0;
+              const dominantTerpene =
+                Array.isArray(s.terpenes) && s.terpenes[0]?.name ? s.terpenes[0].name : null;
+              if (flipOn && hasTagline) {
+                return (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/strains/${s.slug}`}
+                      className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-3.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                    >
+                      <h3 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 group-hover:text-green-900 transition-colors truncate">
+                        {s.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm text-stone-600 leading-snug">
+                        {s.tagline}
+                      </p>
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                        <span
+                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${typeBadge.chip}`}
+                        >
+                          {typeBadge.label}
+                        </span>
+                        {dominantTerpene && (
+                          <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-emerald-50 text-emerald-700">
+                            {dominantTerpene}
+                          </span>
+                        )}
+                        {s.thcRange && (
+                          <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-stone-100 text-stone-700">
+                            Typical THC {s.thcRange}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  </li>
+                );
+              }
               return (
                 <li key={s.slug}>
                   <Link
