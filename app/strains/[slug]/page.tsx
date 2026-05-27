@@ -15,6 +15,7 @@
 // Doug bumps the env var per the 6/day/stack cadence in the plan.
 
 import type { Metadata } from "next";
+import type React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
@@ -29,14 +30,12 @@ import {
 import { STRAIN_TYPES } from "@/lib/strain-types";
 import { isStrainTypeSlug, strainTypeMetadata, StrainTypePage } from "../_type-handler";
 
-// strain-slug attribution channel for /menu deep-links from per-strain pages
-const STRAIN_ATTR_KEY = "strains" as const;
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { buildStrainProductLd } from "@/lib/strain-product-json-ld";
-import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
 import { StrainInStockSection } from "@/components/StrainInStockSection";
+import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { getStrainMatchedProducts, getActiveDeals } from "@/lib/db";
 
 // ISR with 5-min revalidate — flipped from force-static 2026-05-17 to
@@ -68,6 +67,46 @@ const TYPE_BADGE_CLASS: Record<string, string> = {
   sativa: "bg-red-100 text-red-800 border-red-200",
   hybrid: "bg-green-100 text-green-800 border-green-200",
 };
+
+// Type-color dot palette for the hero context strip (UI_EXPERT_DEEP_STRAIN_PAGE_2026_05_27.md
+// "Type-color dot palette (formalize)"). Mirrors the RecentlyViewedStrip STRAIN_DOT pattern.
+const TYPE_DOT_CLASS: Record<string, string> = {
+  indica: "bg-purple-400",
+  sativa: "bg-red-400",
+  hybrid: "bg-green-400",
+};
+
+// Render the lineage segment of the hero context strip. When parent slugs
+// resolve to corpus entries, parents become Links — gives the customer a
+// "Born of A × B" navigation path the chip row never had. When parents are
+// null (landrace) or unresolved, falls back to the plain `lineage` text
+// (already typeset as "A × B"). Preserves the verbatim lineage string for
+// SEO continuity (no rewording — pure presentation layer).
+function renderLineageSegment(s: Strain): React.ReactNode {
+  const resolved = (s.parents ?? []).map((p) =>
+    p && STRAINS[p] ? { slug: p, name: STRAINS[p].name } : null
+  );
+  const allResolved =
+    resolved.length >= 2 && resolved.every((r): r is { slug: string; name: string } => r !== null);
+  if (allResolved) {
+    return (
+      <>
+        {resolved.map((r, i) => (
+          <span key={r!.slug}>
+            {i > 0 && <span aria-hidden="true"> × </span>}
+            <Link
+              href={`/strains/${r!.slug}`}
+              className="text-stone-700 underline decoration-stone-300 decoration-1 underline-offset-2 hover:decoration-stone-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded-sm"
+            >
+              {r!.name}
+            </Link>
+          </span>
+        ))}
+      </>
+    );
+  }
+  return <span>{s.lineage}</span>;
+}
 
 export async function generateMetadata({
   params,
@@ -245,59 +284,97 @@ export default async function StrainSlugPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productLd) }} />
 
-      {/* Hero — v37.285 (Doug 2026-05-18 screenshot "relocate the nav tree
-          so the other part below can come up and improve the UX").
-          Pre-fix the breadcrumb lived in its own pt-6 wrapper ABOVE the
-          hero, and the hero added another pt-6 — plus the Breadcrumb
-          component carries its own `mt-2 mb-4`, stacking to ~88px of
-          mostly-empty vertical air between page top and the eyebrow line.
-          Now the breadcrumb lives INSIDE the hero section, sharing the
-          hero's pt-4 padding; the `-mt-2` wrapper neutralizes the
-          component's internal mt-2 so it sits flush. Net: ~50px of
-          vertical air recovered above-the-fold. Width-jitter fix
-          2026-05-17 preserved (max-w-3xl rail standardized). Sister scc
-          v28.645 same-push. */}
+      {/* Hero — UX-quickwin-bundle v42.045 (UI_EXPERT_DEEP_STRAIN_PAGE_2026_05_27.md
+          Move #1 lite): chip row converted to a single navigable context
+          strip. Three of the four old pills (THC range, CBD range, lineage)
+          were non-interactive — burned ~40px above-fold for zero clicks.
+          New strip is one line: [type-color dot] [type label] · [lineage] ·
+          ~[THC]% THC · [In stock anchor when products are live]. Each
+          segment carries navigation: type links to /strains/[type], lineage
+          links to parent slugs when resolvable (else plain text), THC stays
+          factual (no link), in-stock segment is an anchor to the
+          #in-stock-today section. Sister scc v33.325 byte-identical shape.
+          Color-dot palette per voice rubric §"Type-color dot palette". */}
       <section className="max-w-3xl mx-auto px-4 pt-4 pb-10">
         <div className="-mt-2">
           <Breadcrumb items={breadcrumbItems} />
-        </div>
-        <div className="text-xs uppercase tracking-[0.18em] text-stone-500 mb-3">
-          {typeLabel} · {STORE.address.city}, WA
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 mb-3">
           {s.name}
         </h1>
         <p className="text-lg md:text-xl text-stone-700 max-w-2xl mb-4">{s.tagline}</p>
-        <div className="flex flex-wrap items-center gap-2 mb-6">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold ${
-              TYPE_BADGE_CLASS[s.type] ?? "bg-stone-100 text-stone-700 border-stone-200"
-            }`}
+        <nav
+          aria-label="Strain quick facts"
+          className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-stone-700 mb-6"
+        >
+          <Link
+            href={`/strains/${s.type}`}
+            className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 -mx-1.5 hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
           >
-            {typeLabel}
-          </span>
-          {s.thcRange && (
-            <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
-              THC {s.thcRange}
-            </span>
-          )}
-          {s.cbdRange && (
-            <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
-              CBD {s.cbdRange}
-            </span>
-          )}
+            <span
+              aria-hidden="true"
+              className={`inline-block h-2 w-2 rounded-full ${TYPE_DOT_CLASS[s.type] ?? "bg-stone-400"}`}
+            />
+            <span className="font-medium">{typeLabel}</span>
+          </Link>
           {s.lineage && (
-            <span className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700">
-              {s.lineage}
-            </span>
+            <>
+              <span aria-hidden="true" className="text-stone-300">·</span>
+              <span className="text-stone-600">
+                {renderLineageSegment(s)}
+              </span>
+            </>
           )}
-        </div>
+          {s.thcRange && (
+            <>
+              <span aria-hidden="true" className="text-stone-300">·</span>
+              <span className="text-stone-600">~{s.thcRange} THC</span>
+            </>
+          )}
+          {matchedProducts.length > 0 && (
+            <>
+              <span aria-hidden="true" className="text-stone-300">·</span>
+              <a
+                href="#in-stock-today"
+                className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 -mx-1.5 font-medium text-emerald-800 hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+              >
+                <span aria-hidden="true">📍</span>
+                In stock today ({matchedProducts.length})
+              </a>
+            </>
+          )}
+        </nav>
         {!inWave && (
           <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs text-amber-900 max-w-xl">
             Preview · this strain page is not yet in the public search index.
           </div>
         )}
       </section>
+
+      {/* Intro — v42.045 UX-quickwin reorder (Move #2): intro now leads the
+          body so the customer gets the one-paragraph "what is this strain"
+          read BEFORE the in-stock rail. */}
+      <section className="max-w-3xl mx-auto px-4 pb-10">
+        <p className="text-base md:text-lg leading-relaxed text-stone-700" data-speakable>
+          {s.intro}
+        </p>
+      </section>
+
+      {/* In stock today — v42.045 UX-quickwin reorder (Move #2): jumped from
+          7th to 3rd position so retail-intent visitors see live products
+          before the education sections. Wrapped in an anchor div so the
+          hero context strip's "📍 In stock today" link can scroll here.
+          Live-inventory section (server-rendered from local Postgres
+          products SoT, 5-min ISR cache). HIDES entirely when 0 matches
+          per Doug §7 decision. */}
+      <div id="in-stock-today">
+        <StrainInStockSection
+          strain={s}
+          matched={matchedProducts}
+          deals={activeDeals}
+          storeName={STORE.name}
+        />
+      </div>
 
       {/* Lineage tree */}
       {graph && (graph.parents.length > 0 || graph.descendants.length > 0) && (
@@ -315,13 +392,6 @@ export default async function StrainSlugPage({
           <StrainLineageTree graph={graph} />
         </section>
       )}
-
-      {/* Intro */}
-      <section className="max-w-3xl mx-auto px-4 pb-10">
-        <p className="text-base md:text-lg leading-relaxed text-stone-700" data-speakable>
-          {s.intro}
-        </p>
-      </section>
 
       {/* Terpene table */}
       {s.terpenes.length > 0 && (
@@ -404,16 +474,6 @@ export default async function StrainSlugPage({
         </section>
       )}
 
-      {/* In stock today — live-inventory section (server-rendered from
-          local Postgres products SoT, 5-min ISR cache). HIDES entirely
-          when 0 matches per Doug §7 decision. */}
-      <StrainInStockSection
-        strain={s}
-        matched={matchedProducts}
-        deals={activeDeals}
-        storeName={STORE.name}
-      />
-
       {/* Related strains — width-jitter fix: align with prose rail at
           max-w-3xl. Card grid stays grid-cols-2 md:grid-cols-3. */}
       {related.length > 0 && (
@@ -437,23 +497,35 @@ export default async function StrainSlugPage({
         </section>
       )}
 
-      {/* CTA band */}
-      <section className="bg-emerald-950 text-emerald-50">
-        <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">See if we have {s.name} in stock</h2>
-          <p className="text-emerald-200 mb-6 max-w-xl mx-auto">
-            Live inventory at {STORE.name} — save 20% on every online order.
-          </p>
-          <Link
-            href={withAttr(`/menu?q=${encodeURIComponent(s.name)}`, STRAIN_ATTR_KEY, s.slug)}
-            className="inline-flex items-center gap-2 rounded-full bg-white text-emerald-950 hover:bg-emerald-50 transition-colors font-semibold px-6 py-3 text-base"
-          >
-            Browse menu →
-          </Link>
-        </div>
-      </section>
+      {/* Recently viewed — v42.045 UX-quickwin (Move #8). Self-fetching
+          client component reads localStorage IDs and fetches just those
+          products. Handles its own empty state (returns null when nothing
+          to show) and dedup-against-current-page. Mounts at page tail so
+          a customer flowing through multiple strain pages keeps a tiny
+          breadcrumb of their interest. */}
+      <RecentlyViewedAutoStrip accent="green" />
 
-      {/* Compliance footer */}
+      {/* Verification footer — v42.045 UX-quickwin (Move #5). Surfaces the
+          `verification` metadata block as a one-line credibility signal
+          above the compliance footer. Hidden when the field is absent so
+          un-verified entries stay quiet. No source list, no expandable —
+          single-line statement per UX expert spec. */}
+      {s.verification && (
+        <section className="max-w-3xl mx-auto px-4 pt-6 pb-2 text-center text-xs text-stone-500 leading-relaxed">
+          <p>
+            Verified {s.verification.verifiedAt} against {s.verification.sources.length}{" "}
+            {s.verification.sources.length === 1 ? "source" : "sources"}
+            {s.lineageAlternates && s.lineageAlternates.length > 0
+              ? " — updated when sources disagree."
+              : "."}
+          </p>
+        </section>
+      )}
+
+      {/* Compliance footer — v42.045: CTA band above removed (Move #4) since
+          MobileStickyCta is already mounted in root layout and handles the
+          same affordance with store-open-status awareness; the big bg
+          -emerald-950 band burned ~280px for a redundant CTA. */}
       <section className="max-w-3xl mx-auto px-4 py-8 text-center text-xs text-stone-500 leading-relaxed">
         <p>
           21+. Cannabis affects people differently — your experience may vary. Not medical advice.
