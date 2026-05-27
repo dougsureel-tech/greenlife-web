@@ -39,7 +39,7 @@ function walk(dir: string): string[] {
     return out;
   }
   for (const entry of entries) {
-    if (entry === "node_modules" || entry === ".next" || entry === "__tests__" || entry === ".git" || entry === "scripts") continue;
+    if (entry === "node_modules" || entry === ".next" || entry === "__tests__" || entry === ".git" || entry === "scripts" || entry === ".claude") continue;
     const full = join(dir, entry);
     let s;
     try {

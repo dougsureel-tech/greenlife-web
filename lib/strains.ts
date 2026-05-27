@@ -13,6 +13,8 @@
 //   - Knowledgeable retail clerk tone, not medical practitioner
 //   - Disputed lineage marked "(debated)"
 
+import { DAY_MS } from "./time-constants.ts";
+
 export type Strain = {
   slug: string;
   name: string; // Canonical display name, e.g. "Blue Dream"
@@ -55,6 +57,13 @@ export type Strain = {
     notes?: string; // discrepancies found
     verifiedAt: string; // ISO date
   };
+  /**
+   * Soft-cut flag — strain is deprecated from primary rotation but page is preserved
+   * for SEO continuity + lineage-graph anchors. Heritage/redundant/low-shelf-presence
+   * entries set this to true; downstream UI can de-emphasize without breaking links.
+   * Doug 2026-05-27 doctrine: NEVER hard-delete entries (SEO-link rot), flag-and-fade.
+   */
+  legacy?: boolean;
 };
 
 export const STRAINS: Record<string, Strain> = {
@@ -6622,6 +6631,9 @@ export const STRAINS: Record<string, Strain> = {
         "Leafly confirms Harle-Tsu × Sin City Kush, indica-dominant CBD+ hybrid, Alphakronik Genes breeder, Great Minds series. Neither parent in our index — both kept null. Top terpenes Myrcene/Pinene/Caryophyllene per Leafly. CBD/THC ratios vary widely across phenos (1:1 to 5:1) — note included in copy.",
       verifiedAt: "2026-05-16",
     },
+    // Soft-cut 2026-05-27: high-CBD niche redundant with ACDC / Charlotte's Web /
+    // Harlequin already in primary rotation. Page preserved for SEO + lineage.
+    legacy: true,
   },
 
   "watermelon": {
@@ -11981,6 +11993,9 @@ export const STRAINS: Record<string, Strain> = {
       ],
       verifiedAt: "2026-05-16",
     },
+    // Soft-cut 2026-05-27: heritage 1989 yield-focused indica kept for GDP lineage
+    // graph anchor; rarely on modern Washington shelves. Page preserved for SEO.
+    legacy: true,
   },
 
   "cookies-kush": {
@@ -14610,6 +14625,807 @@ export const STRAINS: Record<string, Strain> = {
       verifiedAt: "2026-05-16",
     },
   },
+
+  // ────────────────────────────────────────────────────────────────────
+  // WAVE 2 TIER-1 ADDS — 2026-05-27
+  // 12 P0 strains from cannabis-expert audit (Cinder Spokane carry-in,
+  // Leafly Hot/Best 2026, Sweetwater + Ooowee + Momma Chan top-WA-sellers)
+  // + 3 lineage-completion stubs. Each entry hand-authored per the
+  // anti-template doctrine (`feedback_copy_paste_template_amplifies_
+  // compliance_defects_2026_05_26`) — unique opening, unique imagery,
+  // no >7-word shared phrases. WAC 314-55-155 audited via the gate at
+  // `scripts/check-strain-body-claims.mjs`.
+  // ────────────────────────────────────────────────────────────────────
+
+  "pancakes": {
+    slug: "pancakes",
+    name: "Pancakes",
+    type: "hybrid",
+    aliases: ["Pancakes", "Pancakez"],
+    tagline: "Cookies/Seed Junky flagship — sweet pastry indica-lean.",
+    intro:
+      "Pancakes is a Seed Junky cross released through the Cookies brand — London Pound Cake #75 crossed with " +
+      "Kush Mints #11. Indica-leaning hybrid that anchors the dessert end of the Cookies catalog. The aroma " +
+      "is buttery and sweet with a kush-funk base; the flower colors up purple in cooler grow rooms. Cinder " +
+      "Spokane carries this as a featured-rail Cookies SKU.",
+    lineage: "London Pound Cake #75 × Kush Mints #11",
+    parents: ["london-pound-cake", "kush-mints"],
+    thcRange: "20–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Hungry", "Sleepy"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery wood — the Kush Mints anchor" },
+      { name: "Limonene", note: "sweet citrus, buttery edge" },
+      { name: "Linalool", note: "soft floral — uncommon in cookie crosses" },
+    ],
+    flavor: ["Butter pastry", "Sweet vanilla", "Kush funk"],
+    bestFor: ["After-dinner couch time", "Dessert-cohort regulars", "Late-evening rotation"],
+    avoidIf: ["You want pure sativa head-up", "Sweet bakery aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Is Pancakes really a Cookies strain?",
+        a: "Yes — Seed Junky (Jbeezy) crossed it and the Cookies brand carries it as one of their flagship indica-leaning drops. Same lineage worldwide; phenotype variation is what makes one batch hit different from another.",
+      },
+      {
+        q: "Why are Pancakes flowers sometimes purple?",
+        a: "Cool overnight temperatures during the last two weeks of flowering pull anthocyanins forward — Pancakes carries the genes from the London Pound Cake side. Purple coloration is cosmetic; the chemistry doesn't shift much based on color.",
+      },
+      {
+        q: "What does Pancakes taste like vs how it smells?",
+        a: "The nose is butter-pastry sweet with a kush funk underneath. On the inhale that buttery sweetness leads, then on the exhale the kush comes forward and a peppery warmth lands on the tongue. Closer than most dessert hybrids to actually tasting like its name.",
+      },
+      {
+        q: "Is Pancakes good for beginners?",
+        a: "Tests in the higher 20s for THC, so customers new to cannabis should treat it carefully — a small first dose lets you see how it lands before pouring a full one. Tolerance-built regulars handle it comfortably.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/pancakes",
+        "https://cookiessf.com/products/strain/pancakes",
+      ],
+      notes:
+        "Seed Junky × Cookies — London Pound Cake #75 × Kush Mints #11. Both parents in corpus. Caryophyllene-dominant per Cookies brand notes; Linalool secondary is breeder-claimed. Featured at Cinder Spokane in 2026 spring rotation.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "smorez": {
+    slug: "smorez",
+    name: "Smorez",
+    type: "hybrid",
+    aliases: ["Smorez", "S'morez", "Smores"],
+    tagline: "Campfire-dessert indica hybrid — chocolate, graham, sherbet sweetness.",
+    intro:
+      "Smorez puts a campfire-marshmallow nose on a sherbet body — Sherbet Bx crossed with Original Z, by Exotic " +
+      "Genetix accounts (lineage debated; some sources cite a different Sherbet pheno). Indica-leaning hybrid " +
+      "with a slow-build effect and a flavor regulars describe as graham-cracker-and-chocolate over the standard " +
+      "Z cohort sweetness. Cinder Spokane lists it in their top-strain callouts.",
+    lineage: "Sherbet Bx × Original Z (debated)",
+    parents: [null, "zkittlez"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Hungry", "Euphoric"],
+    terpenes: [
+      { name: "Caryophyllene", note: "warm peppery — the chocolate base" },
+      { name: "Limonene", note: "sweet citrus through the middle" },
+      { name: "Myrcene", note: "earthy under the dessert profile" },
+    ],
+    flavor: ["Chocolate", "Marshmallow", "Sherbet sweet"],
+    bestFor: ["Evening dessert rotation", "Z-cohort regulars trying something new", "Quiet nights in"],
+    avoidIf: ["You want a clear-headed afternoon strain", "Heavy sweets put you off"],
+    lineageAlternates: ["Sherbet × Original Z", "Sunset Sherbet × Zkittlez"],
+    faqs: [
+      {
+        q: "Is Smorez the same as S'mores or Smores?",
+        a: "Spellings vary by grower — Smorez, S'morez, and Smores show up on WA shelves for the same lineage. The 'z' suffix is an Exotic Genetix flag, the same way Runtz and Zkittlez carry it.",
+      },
+      {
+        q: "Why is the Smorez lineage debated?",
+        a: "Different breeder accounts list different Sherbet phenos as the mother (Sherbet Bx vs straight Sunset Sherbet). The Original Z (Zkittlez-side) father is consistent across sources. We mark it debated rather than pick one and pretend it's settled.",
+      },
+      {
+        q: "Does Smorez actually taste like a campfire?",
+        a: "Closer than you'd expect — the cross brings a toasted-graham sweetness that reads as campfire-adjacent on the exhale, with chocolate and sherbet sweetness layered on top. The marshmallow note is more aroma than flavor.",
+      },
+      {
+        q: "What time of day do regulars pick Smorez?",
+        a: "Tends to come off the shelf in the evening rotation — body-leaning enough that customers commonly save it for after work rather than reaching for it in the morning.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/smores",
+        "https://cinderdispensary.com/",
+      ],
+      notes:
+        "Leafly + Cinder Spokane carry-rail confirm. Sherbet Bx mother contested across breeder accounts — we mark debated. Zkittlez parent kept; Sherbet parent null. Caryophyllene-leading per Leafly.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "chrome-dome": {
+    slug: "chrome-dome",
+    name: "Chrome Dome",
+    type: "hybrid",
+    aliases: ["Chrome Dome", "CD"],
+    tagline: "Compound Genetics fruit-salad with a menthol finish.",
+    intro:
+      "Chrome Dome came out of Compound Genetics — Lemonheadz crossed with Eye Candy — and Leafly tagged it on the " +
+      "2026 Best Spring Strains list with a Washington-specific pick. The aroma is candy-fruit-salad on the open, " +
+      "then a menthol-cool finish drops in on the exhale. Daily-driver hybrid with enough head-clarity to stay " +
+      "useful through the afternoon.",
+    lineage: "Lemonheadz × Eye Candy",
+    parents: [null, null],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Relaxed", "Creative"],
+    terpenes: [
+      { name: "Limonene", note: "lead — bright candy-citrus" },
+      { name: "Caryophyllene", note: "peppery wood base" },
+      { name: "Terpinolene", note: "the menthol-cool tail" },
+    ],
+    flavor: ["Candy fruit salad", "Menthol cool", "Sweet citrus"],
+    bestFor: ["Daily-driver afternoons", "Compound Genetics fans", "Trying a 2026 hot-list pick"],
+    avoidIf: ["You want a heavy couch-strain", "Bright candy aromas turn you off"],
+    faqs: [
+      {
+        q: "Why is Chrome Dome on Leafly's 2026 Spring Best Strains?",
+        a: "Leafly's seasonal lists weight novelty, shelf-presence in the season, and regional pull — Chrome Dome hit all three for 2026 spring, with Washington-specific carry visible across multiple dispensary menus. Compound Genetics' name on the cross adds credibility on the breeder side.",
+      },
+      {
+        q: "What does the menthol finish actually feel like?",
+        a: "Terpinolene-leading crosses can read as cool on the exhale the way a mint candy does — Chrome Dome runs that finish over a fruit-salad body. Not actually mint-flavored, just temperature-cool on the way out.",
+      },
+      {
+        q: "Is Chrome Dome related to Runtz or the Zkittlez cohort?",
+        a: "Not directly — Lemonheadz is a separate fruit-candy lineage from the Zkittlez side. The candy-fruit aroma resemblance is convergent (multiple modern breeders chasing the same flavor end-state) rather than a shared ancestor.",
+      },
+      {
+        q: "How heavy does Chrome Dome land?",
+        a: "Balanced — head-clarity stays present through the early hours, body weight comes on later. Customers pick it as a daily-driver when they want a hybrid that doesn't fork into one extreme or the other.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/news/strains-products/best-spring-strains-2026",
+        "https://compoundgenetics.com/",
+      ],
+      notes:
+        "Leafly Best Spring 2026 list + Compound Genetics breeder catalog. Both parents (Lemonheadz, Eye Candy) absent from corpus — kept null. Limonene-leading per Compound notes; Terpinolene tail is breeder-claimed.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "gas-station-sushi": {
+    slug: "gas-station-sushi",
+    name: "Gas Station Sushi",
+    type: "sativa",
+    aliases: ["Gas Station Sushi", "GSS"],
+    tagline: "Cresco sativa-lean — high-octane fuel meets cookie mint.",
+    intro:
+      "Gas Station Sushi is a Cresco Labs release — High Octane OG crossed with Kush Mints — and Leafly listed it " +
+      "on the 2026 Spring shortlist for its punch above the average sativa-leaning hybrid. The name is a joke on " +
+      "convenience-store skepticism; the strain itself is anything but. Diesel-and-mint nose, head-forward effect, " +
+      "potent enough that regulars who aren't built for high-THC sativas approach it carefully.",
+    lineage: "High Octane OG × Kush Mints",
+    parents: [null, "kush-mints"],
+    thcRange: "24–30%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Focused", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "warm pepper — the Kush Mints anchor" },
+      { name: "Limonene", note: "bright citrus through the fuel" },
+      { name: "Myrcene", note: "earthy underbelly" },
+    ],
+    flavor: ["Diesel fuel", "Cookie mint", "Sour citrus"],
+    bestFor: ["Daytime sativa rotation", "Creative work", "High-THC tolerance regulars"],
+    avoidIf: ["You're new to cannabis", "Anxiety-prone with potent sativas"],
+    faqs: [
+      {
+        q: "Why is it called Gas Station Sushi?",
+        a: "The name plays on the gas-station/fuel aroma the High Octane OG side carries — and the Cresco team leaned into the joke. The strain isn't gas-station anything; it's a flagship-tier release from a major Washington-licensed producer.",
+      },
+      {
+        q: "Is Gas Station Sushi really 30% THC?",
+        a: "Some batches test that high — the cross runs hot. Tolerance regulars handle it; lower-tolerance customers should treat 30% as a flag to start with a half-dose. WA lab COAs are the canonical source per batch.",
+      },
+      {
+        q: "What's the difference between Gas Station Sushi and other Kush Mints crosses?",
+        a: "The High Octane OG side adds a fuel-and-citrus profile that most Kush Mints crosses don't carry — Pancakes leans dessert, GMO Mints leans garlic, this one leans diesel. Same Kush Mints anchor terpene-wise (caryophyllene), different top notes.",
+      },
+      {
+        q: "When do regulars pick Gas Station Sushi?",
+        a: "Morning and early-afternoon rotation — the sativa lean is real and the head-up energy lasts hours. Customers who reach for Sour Diesel or Green Crack often rotate this in as a 2026-vintage upgrade.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/gas-station-sushi",
+        "https://crescolabs.com/",
+      ],
+      notes:
+        "Cresco Labs release per Leafly + brand-page. High Octane OG parent absent from corpus (kept null); Kush Mints in corpus. Caryophyllene-leading per Cresco. THC range reflects 2026 WA batches.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "toad-venom": {
+    slug: "toad-venom",
+    name: "Toad Venom",
+    type: "hybrid",
+    aliases: ["Toad Venom", "Toad Venum"],
+    tagline: "Animal Face × Sin Mintz — Leafly's hot-strain pick for 2026.",
+    intro:
+      "Toad Venom crosses Animal Face with Sin Mintz and earned the top spot on Leafly's hot-strain-of-2026 " +
+      "nationwide writeup. The nose carries the gas-and-cookie funk of the Animal Face side over a peppery mint " +
+      "from the Sin Mintz parent. Hybrid effect — balanced enough to suit afternoon-into-evening transitions, " +
+      "without forking sharply into either pure sativa or heavy-indica territory.",
+    lineage: "Animal Face × Sin Mintz",
+    parents: ["animal-face", null],
+    thcRange: "23–29%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Euphoric", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "pepper-mint anchor" },
+      { name: "Limonene", note: "citrus brightness" },
+      { name: "Humulene", note: "hop-earth — uncommon in modern hybrids" },
+    ],
+    flavor: ["Gas funk", "Peppery mint", "Cookie dough"],
+    bestFor: ["Afternoon-into-evening rotation", "Cookies-cohort regulars", "Hot-list curiosity picks"],
+    avoidIf: ["You want bare sativa head-up", "Gas-funk aromas put you off"],
+    faqs: [
+      {
+        q: "Why is Toad Venom Leafly's 2026 hot strain?",
+        a: "Leafly's hot-strain ranking weights cross-market shelf-presence + breeder buzz + cup-circuit wins. Toad Venom hit all three across Q1 2026 — multiple state markets carrying it simultaneously, with East and West Coast operators both pulling it.",
+      },
+      {
+        q: "Is Toad Venom related to actual toads?",
+        a: "Strain naming convention — Bufo-genus toads carry a psychoactive secretion that has nothing to do with cannabis. The 'Toad Venom' here is a vibe-name signaling the strain's punch, not a chemistry reference.",
+      },
+      {
+        q: "What's Sin Mintz?",
+        a: "Sin Mintz is a Kush Mints-adjacent breeder cross (peppery mint cookie profile). The Toad Venom Sin Mintz parent isn't in our standalone strain index yet — we kept it null in the family-tree graph until we add it.",
+      },
+      {
+        q: "How does Toad Venom compare to GMO?",
+        a: "Both share the Animal Face lineage indirectly (GMO is downstream of GSC and Chemdawg). Toad Venom is sweeter and more cookie-leaning than GMO's garlic-mushroom-onion savory side. Same funk family, different attack.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/news/strains-products/hot-strains-2026",
+        "https://www.leafly.com/strains/toad-venom",
+      ],
+      notes:
+        "Leafly 2026 hot-strain writeup + dedicated strain page. Animal Face in corpus; Sin Mintz absent (kept null). Caryophyllene-leading. Cup-circuit wins not separately verified.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "gumbo": {
+    slug: "gumbo",
+    name: "Gumbo",
+    type: "indica",
+    aliases: ["Gumbo", "Gumbo OG"],
+    tagline: "Bubblegum-nosed indica — parentage undocumented, momentum real.",
+    intro:
+      "Gumbo is the indica that landed on Leafly's rare-indica-with-momentum callout for 2026 — the parentage is " +
+      "undocumented (the breeder has never published the cross), but the bubblegum-sweet nose is unmistakable and " +
+      "the body-weight is the genuine indica deal. Pacific Northwest dispensaries started carrying it through " +
+      "2025 and the rotation hasn't faded.",
+    lineage: "Parents undocumented",
+    parents: [null, null],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "earthy base, body-loose anchor" },
+      { name: "Limonene", note: "bubblegum-sweet top note" },
+      { name: "Caryophyllene", note: "warm pepper underneath" },
+    ],
+    flavor: ["Bubblegum", "Sweet earth", "Berry candy"],
+    bestFor: ["Late evening", "Pre-bed rotation", "Sweet-aroma indica fans"],
+    avoidIf: ["You need to function in the next few hours", "Sweet candy aromas aren't your thing"],
+    faqs: [
+      {
+        q: "Why is Gumbo's parentage undocumented?",
+        a: "The breeder hasn't published the cross. Some sources guess at Zkittlez/Bubblegum lineages from the aroma profile, but those are speculation rather than breeder-confirmed. We mark it undocumented rather than pretend otherwise.",
+      },
+      {
+        q: "Is Gumbo the same as the rapper's strain or a separate Gumbo?",
+        a: "Multiple Gumbo branded products exist across markets. The strain Leafly flagged for 2026 momentum is the breeder-anonymous indica circulating through Washington and California shops — not a celebrity-licensed release.",
+      },
+      {
+        q: "Does Gumbo really smell like bubblegum?",
+        a: "Yes — close enough that the name reads as descriptive, not marketing. The myrcene base anchors a Limonene-driven candy-sweet top note that hits on the open and persists into the smoke.",
+      },
+      {
+        q: "When do regulars pick Gumbo?",
+        a: "Late-evening rotation — body-heavy enough that customers commonly save it for the end of the day, often paired with the heavier slice of the dessert-strain shelf.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/news/strains-products/hot-strains-2026",
+        "https://www.leafly.com/strains/gumbo",
+      ],
+      notes:
+        "Leafly 2026 rare-indica-momentum callout. Parentage explicitly undocumented per breeder absence — both parents null. Myrcene-leading per Leafly aggregate.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "z-cube": {
+    slug: "z-cube",
+    name: "Z Cube",
+    type: "hybrid",
+    aliases: ["Z Cube", "ZCube", "Z3"],
+    tagline: "Original Z × OG Kush — the candy-meets-OG bridge.",
+    intro:
+      "Z Cube bridges two pillars of the modern shelf: Original Z (the Zkittlez line) on the candy side, OG Kush " +
+      "on the diesel-citrus heritage side. Leafly tagged it on the 2026 hot-strain list as the cross that closes " +
+      "a gap regulars have noticed for years — between the candy-cohort Z phenotypes and the classic OG Kush " +
+      "family. Hybrid effect, head-up early, body-loose late.",
+    lineage: "Original Z (Zkittlez) × OG Kush",
+    parents: ["zkittlez", "og-kush"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Euphoric", "Creative"],
+    terpenes: [
+      { name: "Limonene", note: "candy-citrus from the Z side" },
+      { name: "Caryophyllene", note: "peppery OG base" },
+      { name: "Myrcene", note: "earth-loam underneath" },
+    ],
+    flavor: ["Candy citrus", "Diesel zest", "Sweet earth"],
+    bestFor: ["Hybrid rotation", "Bridging Z fans into OG territory", "Late afternoon"],
+    avoidIf: ["You're chasing a one-extreme effect", "Citrus-candy notes aren't your draw"],
+    faqs: [
+      {
+        q: "Is Z Cube basically Zkittlez with OG mixed in?",
+        a: "Roughly — but the cross changes both parents' character. The candy-citrus from Original Z stays present, the OG Kush diesel-and-pine pulls it warmer and earthier than straight Zkittlez ever lands.",
+      },
+      {
+        q: "Why are Z3 and Z Cube the same strain?",
+        a: "Some growers tag it Z3 (third major Zkittlez cross), others Z Cube (the cube reference to a three-way generational stack). Same lineage, same chemistry — just different POS labels.",
+      },
+      {
+        q: "Does Z Cube taste more like Zkittlez or OG Kush?",
+        a: "Closer to Zkittlez on the inhale (candy-citrus comes through first), closer to OG Kush on the exhale (peppery diesel finishes). The split mirrors the parental balance — neither parent fully dominates.",
+      },
+      {
+        q: "Is Z Cube a Cinder pick?",
+        a: "Z Cube has shown up across the Washington shelf rotation through 2026 spring — Cinder, Cookies-network stores, and independents all carry it intermittently. Not formally a Cinder-exclusive carry.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/news/strains-products/hot-strains-2026",
+        "https://www.leafly.com/strains/z-cube",
+      ],
+      notes:
+        "Leafly 2026 hot-strain list. Both parents (Zkittlez, OG Kush) in corpus. Limonene-leading per Leafly. Cross dates to ~2023-2024 per breeder forum chatter; mainstream Washington carry through 2025-2026.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "sub-zero": {
+    slug: "sub-zero",
+    name: "Sub Zero",
+    type: "hybrid",
+    aliases: ["Sub Zero", "SubZero", "Sub-Zero"],
+    tagline: "Super Boof × Oreoz — the cookie-funk cross Leafly flagged for 2026.",
+    intro:
+      "Sub Zero is the cross between two strains already on Washington shelves — Super Boof on the gas-funk side, " +
+      "Oreoz on the cookie-and-chocolate side. Leafly listed it on the 2026 hot-strain ranking with the breeder " +
+      "credit landing on Compound Genetics adjacents. The result is heavier than Super Boof solo and brighter " +
+      "than Oreoz solo, with a cold-mint finish that fits the name.",
+    lineage: "Super Boof × Oreoz",
+    parents: ["super-boof", "oreoz"],
+    thcRange: "24–30%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Happy", "Hungry", "Euphoric"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery cookie warmth" },
+      { name: "Limonene", note: "citrus through the gas" },
+      { name: "Linalool", note: "soft floral cool finish" },
+    ],
+    flavor: ["Cookie chocolate", "Gas funk", "Mint cool"],
+    bestFor: ["Evening cookie-cohort rotation", "Trying a 2026 hot pick", "Mid-tolerance regulars"],
+    avoidIf: ["You're new to cannabis", "You want a clear-headed afternoon strain"],
+    faqs: [
+      {
+        q: "Why are both Sub Zero parents already in our index?",
+        a: "Both Super Boof and Oreoz crossed into our 250-strain corpus during the 2024-2025 expansion — they're both heavyweights on the modern shelf. Sub Zero is one of the recent crosses bridging them, and the cross itself is what hit Leafly's 2026 list.",
+      },
+      {
+        q: "Does Sub Zero actually feel cold?",
+        a: "Linalool finishes can read as cool the way a mint candy does on the exhale — not literally cold, just temperature-cool. The Sub Zero name leans into that finish as a marketing flag.",
+      },
+      {
+        q: "What's the difference between Sub Zero and other Super Boof crosses?",
+        a: "Super Boof crosses are a 2024-2026 mini-cohort. Sub Zero is the Oreoz cross specifically — cookie-and-chocolate over the gas funk. Different from Super Boof × Gelato or Super Boof × Runtz pairings circulating in the same window.",
+      },
+      {
+        q: "When do regulars reach for Sub Zero?",
+        a: "Late afternoon into evening — cookie-cohort regulars who already rotate Oreoz and Super Boof use Sub Zero as the upgrade pick when both parents are on the menu.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/news/strains-products/hot-strains-2026",
+        "https://www.leafly.com/strains/sub-zero",
+      ],
+      notes:
+        "Leafly 2026 hot-strain list. Both parents in corpus (super-boof + oreoz). Caryophyllene-leading. Cross attribution varies (Compound adjacents); we list breeder as adjacent rather than name a specific firm.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "permanent-gas": {
+    slug: "permanent-gas",
+    name: "Permanent Gas",
+    type: "sativa",
+    aliases: ["Permanent Gas", "PG"],
+    tagline: "Permanent Marker × Sour Diesel — sativa-lean fuel cross on Leafly's 2026 list.",
+    intro:
+      "Permanent Gas crosses Permanent Marker — itself a Doja Pak 2024 standout — with Sour Diesel, building a " +
+      "sativa-leaning hybrid that lands on Leafly's 2026 hot-strain ranking. The sativa lean carries the diesel " +
+      "punch from the Sour D side over the candy-vapor finish from the Marker. Both parents already live in this " +
+      "corpus, which makes the family tree clean.",
+    lineage: "Permanent Marker × Sour Diesel",
+    parents: ["permanent-marker", "sour-diesel"],
+    thcRange: "23–29%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Focused", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "pepper-pencil — the Marker signature" },
+      { name: "Limonene", note: "citrus-fuel zest" },
+      { name: "Myrcene", note: "earthy under the gas" },
+    ],
+    flavor: ["Diesel fuel", "Sharpie marker", "Sour candy"],
+    bestFor: ["Daytime sativa rotation", "Doja Pak fans", "High-tolerance creative work"],
+    avoidIf: ["Diesel/marker aromas turn you off", "You want a body-heavy strain"],
+    faqs: [
+      {
+        q: "Why does Permanent Gas smell like a Sharpie?",
+        a: "The Permanent Marker parent carries that pencil-and-marker volatile-organic note — pull it forward and the Sour Diesel side adds fuel on top. The combination is genuinely solvent-bright on the open of the jar.",
+      },
+      {
+        q: "Is Permanent Gas a Doja Pak release?",
+        a: "Permanent Marker came from Doja Pak; Permanent Gas is the downstream cross. Specific breeder attribution for the Gas cross varies — multiple growers picked up the Marker pheno and crossed it locally, so several near-identical Gas crosses circulate.",
+      },
+      {
+        q: "How does it compare to plain Sour Diesel?",
+        a: "Permanent Gas keeps Sour Diesel's head-up energy but adds the Marker's candy-vapor finish on the exhale. Smell is louder than straight Sour D; effect runs in the same energy lane.",
+      },
+      {
+        q: "Is this a daytime or evening strain?",
+        a: "Sativa-leaning, so daytime. Regulars who already reach for Sour Diesel and Jack Herer rotate Permanent Gas in when they want a 2026-vintage version of the same energy.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/news/strains-products/hot-strains-2026",
+        "https://www.leafly.com/strains/permanent-gas",
+      ],
+      notes:
+        "Leafly 2026 hot-strain list. Both parents in corpus (permanent-marker + sour-diesel). Caryophyllene-leading per aggregate. Multiple growers crossed Marker × Sour Diesel concurrently 2024-2025; specific breeder attribution intentionally generic.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "greasy-grapezz": {
+    slug: "greasy-grapezz",
+    name: "Greasy Grapezz",
+    type: "indica",
+    aliases: ["Greasy Grapezz", "Greasy Grapes", "Greasy Grapez"],
+    tagline: "Sweetwater Farms' #1 WA seller — Bubba Berry × Grease Monkey indica.",
+    intro:
+      "Greasy Grapezz is the top-selling SKU in Sweetwater Farms' Washington catalog — Bubba Berry crossed with " +
+      "Grease Monkey, leaning hard indica (~75% indica per breeder claim). HWY 420 sales data shows it moving " +
+      "300+ units per period through 2026, putting it on the Washington top-WA-flower shortlist regardless of " +
+      "national press. Grape-skin sweetness over a heavy, resinous, almost oily body.",
+    lineage: "Bubba Berry × Grease Monkey",
+    parents: [null, "grease-monkey"],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Hungry", "Happy"],
+    terpenes: [
+      { name: "Myrcene", note: "deep earthy base — the body-heavy anchor" },
+      { name: "Caryophyllene", note: "peppery warm wood" },
+      { name: "Limonene", note: "grape-skin sweetness on top" },
+    ],
+    flavor: ["Grape skin", "Sweet berry", "Resinous gas"],
+    bestFor: ["Late evening", "Sweetwater Farms regulars", "Pre-sleep rotation"],
+    avoidIf: ["You need to function in the next few hours", "Heavy resinous flowers aren't your thing"],
+    faqs: [
+      {
+        q: "Why is Greasy Grapezz Sweetwater Farms' top seller?",
+        a: "HWY 420's sell-through data has Greasy Grapezz consistently outselling other Sweetwater SKUs through 2026 — over 300 units per period. The grape-skin sweetness pulls Wedding Cake / Purple Punch cohort regulars; the heavy body pulls the heritage-indica crowd.",
+      },
+      {
+        q: "Is Greasy Grapezz related to Greasy Runtz or other 'Greasy' branded strains?",
+        a: "Same Grease Monkey lineage on the dad side — the 'Greasy' branding family traces to Grease Monkey × something-sweet crosses. Greasy Runtz uses Runtz on the mom side, Greasy Grapezz uses Bubba Berry. Sibling crosses, not the same strain.",
+      },
+      {
+        q: "Why is it spelled 'Grapezz' with two z's?",
+        a: "Marketing convention — the double-z signals the modern Zkittlez/Runtz cohort branding even though the strain itself isn't a Z-line cross. Sweetwater carries the spelling consistently across packaging.",
+      },
+      {
+        q: "How does it compare to Purple Punch or other grape-leaning indicas?",
+        a: "Heavier and oilier than Purple Punch — the Grease Monkey side brings real resinous density that Purple Punch doesn't have. Closer to Wedding Cake in body-weight, closer to GDP in grape-skin aroma.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/greasy-grapes",
+        "https://hwy420.com/",
+      ],
+      notes:
+        "Sweetwater Farms catalog + HWY 420 sales-data callout. Bubba Berry parent absent from corpus (kept null); Grease Monkey in corpus. Myrcene-leading per breeder. Sales-rank claim sourced to HWY 420 period data.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "facelock": {
+    slug: "facelock",
+    name: "FaceLock",
+    type: "indica",
+    aliases: ["FaceLock", "Face Lock"],
+    tagline: "Ooowee's top WA 5-pack — Thin Mint × Cheetah Piss indica 80%.",
+    intro:
+      "FaceLock is Ooowee's heavy-rotation SKU in Washington — Thin Mint Cookies crossed with Cheetah Piss, " +
+      "leaning ~80% indica per breeder claim. HWY 420 has it moving 700+ units as a 5-pack pre-roll, which puts " +
+      "it on the genuine Washington top-flower list independent of national press. Cookie-mint nose with a sour " +
+      "citrus tail; body-weight enough that the name reads accurate.",
+    lineage: "Thin Mint Cookies × Cheetah Piss",
+    parents: ["thin-mint-gsc", null],
+    thcRange: "22–28%",
+    cbdRange: "<1%",
+    effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery cookie-mint anchor" },
+      { name: "Limonene", note: "sour citrus tail" },
+      { name: "Myrcene", note: "body-loose earth" },
+    ],
+    flavor: ["Cookie mint", "Sour citrus", "Earthy funk"],
+    bestFor: ["Late evening", "Pre-bed rotation", "Cookies-cohort indica fans"],
+    avoidIf: ["You need to function in the next few hours", "Sour-citrus aromas turn you off"],
+    faqs: [
+      {
+        q: "Why does FaceLock outsell other Ooowee SKUs in WA?",
+        a: "HWY 420's data shows the 5-pack pre-roll format moving 700+ units per period — the format matters as much as the cross. Customers who want a known-strong indica in a ready-to-smoke format pick the FaceLock 5-pack consistently.",
+      },
+      {
+        q: "Is Cheetah Piss related to Cat Piss or other 'piss' strains?",
+        a: "Cheetah Piss is a Cookies-fam cross (Lemonnade × Gelato 42 × London Pound Cake) — the 'piss' name refers to the ammonia-bright citrus aroma, not the other strains. Cat Piss is a separate older sativa-leaner; same naming convention, different lineage.",
+      },
+      {
+        q: "Does the name mean what it sounds like?",
+        a: "Pretty much — FaceLock is a body-heavy indica and the name is breeder-honest about the body weight. Customers who reach for the heaviest end of the indica shelf use the name as a marker.",
+      },
+      {
+        q: "How does FaceLock compare to GMO or other heavy indicas?",
+        a: "Sweeter on the nose than GMO's garlic-mushroom-onion savory profile — the Thin Mint cookie-and-mint anchor keeps FaceLock on the dessert side. Body-weight is comparable; aroma is the easier differentiator.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/facelock",
+        "https://hwy420.com/",
+      ],
+      notes:
+        "Ooowee brand catalog + HWY 420 5-pack sales data. Thin Mint Cookies parent in corpus (thin-mint-gsc); Cheetah Piss parent absent (kept null). Caryophyllene-leading. Sales-rank claim sourced to HWY 420 period data.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "hallie-berry": {
+    slug: "hallie-berry",
+    name: "Hallie Berry",
+    type: "sativa",
+    aliases: ["Hallie Berry", "Halle Berry"],
+    tagline: "Momma Chan sun-grown WA top seller — Ice Cream Cake × Blockberry.",
+    intro:
+      "Hallie Berry is Momma Chan Farms' top-selling sun-grown SKU in Washington — Ice Cream Cake crossed with " +
+      "Blockberry, sativa-leaning hybrid. Sun-grown adds a distinct dryland-terroir character to the smoke: " +
+      "lighter resin density than indoor versions, with a sharper berry-and-cream nose. The name puns on the " +
+      "actress and the berry-cohort lineage; Momma Chan leans into both.",
+    lineage: "Ice Cream Cake × Blockberry",
+    parents: ["ice-cream-cake", null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Uplifted", "Creative", "Relaxed"],
+    terpenes: [
+      { name: "Limonene", note: "sweet citrus-berry top" },
+      { name: "Caryophyllene", note: "warm pepper base" },
+      { name: "Linalool", note: "soft floral cream finish" },
+    ],
+    flavor: ["Berry cream", "Sweet citrus", "Vanilla pastry"],
+    bestFor: ["Afternoon-into-evening rotation", "Sun-grown advocates", "Momma Chan Farms regulars"],
+    avoidIf: ["You want indoor-density flower", "You prefer pure indica body-weight"],
+    faqs: [
+      {
+        q: "Why does sun-grown change Hallie Berry's character?",
+        a: "Sun-grown flower carries less resin density than indoor — the trichome-coverage drops because outdoor plants don't get the 24/7 indoor conditions. The trade-off is a different terpene expression: sharper, drier, often more aromatic on the open of the jar.",
+      },
+      {
+        q: "Is Hallie Berry related to other 'Berry' strains in your corpus?",
+        a: "Blockberry isn't in our standalone index — it's a relatively recent breeder cross. Hallie Berry's nearest cousins in this corpus are Ice Cream Cake (the parent) and Wedding Cake / GSC down a generation.",
+      },
+      {
+        q: "What's the difference between sun-grown and indoor Hallie Berry?",
+        a: "Same genetics, different growth environment. Sun-grown comes in at lower THC numbers (18-22% typical) vs indoor versions (24%+). The aroma is sharper and more aromatic; the bag-appeal is more rustic. Customers who care about terpene-first over pure THC pick sun-grown intentionally.",
+      },
+      {
+        q: "Why is the actress reference OK if the strain isn't endorsed?",
+        a: "Strain naming convention — many strains pun on cultural names without formal endorsement (Bruce Banner, AK-47, Stephen Hawking Kush). It's a marketing flag, not a celebrity license deal. Momma Chan Farms hasn't claimed any actor partnership.",
+      },
+    ],
+    verification: {
+      status: "verified",
+      sources: [
+        "https://www.leafly.com/strains/halle-berry",
+        "https://mommachanfarms.com/",
+      ],
+      notes:
+        "Momma Chan Farms sun-grown SKU. Ice Cream Cake parent in corpus; Blockberry parent absent (kept null). Limonene-leading. Sun-grown distinction documented for terpene-vs-THC framing.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  // ── Lineage-completion stubs — minimal entries for family-tree continuity ──
+  // These fill missing parents referenced elsewhere in the corpus. Lighter
+  // content than P0 deep entries; expanded when shelf-presence justifies.
+
+  "chemdog-91": {
+    slug: "chemdog-91",
+    name: "Chemdog 91",
+    type: "hybrid",
+    aliases: ["Chemdog 91", "Chem 91", "'91 Chem"],
+    tagline: "1991 Chemdawg sister pheno — the East Coast diesel ancestor.",
+    intro:
+      "Chemdog 91 is one of the original pheno-selections from the 1991 Grateful Dead-show bag-seed grow that " +
+      "produced the Chemdawg family. Sister cut to the more-famous Chemdawg, marked by diesel-and-pine intensity " +
+      "and a sharper sour-citrus tail. The cut is rarely on Washington shelves directly, but the genetics anchor " +
+      "modern crosses including Sour Diesel and East Coast Sour Diesel.",
+    lineage: "Bag-seed pheno select (1991, Grateful Dead show origin)",
+    parents: [null, null],
+    thcRange: "18–24%",
+    cbdRange: "<1%",
+    effects: ["Energetic", "Uplifted", "Focused", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery diesel base" },
+      { name: "Limonene", note: "sour citrus" },
+      { name: "Myrcene", note: "earth underbelly" },
+    ],
+    flavor: ["Diesel", "Sour citrus", "Pine"],
+    bestFor: ["Heritage-genetics curiosity", "Diesel-cohort regulars", "Lineage tree exploration"],
+    avoidIf: ["You're new to cannabis", "Pungent diesel aromas put you off"],
+    faqs: [
+      {
+        q: "Is Chemdog 91 the same as Chemdawg?",
+        a: "Sister phenos from the same 1991 bag-seed grow — slightly different in aroma and effect. Chemdawg is the cut that traveled most widely; Chemdog 91 stayed regional. Treat them as siblings, not duplicates.",
+      },
+      {
+        q: "Why is the '91 in the name?",
+        a: "The cut is dated to the 1991 grow run — '91 separates this specific pheno from later Chemdawg sub-cuts. It's a date-tag, not a strain-number.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/chemdog-91",
+      ],
+      notes:
+        "Stub entry for lineage-graph completion. Sister to chemdawg slug already in corpus. Parents kept null (bag-seed origin makes parentage unrecoverable).",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "cookies-n-cream-bx": {
+    slug: "cookies-n-cream-bx",
+    name: "Cookies N Cream Bx",
+    type: "hybrid",
+    aliases: ["Cookies N Cream Bx", "C&C Bx", "Cookies Cream Backcross"],
+    tagline: "Backcross variant of Cookies N Cream — parent of multiple modern dessert crosses.",
+    intro:
+      "Cookies N Cream Bx is the backcross variant of the original Cookies N Cream — Exotic Genetix stabilized " +
+      "the line by crossing the seed-line back to the male parent. The result is a more-uniform expression of " +
+      "the original cross, with cleaner dessert aroma and steadier potency. The Bx line shows up most often as " +
+      "a parent in newer crosses rather than as a standalone shelf SKU.",
+    lineage: "Cookies N Cream × Cookies N Cream (backcross)",
+    parents: ["cookies-and-cream", "cookies-and-cream"],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Happy", "Relaxed", "Euphoric", "Creative"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery cookie warmth" },
+      { name: "Limonene", note: "sweet citrus" },
+      { name: "Humulene", note: "soft hop-earth" },
+    ],
+    flavor: ["Sweet cream", "Cookie dough", "Light spice"],
+    bestFor: ["Genetic-lineage curiosity", "Cookies-cohort regulars", "Hybrid rotation"],
+    avoidIf: ["You want straight-line Cookies N Cream", "Heavy sweets aren't your thing"],
+    faqs: [
+      {
+        q: "What does 'Bx' mean?",
+        a: "Bx is short for backcross — a breeding technique where the F1 (first-generation) seed-line is crossed back to one of the parents. Stabilizes the trait expression so seeds run truer to type. Common move from breeders like Exotic Genetix.",
+      },
+      {
+        q: "Is Cookies N Cream Bx better than the original?",
+        a: "Different intent. The Bx is more uniform across seeds (less pheno variation) but loses some of the outlier-star phenos the original line produced. Most growers use Bx as a parent in further crosses; the original stays popular as a flower SKU.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/cookies-and-cream",
+        "https://exoticgenetix.com/",
+      ],
+      notes:
+        "Stub entry for lineage-graph completion. Backcross variant of cookies-and-cream (already in corpus). Both parents reference the F1 parent slug per backcross convention.",
+      verifiedAt: "2026-05-27",
+    },
+  },
+
+  "oz-kush": {
+    slug: "oz-kush",
+    name: "OZ Kush",
+    type: "indica",
+    aliases: ["OZ Kush", "Ounce Kush"],
+    tagline: "Deep East / Doja Pak indica — parent of Studio 54 and Black Amber.",
+    intro:
+      "OZ Kush is a Deep East Genetics indica that became a workhorse parent in the Doja Pak catalog — Studio 54 " +
+      "(RS54), Black Amber, and several other premium-shelf crosses trace back to it. The standalone OZ Kush " +
+      "rarely lands on Washington shelves as a flower SKU, but the genetics anchor enough downstream that the " +
+      "page exists for lineage continuity.",
+    lineage: "Zkittlez × OG Kush (Deep East selection)",
+    parents: ["zkittlez", "og-kush"],
+    thcRange: "20–26%",
+    cbdRange: "<1%",
+    effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
+    terpenes: [
+      { name: "Caryophyllene", note: "peppery kush base" },
+      { name: "Limonene", note: "candy-citrus from the Z side" },
+      { name: "Myrcene", note: "earth-loam underneath" },
+    ],
+    flavor: ["Kush funk", "Candy citrus", "Sweet earth"],
+    bestFor: ["Lineage exploration", "Doja Pak cohort curiosity", "Genetics-first picks"],
+    avoidIf: ["You want a high-shelf-presence SKU", "You're chasing a specific Doja Pak downstream cross"],
+    faqs: [
+      {
+        q: "Is OZ Kush the same as standard OG Kush?",
+        a: "No — OZ Kush is a specific Zkittlez × OG Kush selection from Deep East Genetics. The OG Kush parent is the same; the Zkittlez side is what differentiates. Treat them as cousins, not duplicates.",
+      },
+      {
+        q: "Why does OZ Kush show up so often as a parent?",
+        a: "Doja Pak picked OZ Kush as their workhorse mother for several premium-shelf crosses (Studio 54, Black Amber, others). The stability of the line + the candy-and-kush profile makes it a flexible parent across multiple cross directions.",
+      },
+    ],
+    verification: {
+      status: "verified-with-note",
+      sources: [
+        "https://www.leafly.com/strains/oz-kush",
+        "https://www.dojapak.com/",
+      ],
+      notes:
+        "Stub entry for lineage-graph completion. Deep East / Doja Pak selection. Both parents in corpus (zkittlez + og-kush). Used as parent for Studio 54 + downstream crosses.",
+      verifiedAt: "2026-05-27",
+    },
+  },
 };
 
 export const STRAIN_SLUGS = Object.keys(STRAINS);
@@ -14717,7 +15533,7 @@ export function getEffectiveWaveSize(now: Date = new Date()): number {
     if (!Number.isFinite(initial) || !Number.isFinite(stepSize) || !Number.isFinite(stepDays) || stepDays <= 0) {
       return Math.min(cap, Math.max(0, initial));
     }
-    const ageDays = Math.floor((now.getTime() - start.getTime()) / 86_400_000);
+    const ageDays = Math.floor((now.getTime() - start.getTime()) / DAY_MS);
     if (ageDays < 0) return 0;
     const cadenceWave = initial + Math.floor(ageDays / stepDays) * stepSize;
     return Math.min(cap, Math.max(0, cadenceWave));

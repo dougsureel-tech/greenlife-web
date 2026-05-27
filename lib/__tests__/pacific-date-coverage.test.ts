@@ -29,7 +29,7 @@ const ALLOWLIST_FILES = [
   "lib/version.ts",
 ];
 
-const EXCLUDE_DIRS = new Set(["node_modules", ".next", ".vercel", ".git", "scripts"]);
+const EXCLUDE_DIRS = new Set(["node_modules", ".next", ".vercel", ".git", "scripts", ".claude"]);
 
 function walk(dir: string): string[] {
   const out: string[] = [];

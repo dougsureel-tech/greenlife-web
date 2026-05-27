@@ -41,7 +41,7 @@ const ALLOWLIST_PATTERNS: { match: RegExp; reason: string }[] = [
   { match: /__tests__\//, reason: "test file — literal values for clarity" },
 ];
 
-const EXCLUDE_DIRS = new Set(["node_modules", ".next", ".vercel", ".git", "scripts"]);
+const EXCLUDE_DIRS = new Set(["node_modules", ".next", ".vercel", ".git", "scripts", ".claude"]);
 
 function walk(dir: string): string[] {
   const out: string[] = [];
