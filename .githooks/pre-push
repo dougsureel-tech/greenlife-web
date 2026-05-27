@@ -113,7 +113,8 @@ for gate in \
   scripts/check-product-photos-manifest.mjs \
   scripts/check-wac-314-55-155-banned-claims.mjs \
   scripts/check-vercel-crons.mjs \
-  scripts/check-root-layout-no-dynamic-api.mjs; do
+  scripts/check-root-layout-no-dynamic-api.mjs \
+  scripts/check-strain-body-claims.mjs; do
   if ! node "$gate" 2>&1; then
     echo ""
     echo "  ✗ Push blocked: $gate failed above. Fix before pushing."

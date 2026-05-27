@@ -19,6 +19,7 @@
     "check:button-type": "node scripts/check-button-type.mjs",
     "check:vercel-crons": "node scripts/check-vercel-crons.mjs",
     "check:root-layout-no-dynamic-api": "node scripts/check-root-layout-no-dynamic-api.mjs",
+    "check:strain-body-claims": "node scripts/check-strain-body-claims.mjs",
     "check:html-entities-jsx": "node scripts/check-html-entities-jsx.mjs",
     "check:server-actions-async": "node scripts/check-server-actions-async.mjs",
     "check:pii-console-leak": "node scripts/check-pii-console-leak.mjs",
