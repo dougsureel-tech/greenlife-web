@@ -35,8 +35,10 @@ import { buildStrainProductLd } from "@/lib/strain-product-json-ld";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
 import { StrainInStockSection } from "@/components/StrainInStockSection";
+import { StrainStockWidget } from "@/components/StrainStockWidget";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { getStrainMatchedProducts, getActiveDeals } from "@/lib/db";
+import { fetchCrossStoreStock } from "@/lib/strain-stock-cross-store";
 
 // ISR with 5-min revalidate — flipped from force-static 2026-05-17 to
 // support the "In stock today" live-inventory section without forcing a
@@ -207,9 +209,15 @@ export default async function StrainSlugPage({
   // DB read, scored + ranked via lib/strain-match.ts, top 6 cards.
   // Parallel-fetched with active-deals for online-pricing math; both wrapped
   // in React.cache() so re-renders within the same request don't refetch.
-  const [matchedProducts, activeDeals] = await Promise.all([
+  const [matchedProducts, activeDeals, crossStoreStock] = await Promise.all([
     getStrainMatchedProducts(s, { graph, strainsBySlug: STRAINS, limit: 6 }),
     getActiveDeals(),
+    // Cross-store stock widget data — fetched server-side so the widget HTML
+    // ships in the initial render (load-bearing for SEO since 224/250 corpus
+    // strains are ghost pages on this store; the cross-store visibility cue
+    // closes the bounce vector). Probes both inv-App URLs in parallel with
+    // 5s timeout; nulls per store on failure → widget's "ask staff" fallback.
+    fetchCrossStoreStock({ slug: s.slug }),
   ]);
 
   const breadcrumbItems = [
@@ -350,6 +358,17 @@ export default async function StrainSlugPage({
           </div>
         )}
       </section>
+
+      {/* Cross-store stock widget — surfaces "in stock at the OTHER store"
+          cue before the intro so a customer landing on a ghost page (page
+          exists, no current stock at this store) sees the sibling-store
+          availability + a link to that store's menu. Renders here vs after
+          the intro so it sits above-the-fold on mobile. Trigger:
+          repeat-carry analysis 2026-05-27 found 224/250 corpus strains
+          are ghost pages on this store; the widget is the answer to "is
+          this available at all?". WSLCB-safe shape (no $ figures, no
+          medical-claim adjacency). Sister scc same shape with indigo accent. */}
+      <StrainStockWidget strain={s} stock={crossStoreStock} thisStore="wen" />
 
       {/* Intro — v42.045 UX-quickwin reorder (Move #2): intro now leads the
           body so the customer gets the one-paragraph "what is this strain"
