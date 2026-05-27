@@ -113,14 +113,20 @@ export function StrainFinderClient() {
   function buildOrderUrl(final: Record<StepKey, string>): string {
     const params = new URLSearchParams();
     if (final.vibe) params.set("vibe", final.vibe);
-    if (final.form) params.set("category", final.form);
+    // URL contract for /find-your-strain/result is `?form=` (the new
+    // result-page route reads this token). Legacy `?category=` is still
+    // accepted server-side by parseQuizTokens for shared-link compat, but
+    // every fresh quiz emits the canonical `?form=` shape.
+    if (final.form) params.set("form", final.form);
     if (final.strain) params.set("strain", final.strain);
-    // /order proxies to /menu (proxy.ts 307) AND drops query params on
-    // the redirect — point directly at /menu so the redirect hop is
-    // skipped. Query params still get dropped by the iHJ Boost embed
-    // (it doesn't honor `?vibe=` etc — known limitation, separate fix
-    // would require Boost-side filter passthrough).
-    return params.toString() ? `/menu?${params}` : "/menu";
+    // ROUTE TO THE RESULT PAGE — captures the customer's answers BEFORE the
+    // /menu hop. Previously the quiz routed to /menu directly and iHJ Boost
+    // silently stripped every query param on its embed, so the customer's
+    // 3 answers were LOST. The result page renders 3-5 strain cards matched
+    // to the answers; from there the customer can hop to /menu (with the
+    // same tokens preserved on the link, even though Boost still drops them
+    // on its end — survives in case Boost adds passthrough later).
+    return params.toString() ? `/find-your-strain/result?${params}` : "/find-your-strain/result";
   }
 
   function redirectToOrder(final: Record<StepKey, string>) {
