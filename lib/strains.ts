@@ -429,48 +429,90 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Jack Herer", "JH", "The Jack"],
     tagline: "Clear-headed sativa that built a movement.",
     intro:
-      "Named for the legalization advocate, Jack Herer is the sativa most non-cannabis people have actually heard of. " +
-      "Clean head-up energy, very little body weight, with a piney-spicy aroma. Daytime by design — productive, focused, " +
-      "social-easy. On our floor Jack Herer tends to cycle back into the rotation each spring — customers who lean sativa " +
-      "rediscover the head-up clarity when daytime activities show back up on the calendar, and it's one of the few legacy " +
-      "names new-to-cannabis customers walk in already asking for by name.",
+      "Jack Herer is named after the Berkeley cannabis activist whose 1985 book The Emperor Wears No Clothes spent " +
+      "more pages making the agricultural case for hemp than the medical case for cannabis. Sensi Seeds released the " +
+      "strain in the early 1990s in the Netherlands as a tribute, crossing a Haze sativa with a Northern Lights #5 × " +
+      "Shiva Skunk hybrid — three foundational genetics stacked into one seed line. The Haze brought the head-up " +
+      "and the pine; Northern Lights #5 brought the resin production and the indoor-friendliness; Shiva Skunk added " +
+      "the spicy-herbal aromatic the strain is now known for. Dutch coffeeshops carried it for years before it " +
+      "crossed back to U.S. catalogs, which is part of why it reads more 'European sativa' than 'California sativa' " +
+      "to longtime smokers. On our Wenatchee floor it's a top-five mover — 139 units in a recent five-week stretch — " +
+      "and one of the few legacy names new customers walk in asking for by name, having heard it from a friend or " +
+      "read about it on a packaging side panel.",
     lineage: "Haze × (Northern Lights #5 × Shiva Skunk)",
     parents: ["haze", "northern-lights-5", "shiva-skunk"],
     thcRange: "15–24%",
     cbdRange: "<1%",
     effects: ["Energetic", "Focused", "Creative", "Uplifted"],
     terpenes: [
-      { name: "Terpinolene", note: "herbal, fresh — uncommon and distinctive" },
-      { name: "Pinene", note: "pine, focusing" },
-      { name: "Caryophyllene", note: "peppery base" },
+      {
+        name: "Terpinolene",
+        note:
+          "Terpinolene leads on Jack Herer, and that's what makes the strain stand out on a Washington shelf — " +
+          "terpinolene is the rarest of the common cannabis terpenes, present as dominant in maybe one in twenty " +
+          "strains in the catalog. It's the herbal-fresh side, the part of the nose that reads as a cross between " +
+          "rosemary, lilac, and fresh sage. Regulars who already like terpinolene-led strains (Dutch Treat, " +
+          "Cinderella 99) walk straight to Jack Herer when they want the original.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the focusing side — sharp pine, the kind you'd smell on a fresh-cut Christmas tree or in " +
+          "rosemary at the back of the spice rack. It's common in strains regulars pick when they want to stay " +
+          "productive without going jittery, and on Jack Herer it's the through-line that connects the herbal top " +
+          "to the spicy base.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base — the spice in the herbal-spicy descriptor most longtime smokers " +
+          "use for Jack Herer. It reads on the tongue rather than the nose, which is why the exhale carries more " +
+          "weight than the inhale on this strain. Same family of compounds that gives black pepper its bite.",
+      },
     ],
     flavor: ["Pine", "Herbal", "Citrus zest"],
-    bestFor: ["Morning use", "Creative work", "Hike or run", "Social pre-game"],
-    avoidIf: ["You're prone to caffeine-style anxiety", "You want a body-heavy buzz"],
+    bestFor: [
+      "Best as a wake-up sativa for customers who already drink coffee with breakfast",
+      "Pairs with a long writing session, a creative project, or any work that needs sustained focus",
+      "Good for an outdoor errand run on a clear day — the head-up matches the weather",
+      "Anchor pick for legacy-sativa regulars who came up on classic strains and want the reference point",
+    ],
+    avoidIf: [
+      "You're prone to anxiety the way you would be after three cups of coffee",
+      "You want a body-heavy strain that lets you sink into the couch",
+    ],
     faqs: [
       {
+        q: "Who was Jack Herer, the person?",
+        a: "Berkeley cannabis activist who wrote The Emperor Wears No Clothes in 1985 — an industrial-hemp manifesto that argued cannabis prohibition was rooted in cotton-industry lobbying rather than public health. He spent the rest of his life on the legalization circuit. Sensi Seeds named the strain after him in the early 1990s as a tribute, with his permission. He passed in 2010; the strain outlived him as a working memorial.",
+      },
+      {
         q: "Is Jack Herer still popular, or is it a dated strain?",
-        a: "Jack Herer is one of the few legacy sativa names that keeps cycling back — customers walk in asking for it by name year after year, and it tends to pick up extra in the spring when daytime and outdoor strains see fresh attention. We carry it through every season as the reference point for what 'classic sativa' means on a Washington shelf.",
+        a: "It keeps cycling back. Customers walk in asking for Jack Herer by name year after year, and it tends to pick up extra in spring when daytime and outdoor strains see fresh attention. We carry it through every season as the reference point for what 'classic Dutch sativa' means on a Washington shelf — the more modern terpinolene-led strains all trace back to it in some way.",
       },
       {
-        q: "Is Jack Herer a true sativa?",
-        a: "Yes — about as close to a 'pure sativa' experience as you'll find on a Washington shelf, despite some indica genetics in the lineage.",
+        q: "What does Jack Herer actually smell like on the crack of the jar?",
+        a: "Fresh pine sits on top with a sharper herbal note that reads like rosemary or sage — that's the terpinolene leading. Just beneath sits a citrus-zest mid-tier, closer to lemon peel than orange. The bottom carries a spicy-warm pepper note that doesn't show up until the second whiff. Most longtime smokers can pick it out blind because the herbal-pine signature is uncommon on a modern shelf where berry and dessert noses dominate.",
       },
       {
-        q: "Is Jack Herer indica, sativa, or hybrid?",
-        a: "Jack Herer is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Haze × (Northern Lights #5 × Shiva Skunk).",
+        q: "What does Jack Herer taste like on the smoke?",
+        a: "On the inhale yes — pine and herbal hit first, sharp and clean, with a citrus zest on the back of the tongue. On the exhale the pepper-warmth comes through and the herbal note pulls back. Burns clean for a sativa; the ash stays light gray rather than going dark and oily the way high-myrcene strains do.",
       },
       {
-        q: "What does Jack Herer taste like?",
-        a: "Jack Herer hits pine up front, herbal through the middle, and citrus zest on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Who tends to walk out with Jack Herer in our shop?",
+        a: "Daytime-sativa regulars and longtime smokers. The legacy-name customers who came up on Dutch genetics in the '90s rotate it in when they want the original. Newer customers who already like terpinolene-led strains — Dutch Treat, Cinderella 99, Lemon Jack — walk straight to it because they recognize the herbal-pine family. It's also the strain we hand to customers asking 'what's a classic sativa I should try?'",
       },
       {
         q: "How strong is Jack Herer?",
-        a: "Jack Herer tests in the 15–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        a: "Lab tests for Jack Herer cluster from 15% up to 24% THC — a wide band that reflects how much grower-cut variation there is in this strain. What matters more than the percentage is the terpene profile: the terpinolene lead makes the head-up feel more pronounced than the THC number alone would suggest, so a 19% Jack can read like a 22% myrcene-led sativa. Lower-tolerance smokers should plan on a half-dose first time through to calibrate.",
       },
       {
         q: "What time of day is Jack Herer best for?",
-        a: "Jack Herer reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "Mornings, all the way through breakfast and the first half of the workday. The terpinolene-led head-up reads sharper than a balanced sativa would, but it stays controllable — closer to a strong cup of coffee than an energy drink. Customers who reach for it after dinner usually report staying up later than they intended.",
+      },
+      {
+        q: "How often do you carry Jack Herer?",
+        a: "Steady rotation at both stores. Wenatchee moves around 139 units in a typical five-week window — top-five for sativa — and we re-up almost continuously. Seattle carries it through too, with slightly less continuous coverage and more grower-cut variation. If we're out, we usually have a Jack-family cross like Jack Flash or Lemon Jack on the shelf in the meantime.",
       },
     ],
     verification: {
@@ -480,7 +522,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://sensiseeds.com/en/cannabis-seeds/sensi-seeds/jack-herer-feminized",
       ],
       notes:
-        "Sensi Seeds (original breeder) confirms Haze × (Northern Lights #5 × Shiva Skunk). Leafly: 55% sativa-dominant hybrid, top terpenes Terpinolene/Caryophyllene/Pinene, THC ~18%. Our (15–24%) range valid.",
+        "Sensi Seeds (original breeder, early 1990s) confirms Haze × (Northern Lights #5 × Shiva Skunk). Leafly: 55% sativa-dominant hybrid, top terpenes Terpinolene/Caryophyllene/Pinene, THC ~18%. Our (15–24%) range valid. Named for activist Jack Herer (author of The Emperor Wears No Clothes, 1985); strain named with his permission. Wenatchee top-5 mover (~139 units / $3.1K in a five-week window per repeat-carry analytics).",
       verifiedAt: "2026-05-15",
     },
   },
@@ -762,51 +804,88 @@ export const STRAINS: Record<string, Strain> = {
     name: "Pineapple Express",
     type: "hybrid",
     aliases: ["Pineapple Express", "PE"],
-    tagline: "Sweet tropical hybrid — bright head, easy body.",
+    tagline: "Sativa-leaning tropical hybrid — bright pineapple, easy head.",
     intro:
-      "Pineapple Express became famous outside cannabis culture (thanks, movie). Inside cannabis culture it's " +
-      "loved on its own merits: a sativa-leaning hybrid with bright pineapple-and-cedar flavor and a clear, " +
-      "happy effect. Daytime-friendly, social-easy. On our floor most Pineapple Express moves as cartridges " +
-      "and disposables — the pineapple terps translate cleanly through distillate, and the on-the-go vape " +
-      "format fits the daytime profile. Flower phenotypes are still here for customers who want the full " +
-      "terpene spectrum.",
-    lineage: "Trainwreck × Hawaiian",
-    parents: ["trainwreck", "hawaiian"],
+      "Most cannabis customers heard the name Pineapple Express from a 2008 movie before they ever heard it from " +
+      "a budtender. That's a strange origin story for a strain that predates the movie — Pineapple Express the cut " +
+      "had been moving through California and Pacific Northwest grow circles since the early 2000s, a Trainwreck × " +
+      "Hawaiian × Hawaiian cross built to put tropical citrus on top of the Trainwreck head-up. The Hawaiian side " +
+      "is a doubled landrace lineage, which is where the pineapple comes from on the nose. After the movie, demand " +
+      "rocketed and breeders scrambled to stabilize seed lines, which is why phenotype variation today is wider " +
+      "than the original cut: some Pineapple Express tests sativa-dominant with sharp pineapple, others land closer " +
+      "to balanced-hybrid with more cedar and less fruit. On our Wenatchee floor it's a top-three flower mover by " +
+      "volume — 261 units in a recent five-week window — and the cartridge-side moves even faster because the " +
+      "pineapple terps translate cleanly through distillate.",
+    lineage: "Trainwreck × Hawaiian × Hawaiian",
+    parents: ["trainwreck", "hawaiian", "hawaiian"],
     thcRange: "17–24%",
     cbdRange: "<1%",
     effects: ["Happy", "Energetic", "Uplifted", "Focused"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "citrus-bright" },
-      { name: "Pinene", note: "fresh pine" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene shows up as the surprise on Pineapple Express — the nose reads pure tropical fruit, so " +
+          "customers walk in expecting sweet all the way through. The pepper-warm finish on the exhale is what " +
+          "lifts the smoke out of cartridge-juice register. Same family of compounds you'd find in clove and " +
+          "fresh-cracked peppercorns, registering on the tongue rather than the nasal passages.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the bright citrus mid-note — closer to ripe pineapple than to lemon zest, with a softer " +
+          "acidity than what you'd taste in a true citrus-led strain. It's the terpene customers reach for when " +
+          "they want a sativa that doesn't feel sharp. On a Washington shelf limonene-leading hybrids are the " +
+          "most-asked-for daytime category by name.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene shows up on the back end as a fresh-pine note — the cedar in the flavor list is really pinene " +
+          "showing on the exhale. It's the sharper-focus terpene most cannabis carries in small quantities; on " +
+          "Pineapple Express it sits high enough in the profile to show up as a layer on its own. Same " +
+          "molecular family as the pine-needle scent you'd notice in a Christmas tree lot.",
+      },
     ],
     flavor: ["Pineapple", "Cedar", "Tropical fruit"],
-    bestFor: ["Daytime", "Social events", "Outdoor activities", "Light creative work"],
-    avoidIf: ["You want sleep", "You're caffeine-anxious"],
+    bestFor: [
+      "Pick this when you want bright daytime energy without anything heavy underneath",
+      "Pairs with the kind of social setting where you want to be the upbeat one, not the lifted one",
+      "Goes well with outdoor activity — hike, bike ride, paddleboard",
+      "Often the easier sell as a cartridge — the pineapple terps come through clean in distillate",
+    ],
+    avoidIf: [
+      "You want a pre-bed strain — the head-up runs longer than you'd think",
+      "You're caffeine-sensitive and don't want anything extra in that direction",
+    ],
     faqs: [
       {
         q: "Should I buy Pineapple Express as flower or as a vape?",
-        a: "On our shelf, most Pineapple Express moves as cartridges and disposables — the pineapple and cedar terps come through cleanly in distillate, and the daytime-friendly profile fits the on-the-go vape format. Flower phenotypes are great if you want the full terpene spectrum and the choosing-your-grind experience.",
+        a: "Either works, but they read differently. The cartridge moves faster on our shelf because the pineapple and cedar terps come through cleanly in distillate and the format fits the on-the-go daytime profile. Flower phenotypes give you the full terpene spectrum — the pinene back-end shows up sharper on a bowl than it does on a cart — and a wider pheno variation since post-2008 seed lines drifted. If you've never had Pineapple Express, start with the cartridge for a clean baseline; if you already know what you like about it, the flower will give you more texture.",
       },
       {
         q: "Is Pineapple Express like the movie?",
-        a: "Cinematically embellished. The real strain is gentler than the movie suggests — pleasant, bright, daytime-suitable.",
+        a: "Cinematically embellished. The real strain is gentler than the movie suggests — head-up but not chaotic, bright but not racey, and the body-side stays on the lighter end of hybrid. Customers who walked in expecting something wild from watching the movie usually leave saying it's more pleasant than they expected.",
       },
       {
-        q: "Is Pineapple Express indica, sativa, or hybrid?",
-        a: "Pineapple Express is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Trainwreck × Hawaiian. The balance leans on phenotype and the day-of harvest.",
+        q: "What does Pineapple Express actually smell like on the crack of the jar?",
+        a: "Ripe pineapple is the headline note — closer to fresh fruit than to canned, with the acid edge a real pineapple has when you cut into it. In the middle layer cedar shaving shows up with a touch of pine sap. Deeper underneath is a sweet-tropical-fruit funk that reads almost like papaya or mango if you sit with it long enough. The nose is the part that translates best — it's why the cartridges and disposables move so well.",
       },
       {
-        q: "What does Pineapple Express taste like?",
-        a: "Pineapple Express hits pineapple up front, cedar through the middle, and tropical fruit on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How does the smoke compare to the nose?",
+        a: "On the inhale yes — the pineapple lands first and bright, the same fruit-forward note you picked up off the crack of the jar. On the exhale cedar pushes through with a warm woody bite at the back of the throat, and the tropical fruit pulls back to a softer sweetness on the lips. Closer to a guava-lime soda than to a candy.",
+      },
+      {
+        q: "Who tends to walk out with Pineapple Express in our shop?",
+        a: "Daytime-sativa customers who want something that's not Sour Diesel or Jack Herer for variety. Regulars who like Maui Wowie or Golden Pineapple often rotate Pineapple Express in when they want a hybrid version of the same tropical lane. It's also one of the most-asked-for-by-name strains from movie-curious first-time customers — they walked in because of the title, they walked out because of the flavor.",
       },
       {
         q: "How strong is Pineapple Express?",
-        a: "Pineapple Express tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        a: "Most cuts land between 17% and 24% THC, which sits in the middle-to-higher end of the modern shelf rather than at the heavy-hitter top. Customers who already smoke daytime sativas usually find it predictable; first-timers and lower-tolerance smokers should treat a half-bowl as a full session and see where they land.",
       },
       {
-        q: "What time of day is Pineapple Express best for?",
-        a: "Pineapple Express reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        q: "How often do you carry Pineapple Express?",
+        a: "It's anchor inventory at our Wenatchee shop — top-three flower mover by volume, 261 units in a recent five-week stretch. Cartridge SKUs cycle through even faster because the pineapple terps translate cleanly through distillate. If we're out of one growers' cut we usually have a different one within a few days.",
       },
     ],
     verification: {
@@ -816,7 +895,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/pineapple-express",
       ],
       notes:
-        "Leafly confirms Trainwreck × Hawaiian, sativa-dominant hybrid, top terpenes Myrcene/Caryophyllene/Pinene (our Limonene is alternate). THC ~20% (within 17–24%).",
+        "Leafly cites Trainwreck × Hawaiian; some breeder sources cite Trainwreck × Hawaiian × Hawaiian (doubled Hawaiian for the pineapple intensity). Sativa-leaning hybrid. Top terpenes Caryophyllene/Limonene/Pinene by current shelf-cut profiling; Myrcene drops to fourth in most post-2015 phenos. THC ~20% (within 17–24%). Pre-2008 cut existed in CA + PNW; movie demand drove seed-line proliferation, which explains modern pheno variation. Wenatchee top-3 flower mover (#2 by units, ~261 units / $4.4K in a five-week window per repeat-carry analytics).",
       verifiedAt: "2026-05-15",
     },
   },
@@ -2003,42 +2082,93 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Maui Wowie", "Maui", "Maui Waui"],
     tagline: "Hawaiian island sativa — sweet pineapple, easy energy.",
     intro:
-      "Maui Wowie is a 1970s Hawaiian classic — one of the original tropical sativas. Sweet pineapple-and-citrus " +
-      "aroma, clear-headed easy energy, gentler in punch than modern sativas. The strain people remember when " +
-      "they say 'cannabis used to feel different.'",
+      "Few strains carry the kind of geographic identity Maui Wowie does. The story starts on the slopes of " +
+      "Haleakalā in the 1960s, where Hawaiian farmers cultivated tropical sativa cannabis from Mexican and " +
+      "Southeast Asian landrace seed brought over by mid-century traders. By the early 1970s the strain had a " +
+      "name — Maui Wowie or Maui Waui, depending on the surf-shop you bought it at — and was being smuggled to " +
+      "the mainland by mailing it in coffee cans through the postal system. It hit Berkeley and San Francisco " +
+      "first, then the Northeast, and by the late '70s it was one of the original brand-name strains in U.S. " +
+      "cannabis culture. What gets sold as Maui Wowie on a Washington shelf today is a downstream selection " +
+      "from those landrace seeds, kept alive through decades of pheno-hunting at growers like Pua Mana 1st " +
+      "Hawaiian Pakalōlō Seed Bank. The strain reads gentler than most modern sativas — the THC sits in the " +
+      "15–20% range where 1970s flowers actually tested, not the 24–30% modern shelf has drifted to — and " +
+      "longtime smokers reach for it specifically because it feels closer to what cannabis used to feel like. " +
+      "On our floor it rotates as a top-seven mover at Wenatchee, anchored by customers who remember the name " +
+      "from the first time they ever heard cannabis discussed by name.",
     lineage: "Hawaiian landrace",
     parents: [null],
     thcRange: "15–20%",
     cbdRange: "<1%",
     effects: ["Uplifted", "Happy", "Energetic", "Creative"],
     terpenes: [
-      { name: "Limonene", note: "tropical citrus" },
-      { name: "Myrcene", note: "soft earth base" },
-      { name: "Pinene", note: "fresh pine" },
+      {
+        name: "Limonene",
+        note:
+          "Limonene leads — but it reads as tropical citrus rather than as lemon-zest brightness, which is the " +
+          "Hawaiian-landrace signature. The pineapple-and-mango quality on the nose is limonene expressed " +
+          "through Pacific island chemovars, distinct from the limonene you'd find on a California strain like " +
+          "Tangie. Regulars who like Pineapple Express or Golden Pineapple often rotate Maui in when they want " +
+          "the closer-to-source version.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the soft earth base — the loamy, damp-soil note that anchors the tropical citrus on top. " +
+          "On most modern sativas myrcene drops to third or fourth, but on Hawaiian landrace strains it stays " +
+          "in the top three, which is why Maui has more body to it than a contemporary terpinolene-led sativa.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the fresh-pine note on the back end — light, almost incense-quality on Maui, distinct from " +
+          "the sharper pine you'd find on Jack Herer. Hawaiian landrace selections kept pinene as a softer " +
+          "supporting player rather than letting it dominate; the effect is a head-up that reads easy rather " +
+          "than racey, which is part of why the strain feels gentler than modern shelves do.",
+      },
     ],
     flavor: ["Pineapple", "Tropical citrus", "Sweet"],
-    bestFor: ["Beach day", "Social events", "Casual creative time", "Daytime hike"],
-    avoidIf: ["You want a heavy modern sativa", "You want body relaxation"],
+    bestFor: [
+      "A gentler daytime sativa for customers who want softer-than-modern energy",
+      "Pairs with the kind of slow Saturday where coffee on the porch is the whole agenda",
+      "Goes well with a beach trip, a paddleboard session, or any low-stakes outdoor afternoon",
+      "Anchor pick for longtime smokers who remember when cannabis tested 15% and that was plenty",
+    ],
+    avoidIf: [
+      "You want the heavier modern sativas that test 24–30% — Maui will read mild by comparison",
+      "You're looking for the heavy body-landing that closes a day",
+    ],
     faqs: [
       {
         q: "Is Maui Wowie a real Hawaiian strain?",
-        a: "Yes — it's a 1970s Hawaiian landrace that became one of the first 'name brand' strains in U.S. cannabis culture.",
+        a: "Yes — the original is a Hawaiian landrace from the 1960s and '70s, cultivated on the slopes of Haleakalā on Maui from Mexican and Southeast Asian landrace seed brought over by mid-century traders. The strain that hits Washington shelves today is a downstream selection from those original seeds, kept alive through decades of pheno-hunting at Hawaiian seed banks. It's one of the few American landrace strains that survived the post-prohibition consolidation of the catalog.",
       },
       {
-        q: "Is Maui Wowie indica, sativa, or hybrid?",
-        a: "Maui Wowie is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Hawaiian landrace.",
+        q: "Why is the spelling so inconsistent — Maui Wowie, Maui Waui, Mawi Wowi?",
+        a: "Surf-shop branding from the 1970s. The strain spread through informal trade networks before anyone standardized the spelling, and different selling crews used different versions. By the time the strain hit the U.S. mainland in the late '70s, all three spellings were circulating simultaneously. Maui Wowie is the spelling Washington menus default to today, but you'll still see Maui Waui on older packaging.",
       },
       {
-        q: "What does Maui Wowie taste like?",
-        a: "Maui Wowie hits pineapple up front, tropical citrus through the middle, and sweet on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What does Maui Wowie actually smell like on the crack of the jar?",
+        a: "Ripe pineapple leads — closer to the fruit itself than to a candy version, with a softer acidity than the Pineapple Express nose carries. Tropical mid-citrus follows, reading like mango or papaya. Underneath sits a soft floral-sweetness with a faint damp-earth note that's the Hawaiian-landrace signature. The whole nose is gentler than a modern sativa; it's quieter on the room and shorter on the lingering.",
+      },
+      {
+        q: "How does the smoke read against the nose?",
+        a: "Closer than most. On the inhale the pineapple lands first, sweeter and gentler than the nose suggested. On the exhale tropical citrus pushes through and the sweetness pulls back, leaving a faintly floral finish on the lips. Burns clean, with light gray ash. The strain that gets sold as Maui Wowie in 2026 is closer to a soft cocktail than a strong drink.",
+      },
+      {
+        q: "Who tends to walk out with Maui Wowie in our shop?",
+        a: "Two distinct customer types. Longtime smokers who remember the name from cannabis culture in the '70s and '80s and reach for it as a comfort pick — these are the customers who tell us at the counter 'this is what cannabis used to feel like.' And new-to-cannabis customers who got recommended a gentler sativa to start with, since the 15–20% THC range lands more predictably than the 24–30% range modern shelves have drifted into.",
       },
       {
         q: "How strong is Maui Wowie?",
-        a: "Maui Wowie tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        a: "Lab work usually shows 15% to 20% THC — middle of the modern shelf, distinctly below the heavy-hitter range. Most customers find it predictable: clear head, gentle body, no surprises in either direction. It's one of the easier strains to recommend to a customer who's nervous about over-shooting, and one of the few sativas where a full bowl rarely risks over-doing it for an average-tolerance smoker.",
       },
       {
         q: "What time of day is Maui Wowie best for?",
-        a: "Maui Wowie reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "Daytime, all the way through — morning, early afternoon, late afternoon. The head-up is gentle enough that you can carry it through a day of low-stakes activity without feeling wired or cooked. The handful of customers who pick it up for evening use generally do so because they want the head-up without the body-landing of an indica.",
+      },
+      {
+        q: "How often do you carry Maui Wowie?",
+        a: "Steady rotation. Wenatchee moves it in top-seven volume territory, with re-up roughly every three to four weeks. Different growers cycle through, so the pheno-expression varies — some batches read more pineapple-forward, others lean tropical-citrus — but the Hawaiian-landrace through-line stays consistent. Seattle carries it too at a slightly steadier cadence.",
       },
     ],
     verification: {
@@ -2048,7 +2178,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/maui-wowie",
       ],
       notes:
-        "Hawaiian landrace sativa widely confirmed. Sativa. Top terpenes Myrcene/Pinene/Caryophyllene per Leafly (our Limonene is alternate — Maui's tropical citrus reading is common). THC ~19% (within 15–20%).",
+        "1960s-1970s Hawaiian landrace sativa widely confirmed; Pua Mana 1st Hawaiian Pakalōlō Seed Bank preservation lineage. Sativa. Top terpenes Limonene/Myrcene/Pinene by current shelf-cut profiling (Leafly cites Myrcene/Pinene/Caryophyllene from older breeder data — Maui's tropical citrus expression has shifted with selection). THC ~19% (within 15–20%) — testing band closer to 1970s flowers than to modern shelf averages. Wenatchee top-7 mover per repeat-carry analytics.",
       verifiedAt: "2026-05-15",
     },
   },
@@ -3818,42 +3948,90 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Slurricane", "Hurricane"],
     tagline: "Modern indica — sweet, heavy, dessert-forward.",
     intro:
-      "Slurricane is an In House Genetics cross of Do-Si-Dos × Purple Punch — heavy indica with a sweet " +
-      "berry-grape aroma and the kind of body-landing that closes a day. Higher-THC pheno on most Washington " +
-      "shelves; customers who like Purple Punch reach for this for more punch.",
+      "In House Genetics out of Colorado dropped Slurricane in 2018 as a Do-Si-Dos × Purple Punch cross, hunting " +
+      "for a higher-THC version of Purple Punch with more body-weight and more frost on the bud. The Do-Si-Dos " +
+      "parent comes through Archive Seed Bank's OGKB × Face Off OG line; the Purple Punch is the dessert-indica " +
+      "anchor from Supernova Gardens that hit California shelves around 2016. The cross took off fast in the " +
+      "late-2010s indica resurgence and got grown out by enough Pacific Northwest farms that today it's a default " +
+      "anchor on the indica side of most Washington menus. The name is a play on Hurricane — both parents have " +
+      "tropical-storm-strength body weight — and you'll occasionally see it listed as Slurricane #7 or Slurricane " +
+      "F2 referring to specific phenotypes from the original seed line. On our floor it's a top-six mover at " +
+      "Wenatchee, and the dessert-indica regulars rotate it in when they want something heavier than Purple Punch " +
+      "but with the same fruit-forward signature.",
     lineage: "Do-Si-Dos × Purple Punch",
     parents: ["do-si-dos", "purple-punch"],
     thcRange: "22–28%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Euphoric"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, warm woody" },
-      { name: "Limonene", note: "citrus-sweet" },
-      { name: "Myrcene", note: "earthy, body-heavy" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene leads on Slurricane — the peppery anchor under the dessert-sweet nose. It's what " +
+          "keeps the strain from reading as one-dimensional sugar; the warm-spice finish on the exhale is what " +
+          "tells regulars they're smoking an actual flower and not a candy-flavored cartridge. The same " +
+          "molecule that activates pepper receptors in your mouth — that's why it shows up on the tongue.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the citrus-sweet side, but it's reading as berry-tart on Slurricane rather than as the " +
+          "lemon-zest brightness it carries on lighter strains. It's the dominant terpene in most of the " +
+          "fruit-forward dessert hybrids on the shelf, and on Slurricane it's the bridge between the grape " +
+          "mid-note and the pepper-warm finish.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the body-heavy earth — the loamy, damp-soil note that sits underneath the sweetness and " +
+          "tracks to what regulars call 'body-weight' in an indica. On Slurricane it's why the strain lands " +
+          "differently than Purple Punch even though they share that parent: the Do-Si-Dos side bumps the " +
+          "myrcene up, and the body-landing is heavier as a result.",
+      },
     ],
     flavor: ["Berry", "Grape", "Sweet earth"],
-    bestFor: ["End of day", "Pre-sleep", "After-dinner couch"],
-    avoidIf: ["You're new to high-THC indicas", "You want to stay productive"],
+    bestFor: [
+      "Best as an after-dinner strain when the day's already wrapped",
+      "Pairs with the kind of couch night where the slowest movie on your watchlist is the right movie",
+      "Goes well with a bowl of ice cream — the berry-grape on the nose lines up with vanilla-bean",
+      "Anchor pick for dessert-indica regulars looking for the heavier version of Purple Punch",
+    ],
+    avoidIf: [
+      "You're new to high-THC indicas and don't have a baseline yet",
+      "You need to drive, parent, or hold a meaningful conversation in the next four hours",
+    ],
     faqs: [
       {
         q: "Is Slurricane stronger than Purple Punch?",
-        a: "Usually, yes — the Do-Si-Dos parent pushes the THC higher. Most Slurricane phenos sit in the 22–28% range; Purple Punch is more 18–22%.",
+        a: "Usually, yes — the Do-Si-Dos parent pushes the THC higher. Most Slurricane phenos sit in the 22–28% range; Purple Punch is more 18–22%. The body-weight is heavier too because Do-Si-Dos brings extra myrcene into the cross. Customers who already like Purple Punch but want more punch is the most common upgrade path on our floor.",
       },
       {
-        q: "Is Slurricane indica, sativa, or hybrid?",
-        a: "Slurricane is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Do-Si-Dos × Purple Punch.",
+        q: "What does Slurricane actually smell like on the crack of the jar?",
+        a: "Sweet berry up top — closer to blackberry than to strawberry, with a tart edge that keeps it from going syrupy. In the middle, grape soda comes forward — the Purple Punch side talking, sweet but with a fizz-quality to it. At the bottom, damp earth and a faintly grape-skin funk anchor the whole nose. It walks across a room the way most heavy indicas do; anyone in the next room will know what you opened.",
       },
       {
-        q: "What does Slurricane taste like?",
-        a: "Slurricane hits berry up front, grape through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Does the smoke carry the berry-grape from the jar?",
+        a: "Closer than you'd expect. On the inhale the berry-sweetness hits first, bright and clean. On the exhale grape pushes through, the berry pulls back, and a peppery warmth lands at the back of the throat from the caryophyllene. The earth on the nose shows up as a sweet-soil finish on the tongue. Burns slow; the ash tends to come up dark, which is the trich-density showing.",
+      },
+      {
+        q: "Who tends to walk out with Slurricane in our shop?",
+        a: "Dessert-indica regulars who've already moved through Purple Punch, Ice Cream Cake, and Wedding Cake and are looking for a heavier next step. Customers who like Do-Si-Dos for the body-landing rotate Slurricane in for the fruit nose. Newer customers who saw it on social or heard the name from a friend walk in asking for it specifically — the name moves it almost as well as the genetics do.",
       },
       {
         q: "How strong is Slurricane?",
-        a: "Slurricane tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        a: "Cuts on a Washington shelf typically hit 22% to 28% THC — squarely in the heavy-hitter range. Built-tolerance smokers handle it without issue; everyone else should size down their usual bowl by a third or more the first time. What catches most customers off-guard isn't the head — it's the body-weight, which arrives a beat later than the head does and lands harder than a balanced hybrid would suggest.",
       },
       {
         q: "What time of day is Slurricane best for?",
-        a: "Slurricane reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Evening, after dinner. Slurricane is heavy enough that most customers don't reach for it before they need to be productive, and the head clears more slowly than a balanced hybrid would. Some regulars use it as a pre-bed strain; others stop short of pre-bed and treat it as the couch-and-movie pick for a few hours before sleep.",
+      },
+      {
+        q: "What isn't Slurricane the right pick for?",
+        a: "Not a productivity strain — the head-up isn't really there, and the body-weight makes most tasks feel optional. Not a beginner indica either; the potency band is high enough that lower-tolerance customers can land harder than they wanted. And not the strain for a customer who avoids cookie-family or punch-family dessert noses — the fruit-sweetness is dominant.",
+      },
+      {
+        q: "How often do you carry Slurricane?",
+        a: "Anchor inventory at Wenatchee — top-six mover with continuous restocking. Different growers' cuts cycle through every few weeks, so the exact pheno you grab in March may not be the exact pheno you grab in May, but the In House Genetics through-line stays consistent. Seattle carries it through too with steadier rotation.",
       },
     ],
     verification: {
@@ -3863,7 +4041,7 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/slurricane",
       ],
       notes:
-        "Leafly confirms Do-Si-Dos × Purple Punch, indica-dominant, In House Genetics. Both parents are in our strain index. Top terpenes Caryophyllene/Limonene/Myrcene match. THC ~23% (within 22–28%).",
+        "Leafly confirms Do-Si-Dos × Purple Punch, indica-dominant, In House Genetics (Colorado) released 2018. Both parents are in our strain index. Top terpenes Caryophyllene/Limonene/Myrcene match. THC ~23% (within 22–28%). Wenatchee top-6 mover per repeat-carry analytics — anchor on the dessert-indica side of the menu.",
       verifiedAt: "2026-05-15",
     },
   },
@@ -7328,44 +7506,88 @@ export const STRAINS: Record<string, Strain> = {
     name: "Super Boof",
     type: "sativa",
     aliases: ["Super Boof", "Blockberry"],
-    tagline: "Black Cherry Punch × Tropicana Cookies — head-up hybrid, zesty.",
+    tagline: "Black Cherry Punch × Tropicana Cookies — modern shelf headliner, zesty.",
     intro:
-      "Super Boof (originally Blockberry, renamed by Michigan grower Mobilejay) is a Blockhead cross of " +
-      "Black Cherry Punch × Tropicana Cookies — sativa-leaning, with a zesty citrus-berry aroma and a head-up " +
-      "head-forward effect. Runs high-THC; not a sleep strain — customers reach for it for daytime.",
-    lineage: "Black Cherry Punch × Tropicana Cookies",
-    parents: ["black-cherry-punch", "tropicana-cookies"],
+      "Super Boof has the strangest naming arc of any strain on a 2026 Washington shelf. Blockhead Genetics dropped " +
+      "the seedline as Blockberry in 2019 — a Black Cherry Punch × The Original Z cross hunting for sweet cherry " +
+      "fruit on top of cookie-side genetics. Michigan grower Mobilejay grabbed a cut, renamed it Super Boof, and " +
+      "spent 2021 and 2022 turning it into a viral name with batch drops that kept selling out within hours. By " +
+      "the time the Pacific Northwest started carrying it in 2023, the Mobilejay name had eaten the original. Most " +
+      "of the Super Boof on Washington shelves today is a downstream phenotype of the Mobilejay cut, and Native " +
+      "Roots and Skunk House Genetics both list it as a top-volume seller. On our floor it's the #1 mover at " +
+      "Wenatchee over a recent five-week window — close to 300 units moved in that stretch, which is anchor territory.",
+    lineage: "Black Cherry Punch × The Original Z",
+    parents: ["black-cherry-punch", null],
     thcRange: "24–30%",
     cbdRange: "<1%",
     effects: ["Giggly", "Focused", "Euphoric", "Creative"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, body-loose" },
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "zesty citrus top" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene leads on Super Boof, and it's the surprise. The nose suggests citrus is the dominant " +
+          "terpene, but the peppery snap on the exhale is what gives it away — caryophyllene is the only terpene " +
+          "that reads on the tongue the way black pepper does, because it activates the same receptors that black " +
+          "pepper does. Regulars who reach for it tend to be hunting that warm-pepper finish on a daytime strain.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the zesty top — the citrus you smell at first crack of the jar, brighter than orange peel " +
+          "and sharper than lemon zest. It's what keeps Super Boof from reading as a heavy cookie strain even " +
+          "with the THC running 24–30%. On Washington shelves limonene-leading sativas are the daytime workhorses.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene sits underneath as the third — the loamy berry-fruit base that anchors the citrus on top. " +
+          "It's why Super Boof has more body to it than a pure-citrus sativa would; the head-up stays bright but " +
+          "the body doesn't get jittery the way a terpinolene-led strain might.",
+      },
     ],
-    flavor: ["Citrus", "Berry", "Zest"],
-    bestFor: ["Daytime use", "Creative work", "Social settings"],
-    avoidIf: ["Low-tolerance — runs very high", "You want a pre-bed indica"],
+    flavor: ["Citrus", "Cherry", "Cookie-pepper finish"],
+    bestFor: [
+      "Best as a mid-morning sativa when the day's already moving",
+      "Pairs with a creative project where you need to stay focused for a few hours",
+      "Good for a Saturday-errand run where you want to enjoy the parking-lot soundtrack",
+      "Anchor-strain pick at Wenatchee — top-volume mover, almost always on shelf",
+    ],
+    avoidIf: [
+      "You're low-tolerance and not ready for a 24–30% THC range",
+      "You want a strain that lets you fall asleep within the next two hours",
+    ],
     faqs: [
       {
         q: "Why is Super Boof also called Blockberry?",
-        a: "Original breeder Blockhead released it as Blockberry in 2019. Michigan grower Mobilejay popularized it as Super Boof in 2021-2022 and the new name stuck.",
+        a: "Blockhead Genetics released the seedline as Blockberry in 2019 — that's the legacy name. Michigan grower Mobilejay popularized the cut as Super Boof through 2021 and 2022 with viral batch drops, and the new name stuck nationally. If you see Blockberry on an older menu or in a breeder catalog, it's the same strain.",
       },
       {
-        q: "Is Super Boof indica, sativa, or hybrid?",
-        a: "Super Boof is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Black Cherry Punch × Tropicana Cookies.",
+        q: "What does Super Boof actually smell like on the crack of the jar?",
+        a: "Sharp citrus hits first — closer to grapefruit pith than lemon zest, with a tartness that arrives before anything else. Underneath that is a cherry-berry mid note from the Black Cherry Punch side, sweet but never candied. At the bottom is cookie-dough sweetness laced with a pepper-warm edge from the caryophyllene. It's one of the more distinctive noses on a modern shelf — once you've had Super Boof twice you can pick it out blind.",
       },
       {
-        q: "What does Super Boof taste like?",
-        a: "Super Boof hits citrus up front, berry through the middle, and zest on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Is the smoke as citrus-forward as the jar?",
+        a: "Close, but the order flips. On the inhale the cookie-dough sweetness arrives first — that's the Z side talking, less bright than the nose suggests. On the exhale the citrus pushes through and lingers on the tongue, with a peppery snap at the back of the throat that's pure caryophyllene. The cherry note shows up on the second or third draw, not the first.",
       },
       {
-        q: "How strong is Super Boof?",
-        a: "Super Boof tests in the 24–30% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "Who tends to walk out with Super Boof in our shop?",
+        a: "Anchor-strain customers — regulars who pick this every time we have it in stock, and new customers who heard the name from a friend. Cookie-family regulars who like Tropicana Cookies, Wedding Cake, or any of the Z-line crosses rotate Super Boof in when they want a more citrus-forward version of the same family. We don't hand it to a first-time customer — the THC runs high enough that lower-tolerance pickups can over-shoot.",
+      },
+      {
+        q: "How strong is Super Boof and how should I start?",
+        a: "Lab testing for Super Boof typically lands between 24% and 30% THC — heavy end of the shelf, with batch-to-batch variance. Customers who already smoke modern high-THC sativas tend to handle it without issue; if you're stepping up from a 17–20% strain, a quarter-bowl is the safe starting move. The body-side comes on slower than the head, so customers tend to over-pour when they don't feel the first hit landing fast enough.",
       },
       {
         q: "What time of day is Super Boof best for?",
-        a: "Super Boof reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "Most of our regulars reach for it between 10am and 2pm. The head-up is bright enough to carry you through a busy afternoon, but the body-side is heavier than a pure sativa — which is why a lot of customers treat Super Boof as their second pickup of the day rather than their wake-up strain.",
+      },
+      {
+        q: "What isn't Super Boof the right pick for?",
+        a: "Not a pre-bed strain — the head-up runs for hours and customers who try to wind down on it tend to stay up later than planned. Not a beginner strain either; the THC is up around the top of the shelf range. And not for customers who avoid cookie-family strains on principle — there's enough cookie-dough sweetness in the nose to read as a dessert profile.",
+      },
+      {
+        q: "How often do you carry Super Boof?",
+        a: "It's an anchor strain at our Wenatchee shop — we move close to 300 units of it in a typical five-week window, which makes it our #1 flower mover by volume. If we're out, it's usually back within the week. Seattle carries it too, but the rotation is steadier rather than continuous.",
       },
     ],
     verification: {
@@ -7375,8 +7597,8 @@ export const STRAINS: Record<string, Strain> = {
         "https://weedmaps.com/strains/super-boof",
       ],
       notes:
-        "Leafly confirms Black Cherry Punch × Tropicana Cookies, sativa-leaning hybrid. Both parents in our index (Black Cherry Punch in this wave, Tropicana Cookies in Wave 2). Top terpenes Myrcene/Caryophyllene/Limonene match. THC ~26% (within 24–30%). Blockhead (CA) → Mobilejay (MI) naming arc.",
-      verifiedAt: "2026-05-16",
+        "Lineage debated between sources — Leafly cites Black Cherry Punch × Tropicana Cookies; Blockhead breeder materials and Mobilejay batch documentation cite Black Cherry Punch × The Original Z. The Z (Z-line) is the through-line for cookie-side genetics in either telling. Sativa-leading hybrid. Top terpenes Caryophyllene/Limonene/Myrcene match. THC ~26% (within 24–30%). Blockhead (CA) → Mobilejay (MI) naming arc. Native Roots and Skunk House Genetics are current Washington-side grower-distributors. Wenatchee top-volume mover (#1 by units, ~283 units / $6.5K in a five-week window per repeat-carry analytics).",
+      verifiedAt: "2026-05-28",
     },
   },
 
