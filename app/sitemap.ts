@@ -244,6 +244,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // educational HUB → bumped 0.75 → 0.8 to peer with other hub pages.
     { url: `${STORE.website}/faq`, lastModified: STATIC_LASTMOD, changeFrequency: "yearly", priority: 0.5 },
     { url: `${STORE.website}/learn`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
+    // /learn/terpenes — evergreen terpene primer (Phase 2 Ship 2.5). High-
+    // intent SEO surface for "what strains are high in limonene seattle"-
+    // class queries. Priority 0.7 — peer with the /learn/<slug> hub tier.
+    {
+      url: `${STORE.website}/learn/terpenes`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     {
       url: `${STORE.website}/accessibility`,
       lastModified: STATIC_LASTMOD,
