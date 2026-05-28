@@ -134,6 +134,24 @@ export default function LearnPage() {
             Plain-English explainers on the Washington-specific questions our budtenders hear most.
           </p>
         </div>
+
+        {/* Aroma + flavor pill — links to the standalone /learn/terpenes
+            primer page (Phase 2 Ship 2.5). Page sits outside the
+            LEARN_HUB_TOPICS array because it uses a distinct visual
+            structure (terpene cards + strain-pill grid) rather than the
+            markdown-body shape /learn/[slug] uses. This pill gives it
+            internal-link power from the hub without restructuring. Per
+            RESULT_TERPENE_PRIMER_PAGE_2026_05_28.md Doug-action #2 (option B). */}
+        <div>
+          <Link
+            href="/learn/terpenes"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-800/60 bg-emerald-950/40 hover:border-emerald-600 hover:bg-emerald-900/50 px-4 py-2 text-sm font-semibold text-emerald-100 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 focus-visible:outline-none"
+          >
+            <span aria-hidden="true">🌿</span>
+            Aroma &amp; flavor — terpene guide →
+          </Link>
+        </div>
+
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {LEARN_HUB_TOPICS.map((t) => (
             <li key={t.slug}>

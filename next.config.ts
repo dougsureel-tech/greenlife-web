@@ -481,16 +481,20 @@ const nextConfig: NextConfig = {
       { source: "/pickup", destination: "/menu", permanent: true },
       { source: "/preroll", destination: "/menu", permanent: true },
 
-      // Legacy loyalty/rewards bookmarks → /account (Clerk sign-in lands
-      // there; signed-in customers see their loyalty balance + tier).
-      // Pre-fix /loyalty 404'd; legacy bookmarks from the SpringBig era
-      // (pre-2026 cutover) and any external partner directory or app-store
-      // listing that references "/loyalty" hit a dead URL. Caught by /loop
-      // saturation grind 2026-05-09 customer-flow smoke test. /rewards
-      // also 404 on glw (no rewards portal on Wenatchee — that's scc-only
-      // per project_legal_entities) so route the same place.
+      // Legacy loyalty bookmarks → /account (Clerk sign-in lands there;
+      // signed-in customers see their loyalty balance + tier). Pre-fix
+      // /loyalty 404'd; legacy bookmarks from the SpringBig era (pre-2026
+      // cutover) and any external partner directory or app-store listing
+      // that references "/loyalty" hit a dead URL. Caught by /loop
+      // saturation grind 2026-05-09 customer-flow smoke test.
+      //
+      // /rewards is NO LONGER redirected (2026-05-28). Per
+      // EXPERT_NEXT_STEPS_CUSTOMER_JOURNEY_2026_05_28.md the prior
+      // 308 to /account meant customers tapping the footer "Rewards"
+      // link saw the Clerk sign-in chrome with no context. /rewards
+      // now renders a public interstitial at app/rewards/page.tsx
+      // (Sign in via Clerk + Browse strains).
       { source: "/loyalty", destination: "/account", permanent: true },
-      { source: "/rewards", destination: "/account", permanent: true },
 
       // Auth-URL alias normalization. Clerk uses `/sign-in` + `/sign-up`
       // (hyphenated). The unhyphenated forms (`/signin`, `/signup`) +
