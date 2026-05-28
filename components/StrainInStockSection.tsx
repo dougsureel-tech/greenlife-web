@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { withAttr } from "@/lib/attribution";
 import { effectivePriceFor, findDealForProduct } from "@/lib/online-pricing";
+import { formatProductTitle } from "@/lib/format-product-title";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { matchProductPhoto } from "@/lib/product-photos-available";
 import { renderReason, type ScoredProduct } from "@/lib/strain-match";
@@ -85,7 +86,10 @@ export function StrainInStockSection({
               <div className="p-3 flex flex-col flex-1">
                 <div className="text-xs text-stone-500 truncate">{p.brand ?? p.category}</div>
                 <div className="text-sm font-semibold text-stone-900 truncate group-hover:underline">
-                  {p.name}
+                  {formatProductTitle(
+                    { name: p.name, brand: p.brand, category: p.category },
+                    { strainName: strain.name },
+                  )}
                 </div>
                 <div className="text-xs text-stone-600 mt-0.5 flex gap-1.5 items-baseline truncate">
                   {p.thcPct != null && <span className="shrink-0">THC {p.thcPct.toFixed(1)}%</span>}
