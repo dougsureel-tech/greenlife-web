@@ -52,14 +52,16 @@ const TYPE_LABELS: Record<string, { label: string; chip: string; dot: string }> 
 };
 
 /** Headline copy varies by which tokens the customer answered + how well
- *  we matched. All preference-observation voice, zero causation framing. */
+ *  we matched. All preference-observation voice, zero causation framing.
+ *
+ *  Sub-sentence is rendered as ONE complete sentence in every quadrant
+ *  (vibe set/empty × form set/empty). Prior shape concatenated a delimited
+ *  `summary` segment ("as flower." / "for the chill hour.") onto the end of
+ *  a separate title-period sentence, which read as orphan fragments in the
+ *  live rendering ("...you might like these. as flower."). Customer journey
+ *  audit 2026-05-28 flagged this as confidence-killing — fix is a per-
+ *  quadrant grammatical sub string, no leftover delimited concatenation. */
 function buildHeadline(tokens: QuizTokens, result: QuizMatchResult): { eyebrow: string; title: string; sub: string } {
-  const parts: string[] = [];
-  if (tokens.strain) parts.push(tokens.strain);
-  if (tokens.vibe) parts.push(`for the ${tokens.vibe} hour`);
-  if (tokens.form) parts.push(`as ${tokens.form.toLowerCase()}`);
-  const summary = parts.length > 0 ? parts.join(" · ") : "the general direction";
-
   // Match-strategy framed honestly. The customer should know when we relaxed
   // constraints — comms-expert lane.
   if (result.strategy === "unconstrained" && (tokens.vibe || tokens.strain)) {
@@ -72,10 +74,35 @@ function buildHeadline(tokens: QuizTokens, result: QuizMatchResult): { eyebrow: 
     };
   }
 
+  // Per-quadrant complete-sentence sub. Renders as ONE sentence regardless of
+  // which tokens are set; never produces an orphan ". as flower." construction.
+  const formLower = tokens.form ? tokens.form.toLowerCase() : null;
+  const vibe = tokens.vibe ?? null;
+  const strain = tokens.strain ?? null;
+
+  let sub: string;
+  if (strain && vibe && formLower) {
+    sub = `For ${strain}-leaning ${formLower} on a ${vibe} day, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (strain && vibe) {
+    sub = `For ${strain}-leaning picks on a ${vibe} day, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (strain && formLower) {
+    sub = `For ${strain}-leaning ${formLower}, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (vibe && formLower) {
+    sub = `For ${formLower} on a ${vibe} day, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (vibe) {
+    sub = `For a ${vibe} day, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (formLower) {
+    sub = `When you're after ${formLower}, here are a few we'd reach for — the shop'll know more in person.`;
+  } else if (strain) {
+    sub = `For ${strain}-leaning picks, here are a few we'd reach for — the shop'll know more in person.`;
+  } else {
+    sub = "These are a starting place — and a few of the strains regulars reach for most often.";
+  }
+
   return {
     eyebrow: "Your matches",
     title: `Based on what you told us, you might like these.`,
-    sub: `${summary}. The shop'll know more in person — these are a starting place.`,
+    sub,
   };
 }
 

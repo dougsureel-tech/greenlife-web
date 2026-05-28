@@ -92,14 +92,18 @@ export function StrainStockWidget({ strain, stock, thisStore }: StrainStockWidge
             const fresh = freshnessLabel({ lastSeenAt: row.lastSeenAt, lastSoldAt: row.lastSoldAt });
             const labelPrefix = isThis ? "Here at" : "At";
             if (row.inStock && row.productCount > 0) {
-              const productsLabel = row.productCount === 1 ? "1 product" : `${row.productCount} products`;
+              // Customer-journey audit 2026-05-28 — per-row "N products" count
+              // (from inv-App's raw match-list, ~30 typical) confused customers
+              // when the StrainInStockSection below caps at 6 deduplicated cards.
+              // Drop the count from the per-row cue; the headline above carries
+              // the binary in-stock signal, and the section below carries the
+              // exact displayable count. Reconciles without an API change.
               return (
                 <li key={row.store} className="flex items-start gap-2">
                   <span aria-hidden="true" className="mt-0.5">📍</span>
                   <span>
                     <span className="font-medium text-emerald-900">In stock</span>{" "}
-                    {labelPrefix} <span className="font-semibold">{row.storeLabel}</span> ·{" "}
-                    {productsLabel}
+                    {labelPrefix} <span className="font-semibold">{row.storeLabel}</span>
                     {!isThis && (
                       <>
                         {" · "}
