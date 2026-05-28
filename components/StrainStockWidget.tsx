@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { CrossStoreStockResult } from "@/lib/strain-stock-cross-store";
 import { freshnessLabel } from "@/lib/strain-stock-cross-store";
+import { STORE } from "@/lib/store";
 import type { Strain } from "@/lib/strains";
 
 // Cross-store stock widget — renders on /strains/[slug] right after the hero
@@ -45,9 +46,9 @@ export function StrainStockWidget({ strain, stock, thisStore }: StrainStockWidge
       >
         <div className="rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-700">
           <span className="font-semibold text-stone-900">Stock today:</span>{" "}
-          Live availability isn&apos;t loading right now — call us at{" "}
-          <a href="tel:+15096639980" className="underline decoration-stone-300 hover:decoration-stone-700">
-            (509) 663-9980
+          Live availability isn't loading right now — call us at{" "}
+          <a href={`tel:${STORE.phoneTel}`} className="underline decoration-stone-300 hover:decoration-stone-700">
+            {STORE.phone}
           </a>{" "}
           and a budtender can check {strain.name} on the shelf.
         </div>

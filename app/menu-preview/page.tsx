@@ -96,7 +96,7 @@ export default async function MenuPreviewPage() {
     <>
       {/* Preview banner — only on /menu-preview, NOT shipped to /menu post-cutover. */}
       <div className="bg-amber-100 border-b-2 border-amber-300 text-amber-900 px-4 py-3 text-sm font-semibold text-center">
-        🚧 Cutover preview · this is what <span className="underline">/menu</span> becomes post-greenlight · iHJ Boost embed still serves <span className="underline">/menu</span> until Doug greenlights the atomic flip
+        🚧 Cutover preview · this is what <code className="bg-amber-200/60 px-1.5 rounded font-mono">/menu</code> becomes post-greenlight · iHJ Boost embed still serves <code className="bg-amber-200/60 px-1.5 rounded font-mono">/menu</code> until Doug greenlights the atomic flip
       </div>
       {/* Premium page header — mirrors /order's hero band; will consolidate
           at cutover into /menu/page.tsx. */}

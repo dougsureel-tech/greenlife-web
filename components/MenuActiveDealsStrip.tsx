@@ -71,9 +71,11 @@ export function MenuActiveDealsStrip({ deals, treasureChestCount = 0 }: Props) {
             id="menu-deals-strip-heading"
             className="text-sm font-extrabold uppercase tracking-[0.18em] text-emerald-800"
           >
-            {deals.length > 0
-              ? `Live deals · ${deals.length} running`
-              : "Clearance lane"}
+            {deals.length === 1
+              ? "Live deal · 1 running"
+              : deals.length > 1
+                ? `Live deals · ${deals.length} running`
+                : "Clearance lane"}
           </h2>
           <Link
             href={withAttr("/deals", "menu", "deals-strip-all")}

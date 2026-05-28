@@ -401,7 +401,7 @@ export default async function StrainSlugPage({
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700 mb-2">Genetics</p>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 mb-2">Family tree</h2>
           <p className="text-sm text-stone-600 mb-4">
-            {s.name}&apos;s parents, descendants, and sister strains in the catalog.
+            {s.name}'s parents, descendants, and sister strains in the catalog.
             {s.lineageAlternates && s.lineageAlternates.length > 0 && (
               <span>
                 {" "}Alternate lineage candidates: {s.lineageAlternates.join("; ")}.
@@ -483,7 +483,7 @@ export default async function StrainSlugPage({
           <div className="space-y-2">
             {s.faqs.map((f, i) => (
               <details key={i} className="rounded-lg border border-stone-200 bg-white">
-                <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-stone-900">
+                <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-stone-900 hover:bg-stone-50 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 marker:text-stone-400">
                   {f.q}
                 </summary>
                 <p className="px-4 pb-3 text-sm text-stone-700 leading-relaxed">{f.a}</p>
@@ -532,7 +532,19 @@ export default async function StrainSlugPage({
       {s.verification && (
         <section className="max-w-3xl mx-auto px-4 pt-6 pb-2 text-center text-xs text-stone-500 leading-relaxed">
           <p>
-            Verified {s.verification.verifiedAt} against {s.verification.sources.length}{" "}
+            Verified{" "}
+            {(() => {
+              try {
+                return new Date(s.verification.verifiedAt + "T12:00:00Z").toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                });
+              } catch {
+                return s.verification.verifiedAt;
+              }
+            })()}{" "}
+            against {s.verification.sources.length}{" "}
             {s.verification.sources.length === 1 ? "source" : "sources"}
             {s.lineageAlternates && s.lineageAlternates.length > 0
               ? " — updated when sources disagree."
