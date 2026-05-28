@@ -2099,12 +2099,24 @@ export function OrderMenu({
                     {/* Button label flips for unsigned customers so they
                         see the sign-in detour BEFORE they tap, not after.
                         UX_AUDIT_2026_05_03 P0 #3: Nielsen #1 (visibility of
-                        system status). Same handler — placeOrder hits the
-                        API, gets 401, and bounces to /sign-in?redirect_url=
-                        /order?cart=open which re-opens the drawer on return. */}
+                        system status).
+                        2026-05-28: when NOT signedIn, route directly to
+                        /sign-in instead of POSTing /api/orders + relying on
+                        the 401 → sign-in redirect path. Reason: Clerk
+                        middleware can intercept /api/orders for an unauth'd
+                        request and return its own HTML/redirect response
+                        BEFORE the route handler can return clean 401-JSON.
+                        Client then fails to parse JSON + falls through to
+                        "Couldn't place your order — try again" generic
+                        fallback. Lived 2026-05-27 — Austin pre-launch test
+                        surfaced the confusing error. Sister-ported byte-
+                        identical from SCC. Pin:
+                        feedback_scc_customer_checkout_pre_launch_findings_2026_05_27. */}
                     <button type="button"
-                      onClick={placeOrder}
-                      disabled={placing || orderingStatus?.state !== "open" || !pickupTime || closure.isClosed}
+                      onClick={signedIn
+                        ? placeOrder
+                        : () => router.push(`/sign-in?redirect_url=${encodeURIComponent("/order?cart=open")}`)}
+                      disabled={placing || orderingStatus?.state !== "open" || (signedIn && !pickupTime) || closure.isClosed}
                       className="px-6 py-3 min-h-[44px] rounded-2xl bg-green-700 hover:bg-green-600 active:bg-green-800 text-white font-bold text-sm transition-all shadow-lg shadow-green-900/30 disabled:opacity-40 disabled:cursor-not-allowed hover:-translate-y-0.5"
                     >
                       {placing
