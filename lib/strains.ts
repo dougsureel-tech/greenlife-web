@@ -76,52 +76,82 @@ export const STRAINS: Record<string, Strain> = {
     name: "Blue Dream",
     type: "hybrid",
     aliases: ["Blue Dream", "BD"],
-    tagline: "California's everyday hybrid — uplifted, calm, easy.",
+    tagline: "California's everyday hybrid — balanced, fruit-forward, easy.",
     intro:
-      "Blue Dream is the Pacific Northwest's default hybrid for a reason: it's reliably balanced — head-up " +
-      "without being racey, body-loose without being couch-locked. Comes from a Blueberry indica × Haze sativa " +
-      "cross out of NorCal in the early 2000s. Smells like fresh berries and pine.",
+      "Blue Dream came out of a NorCal grower in the early 2000s — crossing a Blueberry indica (Santa Cruz / DJ Short " +
+      "genetics) with a Haze sativa, hunting for the fruit nose of the Blueberry with the head-up of the Haze. It hit " +
+      "shelves around 2003-2005 and was the default California hybrid by 2010. Most of what gets sold as Blue Dream in " +
+      "Washington today is a clone descendant of that original cut — true seed-grown Blue Dream is rarer than people think. " +
+      "On our floor it stays reliably balanced: head-up without being racey, body-loose without being locked to the couch, " +
+      "and it's the legacy name the newest customers walk in already knowing.",
     lineage: "Blueberry × Haze",
     parents: ["blueberry", "haze"],
     thcRange: "17–24%",
     cbdRange: "<1%",
     effects: ["Uplifted", "Relaxed", "Creative", "Happy"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, body-heavy — the body-loose side" },
-      { name: "Pinene", note: "fresh pine — sharp, focusing" },
-      { name: "Caryophyllene", note: "peppery, warm woody" },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene leads — that's the earthy, mango-loam side, and it's why Blue Dream isn't a pure racey sativa even " +
+          "though it leans that way. It's the most common dominant terpene in modern cannabis and the part of the chemistry " +
+          "regulars track when they say a strain has 'body weight' to it.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the pine note on the nose and the clarity behind the head-up. Common in strains regulars pick when " +
+          "they want to stay productive — same family of compounds you smell in a fresh-cut pine board or rosemary at the " +
+          "back of the spice rack.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base, the warm wood note on the exhale. It cracks the same receptors black pepper " +
+          "does, which is why it reads on the tongue rather than just on the nose.",
+      },
     ],
     flavor: ["Sweet berries", "Pine", "Vanilla undertone"],
-    bestFor: ["Daytime use", "Creative work", "Hike or walk", "Social gatherings", "First-time hybrid"],
+    bestFor: [
+      "Best as a late-afternoon hybrid",
+      "Pairs with a hike or a long bike ride",
+      "Good for social settings — won't put you sideways",
+      "First-time hybrid pick",
+      "Legacy name a lot of customers walk in asking for",
+    ],
     avoidIf: ["You're sensitive to THC and want CBD-forward", "You need to be sharp behind the wheel"],
     faqs: [
       {
+        q: "What does Blue Dream actually smell like on the crack of the jar?",
+        a: "Three layers. The top is fresh blueberry skin — almost candy-bright, not jammy. Underneath that is clean pine with a touch of cedar shaving. The base is sweet vanilla and damp earth, the kind that lingers on your fingertips after you've ground a bowl. It's one of the most recognizable noses on a Washington shelf; people who haven't had Blue Dream in five years still pick it out the second the lid comes off.",
+      },
+      {
+        q: "Does Blue Dream taste the same when you smoke it as it smells in the jar?",
+        a: "Close. On the inhale it's sweet blueberry up front — the same nose-fruit, lighter than you'd expect. On the exhale pine pushes through, then a vanilla finish that sits on the tongue. Less peppery than most of the modern hybrids on the shelf — the comparison our regulars reach for is a fruit-forward white wine rather than a bourbon.",
+      },
+      {
         q: "Is Blue Dream a sativa or indica?",
-        a: "Hybrid — sativa-leaning. The high is more head-up than body-heavy, but the Blueberry parent keeps it from being purely racey.",
+        a: "Hybrid, sativa-leaning. The Haze parent keeps the head up; the Blueberry parent keeps it from being a pure racey sativa. Most people describe it as balanced rather than tilted one direction.",
       },
       {
-        q: "Is Blue Dream good for beginners?",
-        a: "Yes — Blue Dream is one of the most-recommended starter hybrids. Predictable, balanced, not overwhelming. Start with a small dose.",
+        q: "Why does Blue Dream show up on so many recommendations?",
+        a: "It's the safest first hybrid in the catalog — balanced enough that regulars who like indica still pick it up, and regulars who like sativa do too. The blueberry-pine aroma is unmistakable, which makes it easy to remember. We rotate Blue Dream through almost continuously; it's a top-5 reorder.",
       },
       {
-        q: "What does Blue Dream taste like?",
-        a: "Sweet blueberries up front, pine on the back end, vanilla undertone. Smell is recognizable across the room — fresh, fruity, not skunky.",
+        q: "Who tends to walk out with Blue Dream in our shop?",
+        a: "It's the strain most first-time hybrid customers leave with. Regulars who like Berry White or Strawberry Cough often rotate Blue Dream back in when they want something cleaner-tasting. It's also the most-asked-for by name from new-to-cannabis customers — the only legacy hybrid name that's penetrated outside the regular crowd.",
       },
       {
-        q: "How strong is Blue Dream?",
-        a: "Blue Dream tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How strong is Blue Dream and how should I start?",
+        a: "Blue Dream tests in the 17–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time and see where it lands.",
       },
       {
-        q: "What time of day is Blue Dream best for?",
-        a: "Blue Dream reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
-      },
-      {
-        q: "What terpenes are in Blue Dream?",
-        a: "The dominant terpenes in Blue Dream are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        q: "What isn't Blue Dream the right pick for?",
+        a: "Not the strain to expect a heavy couchlock from — Blue Dream stays head-up enough that a lot of customers misjudge their first dose and end up wired. Not the strain for a sharp morning either; the body-loose comes on slow but lands. And it's not the right call if you want a low-THC option.",
       },
       {
         q: "What strains are similar to Blue Dream?",
-        a: "Customers who like Blue Dream often reach for Berry White, Jack Herer, or Strawberry Cough — shared lineage or a similar profile. Our budtenders can walk through the differences if you want a side-by-side.",
+        a: "Customers who like Blue Dream often reach for Berry White, Jack Herer, or Strawberry Cough — shared lineage or a similar profile. Ask a budtender and they'll walk through the differences side-by-side.",
       },
     ],
     verification: {
@@ -141,48 +171,81 @@ export const STRAINS: Record<string, Strain> = {
     name: "Wedding Cake",
     type: "hybrid",
     aliases: ["Wedding Cake", "Pink Cookies"],
-    tagline: "Indica-leaning hybrid — sweet, heavy, dessert-y.",
+    tagline: "Indica-leaning hybrid — vanilla, pepper, dessert-end of the shelf.",
     intro:
-      "Wedding Cake (also called Pink Cookies) is the dessert end of the hybrid spectrum: indica-leaning, " +
-      "with a heavy body buzz and a head that's relaxed but still functional. Born from Triangle Kush × Animal " +
-      "Mints. Smells like sweet vanilla and pepper. Good for late-afternoon and evening.",
+      "Wedding Cake — sometimes still called Pink Cookies in older catalogs — came out of Seed Junky Genetics (Jbeezy) " +
+      "in the mid-2010s, crossing Triangle Kush with Animal Mints. Triangle Kush is a Florida OG cut; Animal Mints is " +
+      "a GSC × Fire OG × Blue Power triple-stack. The lineage explains the strain: dessert sweetness from the GSC side, " +
+      "OG heaviness from the Triangle, pepper-mint from the Animal Mints. 'Wedding Cake' stuck nationally; 'Pink Cookies' " +
+      "hung on in some West Coast catalogs through about 2019. On our shelf it's the dessert-end pick — head still " +
+      "functional, body heavy enough that customers don't reach for it before they need to be productive.",
     lineage: "Triangle Kush × Animal Mints",
     parents: ["triangle-kush", "animal-mints"],
     thcRange: "22–27%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Euphoric", "Sleepy"],
     terpenes: [
-      { name: "Limonene", note: "citrus zest — the mood-up side" },
-      { name: "Caryophyllene", note: "peppery, mellow" },
-      { name: "Myrcene", note: "earthy, body-heavy" },
+      {
+        name: "Limonene",
+        note:
+          "Limonene leads — citrus zest is what keeps Wedding Cake from feeling as heavy as its lineage would suggest. " +
+          "It's the dominant terpene in most of the strains regulars describe as 'bright,' and on Wedding Cake it's the " +
+          "lift behind the dessert nose.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base. When you taste pepper on the exhale, that's caryophyllene reading on the " +
+          "tongue — the same family of compounds that gives black pepper its bite. Most modern dessert hybrids carry it " +
+          "as the warm-finish layer.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the third — the earth-loam side that brings the body-loose. The combo is classic dessert-hybrid: " +
+          "bright citrus, warm pepper, deep earth, all layered on the same exhale.",
+      },
     ],
     flavor: ["Vanilla", "Sweet pastry", "Pepper"],
-    bestFor: ["Wind-down evenings", "After-dinner couch time", "Light pain relief", "Stress melt"],
+    bestFor: [
+      "Best as an after-dinner strain",
+      "Pairs with dessert (the sweetness lines up literally) and a couch",
+      "Good with chai or a milk-based dessert tea",
+      "End-of-day pick for regulars who like the dessert end of the shelf",
+    ],
     avoidIf: ["You need to be productive", "You're very low-tolerance — these run high in THC"],
     faqs: [
       {
-        q: "What's the difference between Wedding Cake and Pink Cookies?",
-        a: "Same strain — Pink Cookies was the original name in some markets, Wedding Cake stuck nationally. Same genetics either way.",
+        q: "What does Wedding Cake actually smell like out of the jar?",
+        a: "Vanilla buttercream up top — the same smell as the inside of a bakery box. Underneath that is sweet pastry and almond marzipan. The base is pepper and damp earth, with a sour kush funk underneath that doesn't come out until the second whiff. It's recognizable — anyone who's had Wedding Cake before will pick it out the second the lid comes off.",
       },
       {
-        q: "Is Wedding Cake a nighttime strain?",
-        a: "Yes, especially the higher-THC phenotypes. Indica-leaning, body-heavy, and the limonene keeps it from feeling too heavy.",
+        q: "Does Wedding Cake taste the same when you smoke it as it smells in the jar?",
+        a: "Closer than most. On the inhale it's sweet vanilla pastry, almost dessert-like — that's the GSC side talking. On the exhale pepper and a sharper kush funk arrive, the buttercream falls back, and there's a damp-earth finish that lasts. Sweet and savory on the same hit, which is what the regulars who reach for this rotate in for.",
+      },
+      {
+        q: "What's the difference between Wedding Cake and Pink Cookies?",
+        a: "Same strain. Pink Cookies was the original name in some markets, Wedding Cake stuck nationally after about 2019. Same Seed Junky genetics either way — Triangle Kush × Animal Mints.",
+      },
+      {
+        q: "Who tends to walk out with Wedding Cake?",
+        a: "Wedding Cake is the dessert-end-of-the-shelf pick. Regulars who like Gelato, Sunset Sherbet, or Ice Cream Cake walk straight to it; regulars who avoid super-sweet strains stay away. It also pulls a steady stream of curious customers who saw the name on social media — the name moves it as much as the genetics do.",
       },
       {
         q: "Is Wedding Cake indica, sativa, or hybrid?",
-        a: "Wedding Cake is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Triangle Kush × Animal Mints. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid, indica-leaning. The Triangle Kush side brings the body weight; the Animal Mints side brings the bright top notes. The balance leans on the specific phenotype and the day-of harvest, but most cuts on a Washington shelf land on the heavier end.",
       },
       {
-        q: "What does Wedding Cake taste like?",
-        a: "Wedding Cake hits vanilla up front, sweet pastry through the middle, and pepper on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
-      },
-      {
-        q: "How strong is Wedding Cake?",
-        a: "Wedding Cake tests in the 22–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How strong is Wedding Cake and how should I start?",
+        a: "Wedding Cake tests in the 22–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time and see how it lands.",
       },
       {
         q: "What time of day is Wedding Cake best for?",
-        a: "Wedding Cake reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Most regulars reach for it after dinner. Body-heavy enough that the couch is part of the plan, sweet enough on the nose that it pairs with dessert or a milk-based tea. Not a morning strain.",
+      },
+      {
+        q: "What isn't Wedding Cake the right pick for?",
+        a: "Not subtle — runs in the 22–27% THC range, so this isn't a strain for low-tolerance customers to over-pour. Not a morning strain. And despite the name, not actually a strain anyone smokes at their wedding; the body-weight makes that a poor plan.",
       },
     ],
     verification: {
@@ -264,44 +327,83 @@ export const STRAINS: Record<string, Strain> = {
     name: "OG Kush",
     type: "hybrid",
     aliases: ["OG Kush", "OG"],
-    tagline: "The west-coast classic. Heavy, citrusy, unmistakable.",
+    tagline: "The West Coast classic — lemon, diesel, kush funk on the finish.",
     intro:
-      "OG Kush is one of the foundational strains of West Coast cannabis. Heavy hybrid leaning indica, with a " +
-      "citrus + diesel + pine smell that's instantly recognizable. The 'OG' has been debated forever (Original " +
-      "Gangster? Ocean Grown?) — what isn't debated is how influential it is on modern genetics.",
+      "OG Kush is one of the most-traveled cuts in cannabis history, and one of the most-debated. The most-cited lineage " +
+      "is Chemdawg × Hindu Kush, dropped in Florida in the early 1990s and brought to Los Angeles by Josh D and the " +
+      "'Original Gangster' crew (which is one of the explanations for the 'OG'). Other sources cite Chemdawg × Lemon Thai " +
+      "× Hindu Kush; Josh D origin folklore says it came from a bagseed of unknown origin and the parents are essentially " +
+      "a reverse-engineering guess. Whatever the truth, OG Kush is the ancestor of half the West Coast catalog — Girl Scout " +
+      "Cookies, Bubba Kush, Skywalker OG, Headband, Larry OG, Tahoe OG, SFV OG, San Fernando Valley OG. The family tree " +
+      "is enormous, and on our floor it rotates almost continuously at both stores.",
     lineage: "Chemdawg × Hindu Kush (debated)",
     parents: ["chemdawg", "hindu-kush"],
     thcRange: "20–26%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Euphoric", "Happy", "Sleepy"],
     terpenes: [
-      { name: "Limonene", note: "lemon zest" },
-      { name: "Myrcene", note: "earthy, body-heavy" },
-      { name: "Caryophyllene", note: "peppery, mellow" },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the lemon-zest top — it's what keeps OG Kush from reading as a pure indica nose despite the body " +
+          "weight. The dominant terpene in most strains regulars describe as 'bright,' and on OG it cuts the diesel just " +
+          "enough that the first whiff is citrus, not fuel.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the body-loose earth — common in kush genetics, and OG Kush is one of the strains the broader " +
+          "'kush' identity got built around. Mango, damp loam, the smell of a tomato vine in summer. Regulars who reach " +
+          "for myrcene-forward strains tend to be looking for the slower-paced end of the shelf.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base, warm and mellow on the exhale. Same family of compounds as black pepper — " +
+          "the only terpene that also reads on the tongue, not just the nose. It's the warm-wood note that lingers after " +
+          "the lemon falls back.",
+      },
     ],
     flavor: ["Diesel", "Lemon zest", "Earthy pine"],
-    bestFor: ["End of a long day", "Stress relief", "Light insomnia", "Couch + movie"],
+    bestFor: [
+      "Best as an end-of-day strain",
+      "Pairs with the couch, a heavy meal, and nowhere to be",
+      "Goes with a movie and pizza — the diesel-citrus nose lines up",
+      "Heritage pick for regulars working through the kush family",
+    ],
     avoidIf: ["You need to be alert", "Diesel/skunk smells turn you off"],
     faqs: [
       {
+        q: "What does OG Kush actually smell like out of the jar?",
+        a: "Three layers. The top is lemon zest and pine sap, sharp and bright — that's the limonene reading hard. Underneath that is diesel, fuel-edged but warmer than Sour Diesel's diesel. The base is damp earth and a deep kush funk that sits in the back of the throat just on the nose. It's a polarizing smell — people who love OG can spot it across a room, and people who don't, walk past.",
+      },
+      {
+        q: "Does OG Kush taste the same when you smoke it as it smells in the jar?",
+        a: "Yes, but the order shifts. On the inhale it's diesel up front — heavy, fuel-leaning, with a citrus edge that keeps it from feeling tarry. On the exhale lemon zest comes through, then earthy pine, then a kush-funk finish that lingers. Closer to a heavy whisky than a cocktail.",
+      },
+      {
         q: "Is OG Kush sativa or indica?",
-        a: "Hybrid leaning indica. The body-heavy buzz is what most people remember; the head-up is briefer.",
+        a: "Hybrid leaning indica. The body-heavy buzz is what most people remember; the head-up is briefer than what you'd get from a true hybrid like Blue Dream.",
       },
       {
-        q: "What does OG Kush taste like?",
-        a: "OG Kush hits diesel up front, lemon zest through the middle, and earthy pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Why does OG Kush still cycle through so reliably 30 years later?",
+        a: "Two reasons. First, OG Kush is the ancestor of half the West Coast catalog — so customers who like Girl Scout Cookies, Bubba Kush, Skywalker OG, Larry OG, Tahoe OG, or SFV OG eventually circle back to the source. Second, the name traveled outside cannabis circles in the 2000s through rap lyrics and packaging — new customers walk in asking for it specifically, and almost always come back happy.",
       },
       {
-        q: "How strong is OG Kush?",
-        a: "OG Kush tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "Who tends to walk out with OG Kush?",
+        a: "OG Kush is the heritage pick. Regulars who like the original Bubba Kush, Master Kush, or any of the SFV OG / Larry OG / Tahoe OG family rotate this back in when they want the source. New customers who've heard the name in rap lyrics or seen it on packaging walk in asking for it specifically.",
+      },
+      {
+        q: "How strong is OG Kush and how should I start?",
+        a: "OG Kush tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time and see where it lands.",
       },
       {
         q: "What time of day is OG Kush best for?",
-        a: "OG Kush reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Most regulars reach for it after dinner. Body-weight comes on slow but lands, and the kush funk pairs with the kind of meal that wants a heavy hybrid. Not a daytime strain.",
       },
       {
-        q: "What terpenes are in OG Kush?",
-        a: "The dominant terpenes in OG Kush are Limonene (citrus zest, bright and citrus-forward on the nose), Myrcene (earthy, mango-like, with a mild body-heavy quality), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        q: "What isn't OG Kush the right pick for?",
+        a: "Not subtle on the nose — OG Kush is one of the strains a sensitive neighbor will identify from across the duplex. Not a daytime strain; the body-weight comes on slow but lands. And not the strain for someone whose first cannabis experience is happening tonight — better to start somewhere lighter and work up.",
       },
     ],
     lineageAlternates: [
@@ -446,50 +548,83 @@ export const STRAINS: Record<string, Strain> = {
     name: "Sour Diesel",
     type: "sativa",
     aliases: ["Sour Diesel", "Sour D", "East Coast Diesel", "ECSD"],
-    tagline: "Loud-smelling sativa with a clear, energetic high.",
+    tagline: "The East Coast sativa that defined an entire aroma category.",
     intro:
-      "Sour Diesel is the East Coast classic — pungent fuel-and-citrus aroma, high-energy clear-headed effect. " +
-      "Less of a body buzz than most modern hybrids, more of a 'turn up and go.' New Yorkers built a culture around it " +
-      "in the '90s; it's never gone away. On our floor Sour Diesel is one of the strains customers most often walk in " +
-      "asking for by name — the diesel-gas aroma is distinctive enough that people who used it a decade ago still " +
-      "recognize it, and it shows up across nearly every brand and price tier we carry so the request almost always has a match on the shelf.",
+      "Sour Diesel is the East Coast classic — built in the early 1990s in New York. The lineage is debated " +
+      "(Chemdawg 91 × Super Skunk is the most-cited version; some sources say Chemdawg × Northern Lights × Skunk #1), " +
+      "and the original cut is probably gone — what gets sold today is a clone descendant of a New York-era pheno-hunt. " +
+      "Sour D defined the diesel-aroma sativa category — every 'diesel' name on the shelf since (Sour Tangie, Strawberry " +
+      "Diesel, NYC Diesel) traces back to it. New York built a whole subculture around it through the late '90s and " +
+      "early 2000s. On our floor Sour Diesel is one of the names customers most often walk in asking for; the diesel-gas " +
+      "aroma is recognizable enough that people who used it a decade ago still spot it the second the jar opens.",
     lineage: "Chemdawg × Super Skunk (debated)",
     parents: ["chemdawg", null],
     thcRange: "19–25%",
     cbdRange: "<1%",
     effects: ["Energetic", "Uplifted", "Focused", "Creative"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "citrus pop" },
-      { name: "Myrcene", note: "earthy underbelly" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the surprise — most people assume the dominant terpene in Sour Diesel is something exotic, " +
+          "but it's caryophyllene, the pepper terpene. The black-pepper read on the exhale is what gives it away. Same " +
+          "family of compounds as the bite in fresh-cracked peppercorn.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the citrus mid-note, and it's why the diesel doesn't feel as heavy as it smells. The dominant " +
+          "terpene in most strains regulars describe as bright — on Sour D it's the layer sitting just under the fuel " +
+          "on the first whiff.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is way underneath — present, but not where it lands in indica-heavy strains. The earthy bottom that " +
+          "anchors the nose without pulling the strain into body-loose territory. Most of what people read as the 'damp " +
+          "basement' funk in Sour D tracks to myrcene.",
+      },
     ],
     flavor: ["Diesel/fuel", "Citrus zest", "Skunk"],
-    bestFor: ["Daytime energy", "Creative push", "Cleaning the house", "Afternoon hike"],
+    bestFor: [
+      "Best as a morning sativa or pre-workout pick",
+      "Pairs with a long walk, a creative project, or a Saturday errand run",
+      "Goes well with espresso — citrus-fuel and coffee-acid line up",
+      "Legacy name customers walk in asking for by aroma alone",
+    ],
     avoidIf: ["You want neighbors not to smell it", "Anxiety-prone — Sour D runs high"],
     faqs: [
       {
-        q: "Why is Sour Diesel one of the most-requested strains on the shelf?",
-        a: "Sour Diesel is one of the few legacy names customers walk in asking for by name — the diesel-and-citrus aroma is recognizable enough that people who used it years ago still know it when they smell it. It stays in our rotation as a fixture rather than a trend, and tends to show up across nearly every brand and price tier we carry, so there's usually a match on the shelf whatever the budget.",
+        q: "What does Sour Diesel actually smell like on the crack of the jar?",
+        a: "Three layers. The top is pungent fuel — the way a gas station smells at midnight, sharp and chemical-bright. Underneath that is lemon rind and a sour-skunk note that reads as fermented citrus. The base is a damp basement-earth funk that anchors the whole nose. It walks across a parking lot — discreet is not on the menu.",
+      },
+      {
+        q: "Does Sour Diesel taste the same when you smoke it as it smells in the jar?",
+        a: "Close, but lighter. On the inhale it's sharp fuel, bright and clean — more like jet fuel than diesel exhaust. On the exhale citrus rind and a peppery snap come through, the diesel falls back, and a sour acidity lingers on the lips. Burns clean for a sativa.",
       },
       {
         q: "Why does Sour Diesel smell so strong?",
-        a: "Fuel-forward terpenes (driven by caryophyllene + the Chemdawg lineage). It's part of the experience — but worth knowing if you're being discreet.",
+        a: "Fuel-forward terpenes (driven by caryophyllene + the Chemdawg lineage). It's part of the experience — but worth knowing if you're being discreet. Anyone who's been around Sour D before will identify the smell from across the parking lot.",
+      },
+      {
+        q: "Why is Sour Diesel one of the most-requested strains on the shelf?",
+        a: "Sour D defined the diesel-aroma sativa category — every diesel-named strain on the shelf since traces back to it. The aroma is distinctive enough that customers who used it years ago still recognize it. It stays in rotation as a fixture rather than a trend, and tends to show up across nearly every brand and price tier we carry, so there's usually a match on the shelf whatever the budget.",
+      },
+      {
+        q: "Who tends to walk out with Sour Diesel?",
+        a: "Sour Diesel is the 'turn up and go' pick. Regulars who like Jack Herer, Green Crack, or Durban Poison rotate this in when they want a sativa with more attitude. New customers usually walk past it on the smell — the fuel is polarizing — and the ones who pick it up tend to come back for it specifically.",
       },
       {
         q: "Is Sour Diesel indica, sativa, or hybrid?",
-        a: "Sour Diesel is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Chemdawg × Super Skunk (debated).",
+        a: "Sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Chemdawg × Super Skunk (debated); some catalogs list it as hybrid, but most of the floor experience tracks sativa.",
       },
       {
-        q: "What does Sour Diesel taste like?",
-        a: "Sour Diesel hits diesel/fuel up front, citrus zest through the middle, and skunk on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How strong is Sour Diesel and how should I start?",
+        a: "Sour Diesel tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time and see where it lands.",
       },
       {
-        q: "How strong is Sour Diesel?",
-        a: "Sour Diesel tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
-      },
-      {
-        q: "What time of day is Sour Diesel best for?",
-        a: "Sour Diesel reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        q: "What isn't Sour Diesel the right pick for?",
+        a: "Not subtle — anyone who's been around Sour Diesel before will know what you opened from across the parking lot. Not a body-heavy strain; if you're hunting for couch-lock this isn't it. And not a strain that ages well in flower form — the citrus drops off after a few weeks, and the fuel sharpens. Smoke it fresh.",
       },
     ],
     lineageAlternates: [
@@ -4546,48 +4681,83 @@ export const STRAINS: Record<string, Strain> = {
     name: "GG4",
     type: "hybrid",
     aliases: ["GG4", "Gorilla Glue #4", "Original Glue", "Gorilla Glue 4", "GG#4"],
-    tagline: "The chuck that built a brand — chocolate, diesel, heavy.",
+    tagline: "The accidental cross that won three Cannabis Cups — chocolate, diesel, heavy.",
     intro:
-      "GG4 (originally Gorilla Glue #4, now Original Glue after a trademark dispute) is the accidental " +
-      "GG Strains cross that became one of the most recognizable hybrids on the planet. Chem's Sister × " +
-      "Sour Dubb × Chocolate Diesel lineage, with a sweet-diesel-chocolate aroma and a heavy balanced effect.",
+      "GG #4 — originally Gorilla Glue #4, renamed after a 2017 trademark settlement with the actual Gorilla Glue " +
+      "adhesive company — came out of Las Vegas / Nevada breeder Joesy Whales and Lone Watty in the early 2010s. The " +
+      "lineage is Chem's Sister × Sour Dubb × Chocolate Diesel, which means it pulls from three of the heaviest " +
+      "diesel-leaning families in the catalog. Won three Cannabis Cup wins between 2014 and 2015 — that's what catapulted " +
+      "it from regional cut to national rotation. The '#4' survived the rename because that's how everyone already " +
+      "referred to the cut. On our shelves it's a heavy-hitter pick — popular enough to be a frequent reorder, not so " +
+      "popular it crowds the shelf.",
     lineage: "Chem's Sister × Sour Dubb × Chocolate Diesel",
     parents: [null, null, null],
     thcRange: "23–28%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Euphoric", "Sleepy"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, warm woody" },
-      { name: "Limonene", note: "citrus-sweet" },
-      { name: "Myrcene", note: "earthy, body-loose" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene dominates — that's the peppery, warm-spice base. GG #4 is one of the most caryophyllene-forward " +
+          "strains on a Washington shelf, which is why the exhale reads on the tongue the way a peppercorn does. Same " +
+          "family of compounds as black pepper's bite.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the secondary — citrus, but buried way under the diesel. Most customers don't pick it out until " +
+          "their second or third try. It's the layer that keeps GG #4 from reading as pure fuel; without it, the nose " +
+          "would feel one-dimensional.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the third — the body-heavy earth that brings the couchlock side. Common in the kush and " +
+          "diesel-leaning families both, and on GG #4 it's the bottom layer that anchors the whole experience under " +
+          "the chocolate-diesel top notes.",
+      },
     ],
     flavor: ["Diesel", "Chocolate", "Earthy pine"],
-    bestFor: ["After work", "Couch + movie", "High-tolerance evenings"],
+    bestFor: [
+      "Best as a late-night strain after dinner is well past",
+      "Pairs with a couch, a long-running TV series, and zero plans",
+      "Goes with a bourbon on the rocks — chocolate-diesel notes line up",
+      "Heavy-hitter pick for regulars working the chocolate-diesel family",
+    ],
     avoidIf: ["You're new to high-THC", "You need to be sharp"],
     faqs: [
       {
+        q: "What does GG #4 actually smell like out of the jar?",
+        a: "Three layers and it walks across a room. The top is sharp diesel and pine resin, almost solvent-edged when you first crack the jar. Underneath that is dark chocolate and coffee grounds. The base is damp earth with a sour fruit note way underneath — the Sour Dubb peeking through. This is not a discreet strain.",
+      },
+      {
+        q: "Does GG #4 taste the same when you smoke it as it smells in the jar?",
+        a: "Close, with the chocolate side stepping forward. On the inhale heavy diesel and pine — the same sharpness that hit you on the nose, but warmer. On the exhale coffee and dark chocolate come through, with a tar-pine resinous finish that sticks to the back of the throat. Burns slow. The ash is dark and oily — that's the trich-density showing.",
+      },
+      {
         q: "Is GG4 the same as Original Glue?",
-        a: "Yes — same strain. The Gorilla Glue Co. trademark forced the rename to Original Glue, but most WA shops still list both. Same genetics.",
+        a: "Yes — same strain. The Gorilla Glue Co. trademark forced the rename in 2017 to Original Glue, but most Washington shops still list both. Same Joesy Whales / Lone Watty genetics either way.",
       },
       {
-        q: "Why is GG4 so sticky?",
-        a: "GG Strains' Joesy Whales accidentally combined the parents and noticed the buds were so resinous they gummed up trim scissors — that's the 'Glue' name origin. The high THC + heavy resin is what made the strain famous.",
+        q: "Why is GG #4 so sticky?",
+        a: "Joesy Whales accidentally combined the parents and noticed the buds were so resinous they gummed up trim scissors — that's the 'Glue' name origin. The high THC plus the heavy resin is what made the strain famous, and what won it three Cannabis Cup wins between 2014 and 2015.",
       },
       {
-        q: "Is GG4 indica, sativa, or hybrid?",
-        a: "GG4 is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Chem's Sister × Sour Dubb × Chocolate Diesel. The balance leans on phenotype and the day-of harvest.",
+        q: "Who tends to walk out with GG #4?",
+        a: "Heavy-hitter pick. Regulars who like Chemdawg, Sour Diesel, or Original Glue's cousins (GG #5, GG #1) rotate this in when they want the chocolate-diesel side of the family. We don't usually hand this to a first-time customer — the diesel is polarizing on the nose, and the THC runs hot enough that lower-tolerance customers can over-shoot.",
       },
       {
-        q: "What does GG4 taste like?",
-        a: "GG4 hits diesel up front, chocolate through the middle, and earthy pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How strong is GG #4 and how should I start?",
+        a: "GG #4 tests in the 23–28% THC range, near the top of the shelf for flower. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time and see where it lands. The body weight comes on fast, even though the bud burns slow.",
       },
       {
-        q: "How strong is GG4?",
-        a: "GG4 tests in the 23–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "What time of day is GG #4 best for?",
+        a: "Most regulars reach for it after dinner, when the couch is part of the plan. The body weight comes on fast and the strain rewards slow consumption. Not a daytime strain.",
       },
       {
-        q: "What time of day is GG4 best for?",
-        a: "GG4 reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        q: "What isn't GG #4 the right pick for?",
+        a: "Not a daytime strain. Not subtle on the nose — anyone in the same room is going to know what you opened. And not the strain to ration carefully; GG #4 burns slow but the body-weight comes on fast.",
       },
     ],
     verification: {
