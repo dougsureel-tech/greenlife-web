@@ -171,8 +171,11 @@ export default async function LearnTopicPage({
 
   const otherTopics = LEARN_HUB_TOPICS.filter((t) => t.slug !== topic.slug);
 
+  // `<div>` not `<main>` — root layout already provides the single
+  // `<main id="main">` landmark. Two `<main>` per document breaks
+  // WHATWG spec + screen-reader landmark navigation. (Polish sweep r2.)
   return (
-    <main className="bg-zinc-950 text-zinc-100 min-h-screen">
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(businessLd) }}
@@ -390,7 +393,7 @@ export default async function LearnTopicPage({
           consult your doctor before using cannabis. 21+. Always consume responsibly.
         </p>
       </div>
-    </main>
+    </div>
   );
 }
 

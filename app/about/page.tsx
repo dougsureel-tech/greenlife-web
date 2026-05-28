@@ -450,6 +450,23 @@ export default function AboutPage() {
               <span aria-hidden="true">→</span>
             </span>
           </Link>
+          {/* 3rd mesh card — closes the empty 3rd column on sm+ and adds
+              an internal link from /about → /strains library (~250 entries).
+              Polish-sweep-r2 finding F2. */}
+          <Link
+            href={withAttr("/strains", "strains", "about-mesh")}
+            className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          >
+            <div className="text-2xl mb-2" aria-hidden="true">🌿</div>
+            <h3 className="font-bold text-stone-900 text-sm">Browse the strain library</h3>
+            <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+              Lineage, terpenes, aroma notes — the working knowledge our staff carries to the counter.
+            </p>
+            <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+              Open library
+              <span aria-hidden="true">→</span>
+            </span>
+          </Link>
         </section>
 
         {/* Bottom CTA */}

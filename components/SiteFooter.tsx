@@ -106,7 +106,11 @@ export function SiteFooter() {
             >
               {STORE.phone}
             </a>
-            <a href={`mailto:${STORE.email}`} className="block hover:text-white transition-colors text-xs">
+            <a
+              href={`mailto:${STORE.email}`}
+              aria-label={`Email ${STORE.name} at ${STORE.email}`}
+              className="block hover:text-white transition-colors text-xs"
+            >
               {STORE.email}
             </a>
           </address>
@@ -293,9 +297,11 @@ export function SiteFooter() {
           Visiting Seattle? Our friends at{" "}
           <a
             href="https://www.seattlecannabis.co"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-semibold text-green-300 underline-offset-4 hover:underline hover:text-green-200 transition-colors"
           >
-            Seattle Cannabis Co.
+            Seattle Cannabis Co. ↗
           </a>{" "}
           — Rainier Valley since 2018, same crew since 2010.
         </p>
