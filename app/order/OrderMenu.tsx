@@ -315,6 +315,25 @@ function slugifyBrandForLogo(brand: string): string {
     .replace(/^-|-$/g, "");
 }
 
+// Strain-type → semantic accent color, mirrored across both stores.
+// 2026-05-28 (Doug-directive placeholder polish): SCC has ~84% missing-
+// photo SKUs, so the gradient-only fallback is the most-seen surface on
+// the menu. Adding a left edge stripe in the strain-type's semantic color
+// (sativa=amber, indica=violet, hybrid=blue-green, CBD=sky) raises the
+// "at-a-glance strain identity" signal on placeholder cards from "kinda
+// tinted gradient" to "color-coded by strain type" — same purpose as the
+// strain-chip top-right but read instantly even when the chip is
+// overlapped by the deal/DOH chips on the outer card.
+// Uses Tailwind border-l-color classes (module-scope literals = JIT-safe).
+// All other surfaces (real-photo branch) skip the stripe — vendor
+// photography carries its own visual identity, no need to compete.
+const STRAIN_EDGE_STRIPE: Record<string, string> = {
+  Sativa: "border-l-amber-400",
+  Indica: "border-l-violet-400",
+  Hybrid: "border-l-emerald-400",
+  CBD: "border-l-sky-400",
+};
+
 function ProductImage({
   src,
   alt,
@@ -322,6 +341,7 @@ function ProductImage({
   brand,
   strainType,
   thcPct,
+  productName,
 }: {
   src: string | null;
   alt: string;
@@ -331,6 +351,12 @@ function ProductImage({
   /** Optional THC% — only rendered on the no-photo placeholder branch
    *  (real vendor photo cards don't sacrifice photography for it). */
   thcPct?: number | null;
+  /** Optional product name — only rendered on the gradient-only fallback
+   *  (tier 4) when no brand logo is available. Helps with at-a-glance
+   *  identification on cards that have no real photo + no brand logo +
+   *  no category placeholder photo (the absolute-last-resort tier).
+   *  2026-05-28 Doug-directive placeholder polish. */
+  productName?: string | null;
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
@@ -358,6 +384,14 @@ function ProductImage({
   const hasLogo = !!brandLogoSlug && BRAND_LOGOS_AVAILABLE.has(brandLogoSlug);
   const tryBrandLogo = hasLogo && !brandLogoErrored;
 
+  // Strain-type edge-stripe class — only set on placeholder branches
+  // (real-photo cards skip the stripe since vendor photography carries its
+  // own visual identity). 2026-05-28 Doug-directive placeholder polish.
+  const edgeStripe =
+    strainType && STRAIN_EDGE_STRIPE[strainType]
+      ? `border-l-4 ${STRAIN_EDGE_STRIPE[strainType]}`
+      : "";
+
   if ((!src || errored) && tryCategoryPlaceholder && categoryPlaceholderPath) {
     // Generic-category placeholder branch (tier 3 of 4 in the fallback
     // chain). Fires when there's no real product photo + no brand logo,
@@ -369,7 +403,7 @@ function ProductImage({
       <div
         role="img"
         aria-label={alt}
-        className="relative w-full h-full overflow-hidden bg-stone-100"
+        className={`relative w-full h-full overflow-hidden bg-stone-100 ${edgeStripe}`}
       >
         <Image
           src={categoryPlaceholderPath}
@@ -411,11 +445,17 @@ function ProductImage({
     // stay visually consistent. Brand renders as a white-pill chip for
     // contrast against the tinted gradient.
     const gradient = getProductPlaceholderGradient(category, strainType);
+    // Tier 4 is the absolute-last-resort branch — when even the brand
+    // logo + category placeholder photo missed. SCC at ~84% missing-
+    // photo SKUs (2026-05-28) makes this the most-seen surface, so we
+    // show the product name + "Photo coming soon" subtitle to signal
+    // this is a deliberate state rather than a broken card.
+    const showLastResortLabel = !tryBrandLogo;
     return (
       <div
         role="img"
         aria-label={alt}
-        className={`relative w-full h-full ${gradient} overflow-hidden`}
+        className={`relative w-full h-full ${gradient} overflow-hidden ${edgeStripe}`}
       >
         {/* Subtle dot-grid texture so the placeholder reads as a deliberate
             card surface (not a missing-photo state). ~6% opacity sits below
@@ -476,6 +516,23 @@ function ProductImage({
               {brand ? (
                 <span className="text-[11px] font-bold uppercase tracking-wider text-stone-700 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full line-clamp-1 max-w-[85%] shadow-sm border border-white/50">
                   {brand}
+                </span>
+              ) : null}
+              {/* Last-resort branch (tier 4): show the product name +
+                  "Photo coming soon" so the card reads as deliberate
+                  rather than broken. SCC has ~84% missing-photo SKUs
+                  (2026-05-28) — this branch is the most-seen on menu
+                  pages until vendor-asset → product backfill cron
+                  closes the gap. Product name is line-clamped to 2 to
+                  keep the card height stable across the grid. */}
+              {showLastResortLabel && productName ? (
+                <span className="text-[10px] font-semibold tracking-tight text-stone-800 line-clamp-2 max-w-[85%] text-center leading-tight">
+                  {productName}
+                </span>
+              ) : null}
+              {showLastResortLabel ? (
+                <span className="text-[9px] italic tracking-wide text-stone-600/80 max-w-[85%] text-center">
+                  Photo coming soon
                 </span>
               ) : null}
             </>
@@ -1328,6 +1385,7 @@ export function OrderMenu({
                               brand={product.brand}
                               strainType={product.strainType}
                               thcPct={product.thcPct}
+                              productName={product.name}
                             />
                             {deal && (
                               // %-off overlay top-left — iHeartJane-style
