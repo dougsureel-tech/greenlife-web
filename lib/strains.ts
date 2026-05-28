@@ -693,41 +693,93 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Granddaddy Purple", "GDP", "Grand Daddy Purple"],
     tagline: "Sweet, heavy purple indica. The classic 'goodnight' strain.",
     intro:
-      "Granddaddy Purple — usually GDP — is what people picture when they imagine 'purple weed.' Heavy " +
-      "body indica, grape-and-berry sweetness, comes on slow and lands hard. Best after dinner, before bed.",
+      "Granddaddy Purple — almost always shortened to GDP on the floor — is the cut that hardwired the " +
+      "image of 'purple weed' into a whole generation of customers. Ken Estes built it in San Francisco's " +
+      "Bay Area in 2003, crossing the deep-purple Purple Urkle with the dense-yielding Big Bud to lock in " +
+      "both the grape-skin pigmentation and the swollen calyxes the strain became famous for. GDP set the " +
+      "template every purple strain since (Purple Punch, Grape Ape, Grandaddy Purp phenotypes, all the " +
+      "'Purple OG' crosses) gets compared against. On our shelf it's the name customers ask for when they " +
+      "want the original — heavy body, grape-and-berry sweetness on the nose, the slow-build evening arc " +
+      "that lands somewhere between a deep exhale and the second half of a movie. The intoxicating-effect " +
+      "warning matters here more than most: GDP runs heavier than its modest THC range suggests, and the " +
+      "couch-bound landing is what regulars rotate it in for.",
     lineage: "Purple Urkle × Big Bud",
     parents: ["purple-urkle", "big-bud"],
     thcRange: "17–23%",
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "deep earthy sedation" },
-      { name: "Caryophyllene", note: "peppery, warm woody" },
-      { name: "Pinene", note: "light pine balance" },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene runs the show on GDP — it's the dominant terpene in almost every Purple Urkle-descended " +
+          "chemotype, and it tracks to what most people read as the 'body weight' on the strain. Smells " +
+          "like ripe mango skin and damp loam, with a faintly herbaceous edge underneath. Customers who " +
+          "reach for myrcene-forward strains are looking for the slower end of the shelf — mango shares " +
+          "the same compound, which is why the old budtender trick of eating a mango before a session " +
+          "has more chemistry behind it than people give it credit for.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the second voice on GDP — the slow peppery hum sitting under the grape " +
+          "top. Distinct from every other cannabis terpene because it actually engages your sense of " +
+          "taste, not just smell; the bite you get on the back of the tongue is doing the same trick " +
+          "as a fresh peppercorn or a clove. On GDP it keeps the grape-skin sweetness honest, stopping " +
+          "the aroma from drifting into one-note dessert territory. Customers who reach for the warm " +
+          "spice finish on a Bubba Kush or Master Kush will spot the same layer on GDP without naming " +
+          "the compound — it lands as a warmth at the back of the throat.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the smallest fraction of the three but matters on GDP — without it the strain would " +
+          "read as a flat grape-soda nose. Fresh pine sap, sharp on the inhale, the same compound you " +
+          "smell when you snap a fir branch in the rain. It cuts through the sweet fruit just enough to " +
+          "keep the aroma three-dimensional. On strains with no pinene at all, the grape note flattens " +
+          "out by the second whiff; on GDP it stays bright for the life of the jar.",
+      },
     ],
     flavor: ["Grape", "Berry", "Sweet earth"],
-    bestFor: ["Sleep", "Pain relief", "Body soreness", "Stress melt"],
+    bestFor: [
+      "Best as an end-of-evening indica after dinner is well past",
+      "Pairs with a heavy meal, a couch, and a movie you've seen before",
+      "Goes well with a slow herbal tea or a glass of red wine",
+      "Anchor purple strain for customers chasing the original cut",
+    ],
     avoidIf: ["You need to function in the next few hours", "You're sensitive to heavy indicas"],
     faqs: [
       {
-        q: "Is Granddaddy Purple a heavy strain?",
-        a: "Yes — one of the heaviest indicas in regular rotation. The 'on-the-couch' kind of heavy. Plan accordingly.",
+        q: "Why is Granddaddy Purple actually purple?",
+        a: "It's the Purple Urkle parent talking. Urkle carries the anthocyanin pigments that turn the leaves and calyxes purple in cool overnight temperatures during late flower. Big Bud doesn't carry the pigment but contributes the dense, swollen flower structure. GDP gets both, which is why a well-grown batch looks almost black-purple in low light and lighter grape-purple in sun.",
+      },
+      {
+        q: "How does GDP compare to Purple Punch or Grape Ape?",
+        a: "Same family, different angles. Purple Punch leans cleaner and sweeter — more fruit-punch candy, less grape-skin. Grape Ape is closer to GDP on the aroma side but reads denser and heavier on the back end. GDP sits in the middle: sweeter than Grape Ape, deeper than Purple Punch, and the one customers compare the others against. If you've only had one purple strain, it was probably GDP.",
+      },
+      {
+        q: "What does Granddaddy Purple smell like on the crack of the jar?",
+        a: "Three layers stacked tight. Top is concord-grape skin — the sweet candy-purple smell, almost grape-soda. Middle is dark berry and a faintly herbaceous floral note, like a crushed violet. Base is sweet earth and damp loam, the myrcene reading through. Walks across a room but doesn't shout — quieter aroma than a Kush or a diesel strain.",
+      },
+      {
+        q: "Does GDP taste like grape when you smoke it?",
+        a: "Closer than most. On the inhale, grape skin comes through right away — the same nose-fruit you got from the jar, lighter and a touch ashier from combustion. On the exhale, berry and a sweet damp-earth finish land, with a peppery warmth that lingers on the back of the throat. The grape stays through the whole hit, which is rare; most fruit-named strains lose the fruit on combustion.",
       },
       {
         q: "Is Granddaddy Purple indica, sativa, or hybrid?",
-        a: "Granddaddy Purple is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Purple Urkle × Big Bud.",
+        a: "Indica — and one of the heaviest body-leaning indicas in regular rotation. The lineage is Purple Urkle × Big Bud, two indica parents. Don't expect any sativa head-up character; GDP is the strain customers reach for when they want the body-loose evening arc, not the morning energy.",
       },
       {
-        q: "What does Granddaddy Purple taste like?",
-        a: "Granddaddy Purple hits grape up front, berry through the middle, and sweet earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How strong is Granddaddy Purple, and where should I start with it?",
+        a: "GDP lands in the 17–23% THC band — moderate by current shelf standards, but the body-weight reads way heavier than the number on the label. Anyone newer to indica-heavy flower should treat a quarter-gram as a full session and check in with themselves before lighting more. Experienced smokers handle GDP without surprise, but the couch landing builds slowly and can outpace you if you keep going through the first half hour expecting the hit to ramp.",
       },
       {
-        q: "How strong is Granddaddy Purple?",
-        a: "Granddaddy Purple tests in the 17–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "What time of day does GDP belong to?",
+        a: "Evening, no question. Customers commonly reach for it after dinner — when the day's tasks are done and the next thing on the schedule is a couch and a screen. Bad pick before a workday, before driving, before anything you need to stay sharp for. Plan accordingly.",
       },
       {
-        q: "What time of day is Granddaddy Purple best for?",
-        a: "Granddaddy Purple reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        q: "Why is the body weight on GDP heavier than the THC number?",
+        a: "Three reasons. The myrcene-dominant terpene profile is the biggest — myrcene tracks to what regulars call 'body weight' across almost every strain it leads on. The Purple Urkle lineage carries the same heavy character GDP inherits. And the indica-on-indica cross means there's no head-up sativa lift to balance the body-loose. The number tells you the cannabinoid load; the terpenes tell you how it'll feel.",
       },
     ],
     verification: {
@@ -2190,42 +2242,94 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Acapulco Gold", "AG"],
     tagline: "Legendary Mexican landrace sativa — gold-tinted, sweet, classic.",
     intro:
-      "Acapulco Gold is the legendary Mexican landrace that defined sativa cannabis in the U.S. through the " +
-      "'60s and '70s. Sweet earth + toffee aroma, golden-tinted buds (where the name comes from), clear-headed " +
-      "energetic effect. Hard to find these days — most modern 'Acapulco Gold' on shelves is a recreation.",
+      "Acapulco Gold is the Mexican landrace that built the American conception of what sativa cannabis " +
+      "should taste like. Through the late '60s and into the '70s it was the import name on every serious " +
+      "smoker's lips — written into Cheech & Chong bits, sung about by Led Zeppelin, mentioned by name " +
+      "in countless underground magazines of the era. The name comes from the gold-orange tint the buds " +
+      "took on under Mexican Pacific-coast sun, not from any particular brand or breeder. The original " +
+      "landrace adapted to Guerrero state's hot dry highlands over generations of local cultivation. " +
+      "Most of what gets sold as Acapulco Gold on a Washington shelf today is an honest recreation by " +
+      "a modern breeder working from preserved seed lines — the true original landrace, never " +
+      "stabilized as a clone, mostly disappeared from the U.S. market by the early '80s when interdiction " +
+      "and domestic indica lines reshaped what was available. The recreations are good; they're just " +
+      "not the same thing as a 1973 bag of Acapulco Gold.",
     lineage: "Mexican landrace (Acapulco region)",
     parents: [null],
     thcRange: "15–23%",
     cbdRange: "<1%",
     effects: ["Energetic", "Uplifted", "Happy", "Creative"],
     terpenes: [
-      { name: "Pinene", note: "sharp pine" },
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Humulene", note: "earthy, hop-forward" },
+      {
+        name: "Pinene",
+        note:
+          "Pinene leads on Acapulco Gold — sharp fresh pine on the nose, the same compound you smell " +
+          "when you walk into a Christmas tree lot in December. It's the dominant terpene on most clean " +
+          "landrace sativas, and customers who pick pinene-forward strains tend to want the brighter, " +
+          "less-cluttered end of the shelf. Sets the daytime character of the strain before any of the " +
+          "other terpenes have a chance to register.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the spice in Acapulco Gold's profile — a peppery, slightly woody base that " +
+          "you can taste with your tongue as readily as you can smell it with your nose. AG carries " +
+          "it modestly, which is enough to round out the exhale with a low warmth that supports the " +
+          "pine on top instead of fighting it. Chemically the same family as the bite in cracked " +
+          "peppercorn and the heat behind a clove stud in a holiday ham. Without this terpene the " +
+          "strain would flatten into one-dimensional brightness; with it, the back of the throat picks " +
+          "up a finishing warmth that signals 'grown-up sativa' instead of 'pretty floral hybrid.'",
+      },
+      {
+        name: "Humulene",
+        note:
+          "Humulene is the beer-hop compound — the same molecule that gives an IPA its bitter resinous " +
+          "edge. On modern hybrid cannabis it's mostly been bred out in favor of fruit-forward terpenes; " +
+          "you really only encounter humulene as a leading note on preserved landrace lines like AG. " +
+          "Here it lays down a damp-earth undertone that announces the landrace heritage to anyone " +
+          "who knows what they're smelling. The hoppy register is what sets AG apart from any modern " +
+          "sativa pretending to fill the same shelf slot.",
+      },
     ],
     flavor: ["Sweet earth", "Toffee", "Pine"],
-    bestFor: ["Daytime use", "Creative work", "Long social sessions", "Trying a piece of cannabis history"],
+    bestFor: [
+      "Best as a daytime sativa for a long outdoor day",
+      "Pairs with hiking, a creative project, or a Saturday's worth of errands",
+      "Goes well with coffee — the pine + toffee notes line up with a darker roast",
+      "Heritage pick for customers curious about pre-modern cannabis flavor",
+    ],
     avoidIf: ["Anxiety-prone — runs head-up", "You want body relaxation"],
     faqs: [
       {
-        q: "Is Acapulco Gold still around?",
-        a: "Most 'Acapulco Gold' on Washington shelves today is a modern recreation rather than the original landrace. Still a fine sativa — just be aware the original is rare.",
+        q: "How close is modern Acapulco Gold to the original 1970s landrace?",
+        a: "Closer than skeptics give it credit for, but not the same plant. The honest recreations on shelves today work from preserved seed stock and old-grower interviews, and a good one captures the pine-toffee aroma and head-up character well. What's missing is the specific Guerrero-state terroir — sun intensity, soil minerals, dry mountain air — that the original adapted to over generations. Think of it like a well-made replica of a regional wine grown in a different climate: faithful, but the place is part of the original.",
+      },
+      {
+        q: "Why was Acapulco Gold such a big deal in the '60s and '70s?",
+        a: "Two reasons. First, before domestic U.S. cultivation took off, almost all American cannabis was imported, and Mexican landraces dominated the supply — AG was the premium import, the one dealers charged extra for and serious smokers asked for by name. Second, the sativa character was unusual against the harsher, less-developed Mexican brick weed that made up most imports. The pine-toffee aroma and clean head-up effect set a quality bar a lot of regional names tried to match.",
+      },
+      {
+        q: "What does Acapulco Gold smell like on the crack of the jar?",
+        a: "Distinct from almost anything on a modern shelf. Top is sharp fresh pine — the cleanest pine note on a sativa, no diesel underneath. Middle is sweet caramel-toffee, the warm-sugar smell of a candy thermometer at hard-crack stage. Base is damp earth and a faint herbaceous edge from the humulene. Reads less polished than a modern hybrid, more like something pulled from the ground than something engineered.",
+      },
+      {
+        q: "How does AG taste when you smoke it versus how it smells?",
+        a: "Lighter than you'd expect from the jar. On the inhale, sweet earth and toffee come through first, the pine sitting just behind. On the exhale, pine sharpens and a clean almost-mineral finish lands on the back of the tongue. Burns clean — well-cured landrace flower burns to a white-gray ash with the kind of even draw modern hybrids sometimes lose to their oil content.",
       },
       {
         q: "Is Acapulco Gold indica, sativa, or hybrid?",
-        a: "Acapulco Gold is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Mexican landrace (Acapulco region).",
+        a: "Sativa — landrace pure, with no indica genetics in the original. The energetic clear-headed character is what made AG the import sativa of the '70s. The recreations on shelves stay true to that profile. If you've been smoking modern hybrid sativas, AG will feel cleaner and more head-up — closer to a pure pine-citrus daytime strain than a mixed-effect cross.",
       },
       {
-        q: "What does Acapulco Gold taste like?",
-        a: "Acapulco Gold hits sweet earth up front, toffee through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How strong is the modern AG you'd actually find on a Washington shelf?",
+        a: "Tests in the 15–23% THC range, with most batches landing on the lower-middle end — modern hybrids regularly clock 25-30%, so AG reads as moderate by current standards. That's not a knock; landrace genetics weren't bred for THC chasing, and the head-up character of the strain doesn't need a high number to come through. Built-tolerance customers shouldn't expect a heavy hit; new customers will find it manageable.",
       },
       {
-        q: "How strong is Acapulco Gold?",
-        a: "Acapulco Gold tests in the 15–23% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "What time of day does Acapulco Gold belong to?",
+        a: "Morning or early afternoon, no question. The pinene-led nose and head-up character make it the kind of sativa customers reach for before a day with a to-do list, an outdoor plan, or a creative session. Wrong pick for after dinner or an evening on the couch — there's not enough body in the strain to land that softly.",
       },
       {
-        q: "What time of day is Acapulco Gold best for?",
-        a: "Acapulco Gold reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        q: "Why is it so hard to find true Acapulco Gold these days?",
+        a: "The original landrace never got stabilized as a clone, and the seed stock that traveled north in the '60s and '70s mostly got crossbred into hybrid genetics through the '80s and '90s before clone-preservation culture caught up. Some preservationists kept lines going, and modern recreations work from that material. But the through-line from the original Guerrero-state plant to a 2026 Washington shelf is mostly broken — what's left are good-faith reconstructions, not direct descendants.",
       },
     ],
     verification: {
@@ -5071,42 +5175,92 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Lemon Cherry Gelato", "LCG"],
     tagline: "Cookies hybrid — sweet cherry-lemon, balanced body.",
     intro:
-      "Lemon Cherry Gelato is a Cookies Fam release that took over the dessert-hybrid lineup the year it " +
-      "dropped. Sunset Sherbet × Girl Scout Cookies × Lemonnade — balanced hybrid, with a cherry-lemon-sweet " +
-      "aroma and a head-forward character + mellow body landing.",
+      "Lemon Cherry Gelato — usually shortened to LCG on the floor — came out of the Backpack Boyz crew " +
+      "in the late 2010s and rode the dessert-hybrid wave straight into the top tier of modern shelf " +
+      "names. The lineage on file is Sunset Sherbet × Girl Scout Cookies × Lemonnade, though some breeder " +
+      "interviews credit a Cherry Pie phenotype in the mix instead of straight Cherry — a debated detail " +
+      "that explains why some LCG drops land more cherry-forward than others. Whatever the exact cross, " +
+      "the cherry note is unmistakable: most Cookies-family strains lean vanilla-pepper or gas; LCG is " +
+      "the one that smells like a bowl of warm dark cherries with a lemon zest on top. On a Washington " +
+      "shelf it tends to clock toward the upper end of THC ranges, and the indica-leaning body landing " +
+      "after the head-up open makes it the strain regulars rotate in when they want something loud on " +
+      "the nose without committing to a pure-evening pick. Loud on the nose is the operative phrase — " +
+      "this one walks across a room.",
     lineage: "Sunset Sherbet × Girl Scout Cookies × Lemonnade",
     parents: ["sunset-sherbet", "girl-scout-cookies", null],
     thcRange: "22–28%",
     cbdRange: "<1%",
     effects: ["Happy", "Relaxed", "Euphoric", "Creative"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, warm woody" },
-      { name: "Limonene", note: "lemon-cherry top" },
-      { name: "Myrcene", note: "earthy underbelly" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene tops the lab numbers on most LCG batches we move — pepper-warm, woody, with " +
+          "the rare property of actually registering as heat on the tongue the way fresh-ground black " +
+          "pepper does when you bite a peppercorn directly. Anchors the cherry-pastry top so the " +
+          "sweetness doesn't blur into candy. Drinkers who like a wine with shoulders — Bordeaux, " +
+          "barbera, a tannic Italian red — pick out the same warmth on the LCG exhale before they " +
+          "could name what they were sensing.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the lemon zest on the nose and the brightness that keeps LCG from feeling like " +
+          "a pure dessert strain. Citrus rind, sharp and clean — the same compound you smell when you " +
+          "zest a lemon for a cocktail. On LCG it sits high in the profile, giving the cherry-pastry " +
+          "base a top note that lifts the whole aroma. Regulars who pick limonene-forward strains " +
+          "tend to want that bright opening cut, not the heavier dessert-only register.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene runs underneath as the third terpene — earthy, faintly mango-tropical, the base note " +
+          "that gives LCG its evening landing. It's the same compound that does the heavy lifting on " +
+          "indica-leaning chemotypes, and on LCG it's what keeps the strain from being a pure head-up " +
+          "sativa despite the lemon top. The body-loose customers feel 30 minutes in tracks mostly to " +
+          "the myrcene reading through after the limonene fades.",
+      },
     ],
     flavor: ["Cherry", "Lemon", "Sweet cream"],
-    bestFor: ["After work", "Casual social", "Date night", "Dessert-hybrid lovers"],
+    bestFor: [
+      "Best as a late-afternoon or after-work hybrid",
+      "Pairs with a slow dinner, a date night, or a low-pressure social evening",
+      "Goes well with dark chocolate or a cherry-forward cocktail — the flavors line up",
+      "Dessert-hybrid pick for customers who want a loud aroma alongside the balanced character",
+    ],
     avoidIf: ["You're low-tolerance — runs high", "You want a clear-headed sativa"],
     faqs: [
       {
-        q: "Why is Lemon Cherry Gelato so hyped?",
-        a: "It's one of the most balanced of the modern Cookies hybrids — high-THC without being knockout-heavy, with a flavor profile that's the loudest part of the strain. Customers reach for it for both the effect and the smell.",
+        q: "Why does Lemon Cherry Gelato get talked about so much?",
+        a: "Three things at once. The aroma is loud and specific — most strains smell vaguely sweet or vaguely gas; LCG smells like cherries and lemon zest in a way customers remember after one jar. The THC numbers are honest-high without being knockout-heavy. And the Backpack Boyz brand spent the late 2010s building social-media presence around it, so a chunk of LCG demand is name-recognition. The strain delivers on the hype enough that the recognition didn't backfire.",
+      },
+      {
+        q: "Is LCG actually a Cookies strain or a Backpack Boyz strain?",
+        a: "Both — and it gets confusing. Backpack Boyz bred it (Bay Area crew, distinct from the Berner Cookies operation), but the lineage runs through Cookies genetics on both sides — Sunset Sherbet is a Cookies cross, Girl Scout Cookies is the obvious one. The Cookies family resemblance shows up in the pepper-warm base; the Backpack Boyz fingerprint is the cherry-lemon top that no other Cookies-family strain hits the same way.",
+      },
+      {
+        q: "What does LCG smell like out of the jar?",
+        a: "Dark cherries first — warm, almost cherry-pie filling, not the artificial cherry-cough-syrup register. Lemon zest sits right on top, sharp and clean. Underneath is a sweet vanilla-cream layer and a peppery damp-earth base. The cherry-lemon combo on the open is what regulars walk in asking for; the base layer is what tells you it's a Cookies-family strain underneath the dessert front.",
+      },
+      {
+        q: "How does the smoke compare to the smell on LCG?",
+        a: "Cleaner on the smoke than the nose suggests. On the inhale, cherry comes through first — softer than the jar promised, with the lemon falling back a touch. On the exhale, sweet cream and a peppery warmth land, and the lemon returns as a brightness on the back of the tongue. Burns oily and slow, which is normal for a high-THC modern hybrid; the ash runs darker than a clean landrace would.",
       },
       {
         q: "Is Lemon Cherry Gelato indica, sativa, or hybrid?",
-        a: "Lemon Cherry Gelato is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Sunset Sherbet × Girl Scout Cookies × Lemonnade. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid — and slightly indica-leaning by the time the body lands. The lineage is balanced (Sunset Sherbet × Girl Scout Cookies × Lemonnade), and the head-up open lasts the first 15-30 minutes before the body-loose comes through. Different phenotypes lean different ways — some batches read closer to sativa-side, others land heavier on the indica side. The dispensary you buy it from probably knows which pheno their current drop is.",
       },
       {
-        q: "What does Lemon Cherry Gelato taste like?",
-        a: "Lemon Cherry Gelato hits cherry up front, lemon through the middle, and sweet cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How strong is LCG and how should I start?",
+        a: "Numbers come in at 22-28% THC, and most modern batches sit in the upper portion of that range — among the harder-clocking strains on a Washington shelf. Customers without much tolerance built up should treat a smaller pull as a full session and give the strain a full thirty minutes before going back for another. The body-side landing builds slowly but arrives harder than the initial head-up open suggests it will. Built-tolerance smokers find LCG dependably predictable.",
       },
       {
-        q: "How strong is Lemon Cherry Gelato?",
-        a: "Lemon Cherry Gelato tests in the 22–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "What time of day does Lemon Cherry Gelato belong to?",
+        a: "Late afternoon through evening, ideally. The head-up open works socially — dinner, a low-pressure hangout, a creative session that doesn't need clear focus. The body landing 30 minutes in pulls it out of morning-strain territory. Customers who pick LCG for daytime usually regret it by the second half of their work shift.",
       },
       {
-        q: "What time of day is Lemon Cherry Gelato best for?",
-        a: "Lemon Cherry Gelato reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        q: "Why are different drops of LCG so noticeably different from each other?",
+        a: "Two reasons. Phenotype variation in the seedline is wide — some grows lean more lemon-forward, others lean cherry-pie, others come out closer to a straight Cookies cross. And LCG has been popular enough that almost every Washington grower runs their own version, which means terpene profiles vary batch-to-batch based on cure and grow style. If you find a drop you love, ask the budtender which grower; chances are you'll want to track them next time.",
       },
     ],
     verification: {
@@ -8012,42 +8166,94 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Gary Payton", "GP", "The Glove"],
     tagline: "Cookies × Powerzzzup — balanced modern hybrid, even-keeled.",
     intro:
-      "Gary Payton is a Cookies × Powerzzzup Genetics collaboration — The Y × Snowman cross, balanced hybrid " +
-      "with a sweet-diesel aroma. Even-keeled effect: sativa head rush up front, mellow body landing. Named " +
-      "after the Hall-of-Fame Seattle SuperSonics guard.",
+      "Gary Payton — usually just GP on the floor, occasionally The Glove after the man it's named for — " +
+      "is a Cookies × Powerzzzup Genetics collaboration that landed in 2020 and immediately became one " +
+      "of the most-traded cuts in the modern hybrid catalog. The cross is The Y (a Cookies inbred-line " +
+      "pheno-hunt) × Snowman (a GSC descendant Berner pulled forward from his early catalog). The name " +
+      "is a licensed nod to the Seattle SuperSonics Hall of Fame point guard who patented the trash-talk " +
+      "lockdown defense style that defined NBA basketball in the '90s. For SCC retail customers that " +
+      "Seattle connection lands closer to home than the average breeder-namesake; even casual basketball " +
+      "fans recognize the legacy. On the shelf GP runs as a balanced hybrid — sativa-leaning head rush " +
+      "for the first 15-20 minutes, then a mellow body landing that keeps it functional through a " +
+      "social evening. The flavor profile is loud and specific: sweet-diesel-and-pine on the open, a " +
+      "creamy floral finish that sets it apart from most of the Cookies-family lineup.",
     lineage: "The Y × Snowman",
     parents: [null, null],
     thcRange: "20–25%",
     cbdRange: "<1%",
     effects: ["Giggly", "Relaxed", "Euphoric", "Focused"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, warm woody" },
-      { name: "Limonene", note: "citrus-sweet" },
-      { name: "Linalool", note: "floral lavender" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene shows up first on the lab sheet for most GP harvests — the slow peppery hum " +
+          "underneath the sweet-diesel top that gives the exhale a low woody finish. Cousin compound " +
+          "to the bite of fresh-cracked peppercorn. It's the reason GP comes across more adult than " +
+          "the sugar-sweet Cookies-family relatives it shares genetics with; subtract the caryophyllene " +
+          "and the cream-and-diesel profile would skew candy-light, but the pepper layer brings the " +
+          "strain back into something with real architecture.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the citrus-sweet top — the bright lift that sits over the diesel on the first " +
+          "whiff. Lemon zest with a sweeter edge than pure citrus, which is the limonene reading through " +
+          "a strain that also carries sugar-cream undertones. On GP it's the layer that announces the " +
+          "strain across a room. Customers who pick limonene-forward strains usually want the up-front " +
+          "brightness to lead, and GP delivers that without going full-on dessert-sweet.",
+      },
+      {
+        name: "Linalool",
+        note:
+          "Linalool is the wildcard on GP — soft lavender, the same molecule lying at the heart of " +
+          "every dried-flower potpourri jar your grandmother kept on the windowsill. You almost never " +
+          "see it as a leading terpene on a Cookies-family cross, which makes its presence here a " +
+          "tell. Reads on the exhale as a creamy floral finish that separates GP from the straight " +
+          "pepper-citrus register the rest of the lineup defaults to. Regulars cannot usually pick " +
+          "linalool out by name, but they'll point at the back end and say 'something different is " +
+          "going on there.'",
+      },
     ],
     flavor: ["Sweet diesel", "Pine", "Cream"],
-    bestFor: ["Late afternoon", "Casual social", "Creative work"],
+    bestFor: [
+      "Best as a late-afternoon hybrid heading into evening",
+      "Pairs with a low-key social hang, a creative project, or a slow dinner",
+      "Goes well with a Seattle Sonics throwback game on the screen — context lines up",
+      "Daytime-leaning Cookies family pick for customers who want function alongside flavor",
+    ],
     avoidIf: ["Low-tolerance — runs high", "You want a knockout indica"],
     faqs: [
       {
-        q: "Why is it named after Gary Payton?",
-        a: "Cookies’ Berner has a long-standing connection to Bay Area / Seattle sports culture. Gary Payton (the SuperSonics Hall of Fame guard) signed off on the name; it’s an officially licensed collaboration.",
+        q: "Why is the strain named after Gary Payton?",
+        a: "Berner and the Cookies operation have a long-standing connection to Bay Area / West Coast sports culture, and Payton signed off on the name as an officially licensed collaboration. The Glove built his Hall-of-Fame career on the Sonics' '90s teams in Seattle, which makes the strain particularly resonant for our SCC customers. The licensing deal pays Payton on every legal jar sold — unusual in cannabis where most namesake strains use the name unauthorized.",
+      },
+      {
+        q: "How does Gary Payton compare to the rest of the Cookies family?",
+        a: "GP is the more functional Cookies cross. Where strains like Wedding Cake and Cherry Pie lean dessert-sweet and heavier, and Sherbet leans softer-creamy, Gary Payton holds onto enough head-up energy that customers reach for it earlier in the day. The diesel-pine top is the giveaway — most Cookies-family strains skip the pine note and lead vanilla-pepper. GP keeps a sativa-side fingerprint that the rest of the lineup doesn't.",
+      },
+      {
+        q: "What does GP smell like out of the jar?",
+        a: "Layered and complex. Top hit is sweet diesel — fuel-leaning but warmer than Sour Diesel's, with a sugar-cream sweetness keeping the gas from going harsh. Middle is fresh pine sap and a touch of lemon zest. Base is the floral-lavender linalool note with a peppery damp-earth finish underneath. Most customers describe it as 'the one that smells expensive' — which tracks; the layered terpene profile is what high-end Cookies-family genetics tend to deliver.",
+      },
+      {
+        q: "Does the smoke taste like the smell on GP?",
+        a: "Closer than most. On the inhale, sweet diesel comes through first with the pine sitting just behind — the same opening you got from the jar, slightly softened by combustion. On the exhale, cream and a floral finish land, with the pepper-warmth registering on the back of the tongue. The diesel never goes harsh, which is what separates a clean GP cut from a poorly-cured one — if the diesel sharpens on the exhale, the cure was rushed.",
       },
       {
         q: "Is Gary Payton indica, sativa, or hybrid?",
-        a: "Gary Payton is a hybrid — a cross that pulls from both sides of the family tree. The lineage is The Y × Snowman. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid — balanced with a slight sativa lean. The Y parent contributes head-up energy; Snowman pulls the body-landing back toward Cookies-family character. Most batches read 55/45 sativa-side for the first 20 minutes, then settle into a mellow balanced finish. Different phenotypes lean different directions — Cookies-cut GP tends to read closer to balanced; some pheno-hunts lean more sativa.",
       },
       {
-        q: "What does Gary Payton taste like?",
-        a: "Gary Payton hits sweet diesel up front, pine through the middle, and cream on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How heavy is Gary Payton, and what's the smart way to ease into it?",
+        a: "Lab numbers run 20-25% THC — solidly upper-middle on a modern Washington shelf. Built-tolerance smokers find GP dependably predictable. Anyone newer to high-THC hybrids should start with a smaller-than-normal pull and hold off thirty minutes before going again, since the head-up open feels mild enough to mislead you. The body-side landing arrives after that window, and the combined picture at 30-45 minutes runs harder than the opening hit hints at.",
       },
       {
-        q: "How strong is Gary Payton?",
-        a: "Gary Payton tests in the 20–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "What time of day does Gary Payton belong to?",
+        a: "Late afternoon and early evening, ideally. Functional enough to handle a social hangout, a creative project, or a low-pressure work session. Bad pick for early morning — the diesel-pine top reads too loud for most morning routines. Better pick for the transition from a workday into the evening, when you want something with character but don't need to power down for the night yet.",
       },
       {
-        q: "What time of day is Gary Payton best for?",
-        a: "Gary Payton reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        q: "Why does GP cost more than most shelf hybrids?",
+        a: "Three reasons. Licensed name (Payton gets paid on every jar). Cookies-family genetics tend to clock high THC and high terpene loads, both of which raise grower input costs. And the brand cachet of Cookies-collaboration strains keeps demand high. Whether the price premium is worth it depends on how much the specific flavor profile matters to you; the underlying effect is comparable to several lower-priced shelf hybrids, but the aroma is harder to replicate.",
       },
     ],
     verification: {
@@ -9038,42 +9244,94 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Zoap", "Z-Soap"],
     tagline: "Deo Farms — Rainbow Sherbet × Pink Guava, soap-floral hybrid.",
     intro:
-      "Zoap is a Deo Farms cross of Rainbow Sherbet × Pink Guava — balanced hybrid with a floral soap-and-sweet " +
-      "aroma. Body-leaning with a giggly head. Sister strain to RS11 (both Deo Farms / Pink Guava lineage). " +
-      "Modern California shelf hybrid.",
+      "Zoap is one of the more polarizing modern hybrids on a Washington shelf — Deo Farms crossed " +
+      "Rainbow Sherbet with Pink Guava and the result was an aroma that genuinely smells like soap. " +
+      "Not a metaphor — actual perfumed-soap, the kind that sits in a high-end hotel bathroom. " +
+      "Customers either love it or walk past it; very few are neutral. The strain dropped around 2022 " +
+      "as part of Deo Farms' Pink Guava project, which also produced sister cuts like RS11 (Rainbow " +
+      "Sherbet × Pink Guava is Zoap; Sunset Sherbet × Pink Guava is RS11 — close cousins, distinct " +
+      "fingerprints). The name plays on the obvious soap-aroma joke while doubling as a marketing hook " +
+      "memorable enough to ride social-media attention into shelf demand. On the floor Zoap reads as a " +
+      "body-leaning balanced hybrid — giggly head-up open, then a slow body-loose landing that doesn't " +
+      "go full couch. Modern California genetics, full stop. Nothing about the breeding lineage traces " +
+      "back further than the last decade.",
     lineage: "Rainbow Sherbet × Pink Guava",
     parents: [null, null],
     thcRange: "19–25%",
     cbdRange: "<1%",
     effects: ["Giggly", "Relaxed", "Happy", "Euphoric"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, warm" },
-      { name: "Limonene", note: "citrus-floral top" },
-      { name: "Humulene", note: "earthy, hop-like" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the warm-pepper base on Zoap — the same compound that gives black pepper its " +
+          "bite and clove its warmth. Sits underneath the floral top to keep the aroma three-dimensional. " +
+          "Without it, the soap-floral note would read flat and one-tone; with the caryophyllene reading " +
+          "through, the strain develops a peppery finish on the exhale that pulls it out of pure novelty " +
+          "and into something with a real backbone.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the citrus-floral top — bright lemon zest with a sweeter tropical edge from the " +
+          "Pink Guava genetics. It's the layer that makes Zoap's aroma read as 'soap' rather than just " +
+          "'floral' — perfumers use limonene specifically because citrus-floral combinations carry a " +
+          "clean, almost detergent register. On Zoap the limonene also keeps the strain from feeling " +
+          "as heavy as the Pink Guava base would push it; it's the reason the head-up open lands first " +
+          "before the body-loose comes through.",
+      },
+      {
+        name: "Humulene",
+        note:
+          "Humulene is the hops-y molecule — same one that perfumes a fresh pint of IPA with bitter " +
+          "resin and earthy weight. Unusual as a leading note on modern cannabis chemovars; when it " +
+          "shows in the top three, the strain almost always reads heavier than its lineage would " +
+          "predict. On Zoap it lurks under the soap-floral top, registering as 'something earthy and " +
+          "off-key' that most customers cannot name but spot every time. That dirt-and-hops bottom " +
+          "is what makes Zoap distinctive against the rest of the Pink Guava project — strip the " +
+          "humulene out and you'd have a much sweeter, less interesting strain.",
+      },
     ],
     flavor: ["Floral soap", "Sweet citrus", "Tropical"],
-    bestFor: ["Late afternoon", "Casual social", "Sweet-floral aroma lovers"],
+    bestFor: [
+      "Best as a late-afternoon or early-evening hybrid",
+      "Pairs with a creative session, a light dinner, or a low-key social hang",
+      "Goes well with tropical fruit or a coconut-forward cocktail — the flavors line up",
+      "Novelty pick for customers chasing modern shelf aromas",
+    ],
     avoidIf: ["Soapy-floral aromas turn you off", "You want a heavy indica"],
     faqs: [
       {
-        q: "Is Zoap related to RS11?",
-        a: "Yes — both come out of Deo Farms’ Pink Guava project. Zoap is Rainbow Sherbet × Pink Guava; RS11 is the same Pink Guava paired with Sunset Sherbet. Sister strains.",
+        q: "Why does Zoap actually smell like soap?",
+        a: "It's the limonene + linalool-type floral compounds interacting with the citrus from the Rainbow Sherbet parent and the tropical-floral notes from Pink Guava. Perfumers use very similar combinations to build clean floral-citrus body washes, which is why the aroma reads as soap to most customers' noses. The science is the same; we're just picking up the perfumery side of the terpene profile rather than the cannabis side most strains lead with.",
+      },
+      {
+        q: "How is Zoap different from RS11?",
+        a: "Both come out of Deo Farms' Pink Guava project, but they cross from different angles. Zoap pairs Pink Guava with Rainbow Sherbet (Champagne × Crystal Locomotive lineage); RS11 pairs Pink Guava with Sunset Sherbet (Pink Panties × GSC lineage). The Zoap reads cleaner, soap-brighter, more polarizing. RS11 reads creamier, less perfume-forward, more conventionally sweet. Customers who like one usually like the other; some have a strong preference.",
+      },
+      {
+        q: "What does Zoap smell like out of the jar besides 'soap'?",
+        a: "Layered if you give it time. Top is the obvious perfumed-soap floral with a lemon-citrus edge. Middle is tropical fruit — guava and a touch of papaya, both reading through from the Pink Guava parent. Base is the peppery damp-earth note from caryophyllene and humulene. Walks across the room loud. If a customer hates the smell on the first whiff, give it 30 seconds; the second smell after the floral top fades usually reads better.",
+      },
+      {
+        q: "Does Zoap taste like soap when you smoke it too?",
+        a: "Surprisingly less than the nose suggests. On the inhale, sweet citrus comes through first with the floral note sitting just behind — recognizable but lighter than the jar. On the exhale, tropical fruit and a peppery finish land, and the soap aroma reads more as 'clean perfume' than 'actual soap.' Most customers who were on the fence from the smell come around once they actually smoke it. The taste is more conventional than the aroma; the perfumed quality drops off in combustion.",
       },
       {
         q: "Is Zoap indica, sativa, or hybrid?",
-        a: "Zoap is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Rainbow Sherbet × Pink Guava. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid, leaning body-side once it settles. First 15-20 minutes Zoap reads giggly and head-forward; after that you get a mellow body-loose register without going full evening shutdown. Phenotype variation is wider than average — some Zoap drops we've carried lean noticeably toward the indica register, others stay balanced. Ask the budtender which way the current batch went.",
       },
       {
-        q: "What does Zoap taste like?",
-        a: "Zoap hits floral soap up front, sweet citrus through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What's the right Zoap dose for someone new to it?",
+        a: "Numbers land in the 19-25% THC band — solidly modern but nothing in the ozone range. Lower-tolerance customers should treat a quarter-hit as a full session and wait the full half-hour before topping up; the opening feels soft enough to lull you into chasing it harder, then the body shows up at the 30-45 minute mark and the combined picture turns firm. Regulars who already smoke modern hybrids will find Zoap behaves the way they expect.",
       },
       {
-        q: "How strong is Zoap?",
-        a: "Zoap tests in the 19–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "When does Zoap make sense in the day?",
+        a: "Anywhere from 4pm to about 9pm is the sweet spot. Functional enough for a creative project or a casual social hang; too head-up for a focused workday morning and too lively for pure sleep duty. Customers chasing couch-and-out will end up disappointed — Zoap doesn't deliver that bottom-shelf landing. Use one of the heavier indicas if that's the goal.",
       },
       {
-        q: "What time of day is Zoap best for?",
-        a: "Zoap reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        q: "Why do some customers hate Zoap on the first jar?",
+        a: "The soap-floral aroma is genuinely polarizing — perfumed-floral notes in a cannabis context read as 'wrong' to anyone whose cannabis register is built on diesel, kush, or fruit-sweet families. Some palates calibrate after the first smoke session and the strain grows on them; others stay off it permanently. Either reaction is honest. If the smell on a shop sample turns you off, this isn't the strain to push through on — try RS11 instead, which has a related lineage without the soap-front.",
       },
     ],
     verification: {
