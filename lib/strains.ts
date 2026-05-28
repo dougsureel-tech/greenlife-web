@@ -534,41 +534,88 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Northern Lights", "NL"],
     tagline: "The classic sleep indica. Old-school, reliable.",
     intro:
-      "Northern Lights is one of the oldest commercial indicas — a 1980s Pacific Northwest staple. Heavy body, " +
-      "calm head, distinctly sweet-spicy aroma. If you've never tried 'old-school' cannabis, this is what it tastes like.",
+      "Northern Lights — NL on most shelf tags — is one of the load-bearing heritage indicas in cannabis, " +
+      "and the strain most likely to be the answer when an older customer asks 'what was around back when.' " +
+      "The story most consistently told puts the original keeper cuts coming out of a Pacific Northwest " +
+      "grower's basement in Seattle in the 1980s, built from Afghani indica and Thai sativa lines (the exact " +
+      "lineage is debated — different historical accounts cite slightly different ratios), then carried across " +
+      "the Atlantic by The Seedbank's Neville Schoenmakers and refined through the Sensi Seeds breeding " +
+      "program in Amsterdam through the late 1980s and early 1990s. From there it spread into nearly every " +
+      "commercial indica seedline of the next thirty years — most modern indicas can trace some genetic " +
+      "ancestry back to NL5 or a Northern Lights descendant. On the floor the aroma reads as earthy and sweet " +
+      "spice with a soft pine on the exhale; not loud, not perfumed, more like crushed herbs and a faint " +
+      "incense note. The character is what put it on the map: heavy body, calm head, predictable cadence. " +
+      "If a customer has never tasted what 'old-school' cannabis tasted like before the modern dessert-hybrid " +
+      "wave arrived, Northern Lights is the closest thing on the shelf to the answer.",
     lineage: "Afghani × Thai (debated)",
     parents: ["afghani", "thai"],
     thcRange: "16–22%",
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, body-heavy — the foundation" },
-      { name: "Caryophyllene", note: "peppery, warm" },
-      { name: "Pinene", note: "soft pine on the back end" },
+      {
+        name: "Myrcene",
+        note: "The foundation. Myrcene is the earthy, ripe-mango-skin terpene that drives the body-leaning " +
+          "cadence of Northern Lights — the molecule customers smell as 'damp soil' or 'crushed herbs' on " +
+          "the front end. It is also the most likely chemical reason older customers describe NL as the " +
+          "'put me to bed' indica; lab tests on this strain commonly put myrcene at the top of the chart " +
+          "by a noticeable margin.",
+      },
+      {
+        name: "Caryophyllene",
+        note: "The peppery, warm undertone that gives Northern Lights its substantial finish — slightly " +
+          "woody, slightly black-pepper, the spice tucked under the earthy sweetness. Caryophyllene is what " +
+          "keeps NL from feeling soft on the back end; it is the structure beneath the body weight, and " +
+          "older customers who remember 'old-school' indica taste this molecule clearly.",
+      },
+      {
+        name: "Pinene",
+        note: "The soft pine note on the exhale that surprises new customers who expected pure earth. " +
+          "Pinene is fresh — closer to crushed pine needles than to cleaner — and it gives NL a touch of " +
+          "head-up brightness even as the body lands heavy. Some lab tests put limonene in this third slot " +
+          "instead; both routes the same direction.",
+      },
     ],
     flavor: ["Earthy", "Sweet spice", "Pine"],
-    bestFor: ["Sleep", "Body soreness", "Quiet evenings", "Pain relief"],
+    bestFor: [
+      "Best as an evening indica after dinner is well past",
+      "Pairs with a couch, a book, or a movie you have already seen",
+      "Goes well with a heavy meal or a slow herbal tea",
+      "Anchor heritage strain for customers chasing old-school cannabis character",
+    ],
     avoidIf: ["You need to function", "You're new and want a head-up experience first"],
     faqs: [
       {
         q: "Is Northern Lights a nighttime strain?",
-        a: "Yes — one of the most-recommended sleep indicas in cannabis. The myrcene-heavy profile is the classic 'put me to bed' chemotype.",
+        a: "Yes, and one of the most consistently nighttime-leaning cuts on a Washington shelf. The myrcene-heavy profile reads as the classic body-leaning indica chemotype older customers remember; the cadence comes on slow, lands heavy, and tends to settle the body into the couch within twenty minutes. Customers chasing sleep almost universally lean indica for the evening hand-off, and NL is among the more dependable picks.",
+      },
+      {
+        q: "Why does Northern Lights matter historically?",
+        a: "It is one of the load-bearing indicas in cannabis history. The original keeper cuts came out of a Pacific Northwest grower's program in Seattle in the 1980s; from there Neville Schoenmakers carried the lineage to Amsterdam, where Sensi Seeds refined NL5 and related cuts through the late 1980s and early 1990s. Almost every commercial indica seedline of the next thirty years — including many of the modern dessert-hybrid grandparents — can trace some genetic ancestry back to a Northern Lights pheno. Most customers do not know the lineage; they just know the cuts that came from it.",
       },
       {
         q: "Is Northern Lights indica, sativa, or hybrid?",
-        a: "Northern Lights is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Thai (debated).",
+        a: "Indica — and one of the more indica-leaning indicas on the shelf. The Afghani parent contributes the body weight and the resin; the Thai parent in the genetic background adds a touch of head-character that keeps NL from feeling pure narcotic. Customers experience it as body-heavy with a calm head, the kind of cadence that pushes toward the couch rather than the kitchen.",
       },
       {
-        q: "What does Northern Lights taste like?",
-        a: "Northern Lights hits earthy up front, sweet spice through the middle, and pine on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What does Northern Lights smell like out of the jar?",
+        a: "Earthy and a little sweet-spice up front, with a soft pine note that comes through on the exhale. Not loud, not perfumed, more like crushed herbs and a faint incense — the older register of cannabis aroma before the modern terpene-loud cuts arrived. New customers sometimes describe it as 'subtle' compared to dessert-hybrid jars; older customers describe it as 'how cannabis used to smell.' Both are accurate.",
       },
       {
-        q: "How strong is Northern Lights?",
-        a: "Northern Lights tests in the 16–22% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "How strong is Northern Lights compared to modern strains?",
+        a: "Lab numbers run in the 16–22% THC range — moderate by modern standards rather than upper-shelf. Customers who have built tolerance on 28%+ dessert hybrids sometimes report that NL feels gentler in raw potency, but the body-leaning chemotype lands heavier per milligram than a balanced-hybrid at the same number. Lower-tolerance customers and new customers find it predictable; high-tolerance customers reach for it specifically when they want body cadence rather than head buzz.",
       },
       {
         q: "What time of day is Northern Lights best for?",
-        a: "Northern Lights reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Evening, after dinner is well past, when the to-do list is closed and the rest of the night is for the couch. NL is not a 'before-the-thing' strain — the body cadence makes it unworkable as a daytime pick for most customers. Some customers reach for it on a slow rainy afternoon or a weekend with no obligations, but for the most part it lives in the post-evening slot.",
+      },
+      {
+        q: "Who bred Northern Lights and where do modern cuts come from?",
+        a: "Original credit goes to a Pacific Northwest grower (often referenced as 'The Indian' in the older oral histories) working out of Seattle in the 1980s. Neville Schoenmakers brought the lineage to The Seedbank in Amsterdam in the mid-1980s, and Sensi Seeds (which absorbed The Seedbank's catalog) has been the primary commercial steward since. Modern Washington shelves carry NL grown from a mix of Sensi-derived seedlines and clone lineages that spread through the West Coast clone-share network — the original mother plant is long gone but the genetic family is intact.",
+      },
+      {
+        q: "How does Northern Lights compare to other classic indicas?",
+        a: "Against Granddaddy Purple: NL is earthier and less grape-forward; GDP runs sweeter and is denser on the back end. Against Bubba Kush: closer cousins in character, both body-leaning evening indicas, but Bubba runs more coffee-and-chocolate where NL runs more pine-and-earth. Against modern indica-leaning hybrids like Wedding Cake: NL has noticeably less head-up euphoria and more straight body cadence — it is the older register of indica, before the dessert-hybrid wave pushed even the indicas toward mood-up sweetness.",
       },
     ],
     verification: {
@@ -1672,42 +1719,85 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Strawberry Cough", "SC", "Straw Cough"],
     tagline: "Sweet, social sativa with a tickle-the-throat smoke.",
     intro:
-      "Strawberry Cough is a beloved daytime sativa — bright strawberry-and-skunk aroma, clear-headed " +
-      "social effect, and the namesake cough (the smoke is famously expansive). Gentler in punch than most " +
-      "modern sativas, which makes it a regular pick for social situations.",
+      "Strawberry Cough — SC or just Straw Cough on the floor — has been a beloved daytime sativa since the " +
+      "mid-2000s, when a Connecticut grower named Kyle Kushman pheno-hunted the keeper out of a Strawberry " +
+      "Fields × Haze cross (the exact paternal lineage is debated, but Haze is consistent across every " +
+      "credible telling). The strain has two identifying features and a movie cameo: the bright strawberry " +
+      "aroma that hits the moment the jar opens, the famously expansive smoke that lives in the name, and a " +
+      "scene in 2006's 'Children of Men' where a character explicitly hands over a jar of it. On the shelf the " +
+      "aroma reads like crushed strawberries with a thin skunk layer underneath and a Haze-tinged earth on the " +
+      "back end — not artificial-fruity-candy, but actual berry. Effect-wise it lands head-up and " +
+      "conversational with a lighter touch than most modern sativas; customers reach for it as a 'before the " +
+      "social thing' strain rather than a 'lock-in for a deep-work session' chemotype. The cough is real, " +
+      "though — the smoke is genuinely expansive, and new customers should expect it the first time.",
     lineage: "Strawberry Fields × Haze (debated)",
     parents: [null, "haze"],
     thcRange: "15–20%",
     cbdRange: "<1%",
     effects: ["Uplifted", "Happy", "Focused", "Energetic"],
     terpenes: [
-      { name: "Myrcene", note: "earthy base" },
-      { name: "Pinene", note: "fresh pine, focusing" },
-      { name: "Caryophyllene", note: "peppery accent" },
+      {
+        name: "Myrcene",
+        note: "The earthy, slightly mango-skin base that customers do not consciously name but that ties " +
+          "the bright strawberry top notes to the Haze parent's signature. Myrcene is the foundation the " +
+          "lighter top notes sit on, and it is part of why Strawberry Cough does not read as one-dimensional " +
+          "sweetness even though the strawberry is the loudest single note.",
+      },
+      {
+        name: "Pinene",
+        note: "The sharp pine note that gives the strain its head-up cadence — fresh pine on the back of " +
+          "the nose, the kind of brightness that customers describe as 'clearing.' Pinene is the most likely " +
+          "terpene driver behind why Strawberry Cough reads as more focus-leaning than other sweet sativas " +
+          "of its potency band; some lab tests put it at the top of the chart for this strain.",
+      },
+      {
+        name: "Caryophyllene",
+        note: "The peppery accent woven into the strain's smoke — slightly woody, slightly spicy, the " +
+          "molecule that gives Strawberry Cough its warm finish and keeps the berry from drifting off " +
+          "perfumey. Without caryophyllene the fruit would feel cartoonish; with it the strain reads " +
+          "ground in something real.",
+      },
     ],
     flavor: ["Sweet strawberry", "Skunk", "Earthy"],
-    bestFor: ["Social events", "Daytime use", "Light creative work", "Beating awkwardness"],
+    bestFor: [
+      "Best as a daytime sativa before a social plan, party, or dinner",
+      "Pairs with conversation, casual hangs, or a low-stakes creative project",
+      "Goes well with a coffee or a strawberry-forward edible (the flavors stack)",
+      "Anchor strawberry strain for customers chasing the specific aroma profile",
+    ],
     avoidIf: ["You have asthma or sensitive lungs", "You want body relaxation"],
     faqs: [
       {
         q: "Does Strawberry Cough actually taste like strawberries?",
-        a: "Notes of sweet strawberry, yes — on a skunky-earthy base. The 'cough' part isn't marketing: the smoke runs expansive.",
+        a: "Yes — and the match is unusually faithful for a cannabis strain. The note reads as crushed fresh fruit rather than the artificial-candy register some sweet hybrids drift into, sitting on a thin skunky-earthy base from the Haze parent. Out of a fresh jar the strawberry is the loudest single note, and customers returning to the strain after years away usually recognize it on the first whiff before they read the label.",
+      },
+      {
+        q: "Why is it called Strawberry Cough?",
+        a: "Two reasons. The strawberry half is the aroma. The cough half is honest marketing: the smoke is famously expansive — the kind that catches new customers off-guard on the first inhale and forces a deep cough almost regardless of inhale technique. It is part of the strain's identifying character, and a budtender who hands a jar across without warning is doing the customer a disservice. A smaller first inhale than usual is the right move.",
       },
       {
         q: "Is Strawberry Cough indica, sativa, or hybrid?",
-        a: "Strawberry Cough is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is Strawberry Fields × Haze (debated).",
+        a: "Sativa, and one of the gentler ones on the shelf. The Haze parent drives the head-up cadence; the lighter THC band keeps the landing from feeling racey the way some 25%+ pure Haze cuts can. Customers who like the head-up character of sativas but who find modern high-potency cuts too edgy often discover Strawberry Cough is the version that works for them.",
       },
       {
-        q: "How strong is Strawberry Cough?",
-        a: "Strawberry Cough tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "Who bred Strawberry Cough?",
+        a: "The most commonly credited breeder is Kyle Kushman, a Connecticut-based cultivator who pheno-hunted the keeper out of a Strawberry Fields × Haze cross in the early-to-mid 2000s. The paternal half is debated — different sources cite different specific Haze cuts — but Haze is consistent in every credible telling. Most flower on a modern Washington shelf is a descendant of clones that spread from that original lineage.",
+      },
+      {
+        q: "How potent is Strawberry Cough, and what should a new customer expect?",
+        a: "The standard band is 15–20% THC — mainstream rather than upper-shelf for a modern sativa. Newer indoor and live-resin phenos can push 22–26%. Built-tolerance customers pace normally. New customers should plan for the expansive smoke regardless of potency band — a smaller-than-usual first inhale, then a pause to see how it settles. The head-up cadence arrives within five to ten minutes and is friendly but real.",
       },
       {
         q: "What time of day is Strawberry Cough best for?",
-        a: "Strawberry Cough reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "Daytime, leaning toward the social end of daytime — late morning into early evening, before a dinner with friends, before a party, before a long phone call with a friend who lives across the country. The lighter potency band and head-up character make it a regular pick for customers who want some social lift without the racey edge a heavier sativa can throw.",
       },
       {
-        q: "What terpenes are in Strawberry Cough?",
-        a: "The dominant terpenes in Strawberry Cough are Myrcene (earthy, mango-like, with a mild body-heavy quality), Pinene (sharp pine, fresh and focusing), and Caryophyllene (peppery and warm, spicy on the back end). The blend is what gives the strain its specific nose and the character customers report on the exhale.",
+        q: "Is Strawberry Cough good if I have a sensitive throat or asthma?",
+        a: "Honest answer: probably not as flower. The expansive smoke is part of the strain's identifying character, and customers with asthma or sensitive lungs commonly report that it triggers more coughing than other sativas. Vape cartridges and live-resin pens carry the strawberry profile with much gentler throat impact, and for customers who love the aroma but cannot handle the flower, those formats are usually the right substitute.",
+      },
+      {
+        q: "What does Strawberry Cough pair well with on the menu?",
+        a: "Strawberry-forward edibles and infused gummies stack the flavor profile and lengthen the experience past the relatively short flower session. For a flower-only customer, a small pre-roll of Straw Cough before a daytime social plan is the most common cadence we see at the counter; a heavier indica concentrate for the after-evening hand-off works well as a stack. Live resin and sauce versions push the berry notes brighter; distillate flattens them.",
       },
     ],
     verification: {
@@ -3122,42 +3212,86 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Sunset Sherbet", "Sherbet", "Sherbert", "Sunset Sherbert"],
     tagline: "Sweet citrus-cream hybrid — parent of Gelato.",
     intro:
-      "Sunset Sherbet (often spelled Sherbert) is the sweet citrus-cream hybrid that — alongside Thin Mint GSC " +
-      "— is one of the parents of Gelato. Indica-leaning, with mood-up euphoria and a clear-but-mellow head. " +
-      "Aroma reads like orange creamsicle.",
+      "Sunset Sherbet — written Sherbet on most modern shelf tags but Sherbert in the older Sherbinski " +
+      "paperwork — is one of the load-bearing modern hybrids in cannabis genetics. Bred by Mario Guzman " +
+      "(Sherbinski) in the San Francisco Bay Area in the early 2010s, crossing a Girl Scout Cookies mother " +
+      "with a Pink Panties father, it became the maternal half of Gelato (Sunset Sherbet × Thin Mint GSC), " +
+      "which in turn fathered or grandfathered roughly half the modern dessert-hybrid menu — Gelato 33, " +
+      "Gelato 41, Wedding Cake's collateral cousins, the entire Cookies-family branch of the Backpack Boyz " +
+      "catalog. On the floor it reads as orange-cream and berry-pastry — closer to a melted orange-and-vanilla " +
+      "popsicle than to actual sherbet — with a faint floral lift on the back end. Indica-leaning in character: " +
+      "mood-up euphoria, a clear head with a soft cushion under it, and a body cadence that customers reach " +
+      "for after work rather than before it. Buds tend to come up bright green with purple highlights and " +
+      "heavy orange pistils; the resin layer is high enough that the trichomes catch jar light from across " +
+      "the room.",
     lineage: "Girl Scout Cookies × Pink Panties",
     parents: ["girl-scout-cookies", "pink-panties"],
     thcRange: "18–24%",
     cbdRange: "<1%",
     effects: ["Happy", "Relaxed", "Euphoric", "Uplifted"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "bright citrus" },
-      { name: "Linalool", note: "floral, mellowing" },
+      {
+        name: "Caryophyllene",
+        note: "The peppery, slightly woody anchor that does the structural work underneath the sweetness. " +
+          "Caryophyllene is the warmth Sherbet leaves on the back of the palate after the cream-and-citrus " +
+          "has lifted off — without it Sherbet would tip into cloying territory the way a pure-sweet " +
+          "chemotype can, and the floor would feel thin behind the dessert top notes.",
+      },
+      {
+        name: "Limonene",
+        note: "The bright orange-and-creamsicle top note that lifts off the jar the moment it opens. " +
+          "Limonene is the citrus signature Sunset Sherbet shares with its descendants — Gelato 33, the " +
+          "many sherbet-crossed hybrids — and it is the molecule most responsible for the strain reading " +
+          "as mood-up rather than purely heavy. Customers who chase the orange-cream profile follow it.",
+      },
+      {
+        name: "Linalool",
+        note: "The floral, slightly powdery undertone that customers sometimes describe as 'lavender ice " +
+          "cream' or 'powdered sugar.' Linalool reads as soft floral on the back of the exhale and is part " +
+          "of why the Sherbet exhale feels round and almost dessert-like rather than sharp. Lab tests " +
+          "sometimes show myrcene in the top-three slot too; both routes the same general direction.",
+      },
     ],
     flavor: ["Orange cream", "Sweet citrus", "Berry"],
-    bestFor: ["After-work relax", "Casual social", "Light creative time"],
+    bestFor: [
+      "Best as an after-work hybrid for the evening hand-off",
+      "Pairs with a low-key dinner, a couch movie, or casual conversation",
+      "Goes well with citrus-forward or berry-forward edibles (the flavor stacks)",
+      "Anchor cream-strain for customers chasing the dessert-hybrid family lineage",
+    ],
     avoidIf: ["You want pure sativa energy", "You're avoiding sweet aromas"],
     faqs: [
       {
         q: "Is it Sherbet or Sherbert?",
-        a: "Both spellings appear on Washington shelves — same strain. The breeder used 'Sherbert' originally, but 'Sherbet' is more common now.",
+        a: "Both spellings appear on Washington shelves and they refer to the same strain. Sherbinski's original paperwork from the early 2010s used 'Sherbert' (the breeder's preferred spelling, matching how a lot of people actually pronounce the word). Most modern menu writers shortened to 'Sherbet' because it matches the dictionary. Either way it is the same genetics.",
       },
       {
         q: "Is Sunset Sherbet indica, sativa, or hybrid?",
-        a: "Sunset Sherbet is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Girl Scout Cookies × Pink Panties. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid by formal label, with a clear indica lean in how it lands. The Girl Scout Cookies mother is itself indica-leaning, and the Pink Panties father contributes the orange-cream sweetness without a head-up driver. Customers experience it as mood-up but settled — closer to 'soft landing' than 'racey energy.' Some growers' phenos sit more balanced and some sit more indica; differences are noticeable batch-to-batch.",
       },
       {
-        q: "What does Sunset Sherbet taste like?",
-        a: "Sunset Sherbet hits orange cream up front, sweet citrus through the middle, and berry on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Why does Sunset Sherbet matter so much in modern cannabis genetics?",
+        a: "It is one of the parents of Gelato — specifically the mother. The Gelato seedline (Sunset Sherbet × Thin Mint GSC) launched roughly half the modern dessert-hybrid catalog: Gelato 33, Gelato 41, the Cookies-family branches that flowed into Wedding Cake's neighborhood, and a generation of Backpack Boyz crosses including Lemon Cherry Gelato. A customer who likes any of those is downstream of Sherbet whether they know it or not.",
       },
       {
-        q: "How strong is Sunset Sherbet?",
-        a: "Sunset Sherbet tests in the 18–24% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "What does Sunset Sherbet taste like on the exhale?",
+        a: "The orange-cream and berry-pastry notes carry through from the inhale, but the exhale picks up a soft floral lift from the linalool and a slightly peppery warmth from the caryophyllene. Some customers describe a powdered-sugar-and-violet note at the very back; that is the linalool doing its work. Concentrate forms — live resin and badder — push the citrus brighter; flower keeps the cream-and-floral balance.",
+      },
+      {
+        q: "How strong is Sunset Sherbet and how should I start?",
+        a: "Lab numbers sit in the 18–24% THC range — upper-middle to high shelf. The trap with Sherbet is that the cream-and-citrus sweetness genuinely hides the potency; the smoke is so smooth that new customers tend to take a larger second hit than they would on a harsher strain. Pace deliberately, ten minutes between draws, and respect the mood-up cadence. It is friendly, but it is also real.",
       },
       {
         q: "What time of day is Sunset Sherbet best for?",
-        a: "Sunset Sherbet reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        a: "Late afternoon and evening — after work, before dinner, into a quiet night in. The indica lean and mood-up euphoria push it past the 'productive daytime' window for most customers, though some report it lands fine as a mid-afternoon hybrid if their day is mostly creative or social rather than focus-heavy.",
+      },
+      {
+        q: "Who breeds Sunset Sherbet and is the original still around?",
+        a: "Mario Guzman (Sherbinski) in the San Francisco Bay Area is the breeder of record. The original keeper cut spread through the Bay clone-share network in the early-to-mid 2010s, and what lands on a Washington shelf today is some descendant of that cut — either a clone that traced back through commercial gardens, or a seed-grown pheno from one of several seedlines selling under the Sherbet name. Sherbinski himself still operates the brand and licenses the name across multiple markets.",
+      },
+      {
+        q: "How does Sunset Sherbet compare to Gelato?",
+        a: "Gelato is the daughter, so the family resemblance is real. Sherbet runs sweeter and rounder on the nose — closer to orange-cream — where Gelato tends to push more pastry and gas, especially in the Gelato 41 phenos. Sherbet runs slightly more indica-leaning in landing, where Gelato 33 lands more balanced and Gelato 41 can lean head-up. Customers who like Gelato but find it a little too forward often end up preferring Sherbet for the after-work hand-off.",
       },
     ],
     verification: {
@@ -4790,42 +4924,85 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Tropicana Cookies", "Trop Cookies", "Tropicanna"],
     tagline: "GSC × Tangie sativa-hybrid — bright orange, head-up.",
     intro:
-      "Tropicana Cookies is a Harry Palms / Bloom Seed Co cross of GSC × Tangie — sativa-leaning hybrid, with " +
-      "a bright orange-citrus aroma and a head-forward landing. The Cookies parent keeps the body settled; the " +
-      "Tangie parent drives the citrus. One of the more functional sativa-leaning hybrids.",
+      "Tropicana Cookies — Trop Cookies on most receipts, sometimes Tropicanna in older inventory — was built " +
+      "by Harry Palms at Bloom Seed Co in California sometime around 2017, crossing a GSC mother into a Tangie " +
+      "father. The intent was to graft the loud citrus of Tangie onto the Cookies skeleton and see what " +
+      "happened, and what happened is a flower that smells, out of a fresh jar, almost exactly like the rind of " +
+      "a navel orange someone just zested. There's a sweet pastry note underneath — the Cookies tell — and a " +
+      "thin diesel ribbon on the back end that keeps it from reading like a candle. On the shelf the buds tend " +
+      "to come up purple-tipped with bright orange pistils, frosted heavily enough that they catch the jar " +
+      "light. Sativa-leaning hybrid in character: head-up, conversational, with enough Cookies in the genetic " +
+      "background that the body doesn't get racey the way pure-Haze sativas can. Customers who like Tangie or " +
+      "Clementine for the citrus, but who find the older Haze cuts a little too edgy, walk back to the counter " +
+      "for this one regularly.",
     lineage: "GSC × Tangie",
     parents: ["girl-scout-cookies", "tangie"],
     thcRange: "20–28%",
     cbdRange: "<1%",
     effects: ["Energetic", "Uplifted", "Happy", "Creative"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "bright orange-citrus" },
-      { name: "Myrcene", note: "earthy underbelly" },
+      {
+        name: "Caryophyllene",
+        note: "The peppery, slightly woody base note that sits underneath the citrus and keeps the strain " +
+          "from reading purely sweet. Caryophyllene is the terpene customers describe as freshly-ground " +
+          "black pepper — slightly spicy, slightly resinous — and it is what most reliably gives Trop Cookies " +
+          "the warmth on the exhale that distinguishes it from a thinner citrus chemotype like Clementine.",
+      },
+      {
+        name: "Limonene",
+        note: "The whole story of Tropicana Cookies sits here. Limonene is the bright, photographic-orange " +
+          "signature that lifts off a fresh jar — closer to navel-orange rind with white pith than to orange " +
+          "candy. It is the same molecule that drives Tangie, Clementine, and Sunset Sherbet, and customers " +
+          "who chase that specific citrus signature follow it across strains the way wine drinkers follow a " +
+          "varietal across vineyards.",
+      },
+      {
+        name: "Myrcene",
+        note: "The earthy underbelly that ties the citrus to the Cookies parent. Myrcene reads as ripe " +
+          "mango and damp soil under the sharper top notes; it's what gives the strain its weight on the " +
+          "exhale and prevents the citrus from feeling thin or one-dimensional.",
+      },
     ],
     flavor: ["Orange", "Sweet citrus", "Earth"],
-    bestFor: ["Morning use", "Creative push", "Daytime social"],
+    bestFor: [
+      "Best as a morning or early-afternoon sativa when there's still a list",
+      "Pairs with creative work, light chores, or a walk with the dog",
+      "Goes well with a coffee or an espresso — the citrus harmonizes",
+      "Anchor citrus strain for customers who want a less edgy Tangie",
+    ],
     avoidIf: ["You want a body-heavy buzz", "You're low-tolerance"],
     faqs: [
       {
         q: "Is Tropicana Cookies an indica or sativa?",
-        a: "Sativa-dominant hybrid. Head-forward and energetic but with the GSC parent keeping the body grounded.",
+        a: "Sativa-dominant hybrid is the cleanest answer. Head-forward and conversational in character with the GSC parent keeping the body settled enough that customers don't report the racey edge that pure-Haze sativas sometimes throw. The Tangie parent contributes the citrus signature and the head-up cadence; the Cookies parent grounds it.",
       },
       {
-        q: "Is Tropicana Cookies indica, sativa, or hybrid?",
-        a: "Tropicana Cookies is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is GSC × Tangie.",
+        q: "Who breeds Tropicana Cookies and when was it released?",
+        a: "Harry Palms at Bloom Seed Co in California is the credited breeder. The seedline came out of pheno-hunting GSC × Tangie crosses around 2017, with the keeper cut spreading through the West Coast clone-share network before reaching commercial gardens. Anything on a Washington shelf today is a descendant of that lineage — clone or seed-grown — not Palms's original mother.",
       },
       {
-        q: "What does Tropicana Cookies taste like?",
-        a: "Tropicana Cookies hits orange up front, sweet citrus through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What does Tropicana Cookies smell like when the jar opens?",
+        a: "Fresh navel-orange rind with the white pith still on, a thin layer of pastry sweetness under it, and a barely-there diesel ribbon on the back end. It is one of the more photo-realistic citrus strains on a Washington shelf — the kind where a new customer says 'wait, that actually smells like orange,' and the budtender nods and lets the jar stay open a second longer.",
       },
       {
-        q: "How strong is Tropicana Cookies?",
-        a: "Tropicana Cookies tests in the 20–28% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How is Tropicana Cookies different from Tangie?",
+        a: "Tangie is the citrus parent — loud, top-heavy citrus with the older Haze cadence underneath. Tropicana Cookies is what happens when that citrus gets crossed into Cookies: same brightness on the nose but a more grounded body, a slightly slower onset, and less of the edgy Haze racey-ness some customers report on Tangie. Many customers who liked the Tangie aroma but found the effect too jittery end up landing here.",
+      },
+      {
+        q: "How strong is Tropicana Cookies and how should I start?",
+        a: "Lab numbers run in the 20–28% THC range — solidly upper-shelf for a sativa-leaning hybrid. Customers who run high-tolerance cadences can pace themselves normally. For anyone who has not had a Cookies-citrus cross at this potency before, the right move is one small inhale, ten quiet minutes, then decide. The landing comes on a touch faster than a heavier indica because the limonene drives the head-forward part early.",
       },
       {
         q: "What time of day is Tropicana Cookies best for?",
-        a: "Tropicana Cookies reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "It belongs in the daytime slot — morning, late morning, the first stretch after lunch when the inbox is still active or the creative project still has an unfinished section. Customers who reach for it close to bedtime sometimes report it pushed sleep a couple hours later than they meant; the head-forward citrus cadence does not switch off cleanly. Better to lean indica past the dinner-time hand-off.",
+      },
+      {
+        q: "Is Tropicana Cookies good for creative work?",
+        a: "Customers who like sativa-leaning hybrids for writing, design, music, or kitchen work reach for this one with some regularity. It is not a 'locks you in for six hours' deep-focus chemotype — the citrus tends to keep things conversational rather than tunnel-vision-y — but for getting started, sketching, or working in a room with other people, it lands well. As always, the strain is a small ingredient and not a productivity guarantee.",
+      },
+      {
+        q: "What should I pair Tropicana Cookies with on the menu?",
+        a: "Citrus-forward edibles and infused gummies that lean orange or grapefruit harmonize naturally — the limonene picks up the flavor and the experience feels like one thread rather than two. For a flower-only customer, a pre-roll of Trop Cookies before a daytime social plan plus a smaller indica pre-roll for the post-evening landing is a common stacking pattern. Live resin and sauce versions push the citrus brighter — wax and shatter dull it slightly.",
       },
     ],
     verification: {
@@ -7763,42 +7940,84 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Tangerine Dream", "TD"],
     tagline: "Barney’s Farm sativa — tangerine-citrus, head-up effect.",
     intro:
-      "Tangerine Dream is a Barney’s Farm cross of G13 × Afghani × Neville’s A5 Haze — sativa-leaning with " +
-      "a bright tangerine-citrus aroma and a head-up effect. 2010 Cannabis Cup winner, long-time " +
-      "shelf staple. Customers who like clementine and tangie reach for this for the same citrus aromatic.",
+      "Tangerine Dream — TD on most shelf tags — came out of the Barney’s Farm breeding program in Amsterdam " +
+      "in the late 2000s, built by crossing G13 with an Afghani and Neville’s A5 Haze. It won the 2010 High " +
+      "Times Cannabis Cup for Best Sativa, and the legacy of that win is still doing work — eighteen years " +
+      "later it is one of the older sativa names that newer customers still walk in asking for by name. The " +
+      "citrus signature is its identifying feature: out of the jar it reads as fresh tangerine peel, slightly " +
+      "more juicy and tropical than the orange of Tropicana Cookies or the loud Tangie cut, with a faint " +
+      "incense-and-earth note underneath from the Afghani parent that keeps it from feeling thin. Sativa-leaning " +
+      "in character: head-up, conversational, the kind of energy that lands without the racey jitters some pure " +
+      "Haze cuts throw. The Afghani in the genetic background is what holds it together — customers who tried " +
+      "older Haze sativas and bounced off the speed often discover Tangerine Dream is what they actually " +
+      "wanted: the citrus and the head-up cadence, but with the ground underneath.",
     lineage: "G13 × Afghani × Neville’s A5 Haze",
     parents: [null, "afghani", null],
     thcRange: "17–25%",
     cbdRange: "<1%",
     effects: ["Uplifted", "Happy", "Focused", "Euphoric"],
     terpenes: [
-      { name: "Myrcene", note: "earthy undertone" },
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "bright tangerine top" },
+      {
+        name: "Myrcene",
+        note: "The earthy, slightly tropical undertone that ties the citrus top notes to the Afghani parent. " +
+          "Myrcene reads as ripe-mango skin and the dampness of a greenhouse floor; it is the terpene that " +
+          "anchors the strain in the body rather than letting the citrus float off on its own.",
+      },
+      {
+        name: "Caryophyllene",
+        note: "A peppery, slightly warm undertone that customers usually do not name on first taste but " +
+          "would miss if it disappeared. Caryophyllene is what explains the warm finish on the exhale — the " +
+          "spicy quality that lives in the back of the palate after the brighter tangerine has dissipated " +
+          "from the nose. Without it the strain would smell perfumed and finish flat.",
+      },
+      {
+        name: "Limonene",
+        note: "The bright tangerine signature lives here. Limonene is the loudest top note in the jar — " +
+          "closer to fresh tangerine peel than to orange, with a juicy and faintly tropical sweetness that " +
+          "distinguishes it from the navel-orange register of Tropicana Cookies. It is the molecule customers " +
+          "chase across strains when they describe themselves as 'citrus people.'",
+      },
     ],
     flavor: ["Tangerine", "Sweet citrus", "Light earth"],
-    bestFor: ["Daytime use", "Creative work", "Casual social", "Hike or walk"],
+    bestFor: [
+      "Best as a daytime sativa for morning, early afternoon, or pre-walk",
+      "Pairs with creative work, a long phone call, or a hike with a friend",
+      "Goes well with a coffee or citrus-forward edible — the limonene harmonizes",
+      "Anchor tangerine strain for customers who chase the specific citrus profile",
+    ],
     avoidIf: ["You want a heavy indica", "You’re sensitive to high-THC sativas"],
     faqs: [
       {
         q: "Does Tangerine Dream actually smell like tangerines?",
-        a: "Yes — the citrus is the loudest part of the strain. Bright, juicy, closer to tangerine than to orange. Comes from the limonene + Haze parentage.",
+        a: "It does, and the resemblance is one of the cleaner ones on the shelf. Out of a fresh jar TD reads as tangerine peel — brighter and more tropical than orange, with a juicy quality the Tangie cut shares but in a slightly different register. The limonene plus the Haze parentage is doing the work; the Afghani layer underneath stops it from being one-dimensional. Customers who already love clementine, Tangie, or Sour Tangie will recognize the family resemblance on the first whiff.",
       },
       {
         q: "Is Tangerine Dream indica, sativa, or hybrid?",
-        a: "Tangerine Dream is a sativa — head-up and uplifted in character, with the energetic profile customers expect from sativa-dominant flower. The lineage is G13 × Afghani × Neville’s A5 Haze.",
+        a: "Sativa-leaning hybrid is the cleanest label, and the head-up character is what customers notice. The Haze parentage drives the head-forward cadence; the Afghani parent grounds the body just enough that customers report a measured energy rather than a racey one. Customers who bounced off pure Haze cuts because of the jitters often find Tangerine Dream is the version they actually wanted.",
       },
       {
-        q: "What does Tangerine Dream taste like?",
-        a: "Tangerine Dream hits tangerine up front, sweet citrus through the middle, and light earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Who bred Tangerine Dream and why is the 2010 Cup still relevant?",
+        a: "Barney’s Farm in Amsterdam built it, crossing G13 with an Afghani and Neville’s A5 Haze. It took Best Sativa at the 2010 High Times Cannabis Cup, which mattered in the pre-legalization era the way an awards-bar matters in wine — it was the closest thing to a third-party signal customers had. The Cup win helped fix the name in cannabis culture and it is one of the older sativa names that has held the shelf for eighteen years running.",
       },
       {
-        q: "How strong is Tangerine Dream?",
-        a: "Tangerine Dream tests in the 17–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "What does Tangerine Dream taste like on the exhale?",
+        a: "Tangerine peel is still the loudest note on the inhale, but by the exhale the warmth shifts a little earthy and the citrus turns more cooked-fruit than fresh. The Afghani in the background reads as a soft incense note on the back of the throat. Concentrate forms — live resin and sauce — push the citrus brighter and the earth fainter; flower keeps the layers more balanced.",
+      },
+      {
+        q: "How strong is Tangerine Dream and where do lab numbers usually land?",
+        a: "Across modern phenos the lab numbers run 17–25% THC — upper-middle to high shelf. Built-tolerance customers run TD at their normal pace. New or low-tolerance customers should pace themselves carefully, especially because the head-forward landing arrives faster than the moderate THC number suggests. TD has caught more than a few customers off-guard on a first session — the cadence sneaks up.",
       },
       {
         q: "What time of day is Tangerine Dream best for?",
-        a: "Tangerine Dream reads as a daytime strain — head-up and uplifted, the kind customers commonly reach for in the morning or early afternoon when there's still a to-do list.",
+        a: "The daytime stretch — late morning into mid-afternoon, particularly anything that calls for talking, writing, or moving. The Haze-driven head-up cadence does not switch off easily at bedtime; customers who reach for it after dinner sometimes find themselves still up past midnight. After-dinner consumption is better served by an indica or indica-leaning hybrid.",
+      },
+      {
+        q: "How does Tangerine Dream compare to other citrus sativas?",
+        a: "Against Tangie: TD is the version with the Afghani layer in the background — same citrus signature, less of the edgy Haze racey-ness. Against Tropicana Cookies: TD reads as tangerine where Trop Cookies reads as navel orange, and TD's body is slightly lighter because there is no Cookies parent grounding it. Against Clementine: closer cousins than the others — both bright citrus sativas — but Clementine tends to read slightly sweeter where TD reads slightly more tropical.",
+      },
+      {
+        q: "Is Tangerine Dream still being produced by Barney's Farm?",
+        a: "Yes — Barney's Farm still sells the feminized seedline, and clone lineages of the keeper cut have spread widely through commercial gardens. What lands on a Washington shelf is a descendant of that genetic pool, not the original mother plant from 2010. Producers vary, and customers who have favored a particular grower's TD often describe noticeable batch-to-batch differences depending on which farm and which pheno made it through to harvest.",
       },
     ],
     verification: {
