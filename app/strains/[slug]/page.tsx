@@ -36,9 +36,11 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { StrainLineageTree } from "@/components/StrainLineageTree";
 import { StrainInStockSection } from "@/components/StrainInStockSection";
 import { StrainStockWidget } from "@/components/StrainStockWidget";
+import { StrainCoPurchaseRail } from "@/components/StrainCoPurchaseRail";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { getStrainMatchedProducts, getActiveDeals } from "@/lib/db";
 import { fetchCrossStoreStock } from "@/lib/strain-stock-cross-store";
+import { fetchStrainCoPurchase } from "@/lib/strain-co-purchase-fetch";
 
 // ISR with 5-min revalidate — flipped from force-static 2026-05-17 to
 // support the "In stock today" live-inventory section without forcing a
@@ -209,7 +211,7 @@ export default async function StrainSlugPage({
   // DB read, scored + ranked via lib/strain-match.ts, top 6 cards.
   // Parallel-fetched with active-deals for online-pricing math; both wrapped
   // in React.cache() so re-renders within the same request don't refetch.
-  const [matchedProducts, activeDeals, crossStoreStock] = await Promise.all([
+  const [matchedProducts, activeDeals, crossStoreStock, coPurchase] = await Promise.all([
     getStrainMatchedProducts(s, { graph, strainsBySlug: STRAINS, limit: 6 }),
     getActiveDeals(),
     // Cross-store stock widget data — fetched server-side so the widget HTML
@@ -218,6 +220,12 @@ export default async function StrainSlugPage({
     // closes the bounce vector). Probes both inv-App URLs in parallel with
     // 5s timeout; nulls per store on failure → widget's "ask staff" fallback.
     fetchCrossStoreStock({ slug: s.slug }),
+    // Strain co-purchase rail data — Phase 2 Ship 2.4. Single-store fetch
+    // (Wen only here; SCC fetches from its own inv-App). Returns top 5
+    // partner strains by lift > 1.0 from THIS store's basket-level Markov
+    // data. Soft-fails to { partners: [] } on any error → rail renders
+    // nothing (honest empty-state contract: never show < 2 partners).
+    fetchStrainCoPurchase(s.slug),
   ]);
 
   const breadcrumbItems = [
@@ -394,6 +402,24 @@ export default async function StrainSlugPage({
           storeName={STORE.name}
         />
       </div>
+
+      {/* Co-purchase rail — Phase 2 Ship 2.4 (sister of admin Markov
+          dashboard at /admin/reports/strain-co-purchase, Phase 1B.3 / v428.5205).
+          "People who pick {strain} also reach for these" — top 5 partner
+          strains by basket-level lift > 1.0 from THIS store's sales data.
+          Voice: PATTERN observation (preference-as-fact about past customer
+          behavior), NOT effect claim. WSLCB 314-55-155 safe — verb-of-
+          preference rubric per STRAIN_COPY_VOICE_RUBRIC_2026_05_15. Honest
+          empty-state: renders nothing when < 2 partners survive (insufficient
+          basket signal, all below lift floor, transient API failure). No
+          customer counts, no purchase frequencies, no transaction IDs
+          surfaced to customers. Positioned after StrainInStockSection (live
+          inventory) and before the FAQ so a customer scanning the page has
+          a "what else" path before hitting the FAQ wall. */}
+      <StrainCoPurchaseRail
+        anchorName={s.name}
+        partners={coPurchase.partners}
+      />
 
       {/* Lineage tree */}
       {graph && (graph.parents.length > 0 || graph.descendants.length > 0) && (
