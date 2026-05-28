@@ -37,6 +37,7 @@ import { StrainLineageTree } from "@/components/StrainLineageTree";
 import { StrainInStockSection } from "@/components/StrainInStockSection";
 import { StrainStockWidget } from "@/components/StrainStockWidget";
 import { StrainCoPurchaseRail } from "@/components/StrainCoPurchaseRail";
+import { PickOfWeekStrip } from "@/components/PickOfWeekStrip";
 import { RecentlyViewedAutoStrip } from "@/components/RecentlyViewedAutoStrip";
 import { getStrainMatchedProducts, getActiveDeals } from "@/lib/db";
 import { fetchCrossStoreStock } from "@/lib/strain-stock-cross-store";
@@ -315,6 +316,20 @@ export default async function StrainSlugPage({
         <div className="-mt-2">
           <Breadcrumb items={breadcrumbItems} />
         </div>
+        {/* Pick-of-Week handoff strip — UX expert Move #6
+            (UI_EXPERT_DEEP_STRAIN_PAGE_2026_05_27.md). Sits below the
+            breadcrumb + above the H1 so the editorial context (Kat picked
+            it, why) is the FIRST thing a customer reads after the trail —
+            preserving the home-rail-to-detail handoff that otherwise dies
+            on the click. Renders ONLY when this slug IS the current week's
+            pick AND PICK_OF_THE_WEEK_ENABLED is ON. Otherwise returns null
+            entirely. Forward-looking polish: wires up the handoff before
+            Doug flips the flag + authors a pick. Sister scc byte-identical
+            (no brand-color swap — amber accent is the editorial-context
+            discipline shared across both stores). The component carries
+            its own max-w-3xl + px-4 wrapper so it doesn't fight the hero
+            section's padding. */}
+        <PickOfWeekStrip slug={slug} />
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 mb-3">
           {s.name}
         </h1>
