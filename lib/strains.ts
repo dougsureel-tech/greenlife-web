@@ -1212,7 +1212,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Diesel", "Citrus", "Sweet cream"],
     bestFor: ["After work", "Light social", "Casual creative", "Trying a high-shelf hybrid"],
-    avoidIf: ["You're very low-tolerance — MAC runs high", "You want pure sleep meds"],
+    avoidIf: ["You're very low-tolerance — MAC runs high", "You want a pure indica nightcap"],
     faqs: [
       {
         q: "What does MAC stand for?",
@@ -5466,7 +5466,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Vanilla", "Grape", "Sweet pastry"],
     bestFor: ["Late afternoon", "Casual social", "Date night"],
-    avoidIf: ["You want pure sleep meds", "Sweet aromas aren't your thing"],
+    avoidIf: ["You want a pure indica nightcap", "Sweet aromas aren't your thing"],
     faqs: [
       {
         q: "Is Wedding Crasher more like Wedding Cake or Purple Punch?",
@@ -6086,7 +6086,7 @@ export const STRAINS: Record<string, Strain> = {
     ],
     flavor: ["Vanilla", "Grape", "Sweet cream"],
     bestFor: ["Late afternoon", "Casual social", "After dinner"],
-    avoidIf: ["You want energetic", "You want pure sleep meds"],
+    avoidIf: ["You want energetic", "You want a pure indica nightcap"],
     faqs: [
       {
         q: "Is Sundae Driver indica or sativa?",
