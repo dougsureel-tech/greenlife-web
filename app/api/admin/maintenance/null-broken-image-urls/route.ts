@@ -68,7 +68,15 @@ export const dynamic = "force-dynamic";
 // vendor CDN URLs that happen to contain the substring. Single source
 // of truth used in BOTH the dry-run COUNT/sample queries AND the
 // execute-mode UPDATE WHERE clause.
-const BROKEN_PATTERN = "^https?://[^/]+/api/product-image\\b";
+// Postgres POSIX regex (used by the `~` operator): `\b` matches an ASCII
+// backspace character, NOT a word boundary as in PCRE. The previous
+// pattern silently matched 0 rows because no URL contains 0x08. Switched
+// to the explicit terminator characters `[?#&]` (legitimate URL boundaries
+// after the path segment) which preserves the safety property the original
+// `\b` was reaching for — vendor CDN URLs that happen to contain the
+// substring `/api/product-image` mid-path won't false-match because they
+// would have a `/` next (excluded by `[?#&]`) rather than a query string.
+const BROKEN_PATTERN = "^https?://[^/]+/api/product-image[?#&]";
 
 function secretMatches(provided: string, expected: string): boolean {
   if (provided.length !== expected.length) return false;
