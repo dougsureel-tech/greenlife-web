@@ -51,6 +51,18 @@ const TYPE_LABELS: Record<string, { label: string; chip: string; dot: string }> 
   hybrid: { label: "Hybrid", chip: "bg-green-50 text-green-800", dot: "bg-green-400" },
 };
 
+/** Confidence pill label + class per band. Voice rubric: stays
+ *  preference-observation ("Strong match"/"Good match"/"General direction")
+ *  — never causation. Color discipline: green=strong, emerald=good,
+ *  stone=general (neutral). Hide entirely for "general" on a card that's
+ *  NOT the top result — the customer doesn't need a pill on every row
+ *  saying the same thing. */
+const CONFIDENCE_PILL: Record<string, { label: string; chip: string }> = {
+  strong: { label: "Strong match", chip: "bg-green-100 text-green-900" },
+  good: { label: "Good match", chip: "bg-emerald-50 text-emerald-800" },
+  general: { label: "General direction", chip: "bg-stone-100 text-stone-700" },
+};
+
 /** Headline copy varies by which tokens the customer answered + how well
  *  we matched. All preference-observation voice, zero causation framing.
  *
@@ -199,18 +211,35 @@ export default async function QuizResultPage({
           className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
           aria-label={`${result.count} strain matches`}
         >
-          {result.cards.map((card) => {
+          {result.cards.map((card, i) => {
             const typeBadge =
               TYPE_LABELS[card.type] ?? { label: card.type, chip: "bg-stone-100 text-stone-700", dot: "bg-stone-400" };
+            // Confidence pill rendering policy: show on every card with
+            // strong/good confidence. For "general" confidence, show only
+            // on the top card (i === 0) — pinning a pill to every general-
+            // direction row would just be visual noise repeating the
+            // strategy banner above.
+            const confidencePill = CONFIDENCE_PILL[card.confidence];
+            const showConfidence = confidencePill && (card.confidence !== "general" || i === 0);
             return (
               <li key={card.slug}>
                 <Link
                   href={`/strains/${card.slug}`}
                   className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
                 >
-                  <h2 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 group-hover:text-green-900 transition-colors">
-                    {card.name}
-                  </h2>
+                  <div className="flex items-start justify-between gap-2">
+                    <h2 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 group-hover:text-green-900 transition-colors">
+                      {card.name}
+                    </h2>
+                    {showConfidence && (
+                      <span
+                        className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${confidencePill.chip}`}
+                        aria-label={`Match quality: ${confidencePill.label}`}
+                      >
+                        {confidencePill.label}
+                      </span>
+                    )}
+                  </div>
                   <p className="mt-1 text-xs sm:text-sm text-stone-600 leading-snug">
                     {card.tagline}
                   </p>

@@ -51,6 +51,22 @@ const TYPE_BADGE_CLASS: Record<string, string> = {
   hybrid: "bg-green-50 text-green-800 border-green-200",
 };
 
+/** Format a strain.verification.verifiedAt ISO date for the founder card
+ *  credibility line. Falls back to the raw ISO if parsing fails — never
+ *  crashes the page over a malformed date. UTC-anchored so the rendered
+ *  string is stable across the SSG build environment regardless of
+ *  whatever TZ the build machine is set to. */
+function formatVerifiedDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 function isFamilyInWave(): boolean {
   // Families are gated by the existing SEO_STRAIN_WAVE env (same lever
   // as per-strain pages). Wave >= 1 → indexable. Wave 0 (default) →
@@ -293,6 +309,24 @@ export default async function FamilyHubPage({
                   {anchor.lineage && (
                     <p className="text-[11px] text-stone-500 mt-3 font-mono">{anchor.lineage}</p>
                   )}
+                  {/* Verification credibility line — UX expert Move #12.
+                      Surfaces the verification metadata Doug populated
+                      across 5+ sources per strain. Reads as a "real shop"
+                      honesty cue (K&L Wines vintage-note pattern) rather
+                      than a marketing claim. Renders only when the data is
+                      populated — silent when absent. */}
+                  {anchor.verification &&
+                    anchor.verification.sources.length > 0 &&
+                    anchor.verification.verifiedAt && (
+                      <p className="text-[11px] text-stone-500 mt-3">
+                        Verified {formatVerifiedDate(anchor.verification.verifiedAt)} across{" "}
+                        {anchor.verification.sources.length}{" "}
+                        source{anchor.verification.sources.length === 1 ? "" : "s"}
+                        {anchor.verification.status === "verified-with-note" && (
+                          <span className="text-stone-400"> · updated when sources disagree</span>
+                        )}
+                      </p>
+                    )}
                 </div>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 group-hover:text-emerald-900 mt-4">
                   Open {anchor.name} page <span aria-hidden="true">→</span>

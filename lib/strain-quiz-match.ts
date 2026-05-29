@@ -133,6 +133,18 @@ export function scoreStrain(strain: Strain, tokens: QuizTokens): number | null {
   return score > 0 ? score : null;
 }
 
+/** Match-confidence tier — derived from the raw `scoreStrain` value but
+ *  exposed as a coarse band so the UI doesn't fabricate precision the
+ *  scoring algorithm doesn't support. Voice rubric: stays observational
+ *  ("Strong match"/"Good match"/"General direction") — never causation.
+ *
+ *  Banding (matches the scoreStrain weights):
+ *    - "strong"  — score ≥ 12 (= type-match +10 AND at least one terpene hit)
+ *    - "good"    — score ≥ 5  (= one solid signal: type alone, or top terpene)
+ *    - "general" — score ≥ 1, OR card was topped-up from corpus popularity
+ *                  when fewer than MIN_RESULTS scored above floor. */
+export type QuizMatchConfidence = "strong" | "good" | "general";
+
 /** Quiz-result strain card shape — minimal data the result page needs.
  *  Decouples the page render from the full `Strain` shape so the page
  *  contract stays narrow (no FAQ corpus, no body copy, etc.). */
@@ -148,6 +160,11 @@ export type QuizMatchCard = {
    *  beneath each card. Stays in preference-observation voice (no claim
    *  language). */
   matchReason: string;
+  /** Coarse confidence band the UI renders as a pill ("Strong match" /
+   *  "Good match" / "General direction"). Derived from the raw score; the
+   *  raw number is intentionally NOT exposed (avoid implying precision the
+   *  algorithm doesn't have). */
+  confidence: QuizMatchConfidence;
 };
 
 /** Match strategy used to compute the result set. Surfaced to the page so
@@ -196,8 +213,23 @@ function buildMatchReason(strain: Strain, tokens: QuizTokens): string {
   return parts.join(" · ");
 }
 
-/** Convert a Strain → QuizMatchCard. Pure shape projection. */
-function toCard(strain: Strain, tokens: QuizTokens): QuizMatchCard {
+/** Derive the coarse confidence band from a raw score. See
+ *  `QuizMatchConfidence` docstring for the banding rationale. */
+export function confidenceFromScore(score: number | null): QuizMatchConfidence {
+  if (score === null) return "general";
+  if (score >= 12) return "strong";
+  if (score >= 5) return "good";
+  return "general";
+}
+
+/** Convert a Strain → QuizMatchCard. Pure shape projection. Confidence
+ *  defaults to "general" when the caller didn't compute a score (e.g.
+ *  top-up rows from the popularity fallback path). */
+function toCard(
+  strain: Strain,
+  tokens: QuizTokens,
+  confidence: QuizMatchConfidence = "general",
+): QuizMatchCard {
   return {
     slug: strain.slug,
     name: strain.name,
@@ -207,6 +239,7 @@ function toCard(strain: Strain, tokens: QuizTokens): QuizMatchCard {
     thcRange: strain.thcRange,
     dominantTerpene: strain.terpenes?.[0]?.name,
     matchReason: buildMatchReason(strain, tokens),
+    confidence,
   };
 }
 
@@ -289,9 +322,16 @@ export function matchQuizStrains(tokens: QuizTokens): QuizMatchResult {
 
   // Top picks above floor — cap at MAX_RESULTS. The floor is "any positive
   // signal" (score > 0 — already enforced by scoreStrain returning null).
-  let cards = scored.slice(0, MAX_RESULTS).map((s) => toCard(s.strain, tokens));
+  // Confidence band is computed per-card from the raw score so the UI can
+  // render a coarse "Strong / Good / General direction" pill without
+  // exposing the underlying number.
+  let cards = scored
+    .slice(0, MAX_RESULTS)
+    .map((s) => toCard(s.strain, tokens, confidenceFromScore(s.score)));
 
   // If we got fewer than MIN_RESULTS, top up from corpus order (popularity).
+  // Top-up rows default to "general" confidence (they didn't score above
+  // the floor — they're popularity fallbacks, not actual matches).
   if (cards.length < MIN_RESULTS) {
     const have = new Set(cards.map((c) => c.slug));
     for (const slug of STRAIN_SLUGS) {
@@ -299,7 +339,7 @@ export function matchQuizStrains(tokens: QuizTokens): QuizMatchResult {
       if (have.has(slug)) continue;
       const s = STRAINS[slug];
       if (!s || s.legacy) continue;
-      cards.push(toCard(s, tokens));
+      cards.push(toCard(s, tokens, "general"));
       have.add(slug);
     }
     // If we had to top up at all, downgrade the strategy disclosure — the

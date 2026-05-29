@@ -160,9 +160,12 @@ export default function StrainsIndexPage() {
               Browse the live menu
               <span aria-hidden="true">→</span>
             </Link>
+            {/* Quiz CTA — hidden on mobile (collapses to the secondary
+                "Or browse..." row below the hero so the mobile fold isn't
+                competing affordances) · visible on sm+ where there's room. */}
             <Link
               href="/find-your-strain"
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300"
             >
               Take the 3-question quiz
             </Link>
@@ -171,7 +174,10 @@ export default function StrainsIndexPage() {
           {/* In-hero lens switcher — server-rendered anchor links between
               the two organizational lenses (By Type, the current default,
               and By Family, the new Family Album surface). Zero JS — the
-              two panels live further down the page as anchor targets. */}
+              two panels live further down the page as anchor targets.
+              A-Z pill is `hidden sm:inline-block` so the mobile lens row
+              stays at the load-bearing 2 (By Type / By Family) — the A-Z
+              browse path moves to the secondary row below the hero. */}
           <nav
             aria-label="Browse strains by"
             className="mt-7 flex flex-wrap gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em]"
@@ -192,12 +198,38 @@ export default function StrainsIndexPage() {
             {inWaveStrains.length > 0 && (
               <a
                 href="#a-z"
-                className="rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
+                className="hidden sm:inline-block rounded-full border border-white/30 text-white px-3 py-1.5 hover:bg-white/10 transition-colors"
               >
                 A–Z
               </a>
             )}
           </nav>
+        </div>
+      </section>
+
+      {/* Mobile-only secondary "Or browse..." row — carries the A-Z + quiz
+          paths that got pulled from the hero's primary affordances on
+          mobile. Per UX expert Move #10: dropping the mobile hero to 2
+          load-bearing CTAs (Browse menu + lens) keeps the mental model
+          clean while keeping these one tap away. Hidden on sm+ where the
+          hero already shows everything. */}
+      <section className="sm:hidden border-b border-stone-200 bg-stone-50">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-600">
+          <span className="text-stone-500">Or browse:</span>
+          {inWaveStrains.length > 0 && (
+            <a
+              href="#a-z"
+              className="rounded-full border border-stone-300 bg-white px-3 py-1.5 text-stone-700 hover:border-green-500 hover:text-green-900 transition-colors"
+            >
+              A–Z ({inWaveStrains.length} strains)
+            </a>
+          )}
+          <Link
+            href="/find-your-strain"
+            className="rounded-full border border-stone-300 bg-white px-3 py-1.5 text-stone-700 hover:border-green-500 hover:text-green-900 transition-colors"
+          >
+            Take the 3-question quiz
+          </Link>
         </div>
       </section>
 
