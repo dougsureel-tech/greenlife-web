@@ -12,8 +12,10 @@
 //   2. READ-ONLY in dry-run path — the SOLE `UPDATE` SQL string in the
 //      file must live AFTER the `if (dryRun) return ...` early-out.
 //      Pin counts: exactly 1 UPDATE statement, exactly 2 SELECT statements.
-//   3. Pattern regex byte-shape: `^https?://[^/]+/api/product-image\b`
-//      (anchored at start; no Bobby Tables interpolation).
+//   3. Pattern regex byte-shape: `^https?://[^/]+/api/product-image[?#&]`
+//      (anchored at start; URL-terminator boundary; no Bobby Tables interpolation).
+//      Previous `\b` was a Postgres POSIX-regex bug — matched backspace
+//      character, not word boundary. Fixed in v42.625 / v33.925.
 //   4. Auth-gate present: `Authorization` bearer + `CRON_SECRET` env.
 //   5. Execute flag MUST be present for writes: `?execute=true` keyword
 //      anchor must appear and gate the UPDATE path.
@@ -89,8 +91,8 @@ test("null-broken-image-urls — broken-pattern regex byte-shape pinned (anchore
   // truth — used in BOTH the COUNT/sample SELECTs AND the UPDATE WHERE.
   assert.match(
     ROUTE_SRC,
-    /BROKEN_PATTERN = "\^https\?:\/\/\[\^\/\]\+\/api\/product-image\\\\b"/,
-    "BROKEN_PATTERN regex byte-shape pinned",
+    /BROKEN_PATTERN = "\^https\?:\/\/\[\^\/\]\+\/api\/product-image\[\?#&\]"/,
+    "BROKEN_PATTERN regex byte-shape pinned (POSIX URL-terminator boundary)",
   );
 });
 
