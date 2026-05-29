@@ -137,3 +137,47 @@ test("check-client-imports-no-server-only — fix-guidance points to zero-deps e
     "fix-recipe: zero-deps extraction pinned",
   );
 });
+
+// ─── VRG-port type-only-import classifier hardening (fleet-leading) ────────
+// Back-ported from VRG-app v9.7.1085 (2026-05-26). Prevents false-positive
+// class where `import { type Foo } from "@/lib/server-only-x"` gets flagged
+// despite being safe (types erase at runtime, no bundle drag).
+
+test("check-client-imports-no-server-only — type-only-import classifier function present", () => {
+  assert.ok(
+    GATE_SRC.includes("isValueBearingImportClause"),
+    "type-only-import classifier function present (VRG-port hardening)",
+  );
+});
+
+test("check-client-imports-no-server-only — 4 import shapes documented in classifier", () => {
+  // The fleet-leading hardening — all 4 shapes from the brief:
+  //   `import type { Foo }` → SAFE (false)
+  //   `import { type Foo }` → SAFE (false)
+  //   `import { Foo, type Bar }` → FLAG (true — Foo is value)
+  //   `import { Foo }` → FLAG (true — value)
+  assert.ok(GATE_SRC.includes("import type { Foo }"), "type-only shape #1 documented");
+  assert.ok(GATE_SRC.includes("import { type Foo }"), "type-only shape #2 documented");
+  assert.ok(GATE_SRC.includes("import { Foo, type Bar }"), "mixed-shape #3 documented (flags)");
+  assert.ok(GATE_SRC.includes("erases at runtime"), "the WHY of type-only-safe documented");
+});
+
+test("check-client-imports-no-server-only — opt-out marker comment supported (rare intentional)", () => {
+  // Escape hatch for rare intentional cross-boundary imports.
+  assert.ok(
+    GATE_SRC.includes("server-only-client-bundle:intentional"),
+    "opt-out marker name pinned",
+  );
+  assert.ok(GATE_SRC.includes("OPT_OUT_RE"), "opt-out regex var present");
+});
+
+test("check-client-imports-no-server-only — type-only skip count surfaced in OK message", () => {
+  // Observability — operator should see how many type-only imports the
+  // classifier correctly skipped, so they can sanity-check the gate is
+  // distinguishing rather than silently passing everything.
+  assert.match(
+    GATE_SRC,
+    /type-only imports skipped/,
+    "type-only skip count in OK message",
+  );
+});
