@@ -1662,42 +1662,88 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Headband", "707 Headband", "OG Headband"],
     tagline: "Indica-leaning hybrid named for the 'headband' sensation around the temples.",
     intro:
-      "Headband gets its name from the gentle pressure-around-the-temples sensation some users report — like " +
-      "a soft band across the forehead. Indica-leaning hybrid with diesel-citrus aroma, relaxed body, " +
-      "calm but functional head. OG Kush × Sour Diesel parentage.",
+      "Headband is one of the older crosses on a modern Washington shelf, and the name does the work the " +
+      "marketing copy usually has to — a sustained mild pressure around the forehead that customers describe as " +
+      "a soft band across the temples. The parentage is OG Kush × Sour Diesel, which is essentially two of the " +
+      "most aroma-defining cuts of the last thirty years bred into one chemotype; the result reads as diesel and " +
+      "lemon on the nose with a kush-warmth underneath, and on the floor it lands as a head-leaning indica that " +
+      "still keeps a chunk of the Sour D head-character. Most of what gets sold today traces back to the 707 cut " +
+      "(named after the Humboldt-area area code where the keeper originated), with some growers carrying an OG " +
+      "Headband phenotype that leans noticeably more body-side; both are honest expressions of the lineage and " +
+      "customers on either side find their pick by aroma. The 'headband sensation' is anecdotal, not a guaranteed " +
+      "outcome — but enough customers report it that the name has held for two decades, which is unusual for a " +
+      "strain whose name describes a perception.",
     lineage: "OG Kush × Sour Diesel",
     parents: ["og-kush", "sour-diesel"],
     thcRange: "20–27%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Euphoric", "Calm"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery, the OG signature" },
-      { name: "Myrcene", note: "earthy body weight" },
-      { name: "Limonene", note: "citrus accent" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the OG signature — the peppery, warm-wood base note that gives Headband its grounded " +
+          "finish on the exhale and explains why the kush-warmth is still readable underneath the diesel. Same family " +
+          "of compounds as fresh-cracked black pepper, which is why the back of the tongue reads a peppery snap when " +
+          "a customer takes a slow draw and lets the smoke sit.",
+      },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the earthy bottom layer — the terpene driving what most regulars call the body cadence on " +
+          "Headband: a slow settle that arrives ten or fifteen minutes after the head-pressure feeling is already " +
+          "in place. It is the chemical reason the strain stops short of feeling pure-sativa even with the diesel " +
+          "reading so loud; the myrcene anchors the cadence body-side and keeps Headband from ever drifting racy.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the citrus accent on the top of the nose — bright lemon zest sitting just on top of the " +
+          "fuel, the layer most new customers do not consciously identify but that keeps the strain from reading as " +
+          "one-dimensional diesel. On exhale the limonene fades back behind the caryophyllene; on the inhale it is " +
+          "the brightness that makes Headband easier to smell-test in a flight against pure OG cuts.",
+      },
     ],
     flavor: ["Diesel", "Lemon", "Earthy"],
-    bestFor: ["Late afternoon", "Stress relief", "Light pain", "Couch + show"],
+    bestFor: [
+      "Best as a late-afternoon transition strain when the workday is closing",
+      "Pairs with a slow-cooked dinner, a couch, and a show with low stakes",
+      "Goes well with a heavy meal where the diesel-citrus cuts through richness",
+      "Returning customers who want the OG family on a head-leaning night",
+    ],
     avoidIf: ["You're new — Headband runs high", "You want pure sativa energy"],
     faqs: [
       {
         q: "Why is it called Headband?",
-        a: "Many users report a mild pressure around the temples — a 'headband' sensation. It's an anecdotal experience, not a guaranteed effect.",
+        a: "Customers report a sustained mild pressure around the temples that some describe as feeling like a soft band across the forehead. The sensation is anecdotal — not every customer feels it, and there is no guarantee any particular jar will produce it — but it has been reported consistently enough over two decades that the name has held. Most modern strain names describe aroma or lineage; Headband is one of the rare ones that describes perception.",
       },
       {
         q: "Is Headband indica, sativa, or hybrid?",
-        a: "Headband is a hybrid — a cross that pulls from both sides of the family tree. The lineage is OG Kush × Sour Diesel. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid, and the balance is closer than the indica-leaning reputation suggests. The OG Kush parent contributes the body weight and the warm kush finish; the Sour Diesel parent contributes the head-up character and the bright fuel-citrus aroma. Phenotype matters — the 707 Headband cut runs more diesel-forward and head-leaning, while OG Headband phenos lean noticeably more body-side. Both are honest.",
       },
       {
-        q: "What does Headband taste like?",
-        a: "Headband hits diesel up front, lemon through the middle, and earthy on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What does Headband actually taste like when you smoke it?",
+        a: "Diesel up front on the inhale, sharp and bright the way the Sour Diesel parent reads, with a lemon-zest layer riding on top that keeps the fuel from feeling heavy. On the exhale the kush-warmth comes through, peppery from the caryophyllene and earthy from the myrcene, with a damp-pine finish that lingers longer than the inhale would predict. Burns medium-clean. The ash is not as oily as a pure OG cut but heavier than a sativa.",
       },
       {
-        q: "How strong is Headband?",
-        a: "Headband tests in the 20–27% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How strong is Headband in the room?",
+        a: "Headband tests in the 20–27% THC range, with the upper phenos parked firmly at the high end of the shelf. Built-tolerance regulars usually find it dependable without anything surprising; for lower-tolerance customers the smarter first session is a half-dose or less, especially because the head-pressure feeling shows up before the body cadence has even started — that gap can read as disorienting if a customer was not expecting it. Most repeat customers report finding their comfortable dose by the second or third session.",
       },
       {
         q: "What time of day is Headband best for?",
-        a: "Headband reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        a: "Late afternoon into evening. The head-pressure arrives quickly enough that morning use tends to feel front-loaded; the body cadence comes on slow enough that customers who reach for it after dinner find the curve matches their evening. Some customers reach for it earlier in the day specifically for social settings where the head-up character helps; the 707 cut handles that better than OG Headband does.",
+      },
+      {
+        q: "What's the difference between 707 Headband and OG Headband?",
+        a: "707 Headband is the cut that originated in the 707 area code (Humboldt County, California) and runs more diesel-forward and head-leaning — closer to the Sour Diesel side of the family. OG Headband is the phenotype that leans the other direction, more body-cadence and kush-warm, closer to the OG Kush side. Most Washington shelves carry one or the other under the same Headband label; the aroma is the easiest tell — 707 reads brighter, OG reads heavier.",
+      },
+      {
+        q: "Why do my regular customers keep coming back for Headband specifically?",
+        a: "It scratches an itch the modern dessert-hybrid shelf does not. Customers who came up on OG-family flower in the 2010s and have rotated through twenty newer hybrids since often describe Headband as feeling familiar in a way the newer cuts do not — same lineage they remember, same diesel-and-pepper backbone, less of the sugary candy-fruit that has taken over the dessert side of the shelf. It reads as a returning-customer pick more than a new-customer pick.",
+      },
+      {
+        q: "How does Headband compare to its parents?",
+        a: "Against straight OG Kush: Headband runs noticeably brighter on the nose because the Sour Diesel parent brings the lemon-fuel layer that OG does not have on its own. Against Sour Diesel: Headband runs heavier on the body because the OG side contributes the kush-warmth and the myrcene base, and the head-character is more pressure-leaning than the Sour D head-up brightness. Customers who like the OG family but find Sour D too racey often land here.",
       },
     ],
     verification: {
@@ -2441,41 +2487,91 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Purple Punch", "PP"],
     tagline: "Sweet grape-and-blueberry indica — dessert nightcap.",
     intro:
-      "Purple Punch is the modern grape indica — sweet, fruity, body-heavy, a near-perfect end-of-day flower. " +
-      "Larry OG × Granddaddy Purple parentage. Grape-and-blueberry aroma, slow-onset, lands you on the couch.",
+      "Purple Punch is the dessert-grape indica of the modern shelf — Larry OG crossed with Granddaddy Purple by " +
+      "Symbiotic Genetics in the mid-2010s, and one of the strains that bridged the gap between the older " +
+      "purple-family heritage (GDP, Grape Ape, Mendo Purps) and the candy-sweet hybrid wave that took over the " +
+      "back half of that decade. The aroma is the immediate tell on the floor: grape Kool-Aid candy up front, " +
+      "with a blueberry-muffin sweetness sitting just underneath and a faint vanilla finish, the kind of jar " +
+      "that pulls a customer back from across the room. The Larry OG side keeps it from feeling pure sugar — " +
+      "there is a kush-warmth tucked under the fruit that gives the strain a backbone the pure dessert hybrids " +
+      "do not always have. On the body side it reads as a slow-onset indica that takes fifteen or twenty " +
+      "minutes to settle in and then lands cleanly in the evening cadence; customers reach for it specifically " +
+      "as a post-dinner pick rather than something to carry through a whole evening. Of the modern purple " +
+      "indicas on a Washington shelf, Purple Punch is the one with the loudest fruit-forward aroma.",
     lineage: "Larry OG × Granddaddy Purple",
     parents: ["larry-og", "granddaddy-purple"],
     thcRange: "18–25%",
     cbdRange: "<1%",
     effects: ["Sleepy", "Relaxed", "Happy", "Hungry"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "soft citrus accent" },
-      { name: "Pinene", note: "subtle pine" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base note that anchors Purple Punch and keeps the candy-grape from " +
+          "drifting into cartoon territory. It is the molecule that gives the exhale a warm-spice finish — the " +
+          "back-of-the-tongue snap that black pepper produces in the same family of receptors — and it is part of " +
+          "why returning customers describe the strain as 'sweet but not flat.' Without caryophyllene the grape " +
+          "would feel candy-syrupy; with it the strain reads grounded.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the soft citrus accent that sits between the grape and the kush-warm — bright lemon or " +
+          "candy-orange depending on phenotype, and the layer that explains why some Purple Punch jars read more " +
+          "Jolly Rancher than Welch's. It is also the most likely terpene driver behind the head-character that " +
+          "customers describe as 'gentle euphoria before the body lands'; the limonene fades back as the cadence " +
+          "settles into the body.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the trace pine note at the very bottom — barely readable on the inhale unless a customer is " +
+          "specifically looking for it, more an under-shimmer than a stated layer. It ties the strain back to the " +
+          "OG family ancestry on the Larry OG side, and customers with a sharp nose tend to pick it out as the " +
+          "structural reason Purple Punch does not collapse into one-dimensional sweetness the way some of the " +
+          "newer candy hybrids sharing the GDP grandparent do.",
+      },
     ],
     flavor: ["Grape", "Blueberry", "Sweet vanilla"],
-    bestFor: ["Sleep", "After-dinner couch time", "Stress melt"],
+    bestFor: [
+      "Best as a post-dinner indica into the couch",
+      "Pairs with dessert — the candy-grape lines up with vanilla ice cream or a fruit-forward pastry",
+      "Goes well with a slow movie or a long bath when the evening is closed",
+      "Returning customers chasing the loudest fruit-forward aroma on the purple-family shelf",
+    ],
     avoidIf: ["You need to function", "You want head-up creative energy"],
     faqs: [
       {
-        q: "Is Purple Punch a nighttime strain?",
-        a: "It's one of the more popular sleep-time picks on Washington shelves. Sweet, slow-onset, body-heavy — customers commonly reach for it for evening wind-down.",
+        q: "Who bred Purple Punch and when did it land?",
+        a: "Purple Punch was bred by Symbiotic Genetics in the mid-2010s — Larry OG (an OG Kush phenotype) crossed with Granddaddy Purple. The keeper cut traveled fast through California first and was sitting on a Washington shelf by the late 2010s. Almost every modern jar descends from that original Symbiotic line, although grower-cut variations split into two camps: phenos leaning toward the GDP side run heavier grape and denser purple coloration, while phenos leaning Larry OG side come through with more kush-warmth and less candy-sweet on the front.",
       },
       {
         q: "Is Purple Punch indica, sativa, or hybrid?",
-        a: "Purple Punch is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Larry OG × Granddaddy Purple.",
+        a: "Indica. The body cadence is the dominant character — slow-onset, evening-leaning, settles into the couch within about twenty minutes of finishing a session. There is a brief head-character on the front end (limonene-driven, gentle, head-light rather than head-up) but it fades back as the body lands. Customers reach for Purple Punch when they want the indica direction without the heavier old-school earthiness that strains like Northern Lights or straight GDP bring.",
       },
       {
-        q: "What does Purple Punch taste like?",
-        a: "Purple Punch hits grape up front, blueberry through the middle, and sweet vanilla on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "How does Purple Punch smoke versus how it smells in the jar?",
+        a: "On the inhale: grape candy up front, the way a Welch's juice box reads on the first sip, with a blueberry-skin layer sitting just underneath. On the exhale: vanilla sweetness comes through first, then the caryophyllene-warmth lands as a peppery back-of-the-tongue snap, then a soft kush-finish from the Larry OG side. Burns medium-slow. The smoke is loud — anyone in the same room is going to smell the grape.",
       },
       {
-        q: "How strong is Purple Punch?",
-        a: "Purple Punch tests in the 18–25% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How strong is Purple Punch on the shelf?",
+        a: "Lab numbers run in the 18–25% THC range, which puts most phenos comfortably mid-shelf. Customers with built tolerance read it as a confident indica; lower-tolerance customers find it easier to dose than a 28%+ dessert hybrid because the onset is slow enough that a customer who takes a moderate dose has fifteen or twenty minutes to recognize where they are before the body cadence fully arrives.",
       },
       {
         q: "What time of day is Purple Punch best for?",
-        a: "Purple Punch reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Post-dinner into the evening. The slow onset makes it a poor pick for any time a customer needs to be alert in the next hour, and the body cadence is heavy enough that even the loudest-fruit phenos do not work as a daytime carry. Some customers reach for it as a one-hour-before-bed pick specifically because the slow onset matches their sleep cadence; others find that landing it earlier in the evening lets the body settle before the sleep window arrives.",
+      },
+      {
+        q: "Why does Purple Punch smell so much louder than other indicas?",
+        a: "The terpene profile is loaded — heavy caryophyllene plus limonene plus the GDP-side grape compounds make for a jar that walks across a room. Some of the modern dessert hybrids in the same family lean candy-sweet but lose the aromatic weight in the cure; Purple Punch tends to hold its aroma well, which is one of the reasons returning customers cite it specifically over other purple-family options on the shelf.",
+      },
+      {
+        q: "How does Purple Punch compare to Granddaddy Purple?",
+        a: "GDP runs darker, earthier, and reads more old-school grape — closer to the wine-barrel side of the fruit register. Purple Punch runs brighter and candy-sweeter because the Larry OG parent adds a citrus-and-vanilla layer that GDP on its own does not have. Effect-wise the two land in the same evening cadence, but GDP feels heavier per milligram on the body and Purple Punch feels lighter on the head before the cadence arrives. Customers who like one usually like the other; the pick comes down to whether candy-sweet or wine-barrel reads better to a particular nose.",
+      },
+      {
+        q: "Does Purple Punch always come in actually purple?",
+        a: "Often, but not guaranteed. The purple color is driven by anthocyanins that express in cool overnight grow temperatures; growers who finish the strain in warmer rooms get jars that lean green with purple accents instead of fully purple buds. Color is a cosmetic indicator of the GDP ancestry, not a reliable proxy for potency or terpene loading — some of the loudest-aroma Purple Punch we have carried has been on the greener side of the spectrum.",
       },
     ],
     verification: {
@@ -3097,42 +3193,98 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Blueberry", "BB", "DJ Short Blueberry"],
     tagline: "Foundational sweet-berry indica — DJ Short's classic.",
     intro:
-      "Blueberry is the foundational sweet-berry indica — bred by DJ Short in the late 1970s, won the 2000 " +
-      "High Times Cup, and seeded a generation of fruit-forward strains. Parent of Blue Dream. " +
-      "Sweet blueberry aroma, body-heavy relaxed effect, classic indica wind-down.",
+      "Blueberry is one of the load-bearing heritage strains in modern cannabis, and the answer when an " +
+      "older customer asks what 'real blueberry flower' used to smell like before the candy-fruit hybrids took " +
+      "over the back end of the shelf. The credited breeder is DJ Short, who began the pheno-hunt in the late " +
+      "1970s working with Afghani indica seedlines and two Thai sativa lines (Purple Thai and Highland Thai, " +
+      "the latter sometimes called Juicy Fruit Thai in older catalogs), refining the keeper cuts through the " +
+      "1980s and into the 1990s. The strain broke into national attention by taking Best Indica at the 2000 " +
+      "Amsterdam High Times Cup — already a long-running underground favorite, the win moved it from cult to " +
+      "canonical. From a lineage " +
+      "perspective Blueberry is one of the most important crosses on the modern shelf because it is also the " +
+      "indica parent of Blue Dream; nearly every fruit-forward strain that has landed since traces some genetic " +
+      "ancestry back to DJ Short's work. On the floor the aroma reads as actual ripe blueberry skin — not " +
+      "blueberry candy or blueberry muffin, the real fruit — sitting over an earthy hash-base from the Afghani " +
+      "side. Customers who came up on modern dessert hybrids sometimes describe a true Blueberry jar as " +
+      "'subtle' compared to the candy-loud cuts; older customers describe it as 'what blueberry actually used " +
+      "to smell like.' Both reads are accurate; they are describing different generations of strain.",
     lineage: "Afghani × Purple Thai × Thai (Highland Thai)",
     parents: ["afghani", "purple-thai", "thai"],
     thcRange: "15–20%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Sleepy", "Happy", "Hungry"],
     terpenes: [
-      { name: "Myrcene", note: "earthy, body-heavy base" },
-      { name: "Caryophyllene", note: "peppery accent" },
-      { name: "Pinene", note: "soft pine" },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the body-cadence foundation and the molecule responsible for what most customers describe " +
+          "as the 'old-school' character of Blueberry — earthy, ripe-fruit-skin, with the damp-soil note that " +
+          "appears in nearly every heritage indica chemotype. It is the dominant terpene on most Blueberry lab " +
+          "reports, and it explains why the strain reads body-leaning even though the THC numbers are moderate by " +
+          "modern standards. Customers chasing the evening cadence reach for myrcene-forward indicas almost by " +
+          "default, and Blueberry is one of the cleaner expressions on the shelf.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery accent that gives Blueberry its grounded finish — a warm back-of-tongue " +
+          "snap on exhale, from the molecule family responsible for the bite in fresh-cracked peppercorn. On " +
+          "Blueberry specifically the role is preservative against sweetness: ripe-fruit-skin can drift toward " +
+          "jammy on its own, and the caryophyllene is the savory weight that keeps the chemotype balanced. Some " +
+          "lab reports put caryophyllene at the top of the chart for particular Blueberry phenos, which makes " +
+          "the peppery back-finish a useful identifier for a specific grower's cut.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the soft pine note arriving on the exhale just behind the earth — green and fresh, the way a " +
+          "broken-open pine branch reads, with no cleaner-chemical sharpness. It is the brightness layer that keeps " +
+          "Blueberry from collapsing into one-note earthy, and it is also one of the terpene markers tying the " +
+          "strain back to its Thai sativa ancestry; pure Afghani indicas typically do not produce this register, " +
+          "which is how a customer can tell a true DJ Short Blueberry apart from an indica-leaning hybrid that " +
+          "borrowed the name without inheriting the genetics.",
+      },
     ],
     flavor: ["Sweet blueberry", "Berry", "Earth"],
-    bestFor: ["Late afternoon", "Wind-down", "Stress relief", "Trying a classic"],
+    bestFor: [
+      "Best as an evening indica after the workday is closed",
+      "Pairs with a slow meal, a quiet room, and a low-key end of day",
+      "Goes well with returning customers who want the heritage chemotype rather than a candy hybrid",
+      "Anchor strain for anyone learning what the original fruit-forward indica register tasted like",
+    ],
     avoidIf: ["You want energetic head-up effects", "Sweet aromas turn you off"],
     faqs: [
       {
-        q: "Is Blueberry the parent of Blue Dream?",
-        a: "Yes — Blueberry is one of the parent strains of Blue Dream (the other is Haze). Blueberry contributes the sweet fruit aroma and the body-heavy side.",
+        q: "Is Blueberry actually the parent of Blue Dream?",
+        a: "Yes — Blueberry is one of the two parents of Blue Dream (the other is a Haze sativa). Blueberry contributes the fruit-forward aroma that gives Blue Dream its name, the body-cadence floor, and the Afghani backbone; Haze contributes the head-up character and the longer-burn finish. Customers who like Blue Dream and have never tried straight Blueberry usually find the lineage immediately legible the first time they open a jar.",
+      },
+      {
+        q: "Why does Blueberry matter historically?",
+        a: "Blueberry is the foundational fruit-forward chemotype in modern cannabis. DJ Short's pheno-hunt across the late 1970s and 1980s yielded one of the first commercially stable berry-aroma seedlines, and the 2000 Best Indica honor at Amsterdam's High Times Cup is what moved it from an underground favorite to a canonical anchor. Genetically the strain sits upstream of a generation of crosses — Blue Dream, Blueberry Headband, Berry White, Blue Cookies, and dozens of other 'blue' or 'berry' names on a 2026 shelf carry some DJ Short heritage in their family tree. Plenty of customers buy those descendants without ever connecting them back to Blueberry; the seedline did the work quietly.",
       },
       {
         q: "Is Blueberry indica, sativa, or hybrid?",
-        a: "Blueberry is an indica — body-leaning, with a heavier physical quality that customers reach for in the evening. The lineage is Afghani × Purple Thai × Thai (Highland Thai).",
+        a: "Indica, on the body-leaning end of the register despite the two Thai sativa parents sitting in the genetic background. The Afghani side carries the body weight and the hash-base aroma; the Purple Thai and Highland Thai contribute the fruit register and just enough head-character that the strain never collapses into one-note sedation. Customer reports tend to describe the experience as body-loose with a gentle head — the kind of cadence that lands a session squarely on the couch end of the evening rather than the kitchen end.",
       },
       {
-        q: "What does Blueberry taste like?",
-        a: "Blueberry hits sweet blueberry up front, berry through the middle, and earth on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "What does Blueberry actually taste like out of the jar versus when you smoke it?",
+        a: "Out of the jar the nose reads as actual ripe blueberry skin — the real fruit, not a candy approximation — over an earthy hash-base, with a faint pine note hiding just underneath. On the inhale the blueberry comes through first, sweet but not syrupy; on the exhale the earth lands and the pine accent appears, with a peppery finish from the caryophyllene that lingers longer than the inhale would predict. The taste-versus-smell match is unusually close, which is part of why customers describe the strain as 'honest.'",
       },
       {
-        q: "How strong is Blueberry?",
-        a: "Blueberry tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "How does Blueberry's potency sit next to a 28% modern hybrid?",
+        a: "Most Blueberry phenos COA between 15 and 20% THC, with the better keeper cuts reaching the 22–24% band. By 2026 shelf standards that reads as moderate rather than upper-tier — well under what the modern dessert hybrids are testing at. Regulars who came up on 28%+ cuts sometimes describe Blueberry as feeling 'milder on paper,' but the body-cadence chemotype delivers more per-milligram experiential weight than a balanced hybrid of the same number; the felt potency runs ahead of the lab figure. Newer customers tend to pace it easily; tolerance-built customers pick it for indica direction, not ceiling.",
       },
       {
         q: "What time of day is Blueberry best for?",
-        a: "Blueberry reads as an evening strain — body-heavy enough that customers commonly reach for it after dinner or at the end of the day, not before they need to be productive.",
+        a: "Evening, after the workday has closed out and the remainder of the night belongs to the couch. The body cadence makes Blueberry unworkable as a daytime carry for most customers, and the slow-onset arrival — ten or fifteen minutes before it settles in fully — makes it a bad fit any time alertness is required within the following hour. Some regulars do reach for it on a slow obligation-free afternoon; most reach for it as the post-dinner anchor of the evening.",
+      },
+      {
+        q: "How does Blueberry compare to other heritage indicas like Northern Lights or Granddaddy Purple?",
+        a: "Against Northern Lights: Blueberry comes through markedly fruitier on the nose because the Thai parents contribute aroma compounds that the Afghani-Thai NL chemotype does not. Effect-wise both arrive at a similar evening landing point, but Blueberry holds a lighter head feel through the session while NL leans heavier on body weight. Against Granddaddy Purple: GDP runs darker and more grape-forward — older-register cabernet rather than fresh produce — while Blueberry runs brighter, with the actual ripe berry character DJ Short was chasing. Most regulars who reach for one of these three rotate the other two in by season.",
+      },
+      {
+        q: "Why does Blueberry smell less loud than modern fruit-forward hybrids?",
+        a: "The aroma register is different rather than weaker. Modern dessert hybrids on the candy-fruit side of the shelf are often selected for very high concentrations of specific aroma compounds — limonene-dominant cuts that read like Jolly Ranchers, or linalool-and-caryophyllene cuts that read like bakery boxes. Blueberry's aroma comes from a more distributed terpene profile that produces actual-fruit character rather than candy-fruit character. The smell is unmistakable to anyone who has tried real Blueberry once; new customers who came up on candy-loud hybrids sometimes underestimate it on the first whiff.",
       },
     ],
     verification: {
@@ -3370,42 +3522,103 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Cheese", "UK Cheese", "Big Buddha Cheese"],
     tagline: "Pungent UK hybrid — yes, it really smells like cheese.",
     intro:
-      "Cheese is the British cannabis answer to Sour Diesel — a Skunk #1 phenotype with a deeply distinctive " +
-      "sharp-cheese aroma. Balanced hybrid, calm body, gently elevated head. UK Cheese is the most-circulated " +
-      "lineage; Big Buddha Cheese is a popular re-issue.",
+      "Cheese is the British cannabis classic and the strain most likely to teach a new customer what the word " +
+      "'pungent' means on a jar label. The lineage traces back to a Skunk #1 phenotype hand-picked in the late " +
+      "1980s by a UK grower (commonly credited to a Sensi Seeds Skunk #1 seed pack that produced a single " +
+      "anomalous keeper), then circulated through the British underground for years before commercial seedlines " +
+      "caught up. The original cut became known simply as UK Cheese; Big Buddha Cheese is the most successful " +
+      "commercial re-issue, crossing the original UK Cheese clone with an Afghani to stabilize the trait for " +
+      "seed production — and Big Buddha Cheese took home the 2006 Cannabis Cup Best Indica title in Amsterdam, " +
+      "which is what carried the chemotype into broader international circulation. The aroma is the " +
+      "entire point: sharp aged-cheddar with a sour-skunk base, the kind of jar that customers either " +
+      "immediately recognize from their teenage years in the UK or immediately ask 'is that a defect.' It is " +
+      "not a defect — it is the natural terpene chemistry, and there are not many other strains that produce " +
+      "anything close to it on the modern shelf. Effect-wise it reads as an indica-leaning hybrid with a clear " +
+      "head-character; the balance is closer than the pungent-skunk aroma would suggest, and customers who " +
+      "expect a couch-locker the first time are often surprised by how head-up the cadence is for the first " +
+      "thirty minutes before the body settles. The aroma is polarizing — half the customers who walk past it " +
+      "specifically request it next time; the other half walk past it forever — but it is one of the most " +
+      "honest strain-name-matches in cannabis.",
     lineage: "Skunk #1 phenotype",
     parents: ["skunk-1"],
     thcRange: "15–20%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Uplifted", "Creative"],
     terpenes: [
-      { name: "Myrcene", note: "earthy base, the cheese anchor" },
-      { name: "Caryophyllene", note: "peppery accent" },
-      { name: "Pinene", note: "soft pine" },
+      {
+        name: "Myrcene",
+        note:
+          "Myrcene is the earthy bottom layer and the molecule that anchors what most customers identify as the " +
+          "'cheese' character — damp soil, fermented hay, the chemistry that produces sharp-aged-cheese aroma in " +
+          "actual dairy fermentation overlaps with what myrcene-heavy cannabis chemotypes produce in the cure. " +
+          "It is also the chemical reason Cheese lands indica-leaning even though the lineage suggests a more " +
+          "balanced cross; the body cadence tracks directly to the myrcene loading.",
+      },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery accent that gives Cheese its substantial finish — the warm-spice base on " +
+          "the exhale, same compound family as fresh-cracked black pepper. On a strain this aromatically loud the " +
+          "caryophyllene is what keeps the sharp-cheese top from drifting into one-note territory; it is the " +
+          "structure beneath the pungency, and customers who have tried both UK Cheese and Big Buddha Cheese " +
+          "describe the Big Buddha version as having a more pronounced peppery exhale because of the Afghani " +
+          "parent contributing additional caryophyllene weight.",
+      },
+      {
+        name: "Pinene",
+        note:
+          "Pinene is the soft pine note that surprises new customers the first time they take a slow draw — " +
+          "fresh-crushed pine needles riding on the back of the exhale, the layer that gives Cheese a touch of " +
+          "head-up clarity riding alongside the developing body cadence. It is also the terpene marker that ties Cheese back " +
+          "to the broader Skunk family ancestry; pure indica chemotypes typically do not produce a pinene layer " +
+          "this clean, and the brightness is part of why Cheese stays head-engaged for longer than the aroma " +
+          "would predict.",
+      },
     ],
     flavor: ["Sharp cheese", "Earthy skunk", "Sour"],
-    bestFor: ["Easy afternoon", "Casual social", "Trying something distinctive"],
+    bestFor: [
+      "Best as the strain that closes the workday into the early evening hours",
+      "Pairs with a hearty meal — the sharp-cheese aroma lines up with savory food rather than dessert",
+      "Goes well with social settings where a head-engaged hybrid carries the conversation",
+      "Returning customers chasing the rare actual-cheese chemotype that nothing else on the shelf produces",
+    ],
     avoidIf: ["You want a discreet aroma", "Pungent flavors turn you off"],
     faqs: [
       {
         q: "Does Cheese actually smell like cheese?",
-        a: "Yes — sharp, pungent, distinctively cheesy. It's the natural terpene profile (heavy myrcene + caryophyllene over a sour-skunk base).",
+        a: "Yes — sharp, pungent, distinctively aged-cheddar with a sour-skunk base underneath. The aroma is the natural terpene chemistry (heavy myrcene plus caryophyllene over a Skunk #1 ancestral funk), not a marketing description that got attached after the fact. It is one of the most accurate strain-name-matches in cannabis, and customers who open a jar for the first time consistently respond with some version of 'oh, it actually smells like cheese.' Some find it appealing; some find it polarizing; almost no one finds it ambiguous.",
+      },
+      {
+        q: "Where did Cheese come from?",
+        a: "The original UK Cheese cut was hand-picked in the late 1980s by a British grower out of a Sensi Seeds Skunk #1 seed pack — a single anomalous phenotype producing the sharp aged-cheese aroma the rest of the pack did not. The cut circulated through the British underground for years as a clone-only variety before commercial seedlines could catch up. Big Buddha Cheese is the most successful seed-form re-issue, bred by crossing the original UK Cheese clone with an Afghani to stabilize the trait for seed production; Big Buddha's seed-form version captured the Cannabis Cup Best Indica trophy in Amsterdam in 2006, which is what carried the chemotype into broader international circulation.",
       },
       {
         q: "Is Cheese indica, sativa, or hybrid?",
-        a: "Cheese is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Skunk #1 phenotype. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid. Cheese sits much closer to center than the indica-dominant labeling on most jars implies. The Skunk #1 ancestry brings a clear head-character that holds for the first thirty to forty minutes of a session before yielding to the body cadence; the Afghani in Big Buddha's seed version pulls noticeably more indica-side than the original UK Cheese clone-only cut. Daytime-pick customers tend to find the early head-character workable; evening-pick customers find the body settle reliable once it arrives.",
       },
       {
-        q: "What does Cheese taste like?",
-        a: "Cheese hits sharp cheese up front, earthy skunk through the middle, and sour on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Is the flavor on the smoke as loud as the cheese-smell in the jar?",
+        a: "Yes — Cheese is one of the rare strains where the smoke matches the jar one-for-one. Sharp aged-cheddar comes in on the first draw, with the sour-skunk layer riding underneath the way it does on the crack of the jar. Exhale brings damp pine from the Skunk ancestry, a peppery back-of-tongue warmth from the caryophyllene, and the cheese still hanging in the room for a long stretch after. Most strains shift character between jar and smoke; Cheese does not. Medium-slow burn, dense ash.",
       },
       {
-        q: "How strong is Cheese?",
-        a: "Cheese tests in the 15–20% THC range — a moderate, mainstream potency band. Most customers find it predictable without being overwhelming.",
+        q: "How strong is Cheese on the shelf?",
+        a: "Most modern Cheese cuts land 15–20% on the COA — moderate for a 2026 shelf where dessert hybrids regularly clear 28%. Returning UK Cheese regulars often describe the strain as feeling more present per milligram than the THC number implies, especially in the first half hour when the Skunk-ancestry head-character is doing most of the work; the aroma loading carries a perceived intensity that the raw potency does not. Lower-tolerance customers usually find Cheese easy to pace, and high-tolerance customers tend to pick it for the cheese-aroma chemotype rather than for ceiling.",
       },
       {
         q: "What time of day is Cheese best for?",
-        a: "Cheese reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        a: "Mid-to-late afternoon, rolling into the evening. The head-engaged opening half-hour makes Cheese viable as a strain to bridge from the workday into the night; the body cadence that comes in behind it limits how late into a focus-required task a customer can carry it — past about two hours and the cadence is too settled for sharp work. Some regulars take it specifically into social settings because the head-character carries conversation; others land it after a heavy meal because the aroma pairs with savory food unusually well.",
+      },
+      {
+        q: "Why does Cheese smell so much louder than other Skunk-family strains?",
+        a: "The original UK Cheese phenotype was selected for an unusual terpene expression that produces aged-dairy aroma compounds at concentrations most cannabis chemotypes do not reach. The chemistry that makes aged cheddar smell like aged cheddar (specific short-chain fatty acid compounds produced by fermentation) overlaps in interesting ways with what myrcene-and-caryophyllene-heavy cannabis chemotypes can produce in the cure. Other Skunk #1 phenotypes carry the underlying skunk-funk; Cheese specifically carries the dairy-fermentation top layer that almost nothing else on the shelf produces.",
+      },
+      {
+        q: "What's the difference between UK Cheese and Big Buddha Cheese?",
+        a: "UK Cheese is the original clone-only cut from the late 1980s — circulated through the British underground for years, and still considered the gold-standard expression of the chemotype by older UK regulars. Big Buddha Cheese is the seed-form re-issue from the early 2000s, made by crossing the UK Cheese clone with an Afghani to produce a stable seed-line. Big Buddha leans noticeably more indica-side because of that Afghani parent; UK Cheese leans more head-engaged. Both produce the same sharp-cheese aroma. Modern Washington shelves stock one or the other under the simple 'Cheese' label and rarely both at once.",
+      },
+      {
+        q: "How does Cheese compare to other distinctive-aroma strains like Sour Diesel?",
+        a: "Both are strains where the aroma is the entire identity — Sour Diesel is the gas-and-citrus East Coast classic, Cheese is the aged-cheddar UK classic, and both produce immediate yes-or-no reactions on the floor. Sour Diesel runs noticeably more head-up and racey; Cheese runs more head-engaged at first then settles body-side. Regulars who like one usually appreciate the other even when they do not pick it; both belong to the rare category of strains where the nose alone is the request — customers ask by smell, not by genetics or by THC number.",
       },
     ],
     verification: {
@@ -8665,42 +8878,94 @@ export const STRAINS: Record<string, Strain> = {
     aliases: ["Gushers", "White Gushers", "TK41"],
     tagline: "Cookies Fam — Triangle Kush × Gelato 41, candy-fruit hybrid.",
     intro:
-      "Gushers (sometimes White Gushers or TK41) is a Cookies Fam cross of Triangle Kush × Gelato 41 — " +
-      "indica-leaning hybrid with a sweet candy-fruit aroma and a head-forward-then-mellow effect. Bright " +
-      "green buds with heavy trichome coverage; popular modern dessert hybrid.",
+      "Gushers (sometimes White Gushers or TK41 on grower-side labels) is a Cookies Fam cross of Triangle Kush " +
+      "by Gelato 41, originally bred by Connected Cannabis Co and folded into the Cookies catalog through the " +
+      "late 2010s. The strain takes its name from the candy aroma — sweet tropical fruit with a candy-skin top " +
+      "that reads like the actual Gushers fruit snack the name references, which is one of the things that " +
+      "makes it polarizing inside the WSLCB advertising frame; the smell is honestly that candy-loud, and the " +
+      "name is descriptive rather than aspirational. The parentage stacks two of the heavy hitters in the " +
+      "modern Cookies family: Triangle Kush contributes the OG-kush backbone and the sticky resin density, " +
+      "and Gelato 41 contributes the dessert-sweet top and the bright trichome coverage that gives some phenos " +
+      "the 'White Gushers' nickname. On the floor the buds are usually bright green with heavy frosting and a " +
+      "sometimes-pink calyx — visually it is one of the more recognizable modern hybrids in a flight, even " +
+      "before the jar opens. Effect-wise the cadence reads as head-forward for the first thirty or forty " +
+      "minutes (the Gelato side carrying the brightness) before the Triangle Kush base settles in body-side; " +
+      "customers reach for it as a post-work transition strain more than a deep-evening anchor.",
     lineage: "Triangle Kush × Gelato 41",
     parents: ["triangle-kush", "gelato-41"],
     thcRange: "20–26%",
     cbdRange: "<1%",
     effects: ["Relaxed", "Happy", "Uplifted", "Tingly"],
     terpenes: [
-      { name: "Caryophyllene", note: "peppery base" },
-      { name: "Limonene", note: "sweet candy citrus" },
-      { name: "Linalool", note: "floral lavender" },
+      {
+        name: "Caryophyllene",
+        note:
+          "Caryophyllene is the peppery base note that grounds Gushers and explains why the candy-sweet top " +
+          "does not flatten into one-dimensional sugar — a warm-spice read on exhale, working in the same " +
+          "olfactory family as clove and cracked peppercorn. The molecule provides the structural floor that " +
+          "the dessert aroma sits on, and it is also what ties the chemotype back to the OG-family ancestry on " +
+          "the Triangle Kush side. Customers who specifically pick out the peppery exhale are usually tasting " +
+          "the kush parent doing its work underneath the candy.",
+      },
+      {
+        name: "Limonene",
+        note:
+          "Limonene is the sweet citrus layer in the middle of the nose — closer to candy-orange or tropical " +
+          "fruit punch than to fresh lemon zest, and the dominant aroma driver in the Gelato 41 parent that " +
+          "Gushers inherited. It is part of why the strain reads as 'candy' rather than 'fresh fruit'; the " +
+          "limonene loading on a true Gushers cut runs noticeably higher than on its Gelato grandparent, which " +
+          "is the chemical reason the name actually fits.",
+      },
+      {
+        name: "Linalool",
+        note:
+          "Linalool is the floral lavender note on the back end — soft and clean, the layer most customers do " +
+          "not consciously name but that explains the gentle head-character of the strain. It is unusual to see " +
+          "linalool ranking in the top three on a Cookies-family cut, and the trace of it on Gushers is one of " +
+          "the things that distinguishes the strain from straight Gelato or straight Triangle Kush; it is the " +
+          "compound that makes Gushers feel softer on the head than its potency band would predict.",
+      },
     ],
     flavor: ["Candy fruit", "Sweet berry", "Tropical"],
-    bestFor: ["After work", "Casual social", "Couch + show"],
+    bestFor: [
+      "Best as a post-work transition strain when the day is closing but the evening is open",
+      "Pairs with dessert — the candy-fruit aroma lines up with fruit-forward pastry or sorbet",
+      "Goes well as an early-evening social pick — the candy-aroma is a conversation starter on its own",
+      "Returning Cookies-family customers chasing the loudest candy-aroma chemotype in the catalog",
+    ],
     avoidIf: ["Low-tolerance — runs high", "You want a clean head-up sativa"],
     faqs: [
       {
-        q: "Is Gushers the same as White Gushers?",
-        a: "Yes — same strain. White Gushers (or TK41) refers to the frostier phenotypes; the underlying cross is the same Triangle Kush × Gelato 41.",
+        q: "Is Gushers the same as White Gushers and TK41?",
+        a: "Same underlying strain, different cut labels. White Gushers refers to the phenotypes that come out heaviest on trichome coverage — the frostiest expressions of the cross, which look nearly white when fully cured. TK41 is a grower-side abbreviation for Triangle Kush 41, which is just the parental cross name. All three labels point to the same Connected Cannabis Co cross. The Cookies-released seedling carries the simple 'Gushers' name on most Washington shelves.",
+      },
+      {
+        q: "Who bred Gushers and when did it land?",
+        a: "Gushers was bred by Connected Cannabis Co and made commercially available through the Cookies Fam catalog in the late 2010s. Connected is a California-based breeder responsible for several of the modern Cookies-family aroma classics, and Gushers is one of the more successful candy-fruit chemotypes from that program. The cut moved fast through California and was on a Washington shelf within a couple of years; most growers carrying it today work from the Connected-derived seedline or clones descended from it.",
       },
       {
         q: "Is Gushers indica, sativa, or hybrid?",
-        a: "Gushers is a hybrid — a cross that pulls from both sides of the family tree. The lineage is Triangle Kush × Gelato 41. The balance leans on phenotype and the day-of harvest.",
+        a: "Hybrid — and through the first thirty to forty minutes of a session the experience sits closer to center than the indica-leaning labeling suggests. Gelato 41 carries the head-forward brightness and the candy-aroma top; Triangle Kush brings the OG-family backbone and the body cadence that takes over once the opening head-engagement fades. Customers who pick Gushers up as a daytime hybrid usually find the front window manageable; the body settle is reliably there for anyone reaching for it as an evening pick.",
       },
       {
-        q: "What does Gushers taste like?",
-        a: "Gushers hits candy fruit up front, sweet berry through the middle, and tropical on the exhale. The smell out of the jar reads the same way — distinctive once you've had it once or twice.",
+        q: "Does Gushers really taste like the candy on the smoke?",
+        a: "Inhale reads candy-fruit immediately — sweet and bright, the way the actual Gushers snack does on the first chew, with a tropical undercurrent that sits closer to fruit punch than to any single named fruit. The exhale shifts: the candy fades, a soft floral lavender layer comes forward from the linalool, and a low peppery hum from the kush-side caryophyllene runs underneath without dominating. Burns medium-clean; ash holds. Anyone in the room is going to smell candy-fruit for a stretch.",
       },
       {
-        q: "How strong is Gushers?",
-        a: "Gushers tests in the 20–26% THC range, which puts it on the higher end of the shelf. Customers with a built tolerance handle it fine; lower-tolerance customers should go a half-dose or less the first time.",
+        q: "How strong is Gushers on the shelf?",
+        a: "Gushers tests 20–26% on most COAs, parking it on the upper end of the modern shelf. The head-character arrives fast — that is the Gelato 41 parent doing the work in the first five minutes — and customers without built tolerance can find a full dose disorienting before the body cadence has even started; a half-dose first session is the more sensible play. The back-half landing is noticeably softer than the opening, which is part of why returning Cookies-fam customers describe Gushers as 'easier to come down from than it is to come up on.'",
       },
       {
         q: "What time of day is Gushers best for?",
-        a: "Gushers reads as a late-afternoon or evening strain — balanced enough that customers commonly reach for it after work, social settings, or a quiet night in.",
+        a: "Late afternoon rolling into early evening. The head-forward opening window makes Gushers workable as a closing-out-the-workday strain when the customer is moving into social hours; the body cadence that arrives behind it makes it a less viable pick for any session where alertness needs to hold past about two hours in. Some regulars take a dose roughly an hour ahead of dinner to ride the head-character through the meal; others reach for it post-dinner specifically to land the body cadence on the couch.",
+      },
+      {
+        q: "Why does Gushers smell so much like actual candy fruit?",
+        a: "The limonene-and-linalool combination on a Cookies-family caryophyllene base produces aroma compounds that overlap with what commercial candy-fruit flavoring uses to approximate tropical fruit. It is a coincidence of chemistry rather than a designed outcome — the breeder selected for the keeper phenotype because the aroma was unusual, and the name followed the smell rather than the other way around. Other strains in the Cookies family produce candy character, but few of them produce a candy-fruit register this specifically aligned with a commercial fruit-snack product.",
+      },
+      {
+        q: "How does Gushers compare to Gelato or Wedding Cake?",
+        a: "Against straight Gelato: Gushers runs noticeably candy-fruit-forward where Gelato runs more dessert-sweet — closer to fruit punch than to pastry. Effect-wise both land in the same head-then-body cadence, but Gushers feels slightly heavier on the back end because the Triangle Kush parent contributes more body weight than Gelato's other parents. Against Wedding Cake: Wedding Cake runs more vanilla-bakery and noticeably more body-side; Gushers runs brighter and more head-engaged for the first hour. Customers who like one usually like the others; the pick comes down to which aroma register fits the evening.",
       },
     ],
     verification: {
