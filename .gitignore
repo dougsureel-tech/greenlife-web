@@ -48,3 +48,6 @@ next-env.d.ts
 /public/next.svg
 /public/vercel.svg
 /public/window.svg
+
+# agent-session-local state (worktrees, runtime) — never tracked
+.claude/
