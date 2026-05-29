@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { STRAINS } from "@/lib/strains";
+import { StrainCard } from "@/components/StrainCard";
 import type { CoPurchasePartner } from "@/lib/strain-co-purchase-fetch";
 
 // Customer-facing strain co-purchase rail. Phase 2 Ship 2.4 of the Strain
@@ -8,8 +8,14 @@ import type { CoPurchasePartner } from "@/lib/strain-co-purchase-fetch";
 //
 // Renders below StrainInStockSection + above the FAQ on /strains/[slug]. The
 // rail surfaces the top 5 partner strains by lift > 1.0 from THIS store's
-// basket-level Markov data. Each partner card: name + type chip + tagline
-// (one line) + link to that strain page.
+// basket-level Markov data. Each partner card delegates to the SSoT
+// `<StrainCard variant="compact" />` primitive — type chip + name + 1-line
+// tagline. The chip-row hierarchy matches the rest-of-site V2 strain
+// surfaces (A-Z hub + quiz result) so customers feel one consistent card
+// language across the journey. Migrated to the primitive 2026-05-28
+// (Round 2 of the StrainCard SSoT arc); previous version used a bespoke
+// eyebrow-dot pattern for the type indicator which diverged from the
+// V2 hierarchy.
 //
 // Voice: "People who pick {strain_name} also reach for these" — PATTERN
 // observation (preference-as-fact about past customer behavior), NOT effect
@@ -34,21 +40,6 @@ export type StrainCoPurchaseRailProps = {
   anchorName: string;
   /** Partners as returned by the inv-App endpoint. May be empty. */
   partners: CoPurchasePartner[];
-};
-
-// Type-color dot palette — same emerald/violet/red/sky palette the strain
-// page hero context strip uses. Keeps the type signal consistent across the
-// page.
-const TYPE_DOT_CLASS: Record<string, string> = {
-  indica: "bg-purple-400",
-  sativa: "bg-red-400",
-  hybrid: "bg-green-400",
-};
-
-const TYPE_LABEL: Record<string, string> = {
-  indica: "Indica",
-  sativa: "Sativa",
-  hybrid: "Hybrid",
 };
 
 export function StrainCoPurchaseRail({
@@ -102,29 +93,15 @@ export function StrainCoPurchaseRail({
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
       >
         {enrichedPartners.map((p) => (
-          <Link
+          <StrainCard
             key={p.slug}
-            href={`/strains/${p.slug}`}
-            className="rounded-xl border border-stone-200 bg-white hover:border-stone-400 hover:shadow-sm transition-all px-4 py-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
-          >
-            <div className="flex items-center gap-1.5 mb-1">
-              <span
-                aria-hidden="true"
-                className={`inline-block h-2 w-2 rounded-full ${TYPE_DOT_CLASS[p.type] ?? "bg-stone-400"}`}
-              />
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-stone-600">
-                {TYPE_LABEL[p.type] ?? p.type}
-              </span>
-            </div>
-            <div className="text-sm font-semibold text-stone-900 group-hover:underline">
-              {p.name}
-            </div>
-            {p.tagline && (
-              <div className="text-xs text-stone-600 mt-0.5 line-clamp-1">
-                {p.tagline}
-              </div>
-            )}
-          </Link>
+            slug={p.slug}
+            name={p.name}
+            type={p.type}
+            tagline={p.tagline}
+            variant="compact"
+            accent="green"
+          />
         ))}
       </nav>
     </section>

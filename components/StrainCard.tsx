@@ -21,12 +21,21 @@ import Link from "next/link";
 //
 // OUT OF SCOPE: the "founder card" hero variant on /strains/families/
 // [family] (different hierarchy: lineage line, "Founder strain" badge,
-// verification metadata block, "Open {name} page →" CTA). Out of scope:
-// FamilyStrainTile member-grid (lineage-line variant, not tagline-V2).
-// Out of scope: StrainCoPurchaseRail (dot-pattern compact variant).
-// Those surfaces would require expanding the props significantly and
-// would push the primitive toward a god-component. Keep this primitive
-// tight around the V2 hierarchy that already converged on 2 surfaces.
+// verification metadata block, "Open {name} page →" CTA + hero size).
+// Out of scope: FamilyStrainTile member-grid (lineage-line variant +
+// inline anchor "· founder" eyebrow + no tagline + no chip row — 3
+// orthogonal shape differences that would force `variant: "lineage"`
+// + `lineageNote` + `isAnchor` flags that don't compose cleanly with
+// the V2 hierarchy below). Both surfaces stay raw — if a separate
+// primitive emerges (`<StrainFounderCard>` or `<StrainLineageTile>`)
+// that's the right decomposition, NOT bloating this one.
+//
+// Round 2 (2026-05-28) added `variant: "compact"` for the partner-rail
+// surface — same V2 hierarchy (chip row of type + terpene + THC + pill)
+// but smaller font + tighter padding + line-clamp-1 tagline. The
+// migration converges the partner cards onto the V2 hierarchy as a
+// side-benefit (chip-style type vs prior eyebrow-dot-style — alignment
+// with the rest of the site is the SSoT compound win).
 
 /**
  * Type chip styling per shelf category — green=hybrid, red=sativa,
@@ -49,12 +58,15 @@ export type StrainCardProps = {
   /** Shelf category — drives chip color. */
   type: string;
   /**
-   * Required tagline — the card hierarchy contract assumes a populated
-   * 1-sentence tagline. Callers that have strains with empty taglines
-   * should fall back to their own legacy rendering (see app/strains/
-   * page.tsx for the pattern) rather than passing "" here.
+   * Tagline — the V2 default-variant hierarchy contract assumes a
+   * populated 1-sentence tagline. Callers that have strains with empty
+   * taglines on the V2 hub should fall back to their own legacy
+   * rendering (see app/strains/page.tsx for the pattern) rather than
+   * passing "" here. Compact-variant callers may pass null when the
+   * tagline is unavailable from their corpus — the tagline line is
+   * rendered only when truthy.
    */
-  tagline: string;
+  tagline: string | null;
   /** Dominant terpene name (e.g. "Myrcene"). Omitted when absent. */
   dominantTerpene?: string | null;
   /** Typical THC range, e.g. "17–24%". Omitted when absent. */
@@ -95,6 +107,23 @@ export type StrainCardProps = {
    * document outline.
    */
   headingLevel?: "h2" | "h3";
+  /**
+   * Visual size variant.
+   *  - "default" (the V2 hub hierarchy): text-base/lg bold name +
+   *    text-xs/sm leading-snug tagline + chip row. Used by the A-Z
+   *    library grid and the quiz result page.
+   *  - "compact": text-sm semibold name + text-xs line-clamp-1 tagline
+   *    + tighter padding (px-4 py-3 instead of py-3.5). Used by the
+   *    partner-rail surface on /strains/[slug] where each card is one
+   *    of 5 in a multi-column grid below other content.
+   *
+   * Default = "default". This is intentionally a single binary axis
+   * (size/density). Other axes (lineage line, founder badge, hero
+   * size, verification metadata block) belong on a separate primitive
+   * — bolting them onto this one would make the prop surface a
+   * combinatorial god-component.
+   */
+  variant?: "default" | "compact";
 };
 
 /**
@@ -124,6 +153,7 @@ export function StrainCard({
   pill,
   matchReason,
   headingLevel = "h3",
+  variant = "default",
 }: StrainCardProps) {
   const href = linkOverride ?? `/strains/${slug}`;
   const typeBadge =
@@ -144,19 +174,26 @@ export function StrainCard({
           nameHover: "group-hover:text-green-900",
         };
 
+  // Variant-aware typography + padding. Tailwind requires literal class
+  // strings so we branch rather than interpolate.
+  const isCompact = variant === "compact";
+  const padClass = isCompact ? "px-4 py-3" : "px-4 py-3.5";
+  const nameClass = isCompact
+    ? `text-sm font-semibold text-stone-900 ${accentClasses.nameHover} transition-colors`
+    : `text-base sm:text-lg font-bold tracking-tight text-stone-900 ${accentClasses.nameHover} transition-colors`;
+  const taglineClass = isCompact
+    ? "mt-1 text-xs text-stone-600 line-clamp-1"
+    : "mt-1 text-xs sm:text-sm text-stone-600 leading-snug";
+
   const Heading = headingLevel;
 
   return (
     <Link
       href={href}
-      className={`group block h-full rounded-xl bg-white border border-stone-200 ${accentClasses.border} hover:shadow-sm transition-all px-4 py-3.5 focus:outline-none focus-visible:ring-2 ${accentClasses.ring}`}
+      className={`group block h-full rounded-xl bg-white border border-stone-200 ${accentClasses.border} hover:shadow-sm transition-all ${padClass} focus:outline-none focus-visible:ring-2 ${accentClasses.ring}`}
     >
       <div className="flex items-start justify-between gap-2">
-        <Heading
-          className={`text-base sm:text-lg font-bold tracking-tight text-stone-900 ${accentClasses.nameHover} transition-colors`}
-        >
-          {name}
-        </Heading>
+        <Heading className={nameClass}>{name}</Heading>
         {pill && (
           <span
             className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${pill.chipClassName}`}
@@ -166,7 +203,7 @@ export function StrainCard({
           </span>
         )}
       </div>
-      <p className="mt-1 text-xs sm:text-sm text-stone-600 leading-snug">{tagline}</p>
+      {tagline && <p className={taglineClass}>{tagline}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-1.5">
         <span
           className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${typeBadge.chip}`}
