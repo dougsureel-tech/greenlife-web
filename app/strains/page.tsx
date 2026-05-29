@@ -8,6 +8,7 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { FamilyAlbumGrid } from "@/components/FamilyAlbumGrid";
+import { StrainCard } from "@/components/StrainCard";
 
 // Map strain.type slug → label + accent so the hub strain-card grid
 // can chip the type without re-importing STRAIN_TYPES table mid-render.
@@ -346,36 +347,22 @@ export default function StrainsIndexPage() {
               const dominantTerpene =
                 Array.isArray(s.terpenes) && s.terpenes[0]?.name ? s.terpenes[0].name : null;
               if (flipOn && hasTagline) {
+                // SSoT: presentational hierarchy lives in <StrainCard>.
+                // Sister surface — /find-your-strain/result — uses the same
+                // primitive so any future tweak (chip ordering, a11y, etc.)
+                // ships in 1 file instead of 2. Legacy fallback below stays
+                // raw for strains without a populated tagline.
                 return (
                   <li key={s.slug}>
-                    <Link
-                      href={`/strains/${s.slug}`}
-                      className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-3.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
-                    >
-                      <h3 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 group-hover:text-green-900 transition-colors truncate">
-                        {s.name}
-                      </h3>
-                      <p className="mt-1 text-xs sm:text-sm text-stone-600 leading-snug">
-                        {s.tagline}
-                      </p>
-                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                        <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${typeBadge.chip}`}
-                        >
-                          {typeBadge.label}
-                        </span>
-                        {dominantTerpene && (
-                          <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-emerald-50 text-emerald-700">
-                            {dominantTerpene}
-                          </span>
-                        )}
-                        {s.thcRange && (
-                          <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-stone-100 text-stone-700">
-                            Typical THC {s.thcRange}
-                          </span>
-                        )}
-                      </div>
-                    </Link>
+                    <StrainCard
+                      slug={s.slug}
+                      name={s.name}
+                      type={s.type}
+                      tagline={s.tagline}
+                      dominantTerpene={dominantTerpene}
+                      thcRange={s.thcRange}
+                      accent="green"
+                    />
                   </li>
                 );
               }

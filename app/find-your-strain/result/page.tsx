@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { StrainCard } from "@/components/StrainCard";
 import {
   matchQuizStrains,
   parseQuizTokens,
@@ -45,11 +46,9 @@ export const metadata: Metadata = {
   },
 };
 
-const TYPE_LABELS: Record<string, { label: string; chip: string; dot: string }> = {
-  indica: { label: "Indica", chip: "bg-purple-50 text-purple-800", dot: "bg-purple-400" },
-  sativa: { label: "Sativa", chip: "bg-red-50 text-red-800", dot: "bg-red-400" },
-  hybrid: { label: "Hybrid", chip: "bg-green-50 text-green-800", dot: "bg-green-400" },
-};
+// Note: per-type label + chip styling is now owned by the `<StrainCard>`
+// primitive's internal TYPE_BADGES map (see components/StrainCard.tsx).
+// Refactor 2026-05-28 — UX expert Move #7 SSoT consolidation.
 
 /** Confidence pill label + class per band. Voice rubric: stays
  *  preference-observation ("Strong match"/"Good match"/"General direction")
@@ -202,18 +201,18 @@ export default async function QuizResultPage({
         </div>
       </section>
 
-      {/* Strain cards — reuses the `/strains` hub card shape (NOT a new SSoT
-          component; the StrainCard primitive refactor is a separate ship per
-          UX expert #1 recommendation). Card hierarchy: name → tagline →
-          chip row (type + dominant terpene + match-reason). */}
+      {/* Strain cards — uses the `<StrainCard>` SSoT primitive (sister
+          surface: A-Z grid on /strains). Confidence pill rendered via
+          the primitive's optional `pill` prop. Card hierarchy: name →
+          tagline → chip row (type + dominant terpene + THC) → italic
+          match-reason. headingLevel="h2" because the result page's
+          card grid is its own top-level section (no preceding h2). */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         <ul
           className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
           aria-label={`${result.count} strain matches`}
         >
           {result.cards.map((card, i) => {
-            const typeBadge =
-              TYPE_LABELS[card.type] ?? { label: card.type, chip: "bg-stone-100 text-stone-700", dot: "bg-stone-400" };
             // Confidence pill rendering policy: show on every card with
             // strong/good confidence. For "general" confidence, show only
             // on the top card (i === 0) — pinning a pill to every general-
@@ -223,48 +222,26 @@ export default async function QuizResultPage({
             const showConfidence = confidencePill && (card.confidence !== "general" || i === 0);
             return (
               <li key={card.slug}>
-                <Link
-                  href={`/strains/${card.slug}`}
-                  className="group block h-full rounded-xl bg-white border border-stone-200 hover:border-green-500 hover:shadow-sm transition-all px-4 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <h2 className="text-base sm:text-lg font-bold tracking-tight text-stone-900 group-hover:text-green-900 transition-colors">
-                      {card.name}
-                    </h2>
-                    {showConfidence && (
-                      <span
-                        className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${confidencePill.chip}`}
-                        aria-label={`Match quality: ${confidencePill.label}`}
-                      >
-                        {confidencePill.label}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 text-xs sm:text-sm text-stone-600 leading-snug">
-                    {card.tagline}
-                  </p>
-                  <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                    <span
-                      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${typeBadge.chip}`}
-                    >
-                      <span className={`inline-block w-1.5 h-1.5 rounded-full ${typeBadge.dot}`} aria-hidden />
-                      {typeBadge.label}
-                    </span>
-                    {card.dominantTerpene && (
-                      <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-emerald-50 text-emerald-700">
-                        {card.dominantTerpene}
-                      </span>
-                    )}
-                    {card.thcRange && (
-                      <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-stone-100 text-stone-700">
-                        Typical THC {card.thcRange}
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-2 text-[11px] text-stone-500 italic">
-                    {card.matchReason}
-                  </div>
-                </Link>
+                <StrainCard
+                  slug={card.slug}
+                  name={card.name}
+                  type={card.type}
+                  tagline={card.tagline}
+                  dominantTerpene={card.dominantTerpene}
+                  thcRange={card.thcRange}
+                  accent="green"
+                  headingLevel="h2"
+                  pill={
+                    showConfidence
+                      ? {
+                          label: confidencePill.label,
+                          chipClassName: confidencePill.chip,
+                          ariaLabel: `Match quality: ${confidencePill.label}`,
+                        }
+                      : null
+                  }
+                  matchReason={card.matchReason}
+                />
               </li>
             );
           })}
