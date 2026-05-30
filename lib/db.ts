@@ -497,7 +497,16 @@ export async function getPickupEta(): Promise<{ depth: number; label: string }> 
 
 export type ActiveDeal = {
   id: string;
+  /** Raw DB name — keep for SEO/JSON-LD/admin reference (may include day-of-week prefix). */
   name: string;
+  /**
+   * Customer-facing card title — `name` with the day-of-week prefix stripped
+   * (e.g. "Friday: 50% off Dope Cooks" → "50% off Dope Cooks"). Doug 2026-05-29
+   * /menu rail tighten: the section header already says "Daily deals", so the
+   * day-name prefix in each card body was dead weight + broke on other days
+   * of the week. Render this in customer-facing card bodies.
+   */
+  displayName: string;
   description: string | null;
   discountType: "percent" | "dollars";
   discountValue: number | null;
@@ -507,6 +516,14 @@ export type ActiveDeal = {
   short: string;
   /** v4.x — when TRUE, deal renders only for PWA-installed customers. */
   appOnly: boolean;
+  /**
+   * Card-chip tag. Default = category-derived (Flower / Edibles / Storewide).
+   * Qualifier-overrides for customer-restricted deals so the chip doesn't
+   * misleadingly read STOREWIDE on a birthday-week or industry-cardholder
+   * deal (Doug 2026-05-29). Returns null when no specific tag applies —
+   * the rail's existing category fallback renders.
+   */
+  tag: string | null;
 };
 
 // Active deals — status = 'active', today is within the start/end window,
@@ -813,6 +830,14 @@ export async function getTreasureChestProducts(limit = 60): Promise<MenuProduct[
 // roster (heroes-30, first-visit-30, birthday-20, online-15/20, industry-20,
 // + rotating daily-deal mailer) easily fits but the cap protects future
 // growth.
+// Strip day-of-week prefix (e.g. "Friday: ", "Monday: ") from a deal name
+// so customer-facing surfaces don't repeat the day-name that the section
+// header ("Daily deals") already implies. Doug 2026-05-29 /menu rail
+// tighten: pre-fix every card body started with "Friday:" even on Saturday.
+function stripDayPrefix(name: string): string {
+  return name.replace(/^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day:\s*/i, "").trim();
+}
+
 // Hero-string builder for /deals cards. Doug 2026-05-08: the Friday Dope
 // Cooks deal was rendering "50% off edibles" in the giant hero text (built
 // from applies_to=edibles) instead of "50% off Dope Cooks" — the deal's
@@ -827,11 +852,36 @@ function buildDealShort(
   applies: string | null,
 ): string {
   if (val == null) return name;
-  // "Friday: 50% off Dope Cooks" → "50% off Dope Cooks"
-  const cleaned = name.replace(/^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day:\s*/i, "").trim();
+  const cleaned = stripDayPrefix(name);
   if (/\d+\s*%\s*off\b/i.test(cleaned) || /\$\d+\b/i.test(cleaned)) return cleaned;
   const suffix = applies && applies !== "all" ? ` ${applies}` : "";
   return dt === "percent" ? `${val}% off${suffix}` : `$${val.toFixed(0)} off${suffix}`;
+}
+
+// Tag inference for the card-chip badge. Defaults to a category bucket
+// derived from `applies_to`. Qualifier-restricted deals (birthday-week,
+// industry cardholder, heroes, first-visit, online-only) get a more
+// specific tag so the chip doesn't misleadingly read STOREWIDE on a deal
+// that only applies to a sub-audience. Doug 2026-05-29 — the chip color
+// is driven by this string downstream (rail picks the palette by tag).
+//
+// Order matters: qualifier-overrides win over the category fallback so
+// "Birthday Bud — Flower 20%" tags as BIRTHDAY not FLOWER.
+function deriveDealTag(name: string, applies: string | null): string | null {
+  const haystack = stripDayPrefix(name).toLowerCase();
+  // Qualifier overrides — customer-restricted deals.
+  if (/\bbirthday\b/.test(haystack)) return "BIRTHDAY";
+  if (/\b(industry|ccb\b|cardholder|budtender)\b/.test(haystack)) return "INDUSTRY";
+  if (/\b(heroes?|veteran|first[\s-]?responder|military)\b/.test(haystack)) return "HEROES";
+  if (/\bfirst[\s-]?(time|visit)\b/.test(haystack)) return "FIRST VISIT";
+  if (/\b(loyalty|rewards?|members?)\b/.test(haystack) && !/\bonline\b/.test(haystack))
+    return "LOYALTY";
+  if (/\b(online|app[\s-]?only|in[\s-]?app|pwa)\b/.test(haystack)) return "ONLINE";
+  // Category fallback — from applies_to. NULL/all → STOREWIDE.
+  const cat = (applies ?? "").toLowerCase().trim();
+  if (cat === "" || cat === "all") return "STOREWIDE";
+  if (cat === "pre-rolls" || cat === "prerolls") return "PRE-ROLLS";
+  return cat.toUpperCase();
 }
 
 export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promise<ActiveDeal[]> {
@@ -859,10 +909,12 @@ export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promi
     const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
     const val = (r.discount_value ?? null) as number | null;
     const applies = (r.applies_to ?? null) as string | null;
-    const short = buildDealShort(r.name as string, val, dt, applies);
+    const rawName = r.name as string;
+    const short = buildDealShort(rawName, val, dt, applies);
     return {
       id: r.id as string,
-      name: r.name as string,
+      name: rawName,
+      displayName: stripDayPrefix(rawName),
       description: (r.description ?? null) as string | null,
       discountType: dt,
       discountValue: val,
@@ -870,6 +922,7 @@ export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promi
       endDate: (r.end_date ?? null) as string | null,
       short,
       appOnly: Boolean(r.app_only),
+      tag: deriveDealTag(rawName, applies),
     };
   });
 }
@@ -1000,10 +1053,12 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
   const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
   const val = (r.discount_value ?? null) as number | null;
   const applies = (r.applies_to ?? null) as string | null;
-  const short = buildDealShort(r.name as string, val, dt, applies);
+  const rawName = r.name as string;
+  const short = buildDealShort(rawName, val, dt, applies);
   return {
     id: r.id as string,
-    name: r.name as string,
+    name: rawName,
+    displayName: stripDayPrefix(rawName),
     description: (r.description ?? null) as string | null,
     discountType: dt,
     discountValue: val,
@@ -1011,6 +1066,7 @@ export async function getDealById(id: string): Promise<ActiveDeal | null> {
     endDate: (r.end_date ?? null) as string | null,
     short,
     appOnly: Boolean(r.app_only),
+    tag: deriveDealTag(rawName, applies),
   };
 }
 

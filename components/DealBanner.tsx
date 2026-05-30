@@ -68,14 +68,14 @@ export function DealBanner({
     <Link
       href="/menu"
       className={`relative block bg-gradient-to-r ${grad} hover:brightness-110 transition-all border-b border-white/10`}
-      aria-label={`View deal: ${top.name}`}
+      aria-label={`View deal: ${top.displayName}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-center gap-3 text-center">
         <span className="text-base sm:text-lg" aria-hidden>
           🔥
         </span>
         <span className="text-xs sm:text-sm font-bold tracking-tight">
-          <span className="opacity-90">Today:</span> <span>{top.name}</span>
+          <span className="opacity-90">Today:</span> <span>{top.displayName}</span>
           <span className="hidden sm:inline opacity-70 mx-2">·</span>
           <span className="hidden sm:inline opacity-90">{top.short}</span>
           {countdownLabel && (

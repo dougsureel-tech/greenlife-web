@@ -505,7 +505,7 @@ export default async function DealsPage({ searchParams }: Props) {
                       href={`/deals/${d.id}`}
                       className="hover:text-emerald-800 transition-colors"
                     >
-                      {d.name}
+                      {d.displayName}
                     </Link>
                   </h2>
 

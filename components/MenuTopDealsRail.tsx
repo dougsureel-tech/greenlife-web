@@ -71,11 +71,25 @@ function categoryArtFor(appliesTo: string | null | undefined) {
   return CATEGORY_ART[key] ?? CATEGORY_ART.all;
 }
 
-function fmtEndDate(iso: string | null): string {
-  if (!iso) return "Ongoing";
-  const d = new Date(`${iso}T12:00:00`);
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
+// Emoji + display label for qualifier-class tags. Category tags fall back
+// to CATEGORY_ART above. Doug 2026-05-29 — STOREWIDE was the lone tag on
+// every card pre-fix, even for birthday/industry deals that only apply
+// to a sub-audience. These tag values come from `deriveDealTag` in lib/db.ts.
+const TAG_DISPLAY: Record<string, { emoji: string; label: string }> = {
+  BIRTHDAY: { emoji: "🎂", label: "Birthday" },
+  INDUSTRY: { emoji: "🪪", label: "Industry" },
+  HEROES: { emoji: "🎖️", label: "Heroes" },
+  "FIRST VISIT": { emoji: "👋", label: "First visit" },
+  LOYALTY: { emoji: "⭐", label: "Loyalty" },
+  ONLINE: { emoji: "📱", label: "Online" },
+  STOREWIDE: { emoji: "🎟️", label: "Storewide" },
+};
+// fmtEndDate was used to render an "Ends Jun 15" / "Ongoing" line under
+// each card title — removed in the 2026-05-29 rail tighten (the line
+// added noise without resolving the section-header-vs-card-status
+// inconsistency the screenshot review surfaced). End-date copy still
+// lives on the /deals/[id] deep page where customers go for the full
+// terms.
 
 export function MenuTopDealsRail({ deals }: Props) {
   // Empty-state contract per the brief: render NOTHING when no deals.
@@ -95,7 +109,7 @@ export function MenuTopDealsRail({ deals }: Props) {
           id="menu-top-deals-heading"
           className="text-sm font-extrabold uppercase tracking-[0.18em] text-emerald-800"
         >
-          Today&apos;s deals
+          Daily deals
         </h2>
         <Link
           href={withAttr("/deals", "menu", "top-rail-all")}
@@ -119,9 +133,22 @@ export function MenuTopDealsRail({ deals }: Props) {
           // the unscrubbed value only if the scrub returns null (=
           // entirely banned phrases) — defensive: ship the original
           // name + description rather than render an empty card.
-          const safeName = scrubWslcbClaims(d.name) ?? d.name;
+          //
+          // Doug 2026-05-29 /menu rail tighten: render `displayName` (the
+          // day-of-week prefix stripped at the data layer) instead of the
+          // raw `name`. Section header reads "Daily deals" already — the
+          // "Friday:" prefix in every card body was dead weight + plain
+          // wrong on every other day of the week.
+          const safeName = scrubWslcbClaims(d.displayName) ?? d.displayName;
           const safeShort = scrubWslcbClaims(d.short) ?? d.short;
-          const endsCopy = d.endDate ? `Ends ${fmtEndDate(d.endDate)}` : "Ongoing";
+          // Tag-driven chip: qualifier-deals (Birthday / Industry / Heroes)
+          // get a specific badge so the chip doesn't misleadingly read
+          // STOREWIDE on a deal that's restricted to a sub-audience. Falls
+          // back to category-bucket label when the tag matches a category
+          // bucket (FLOWER / EDIBLES / etc.).
+          const tagDisplay = d.tag ? TAG_DISPLAY[d.tag] : null;
+          const chipEmoji = tagDisplay?.emoji ?? cat.emoji;
+          const chipLabel = tagDisplay?.label ?? cat.label;
           return (
             <li key={d.id}>
               <Link
@@ -160,7 +187,9 @@ export function MenuTopDealsRail({ deals }: Props) {
                         "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)",
                     }}
                   />
-                  {/* Top-left category/vendor chip */}
+                  {/* Top-left chip — vendor name when matched, otherwise
+                      a tag-derived label (Birthday / Industry / Heroes /
+                      First visit / Loyalty / Online / Storewide / category). */}
                   <div className="absolute top-2 left-2 right-2 flex items-start justify-between gap-2 pointer-events-none">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white text-[9px] font-bold uppercase tracking-widest">
                       {vendor ? (
@@ -174,9 +203,9 @@ export function MenuTopDealsRail({ deals }: Props) {
                       ) : (
                         <>
                           <span aria-hidden className="text-[11px] leading-none">
-                            {cat.emoji}
+                            {chipEmoji}
                           </span>
-                          {cat.label}
+                          {chipLabel}
                         </>
                       )}
                     </span>
@@ -189,12 +218,18 @@ export function MenuTopDealsRail({ deals }: Props) {
                   </div>
                 </div>
 
-                {/* Card body — name + ends + see-on-menu CTA */}
+                {/* Card body — name + see-on-menu CTA. The redundant
+                    "Ongoing" line was removed (Doug 2026-05-29): when
+                    every card was tagged "Ongoing" against a "Today's
+                    Deals" header, the model was inconsistent. Section
+                    header now reads "Daily deals" — the recurring nature
+                    is implied. End-date readout still rides on the
+                    /deals/[id] deep page when a deal is genuinely
+                    time-bound. */}
                 <div className="flex-1 flex flex-col p-3">
                   <p className="text-sm font-bold text-stone-900 leading-snug line-clamp-2 group-hover:text-emerald-800 transition-colors">
                     {safeName}
                   </p>
-                  <p className="text-[11px] text-stone-500 mt-1">{endsCopy}</p>
                   <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:text-emerald-900 transition-colors">
                     See on menu
                     <span
