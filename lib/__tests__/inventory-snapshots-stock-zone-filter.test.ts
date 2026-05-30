@@ -155,18 +155,22 @@ describe("inventory_snapshots stock-zone filter discipline (PLAN_TWO_BUCKET_INVE
     assert.ok(matches.length >= 1, `expected ≥1 withFloorFallback call in portal.ts, found ${matches.length}`);
   });
 
-  test("SAFE-FLOOR-ONLY count matches customer-visible read sites (12 in db.ts + 1 in portal.ts)", () => {
+  test("SAFE-FLOOR-ONLY count matches customer-visible read sites (13 in db.ts + 1 in portal.ts)", () => {
     const dbText = readLib("db.ts");
     const portalText = readLib("portal.ts");
     const dbCount = (dbText.match(/SAFE-FLOOR-ONLY/g) ?? []).length;
     const portalCount = (portalText.match(/SAFE-FLOOR-ONLY/g) ?? []).length;
-    assert.equal(dbCount, 12, `db.ts SAFE-FLOOR-ONLY count drift: got ${dbCount}, expected 12`);
+    // 12 → 13: getPreviewProductBundle added 1 customer-visible read for the
+    // /menu/preview/[id] PDP (Phase 0 of PLAN_PRODUCT_UX_REDESIGN_2026_05_30.md).
+    assert.equal(dbCount, 13, `db.ts SAFE-FLOOR-ONLY count drift: got ${dbCount}, expected 13`);
     assert.equal(portalCount, 1, `portal.ts SAFE-FLOOR-ONLY count drift: got ${portalCount}, expected 1`);
   });
 
-  test("SAFE-AGGREGATE count = 3 in db.ts (first_seen CTEs in getMenuProducts/getProductsByIds/getJustInProducts)", () => {
+  test("SAFE-AGGREGATE count = 4 in db.ts (first_seen CTEs in getMenuProducts/getProductsByIds/getJustInProducts/getPreviewProductBundle)", () => {
     const dbText = readLib("db.ts");
     const count = (dbText.match(/SAFE-AGGREGATE/g) ?? []).length;
-    assert.equal(count, 3, `db.ts SAFE-AGGREGATE count drift: got ${count}, expected 3`);
+    // 3 → 4: getPreviewProductBundle added 1 first_seen CTE for the
+    // /menu/preview/[id] PDP (Phase 0 of PLAN_PRODUCT_UX_REDESIGN_2026_05_30.md).
+    assert.equal(count, 4, `db.ts SAFE-AGGREGATE count drift: got ${count}, expected 4`);
   });
 });

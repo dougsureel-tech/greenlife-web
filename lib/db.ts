@@ -282,6 +282,168 @@ export async function getProductsByIds(ids: string[]): Promise<MenuProduct[]> {
   }));
 }
 
+// ── PDP preview surface (/menu/preview/[id]) ───────────────────────────
+// Phase 0 of the Product UX Redesign (PLAN_PRODUCT_UX_REDESIGN_2026_05_30.md).
+// Returns a single product enriched with the extras the PDP needs (notes,
+// subcategory) PLUS the latest published reviews for that product. Sister
+// of `getProductsByIds` (same brand-gate + floor-only inventory shape) but
+// returns a wider product record + nested reviews; deliberately separate
+// so the menu-grid query stays lean.
+
+export type PreviewProduct = MenuProduct & {
+  notes: string | null;
+  subcategory: string | null;
+};
+
+export type PreviewReview = {
+  id: string;
+  rating: number;
+  effectTags: string[];
+  wouldBuyAgain: boolean | null;
+  createdAt: string;
+  customerCreatedAt: string | null;
+};
+
+export type PreviewProductBundle = {
+  product: PreviewProduct;
+  reviews: PreviewReview[];
+};
+
+export async function getPreviewProductBundle(
+  id: string,
+): Promise<PreviewProductBundle | null> {
+  if (!id || typeof id !== "string") return null;
+  const sql = getClient();
+  const productRows = await withFloorFallback(
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        -- SAFE-FLOOR-ONLY: PDP customer view = grab-and-go on the floor
+        WHERE stock_zone = 'floor'
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.subcategory, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        p.notes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        -- SAFE-AGGREGATE: first-seen window includes vault arrivals
+        WHERE quantity_on_hand > 0
+          AND stock_zone IN ('vault','floor')
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.id = ${id}
+        AND p.carry_status = 'active'
+        AND li.qty > 0
+      LIMIT 1
+    `,
+    () => sql`
+      WITH latest_inv AS (
+        SELECT DISTINCT ON (product_id) product_id, quantity_on_hand::numeric AS qty
+        FROM inventory_snapshots
+        ORDER BY product_id, captured_at DESC
+      ),
+      brands_with_recent_sales AS (
+        SELECT DISTINCT p.vendor_id
+        FROM sale_line_items sli
+        INNER JOIN products p ON p.id = sli.product_id
+        WHERE sli.sold_at >= NOW() - INTERVAL '365 days'
+          AND p.vendor_id IS NOT NULL
+      )
+      SELECT
+        p.id, p.name, p.brand, p.category, p.subcategory, p.strain_type,
+        p.thc_pct::float AS thc_pct, p.cbd_pct::float AS cbd_pct,
+        p.unit_price::float AS unit_price, p.image_url, p.effects, p.terpenes,
+        p.notes,
+        COALESCE(fs.first_seen >= NOW() - INTERVAL '7 days', FALSE) AS is_new,
+        COALESCE(p.is_doh_compliant, FALSE) AS is_doh_compliant
+      FROM products p
+      INNER JOIN latest_inv li ON li.product_id = p.id
+      INNER JOIN brands_with_recent_sales bws ON bws.vendor_id = p.vendor_id
+      LEFT JOIN (
+        SELECT product_id, MIN(captured_at) AS first_seen
+        FROM inventory_snapshots
+        WHERE quantity_on_hand > 0
+        GROUP BY product_id
+      ) fs ON fs.product_id = p.id
+      WHERE p.id = ${id}
+        AND p.carry_status = 'active'
+        AND li.qty > 0
+      LIMIT 1
+    `,
+  );
+  if (productRows.length === 0) return null;
+  const r = productRows[0];
+  const product: PreviewProduct = {
+    id: r.id as string,
+    name: r.name as string,
+    brand: (r.brand ?? null) as string | null,
+    category: (r.category ?? null) as string | null,
+    subcategory: (r.subcategory ?? null) as string | null,
+    strainType: (r.strain_type ?? null) as string | null,
+    thcPct: (r.thc_pct ?? null) as number | null,
+    cbdPct: (r.cbd_pct ?? null) as number | null,
+    unitPrice: (r.unit_price ?? null) as number | null,
+    imageUrl: safeProductImageUrl(r.image_url as string | null | undefined),
+    effects: (r.effects ?? null) as string | null,
+    terpenes: (r.terpenes ?? null) as string | null,
+    notes: (r.notes ?? null) as string | null,
+    isNew: Boolean(r.is_new),
+    isDohCompliant: Boolean(r.is_doh_compliant),
+  };
+  // Reviews — published_at NOT NULL gate (Phase 1 verified-purchaser doctrine);
+  // join customers for the "Customer since YYYY" tenure label. Cap at 20 most
+  // recent. Defensive: customer rows may be missing (cascaded delete) hence
+  // LEFT JOIN.
+  const reviewRows = await sql`
+    SELECT
+      pr.id,
+      pr.rating::int AS rating,
+      pr.effect_tags,
+      pr.would_buy_again,
+      pr.created_at,
+      c.created_at AS customer_created_at
+    FROM product_reviews pr
+    LEFT JOIN customers c ON c.id = pr.customer_id
+    WHERE pr.product_id = ${id}
+      AND pr.published_at IS NOT NULL
+    ORDER BY pr.created_at DESC
+    LIMIT 20
+  `;
+  const reviews: PreviewReview[] = reviewRows.map((row) => ({
+    id: row.id as string,
+    rating: Number(row.rating ?? 0),
+    effectTags: Array.isArray(row.effect_tags)
+      ? (row.effect_tags as string[])
+      : [],
+    wouldBuyAgain:
+      row.would_buy_again === null || row.would_buy_again === undefined
+        ? null
+        : Boolean(row.would_buy_again),
+    createdAt: new Date(row.created_at as string | Date).toISOString(),
+    customerCreatedAt: row.customer_created_at
+      ? new Date(row.customer_created_at as string | Date).toISOString()
+      : null,
+  }));
+  return { product, reviews };
+}
+
 export async function getFeaturedProducts(limit = 8): Promise<MenuProduct[]> {
   const sql = getClient();
   // Curated mode (migration 0154 / Doug 2026-05-04): if Kat has flipped
