@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { getMenuProducts, getPickupEta, getActiveDeals } from "@/lib/db";
 import { STORE, getOrderingStatus, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getLoyaltyByClerkId, getMedicalStatusByClerkId } from "@/lib/portal";
+import { fetchProductFlags } from "@/lib/budtender-picks";
 import { OrderMenu } from "./OrderMenu";
 
 export const dynamic = "force-dynamic";
@@ -33,11 +34,16 @@ function minToLabel(min: number): string {
 }
 
 export default async function OrderPage() {
-  const [products, eta, { userId }, activeDeals] = await Promise.all([
+  // Customer Engagement Layer Ship 2 — fetch Budtender's Pick + New
+  // This Week badge data alongside menu products (5-min ISR window per
+  // `lib/budtender-picks.ts`). Defensive: empty Map on any failure so a
+  // brapp outage doesn't tank the page render.
+  const [products, eta, { userId }, activeDeals, productFlags] = await Promise.all([
     getMenuProducts().catch(() => []),
     getPickupEta().catch(() => ({ depth: 0, label: "Usually ready in under 10 min" })),
     auth(),
     getActiveDeals().catch(() => []),
+    fetchProductFlags(),
   ]);
   const status = getOrderingStatus();
   const signedIn = !!userId;
@@ -112,7 +118,7 @@ export default async function OrderPage() {
           </div>
         </div>
       </div>
-      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} />
+      <OrderMenu products={products} signedIn={signedIn} activeDeals={activeDeals} initialLoyalty={initialLoyalty} dohVerified={dohVerified} productFlags={productFlags} />
     </>
   );
 }

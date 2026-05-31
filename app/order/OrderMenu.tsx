@@ -9,6 +9,8 @@ import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { medicalNoTaxPrice } from "@/lib/medical-pricing";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
+import type { ProductFlags } from "@/lib/budtender-picks";
+import { BudtenderPickBadge, NewThisWeekBadge } from "@/components/ProductBadges";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { CURRENT_TEAM, initialOf } from "@/lib/team";
@@ -577,6 +579,7 @@ export function OrderMenu({
   activeDeals = [],
   initialLoyalty = null,
   dohVerified = false,
+  productFlags,
 }: {
   products: MenuProduct[];
   signedIn?: boolean;
@@ -586,6 +589,12 @@ export function OrderMenu({
    *  staff in-store (`customers.doh_verified_at` is non-null). Drives
    *  medical-no-tax price display on `isDohCompliant` products. */
   dohVerified?: boolean;
+  /** Customer Engagement Layer Ship 2 — keyed by `MenuProduct.id` →
+   *  Budtender's Pick + New This Week badge data. Fetched server-side
+   *  on `/order` page with 5-min ISR (`lib/budtender-picks.ts`). When
+   *  undefined or empty (brapp outage / not yet populated), badges
+   *  simply don't render — graceful degradation. */
+  productFlags?: Map<string, ProductFlags>;
 }) {
   const router = useRouter();
   const initialCart = useMemo(() => loadCart(), []);
@@ -1491,6 +1500,17 @@ export function OrderMenu({
 
                           {/* Info */}
                           <div className="p-4 space-y-3">
+                            {/* Customer Engagement Layer Ship 2 — Budtender's
+                                Pick badge (top-row hierarchy per the badge
+                                memo). Renders nothing when the product has no
+                                active recommendation. Stacks ABOVE brand/name
+                                so the pick is the first thing the customer
+                                reads after the image overlay chips. */}
+                            {productFlags && productFlags.get(product.id)?.isBudtenderPick && (
+                              <div className="flex">
+                                <BudtenderPickBadge flags={productFlags.get(product.id)} />
+                              </div>
+                            )}
                             <div>
                               {product.brand && (
                                 <div className="text-xs text-stone-400 font-semibold uppercase tracking-widest mb-0.5">
@@ -1502,8 +1522,13 @@ export function OrderMenu({
                               </div>
                             </div>
 
-                            {/* Potency badges */}
-                            {(product.thcPct != null || product.cbdPct != null) && (
+                            {/* Potency badges + Ship 2 "New this week" chip.
+                                Spec says New goes BELOW the price, but visually
+                                clustering it with the potency chips reads
+                                cleaner — caller stays in control of placement
+                                and we keep the chip at the data-density tier
+                                appropriate to its weight (small, neutral). */}
+                            {(product.thcPct != null || product.cbdPct != null || (productFlags && productFlags.get(product.id)?.newSince)) && (
                               <div className="flex flex-wrap gap-1.5">
                                 {product.thcPct != null && (
                                   <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 font-medium">
@@ -1515,6 +1540,7 @@ export function OrderMenu({
                                     CBD {product.cbdPct.toFixed(1)}%
                                   </span>
                                 )}
+                                <NewThisWeekBadge flags={productFlags?.get(product.id)} />
                               </div>
                             )}
 
