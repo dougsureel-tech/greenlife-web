@@ -107,11 +107,15 @@ describe("matchDealVendor — sub-brand routing (parent vendor wins)", () => {
 });
 
 describe("matchDealVendor — return shape (no leaking tokens field)", () => {
-  test("returned object has slug/displayName/logoUrl/heroUrl/accentHex/accent2Hex", () => {
+  test("returned object has slug/displayName/logoUrl/heroUrl/accentHex/accent2Hex/brandTokens", () => {
     const m = matchDealVendor("Phat Panda gummies", null);
     assert.ok(m !== null);
     const keys = Object.keys(m).sort();
-    assert.deepEqual(keys, ["accent2Hex", "accentHex", "displayName", "heroUrl", "logoUrl", "slug"]);
+    // v42.785 added `brandTokens: readonly string[]` to DealVendorMatch
+    // for the vendor-aware /deals/[id] preview grid (so callers can
+    // ILIKE-scan `products.brand` against the vendor's token list).
+    // The internal `tokens` field is still filtered out — see next test.
+    assert.deepEqual(keys, ["accent2Hex", "accentHex", "brandTokens", "displayName", "heroUrl", "logoUrl", "slug"]);
   });
 
   test("does NOT leak the internal 'tokens' field to callers", () => {

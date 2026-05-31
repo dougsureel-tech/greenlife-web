@@ -266,6 +266,7 @@ test("lib/inventory-floor.ts is the only NEW canonical floor-read site", () => {
     "lib/portal.ts", // C4 migrated 2026-05-24 v41.625 — checkAvailability now floor-filtered
     "lib/inventory-floor.ts", // the helper itself (this file IS the canonical reader)
     "lib/version.ts", // changelog prose references the table by name (e.g. "raw FROM inventory_snapshots reads"); not a query site
+    "lib/vendor-deal-products.ts", // v42.785 — vendor-aware /deals/[id] preview grid; raw `FROM inventory_snapshots` text still appears but ONLY inside withFloorFallback() wrapper (same shape as lib/db.ts above)
   ]);
   const libDir = join(REPO_ROOT, "lib");
   const offenders = walkFiles(libDir, [".ts", ".tsx"]).filter((p) => {

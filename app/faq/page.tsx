@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { withAttr } from "@/lib/attribution";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { TIERS } from "@/lib/loyalty-tiers";
 
 // ISR — FAQs change occasionally; 24h is fine.
 export const revalidate = 86400;
@@ -33,7 +35,12 @@ export const metadata: Metadata = {
   },
 };
 
-const FAQS: { q: string; a: string; tag?: string }[] = [
+// `a` (string) feeds the FAQPage JSON-LD that AI Overviews / ChatGPT /
+// Google SERP lift verbatim — must stay text-only and self-contained.
+// `rich` (JSX) renders in place of the plain answer when present, for
+// humans browsing the page (Austin 2026-05-30 sister-port from SCC —
+// purchase-limits chart + discount classes list + loyalty tier ladder).
+const FAQS: { q: string; a: string; tag?: string; rich?: ReactNode }[] = [
   {
     tag: "First Visit",
     q: "Do I need an ID to purchase cannabis?",
@@ -72,7 +79,58 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
   {
     tag: "Legal",
     q: "How much cannabis can I purchase at one time?",
-    a: "Washington State law allows recreational customers to purchase up to 1 ounce of usable cannabis, 7 grams of concentrates, and 16 ounces of cannabis-infused products in solid form (or 72 ounces in liquid form) per transaction.",
+    // Austin #15 (sister-port from SCC) — visual rec-vs-medical
+    // comparison chart. Limits per WAC 314-55-095 (recreational) + RCW
+    // 69.51A.040 (medical patients w/ valid recognition card; medical
+    // limits are 3× the recreational amounts). Includes ounce-to-gram
+    // reminders since many younger customers don't know 1oz = 28g.
+    a: "Washington law sets per-transaction limits. Recreational customers (21+): 1 ounce (28g) of usable cannabis flower, 7g of concentrate, 16 ounces solid edibles, or 72 ounces liquid edibles. Medical patients with a valid recognition card: 3 ounces (85g) flower, 21g concentrate, 48 ounces solid, or 216 ounces liquid. You can mix categories in one transaction as long as no single category exceeds its limit.",
+    rich: (
+      <div className="space-y-4">
+        <p>
+          Washington law sets per-transaction limits. The chart below shows
+          both. You can mix categories in one transaction as long as no
+          single category exceeds its limit.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-stone-100 text-stone-700">
+                <th scope="col" className="text-left font-bold px-3 py-2 border border-stone-200">Category</th>
+                <th scope="col" className="text-left font-bold px-3 py-2 border border-stone-200">Recreational (21+)</th>
+                <th scope="col" className="text-left font-bold px-3 py-2 border border-stone-200">Medical patient *</th>
+              </tr>
+            </thead>
+            <tbody className="text-stone-700">
+              <tr>
+                <th scope="row" className="text-left font-semibold px-3 py-2 border border-stone-200 bg-white">🌿 Flower (usable cannabis)</th>
+                <td className="px-3 py-2 border border-stone-200 bg-white"><span className="font-bold">1 oz</span> <span className="text-stone-500">(28 g)</span></td>
+                <td className="px-3 py-2 border border-stone-200 bg-green-50/50"><span className="font-bold">3 oz</span> <span className="text-stone-500">(85 g)</span></td>
+              </tr>
+              <tr>
+                <th scope="row" className="text-left font-semibold px-3 py-2 border border-stone-200 bg-white">💧 Concentrate</th>
+                <td className="px-3 py-2 border border-stone-200 bg-white"><span className="font-bold">7 g</span></td>
+                <td className="px-3 py-2 border border-stone-200 bg-green-50/50"><span className="font-bold">21 g</span></td>
+              </tr>
+              <tr>
+                <th scope="row" className="text-left font-semibold px-3 py-2 border border-stone-200 bg-white">🍫 Edibles — solid</th>
+                <td className="px-3 py-2 border border-stone-200 bg-white"><span className="font-bold">16 oz</span></td>
+                <td className="px-3 py-2 border border-stone-200 bg-green-50/50"><span className="font-bold">48 oz</span></td>
+              </tr>
+              <tr>
+                <th scope="row" className="text-left font-semibold px-3 py-2 border border-stone-200 bg-white">🥤 Edibles — liquid</th>
+                <td className="px-3 py-2 border border-stone-200 bg-white"><span className="font-bold">72 oz</span></td>
+                <td className="px-3 py-2 border border-stone-200 bg-green-50/50"><span className="font-bold">216 oz</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-stone-500">
+          * Medical patients must hold a valid Washington Medical Cannabis Authorization recognition card to qualify for the elevated limits + the sales-tax exemption on DOH-compliant products.
+          Recreational limits per WAC 314-55-095; medical patient limits per RCW 69.51A.040. Bring 21+ ID for any purchase.
+        </p>
+      </div>
+    ),
   },
   {
     tag: "Legal",
@@ -83,6 +141,79 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
     tag: "Rewards",
     q: "Do you offer deals or loyalty rewards?",
     a: `Yes. Today's deals are at ${STORE.website}/deals — usually a rotating mix of % off categories, brand spotlights, vendor-day pricing, and weekly recurring specials. Loyalty is built in: every purchase earns points, and points redeem on a sliding ladder — 50pt for 5% off, 100pt for 10%, on up to 30% off at 300-400pt (redeemable when you're not also using a promo; best discount applies — discounts don't combine). Tiers (Visitor → Regular → Local → Family) unlock automatically as you visit; the higher you go, the bigger the perks. Sign up at ${STORE.website}/sign-up — first-time online orders qualify for 20% off.`,
+    // Austin #16 (sister-port from SCC) — visual loyalty tier ladder +
+    // points-redeem ladder so customers can see at a glance what unlocks
+    // at each step. Tiers sourced from lib/loyalty-tiers.ts (SSoT) so
+    // the ladder can't drift from the actual tier math.
+    rich: (
+      <div className="space-y-5">
+        <p>
+          <Link href="/deals" className="font-semibold text-green-800 underline decoration-green-300 underline-offset-2 hover:decoration-green-600">Today&rsquo;s deals →</Link> are a rotating mix of category, brand, vendor-day, and storewide specials. Loyalty is built in: every purchase earns points, and tiers unlock automatically as you visit.
+        </p>
+
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Tier ladder — unlocks by lifetime spend</p>
+          <ol className="space-y-2">
+            {TIERS.map((t, i) => (
+              <li
+                key={t.name}
+                className="flex items-center gap-3 rounded-xl border border-stone-200 bg-white p-3"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold ${
+                    i === 0
+                      ? "bg-stone-100 text-stone-700"
+                      : i === 1
+                        ? "bg-green-50 text-green-700"
+                        : i === 2
+                          ? "bg-green-100 text-green-800"
+                          : "bg-green-200 text-green-900"
+                  }`}
+                >
+                  {i + 1}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="font-bold text-stone-900">{t.label}</div>
+                  <div className="text-xs text-stone-500">
+                    {i === 0
+                      ? "Welcome tier — open to anyone with an account."
+                      : `Unlocks at $${t.minSpend.toLocaleString()} lifetime spend.`}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Points redeem ladder</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {[
+              { pts: 50, off: "5%" },
+              { pts: 100, off: "10%" },
+              { pts: 200, off: "20%" },
+              { pts: 300, off: "30%" },
+            ].map(({ pts, off }) => (
+              <div key={pts} className="rounded-xl border border-stone-200 bg-white p-3 text-center">
+                <div className="text-xs font-semibold uppercase tracking-wider text-stone-500">{pts} pts</div>
+                <div className="text-xl font-extrabold text-green-700 mt-0.5">{off} off</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-stone-500">
+            Redeemable when you&rsquo;re not also using a promo — the best applicable discount wins (discounts don&rsquo;t combine). You always earn points on every visit.
+          </p>
+        </div>
+
+        <Link
+          href="/sign-up"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-green-600 hover:bg-green-500 px-4 py-2 text-sm font-bold text-white transition-colors"
+        >
+          Sign up — first online order is 20% off
+        </Link>
+      </div>
+    ),
   },
   {
     tag: "Rewards",
@@ -90,9 +221,72 @@ const FAQS: { q: string; a: string; tag?: string }[] = [
     a: "No — discounts don't combine. The best applicable discount applies on a given order (Heroes 30%, today's daily deal, online 20%, etc.), so you'd save your points for a regular-price visit when redemption gives you the most. You always earn points on every visit either way.",
   },
   {
-    tag: "Rewards",
-    q: "Do you offer a Heroes / service discount?",
-    a: `Yes — 30% off for active military, veterans, first responders (police · fire · EMS), healthcare workers, and K-12 teachers. Show a valid 21+ ID alongside your service or work credential at the register. Full eligibility + how it works is at ${STORE.website}/heroes.`,
+    tag: "Discounts",
+    // Austin #14 (sister-port from SCC) — rename + list every discount
+    // class in one place. "Wisdom" not "Senior" per Doug 2026-05 dignity-
+    // rename doctrine (build-gate enforced). AM + Wisdom %-off amounts
+    // are NOT fabricated — they're not wired into code yet; the in-store
+    // ask is the honest path.
+    q: "Do you offer any special discounts?",
+    a: `Yes — we run several. (1) Heroes service discount: 30% off for active military, veterans, first responders (police, fire, EMS), healthcare workers, and K-12 teachers. (2) First-visit online order: 20% off when you place your first pickup order through our menu. (3) Loyalty rewards: every purchase earns points that redeem on a sliding ladder up to 30% off. (4) Daily deals: a rotating mix of category, brand, and storewide specials at ${STORE.website}/deals. Ask in-store about additional Wisdom and morning specials. Discounts don't combine — you always get the biggest one that applies. Heroes details + how to verify: ${STORE.website}/heroes.`,
+    rich: (
+      <div className="space-y-4">
+        <p>Yes — we run several. Discounts don&rsquo;t combine; you always get the biggest one that applies.</p>
+        <ul className="space-y-3">
+          <li className="rounded-xl border border-stone-200 bg-white p-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="font-bold text-stone-900">🎖️ Heroes service discount</span>
+              <span className="text-sm font-bold text-green-700">30% off</span>
+            </div>
+            <p className="mt-1 text-stone-600">
+              Active military, veterans, first responders (police, fire, EMS), healthcare workers, and K-12 teachers.
+              Show a valid ID or service credential at the register.{" "}
+              <Link href="/heroes" className="font-semibold text-green-800 underline decoration-green-300 underline-offset-2 hover:decoration-green-600">
+                Eligibility + how it works →
+              </Link>
+            </p>
+          </li>
+          <li className="rounded-xl border border-stone-200 bg-white p-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="font-bold text-stone-900">👋 First-visit online order</span>
+              <span className="text-sm font-bold text-green-700">20% off</span>
+            </div>
+            <p className="mt-1 text-stone-600">
+              Place your first pickup order through{" "}
+              <Link href="/menu" className="font-semibold text-green-800 underline decoration-green-300 underline-offset-2 hover:decoration-green-600">our menu</Link> — the 20% applies automatically at checkout.
+            </p>
+          </li>
+          <li className="rounded-xl border border-stone-200 bg-white p-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="font-bold text-stone-900">⭐ Loyalty rewards</span>
+              <span className="text-sm font-bold text-green-700">up to 30% off</span>
+            </div>
+            <p className="mt-1 text-stone-600">
+              Every purchase earns points; points redeem on a sliding ladder — 50pt for 5%, 100pt for 10%, on up to 30% off at 300-400pt. Tiers unlock automatically as you visit.
+            </p>
+          </li>
+          <li className="rounded-xl border border-stone-200 bg-white p-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="font-bold text-stone-900">🎟️ Daily deals</span>
+              <span className="text-sm font-bold text-green-700">varies</span>
+            </div>
+            <p className="mt-1 text-stone-600">
+              A rotating mix of category, brand, vendor-day, and storewide specials.{" "}
+              <Link href="/deals" className="font-semibold text-green-800 underline decoration-green-300 underline-offset-2 hover:decoration-green-600">See today&rsquo;s deals →</Link>
+            </p>
+          </li>
+          <li className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="font-bold text-stone-900">☀️ Wisdom &amp; morning specials</span>
+              <span className="text-xs font-semibold text-stone-500">ask in-store</span>
+            </div>
+            <p className="mt-1 text-stone-600">
+              We run additional in-store specials for our Wisdom regulars and an early-morning crew. Ask a budtender — they&rsquo;ll let you know what&rsquo;s active today.
+            </p>
+          </li>
+        </ul>
+      </div>
+    ),
   },
   {
     tag: "Ordering",
@@ -207,7 +401,7 @@ export default function FaqPage() {
         </nav>
 
         <div className="space-y-3">
-          {FAQS.map(({ q, a, tag }, idx) => {
+          {FAQS.map(({ q, a, tag, rich }, idx) => {
             const isFirstOfTag = tag && !seenTags.has(tag);
             if (tag) seenTags.add(tag);
             return (
@@ -245,7 +439,7 @@ export default function FaqPage() {
                   </svg>
                 </summary>
                 <div className="px-5 pb-5 pt-3 text-stone-600 text-sm leading-relaxed border-t border-green-100">
-                  {a}
+                  {rich ?? a}
                 </div>
               </details>
             );
