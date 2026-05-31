@@ -144,12 +144,24 @@ export function MenuFallback({ featuredDeal = null }: { featuredDeal?: FeaturedD
             </svg>
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-base sm:text-lg">Menu&apos;s slow today — here&apos;s how to order while it loads.</h2>
+            <h2 className="font-bold text-base sm:text-lg">Menu&apos;s taking a moment — try refreshing the page.</h2>
             <p className="text-sm mt-1 text-amber-900/90">
-              Order on iHeartJane while it loads, or call us — we&apos;ve got everything ready and can take your order
+              A reload usually clears it up in a few seconds. While you wait, you can order on iHeartJane or call us — we&apos;ve got everything ready and can take your order
               over the phone.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
+              {/* Austin 2026-05-30 customer-menu polish: surface the reload
+                  affordance as the primary CTA per Austin's request — the
+                  Boost embed usually recovers on a fresh page load before
+                  the staff even realize it's stuck. Falls through to iHJ /
+                  call if reload doesn't help. */}
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-700 text-white text-sm font-bold hover:bg-emerald-600 transition-colors shadow-sm"
+              >
+                Refresh page
+              </button>
               <a
                 href={IHEARTJANE_URL}
                 target="_blank"
