@@ -1067,8 +1067,9 @@ export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promi
     ORDER BY (day_of_week IS NULL) ASC, end_date NULLS LAST, name
     LIMIT 20
   `;
-  return rows.map((r) => {
-    const dt = (r.discount_type as string) === "dollars" ? "dollars" : "percent";
+  const mapped: ActiveDeal[] = rows.map((r) => {
+    const dt: "percent" | "dollars" =
+      (r.discount_type as string) === "dollars" ? "dollars" : "percent";
     const val = (r.discount_value ?? null) as number | null;
     const applies = (r.applies_to ?? null) as string | null;
     const rawName = r.name as string;
@@ -1087,6 +1088,22 @@ export async function getActiveDeals(opts?: { includeAppOnly?: boolean }): Promi
       tag: deriveDealTag(rawName, applies),
     };
   });
+  // Doug 2026-05-30 polish round 2 — Issue 2 (duplicate "ALL · 20% off
+  // Online Orders" entries). The deals table has historical duplicates:
+  // the same deal-shape (same displayName + same short + same applies_to)
+  // gets re-seeded periodically (one per store, one per vendor, one per
+  // promotion cycle) and they all hit /menu when their windows overlap.
+  // Dedup here at the data layer so all consumers (chip strip, top rail,
+  // /deals page) get the same single-row view. Keep the FIRST occurrence
+  // (preserves the day-of-week + end-date sort already applied by the SQL).
+  const seen = new Set<string>();
+  const deduped = mapped.filter((d) => {
+    const key = `${d.displayName.toLowerCase()}|${d.short.toLowerCase()}|${(d.appliesTo ?? "").toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return deduped;
 }
 
 // Small product preview for the /deals/[id] deep page — show 6 in-stock

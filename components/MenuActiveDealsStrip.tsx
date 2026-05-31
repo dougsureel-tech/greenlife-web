@@ -85,11 +85,22 @@ export function MenuActiveDealsStrip({ deals, treasureChestCount = 0 }: Props) {
           </Link>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        {/* Horizontal-scroll strip (Doug 2026-05-30 polish round 2): pre-fix
+            the chip strip wrapped to 3-4 rows on mobile and dominated
+            the above-fold real estate over the iHJ menu itself. A single
+            horizontal scroll row is more compact + the implicit "scroll
+            right for more" mirrors how iHJ's own product carousels behave.
+            Native overflow-x-auto + snap-x + `scrollbar-thin` keeps it
+            scannable on touch + trackpad without a custom JS scroller. */}
+        <div
+          className="flex gap-2 overflow-x-auto snap-x snap-mandatory -mx-4 sm:-mx-6 px-4 sm:px-6 pb-1 [scrollbar-width:thin]"
+          role="list"
+        >
           {treasureChestCount > 0 && (
             <Link
               href={withAttr("/treasure-chest", "menu", "deals-strip-treasure")}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-300 bg-amber-100 text-amber-900 font-semibold text-xs hover:-translate-y-0.5 hover:bg-amber-200 transition-all"
+              className="shrink-0 snap-start inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-300 bg-amber-100 text-amber-900 font-semibold text-xs hover:-translate-y-0.5 hover:bg-amber-200 transition-all"
+              role="listitem"
             >
               <span aria-hidden className="text-[10px] uppercase tracking-widest opacity-70">
                 <span aria-hidden="true">🪙</span> Treasure
@@ -107,21 +118,41 @@ export function MenuActiveDealsStrip({ deals, treasureChestCount = 0 }: Props) {
                   color: `#${vendor.accentHex}`,
                 }
               : undefined;
+            // Doug 2026-05-30 polish round 2 — Issue 1 (chip text dedup).
+            // Pre-fix every chip rendered a small "ALL" / category label
+            // AND the bold deal name (e.g. "ALL · 30% off Online Orders").
+            // When the small label is "All" / "Storewide" / null AND the
+            // deal name already carries the discount %, the small label
+            // is dead weight that duplicates the chip's own meaning.
+            // Render the small label ONLY when it adds NEW info — i.e.
+            // when there's a matched vendor (vendor name) OR a specific
+            // category (Flower / Edibles / Vapes / etc.). Storewide chips
+            // show just the bold deal text.
+            const appliesLower = (d.appliesTo ?? "").toLowerCase().trim();
+            const isStorewide = appliesLower === "" || appliesLower === "all";
+            const smallLabel = vendor
+              ? vendor.displayName
+              : isStorewide
+                ? null
+                : d.appliesTo;
             return (
               <Link
                 key={d.id}
                 data-app-only={d.appOnly ? "1" : "0"}
                 href={withAttr(`/deals/${d.id}`, "menu", `deal-strip-${d.id}`)}
+                role="listitem"
                 className={
                   vendor
-                    ? "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-semibold text-xs hover:-translate-y-0.5 transition-transform"
-                    : `inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-semibold text-xs hover:-translate-y-0.5 transition-transform ${tint.bg} ${tint.text} ${tint.border}`
+                    ? "shrink-0 snap-start inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-semibold text-xs hover:-translate-y-0.5 transition-transform"
+                    : `shrink-0 snap-start inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-semibold text-xs hover:-translate-y-0.5 transition-transform ${tint.bg} ${tint.text} ${tint.border}`
                 }
                 style={styleVendor}
               >
-                <span aria-hidden className="text-[10px] uppercase tracking-widest opacity-60">
-                  {vendor ? vendor.displayName : (d.appliesTo ?? "All")}
-                </span>
+                {smallLabel && (
+                  <span aria-hidden className="text-[10px] uppercase tracking-widest opacity-60">
+                    {smallLabel}
+                  </span>
+                )}
                 <span className="font-extrabold">{d.short}</span>
               </Link>
             );
