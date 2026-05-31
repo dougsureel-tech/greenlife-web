@@ -274,8 +274,14 @@ export default function AccessibilityPage() {
                 >
                   {STORE.email}
                 </a>{" "}
-                with the page URL and what blocked you. We respond within two business days and
-                fix verified issues on the next deploy.
+                with the page URL and what blocked you, or file it via the{" "}
+                <Link
+                  href="/feedback"
+                  className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-600"
+                >
+                  feedback form
+                </Link>{" "}
+                — we respond within two business days and fix verified issues on the next deploy.
               </p>
             </div>
           </section>

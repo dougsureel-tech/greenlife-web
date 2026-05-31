@@ -3,6 +3,14 @@ import { STORE } from "@/lib/store";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { withAttr } from "@/lib/attribution";
+import { FeedbackModalTrigger } from "@/components/FeedbackModalTrigger";
+
+// Customer Engagement Layer Ship 4 — public-site `/feedback` modal entry.
+// The footer renders a "Tell us how we're doing" trigger that opens a
+// compact form (same backend, same fields, modal chrome). The trigger
+// is a Client Component island; the rest of the footer stays a Server
+// Component.
+const INV_APP_BASE = "https://brapp.greenlifecannabis.com";
 
 // "We serve" footer towns — the 8 closest-drive /near pages (sorted by
 // driveMins, capped at 8) so the column carries real /near/<slug>
@@ -246,7 +254,11 @@ export function SiteFooter() {
 
       {/* Secondary links row — Contact / FAQ / Cannabis 101 / Account /
           Press / Accessibility. Reference + utility routes that don't
-          belong in the marketing Explore column. */}
+          belong in the marketing Explore column. The "Tell us how we're
+          doing" trigger is a Client-Component island (FeedbackModalTrigger)
+          that opens the compact `/feedback` form in a modal — same backend
+          + fields as the full `/feedback` page. Ship 4 of the Customer
+          Engagement Layer (memo § 4). */}
       <div className="border-t border-green-900/40 px-4 sm:px-6 py-4">
         <ul className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] text-green-400/70">
           {[
@@ -265,6 +277,14 @@ export function SiteFooter() {
               </Link>
             </li>
           ))}
+          <li>
+            <FeedbackModalTrigger
+              apiBase={INV_APP_BASE}
+              store="wen"
+              triggerClassName="hover:text-white transition-colors"
+              triggerLabel="Tell us how we're doing"
+            />
+          </li>
         </ul>
       </div>
 
