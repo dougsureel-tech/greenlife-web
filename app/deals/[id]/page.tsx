@@ -4,6 +4,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { STORE } from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
+import { getVendorPreviewProducts } from "@/lib/vendor-deal-products";
+import { matchDealVendor } from "@/lib/deal-vendor-match";
 import { withAttr } from "@/lib/attribution";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
@@ -139,12 +141,27 @@ export default async function DealDetailPage({ params }: Params) {
   // Skip preview when appliesTo isn't a single category — there's no
   // sensible filter to apply.
   const isScoped = !!deal.appliesTo && deal.appliesTo !== "all";
-  const [eta, previewProducts] = await Promise.all([
+  // Vendor-aware preview (Doug 2026-05-30 polish): vendor-scoped daily-deal
+  // seeds like "Saturday: 50% off Slab Mechanix" still carry appliesTo="flower"
+  // — the category preview would render random flower instead of Slab Mechanix.
+  // matchDealVendor() resolves name+description → canonical vendor entry; when
+  // matched, prefer vendor-filtered products. Falls back to category preview
+  // when no vendor matches OR when vendor query returns 0 (which can happen
+  // when a vendor's SKUs are temporarily out-of-stock but the deal still runs).
+  const vendor = matchDealVendor(deal.name, deal.description);
+  const [eta, vendorProducts, categoryProducts] = await Promise.all([
     getPickupEta().catch(() => null),
+    vendor
+      ? getVendorPreviewProducts(vendor.brandTokens, 6).catch(() => [])
+      : Promise.resolve([]),
     isScoped
       ? getCategoryPreviewProducts(deal.appliesTo as string, 6).catch(() => [])
       : Promise.resolve([]),
   ]);
+  // Prefer vendor products when matched + non-empty; else fall back to category.
+  const previewProducts = vendorProducts.length > 0 ? vendorProducts : categoryProducts;
+  const previewMode: "vendor" | "category" | null =
+    vendorProducts.length > 0 ? "vendor" : categoryProducts.length > 0 ? "category" : null;
 
   // CTA target depends on whether the deal is category-scoped:
   //  - appliesTo set: route to /order?category=X — /order reads URL params
@@ -271,7 +288,9 @@ export default async function DealDetailPage({ params }: Params) {
                 On sale right now
               </h2>
               <span className="text-[11px] text-stone-400">
-                {previewProducts.length} of {deal.appliesTo}
+                {previewProducts.length} {previewMode === "vendor" && vendor
+                  ? `from ${vendor.displayName}`
+                  : `of ${deal.appliesTo}`}
               </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

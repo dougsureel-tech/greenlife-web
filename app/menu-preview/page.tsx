@@ -114,13 +114,15 @@ export default async function MenuPreviewPage() {
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end gap-4">
           <div className="flex-1 space-y-2">
-            <p className="text-green-400 text-xs font-bold uppercase tracking-widest">Live Menu</p>
+            {/* Doug 2026-05-30 header tighten — dropped "Live Menu" eyebrow + the
+                "Hand-picked by the best crew..." tagline (recommendation A+C from
+                the polish brief). The big h1 already carries page intent; the
+                description line below carries every load-bearing detail
+                (real-time / hours / cash / 21+). Two fewer text rows reclaims
+                ~36px of vertical space above the deals strip. */}
             <h1 className="text-3xl font-extrabold tracking-tight">Cannabis Menu — {STORE.address.city}</h1>
             <p className="text-green-100 text-sm">
               Real-time inventory · Pickup orders open daily 8 AM–{todayCloseLabel()} · Cash at the counter · 21+ with valid ID
-            </p>
-            <p className="text-green-200/90 text-xs">
-              Hand-picked by the best crew in {STORE.address.city} — walk in or call us if you want backup.
             </p>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-2 text-xs">

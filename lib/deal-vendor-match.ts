@@ -25,12 +25,19 @@ export type DealVendorMatch = {
   accentHex: string;
   /** Hex for the secondary tint in the gradient. Picked so accentHex → accent2Hex reads as "into the dark". */
   accent2Hex: string;
+  /** Brand-name tokens for ILIKE matching against `products.brand`. Mirrors the
+   *  internal VENDORS-entry token list so callers like `/deals/[id]` can fetch
+   *  live products filtered to this vendor's brand without re-importing the
+   *  VENDORS array. Sister of `lib/vendor-deal-products.ts`. */
+  brandTokens: readonly string[];
 };
 
 // Each entry: a list of lowercase substring tokens we look for in deal
 // name/description. The first matched token wins (order matters within
 // VENDORS so more-specific tokens trump generic ones).
-type VendorEntry = DealVendorMatch & { tokens: readonly string[] };
+// `brandTokens` on the returned DealVendorMatch is derived from `tokens` at
+// lookup time, so internal literals only spell tokens once.
+type VendorEntry = Omit<DealVendorMatch, "brandTokens"> & { tokens: readonly string[] };
 
 const VENDORS: readonly VendorEntry[] = [
   {
@@ -233,6 +240,7 @@ export function matchDealVendor(
           heroUrl: v.heroUrl,
           accentHex: v.accentHex,
           accent2Hex: v.accent2Hex,
+          brandTokens: v.tokens,
         };
       }
     }
