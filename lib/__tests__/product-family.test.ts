@@ -20,8 +20,6 @@ import type { MenuProduct } from "../db.ts";
 // future MenuProduct schema change can't false-positive these pins.
 function mp(overrides: Partial<MenuProduct> & { id: string; name: string }): MenuProduct {
   return {
-    id: overrides.id,
-    name: overrides.name,
     brand: null,
     category: null,
     strainType: null,

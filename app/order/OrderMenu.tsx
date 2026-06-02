@@ -9,6 +9,7 @@ import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { effectivePriceFor, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { medicalNoTaxPrice } from "@/lib/medical-pricing";
 import type { MenuProduct, ActiveDeal } from "@/lib/db";
+import { groupByFamily, type FamilyGroup, type FamilyMember } from "@/lib/product-family";
 import type { ProductFlags } from "@/lib/budtender-picks";
 import { BudtenderPickBadge, NewThisWeekBadge } from "@/components/ProductBadges";
 import { STORE, getOrderingStatus, getPickupSlots, type OrderingStatus, type PickupSlot } from "@/lib/store";
@@ -851,15 +852,44 @@ export function OrderMenu({
     return result;
   }, [visibleProducts, search, activeCategory, strainFilter, brandFilter, priceTier, thcTier, sortBy]);
 
+  // Per-category grouping (existing). MVP size-picker (v42.X — Doug
+  // 2026-06-01 ask): also group within-category by product family so
+  // multi-size SKUs of the same product (Cookies 1g/3.5g/28g; Cherry
+  // Dosidos preroll 2pk/10pk) consolidate into ONE card with inline
+  // size pills. Single-member families render byte-identical to the
+  // pre-MVP shape (no regression). See `lib/product-family.ts` for the
+  // parser + grouping primitive (foundation v42.865, shipped 2026-06-01).
   const grouped = useMemo(() => {
-    const map = new Map<string, MenuProduct[]>();
+    const map = new Map<string, FamilyGroup[]>();
+    const byCategory = new Map<string, MenuProduct[]>();
     for (const p of filtered) {
       const key = p.category ?? "Other";
-      if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(p);
+      if (!byCategory.has(key)) byCategory.set(key, []);
+      byCategory.get(key)!.push(p);
+    }
+    for (const [category, products] of byCategory) {
+      map.set(category, groupByFamily(products));
     }
     return map;
   }, [filtered]);
+
+  // Selected size per family — keyed by familyKey, value is the chosen
+  // member's product.id. Defaults to first member (smallest size) when
+  // unset. Used by the size-pill UI on multi-size family cards to swap
+  // which member's price/THC/DOH info renders + which SKU goes in cart.
+  const [selectedSizes, setSelectedSizes] = useState<Map<string, string>>(new Map());
+  function selectSize(familyKey: string, memberId: string): void {
+    setSelectedSizes((prev) => {
+      const next = new Map(prev);
+      next.set(familyKey, memberId);
+      return next;
+    });
+  }
+  function getSelectedMember(family: FamilyGroup): FamilyMember {
+    const selectedId = selectedSizes.get(family.familyKey);
+    const found = selectedId ? family.members.find((m) => m.id === selectedId) : null;
+    return found ?? family.members[0];
+  }
 
   const cartTotal = cart.reduce((s, i) => s + (i.unitPrice ?? 0) * i.quantity, 0);
   const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
@@ -1364,7 +1394,12 @@ export function OrderMenu({
                     </span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
-                    {visibleItems.map((product) => {
+                    {visibleItems.map((family) => {
+                      // Size-picker MVP: each family card uses its
+                      // currently-selected member (defaults to smallest size,
+                      // changes when customer taps a size pill). Single-member
+                      // families behave byte-identically to the pre-MVP shape.
+                      const product = getSelectedMember(family);
                       const cartItem = cart.find((i) => i.id === product.id);
                       const strain = product.strainType ? STRAIN_COLORS[product.strainType] : null;
                       const parsed = parseProductName(product);
@@ -1375,7 +1410,7 @@ export function OrderMenu({
                       const deal = findDealForProduct(product, activeDeals);
                       return (
                         <div
-                          key={product.id}
+                          key={family.familyKey}
                           className="group rounded-2xl border border-stone-100 bg-white overflow-hidden hover:border-green-300 hover:shadow-lg transition-all duration-200"
                         >
                           {/* Image */}
@@ -1549,6 +1584,46 @@ export function OrderMenu({
                               <p className="text-xs text-stone-400 leading-relaxed line-clamp-1">
                                 <span aria-hidden="true">✨ </span>{product.effects}
                               </p>
+                            )}
+
+                            {/* Size pills — MVP size-picker (Doug 2026-06-01
+                                ask). Shown only on multi-size families.
+                                Tapping a pill swaps which family member's
+                                price/THC/DOH info renders + which SKU adds
+                                to cart. Single-size families skip this row
+                                entirely (no regression on existing cards).
+                                Mirrors iHJ Boost's "A-Bud (1G, 3.5G)"
+                                inline picker UX. */}
+                            {family.isMultiSize && (
+                              <div
+                                className="flex flex-wrap items-center gap-1.5 pt-1"
+                                role="radiogroup"
+                                aria-label="Select size"
+                              >
+                                <span className="text-[10px] uppercase tracking-wider text-stone-400 font-semibold mr-0.5">
+                                  Size
+                                </span>
+                                {family.members.map((m) => {
+                                  const isSelected = m.id === product.id;
+                                  return (
+                                    <button
+                                      key={m.id}
+                                      type="button"
+                                      role="radio"
+                                      aria-checked={isSelected}
+                                      onClick={() => selectSize(family.familyKey, m.id)}
+                                      className={
+                                        "text-[11px] font-bold px-2 py-1 rounded-md border transition-colors min-h-[28px] " +
+                                        (isSelected
+                                          ? "bg-green-700 text-white border-green-700"
+                                          : "bg-white text-stone-700 border-stone-200 hover:border-green-400 hover:text-green-700")
+                                      }
+                                    >
+                                      {m._parsedSize.sizeLabel ?? "—"}
+                                    </button>
+                                  );
+                                })}
+                              </div>
                             )}
 
                             {/* Price + Add — Doug 2026-05-16: every online product
