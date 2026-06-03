@@ -27,8 +27,11 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // Hash rotates when iHeartJane redeploys Boost. Pulled live from the prior
 // WordPress origin (208.109.64.51) — both Wenatchee and Seattle WP sites
-// emit the same DvMyfNDN bundle pointer (2026-05-01).
-const BOOST_SCRIPT_URL = "https://boost-assets.iheartjane.com/assets/index-DvMyfNDN.js";
+// emit the same bundle pointer. Refreshed 2026-06-02: iHJ rotated the hash
+// (DvMyfNDN → DyFFQj2q) and 4xx'd the old one, which silently broke ordering
+// (config emitted, Boost module never executed). WP origin auto-updated; we
+// were frozen at the 2026-05-01 hash. See MENU_LOG.md recovery recipe #1.
+const BOOST_SCRIPT_URL = "https://boost-assets.iheartjane.com/assets/index-DyFFQj2q.js";
 
 // Public iHeartJane client-side keys — same for every partner. Safe to ship.
 const JANE_APP_SECRETS = {
