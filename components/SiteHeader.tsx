@@ -195,6 +195,17 @@ export function SiteHeader() {
               </Link>
             }
             <Link
+              href="/sign-up"
+              title="20% off your first order"
+              className={`hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-extrabold transition-all duration-200 hover:-translate-y-0.5 ${
+                dark
+                  ? "bg-green-400/15 text-green-200 border border-green-400/40 hover:bg-green-400/25"
+                  : "bg-green-100 text-green-800 border border-green-300 hover:bg-green-200"
+              }`}
+            >
+              <span aria-hidden="true">✨</span>20% off 1st order
+            </Link>
+            <Link
               href={withAttr("/menu", "header", "order-now")}
               className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 animate-gradient bg-[length:200%_auto] hover:-translate-y-0.5 ${
                 dark
@@ -353,9 +364,14 @@ export function SiteHeader() {
           <Link
             href="/sign-up"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm font-bold hover:bg-green-100 transition-all"
+            className="flex flex-col items-center justify-center gap-0.5 px-4 py-3 rounded-xl bg-green-100 border-2 border-green-300 text-green-900 hover:bg-green-200 transition-all"
           >
-            <span aria-hidden="true">✨ </span>Create Account · 20% off first order
+            <span className="text-lg font-extrabold leading-tight">
+              <span aria-hidden="true">✨ </span>20% OFF your first order
+            </span>
+            <span className="text-xs font-semibold text-green-700">
+              Create a free account to claim
+            </span>
           </Link>
           <Link
             href={withAttr("/menu", "header", "mobile-order")}
