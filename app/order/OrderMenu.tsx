@@ -1394,7 +1394,9 @@ export function OrderMenu({
                     </span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
-                    {visibleItems.map((family) => {
+                    {visibleItems
+                      .filter((family) => family.members.length > 0)
+                      .map((family) => {
                       // Size-picker MVP: each family card uses its
                       // currently-selected member (defaults to smallest size,
                       // changes when customer taps a size pill). Single-member
