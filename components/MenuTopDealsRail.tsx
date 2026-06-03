@@ -91,6 +91,30 @@ const TAG_DISPLAY: Record<string, { emoji: string; label: string }> = {
 // lives on the /deals/[id] deep page where customers go for the full
 // terms.
 
+// Doug 2026-06-02 /menu rail tighten: most category/vendor deals carry an
+// identical short + displayName (e.g. short "30% off Prerolls" == name
+// "30% off Prerolls"), so the hero headline and the white-footer name
+// printed the SAME line twice per card. Suppress the footer name when it
+// only restates the hero — but KEEP it for qualifier deals whose name
+// carries context the hero can't (e.g. "Birthday Bud — 20% Off (Birthday
+// Week)" against a "20% Off" hero short). Normalize to alphanumerics so
+// case/spacing/punctuation don't defeat the match; redundant only when
+// the name is empty OR is wholly contained in the short (never the
+// reverse — a longer name means real added context worth showing).
+function dealDedupeKey(s: string | null | undefined): string {
+  return (s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+function isFooterNameRedundant(
+  name: string | null | undefined,
+  short: string | null | undefined,
+): boolean {
+  const n = dealDedupeKey(name);
+  if (!n) return true;
+  const s = dealDedupeKey(short);
+  if (!s) return false;
+  return s.includes(n);
+}
+
 export function MenuTopDealsRail({ deals }: Props) {
   // Empty-state contract per the brief: render NOTHING when no deals.
   // An empty placeholder is worse than the iframe alone — the iframe's
@@ -149,6 +173,9 @@ export function MenuTopDealsRail({ deals }: Props) {
           const tagDisplay = d.tag ? TAG_DISPLAY[d.tag] : null;
           const chipEmoji = tagDisplay?.emoji ?? cat.emoji;
           const chipLabel = tagDisplay?.label ?? cat.label;
+          // Drop the footer name when it only restates the hero headline
+          // (see isFooterNameRedundant above) — kills the duplicated line.
+          const showName = !isFooterNameRedundant(safeName, safeShort);
           return (
             <li key={d.id}>
               <Link
@@ -227,9 +254,11 @@ export function MenuTopDealsRail({ deals }: Props) {
                     /deals/[id] deep page when a deal is genuinely
                     time-bound. */}
                 <div className="flex-1 flex flex-col p-3">
-                  <p className="text-sm font-bold text-stone-900 leading-snug line-clamp-2 group-hover:text-emerald-800 transition-colors">
-                    {safeName}
-                  </p>
+                  {showName && (
+                    <p className="text-sm font-bold text-stone-900 leading-snug line-clamp-2 group-hover:text-emerald-800 transition-colors">
+                      {safeName}
+                    </p>
+                  )}
                   <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:text-emerald-900 transition-colors">
                     See on menu
                     <span
