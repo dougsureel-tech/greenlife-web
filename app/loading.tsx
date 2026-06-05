@@ -13,7 +13,7 @@ export default function Loading() {
         <div className="absolute inset-0 rounded-full border-2 border-green-100" />
         <div className="absolute inset-0 rounded-full border-2 border-t-green-600 animate-spin" />
       </div>
-      <p className="text-stone-400 text-sm font-medium animate-pulse">Loading…</p>
+      <p className="text-stone-400 text-sm font-medium animate-pulse">One sec…</p>
     </div>
   );
 }

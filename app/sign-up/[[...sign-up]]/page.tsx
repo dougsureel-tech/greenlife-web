@@ -9,9 +9,9 @@ export const metadata = {
 };
 
 const BENEFITS = [
+  { emoji: "⚡", label: "Faster pickup — your info's saved" },
+  { emoji: "⭐", label: "Points add up on every order" },
   { emoji: "🎁", label: "20% off your first online order" },
-  { emoji: "⭐", label: "Earn loyalty points on every purchase" },
-  { emoji: "⚡", label: "Faster pickup — your info is saved" },
   { emoji: "🔔", label: "Drop alerts for new arrivals" },
 ];
 
@@ -76,7 +76,7 @@ export default async function SignUpPage({ searchParams }: Props) {
           </div>
           <p className="text-xs font-bold uppercase tracking-widest text-green-700">Green Life Cannabis</p>
           <h1 className="text-2xl font-extrabold text-stone-900">Join the club</h1>
-          <p className="text-sm text-stone-500">Free account · 30 seconds · 21+ to enroll</p>
+          <p className="text-sm text-stone-500">Free · 30 seconds · 21+</p>
         </div>
 
         {/* Benefits */}

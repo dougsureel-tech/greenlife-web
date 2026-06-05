@@ -11,7 +11,7 @@ export const metadata = {
 const BENEFITS = [
   { emoji: "🛒", label: "Save your cart and pickup time" },
   { emoji: "📜", label: "See your order history & re-order" },
-  { emoji: "⭐", label: "Loyalty points add up automatically" },
+  { emoji: "⭐", label: "Your points keep adding up" },
   { emoji: "🔔", label: "Drop alerts for your favorite brands" },
 ];
 
