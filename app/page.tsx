@@ -2006,7 +2006,7 @@ function FaqSection() {
     },
     {
       q: "What's the difference between sativa, indica, and hybrid?",
-      a: "Sativa is associated with uplift and focus, indica with relaxation and sleep, hybrids land somewhere in between. The truth is more about each strain's terpene profile and your individual response than the label — pick a vibe above (Energize / Chill / Sleep / Creative / Focus / Relief) and we'll show you what's in stock that fits.",
+      a: "Sativa is associated with uplift and focus, indica with relaxation and sleep, hybrids land somewhere in between. The truth is more about each strain's terpene profile and your individual response than the label — pick a vibe above (Energize / Chill / Sleep / Creative / Social / Calm) and we'll show you what's in stock that fits.",
     },
     {
       q: "Do you sell cannabis edibles, vapes, and concentrates?",
