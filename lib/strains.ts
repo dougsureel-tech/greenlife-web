@@ -862,7 +862,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Humulene", note: "earthy hop note" },
     ],
     flavor: ["Sweet mint", "Earthy", "Spicy"],
-    bestFor: ["Evening social", "Casual creative time", "Stress relief"],
+    bestFor: ["Evening social", "Casual creative time", "Wind-down"],
     avoidIf: ["You're very low-tolerance — GSC runs high"],
     faqs: [
       {
@@ -1443,7 +1443,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Limonene", note: "citrus pop on the back" },
     ],
     flavor: ["Diesel", "Earthy", "Pine"],
-    bestFor: ["Late afternoon", "Stress relief", "Casual social", "Trying a classic"],
+    bestFor: ["Late afternoon", "Wind-down", "Casual social", "Trying a classic"],
     avoidIf: ["You want a discreet aroma", "You're caffeine-sensitive"],
     faqs: [
       {
@@ -1562,7 +1562,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Limonene", note: "soft citrus on top" },
     ],
     flavor: ["Earthy", "Sandalwood", "Sweet pine"],
-    bestFor: ["Sleep", "Body soreness", "Quiet evenings", "Stress melt"],
+    bestFor: ["Sleep", "Deep body weight", "Quiet evenings", "Stress melt"],
     avoidIf: ["You need to function", "You want head-up energy"],
     faqs: [
       {
@@ -1619,7 +1619,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Limonene", note: "soft citrus accent" },
     ],
     flavor: ["Earthy", "Hash", "Sweet spice"],
-    bestFor: ["Sleep", "Pain relief", "Body soreness", "Wind-down"],
+    bestFor: ["Sleep", "Heavy body session", "Deep body weight", "Wind-down"],
     avoidIf: ["You need to function", "You want clear-headed energy"],
     faqs: [
       {
@@ -1879,7 +1879,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Limonene", note: "citrus on the back end" },
     ],
     flavor: ["Diesel", "Pine", "Lemon zest"],
-    bestFor: ["Sleep", "Pain relief", "End-of-day couch time"],
+    bestFor: ["Sleep", "Heavy body session", "End-of-day couch time"],
     avoidIf: ["You need to function", "You're sensitive to heavy indicas"],
     faqs: [
       {
@@ -1939,7 +1939,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Limonene", note: "subtle citrus accent" },
     ],
     flavor: ["Coffee", "Chocolate", "Sweet earth"],
-    bestFor: ["Sleep", "Pain relief", "Body soreness", "Quiet wind-down"],
+    bestFor: ["Sleep", "Heavy body session", "Deep body weight", "Quiet wind-down"],
     avoidIf: ["You need to be alert", "You want head-up creative energy"],
     faqs: [
       {
@@ -2114,7 +2114,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Myrcene", note: "earthy, body-heavy" },
     ],
     flavor: ["Lemon", "Diesel", "Pine"],
-    bestFor: ["Sleep", "Pain relief", "End-of-day couch time"],
+    bestFor: ["Sleep", "Heavy body session", "End-of-day couch time"],
     avoidIf: ["You need to function", "You want clear-headed energy"],
     faqs: [
       {
@@ -2671,7 +2671,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Myrcene", note: "earthy base" },
     ],
     flavor: ["Garlic", "Diesel", "Onion", "Savory earth"],
-    bestFor: ["Late evening", "Pain relief", "Avoiding sweet flavors", "Trying something distinctive"],
+    bestFor: ["Late evening", "Heavy body session", "Avoiding sweet flavors", "Trying something distinctive"],
     avoidIf: ["You want a sweet dessert flavor", "You want head-up energy"],
     faqs: [
       {
@@ -2848,7 +2848,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Linalool", note: "floral lavender, mellowing" },
     ],
     flavor: ["Sweet mint", "Earthy pine", "Sweet pastry"],
-    bestFor: ["Sleep", "Pain relief", "End-of-day couch time", "Stress melt"],
+    bestFor: ["Sleep", "Heavy body session", "End-of-day couch time", "Stress melt"],
     avoidIf: ["You need to function", "You're new to high-THC flower"],
     faqs: [
       {
@@ -2905,7 +2905,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Humulene", note: "earthy hop note" },
     ],
     flavor: ["Sweet mint", "Earthy", "Pastry"],
-    bestFor: ["After-dinner wind-down", "Light pain", "Quiet couch time"],
+    bestFor: ["After-dinner wind-down", "Mellow body ease", "Quiet couch time"],
     avoidIf: ["You want head-up energy", "You're sensitive to high-THC flower"],
     faqs: [
       {
@@ -3020,7 +3020,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Caryophyllene", note: "peppery base" },
     ],
     flavor: ["Lemon", "Earthy pine", "Sweet earth"],
-    bestFor: ["Late evening", "Stress relief", "Pain relief", "Couch + show"],
+    bestFor: ["Late evening", "Wind-down", "Heavy body session", "Couch + show"],
     avoidIf: ["You need to be alert", "You want head-up creative energy"],
     faqs: [
       {
@@ -3321,7 +3321,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Humulene", note: "earthy hop note" },
     ],
     flavor: ["Cool mint", "Sweet chocolate", "Earthy"],
-    bestFor: ["Evening social", "Casual creative", "Stress relief"],
+    bestFor: ["Evening social", "Casual creative", "Wind-down"],
     avoidIf: ["You're very low-tolerance — runs high", "You want a clean sativa"],
     faqs: [
       {
@@ -3654,7 +3654,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Pinene", note: "soft pine" },
     ],
     flavor: ["Sweet grape", "Berry", "Sweet earth"],
-    bestFor: ["Sleep", "Pain relief", "Body soreness", "Late evening"],
+    bestFor: ["Sleep", "Heavy body session", "Deep body weight", "Late evening"],
     avoidIf: ["You need to function", "You want head-up energy"],
     faqs: [
       {
@@ -3780,7 +3780,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Linalool", note: "floral lavender — adds to the heavy body" },
     ],
     flavor: ["Sweet vanilla", "Sugary cream", "Light pepper"],
-    bestFor: ["After-dinner couch time", "Wind-down evenings", "Light insomnia nights", "Watching a movie"],
+    bestFor: ["After-dinner couch time", "Wind-down evenings", "Late bedtime", "Watching a movie"],
     avoidIf: ["You need to stay productive", "You're low-tolerance — runs heavy"],
     faqs: [
       {
@@ -6914,7 +6914,7 @@ export const STRAINS: Record<string, Strain> = {
       { name: "Caryophyllene", note: "peppery base" },
     ],
     flavor: ["Dark cherry", "Sweet grape", "Earth"],
-    bestFor: ["Wind-down evenings", "After-dinner couch", "Light insomnia nights"],
+    bestFor: ["Wind-down evenings", "After-dinner couch", "Late bedtime"],
     avoidIf: ["You want energetic", "Sweet-cherry aromas aren’t your thing"],
     faqs: [
       {
