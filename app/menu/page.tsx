@@ -216,10 +216,10 @@ export default async function MenuPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }} />
       <Breadcrumb items={[{ label: "Menu" }]} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
         <VendorAdSlot slot="menu_top" />
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3 pb-4 sm:pt-4 sm:pb-5 space-y-2">
         <ClosureBanner closure={closure} />
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">Live Menu</h1>
         <p className="text-sm text-stone-600">
