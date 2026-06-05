@@ -83,7 +83,8 @@ const CSP_REPORT_ONLY =
   "style-src 'self' 'unsafe-inline' https://*.iheartjane.com; " +
   "img-src 'self' data: blob: https:; " +
   "font-src 'self' data: https:; " +
-  "connect-src 'self' https://*.vercel-insights.com https://*.vercel-scripts.com " +
+  "connect-src 'self' https://brapp.greenlifecannabis.com " +
+    "https://*.vercel-insights.com https://*.vercel-scripts.com " +
     "https://*.iheartjane.com https://api.iheartjane.com https://search.iheartjane.com " +
     "https://www.google-analytics.com https://*.google-analytics.com " +
     "https://challenges.cloudflare.com https://www.google.com https://www.gstatic.com " +
