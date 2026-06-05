@@ -98,7 +98,7 @@ export async function AnnouncementBar() {
       <span className="hidden sm:block opacity-40">|</span>
       <Link
         href="/menu"
-        className="opacity-75 hover:opacity-100 transition-opacity hidden sm:block font-semibold"
+        className="opacity-90 sm:opacity-75 hover:opacity-100 transition-opacity font-semibold"
       >
         Order for Pickup →
       </Link>
