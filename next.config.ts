@@ -77,19 +77,21 @@ import type { NextConfig } from "next";
 const CSP_REPORT_ONLY =
   "default-src 'self'; " +
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' " +
-    "https://*.vercel-scripts.com https://*.iheartjane.com " +
+    "https://*.vercel-scripts.com https://*.iheartjane.com https://iheartjane.com " +
+    "https://*.moengage.com https://accounts.google.com https://appleid.cdn-apple.com " +
     "https://www.googletagmanager.com https://www.google-analytics.com " +
     "https://challenges.cloudflare.com https://www.google.com https://www.gstatic.com https://recaptcha.net https://hcaptcha.com; " +
-  "style-src 'self' 'unsafe-inline' https://*.iheartjane.com; " +
+  "style-src 'self' 'unsafe-inline' https://*.iheartjane.com https://fonts.googleapis.com; " +
   "img-src 'self' data: blob: https:; " +
   "font-src 'self' data: https:; " +
   "connect-src 'self' https://brapp.greenlifecannabis.com " +
     "https://*.vercel-insights.com https://*.vercel-scripts.com " +
-    "https://*.iheartjane.com https://api.iheartjane.com https://search.iheartjane.com " +
+    "https://*.iheartjane.com https://iheartjane.com https://api.iheartjane.com https://search.iheartjane.com " +
+    "https://*.moengage.com https://*.launchdarkly.com https://accounts.google.com https://appleid.apple.com " +
     "https://www.google-analytics.com https://*.google-analytics.com " +
     "https://challenges.cloudflare.com https://www.google.com https://www.gstatic.com " +
     "https://recaptcha.net https://hcaptcha.com; " +
-  "frame-src 'self' https://*.iheartjane.com https://www.google.com https://challenges.cloudflare.com https://hcaptcha.com; " +
+  "frame-src 'self' https://*.iheartjane.com https://www.google.com https://maps.google.com https://accounts.google.com https://appleid.apple.com https://challenges.cloudflare.com https://hcaptcha.com; " +
   "media-src 'self' blob:; " +
   "worker-src 'self' blob:; " +
   "object-src 'none'; " +
