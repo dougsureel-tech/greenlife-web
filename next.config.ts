@@ -234,15 +234,19 @@ const nextConfig: NextConfig = {
           // which would break under same-origin CORP. Caught 2026-05-10
           // by /loop tick 44 cross-stack COOP audit. Sister scc same-fix.
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          // T108 — CSP Report-Only kicks off Doug-action #2 from round-3
-          // close. See `CSP_REPORT_ONLY` const at top of file for full
-          // rationale + safety context. Report-Only CANNOT block requests;
-          // browsers log violations to DevTools Console only. Observation
-          // window: ~1-2 weeks. Flip to enforce mode by changing the key
-          // from `Content-Security-Policy-Report-Only` to
-          // `Content-Security-Policy` (and only then will violations actually
-          // block). Sister scc same-add.
-          { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
+          // T108 — CSP now ENFORCED (v43.065, 2026-06-05). Was Report-Only
+          // through the observation window; flipped to enforce after a
+          // headless-Chrome probe of the LIVE Report-Only `/` + `/menu`
+          // returned ZERO securitypolicyviolation events against the widened
+          // allowlist (v43.055). The const name stays `CSP_REPORT_ONLY` for
+          // history; only the HEADER KEY changed Report-Only → enforce.
+          // `report-uri /api/csp-report` is retained so violations still get
+          // reported even while blocking. ROLLBACK: rename this key back to
+          // `Content-Security-Policy-Report-Only` + redeploy (~90s) if any
+          // legit resource is found blocked. SCC (sister) intentionally LEFT
+          // on Report-Only as the live control — flip it only after GLW
+          // enforce is confirmed stable on real customer traffic.
+          { key: "Content-Security-Policy", value: CSP_REPORT_ONLY },
         ],
       },
       // Edge-cache pin for crawler-facing files. Next 16 file conventions
