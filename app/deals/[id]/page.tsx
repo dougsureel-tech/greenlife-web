@@ -7,6 +7,7 @@ import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db"
 import { getVendorPreviewProducts } from "@/lib/vendor-deal-products";
 import { matchDealVendor } from "@/lib/deal-vendor-match";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { matchProductPhoto } from "@/lib/product-photos-available";
@@ -163,15 +164,16 @@ export default async function DealDetailPage({ params }: Params) {
   const previewMode: "vendor" | "category" | null =
     vendorProducts.length > 0 ? "vendor" : categoryProducts.length > 0 ? "category" : null;
 
-  // CTA target depends on whether the deal is category-scoped:
-  //  - appliesTo set: route to /order?category=X — /order reads URL params
-  //    and pre-filters; Boost (/menu) ignores them, so a category deal-CTA
-  //    pointing at /menu would land on the unfiltered embed.
-  //  - appliesTo "all" / null: keep /menu (Boost) — full inventory browse.
+  // CTA + product-card target. Scoped deals WANT /order?category=X (the native
+  // menu pre-filters on it), but the interim iHeartJane embed ignores params
+  // and /order just redirect-hops to the unfiltered menu — so a customer who
+  // clicks a specific product card lands on the whole menu and can't find it.
+  // menuLink() collapses to bare /menu until NATIVE_MENU_LIVE flips on, at
+  // which point the scoped deep-link returns automatically. See lib/menu-routing.
   const linkHref = withAttr(
-    isScoped
-      ? `/order?category=${encodeURIComponent(deal.appliesTo as string)}`
-      : "/menu",
+    menuLink(
+      isScoped ? `/order?category=${encodeURIComponent(deal.appliesTo as string)}` : undefined,
+    ),
     "deal",
     deal.id,
   );

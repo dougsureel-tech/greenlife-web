@@ -28,6 +28,7 @@
 import Link from "next/link";
 import { getCurrentStrainPickOfWeek } from "@/lib/db";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 
 // TODO (Doug morning review): if "This week's pick" reads cold, swap to
 // the warmer alt eyebrow "From {budtender} this week" — comms-expert
@@ -63,7 +64,7 @@ export async function StrainPickOfWeek() {
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             <Link
               href={withAttr(
-                `/menu?strain=${encodeURIComponent(pick.strainSlug)}`,
+                menuLink(`/menu?strain=${encodeURIComponent(pick.strainSlug)}`),
                 "home",
                 "pick-of-week-menu",
               )}

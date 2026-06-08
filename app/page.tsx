@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 import { DAY_MS } from "@/lib/time-constants";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
@@ -993,7 +994,7 @@ export default async function HomePage() {
             ].map((m) => (
               <Link
                 key={m.label}
-                href={`/menu?vibe=${m.vibe}`}
+                href={menuLink(`/menu?vibe=${m.vibe}`)}
                 className={`group flex flex-col items-center justify-center gap-1.5 py-5 rounded-2xl border border-stone-100 bg-gradient-to-br ${m.gradient} hover:scale-[1.04] hover:shadow-md transition-all duration-200`}
               >
                 <span className="text-3xl" aria-hidden="true">{m.emoji}</span>

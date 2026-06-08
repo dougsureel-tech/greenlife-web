@@ -17,6 +17,7 @@ import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { buildHubItemListJsonLd } from "@/lib/hub-itemlist-json-ld";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 export function isStrainTypeSlug(slug: string): boolean {
@@ -141,7 +142,7 @@ export function StrainTypePage({ slug }: { slug: string }) {
     })),
   });
 
-  const menuHref = withAttr(`/menu?strain=${t.slug}`, "strains", t.slug);
+  const menuHref = withAttr(menuLink(`/menu?strain=${t.slug}`), "strains", t.slug);
 
   return (
     <main className="bg-stone-50 text-stone-900">

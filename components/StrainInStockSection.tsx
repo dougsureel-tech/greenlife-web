@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 import { effectivePriceFor, findDealForProduct } from "@/lib/online-pricing";
 import { formatProductTitle } from "@/lib/format-product-title";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
@@ -63,7 +64,7 @@ export function StrainInStockSection({
           return (
             <Link
               key={p.id}
-              href={withAttr(`/menu?q=${encodeURIComponent(p.name)}`, "strains", strain.slug)}
+              href={withAttr(menuLink(`/menu?q=${encodeURIComponent(p.name)}`), "strains", strain.slug)}
               className="rounded-xl border border-stone-200 bg-white hover:border-stone-400 hover:shadow-sm transition-all overflow-hidden group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <div className="aspect-square relative bg-stone-50">
@@ -123,7 +124,7 @@ export function StrainInStockSection({
       </div>
       <div className="mt-5">
         <Link
-          href={withAttr(`/menu?q=${encodeURIComponent(strain.name)}`, "strains", strain.slug)}
+          href={withAttr(menuLink(`/menu?q=${encodeURIComponent(strain.name)}`), "strains", strain.slug)}
           className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-emerald-700 text-emerald-800 hover:bg-emerald-50 font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
         >
           See all {strain.name} on the menu

@@ -28,6 +28,7 @@ import {
 } from "@/lib/strain-families";
 import { safeJsonLd } from "@/lib/json-ld-safe";
 import { withAttr } from "@/lib/attribution";
+import { menuLink } from "@/lib/menu-routing";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { FamilyMiniTree } from "@/components/FamilyMiniTree";
 
@@ -428,7 +429,7 @@ export default async function FamilyHubPage({
           </p>
           <Link
             href={withAttr(
-              anchor ? `/menu?q=${encodeURIComponent(anchor.name)}` : "/menu",
+              menuLink(anchor ? `/menu?q=${encodeURIComponent(anchor.name)}` : undefined),
               "strains",
               `family-${family}`,
             )}

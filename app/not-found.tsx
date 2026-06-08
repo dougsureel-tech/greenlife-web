@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE, isOpenNow } from "@/lib/store";
+import { menuLink } from "@/lib/menu-routing";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { NotFoundSuggestions } from "./NotFoundSuggestions";
 
@@ -97,7 +98,7 @@ export default async function NotFound() {
             {VIBES.map((v) => (
               <Link
                 key={v.vibe}
-                href={`/menu?vibe=${v.vibe}`}
+                href={menuLink(`/menu?vibe=${v.vibe}`)}
                 className="flex flex-col items-center gap-1 py-3 rounded-xl border border-stone-200 bg-stone-50 hover:border-green-300 hover:bg-green-50 transition-colors"
               >
                 <span className="text-xl">{v.emoji}</span>

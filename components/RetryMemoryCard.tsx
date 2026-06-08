@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { RetryPrompt } from "@/lib/retry-memory";
 import { DAY_MS } from "@/lib/time-constants";
+import { menuLink } from "@/lib/menu-routing";
 
 // C9 "Re-try this" Memory Surfacing card.
 //
@@ -74,7 +75,7 @@ export function RetryMemoryCard({ prompt, variant = "dashboard" }: Props) {
           View strain
         </Link>
         <Link
-          href={`/menu?strain=${encodeURIComponent(prompt.strainSlug)}`}
+          href={menuLink(`/menu?strain=${encodeURIComponent(prompt.strainSlug)}`)}
           className="inline-flex items-center rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-800 hover:bg-stone-100"
         >
           See it on menu
