@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { STORE } from "@/lib/store";
 import { getDealById, getPickupEta, getCategoryPreviewProducts } from "@/lib/db";
 import { getVendorPreviewProducts } from "@/lib/vendor-deal-products";
 import { matchDealVendor } from "@/lib/deal-vendor-match";
 import { withAttr } from "@/lib/attribution";
-import { menuLink } from "@/lib/menu-routing";
+import { menuLink, NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
 import { matchProductPhoto } from "@/lib/product-photos-available";
@@ -118,6 +118,8 @@ const STRAIN_DOT: Record<string, string> = {
 };
 
 export default async function DealDetailPage({ params }: Params) {
+  // iHeartJane interim — deals point to items the embedded Boost menu can't fulfill (confuses customers). Hidden until the native menu launches; flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true to restore (code stays intact).
+  if (!NATIVE_MENU_LIVE) redirect("/");
   const { id } = await params;
   const dealResult = await getDealById(id).catch(() => null);
   if (!dealResult) notFound();

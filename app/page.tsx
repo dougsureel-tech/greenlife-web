@@ -360,12 +360,16 @@ export default async function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Link>
-                <Link
-                  href={withAttr("/deals", "home", "hero-deals")}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
-                >
-                  See Today&rsquo;s Deals
-                </Link>
+                {/* iHeartJane interim: deals are hidden (point to items Boost
+                    can't fulfill). Flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true to restore. */}
+                {NATIVE_MENU_LIVE && (
+                  <Link
+                    href={withAttr("/deals", "home", "hero-deals")}
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold text-base transition-all"
+                  >
+                    See Today&rsquo;s Deals
+                  </Link>
+                )}
               </div>
 
               <div className="flex items-center gap-5 text-xs text-green-400/55 font-medium pt-1 flex-wrap">
@@ -813,7 +817,8 @@ export default async function HomePage() {
             teaser sorted via getActiveDeals (NULLS LAST so a deal ending
             today floats to the front). */}
       <AppOnlyDealsFilter />
-      {deals.length > 0 && (
+      {/* iHeartJane interim: Today's-deals strip hidden — flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true to restore. */}
+      {NATIVE_MENU_LIVE && deals.length > 0 && (
         <section className="bg-gradient-to-b from-amber-50/70 via-white to-white border-b border-stone-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
             <div className="flex items-end justify-between gap-3 mb-5 flex-wrap">

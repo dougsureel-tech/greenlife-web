@@ -7,6 +7,7 @@ import { STORE, isOpenNow, nextOpenLabel } from "@/lib/store";
 import { StashHeaderLink } from "./StashHeaderLink";
 import { withAttr } from "@/lib/attribution";
 import { MINUTE_MS } from "@/lib/time-constants";
+import { NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 
 // Live "Open · Closes 11 PM" / "Closed · Opens 8 AM" indicator.
 // useEffect-mounted so SSR doesn't lock in a wrong status; refreshes every
@@ -52,6 +53,11 @@ const NAV = [
   { href: "/careers", label: "Careers" },
   { href: "/faq", label: "FAQ" },
 ];
+
+// iHeartJane interim: the Deals page is hidden (it points to items the embedded
+// Boost menu can't fulfill, which confuses customers). Drop it from the nav
+// until the native menu is live — flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true to restore.
+const VISIBLE_NAV = NAV.filter((item) => NATIVE_MENU_LIVE || item.href !== "/deals");
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -143,7 +149,7 @@ export function SiteHeader() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5" aria-label="Primary">
-            {NAV.map(({ href, label }) => {
+            {VISIBLE_NAV.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               return (
                 <Link
@@ -289,7 +295,7 @@ export function SiteHeader() {
         </div>
 
         <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
-          {NAV.map(({ href, label }) => {
+          {VISIBLE_NAV.map(({ href, label }) => {
             const active = pathname.startsWith(href);
             return (
               <Link

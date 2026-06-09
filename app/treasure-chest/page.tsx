@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 import { STORE, DEFAULT_OG_IMAGE} from "@/lib/store";
 import { getTreasureChestProducts, type MenuProduct } from "@/lib/db";
 import { VendorAdSlot } from "@/components/VendorAdSlot";
@@ -115,6 +117,8 @@ const breadcrumbSchema = {
 };
 
 export default async function TreasureChestPage() {
+  // iHeartJane interim — clearance items aren't orderable through the embedded Boost menu (confuses customers). Hidden until the native menu launches; flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true to restore (code stays intact).
+  if (!NATIVE_MENU_LIVE) redirect("/");
   const products = await getTreasureChestProducts(60).catch(() => []);
 
   return (
