@@ -3,6 +3,7 @@ import Link from "next/link";
 import { STORE, STORE_TZ, isOpenNow, nextOpenLabel} from "@/lib/store";
 import { NEAR_TOWNS } from "@/lib/near-towns";
 import { withAttr } from "@/lib/attribution";
+import { NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 import { fetchClosureStatus } from "@/lib/closure-status";
 import { ClosureBanner } from "@/components/ClosureBanner";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -429,20 +430,37 @@ export default async function VisitPage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link
-              href={withAttr("/deals", "deal", "visit-mesh")}
-              className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
-            >
-              <div className="text-2xl mb-2" aria-hidden="true">🏷️</div>
-              <h3 className="font-bold text-stone-900 text-sm">Live deals today</h3>
-              <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
-                Brand-day pricing, % off categories, weekly recurring specials.
-              </p>
-              <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
-                See what&apos;s on
-                <span aria-hidden="true">→</span>
-              </span>
-            </Link>
+            {NATIVE_MENU_LIVE ? (
+              <Link
+                href={withAttr("/deals", "deal", "visit-mesh")}
+                className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+              >
+                <div className="text-2xl mb-2" aria-hidden="true">🏷️</div>
+                <h3 className="font-bold text-stone-900 text-sm">Live deals today</h3>
+                <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+                  Brand-day pricing, % off categories, weekly recurring specials.
+                </p>
+                <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+                  See what&apos;s on
+                  <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href={withAttr("/menu", "menu", "visit-mesh")}
+                className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+              >
+                <div className="text-2xl mb-2" aria-hidden="true">🛒</div>
+                <h3 className="font-bold text-stone-900 text-sm">Browse the menu</h3>
+                <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+                  Live inventory — price, THC, and what&apos;s in stock right now.
+                </p>
+                <span className="text-green-700 group-hover:text-green-600 text-xs font-bold mt-3 inline-flex items-center gap-1">
+                  Shop now
+                  <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            )}
             <Link
               href={withAttr("/heroes", "header", "visit-mesh-heroes")}
               className="group rounded-2xl border border-stone-200 bg-white hover:border-green-300 hover:shadow-md transition-all p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"

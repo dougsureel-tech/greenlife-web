@@ -8,6 +8,7 @@ import { STRAIN_TYPES } from "@/lib/strain-types";
 import { getStrainsInCurrentWave } from "@/lib/strains";
 import { STRAIN_FAMILIES } from "@/lib/strain-families";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
+import { NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 import { BRIEF_LIBRARY } from "@/lib/ambassador-briefs";
 
 // Revalidate every 30 minutes at CDN edge — sitemap pulls from DB
@@ -65,11 +66,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // URLs in sitemap wastes Google crawl budget. When the native menu
     // ships and the proxy redirect is removed, restore this entry.
     // (v7.665)
-    { url: `${STORE.website}/deals`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    // /treasure-chest = clearance-lane surface (v4.385). Was missing from
-    // the sitemap → Google never indexed it. Daily changeFrequency since
-    // products move in/out as inventory turns.
-    { url: `${STORE.website}/treasure-chest`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
+    // iHeartJane interim: /deals + /treasure-chest dead-end on the Boost
+    // embed (deep-links don't resolve), so stop advertising them in the
+    // sitemap while NATIVE_MENU_LIVE is off. The 301→/ redirects stay in
+    // next.config.ts to preserve indexed-URL equity; we just don't invite
+    // fresh crawls. Restore both entries when the native menu ships.
+    ...(NATIVE_MENU_LIVE
+      ? ([
+          { url: `${STORE.website}/deals`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+          { url: `${STORE.website}/treasure-chest`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
+        ] as const)
+      : []),
     { url: `${STORE.website}/visit`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.85 },
     // /visit/from-leavenworth — driver-side high-intent landing page
     // for Leavenworth visitors. Per SEO_CONTENT_DRAFTS_2026_05_09
@@ -298,12 +305,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // lastModified = endDate when present (the date the page surface
   // genuinely settles on); falls back to today for endless deals so
   // search engines don't see a stable date and de-prioritize.
-  const dealPages: MetadataRoute.Sitemap = deals.map((d) => ({
-    url: `${STORE.website}/deals/${d.id}`,
-    lastModified: d.endDate ? new Date(d.endDate) : new Date(),
-    changeFrequency: "daily" as const,
-    priority: 0.85,
-  }));
+  // Per-deal deep pages suppressed while NATIVE_MENU_LIVE is off — same
+  // iHeartJane-interim reason as the /deals + /treasure-chest entries above.
+  const dealPages: MetadataRoute.Sitemap = NATIVE_MENU_LIVE
+    ? deals.map((d) => ({
+        url: `${STORE.website}/deals/${d.id}`,
+        lastModified: d.endDate ? new Date(d.endDate) : new Date(),
+        changeFrequency: "daily" as const,
+        priority: 0.85,
+      }))
+    : [];
 
   // Dedupe brand slugs — `getActiveBrands` groups by `v.id` but the slug is
   // derived from `v.name`, so two vendor rows with the same name produce
