@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { withAttr } from "@/lib/attribution";
-import { menuLink } from "@/lib/menu-routing";
+import { menuLink, NATIVE_MENU_LIVE } from "@/lib/menu-routing";
 import { DAY_MS } from "@/lib/time-constants";
 import { getProductPlaceholderGradient } from "@/lib/product-placeholder";
 import { getCategoryIcon } from "@/lib/product-placeholder-icons";
@@ -243,7 +243,10 @@ export default async function HomePage() {
       {/* ─── Pick of the Week (Ship 0.2 Strain Tree arc) ──────────────── */}
       {/* Async Server Component. Returns null when flag-OFF OR no pick    */}
       {/* published → entire <section> unmounts (comms-expert spec).        */}
-      <StrainPickOfWeek />
+      {/* INTERIM (iHeartJane era): hidden until the native menu is live —  */}
+      {/* a single-strain spotlight invites a scoped click iHJ can't honor. */}
+      {/* Flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true at launch to restore.      */}
+      {NATIVE_MENU_LIVE && <StrainPickOfWeek />}
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative bg-green-950 text-white overflow-hidden">
         <div
@@ -796,8 +799,11 @@ export default async function HomePage() {
       {/* ─── Recently looking at — returning-visitor fast-lane. Renders
             client-side only, hidden on first-time visits (no localStorage
             stash). Fetches lean product cards via /api/products/by-ids
-            so the home payload stays small. */}
-      <RecentlyViewedAutoStrip accent="green" />
+            so the home payload stays small.
+            INTERIM (iHeartJane era): hidden until the native menu is live —
+            "jump back to that product" is a scoped promise iHJ can't honor.
+            Flip NEXT_PUBLIC_NATIVE_MENU_LIVE=true at launch to restore. */}
+      {NATIVE_MENU_LIVE && <RecentlyViewedAutoStrip accent="green" />}
 
       {/* ─── Active deals strip — only renders when something's actually
             running. Surfaces the savings BEFORE the mood/category sections
@@ -901,7 +907,12 @@ export default async function HomePage() {
           outside the SEO_STRAIN_WAVE-current set; this homepage link drives
           customer-side discoverability + builds internal-link signal Google
           activates when the wave bumps. Two CTAs: primary library browse,
-          secondary 3-question quiz. WAC 314-55-155 STRICT — no effect claims. */}
+          secondary 3-question quiz. WAC 314-55-155 STRICT — no effect claims.
+          INTERIM (iHeartJane era): the library + "find your strain" quiz steer
+          customers toward scoped product discovery iHJ can't fulfill, so this
+          whole callout is hidden until the native menu is live. Flip
+          NEXT_PUBLIC_NATIVE_MENU_LIVE=true at launch to restore. */}
+      {NATIVE_MENU_LIVE && (
       <section className="bg-stone-50 border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
@@ -932,6 +943,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ─── Mood / effect shortcut ─────────────────────────────────────────── */}
       <section className="bg-white border-b border-stone-100">
@@ -1430,8 +1442,13 @@ export default async function HomePage() {
       {/* Auto-derived from inventory_snapshots first_seen ≤ 7d. Distinct from
           the curated /admin/marketing/featured surface (that's "hot picks");
           this is "what's new". CTAs link to /menu (the iHeartJane Boost embed
-          in prod) — different from the in-dev /order tree menu, so safe. */}
-      {justIn.length > 0 && (
+          in prod) — different from the in-dev /order tree menu, so safe.
+          INTERIM (iHeartJane era): a product grid of specific items reads as a
+          shoppable surface, but each card just lands on the unfiltered iHJ menu —
+          which is exactly the "leads me to products I can't order" confusion. Hide
+          the rail until the native menu honors product links. Flip
+          NEXT_PUBLIC_NATIVE_MENU_LIVE=true at launch to restore. */}
+      {NATIVE_MENU_LIVE && justIn.length > 0 && (
         <section className="py-8 sm:py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-8 gap-4">
