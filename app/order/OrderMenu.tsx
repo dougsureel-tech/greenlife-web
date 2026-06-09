@@ -232,6 +232,88 @@ function normalizeCategory(raw: string | null): string | null {
   return s;
 }
 
+// Deep-link `?category=` resolver. Callers pass slugs in varied shapes — the
+// homepage "What We Carry" tiles emit lowercase / hyphenated slugs
+// (?category=flower, ?category=pre-rolls, ?category=vapes), /find-your-strain
+// emits title-case (?category=Flower), /strains pages vary. The in-page grid
+// filters against normalizeCategory() canonical buckets ("Flower", "Pre-Rolls",
+// "Cartridges", …), so an unnormalized slug would filter to an EMPTY grid — a
+// dead-end worse than no filter. This resolves a raw param to a canonical
+// bucket that ACTUALLY has in-stock products; anything unresolvable falls back
+// to null (unfiltered), never an empty grid. Dormant until the native menu is
+// live (NATIVE_MENU_LIVE) — today these tiles collapse to bare /menu.
+//
+// `vapes` is a customer-facing umbrella spanning several canonical buckets —
+// Cartridges, Disposables (incl. "all-in-ones"), and Pods, all cannabis. It
+// resolves to the "Vapes" GROUP key (see CATEGORY_GROUPS) so the grid matches
+// ANY member bucket, not just one. Customers arrive via varied terms ("vape",
+// "weed vape", carts) — all land on the family.
+const CATEGORY_GROUPS: Record<string, string[]> = {
+  Vapes: [
+    "Cartridges",
+    "Cartridge",
+    "Disposables",
+    "Disposable",
+    "Pods",
+    "Pod",
+    "Vapes",
+    "Vape",
+  ],
+};
+
+// Slugs that map to a multi-bucket GROUP rather than a single canonical bucket.
+const SLUG_TO_GROUP: Record<string, string> = {
+  vapes: "Vapes",
+  vape: "Vapes",
+};
+
+// Slugs that map to a single canonical bucket (case / plural variants the
+// homepage tiles and strain pages emit).
+const CATEGORY_SLUG_ALIASES: Record<string, string[]> = {
+  carts: ["Cartridges"],
+  prerolls: ["Pre-Rolls"],
+  "pre-roll": ["Pre-Rolls"],
+  preroll: ["Pre-Rolls"],
+  tincture: ["Tinctures", "Tincture"],
+  tinctures: ["Tinctures", "Tincture"],
+  topical: ["Topicals"],
+  drinks: ["Beverages"],
+  beverage: ["Beverages"],
+  accessories: ["Accessories"],
+  paraphernalia: ["Accessories"],
+};
+
+function resolveCategoryParam(
+  raw: string | null | undefined,
+  inStock: Set<string>,
+): string | null {
+  if (!raw) return null;
+  const key = raw.trim().toLowerCase();
+  if (!key) return null;
+  // 1. Group umbrella (e.g. vapes) → the group key, if ANY member is in stock.
+  const group = SLUG_TO_GROUP[key];
+  if (group && CATEGORY_GROUPS[group].some((m) => inStock.has(m))) return group;
+  // 2. Direct case-insensitive match against an in-stock canonical bucket.
+  for (const c of inStock) if (c.toLowerCase() === key) return c;
+  // 3. Plural / singular alias → first in-stock candidate.
+  const aliases = CATEGORY_SLUG_ALIASES[key];
+  if (aliases) for (const cand of aliases) if (inStock.has(cand)) return cand;
+  // 4. normalizeCategory() of the raw value, if it lands on an in-stock bucket.
+  const norm = normalizeCategory(raw);
+  if (norm && inStock.has(norm)) return norm;
+  // 5. Unknown / out-of-stock → unfiltered, never an empty grid.
+  return null;
+}
+
+// True when a product's canonical category belongs to the active selection.
+// `active` is usually one bucket, but may be a GROUP key (e.g. "Vapes") that
+// spans several buckets — see CATEGORY_GROUPS.
+function categoryMatches(productCategory: string, active: string): boolean {
+  const group = CATEGORY_GROUPS[active];
+  if (group) return group.includes(productCategory);
+  return productCategory === active;
+}
+
 // Strip duplicated brand / category / strain-type tokens from the SKU-shaped
 // title and pull out a weight chip. e.g. "1g - Blueberry Pancakes - 2727 -
 // Cartridge - H" with brand="2727", category="Cartridge", strainType="Hybrid"
@@ -617,9 +699,18 @@ export function OrderMenu({
   // lands here with the product name already searched. No effect on
   // direct visitors who arrive without the param.
   const [search, setSearch] = useState<string>(() => searchParams?.get("q") ?? "");
-  const [activeCategory, setActiveCategory] = useState<string | null>(
-    () => searchParams?.get("category") ?? null,
-  );
+  const [activeCategory, setActiveCategory] = useState<string | null>(() => {
+    // Resolve the raw `?category=` slug to a canonical bucket that has in-stock
+    // products. Build the same canonical in-stock set the pills use (from the
+    // `products` prop, available at mount) so deep-links can never land on an
+    // empty grid. See resolveCategoryParam() for the slug→canonical contract.
+    const inStock = new Set<string>();
+    for (const p of products) {
+      const c = normalizeCategory(p.category);
+      if (c) inStock.add(c);
+    }
+    return resolveCategoryParam(searchParams?.get("category"), inStock);
+  });
   const [strainFilter, setStrainFilter] = useState<string | null>(() => {
     // Strain-type direct: ?strain=sativa|indica|hybrid|cbd from /strains/<type>
     // pages and the find-your-strain quiz. Quiz emits lower-case; strain pills
@@ -797,7 +888,7 @@ export function OrderMenu({
   const availableBrands = useMemo(() => {
     const set = new Set<string>();
     for (const p of visibleProducts) {
-      if (activeCategory && p.category !== activeCategory) continue;
+      if (activeCategory && !categoryMatches(p.category, activeCategory)) continue;
       if (p.brand) set.add(p.brand);
     }
     return [...set].sort((a, b) => a.localeCompare(b));
@@ -808,7 +899,7 @@ export function OrderMenu({
   const availableStrains = useMemo(() => {
     const set = new Set<string>();
     for (const p of visibleProducts) {
-      if (activeCategory && p.category !== activeCategory) continue;
+      if (activeCategory && !categoryMatches(p.category, activeCategory)) continue;
       if (p.strainType) set.add(p.strainType);
     }
     return [...set];
@@ -816,7 +907,7 @@ export function OrderMenu({
 
   const filtered = useMemo(() => {
     const result = visibleProducts.filter((p) => {
-      if (activeCategory && p.category !== activeCategory) return false;
+      if (activeCategory && !categoryMatches(p.category, activeCategory)) return false;
       if (strainFilter && p.strainType !== strainFilter) return false;
       if (brandFilter && p.brand !== brandFilter) return false;
       if (priceTier !== "all") {
@@ -1196,7 +1287,7 @@ export function OrderMenu({
               <button type="button"
                 key={c}
                 onClick={() => selectCategory(c)}
-                className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${activeCategory === c ? "bg-green-100 text-green-800" : "text-stone-500 hover:bg-stone-100"}`}
+                className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${activeCategory != null && categoryMatches(c, activeCategory) ? "bg-green-100 text-green-800" : "text-stone-500 hover:bg-stone-100"}`}
               >
                 <span className="text-base">{CAT_ICONS[c] ?? "•"}</span>
                 <span className="truncate">{displayCategory(c)}</span>
@@ -1224,9 +1315,9 @@ export function OrderMenu({
               <button type="button"
                 key={c}
                 onClick={() => selectCategory(activeCategory === c ? null : c)}
-                aria-pressed={activeCategory === c}
+                aria-pressed={activeCategory != null && categoryMatches(c, activeCategory)}
                 aria-label={`Category: ${displayCategory(c)}`}
-                className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors ${activeCategory === c ? "bg-green-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}
+                className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors ${activeCategory != null && categoryMatches(c, activeCategory) ? "bg-green-800 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}
               >
                 <span aria-hidden="true">{CAT_ICONS[c] ?? "•"}</span>
                 {displayCategory(c)}
