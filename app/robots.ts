@@ -44,6 +44,11 @@ export default function robots(): MetadataRoute.Robots {
           "/api/",
           "/dev",
           "/devmenu",
+          // /menu/menu — iHeartJane embed generates filter-permutation URLs
+          // (e.g. /menu/menu/?filters[...]) that Google was crawling 14-18
+          // variants of, competing with the homepage for crawl budget. The
+          // real menu lives at exactly /menu, so this prefix never matches it.
+          "/menu/menu",
           "/order/confirmation/", // v7.685 — per-order privacy. Page
                                   // itself has robots:noindex but
                                   // Disallow saves the crawl request
