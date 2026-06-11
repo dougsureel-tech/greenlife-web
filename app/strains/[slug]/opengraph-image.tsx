@@ -7,11 +7,13 @@ import { STRAINS, STRAIN_SLUGS, getStrain } from "@/lib/strains";
 // emerald) so the card reads at-a-glance which shelf the strain lives
 // on. Big strain name, lineage subhead, THC chip, GLC corner mark.
 //
-// Static-bake friendly: generateImageMetadata enumerates ALL slugs in
-// STRAIN_SLUGS so Next pre-renders every card at build time (not just
-// current-wave ones). When SEO_STRAIN_WAVE bumps, the OG is already
-// CDN-cached. Cards for noindex slugs still resolve — if someone shares
-// the URL directly the share card renders cleanly.
+// One image per dynamic route, keyed off `params.slug` below. Next serves
+// it at the bare /strains/<slug>/opengraph-image URL — the exact URL the
+// page's metadata advertises. (Previously this used generateImageMetadata
+// returning { id: slug }, which is for emitting MULTIPLE images per route:
+// it appended the id as a path segment so the real image lived at
+// /opengraph-image/<id> while <head> pointed at the bare URL → every share
+// card 404'd. Removed per Next 16 metadata-route convention.)
 //
 // WAC 314-55-155: text strictly descriptive — name + lineage + type +
 // THC range. No "relaxing/energizing/sleeping" or effect language.
@@ -19,11 +21,6 @@ import { STRAINS, STRAIN_SLUGS, getStrain } from "@/lib/strains";
 export const alt = `${STORE.name} — Strain library`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-// Pre-enumerate all 50 slugs so Vercel caches each card at build.
-export function generateImageMetadata() {
-  return STRAIN_SLUGS.map((slug) => ({ id: slug }));
-}
 
 type TypeTheme = {
   /** Big background gradient. */

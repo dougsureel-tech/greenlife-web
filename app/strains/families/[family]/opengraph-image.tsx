@@ -3,7 +3,6 @@ import { STORE } from "@/lib/store";
 import { STRAINS } from "@/lib/strains";
 import {
   STRAIN_FAMILIES,
-  FAMILY_SLUGS,
   getFamily,
   getStrainsInFamily,
 } from "@/lib/strain-families";
@@ -13,8 +12,12 @@ import {
 // (e.g. Kush = OG Kush hybrid → emerald, Northern Lights = indica →
 // indigo). Reads as a sibling card system on SERP + social shares.
 //
-// Pre-bakes all 10 family cards at build time via generateImageMetadata
-// so the CDN has every card cached before any wave bump.
+// One image per dynamic route, keyed off `params.family` below. Next
+// serves it at the bare /strains/families/<family>/opengraph-image URL —
+// the URL the page metadata advertises. (Removed generateImageMetadata,
+// which is for emitting MULTIPLE images per route: returning { id: slug }
+// appended the id as a path segment so the image lived at
+// /opengraph-image/<id> while <head> pointed at the bare URL → 404.)
 //
 // WAC 314-55-155: text strictly descriptive — family name + member
 // names + founder + tenure footer. No effect/medical language.
@@ -22,10 +25,6 @@ import {
 export const alt = `${STORE.name} — Strain Family Album`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateImageMetadata() {
-  return FAMILY_SLUGS.map((slug) => ({ id: slug }));
-}
 
 type TypeTheme = {
   bg: string;
