@@ -3,6 +3,7 @@ import { STORE } from "@/lib/store";
 import { STRAINS } from "@/lib/strains";
 import {
   STRAIN_FAMILIES,
+  FAMILY_SLUGS,
   getFamily,
   getStrainsInFamily,
 } from "@/lib/strain-families";
@@ -25,6 +26,17 @@ import {
 export const alt = `${STORE.name} — Strain Family Album`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+// The parent `/strains/families/[family]` segment sets `dynamic = "force-static"`
+// + `dynamicParams = false`, which this colocated metadata-image route INHERITS —
+// so the route MUST enumerate its own params or every card 500s (no static bake +
+// no on-demand fallback). Mirror the parent's family set so Next bakes one card
+// per family at the bare advertised `…/opengraph-image` URL. (Replaces the removed
+// `generateImageMetadata`, whose `{ id }` wrongly nested the card under a
+// `…/opengraph-image/<id>` sub-segment → 404.)
+export function generateStaticParams() {
+  return FAMILY_SLUGS.map((family) => ({ family }));
+}
 
 type TypeTheme = {
   bg: string;
@@ -188,6 +200,8 @@ export default async function OG({
           >
             <div
               style={{
+                // Satori requires explicit display on any element with >1 child.
+                display: "flex",
                 fontSize: 22,
                 fontWeight: 800,
                 letterSpacing: 3,
@@ -250,7 +264,14 @@ export default async function OG({
               <span style={{ color: theme.sep }}>·</span>
               <span>Since 2014</span>
             </div>
-            <div style={{ fontSize: 20, color: theme.fg, fontWeight: 700 }}>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 20,
+                color: theme.fg,
+                fontWeight: 700,
+              }}
+            >
               greenlifecannabis.com/strains/families/{fam.slug}
             </div>
           </div>
