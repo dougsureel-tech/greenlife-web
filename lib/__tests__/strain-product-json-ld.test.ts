@@ -323,6 +323,18 @@ describe("buildStrainProductLd — WSLCB compliance (description scrubbing)", ()
     assert.doesNotMatch(out!, /\bmedicinal\b/i);
   });
 
+  test("scrubWslcbClaims strips efficacy frames but leaves bare nouns + names", () => {
+    // Frames are removed; the residual bare noun is intentionally left
+    // (banning "sleep"/"pain" outright would mangle strain/product names).
+    assert.equal(scrubWslcbClaims("Great for sleep"), "sleep");
+    assert.equal(scrubWslcbClaims("Perfect for anxiety"), "anxiety");
+    assert.equal(scrubWslcbClaims("Knocks out insomnia"), "insomnia");
+    assert.equal(scrubWslcbClaims("Calms you down"), "down");
+    // Names containing a frame-adjacent word are untouched.
+    assert.equal(scrubWslcbClaims("Calm Tincture"), "Calm Tincture");
+    assert.equal(scrubWslcbClaims("Pain Killer OG"), "Pain Killer OG");
+  });
+
   test("scrubWslcbClaims returns null when only banned phrases remain", () => {
     const out = scrubWslcbClaims("treats cures relieves heals");
     assert.equal(out, null, "empty-after-scrub should return null (caller OMITs)");

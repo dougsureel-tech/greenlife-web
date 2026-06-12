@@ -53,6 +53,16 @@ const WSLCB_BANNED_PHRASES: readonly RegExp[] = [
   /\bremedies\b/gi,
   /\bhelps with\b/gi,
   /\bhelp with\b/gi,
+  // Efficacy FRAMES (not bare condition nouns). Catch the "great for
+  // sleep" / "perfect for anxiety" class the word-strip alone misses,
+  // WITHOUT banning a bare noun like "sleep"/"pain" that would mangle a
+  // legitimate strain/product name. Frame-only keeps the false-positive
+  // blast radius tiny. Sister-mirror obligation: the inv-App copy
+  // (packages/lib-shared/wslcb-scrub.ts) + seattle-cannabis-web's copy
+  // carry the identical additions — keep all three in sync.
+  /\b(?:good|great|perfect) for\b/gi,
+  /\bknocks? out\b/gi,
+  /\bcalms? (?:you|your)\b/gi,
   /\balleviates?\b/gi,
   /\balleviating\b/gi,
   /\btherap(?:y|eutic|ies)\b/gi,

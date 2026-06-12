@@ -14,7 +14,10 @@
  *
  * This gate fails the build when `next.config.ts` is missing EITHER:
  *  - the `CSP_REPORT_ONLY` const (T108), OR
- *  - the `Content-Security-Policy-Report-Only` header registration (T108), OR
+ *  - a CSP header registration — `Content-Security-Policy-Report-Only`
+ *    (T108 observation mode) OR the enforcing `Content-Security-Policy`
+ *    (the v43.065 2026-06-05 graduation target; enforce mode is the
+ *    SUCCESS state report-only was prepping for, so it must pass too), OR
  *  - the `report-uri /api/csp-report` directive (T109), OR
  *  - the `app/api/csp-report/route.ts` endpoint file (T109)
  *
@@ -49,8 +52,13 @@ const checks = [
     re: /const\s+CSP_REPORT_ONLY\s*=/,
   },
   {
-    name: "Content-Security-Policy-Report-Only header registered",
-    re: /["']Content-Security-Policy-Report-Only["']\s*,/,
+    // Accept observation mode (Report-Only) OR enforce mode. GLW graduated
+    // to enforce (`Content-Security-Policy`) at v43.065 (2026-06-05) — the
+    // success state report-only was prepping for. The optional `-Report-Only`
+    // suffix matches both; the trailing `,` keeps it anchored to the header
+    // tuple (avoids matching the directive-string interpolations elsewhere).
+    name: "CSP header registered (Report-Only observation OR enforce mode)",
+    re: /["']Content-Security-Policy(?:-Report-Only)?["']\s*,/,
   },
   {
     name: "report-uri /api/csp-report directive present",
