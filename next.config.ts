@@ -675,7 +675,7 @@ const nextConfig: NextConfig = {
       { source: "/my-account", destination: "/account", permanent: true },
       { source: "/my-account/:path*", destination: "/account", permanent: true },
       { source: "/gallery", destination: "/about", permanent: true },
-      { source: "/chelan-dispensary", destination: "/menu", permanent: true },
+      { source: "/chelan-dispensary", destination: "/near/chelan", permanent: true },
 
       // ── Legacy iHJ / WP product URLs (Doug 2026-05-08)
       // /menu/products/<id>/<slug>/ was the iHJ product detail URL pattern.

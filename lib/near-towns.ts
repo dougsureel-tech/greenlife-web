@@ -40,7 +40,7 @@ export const NEAR_TOWNS: readonly NearTown[] = [
     county: "Chelan County",
     driveMins: 45,
     highway: "US-97 Alt north along the Columbia",
-    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — about 45 min door-to-door, and we're the closest legal cannabis to the lake.",
+    pitch: "Chelan to Wenatchee is one shot down US-97 along the Columbia — about 45 min door-to-door. We're the full-selection stop at the Sunnyslope exit on your way up to the lake or back home.",
     whyStop:
       "Chelan locals + summer-house owners drive past Green Life on the way out of town. Stocking up before a long weekend at the lake is the most common reason — pre-rolls for the docks, edibles for the houseboat, flower for the cabin. Cash-only and 21+, but the ATM in-store covers either.",
     notableNeighbors: ["Manson", "Entiat", "Leavenworth"],
