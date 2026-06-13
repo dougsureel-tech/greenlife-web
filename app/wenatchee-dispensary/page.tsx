@@ -13,10 +13,15 @@ import { safeJsonLd } from "@/lib/json-ld-safe";
 // (customer-cta-order-href rule). Voice: operator-direct, U+2019
 // apostrophes, no effect/medical/promo claims.
 //
-// NOTE: the "20% off online" promo is deliberately genericized OUT of this
-// evergreen page pending Doug's confirm it's current — see the FINAL doc
-// flag. Keep the neutral "order ahead online and skip the line" framing
-// until Doug greenlights the specific percentage.
+// NOTE: the "20% off online orders" promo is RESTORED here (Doug confirmed
+// 2026-06-13 it is currently live for Wenatchee / Green Life). It was
+// genericized OUT at v43.196 during the WSLCB gate pending Doug's confirm;
+// now re-added in GL voice, matching the site-wide online-order wording
+// (deals/menu OG cards: "20% off online orders"; our-story "online orders
+// save 20%"). WSLCB-fine: a dispensary's OWN online-order discount is not a
+// prohibited third-party inducement (WAC 314-55-077(7) — same shape as the
+// always-on online floor in lib/online-pricing.ts, ONLINE_DISCOUNT_PCT=20).
+// Age-gated 21+ context retained. NOT a different %/terms — the 20% SSoT.
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -27,9 +32,9 @@ export const revalidate = false;
 // /near/* title.absolute pattern.
 export const metadata: Metadata = {
   title: { absolute: "Wenatchee Dispensary — Green Life Cannabis" },
-  // ~150 chars HTML-rendered — under the 160 SERP cap. No promo/% claim.
+  // ~155 chars HTML-rendered — under the 160 SERP cap.
   description:
-    "Green Life Cannabis is a Wenatchee dispensary on GS Center Rd — open 8 AM daily, deep flower/vape/edible selection, free parking, order ahead online. 21+.",
+    "Green Life Cannabis is a Wenatchee dispensary on GS Center Rd — open 8 AM daily, deep flower/vape/edible selection, free parking, 20% off online orders. 21+.",
   alternates: { canonical: "/wenatchee-dispensary" },
   keywords: [
     "wenatchee dispensary",
@@ -44,7 +49,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: { absolute: "Wenatchee Dispensary — Green Life Cannabis" },
     description:
-      "Green Life Cannabis is a Wenatchee dispensary on GS Center Rd — open 8 AM daily, deep selection, free parking, order ahead online. 21+.",
+      "Green Life Cannabis is a Wenatchee dispensary on GS Center Rd — open 8 AM daily, deep selection, free parking, 20% off online orders. 21+.",
     url: `${STORE.website}/wenatchee-dispensary`,
     siteName: STORE.name,
     // No co-located opengraph-image.tsx for this route — use the shared
@@ -156,7 +161,7 @@ export default function WenatcheeDispensaryPage() {
         name: "Can I order ahead for pickup?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Start an online order, pick a pickup time, then grab and go when you arrive.",
+          text: "Yes — and online orders are 20% off. Start an online order, pick a pickup time, then grab and go when you arrive.",
         },
       },
       {
@@ -287,8 +292,8 @@ export default function WenatcheeDispensaryPage() {
             </div>
             <p className="text-sm text-stone-700 leading-relaxed">
               Free parking right out front on GS Center Road, ATM inside, ADA-accessible,
-              and walk-ins are always welcome. Order ahead online and skip the
-              line.
+              and walk-ins are always welcome. Order ahead online — online
+              orders save 20%.
             </p>
           </div>
         </div>
@@ -412,8 +417,8 @@ export default function WenatcheeDispensaryPage() {
                 {STORE.address.street}, Wenatchee
               </h2>
               <p className="text-green-200/80 text-sm sm:text-base leading-relaxed">
-                Open 8 AM daily. Must be 21+ with valid ID. Order ahead online
-                and skip the line.
+                Open 8 AM daily. Must be 21+ with valid ID. Order ahead online —
+                online orders save 20%.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
