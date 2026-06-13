@@ -78,6 +78,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ] as const)
       : []),
     { url: `${STORE.website}/visit`, lastModified: STATIC_LASTMOD, changeFrequency: "weekly", priority: 0.85 },
+    // /wenatchee-dispensary — head-term landing page targeting
+    // "wenatchee dispensary" / "dispensary wenatchee" / "cannabis wenatchee".
+    // Static (force-static); high priority (0.85) — head-term intent peer
+    // with /visit + /menu, anchored to the homepage #dispensary entity via
+    // LocalBusiness @id. WSLCB-gated copy (FINAL_2026_06_13).
+    {
+      url: `${STORE.website}/wenatchee-dispensary`,
+      lastModified: STATIC_LASTMOD,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
     // /visit/from-leavenworth — driver-side high-intent landing page
     // for Leavenworth visitors. Per SEO_CONTENT_DRAFTS_2026_05_09
     // Tier-1 Draft 7. Static page (force-static); changeFrequency

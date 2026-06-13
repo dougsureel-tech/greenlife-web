@@ -124,7 +124,11 @@ export default function NearIndexPage() {
           We get visitors from across Eastern Washington. If you&apos;re driving in,{" "}
           <Link href="/visit" className="underline hover:no-underline">/visit</Link> has
           the address, parking, and ID requirements; <Link href="/menu" className="underline hover:no-underline">/menu</Link>{" "}
-          has the live inventory.
+          has the live inventory. In town?{" "}
+          <Link href="/wenatchee-dispensary" className="underline hover:no-underline">
+            Our Wenatchee dispensary page
+          </Link>{" "}
+          has hours, location, and what we carry.
         </p>
         <div className="flex flex-wrap gap-2">
           <Link
