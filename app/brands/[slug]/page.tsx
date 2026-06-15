@@ -6,6 +6,7 @@ import { VendorAdSlot } from "@/components/VendorAdSlot";
 import { getBrandBySlug, getBrandProducts, getActiveBrands, getActiveDeals } from "@/lib/db";
 import { effectivePriceFor, findDealForProduct, ONLINE_DISCOUNT_PCT } from "@/lib/online-pricing";
 import { getBrandCopy } from "@/lib/brand-copy";
+import { buildBrandProductLd } from "@/lib/brand-product-json-ld";
 import { withAttr } from "@/lib/attribution";
 import { menuLink } from "@/lib/menu-routing";
 import { isBannedLogoUrl } from "@/lib/banned-logo-url";
@@ -367,40 +368,31 @@ export default async function BrandPage({ params }: Props) {
   // Tightened to unit_price > 0 (matches what's actually shown on the page)
   // and references the LocalBusiness @id from layout.tsx instead of
   // duplicating the seller's address inline.
+  // Built via the shared `buildBrandProductLd` helper (2026-06-15, sister-port
+  // of seattle-cannabis-web v34.726) which hardens the emitted `offers` against
+  // GSC Merchant-listing warnings: drops the legacy non-spec `availableAtOrFrom`
+  // for spec-valid `availableDeliveryMethod: OnSitePickup` (pickup-only, no
+  // shipping), and scrubs the Dutchie `effects` free-text through the WSLCB
+  // banned-phrase filter before it becomes the Product `description`. Price-less
+  // SKUs are omitted (no offer-less Product). Shipping/return markup is
+  // intentionally NOT added — cannabis is barred from Google Merchant
+  // Center/Shopping and we don't ship; goal is a valid general rich result.
+  const fallbackProductImage = logoUrl || `${STORE.website}/brands/${slug}/opengraph-image`;
+  const menuUrl = `${STORE.website}/menu`;
+  const dispensaryId = `${STORE.website}/#dispensary`;
   const productSchemas = products
-    .filter((p) => p.unit_price != null && p.unit_price > 0)
-    .map((p) => ({
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "@id": `${brandUrl}#product-${p.id}`,
-      name: p.name,
-      brand: { "@id": `${brandUrl}#brand` },
-      ...(p.category ? { category: p.category } : {}),
-      image: p.image_url || logoUrl || `${STORE.website}/brands/${slug}/opengraph-image`,
-      ...(p.effects ? { description: p.effects } : {}),
-      ...(p.thc_pct != null
-        ? {
-            additionalProperty: [
-              { "@type": "PropertyValue", name: "THC", value: `${p.thc_pct.toFixed(1)}%` },
-              ...(p.cbd_pct != null && p.cbd_pct > 0
-                ? [{ "@type": "PropertyValue", name: "CBD", value: `${p.cbd_pct.toFixed(1)}%` }]
-                : []),
-              ...(p.strain_type
-                ? [{ "@type": "PropertyValue", name: "Strain Type", value: p.strain_type }]
-                : []),
-            ],
-          }
-        : {}),
-      offers: {
-        "@type": "Offer",
-        price: p.unit_price!.toFixed(2),
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        availableAtOrFrom: { "@id": `${STORE.website}/#dispensary` },
-        seller: { "@id": `${STORE.website}/#dispensary` },
-        url: `${STORE.website}/menu`,
-      },
-    }));
+    .map((p) =>
+      buildBrandProductLd({
+        product: p,
+        brandUrl,
+        displayName,
+        storeWebsite: STORE.website,
+        menuUrl,
+        fallbackImage: fallbackProductImage,
+        dispensaryId,
+      }),
+    )
+    .filter((node): node is Record<string, unknown> => node !== null);
 
   const collectionSchema = {
     "@context": "https://schema.org",
