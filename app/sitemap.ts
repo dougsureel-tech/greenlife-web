@@ -335,6 +335,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const seenBrandSlugs = new Set<string>();
   const brandPages: MetadataRoute.Sitemap = brands
     .filter((b) => {
+      // Merged-away brands keep a "<name>-merged-into-<id>-at-<ts>" slug and
+      // render a noindex page. They must NOT sit in the sitemap — a sitemap
+      // entry tells Google "index this" while the page says noindex, a
+      // self-contradicting signal that feeds Crawled-not-indexed / Duplicate.
+      // Sister-port of scc v34.766.
+      if (b.slug.includes("-merged-into-")) return false;
       if (seenBrandSlugs.has(b.slug)) return false;
       seenBrandSlugs.add(b.slug);
       return true;
