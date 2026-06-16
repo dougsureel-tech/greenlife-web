@@ -33,6 +33,17 @@ export const metadata: Metadata = {
   title: "Account & rewards",
   description: `Sign in to ${STORE.name} to view your loyalty balance, order history, and saved strain preferences. 21+.`,
   alternates: { canonical: "/rewards" },
+  // /rewards is a Clerk sign-in interstitial — no public content worth
+  // indexing, and every child (/login /dashboard /history /redeem /verify)
+  // already emits index:false. This parent was the LONE rewards-tree page
+  // still inheriting index,follow → Google indexed it (GSC "Indexed, though
+  // blocked by robots.txt": it was robots.txt-Disallowed in app/robots.ts,
+  // so Google could not crawl it to SEE a noindex, leaving the already-
+  // indexed URL stuck). Fix pair (mirrors scc v34.746): serve noindex HERE
+  // + REMOVE the noindex'd account/auth roots from robots.txt Disallow so
+  // Googlebot can crawl, read this directive, and drop the URL. A robots.txt
+  // block alone can NEVER deindex an already-indexed URL.
+  robots: { index: false },
 };
 
 export default function RewardsInterstitialPage() {

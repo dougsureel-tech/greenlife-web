@@ -22,41 +22,45 @@ export const revalidate = 3600;
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // Default crawler — Google, Bing, the long tail. /account
-      // is user-specific. /api, /dev, /devmenu are internal noise.
-      // /stash + /quiz/unsubscribe are per-visitor / post-action surfaces
-      // (page-level noindex already handles indexing but adding here
-      // saves the crawl request entirely). Keep them out of the crawl
-      // budget so the brand-anchor pages get the attention.
+      // Default crawler — Google, Bing, the long tail.
       //
-      // /alumni REMOVED from disallow 2026-05-09 — v9.905 explicitly
-      // added /alumni to the sitemap with reasoning "Google never
-      // crawled it → 'Green Life Cannabis alumni' wouldn't surface the
-      // page in search → SEO loss for alumni discovery." Robots.txt
-      // disallow was contradicting that intent (robots wins over
-      // sitemap, so Google would still skip /alumni). Now /alumni is
-      // crawlable + indexable for the SEO purpose v9.905 enabled.
+      // v43.246 (sister-port of scc v34.746) — REMOVED the account/auth/
+      // utility roots (/account, /order/confirmation/, /quiz/unsubscribe,
+      // /sign-in, /sign-up, /stash) from this Disallow list. Each of those
+      // pages ALREADY emits a page-level `robots: { index: false }`, so the
+      // correct way to keep them out of the index is to LET Googlebot crawl
+      // them and HONOR the noindex. Disallowing them did the opposite: a
+      // robots.txt block PREVENTS the crawl, so Google can never see the
+      // noindex → any URL it already indexed gets stuck (GSC "Indexed,
+      // though blocked by robots.txt"). The companion fix at v43.246 also
+      // added `robots:{index:false}` to /rewards — the lone page in that
+      // class that was still inheriting index,follow. A robots.txt block
+      // alone can NEVER deindex an already-indexed URL.
+      //
+      // STILL blocked, deliberately:
+      //   /api/        — JSON infra, no HTML to index, pure crawl waste.
+      //   /menu/menu   — iHeartJane embed generates filter-permutation URLs
+      //                  (e.g. /menu/menu/?filters[...]) that Google was
+      //                  crawling 14-18 variants of, competing with the
+      //                  homepage for crawl budget. The real menu is at
+      //                  exactly /menu, so this prefix never matches it.
+      //   /dev, /devmenu — internal dev surfaces (noindex,nofollow at the
+      //                  page level too). Zero SEO value, linked from
+      //                  nowhere public → no risk of a stuck-indexed URL,
+      //                  so keeping them out of the crawl budget is safe.
+      //
+      // /alumni was REMOVED from disallow 2026-05-09 for the same crawl-
+      // honors-noindex reasoning (v9.905 added it to the sitemap for
+      // "Green Life Cannabis alumni" discovery; the disallow contradicted
+      // that intent since robots wins over sitemap).
       {
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/account",
           "/api/",
           "/dev",
           "/devmenu",
-          // /menu/menu — iHeartJane embed generates filter-permutation URLs
-          // (e.g. /menu/menu/?filters[...]) that Google was crawling 14-18
-          // variants of, competing with the homepage for crawl budget. The
-          // real menu lives at exactly /menu, so this prefix never matches it.
           "/menu/menu",
-          "/order/confirmation/", // v7.685 — per-order privacy. Page
-                                  // itself has robots:noindex but
-                                  // Disallow saves the crawl request
-                                  // if Google discovers a URL.
-          "/quiz/unsubscribe",
-          "/sign-in",
-          "/sign-up",
-          "/stash",
         ],
       },
       // ── AI search engines — explicit allow ─────────────────────────
