@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { NEAR_TOWNS } from "@/lib/near-towns";
+import { STRAINS, getStrainsInCurrentWave } from "@/lib/strains";
 import { BUILD_VERSION, BUILD_SHA } from "@/lib/version";
 import { withAttr } from "@/lib/attribution";
 import { FeedbackModalTrigger } from "@/components/FeedbackModalTrigger";
@@ -23,6 +24,26 @@ const INV_APP_BASE = "https://brapp.greenlifecannabis.com";
 const FOOTER_NEAR_TOWNS = [...NEAR_TOWNS]
   .sort((a, b) => a.driveMins - b.driveMins)
   .slice(0, 8);
+
+// "Popular strains" footer column — sitewide crawlable internal links into
+// the /strains/<slug> detail subtree. WHY (2026-06-16 SEO indexation fix,
+// sister-port of seattle-cannabis-web): Google indexes only 38/96 GLW strain
+// detail pages — the unindexed half is ORPHANED from Google's crawl graph.
+// The only page that linked to strain details (the /strains index) is itself
+// weak, and NO indexed hub (homepage, /menu, brand pages, /blog) carried a
+// single <a href="/strains/<slug>">. This is the EXACT orphaned state the
+// /near pages were in pre-v34.805 (see FOOTER_NEAR_TOWNS above) — the same fix
+// applies: a sitewide footer column lands crawlable links to the subtree on
+// every already-indexed page, so passive crawl can reach + index the strain
+// pages. SCC shipped this twin already (its homepage carries the same column).
+// Source = getStrainsInCurrentWave() (the SAME SSoT the sitemap uses), so the
+// list auto-tracks the wave cadence and never goes stale (no hardcoded slug to
+// rot). First 8 wave slugs = the highest-priority / best-known strains.
+// WSLCB-safe: strain NAMES only, zero effect/medical language (WAC 314-55-155).
+const FOOTER_POPULAR_STRAINS = getStrainsInCurrentWave()
+  .slice(0, 8)
+  .map((slug) => ({ slug, name: STRAINS[slug]?.name ?? slug }))
+  .filter((s) => s.name);
 
 export function SiteFooter() {
   return (
@@ -218,6 +239,58 @@ export function SiteFooter() {
             ].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="text-xs text-green-300/80 hover:text-white transition-colors">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Popular strains — sitewide internal-link equity into the
+            /strains/<slug> detail subtree (2026-06-16 indexation fix,
+            sister-port of seattle-cannabis-web). The unindexed half of the
+            /strains/* subtree (38/96 indexed) was orphaned from Google's
+            crawl graph — no indexed hub linked to a strain detail page;
+            this column lands crawlable links on every already-indexed page
+            so passive crawl can discover + index them. Strain category hubs
+            (/strains, indica, sativa, hybrid) are linked too so the type
+            landing pages get the same discovery boost. Slugs auto-track the
+            wave via getStrainsInCurrentWave() (same SSoT as the sitemap) —
+            no hardcoded list to rot. WSLCB-safe: names only, no effects. */}
+        <div className="space-y-3">
+          <h2 className="text-white font-semibold text-xs uppercase tracking-widest">Popular strains</h2>
+          <ul className="space-y-2">
+            {FOOTER_POPULAR_STRAINS.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={`/strains/${s.slug}`}
+                  className="text-xs text-green-300/80 hover:text-white transition-colors inline-flex items-baseline"
+                >
+                  <span className="text-green-400/40 mr-1">·</span>
+                  {s.name}
+                </Link>
+              </li>
+            ))}
+            <li className="pt-1">
+              <Link
+                href="/strains"
+                className="text-xs font-semibold text-green-200/90 hover:text-white transition-colors"
+              >
+                All strains →
+              </Link>
+            </li>
+          </ul>
+          <ul className="flex flex-wrap gap-x-3 gap-y-1 pt-1">
+            {[
+              { href: "/strains/indica", label: "Indica" },
+              { href: "/strains/sativa", label: "Sativa" },
+              { href: "/strains/hybrid", label: "Hybrid" },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="text-[11px] text-green-400/70 hover:text-white transition-colors"
+                >
                   {label}
                 </Link>
               </li>
