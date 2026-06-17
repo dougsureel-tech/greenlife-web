@@ -48,6 +48,7 @@ const NAV = [
   { href: "/menu", label: "Menu" },
   { href: "/deals", label: "Deals" },
   { href: "/find-your-strain", label: "Strains" },
+  { href: "/rewards", label: "Rewards" },
   { href: "/blog", label: "Guides" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
