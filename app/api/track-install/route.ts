@@ -1,7 +1,6 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { NextRequest, NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
-import { getOrCreatePortalUser } from "@/lib/portal";
 import crypto from "crypto";
 import { MINUTE_MS } from "@/lib/time-constants";
 import { createRateLimiter } from "@/lib/rate-limit";
@@ -69,11 +68,10 @@ export async function POST(req: NextRequest) {
   let customerId: string | null = null;
   let portalUserId: string | null = null;
   try {
-    const { userId } = await auth();
-    if (userId) {
-      const user = await currentUser();
-      const email = user?.emailAddresses[0]?.emailAddress;
-      const portalUser = await getOrCreatePortalUser(userId, email, user?.fullName);
+    // Phase 2/3 Step A3 dial-in — phone-OTP session first, Clerk fallback.
+    // Optional auth: anonymous installs still record (customerId stays null).
+    const { user: portalUser } = await getPortalUserForRequest();
+    if (portalUser) {
       portalUserId = portalUser.id;
       // Phone-match against customers (the canonical loyalty roster). Email
       // fallback. First match wins.

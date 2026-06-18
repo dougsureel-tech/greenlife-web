@@ -23,9 +23,8 @@
  *   500 — anything else
  */
 
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrCreatePortalUser } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import {
   voiceMemoEnabled,
   canRecordForStrain,
@@ -49,10 +48,12 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   // -----------------------------------------------------------------
-  // 1. Auth
+  // 1. Auth — Phase 2/3 Step A3 dial-in: phone-OTP session first, Clerk
+  // fallback. Closes the view-but-can't-record gap (the /account/oral-history
+  // PAGE resolves by phone, so this companion WRITE must too).
   // -----------------------------------------------------------------
-  const { userId } = await auth();
-  if (!userId) {
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
   // -----------------------------------------------------------------
   // 3. Rate limit (per-userId)
   // -----------------------------------------------------------------
-  if (!uploadLimiter.check(userId)) {
+  if (!uploadLimiter.check(portalUser.id)) {
     return NextResponse.json(
       { error: "Too many uploads. Try again in a few minutes." },
       { status: 429 },
@@ -152,14 +153,9 @@ export async function POST(req: NextRequest) {
   }
 
   // -----------------------------------------------------------------
-  // 7. Resolve portal user (for customer_id linkage)
+  // 7. Portal user already resolved at step 1 (phone-first) — used below
+  // for customer_id linkage on the memo row.
   // -----------------------------------------------------------------
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
 
   // -----------------------------------------------------------------
   // 8. Persist audio (lazy blob — handles dep-not-installed)

@@ -1,10 +1,10 @@
-import { auth } from "@clerk/nextjs/server";
 import { after } from "next/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Metadata } from "next";
-import { getOrCreatePortalUser, getOrder, notifyReadyOrders } from "@/lib/portal";
+import { getOrder, notifyReadyOrders } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
@@ -50,10 +50,14 @@ function fmtPickupDay(iso: string): string {
 
 export default async function OrderConfirmationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { userId } = await auth();
-  if (!userId) redirect(`/sign-in?redirect_url=/order/confirmation/${id}`);
+  // Phase 2/3 Step A3 dial-in — resolve phone-OTP session first, Clerk fallback,
+  // so a phone-logged-in customer can see their own order receipt (and so the
+  // post-order confirmation page works once /api/orders phone-first is flipped on).
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) redirect(`/sign-in?redirect_url=/order/confirmation/${id}`);
 
-  const portalUser = await getOrCreatePortalUser(userId);
+  // getOrder scopes to portalUser.id, so a phone customer only ever sees orders
+  // attributed to their own portal row.
   const order = await getOrder(id, portalUser.id);
   if (!order) notFound();
 

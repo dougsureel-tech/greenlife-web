@@ -22,9 +22,8 @@
  *   500 — anything else (err.name only — PII-safe)
  */
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrCreatePortalUser } from "@/lib/portal";
 import { getClient } from "@/lib/db";
 import { getBrief, BRIEF_IDS } from "@/lib/ambassador-briefs";
 import { createRateLimiter } from "@/lib/rate-limit";
@@ -60,9 +59,9 @@ function ambassadorEnabled(): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  // 1. Auth
-  const { userId } = await auth();
-  if (!userId) {
+  // 1. Auth — Phase 2/3 Step A3 dial-in: phone-OTP session first, Clerk fallback.
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -74,8 +73,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Rate limit (per-userId).
-  if (!uploadLimiter.check(userId)) {
+  // 3. Rate limit (per portal identity).
+  if (!uploadLimiter.check(portalUser.id)) {
     return NextResponse.json(
       { error: "Too many uploads. Try again in an hour." },
       { status: 429 },
@@ -133,13 +132,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 6. Resolve portal user (for customer_id linkage on ugc_submissions row).
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
+  // 6. portalUser resolved at the top (phone-first) — used for customer_id
+  // linkage on the ugc_submissions row.
 
   // 7. Persist video — lazy @vercel/blob load with graceful degrade.
   // Mirror lib/voice-memo.ts persistVoiceMemo shape.

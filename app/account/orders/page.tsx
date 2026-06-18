@@ -1,8 +1,8 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { after } from "next/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getOrCreatePortalUser, getOrders, notifyReadyOrders } from "@/lib/portal";
+import { getOrders, notifyReadyOrders } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { STORE, STORE_TZ } from "@/lib/store";
 import { OrderStatusRefresh } from "@/components/OrderStatusRefresh";
 import { NotifyMeButton } from "@/components/NotifyMeButton";
@@ -65,17 +65,14 @@ function fmtRelativeDay(iso: string): string {
 }
 
 export default async function OrderHistoryPage() {
-  const { userId } = await auth();
+  // Phase 2/3 Step A3 dial-in — resolve phone-OTP session first, Clerk fallback
+  // (mirrors /account). Without this a phone-logged-in customer who taps the
+  // "Orders" link from /account was bounced to Clerk /sign-in.
+  const { user: portalUser } = await getPortalUserForRequest();
   // Post-sign-in link-follow: deep-link to order history should resume
   // after auth, not dump to default /account.
-  if (!userId) redirect("/sign-in?redirect_url=/account/orders");
+  if (!portalUser) redirect("/sign-in?redirect_url=/account/orders");
 
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
   const orders = await getOrders(portalUser.id);
   const hasActiveOrder = orders.some(
     (o) => o.status === "pending" || o.status === "preparing" || o.status === "ready",

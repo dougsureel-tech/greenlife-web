@@ -24,9 +24,8 @@
  *   500 — DB write failed (table may not exist pre-migration)
  */
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrCreatePortalUser } from "@/lib/portal";
 import { getClient } from "@/lib/db";
 import { createRateLimiter } from "@/lib/rate-limit";
 import { HOUR_MS } from "@/lib/time-constants";
@@ -61,8 +60,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) {
+  // Phase 2/3 Step A3 dial-in — phone-OTP session first, Clerk fallback.
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!reviewLimiter.check(userId)) {
+  if (!reviewLimiter.check(portalUser.id)) {
     return NextResponse.json(
       { error: "Too many review submissions. Try again in an hour." },
       { status: 429 },
@@ -123,13 +123,7 @@ export async function POST(req: NextRequest) {
       ? b.mentionedBudtender.trim().slice(0, MAX_NAME_LEN).replace(/[\r\n]/g, "")
       : null;
 
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
-
+  // portalUser resolved at the top (phone-first).
   const sql = getClient();
   try {
     await sql`
