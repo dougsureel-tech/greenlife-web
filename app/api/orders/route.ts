@@ -1,6 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse, after } from "next/server";
-import { getOrCreatePortalUser, placeOrder, checkAvailability } from "@/lib/portal";
+import { getOrCreatePortalUser, placeOrder, checkAvailability, type PortalUser } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { validatePickupTime, pickupTimeToISO, STORE, STORE_TZ } from "@/lib/store";
 import { sendSms, isSmsConfigured, normalizePhone } from "@/lib/sms";
 import { sendOrderConfirmationEmail } from "@/lib/order-confirmation-email";
@@ -18,9 +19,31 @@ function checkOrderRate(userId: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!checkOrderRate(userId)) {
+  // Phase 2/3 Step A3 — identity resolution is DARK behind PHONE_FIRST_ORDERS_ENABLED.
+  //   OFF (default / unset): byte-identical to the original Clerk-only path —
+  //     no money/SMS behavior changes until Doug flips the flag in Vercel.
+  //   ON: a phone-OTP session resolves the SAME portal_users.id the order
+  //     attributes to (placeOrder, SMS, email, loyalty all key off portalUser),
+  //     so a phone-only customer can place an order and it lands on the right row.
+  // The rate-limiter is rekeyed to the resolved identity (portal id for phone,
+  // Clerk id otherwise) so it protects both paths. Order placement remains
+  // cash-only with the existing server-side authoritative-price re-fetch.
+  const PHONE_FIRST_ORDERS = process.env.PHONE_FIRST_ORDERS_ENABLED === "true";
+  let clerkUserId: string | null = null;
+  let phonePortalUser: PortalUser | null = null;
+  let rateKey: string;
+  if (PHONE_FIRST_ORDERS) {
+    const { user } = await getPortalUserForRequest();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    phonePortalUser = user;
+    rateKey = `pu:${user.id}`;
+  } else {
+    const { userId } = await auth();
+    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    clerkUserId = userId;
+    rateKey = userId;
+  }
+  if (!checkOrderRate(rateKey)) {
     return NextResponse.json(
       { error: "Too many orders. Wait a minute and try again." },
       { status: 429, headers: { "Retry-After": "60" } },
@@ -104,12 +127,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const user = await currentUser();
-    const portalUser = await getOrCreatePortalUser(
-      userId,
-      user?.emailAddresses[0]?.emailAddress,
-      user?.fullName,
-    );
+    // Phone path: identity already resolved above. Clerk path (default):
+    // resolve here exactly as the original did (after the availability check).
+    let portalUser: PortalUser;
+    if (phonePortalUser) {
+      portalUser = phonePortalUser;
+    } else {
+      const user = await currentUser();
+      portalUser = await getOrCreatePortalUser(
+        clerkUserId!,
+        user?.emailAddresses[0]?.emailAddress,
+        user?.fullName,
+      );
+    }
     const orderId = await placeOrder(
       portalUser.id,
       items as Parameters<typeof placeOrder>[1],

@@ -1,9 +1,12 @@
 // POST /api/rewards/sign-out
 //
 // Sister-port of seattle-cannabis-web/app/api/rewards/sign-out.
-// Clears the glw_rewards_session cookie. The cookie is path-scoped to
-// /rewards so this only kills rewards-side auth — Clerk-side /account
-// auth is untouched (they're separate identity systems by design).
+// Clears the glw_rewards_session cookie. As of the Phase 2/3 identity-
+// unification keystone the cookie is issued site-wide (path:"/"), so this
+// now signs the customer out of the unified /account + /rewards surface.
+// We clear BOTH path:"/" (current) AND path:"/rewards" (legacy) so a
+// customer who still holds a pre-keystone cookie is fully signed out during
+// the transition window.
 
 import { NextResponse } from "next/server";
 import { REWARDS_COOKIE_NAME } from "@/lib/rewards-session";
@@ -37,12 +40,18 @@ function siteOrigin(): string {
 
 export async function POST() {
   const res = NextResponse.redirect(new URL("/rewards/login", siteOrigin()));
+  const base = "HttpOnly; Secure; SameSite=Lax; Max-Age=0";
+  // Current site-wide cookie.
   res.cookies.set(REWARDS_COOKIE_NAME, "", {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/rewards",
+    path: "/",
     maxAge: 0,
   });
+  // Legacy path-scoped cookie (pre-keystone) — a second Set-Cookie header so a
+  // browser still holding the old path:"/rewards" cookie is cleared too. The
+  // cookies.set() helper keys by name, so the legacy clear is appended raw.
+  res.headers.append("Set-Cookie", `${REWARDS_COOKIE_NAME}=; Path=/rewards; ${base}`);
   return res;
 }

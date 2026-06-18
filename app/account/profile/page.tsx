@@ -1,7 +1,7 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getOrCreatePortalUser } from "@/lib/portal";
+import { getPortalMemberSince } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { STORE_TZ } from "@/lib/store";
 import { ProfileForm } from "./ProfileForm";
 import type { Metadata } from "next";
@@ -14,17 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in?redirect_url=/account/profile");
+  // Phase 2/3 Step A3 — resolve via the phone-OTP session first, Clerk fallback
+  // (mirrors /account/heroes). A phone-only customer can now reach their own
+  // profile; a Clerk customer with no phone session sees identical behavior.
+  const { user: portalUser, source } = await getPortalUserForRequest();
+  if (!portalUser) redirect("/sign-in?redirect_url=/account/profile");
 
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
-  const email = user?.emailAddresses[0]?.emailAddress ?? null;
-  const memberSince = user?.createdAt ? new Date(user.createdAt) : null;
+  // Email + member-since now come from the resolved portal row (works for BOTH
+  // identities), not Clerk's currentUser() — so phone-only customers see them
+  // too. memberSince is error-safe (null → row hidden).
+  const email = portalUser.email;
+  const memberSinceIso = await getPortalMemberSince(portalUser.id);
+  const memberSince = memberSinceIso ? new Date(memberSinceIso) : null;
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -74,7 +75,7 @@ export default async function ProfilePage() {
         </div>
 
         {/* Editable form */}
-        <ProfileForm user={portalUser} />
+        <ProfileForm user={portalUser} source={source} />
 
         {/* Help row */}
         <p className="text-xs text-center text-stone-400 leading-relaxed">

@@ -1,10 +1,13 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrCreatePortalUser, updatePortalUser, updateHeroesAttest } from "@/lib/portal";
+import { updatePortalUser, updateHeroesAttest } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Phase 2/3 Step A3 — resolve identity the same way the page does (phone-OTP
+  // session first, Clerk fallback) so a phone-only customer's save hits their
+  // OWN portal row. Mirrors the /api/heroes write migration (v43.280).
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   let body: unknown;
   try {
@@ -45,12 +48,6 @@ export async function POST(req: NextRequest) {
         : undefined;
 
   try {
-    const user = await currentUser();
-    const portalUser = await getOrCreatePortalUser(
-      userId,
-      user?.emailAddresses[0]?.emailAddress,
-      user?.fullName,
-    );
     await updatePortalUser(portalUser.id, { name: cleanName, phone: cleanPhone, smsOptIn: cleanSmsOptIn, emailOptIn: cleanEmailOptIn, frequencyPref: cleanFrequencyPref, noSubstitutePref: cleanNoSubstitutePref });
     if (cleanHeroesType !== undefined) {
       await updateHeroesAttest(portalUser.id, cleanHeroesType);

@@ -241,7 +241,15 @@ export async function POST(req: NextRequest) {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/rewards",
+    // Phase 2/3 identity-unification keystone: site-wide ("/") so the phone-OTP
+    // session is readable by getPortalUserForRequest() on /account/* + /api/*,
+    // not just /rewards/*. Was path:"/rewards" back when rewards + Clerk /account
+    // were separate identity systems — the deliberate split this phase retires.
+    // Every other protection is unchanged (httpOnly, secure, sameSite=lax,
+    // HMAC-signed, purpose+TTL bound); widening path does not weaken the session.
+    // Until a phone customer re-logs-in their OLD path:"/rewards" cookie still
+    // works on /rewards/* (sign-out clears both paths during the transition).
+    path: "/",
     maxAge: SESSION_TTL_DAYS * 86_400,
   });
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { STORE } from "@/lib/store";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 
 // /rewards — public-site interstitial.
 //
@@ -46,7 +47,24 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default function RewardsInterstitialPage() {
+// GLW Step B — the page now resolves identity (reads cookies/auth), so it must
+// render dynamically. Was a pure static interstitial; the only behavior change
+// is the primary CTA destination branching on the resolved session.
+export const dynamic = "force-dynamic";
+
+export default async function RewardsInterstitialPage() {
+  // Step B — make the primary CTA auth-aware. Previously hardcoded to
+  // /sign-in?redirect_url=/account, which was inert for a phone-OTP customer
+  // (they have a session but no Clerk account). Now: a live phone session goes
+  // straight to the rewards dashboard, a Clerk session to /account, and a
+  // signed-out visitor still gets the Clerk sign-in interstitial.
+  const { source } = await getPortalUserForRequest();
+  const ctaHref =
+    source === "phone-session"
+      ? "/rewards/dashboard"
+      : source === "clerk-auth"
+        ? "/account"
+        : "/sign-in?redirect_url=/account";
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-8">
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Account & rewards" }]} />
@@ -66,7 +84,7 @@ export default function RewardsInterstitialPage() {
 
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
-          href="/sign-in?redirect_url=/account"
+          href={ctaHref}
           className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-700 hover:bg-emerald-600 px-6 py-3.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 shadow-md shadow-emerald-900/20 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:outline-none"
         >
           Sign in →

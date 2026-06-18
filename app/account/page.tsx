@@ -1,12 +1,11 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
 import Link from "next/link";
 import {
-  getOrCreatePortalUserWithCreated,
   getOrders,
   getLoyaltyForPortalUser,
 } from "@/lib/portal";
+import { getPortalUserForRequestWithCreated } from "@/lib/portal-request";
 import { STORE, STORE_TZ, hoursSummary } from "@/lib/store";
 import { sendWelcomeEmail } from "@/lib/welcome-email";
 import { PushSubscribe } from "@/components/PushSubscribe";
@@ -62,33 +61,25 @@ type Props = { searchParams: Promise<{ ordered?: string }> };
 
 export default async function AccountPage({ searchParams }: Props) {
   const { ordered } = await searchParams;
-  const { userId } = await auth();
-  // Pass current path as ?redirect_url so post-sign-in link-follow lands
-  // back here instead of the default /account. Path is hardcoded (no
-  // attacker-controlled input), so no safeRedirectPath guard needed
-  // here — guard fires at READ time in /sign-in.
-  if (!userId) redirect("/sign-in?redirect_url=/account");
-
-  const user = await currentUser();
-  const { user: portalUser, created } = await getOrCreatePortalUserWithCreated(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
+  // Phase 2/3 Step A3 — unify the account landing on one resolver: phone-OTP
+  // session first, Clerk fallback. A phone-only customer (the real-identity
+  // path) now lands on /account instead of bouncing to the Clerk /sign-in.
+  // Path is hardcoded (no attacker input), so no safeRedirectPath guard needed.
+  const { user: portalUser, created } = await getPortalUserForRequestWithCreated();
+  if (!portalUser) redirect("/sign-in?redirect_url=/account");
 
   // Welcome email — fires AFTER the page renders so Resend latency never
   // delays the post-signup paint. Gated by env var (default OFF) until
   // Doug verifies the Resend domain + flips the flag in Vercel — see
   // docs/email-infra.md. The `created` flag from
-  // `getOrCreatePortalUserWithCreated()` guarantees once-per-account
+  // `getPortalUserForRequestWithCreated()` guarantees once-per-account
   // dispatch (true only on the first-ever portal_users INSERT for this
-  // Clerk userId), so subsequent /account visits never re-fire even
-  // though this page is the canonical post-signup landing. Helper does
+  // identity, phone OR Clerk), so subsequent /account visits never re-fire
+  // even though this page is the canonical post-signup landing. Helper does
   // defense-in-depth re-checks of the env var + isEmailConfigured() +
-  // recipient validity. We do NOT use a Clerk webhook for this — the
-  // sidecar-INSERT signal is more accurate (a Clerk `user.created` event
-  // can fire before our portal_users row exists, or for a flow that
-  // never lands here), and avoids the Svix signature infra we don't run.
+  // recipient validity. The `portalUser.email` guard means a phone-only
+  // signup (no email captured yet) correctly does NOT attempt a send — there
+  // is no address to send to until the customer adds one on /account/profile.
   if (
     created &&
     process.env.WELCOME_EMAIL_ENABLED === "true" &&

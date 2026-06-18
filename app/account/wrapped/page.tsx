@@ -1,8 +1,8 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import {
   CURRENT_WRAPPED_YEAR,
   getPreviewRecap,
@@ -73,17 +73,20 @@ export default async function WrappedPage({ searchParams }: Props) {
     return <WrappedSurface recap={recap} storeName={STORE.name} previewBanner />;
   }
 
-  // Real-customer path (flag ON only — guarded above).
-  const { userId } = await auth();
-  if (!userId) {
+  // Real-customer path (flag ON only — guarded above). Phase 2/3 Step A3:
+  // resolve via phone-OTP session first, Clerk fallback. The recap keys off
+  // the unified portal_users.id (not a Clerk id) so a phone-only customer's
+  // year-in-strains resolves to the same identity as their POS/SMS history
+  // when the real-data SELECT lands (today getWrappedRecap is still mock/null).
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) {
     redirect(`/sign-in?redirect_url=/account/wrapped`);
   }
 
-  const user = await currentUser();
   const displayName =
-    user?.firstName ?? user?.fullName ?? user?.username ?? "Friend of the shop";
+    portalUser.name?.trim().split(/\s+/)[0] || portalUser.name?.trim() || "Friend of the shop";
 
-  const recap = await getWrappedRecap(userId, year, {
+  const recap = await getWrappedRecap(portalUser.id, year, {
     preview: false,
     displayName,
   });

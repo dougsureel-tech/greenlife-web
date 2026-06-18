@@ -156,6 +156,20 @@ export async function getOrCreatePortalUserByPhone(
   name?: string | null,
   email?: string | null,
 ): Promise<PortalUser> {
+  const { user } = await getOrCreatePortalUserByPhoneWithCreated(phoneE164, name, email);
+  return user;
+}
+
+/** Phone sibling of `getOrCreatePortalUserWithCreated` — reports whether THIS
+ *  call inserted the row, so a once-per-account side effect (welcome email,
+ *  signup analytics) can fire only on `created`. Same `xmax = 0` fresh-INSERT
+ *  vs ON-CONFLICT-DO-UPDATE discriminator as the Clerk path, so it stays tight
+ *  even under racing parallel verify-code callbacks for the same phone. */
+export async function getOrCreatePortalUserByPhoneWithCreated(
+  phoneE164: string,
+  name?: string | null,
+  email?: string | null,
+): Promise<{ user: PortalUser; created: boolean }> {
   const sql = getClient();
   const existing = await sql`
     SELECT pu.id, pu.clerk_user_id, pu.name, pu.email, pu.phone, pu.loyalty_points, pu.sms_opt_in, pu.email_opt_in, pu.frequency_pref, pu.no_substitute_pref,
@@ -169,7 +183,7 @@ export async function getOrCreatePortalUserByPhone(
     WHERE pu.phone = ${phoneE164}
     LIMIT 1
   `;
-  if (existing[0]) return mapPortalUser(existing[0]);
+  if (existing[0]) return { user: mapPortalUser(existing[0]), created: false };
 
   const id = crypto.randomUUID();
   const rows = await sql`
@@ -180,9 +194,30 @@ export async function getOrCreatePortalUserByPhone(
       email = COALESCE(portal_users.email, EXCLUDED.email),
       updated_at = now()
     RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, email_opt_in, frequency_pref, no_substitute_pref,
-              NULL AS heroes_self_attest_type
+              NULL AS heroes_self_attest_type,
+              (xmax = 0) AS inserted
   `;
-  return mapPortalUser(rows[0]);
+  const row = rows[0];
+  return { user: mapPortalUser(row), created: row.inserted === true };
+}
+
+/** Best-effort account-creation timestamp (ISO) for the member-since display.
+ *  Isolated + error-safe ON PURPOSE: both a phone-OTP-created row and a Clerk
+ *  row carry portal_users.created_at, but resolving it in its own try/catch
+ *  query means a phone customer's profile (and any other caller) degrades to
+ *  "no member-since row" rather than crashing the whole render if the column
+ *  is ever absent. Kept out of the hot getOrCreate* SELECTs for that reason. */
+export async function getPortalMemberSince(portalUserId: string): Promise<string | null> {
+  const sql = getClient();
+  try {
+    const rows = await sql`SELECT created_at FROM portal_users WHERE id = ${portalUserId} LIMIT 1`;
+    const ts = rows[0]?.created_at;
+    if (ts instanceof Date) return ts.toISOString();
+    if (typeof ts === "string" && ts) return ts;
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 export async function updateHeroesAttest(id: string, type: string | null) {

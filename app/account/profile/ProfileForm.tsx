@@ -3,8 +3,15 @@
 import { useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import type { PortalUser } from "@/lib/portal";
+import type { PortalUserSource } from "@/lib/portal-request";
 
-export function ProfileForm({ user }: { user: PortalUser }) {
+export function ProfileForm({
+  user,
+  source = "clerk-auth",
+}: {
+  user: PortalUser;
+  source?: PortalUserSource;
+}) {
   const [name, setName] = useState(user.name ?? "");
   const [phone, setPhone] = useState(user.phone ?? "");
   const [smsOptIn, setSmsOptIn] = useState(user.smsOptIn);
@@ -225,11 +232,25 @@ export function ProfileForm({ user }: { user: PortalUser }) {
           <div className="text-sm text-stone-700">{user.email}</div>
         </div>
         <div className="px-5 py-4">
-          <SignOutButton redirectUrl="/">
-            <button className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors">
-              Sign out of account
-            </button>
-          </SignOutButton>
+          {source === "phone-session" ? (
+            // Phone-OTP session — Clerk's SignOutButton can't clear the
+            // glw_rewards_session cookie, so post to the rewards sign-out
+            // route (clears the cookie + redirects to /rewards/login).
+            <form action="/api/rewards/sign-out" method="post">
+              <button
+                type="submit"
+                className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors"
+              >
+                Sign out of account
+              </button>
+            </form>
+          ) : (
+            <SignOutButton redirectUrl="/">
+              <button className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors">
+                Sign out of account
+              </button>
+            </SignOutButton>
+          )}
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import { normalizeToE164 } from "./sms";
 import {
   getOrCreatePortalUser,
   getOrCreatePortalUserByPhone,
+  getOrCreatePortalUserWithCreated,
+  getOrCreatePortalUserByPhoneWithCreated,
   type PortalUser,
 } from "./portal";
 
@@ -57,4 +59,38 @@ export async function getPortalUserForRequest(): Promise<{
   }
 
   return { user: null, source: "none" };
+}
+
+/** Same resolver as `getPortalUserForRequest` but also reports whether THIS
+ *  request was the one that first created the portal_users row — for the
+ *  once-per-account welcome email on /account. Phone-first then Clerk-fallback,
+ *  identical priority; `created` comes from the underlying WithCreated upsert.
+ *  Separate fn (not a widened return on the hot resolver) so heroes/profile/
+ *  wrapped/tree-growth/oral-history keep their existing 2-field contract. */
+export async function getPortalUserForRequestWithCreated(): Promise<{
+  user: PortalUser | null;
+  source: PortalUserSource;
+  created: boolean;
+}> {
+  const cookieStore = await cookies();
+  const session = readRewardsSession(cookieStore.get(REWARDS_COOKIE_NAME)?.value);
+  if (session?.phone) {
+    const { user, created } = await getOrCreatePortalUserByPhoneWithCreated(
+      normalizeToE164(session.phone),
+    );
+    return { user, source: "phone-session", created };
+  }
+
+  const { userId } = await auth();
+  if (userId) {
+    const clerkUser = await currentUser();
+    const { user, created } = await getOrCreatePortalUserWithCreated(
+      userId,
+      clerkUser?.emailAddresses[0]?.emailAddress,
+      clerkUser?.fullName,
+    );
+    return { user, source: "clerk-auth", created };
+  }
+
+  return { user: null, source: "none", created: false };
 }
