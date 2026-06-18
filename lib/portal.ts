@@ -17,7 +17,9 @@ const READY_WINDOW_SECONDS = 90;
 
 export type PortalUser = {
   id: string;
-  clerkUserId: string;
+  /** Nullable since migration 0505 (phone-keyed portal_users foundation) —
+   *  a row created via getOrCreatePortalUserByPhone carries clerk_user_id=NULL. */
+  clerkUserId: string | null;
   name: string | null;
   email: string | null;
   phone: string | null;
@@ -142,6 +144,45 @@ export async function getOrCreatePortalUserWithCreated(
   // user" signal even under racing parallel session callbacks.
   const created = row.inserted === true;
   return { user: mapPortalUser(row), created };
+}
+
+/** Phase 2 — resolve/create the portal_users row by PHONE (E.164). Mirror of
+ *  getOrCreatePortalUser; requires migration 0505 (nullable clerk_user_id +
+ *  portal_users_phone_unique_idx). phoneE164 MUST be normalized by the caller
+ *  (reuse the /api/rewards/verify-code normalizer) so the partial-unique phone
+ *  index dedupes correctly. UNCALLED until Phase 2 wiring — safe groundwork. */
+export async function getOrCreatePortalUserByPhone(
+  phoneE164: string,
+  name?: string | null,
+  email?: string | null,
+): Promise<PortalUser> {
+  const sql = getClient();
+  const existing = await sql`
+    SELECT pu.id, pu.clerk_user_id, pu.name, pu.email, pu.phone, pu.loyalty_points, pu.sms_opt_in, pu.email_opt_in, pu.frequency_pref, pu.no_substitute_pref,
+           c.heroes_self_attest_type
+    FROM portal_users pu
+    LEFT JOIN LATERAL (
+      SELECT heroes_self_attest_type FROM customers
+      WHERE LOWER(email) = LOWER(pu.email) AND pu.email IS NOT NULL
+      ORDER BY last_visit_at DESC NULLS LAST LIMIT 1
+    ) c ON TRUE
+    WHERE pu.phone = ${phoneE164}
+    LIMIT 1
+  `;
+  if (existing[0]) return mapPortalUser(existing[0]);
+
+  const id = crypto.randomUUID();
+  const rows = await sql`
+    INSERT INTO portal_users (id, phone, name, email)
+    VALUES (${id}, ${phoneE164}, ${name ?? null}, ${email ?? null})
+    ON CONFLICT (phone) WHERE phone IS NOT NULL AND phone <> '' DO UPDATE SET
+      name = COALESCE(portal_users.name, EXCLUDED.name),
+      email = COALESCE(portal_users.email, EXCLUDED.email),
+      updated_at = now()
+    RETURNING id, clerk_user_id, name, email, phone, loyalty_points, sms_opt_in, email_opt_in, frequency_pref, no_substitute_pref,
+              NULL AS heroes_self_attest_type
+  `;
+  return mapPortalUser(rows[0]);
 }
 
 export async function updateHeroesAttest(id: string, type: string | null) {
@@ -728,7 +769,7 @@ export async function placeOrder(
 function mapPortalUser(r: Record<string, unknown>): PortalUser {
   return {
     id: r.id as string,
-    clerkUserId: r.clerk_user_id as string,
+    clerkUserId: (r.clerk_user_id as string | null) ?? null,
     name: r.name as string | null,
     email: r.email as string | null,
     phone: r.phone as string | null,
