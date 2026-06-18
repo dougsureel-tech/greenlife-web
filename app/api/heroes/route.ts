@@ -1,12 +1,17 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrCreatePortalUser, updateHeroesAttest } from "@/lib/portal";
+import { updateHeroesAttest } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 
 const VALID_TYPES = ["active_military", "veteran", "first_responder", "healthcare", "k12_teacher"] as const;
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Phase 2/3 Step A — resolve via phone-OTP session first, Clerk fallback.
+  // Mirrors /account/heroes (page) so a phone-logged-in customer can both VIEW
+  // and SUBMIT the heroes form (previously the page resolved by phone but this
+  // write still required Clerk → load-but-can't-submit). Writes to the user's
+  // OWN portal row only (portalUser.id).
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   let body: unknown;
   try {
@@ -31,12 +36,6 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const user = await currentUser();
-    const portalUser = await getOrCreatePortalUser(
-      userId,
-      user?.emailAddresses[0]?.emailAddress,
-      user?.fullName,
-    );
     await updateHeroesAttest(portalUser.id, cleanType);
     return NextResponse.json({ ok: true });
   } catch (err) {

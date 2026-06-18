@@ -15,11 +15,10 @@
 // WAC posture: process + experience vocabulary only. Customer's
 // display name on share card, no photos of people, no efficacy claims.
 
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getOrCreatePortalUser } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import {
   buildTimelapseFrames,
   type PurchaseTimelineEntry,
@@ -61,16 +60,10 @@ export default async function TreeGrowthPage({
   // render anonymously with a neutral "preview" display name.
   let portalDisplayName = "Friend of the shop";
   if (!previewMode) {
-    const { userId } = await auth();
-    if (!userId) redirect("/sign-in?redirect_url=/account/tree-growth");
+    const { user: portalUser } = await getPortalUserForRequest();
+    if (!portalUser) redirect("/sign-in?redirect_url=/account/tree-growth");
 
-    const user = await currentUser();
-    const portalUser = await getOrCreatePortalUser(
-      userId,
-      user?.emailAddresses[0]?.emailAddress,
-      user?.fullName,
-    );
-    portalDisplayName = user?.firstName ?? portalUser?.name ?? "Friend of the shop";
+    portalDisplayName = portalUser.name ?? "Friend of the shop";
   }
 
   // Mock-data mode — see lib/tree-timelapse-mock for the swap recipe.

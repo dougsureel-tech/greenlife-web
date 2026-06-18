@@ -14,7 +14,6 @@
  * shows a soft empty-state directing the customer back to /account.
  */
 
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -28,7 +27,7 @@ import {
   VOICE_MEMO_MAX_MS,
   VOICE_MEMO_MOCK_STRAIN_SLUG,
 } from "@/lib/voice-memo";
-import { getOrCreatePortalUser } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { VoiceMemoRecorder } from "@/components/VoiceMemoRecorder";
 
 export const dynamic = "force-dynamic";
@@ -103,8 +102,8 @@ export default async function OralHistoryPage({ searchParams }: Props) {
     );
   }
 
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in?redirect_url=/account/oral-history");
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) redirect("/sign-in?redirect_url=/account/oral-history");
 
   // Feature flag short-circuit — render a kind empty-state instead of a
   // 404 so a deeplink doesn't blow up. Page is noindex by design.
@@ -122,13 +121,6 @@ export default async function OralHistoryPage({ searchParams }: Props) {
       </main>
     );
   }
-
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
 
   const memos = await getCustomerMemos(portalUser.id);
   const mockMode = voiceMemoMockMode();
