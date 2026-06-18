@@ -1,7 +1,6 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getOrCreatePortalUser } from "@/lib/portal";
+import { getPortalUserForRequest } from "@/lib/portal-request";
 import { HeroesForm } from "./HeroesForm";
 import type { Metadata } from "next";
 import type { HeroesAttestType } from "./HeroesForm";
@@ -13,15 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function HeroesPage() {
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in?redirect_url=/account/heroes");
-
-  const user = await currentUser();
-  const portalUser = await getOrCreatePortalUser(
-    userId,
-    user?.emailAddresses[0]?.emailAddress,
-    user?.fullName,
-  );
+  const { user: portalUser } = await getPortalUserForRequest();
+  if (!portalUser) redirect("/sign-in?redirect_url=/account/heroes");
 
   return (
     <div className="min-h-screen bg-stone-50">
