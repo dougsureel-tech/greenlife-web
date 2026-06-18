@@ -4,6 +4,7 @@ import {
   buildCategorySchema,
   type CategoryJsonLdProps,
 } from "@/lib/seo-templates-builders";
+import { safeJsonLd } from "@/lib/json-ld-safe";
 
 // ─────────────────────────────────────────────────────────────────────
 // Drop-in SEO + schema templates for the parallel design agent.
@@ -68,7 +69,7 @@ export function ProductJsonLd({ product: p }: ProductJsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }
@@ -80,7 +81,7 @@ export function CategoryJsonLd(props: CategoryJsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }
