@@ -697,6 +697,12 @@ export async function placeOrder(
     if (i.productId && priceById.has(i.productId)) {
       return { ...i, unitPrice: priceById.get(i.productId)! };
     }
+    // A productId that does NOT resolve to a real catalog row must never keep
+    // the client-supplied price — that's the tamper vector (fake id + $0.01).
+    // Only genuinely id-less text lines (staff resolve at pickup) keep theirs.
+    if (i.productId) {
+      throw new Error(`unknown product in cart: ${i.productId}`);
+    }
     return i;
   });
 
