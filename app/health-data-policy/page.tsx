@@ -84,8 +84,16 @@ const SHARED_WITH = [
     why: "Stores transactions and inventory. Vendor is bound by a written data-processing agreement and may not use your information for its own purposes.",
   },
   {
+    // REMOVABLE AT CUTOVER: this iHeartJane entry discloses the Jane Boost
+    // embed that loads on /menu today. When the native menu replaces it
+    // (NATIVE_MENU_LIVE flips true in lib/menu-routing.ts and <JaneMenu> is
+    // removed from app/menu/page.tsx), iHeartJane is no longer a processor —
+    // revert this `why` to the prior one-line "receives only the data needed
+    // to fulfill the order" version. The tracker list below is scoped to what
+    // JaneMenu.tsx actually loads today; do not pad it.
     party: "Online-ordering provider (iHeartJane)",
-    why: "Powers the /menu surface and accepts pickup orders. Receives only the data needed to fulfill the order. Bound by a written data-processing agreement.",
+    why:
+      "Powers the /menu surface and accepts pickup orders. The menu is run by iHeartJane's software loading inside this site, so when you browse, search, sign in, build a cart, or order on /menu, iHeartJane collects that activity into its own systems — including device fingerprinting (which can recognize your browser or device even without cookies) and its own analytics tools (Google Analytics, Mixpanel, Braze, Branch.io, MoEngage, and Datadog session monitoring). We cannot turn an individual one off. This processing is governed by iHeartJane's own privacy policy (iheartjane.com/privacy) and a written data-processing agreement with us. See our general Privacy Policy at /privacy for the full list.",
   },
   {
     party: "Payment processor (cash only — no card processor)",

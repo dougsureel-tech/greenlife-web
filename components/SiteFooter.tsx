@@ -341,6 +341,7 @@ export function SiteFooter() {
             { href: "/account", label: "My Account" },
             { href: "/press", label: "Press" },
             { href: "/accessibility", label: "Accessibility" },
+            { href: "/privacy", label: "Privacy" },
             { href: "/health-data-policy", label: "Health Data" },
             { href: "/terms-of-use", label: "Terms" },
           ].map(({ href, label }) => (

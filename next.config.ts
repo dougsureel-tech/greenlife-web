@@ -653,7 +653,10 @@ const nextConfig: NextConfig = {
       // both came back as "About — …" instead of "Privacy / Terms — …".
       // Sister scc same-push.
       { source: "/privacy-policy", destination: "/health-data-policy", permanent: true },
-      { source: "/privacy", destination: "/health-data-policy", permanent: true },
+      // NOTE: /privacy is now a REAL page (app/privacy/page.tsx — the general
+      // Privacy Policy added v43.288). Do NOT re-add a /privacy redirect here —
+      // it would shadow the page (check-redirect-shadow gate blocks it). The
+      // /privacy-policy + /privacy-statement aliases still legitimately redirect.
       { source: "/terms-of-service", destination: "/terms-of-use", permanent: true },
       { source: "/terms-and-conditions", destination: "/terms-of-use", permanent: true },
       { source: "/terms", destination: "/terms-of-use", permanent: true },
